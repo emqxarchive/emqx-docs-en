@@ -5,7 +5,7 @@
 Commands
 ========
 
-The './bin/emqttd_ctl' command line could be used to query and administrate the *EMQ* broker.
+The './bin/emqttd_ctl' command line could be used to query and administrate emqttd broker.
 
 .. WARNING:: Cannot work on Windows
 
@@ -20,7 +20,7 @@ Show running status of the broker::
     $ ./bin/emqttd_ctl status
 
     Node 'emqttd@127.0.0.1' is started
-    emqttd 2.0 is running
+    emqttd 1.1 is running
 
 .. _command_broker::
 
@@ -382,6 +382,10 @@ Query the subscription table of the broker:
 +--------------------------------------------+--------------------------------------+
 | subscriptions show <ClientId>              | Show a subscription                  |
 +--------------------------------------------+--------------------------------------+
+| subscriptions add <ClientId> <Topic> <Qos> | Add a static subscription manually   |
++--------------------------------------------+--------------------------------------+
+| subscriptions del <ClientId> <Topic>       | Remove a static subscription manually|
++--------------------------------------------+--------------------------------------+
 
 subscriptions list
 ------------------
@@ -411,6 +415,22 @@ Show the subscriptions of a MQTT client::
 
     clientid: [{<<"x">>,1},{<<"topic2">>,1},{<<"topic3">>,1}]
 
+subscriptions add <ClientId> <Topic> <QoS>
+------------------------------------------
+
+Add a static subscription manually::
+
+    $ ./bin/emqttd_ctl subscriptions add clientid new_topic 1
+    ok
+
+subscriptions del <ClientId> <Topic>
+------------------------------------
+
+Remove a static subscription manually::
+
+    $ ./bin/emqttd_ctl subscriptions del clientid new_topic
+    ok
+
 .. _command_plugins::
 
 -------
@@ -434,22 +454,13 @@ List all plugins::
 
     $ ./bin/emqttd_ctl plugins list
 
-    Plugin(emq_auth_clientid, version=2.0, description=Authentication with ClientId/Password, active=false)
-    Plugin(emq_auth_http, version=2.0, description=Authentication/ACL with HTTP API, active=false)
-    Plugin(emq_auth_ldap, version=2.0, description=Authentication/ACL with LDAP, active=false)
-    Plugin(emq_auth_mongo, version=2.0, description=Authentication/ACL with MongoDB, active=false)
-    Plugin(emq_auth_mysql, version=2.0, description=Authentication/ACL with MySQL, active=false)
-    Plugin(emq_auth_pgsql, version=2.0, description=Authentication/ACL with PostgreSQL, active=false)
-    Plugin(emq_auth_redis, version=2.0, description=Authentication/ACL with Redis, active=false)
-    Plugin(emq_auth_username, version=2.0, description=Authentication with Username/Password, active=false)
-    Plugin(emq_coap, version=0.2, description=CoAP Gateway, active=false)
-    Plugin(emq_dashboard, version=2.0, description=Dashboard, active=true)
-    Plugin(emq_mod_rewrite, version=2.0, description=EMQ Rewrite Module, active=false)
-    Plugin(emq_plugin_template, version=2.0, description=EMQ Plugin Template, active=false)
-    Plugin(emq_recon, version=2.0, description=Recon Plugin, active=false)
-    Plugin(emq_reloader, version=3.0, description=Reloader Plugin, active=false)
-    Plugin(emq_sn, version=0.2, description=MQTT-SN Gateway, active=false)
-    Plugin(emq_stomp, version=2.0, description=Stomp Protocol Plugin, active=false)
+    Plugin(emqttd_dashboard, version=0.16.0, description=emqttd web dashboard, active=true)
+    Plugin(emqttd_plugin_mysql, version=0.16.0, description=emqttd Authentication/ACL with MySQL, active=false)
+    Plugin(emqttd_plugin_pgsql, version=0.16.0, description=emqttd PostgreSQL Plugin, active=false)
+    Plugin(emqttd_plugin_redis, version=0.16.0, description=emqttd Redis Plugin, active=false)
+    Plugin(emqttd_plugin_template, version=0.16.0, description=emqttd plugin template, active=false)
+    Plugin(emqttd_recon, version=0.16.0, description=emqttd recon plugin, active=false)
+    Plugin(emqttd_stomp, version=0.16.0, description=Stomp Protocol Plugin for emqttd broker, active=false)
 
 Properties of a plugin:
 
@@ -461,24 +472,24 @@ Properties of a plugin:
 | active      | If the plugin is Loaded  | 
 +-------------+--------------------------+
 
-Load <Plugin>
+load <Plugin>
 -------------
 
 Load a Plugin::
 
-    $ ./bin/emqttd_ctl plugins load emq_recon
+    $ ./bin/emqttd_ctl plugins load emqttd_recon
 
-    Start apps: [recon,emq_recon]
-    Plugin emq_recon loaded successfully.
+    Start apps: [recon,emqttd_recon]
+    Plugin emqttd_recon loaded successfully.
 
-Unload <Plugin>
+unload <Plugin>
 ---------------
 
 Unload a Plugin::
 
-    $ ./bin/emqttd_ctl plugins unload emq_recon
+    $ ./bin/emqttd_ctl plugins unload emqttd_recon
 
-    Plugin emq_recon unloaded successfully.
+    Plugin emqttd_recon unloaded successfully.
 
 .. _command_bridges::
 
@@ -486,7 +497,7 @@ Unload a Plugin::
 bridges
 -------
 
-Bridge two or more *EMQ* brokers::
+Bridge two or more emqttd brokers::
 
                   ---------                     ---------
     Publisher --> | node1 | --Bridge Forward--> | node2 | --> Subscriber
@@ -704,23 +715,23 @@ Show all the TCP listeners::
 
     $ ./bin/emqttd_ctl listeners
 
-    listener on mqtt:ws:8083
+    listener on http:8083
       acceptors       : 4
       max_clients     : 64
       current_clients : 0
       shutdown_count  : []
-    listener on mqtt:ssl:8883
+    listener on mqtts:8883
       acceptors       : 4
       max_clients     : 512
       current_clients : 0
       shutdown_count  : []
-    listener on mqtt:tcp:1883
-      acceptors       : 8
-      max_clients     : 1024
-      current_clients : 0
-      shutdown_count  : []
-    listener on dashboard:http:18083
-      acceptors       : 2
+    listener on mqtt:1883
+      acceptors       : 16
+      max_clients     : 8192
+      current_clients : 1
+      shutdown_count  : [{closed,1}]
+    listener on http:18083
+      acceptors       : 4
       max_clients     : 512
       current_clients : 0
       shutdown_count  : []

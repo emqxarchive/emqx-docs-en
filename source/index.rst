@@ -3,23 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-==========================
-*EMQ* - Erlang MQTT Broker
-==========================
+===========================
+emqttd - Erlang MQTT Broker
+===========================
 
-*EMQ* (Erlang MQTT Broker) is a massively scalable and clusterable MQTT V3.1/V3.1.1 broker written in Erlang/OTP.
+emqttd(Erlang MQTT Broker) is a massively scalable and clusterable MQTT V3.1/V3.1.1 broker written in Erlang/OTP.
 
-.. NOTE:: Adopt a shortened project name since 2.0 release: EMQ
+emqttd is fully open source and licensed under the Apache Version 2.0. emqttd implements both MQTT V3.1 and V3.1.1 protocol specifications, and supports WebSocket, STOMP, SockJS, CoAP and MQTT-SN at the same time.
 
-*EMQ* is fully open source and licensed under the Apache Version 2.0. emqttd implements both MQTT V3.1 and V3.1.1 protocol specifications, and supports WebSocket, STOMP, SockJS, CoAP and MQTT-SN at the same time.
-
-Latest release of the *EMQ* broker is scaling to 1.3 million MQTT connections on a 12 Core, 32G CentOS server.
+Latest release of the emqttd broker is scaling to 1.3 million MQTT connections on a 12 Core, 32G CentOS server.
 
 .. image:: ./_static/images/emqtt.png
 
-The *EMQ* project provides a scalable, enterprise grade, extensible open-source MQTT broker for IoT, M2M, Smart Hardware, Mobile Messaging and HTML5 Web Messaging Applications.
+The emqttd project provides a scalable, enterprise grade, extensible open-source MQTT broker for IoT, M2M, Smart Hardware, Mobile Messaging and HTML5 Web Messaging Applications.
 
-Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ* brokers with asynchronous PUB/SUB MQTT messages.
+Sensors, Mobiles, Web Browsers and Application Servers could be connected by emqttd brokers with asynchronous PUB/SUB MQTT messages.
 
 +---------------+-----------------------------------------+
 | Homepage:     | http://emqtt.io                         |
@@ -37,6 +35,8 @@ Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EM
 | Author:       | Feng Lee <feng@emqtt.io>                |
 +---------------+-----------------------------------------+
 
+.. NOTE:: MQTT-SN，CoAP Protocols are planned to 1.x release.
+
 Contents:
 
 .. toctree::
@@ -48,7 +48,6 @@ Contents:
    cluster
    bridge
    guide
-   advanced
    design
    commands
    plugins

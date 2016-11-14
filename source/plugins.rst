@@ -5,61 +5,51 @@
 Plugins
 =======
 
-The *EMQ* broker could be extended by plugins. Users could develop plugins to customize authentication, ACL and functions of the broker, or integrate the broker with other systems.
+The emqttd broker could be extended by plugins. Users could develop plugins to customize authentication, ACL and functions of the broker, or integrate the broker with other systems.
 
-The plugins that *EMQ* 2.0-rc.2 released:
+The plugins that emqtt project released:
 
-+------------------------+-------------------------------+
-| Plugin                 | Description                   |
-+========================+===============================+
-| `emq_dashboard`_       | Web Dashboard                 |
-+------------------------+-------------------------------+
-| `emq_auth_clientid`_   | ClientId Auth Plugin          |
-+------------------------+-------------------------------+
-| `emq_auth_username`_   | Username/Password Auth Plugin |
-+------------------------+-------------------------------+
-| `emq_auth_ldap`_       | LDAP Auth                     |
-+------------------------+-------------------------------+
-| `emq_auth_http`_       | HTTP Auth/ACL Plugin          |
-+------------------------+-------------------------------+
-| `emq_auth_mysql`_      | MySQL Auth/ACL Plugin         |
-+------------------------+-------------------------------+
-| `emq_auth_pgsql`_      | PostgreSQL Auth/ACL Plugin    |
-+------------------------+-------------------------------+
-| `emq_auth_redis`_      | Redis Auth/ACL Plugin         |
-+------------------------+-------------------------------+
-| `emq_auth_mongo`_      | MongoDB Auth/ACL Plugin       |
-+------------------------+-------------------------------+
-| `emq_mod_presence`_    | Presence Module               |
-+------------------------+-------------------------------+
-| `emq_mod_retainer`_    | Retainer Module               |
-+------------------------+-------------------------------+
-| `emq_mod_rewrite`_     | Topic Rewrite Module          |
-+------------------------+-------------------------------+
-| `emq_mod_subscription`_| Subscription Module           |
-+------------------------+-------------------------------+
-| `emq_coap`_            | CoAP Protocol Plugin          |
-+------------------------+-------------------------------+
-| `emq_sn`_              | MQTT-SN Protocol Plugin       |
-+------------------------+-------------------------------+
-| `emq_stomp`_           | STOMP Protocol Plugin         |
-+------------------------+-------------------------------+
-| `emq_sockjs`_          | STOMP over SockJS Plugin      |
-+------------------------+-------------------------------+
-| `emq_recon`_           | Recon Plugin                  |
-+------------------------+-------------------------------+
-| `emq_reloader`_        | Reloader Plugin               |
-+------------------------+-------------------------------+
-| `emq_plugin_template`_ | Template Plugin               |
-+------------------------+-------------------------------+
++---------------------------+---------------------------+
+| Plugin                    | Description               |
++===========================+===========================+
+| `emqttd_plugin_template`_ | Template Plugin           |
++---------------------------+---------------------------+
+| `emqttd_dashboard`_       | Web Dashboard             |
++---------------------------+---------------------------+
+| `emqttd_auth_http`_       | HTTP Auth/ACL Plugin      |
++---------------------------+---------------------------+
+| `emqttd_plugin_mysql`_    | MySQL Auth/ACL Plugin     |
++---------------------------+---------------------------+
+| `emqttd_plugin_pgsql`_    | PostgreSQL Auth/ACL Plugin|
++---------------------------+---------------------------+
+| `emqttd_plugin_redis`_    | Redis Auth/ACL Plugin     |
++---------------------------+---------------------------+
+| `emqttd_plugin_mongo`_    | MongoDB Auth/ACL Plugin   |
++---------------------------+---------------------------+
+| `emqttd_stomp`_           | STOMP Protocol Plugin     |
++---------------------------+---------------------------+
+| `emqttd_sockjs`_          | STOMP over SockJS Plugin  |
++---------------------------+---------------------------+
+| `emqttd_recon`_           | Recon Plugin              |
++---------------------------+---------------------------+
+| `emqttd_reloader`_        | Reloader Plugin           |
++---------------------------+---------------------------+
 
--------------------------------------
-emq_plugin_template - Template Plugin
--------------------------------------
+----------------------------------------
+emqttd_plugin_template - Template Plugin
+----------------------------------------
 
-A plugin is just a normal Erlang application which has its own configuration file: 'etc/<PluginName>.conf|config'.
+A plugin is just a normal Erlang application under the 'emqttd/plugins' folder. Each plugin has e configuration file: 'etc/plugin.config'.
 
-emq_plugin_template is a plugin template. 
+plugins/emqttd_plugin_template is a demo plugin. The folder structure:
+
++------------------------+---------------------------+
+| File                   | Description               |
++========================+===========================+
+| etc/plugin.config      | Plugin config file        |
++------------------------+---------------------------+
+| ebin/                  | Erlang program files      |
++------------------------+---------------------------+
 
 Load, unload Plugin
 -------------------
@@ -72,69 +62,11 @@ Use 'bin/emqttd_ctl plugins' CLI to load, unload a plugin::
 
     ./bin/emqttd_ctl plugins list
 
-----------------------------------------
-emq_auth_clientid - ClientID Auth Plugin
-----------------------------------------
+-----------------------------------
+emqttd_dashboard - Dashboard Plugin
+-----------------------------------
 
-Released in 2.0-rc.2: https://github.com/emqtt/emq_auth_clientid
-
-Configure ClientID Auth Plugin
-------------------------------
-
-etc/plugins/emq_auth_clientid.conf:
-
-.. code-block:: properties
-
-    ## auth.client.$clientid = $password
-    ## Examples
-    ## auth.client.id = passwd
-    ## auth.client.dev:devid = passwd2
-    ## auth.client.app:appid = passwd2
-
-Load ClientId Auth Plugin
--------------------------
-
-.. code-block:: bash
-
-    ./bin/emqttd_ctl plugins load emq_auth_clientid
-
-----------------------------------------
-emq_auth_username - Username Auth Plugin
-----------------------------------------
-
-Released in 2.0-rc.2: https://github.com/emqtt/emq_auth_username
-
-Configure Username Auth Plugin
-------------------------------
-
-etc/plugins/emq_auth_username.conf:
-
-.. code-block:: properties
-
-    ##auth.username.$name=$password
-
-    ## Examples:
-    ##auth.username.admin=public
-    ##auth.username.feng@emqtt.io=public
-
-Add username/password by `./bin/emqttd_ctl users` CLI:
-
-.. code-block:: bash
-
-   $ ./bin/emqttd_ctl users add <Username> <Password>
-
-Load Username Auth Plugin
--------------------------
-
-.. code-block:: bash
-
-    ./bin/emqttd_ctl plugins load emq_auth_username
-
---------------------------------
-emq_dashboard - Dashboard Plugin
---------------------------------
-
-The Web Dashboard for *EMQ* broker. The plugin will be loaded automatically when the broker started successfully.
+The Web Dashboard for emqttd broker. The plugin will be loaded automatically when the broker started successfully.
 
 +------------------+---------------------------+
 | Address          | http://localhost:18083    |
@@ -146,108 +78,95 @@ The Web Dashboard for *EMQ* broker. The plugin will be loaded automatically when
 
 .. image:: _static/images/dashboard.png
 
-Configure Dashboard Plugin
---------------------------
+Configure Dashboard
+-------------------
 
-etc/plugins/emq_dashboard.conf:
+emqttd_dashboard/etc/plugin.config:
 
-.. code-block:: properties
+.. code-block:: erlang
 
-    ## HTTP Listener
-    dashboard.listener.http = 18083
-    dashboard.listener.http.acceptors = 2
-    dashboard.listener.http.max_clients = 512
+    [
+      {emqttd_dashboard, [
+        {listener,
+          {emqttd_dashboard, 18083, [
+            {acceptors, 4},
+            {max_clients, 512}]}
+        }
+      ]}
+    ].
 
-    ## HTTPS Listener
-    ## dashboard.listener.https = 18084
-    ## dashboard.listener.https.acceptors = 2
-    ## dashboard.listener.https.max_clients = 512
-    ## dashboard.listener.https.handshake_timeout = 15
-    ## dashboard.listener.https.certfile = etc/certs/cert.pem
-    ## dashboard.listener.https.keyfile = etc/certs/key.pem
-    ## dashboard.listener.https.cacertfile = etc/certs/cacert.pem
-    ## dashboard.listener.https.verify = verify_peer
-    ## dashboard.listener.https.fail_if_no_peer_cert = true
+---------------------------------------
+emqttd_auth_http - HTTP Auth/ACL Plugin
+---------------------------------------
 
--------------------------------
-emq_auth_ldap: LDAP Auth Plugin
--------------------------------
-
-LDAP Auth Plugin: https://github.com/emqtt/emq_auth_ldap
-
-.. NOTE:: Released in 2.0-beta.1
-
-Configure LDAP Plugin
----------------------
-
-etc/plugins/emq_auth_ldap.conf:
-
-.. code-block:: properties
-
-    auth.ldap.servers = 127.0.0.1
-
-    auth.ldap.port = 389
-
-    auth.ldap.timeout = 30
-
-    auth.ldap.user_dn = uid=%u,ou=People,dc=example,dc=com
-
-    auth.ldap.ssl = false
-
-Load LDAP Plugin
-----------------
-
-./bin/emqttd_ctl plugins load emq_auth_ldap
-
-------------------------------------
-emq_auth_http - HTTP Auth/ACL Plugin
-------------------------------------
-
-MQTT Authentication/ACL with HTTP API: https://github.com/emqtt/emq_auth_http
+MQTT Authentication/ACL with HTTP API: https://github.com/emqtt/emqttd_auth_http
 
 .. NOTE:: Supported in 1.1 release
 
-Configure HTTP Auth/ACL Plugin
-------------------------------
+Configure emqttd_auth_http/etc/plugin.config
+--------------------------------------------
 
-etc/plugins/emq_auth_http.conf:
+.. code:: erlang
 
-.. code-block:: properties
+    [
 
-    ## Variables: %u = username, %c = clientid, %a = ipaddress, %P = password, %t = topic
+      {emqttd_auth_http, [
 
-    auth.http.auth_req = http://127.0.0.1:8080/mqtt/auth
-    auth.http.auth_req.method = post
-    auth.http.auth_req.params = clientid=%c,username=%u,password=%P
+        %% Variables: %u = username, %c = clientid, %a = ipaddress, %t = topic
 
-    auth.http.super_req = http://127.0.0.1:8080/mqtt/superuser
-    auth.http.super_req.method = post
-    auth.http.super_req.params = clientid=%c,username=%u
+        {super_req, [
+          {method, post},
+          {url, "http://localhost:8080/mqtt/superuser"},
+          {params, [
+            {username, "%u"},
+            {clientid, "%c"}
+          ]}
+        ]},
 
-    ## 'access' parameter: sub = 1, pub = 2
-    auth.http.acl_req = http://127.0.0.1:8080/mqtt/acl
-    auth.http.acl_req.method = get
-    auth.http.acl_req.params = access=%A,username=%u,clientid=%c,ipaddr=%a,topic=%t
+        {auth_req, [
+          {method, post},
+          {url, "http://localhost:8080/mqtt/auth"},
+          {params, [
+            {clientid, "%c"},
+            {username, "%u"},
+            {password, "%P"}
+          ]}
+        ]},
 
-    auth.http.acl_nomatch = deny
+        %% 'access' parameter: sub = 1, pub = 2
 
-HTTP Auth/ACL API
------------------
+        {acl_req, [
+          {method, post},
+          {url, "http://localhost:8080/mqtt/acl"},
+          {params, [
+            {access,   "%A"},
+            {username, "%u"},
+            {clientid, "%c"},
+            {ipaddr,   "%a"},
+            {topic,    "%t"}
+          ]}
+        ]}
+      ]}
+
+    ].
+
+HTTP API
+--------
 
 Return 200 if ok
 
 Return 4xx if unauthorized
 
-Load HTTP Auth/ACL Plugin
--------------------------
+Load emqttd_auth_http plugin
+----------------------------
 
 .. code:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_http
+    ./bin/emqttd_ctl plugins load emqttd_auth_http
 
-----------------------------------------
-emq_plugin_mysql - MySQL Auth/ACL Plugin
-----------------------------------------
+-------------------------------------------
+emqttd_plugin_mysql - MySQL Auth/ACL Plugin
+-------------------------------------------
 
 MQTT Authentication, ACL with MySQL database.
 
@@ -292,60 +211,77 @@ MQTT ACL Table
         (6,1,'127.0.0.1',NULL,NULL,2,'#'),
         (7,1,NULL,'dashboard',NULL,1,'$SYS/#');
 
-Configure MySQL Auth/ACL Plugin
+Configure emqttd_plugin_mysql/etc/plugin.config
+-----------------------------------------------
+
+Configure MySQL host, username, password and database:
+
+.. code-block:: erlang
+
+    [
+
+      {emqttd_plugin_mysql, [
+
+        {mysql_pool, [
+            %% ecpool options
+            {pool_size, 8},
+            {auto_reconnect, 3},
+
+            %% mysql options
+            {host,     "localhost"},
+            {port,     3306},
+            {user,     ""},
+            {password, ""},
+            {database, "mqtt"},
+            {encoding, utf8}
+        ]},
+
+        %% Variables: %u = username, %c = clientid, %a = ipaddress
+
+        %% Superuser Query
+        {superquery, "select is_superuser from mqtt_user where username = '%u' limit 1"},
+
+        %% Authentication Query: select password only
+        {authquery, "select password from mqtt_user where username = '%u' limit 1"},
+
+        %% hash algorithm: plain, md5, sha, sha256, pbkdf2?
+        {password_hash, sha256},
+
+        %% select password with salt
+        %% {authquery, "select password, salt from mqtt_user where username = '%u'"},
+
+        %% sha256 with salt prefix
+        %% {password_hash, {salt, sha256}},
+
+        %% sha256 with salt suffix
+        %% {password_hash, {sha256, salt}},
+
+        %% '%a' = ipaddress, '%u' = username, '%c' = clientid
+        %% Comment this query, the acl will be disabled
+        {aclquery, "select allow, ipaddr, username, clientid, access, topic from mqtt_acl where ipaddr = '%a' or username = '%u' or username = '$all' or clientid = '%c'"},
+
+        %% If no ACL rules matched, return...
+        {acl_nomatch, allow}
+
+      ]}
+
+    ].
+
+Load emqttd_plugin_mysql plugin
 -------------------------------
-
-etc/plugins/emq_plugin_mysql.conf:
-
-.. code-block:: properties
-
-    ## Mysql Server
-    auth.mysql.server = 127.0.0.1:3306
-
-    ## Mysql Pool Size
-    auth.mysql.pool = 8
-
-    ## Mysql Username
-    ## auth.mysql.username = 
-
-    ## Mysql Password
-    ## auth.mysql.password = 
-
-    ## Mysql Database
-    auth.mysql.database = mqtt
-
-    ## Variables: %u = username, %c = clientid
-
-    ## Authentication Query: select password only
-    auth.mysql.auth_query = select password from mqtt_user where username = '%u' limit 1
-
-    ## Password hash: plain, md5, sha, sha256, pbkdf2
-    auth.mysql.password_hash = sha256
-
-    ## %% Superuser Query
-    auth.mysql.super_query = select is_superuser from mqtt_user where username = '%u' limit 1
-
-    ## ACL Query Command
-    auth.mysql.acl_query = select allow, ipaddr, username, clientid, access, topic from mqtt_acl where ipaddr = '%a' or username = '%u' or username = '$all' or clientid = '%c'
-
-    ## ACL nomatch
-    auth.mysql.acl_nomatch = deny
-
-Load MySQL Auth/ACL plugin
---------------------------
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_mysql
+    ./bin/emqttd_ctl plugins load emqttd_plugin_mysql
 
--------------------------------------------
-emq_auth_pgsql - PostgreSQL Auth/ACL Plugin
--------------------------------------------
+------------------------------------------------
+emqttd_plugin_pgsql - PostgreSQL Auth/ACL Plugin
+------------------------------------------------
 
-MQTT Authentication/ACL with PostgreSQL Database.
+MQTT Authentication, ACL with PostgreSQL Database.
 
-Postgre MQTT User Table
------------------------
+MQTT User Table
+---------------
 
 .. code-block:: sql
 
@@ -357,8 +293,8 @@ Postgre MQTT User Table
       salt character varying(40)
     );
 
-Postgre MQTT ACL Table
-----------------------
+MQTT ACL Table
+--------------
 
 .. code-block:: sql
 
@@ -381,123 +317,135 @@ Postgre MQTT ACL Table
         (6,1,'127.0.0.1',NULL,NULL,2,'#'),
         (7,1,NULL,'dashboard',NULL,1,'$SYS/#');
 
-Configure Postgre Auth/ACL Plugin
-----------------------------------
-
-Plugin Config: etc/plugins/emq_auth_pgsql.conf.
+Configure emqttd_plugin_pgsql/etc/plugin.config
+-----------------------------------------------
 
 Configure host, username, password and database of PostgreSQL:
 
-.. code-block:: properties
+.. code-block:: erlang
 
-    ## Postgre Server
-    auth.pgsql.server = 127.0.0.1:5432
+    [
 
-    auth.pgsql.pool = 8
+      {emqttd_plugin_pgsql, [
 
-    auth.pgsql.username = root
+        {pgsql_pool, [
+            %% ecpool options
+            {pool_size, 8},
+            {auto_reconnect, 3},
 
-    #auth.pgsql.password = 
+            %% pgsql options
+            {host, "localhost"},
+            {port, 5432},
+            {ssl, false},
+            {username, "feng"},
+            {password, ""},
+            {database, "mqtt"},
+            {encoding,  utf8}
+        ]},
 
-    auth.pgsql.database = mqtt
+        %% Variables: %u = username, %c = clientid, %a = ipaddress
 
-    auth.pgsql.encoding = utf8
+        %% Superuser Query
+        {superquery, "select is_superuser from mqtt_user where username = '%u' limit 1"},
 
-    auth.pgsql.ssl = false
+        %% Authentication Query: select password only
+        {authquery, "select password from mqtt_user where username = '%u' limit 1"},
 
-    ## Variables: %u = username, %c = clientid, %a = ipaddress
+        %% hash algorithm: plain, md5, sha, sha256, pbkdf2?
+        {password_hash, sha256},
 
-    ## Authentication Query: select password only
-    auth.pgsql.auth_query = select password from mqtt_user where username = '%u' limit 1
+        %% select password with salt
+        %% {authquery, "select password, salt from mqtt_user where username = '%u'"},
 
-    ## Password hash: plain, md5, sha, sha256, pbkdf2
-    auth.pgsql.password_hash = sha256
+        %% sha256 with salt prefix
+        %% {password_hash, {salt, sha256}},
 
-    ## sha256 with salt prefix
-    ## auth.pgsql.password_hash = salt sha256
+        %% sha256 with salt suffix
+        %% {password_hash, {sha256, salt}},
 
-    ## sha256 with salt suffix
-    ## auth.pgsql.password_hash = sha256 salt
+        %% Comment this query, the acl will be disabled. Notice: don't edit this query!
+        {aclquery, "select allow, ipaddr, username, clientid, access, topic from mqtt_acl
+                     where ipaddr = '%a' or username = '%u' or username = '$all' or clientid = '%c'"},
 
-    ## Superuser Query
-    auth.pgsql.super_query = select is_superuser from mqtt_user where username = '%u' limit 1
+        %% If no rules matched, return...
+        {acl_nomatch, allow}
+      ]}
+    ].
 
-    ## ACL Query. Comment this query, the acl will be disabled.
-    auth.pgsql.acl_query = select allow, ipaddr, username, clientid, access, topic from mqtt_acl where ipaddr = '%a' or username = '%u' or username = '$all' or clientid = '%c'
-
-    ## If no rules matched, return...
-    auth.pgsql.acl_nomatch = deny
-
-Load Postgre Auth/ACL Plugin
------------------------------
+Load emqttd_plugin_pgsql Plugin
+-------------------------------
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_pgsql
+    ./bin/emqttd_ctl plugins load emqttd_plugin_pgsql
 
---------------------------------------
-emq_auth_redis - Redis Auth/ACL Plugin
---------------------------------------
+-------------------------------------------
+emqttd_plugin_redis - Redis Auth/ACL Plugin
+-------------------------------------------
 
-MQTT Authentication, ACL with Redis: https://github.com/emqtt/emq_auth_redis
+MQTT Authentication, ACL with Redis: https://github.com/emqtt/emqttd_plugin_redis
 
-Configure Redis Auth/ACL Plugin
--------------------------------
+Configure emqttd_plugin_redis/etc/plugin.config
+-----------------------------------------------
 
-etc/plugins/emq_auth_redis.conf:
+.. code-block:: erlang
 
-.. code-block:: properties
+    [
+      {emqttd_plugin_redis, [
 
-    ## Redis Server
-    auth.redis.server = 127.0.0.1:6379
+        {eredis_pool, [
+          %% ecpool options
+          {pool_size, 8},
+          {auto_reconnect, 2},
 
-    ## Redis Pool Size
-    auth.redis.pool = 8
+          %% eredis options
+          {host, "127.0.0.1"},
+          {port, 6379},
+          {database, 0},
+          {password, ""}
+        ]},
 
-    ## Redis Database
-    auth.redis.database = 0
+        %% Variables: %u = username, %c = clientid
 
-    ## Redis Password
-    ## auth.redis.password =
+        %% HMGET mqtt_user:%u is_superuser
+        {supercmd, ["HGET", "mqtt_user:%u", "is_superuser"]},
 
-    ## Variables: %u = username, %c = clientid
+        %% HMGET mqtt_user:%u password
+        {authcmd, ["HGET", "mqtt_user:%u", "password"]},
 
-    ## Authentication Query Command
-    auth.redis.auth_cmd = HGET mqtt_user:%u password
+        %% Password hash algorithm: plain, md5, sha, sha256, pbkdf2?
+        {password_hash, sha256},
 
-    ## Password hash: plain, md5, sha, sha256, pbkdf2
-    auth.redis.password_hash = sha256
+        %% SMEMBERS mqtt_acl:%u
+        {aclcmd, ["SMEMBERS", "mqtt_acl:%u"]},
 
-    ## Superuser Query Command
-    auth.redis.super_cmd = HGET mqtt_user:%u is_superuser
+        %% If no rules matched, return...
+        {acl_nomatch, deny},
 
-    ## ACL Query Command
-    auth.redis.acl_cmd = HGETALL mqtt_acl:%u
+        %% Load Subscriptions form Redis when client connected.
+        {subcmd, ["HGETALL", "mqtt_subs:%u"]}
+      ]}
+    ].
 
-    ## ACL nomatch
-    auth.redis.acl_nomatch = deny
-
-Redis User Hash
----------------
+User HASH
+---------
 
 Set a 'user' hash with 'password' field, for example::
 
     HSET mqtt_user:<username> is_superuser 1
     HSET mqtt_user:<username> password "passwd"
 
-Redis ACL Rule Hash
--------------------
+ACL Rule SET
+------------
 
-The plugin uses a redis Hash to store ACL rules::
+The plugin uses a redis SET to store ACL rules::
 
-    HSET mqtt_acl:<username> topic1 1
-    HSET mqtt_acl:<username> topic2 2
-    HSET mqtt_acl:<username> topic3 3
+    SADD mqtt_acl:<username> "publish topic1"
+    SADD mqtt_acl:<username> "subscribe topic2"
+    SADD mqtt_acl:<username> "pubsub topic3"
 
-.. NOTE:: 1: subscribe, 2: publish, 3: pubsub
-
-Redis Subscription Hash
------------------------
+Subscription HASH
+-----------------
 
 The plugin can store static subscriptions in a redis Hash::
 
@@ -505,64 +453,68 @@ The plugin can store static subscriptions in a redis Hash::
     HSET mqtt_subs:<username> topic2 1
     HSET mqtt_subs:<username> topic3 2
 
-Load Redis Auth/ACL Plugin
---------------------------
+Load emqttd_plugin_redis Plugin
+-------------------------------
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_redis
+    ./bin/emqttd_ctl plugins load emqttd_plugin_redis
 
-----------------------------------------
-emq_auth_mongo - MongoDB Auth/ACL Plugin
-----------------------------------------
+---------------------------------------------
+emqttd_plugin_mongo - MongoDB Auth/ACL Plugin
+---------------------------------------------
 
-MQTT Authentication/ACL with MongoDB: https://github.com/emqtt/emq_auth_mongo
+MQTT Authentication, ACL with MongoDB: https://github.com/emqtt/emqttd_plugin_mongo
 
-Configure MongoDB Auth/ACL Plugin
----------------------------------
+Configure emqttd_plugin_mongo/etc/plugin.config
+-----------------------------------------------
 
-etc/plugins/emq_plugin_mongo.conf:
+.. code-block:: erlang
 
-.. code-block:: properties
+    [
+      {emqttd_plugin_mongo, [
 
-    ## Mongo Server
-    auth.mongo.server = 127.0.0.1:27017
+        {mongo_pool, [
+          {pool_size, 8},
+          {auto_reconnect, 3},
 
-    ## Mongo Pool Size
-    auth.mongo.pool = 8
+          %% Mongodb Driver Opts
+          {host, "localhost"},
+          {port, 27017},
+          %% {login, ""},
+          %% {password, ""},
+          {database, "mqtt"}
+        ]},
 
-    ## Mongo User
-    ## auth.mongo.user = 
+        %% Variables: %u = username, %c = clientid
 
-    ## Mongo Password
-    ## auth.mongo.password = 
+        %% Superuser Query
+        {superquery, [
+          {collection, "mqtt_user"},
+          {super_field, "is_superuser"},
+          {selector, {"username", "%u"}}
+        ]},
 
-    ## Mongo Database
-    auth.mongo.database = mqtt
+        %% Authentication Query
+        {authquery, [
+          {collection, "mqtt_user"},
+          {password_field, "password"},
+          %% Hash Algorithm: plain, md5, sha, sha256, pbkdf2?
+          {password_hash, sha256},
+          {selector, {"username", "%u"}}
+        ]},
 
-    ## auth_query
-    auth.mongo.auth_query.collection = mqtt_user
+        %% ACL Query: "%u" = username, "%c" = clientid
+        {aclquery, [
+          {collection, "mqtt_acl"},
+          {selector, {"username", "%u"}}
+        ]},
 
-    auth.mongo.auth_query.password_field = password
+        %% If no ACL rules matched, return...
+        {acl_nomatch, deny}
 
-    auth.mongo.auth_query.password_hash = sha256
-
-    auth.mongo.auth_query.selector = username=%u
-
-    ## super_query
-    auth.mongo.super_query.collection = mqtt_user
-
-    auth.mongo.super_query.super_field = is_superuser
-
-    auth.mongo.super_query.selector = username=%u
-
-    ## acl_query
-    auth.mongo.acl_query.collection = mqtt_user
-
-    auth.mongo.acl_query.selector = username=%u
-
-    ## acl_nomatch
-    auth.mongo.acl_nomatch = deny
+      ]}
+    ].
 
 MongoDB Database
 ----------------
@@ -574,8 +526,8 @@ MongoDB Database
     db.createCollection("mqtt_acl")
     db.mqtt_user.ensureIndex({"username":1})
 
-MongoDB User Collection
------------------------
+User Collection
+---------------
 
 .. code-block:: json
 
@@ -591,8 +543,8 @@ For example::
     db.mqtt_user.insert({username: "test", password: "password hash", is_superuser: false})
     db.mqtt_user:insert({username: "root", is_superuser: true})
 
-MongoDB ACL Collection
-----------------------
+ACL Collection
+--------------
 
 .. code-block:: json
 
@@ -609,284 +561,92 @@ For example::
     db.mqtt_acl.insert({username: "test", publish: ["t/1", "t/2"], subscribe: ["user/%u", "client/%c"]})
     db.mqtt_acl.insert({username: "admin", pubsub: ["#"]})
 
-Load MongoDB Auth/ACL Plugin
-----------------------------
+Load emqttd_plugin_mongo Plugin
+-------------------------------
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_mongo
+    ./bin/emqttd_ctl plugins load emqttd_plugin_mongo
 
-----------------------------------
-emq_mod_presence - Presence Module
-----------------------------------
-
-`Presence` module will publish presence message to $SYS topic when a client connected or disconnected:
-
-.. NOTE:: Released in 2.0-rc.3: https://github.com/emqtt/emq_mod_presence
-
-Configure Presence Module
--------------------------
-
-etc/plugins/emq_mod_presence.conf:
-
-.. code-block:: properties
-
-    ## Enable presence module
-    ## Values: on | off
-    module.presence = on
-
-    module.presence.qos = 0
-
-Load Presence Module
---------------------
-
-.. NOTE:: This module will be loaded by default.
-
-.. code:: bash
-
-    ./bin/emqttd_ctl plugins load emq_mod_presence
-
-----------------------------------
-emq_mod_retainer - Retainer Module
-----------------------------------
-
-`Retainer` module is responsbile for storing MQTT retained messages.
-
-.. NOTE:: Released in 2.0-rc.3: https://github.com/emqtt/emq_mod_retainer
-
-Configure Retainer Module
--------------------------
-
-etc/plugins/emq_mod_retainer.conf:
-
-.. code-block:: properties
-
-    ## disc: disc_copies, ram: ram_copies
-    module.retainer.storage_type = ram
-
-    ## Max number of retained messages
-    module.retainer.max_message_num = 100000
-
-    ## Max Payload Size of retained message
-    module.retainer.max_payload_size = 64KB
-
-    ## Expired after seconds, never expired if 0
-    module.retainer.expired_after = 0
-
-Load Retainer Module
---------------------
-
-.. NOTE:: This module will be loaded by default.
-
-.. code:: bash
-
-    ./bin/emqttd_ctl plugins load emq_mod_retainer
-
-------------------------------------------
-emq_mod_subscription - Subscription Module
-------------------------------------------
-
-`Subscription` module forces the client to subscribe some topics when connected to the broker:
-
-.. NOTE:: Released in 2.0-rc.3: https://github.com/emqtt/emq_mod_subscription
-
-Configure Subscription Module
 -----------------------------
-
-etc/plugins/emq_mod_subscription.conf:
-
-.. code-block:: properties
-
-    ## Subscribe the Topics automatically when client connected
-    module.subscription.1.topic = $client/%c
-    ## Qos of the subscription: 0 | 1 | 2
-    module.subscription.1.qos = 1
-
-    ##module.subscription.2.topic = $user/%u
-    ##module.subscription.2.qos = 1
-
-    ## Load static subscriptions from backend storage
-    ## Values: on | off
-    module.subscription.backend = on
-
-Load Subscription Module
-------------------------
-
-.. NOTE:: This module will be loaded by default.
-
-.. code:: bash
-
-    ./bin/emqttd_ctl plugins load emq_mod_subscription
-
---------------------------------------
-emq_mod_rewrite - Topic Rewrite Module
---------------------------------------
-
-Released in 2.0-rc.2: https://github.com/emqtt/emq_mod_rewrite
-
-Configure Rewrite Module
-------------------------
-
-etc/plugins/emq_mod_rewrite.config:
-
-.. code-block:: erlang
-
-  [
-    {emq_mod_rewrite, [
-      {rules, [
-        %% {rewrite, Topic, Re, Dest}
-        
-        %% Example: x/y/ -> z/y/
-        %% {rewrite, "x/#", "^x/y/(.+)$", "z/y/$1"},
-
-        %% {rewrite, "y/+/z/#", "^y/(.+)/z/(.+)$", "y/z/$2"}
-      ]}
-    ]}
-  ].
-
-Load Rewrite Module
--------------------
-
-.. code:: bash
-
-    ./bin/emqttd_ctl plugins load emq_mod_rewrite
-
-------------------------------
-emq_coap: CoAP Protocol Plugin
-------------------------------
-
-CoAP Protocol Plugin: https://github.com/emqtt/emqttd_coap
-
-Configure CoAP Plugin
----------------------
-
-.. code-block:: properties
-
-  coap.server = 5683
-
-  coap.prefix.mqtt = mqtt
-
-  coap.handler.mqtt = emq_coap_gateway
-
-Load CoAP Protocol Plugin
--------------------------
-
-.. code:: bash
-
-    ./bin/emqttd_ctl plugins load emq_coap
-
-libcoap Client
---------------
-
-.. code:: bash
-
-  yum install libcoap
-
-  % coap client publish message
-  coap-client -m post -e "qos=0&retain=0&message=payload&topic=hello" coap://localhost/mqtt
-
-------------------------
-emq_sn: MQTT-SN Protocol
-------------------------
-
-MQTT-SN Protocol/Gateway Plugin.
-
-Configure MQTT-SN Plugin
-------------------------
-
-.. NOTE:: UDP Port for MQTT-SN: 1884
-
-etc/plugins/emq_sn.conf:
-
-.. code-block:: properties
-
-    mqtt.sn.port = 1884
-
-Load MQTT-SN Plugin
--------------------
-
-.. code::
-
-    ./bin/emqttd_ctl plugins load emq_sn
-
---------------------------
-emq_stomp - STOMP Protocol
---------------------------
+emqttd_stomp - STOMP Protocol
+-----------------------------
 
 Support STOMP 1.0/1.1/1.2 clients to connect to emqttd broker and communicate with MQTT Clients.
 
-Configure Stomp Plugin
-----------------------
-
-etc/plugins/emq_stomp.conf:
+Configure emqttd_stomp/etc/plugin.config
+----------------------------------------
 
 .. NOTE:: Default Port for STOMP Protocol: 61613
 
-.. code-block:: properties
-
-    stomp.default_user.login = guest
-
-    stomp.default_user.passcode = guest
-
-    stomp.allow_anonymous = true
-
-    stomp.frame.max_headers = 10
-
-    stomp.frame.max_header_length = 1024
-
-    stomp.frame.max_body_length = 8192
-
-    stomp.listener = 61613
-
-    stomp.listener.acceptors = 4
-
-    stomp.listener.max_clients = 512
-
-Load Stomp Plugin
------------------
-
-.. code-block:: bash
-
-    ./bin/emqttd_ctl plugins load emq_stomp
-
---------------------------------
-emq_sockjs - STOMP/SockJS Plugin
---------------------------------
-
-emq_sockjs plugin enables web browser to connect to emqttd broker and communicate with MQTT clients.
-
-.. WARNING:: The plugin is deprecated in 2.0
-
-Configure SockJS Plugin
------------------------
-
-.. NOTE:: Default TCP Port: 61616
-
 .. code-block:: erlang
 
-  [
-    {emq_sockjs, [
+    [
+      {emqttd_stomp, [
 
-      {sockjs, []},
+        {default_user, [
+            {login,    "guest"},
+            {passcode, "guest"}
+        ]},
 
-      {cowboy_listener, {stomp_sockjs, 61616, 4}},
+        {allow_anonymous, true},
 
-      %% TODO: unused...
-      {stomp, [
+        %%TODO: unused...
         {frame, [
           {max_headers,       10},
           {max_header_length, 1024},
           {max_body_length,   8192}
+        ]},
+
+        {listeners, [
+          {emqttd_stomp, 61613, [
+            {acceptors,   4},
+            {max_clients, 512}
+          ]}
         ]}
+
       ]}
-    ]}
-  ].
+    ].
 
-
-Load SockJS Plugin
-------------------
+Load emqttd_stomp Plugin
+------------------------
 
 .. code-block:: bash
+
+    ./bin/emqttd_ctl plugins load emqttd_stomp
+
+
+-----------------------------------
+emqttd_sockjs - STOMP/SockJS Plugin
+-----------------------------------
+
+emqttd_sockjs plugin enables web browser to connect to emqttd broker and communicate with MQTT clients.
+
+.. NOTE:: Default TCP Port: 61616
+
+Configure emqttd_sockjs
+-----------------------
+
+.. code-block:: erlang
+
+    [
+      {emqttd_sockjs, [
+
+        {sockjs, []},
+
+        {cowboy_listener, {stomp_sockjs, 61616, 4}},
+
+      ]}
+    ].
+
+Load emqttd_sockjs Plugin
+-------------------------
+
+.. NOTE:: emqttd_stomp Plugin required.
+
+.. code-block:: bash
+
+    ./bin/emqttd_ctl plugins load emqttd_stomp
 
     ./bin/emqttd_ctl plugins load emqttd_sockjs
 
@@ -895,18 +655,18 @@ SockJS Demo Page
 
 http://localhost:61616/index.html
 
-------------------------
-emq_recon - Recon Plugin
-------------------------
+---------------------------
+emqttd_recon - Recon Plugin
+---------------------------
 
-The plugin loads `recon`_ library on a running *EMQ* broker. Recon libray helps debug and optimize an Erlang application.
+The plugin loads `recon`_ library on a running emqttd broker. Recon libray helps debug and optimize an Erlang application.
 
-Load Recon Plugin
------------------
+Load emqttd_recon Plugin
+------------------------
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_recon
+    ./bin/emqttd_ctl plugins load emqttd_recon
 
 Recon CLI
 ---------
@@ -921,20 +681,20 @@ Recon CLI
     recon node_stats             #recon:node_stats(10, 1000)
     recon remote_load Mod        #recon:remote_load(Mod)
 
-------------------------------
-emq_reloader - Reloader Plugin
-------------------------------
+---------------------------------
+emqttd_reloader - Reloader Plugin
+---------------------------------
 
 Erlang Module Reloader for Development
 
 .. NOTE:: Don't load the plugin in production!
 
-Load `Reloader` Plugin
-----------------------
+Load emqttd_reloader Plugin
+---------------------------
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_reloader
+    ./bin/emqttd_ctl plugins load emqttd_reloader
 
 reload CLI
 ----------
@@ -952,37 +712,30 @@ Plugin Development Guide
 Create a Plugin Project
 -----------------------
 
-Clone emq_plugin_template source from github.com::
+Clone emqttd source from github.com::
 
-    git clone https://github.com/emqtt/emq_plugin_template.git
+    git clone https://github.com/emqtt/emqttd.git
 
-Create a plugin project with erlang.mk and depends on 'emqttd' application, the 'Makefile'::
+Create a plugin project under 'plugins' folder::
 
-    PROJECT = emq_plugin_abc
-    PROJECT_DESCRIPTION = emqttd abc plugin
-    PROJECT_VERSION = 1.0
+    cd plugins && mkdir emqttd_my_plugin
 
-    BUILD_DEPS = emqttd 
-    dep_emqttd = git https://github.com/emqtt/emqttd master
+    cd emqttd_my_plugin && rebar create-app appid=emqttd_my_plugin
 
-    COVER = true
-
-    include erlang.mk
-
-Template Plugin: https://github.com/emqtt/emq_plugin_template
+Template Plugin: https://github.com/emqtt/emqttd_plugin_template
 
 Register Auth/ACL Modules
 -------------------------
 
-emq_auth_demo.erl - demo authentication module:
+emqttd_auth_demo.erl - demo authentication module:
 
 .. code-block:: erlang
 
-    -module(emq_auth_demo).
+    -module(emqttd_auth_demo).
 
     -behaviour(emqttd_auth_mod).
 
-    -include_lib("emqttd/include/emqttd.hrl").
+    -include("../../../include/emqttd.hrl").
 
     -export([init/1, check/3, description/0]).
 
@@ -995,13 +748,13 @@ emq_auth_demo.erl - demo authentication module:
 
     description() -> "Demo Auth Module".
 
-emq_acl_demo.erl - demo ACL module:
+emqttd_acl_demo.erl - demo ACL module:
 
 .. code-block:: erlang
 
-    -module(emq_acl_demo).
+    -module(emqttd_acl_demo).
 
-    -include_lib("emqttd/include/emqttd.hrl").
+    -include("../../../include/emqttd.hrl").
 
     %% ACL callbacks
     -export([init/1, check_acl/2, reload_acl/1, description/0]).
@@ -1018,42 +771,41 @@ emq_acl_demo.erl - demo ACL module:
 
     description() -> "ACL Module Demo".
 
-emq_plugin_template_app.erl - Register the auth/ACL modules:
+emqttd_plugin_template_app.erl - Register the auth/ACL modules:
 
 .. code-block:: erlang
 
-    ok = emqttd_access_control:register_mod(auth, emq_auth_demo, []),
-    ok = emqttd_access_control:register_mod(acl, emq_acl_demo, []),
+    ok = emqttd_access_control:register_mod(auth, emqttd_auth_demo, []),
+    ok = emqttd_access_control:register_mod(acl, emqttd_acl_demo, []),
+
 
 Register Callbacks for Hooks
 -----------------------------
 
 The plugin could register callbacks for hooks. The hooks will be run by the broker when a client connected/disconnected, a topic subscribed/unsubscribed or a message published/delivered:
 
-+------------------------+-----------------------------------------+
-| Name                   | Description                             |
-+------------------------+-----------------------------------------+
-| client.connected       | Run when a client connected to the      |
-|                        | broker successfully                     |
-+------------------------+-----------------------------------------+
-| client.subscribe       | Run before a client subscribes topics   |
-+------------------------+-----------------------------------------+
-| client.unsubscribe     | Run when a client unsubscribes topics   |
-+------------------------+-----------------------------------------+
-| session.subscribed     | Run after a client subscribed a topic   |
-+------------------------+-----------------------------------------+
-| session.unsubscribed   | Run after a client unsubscribed a topic |
-+------------------------+-----------------------------------------+
-| message.publish        | Run when a message is published         |
-+------------------------+-----------------------------------------+
-| message.delivered      | Run when a message is delivered         |
-+------------------------+-----------------------------------------+
-| message.acked          | Run when a message(qos1/2) is acked     |
-+------------------------+-----------------------------------------+
-| client.disconnected    | Run when a client is disconnnected      |
-+------------------------+-----------------------------------------+
++------------------------+---------------------------------------+
+| Name                   | Description                           |
++------------------------+---------------------------------------+
+| client.connected       | Run when a client connected to the    |
+|                        | broker successfully                   |
++------------------------+---------------------------------------+
+| client.subscribe       | Run before a client subscribes topics |
++------------------------+---------------------------------------+
+| client.subscribe.after | Run after a client subscribed topics  |
++------------------------+---------------------------------------+
+| client.unsubscribe     | Run when a client unsubscribes topics |
++------------------------+---------------------------------------+
+| message.publish        | Run when a message is published       |
++------------------------+---------------------------------------+
+| message.delivered      | Run when a message is delivered       |
++------------------------+---------------------------------------+
+| message.acked          | Run when a message(qos1/2) is acked   |
++------------------------+---------------------------------------+
+| client.disconnected    | Run when a client is disconnnected    |
++------------------------+---------------------------------------+
 
-emq_plugin_template.erl for example:
+emqttd_plugin_template.erl for example:
 
 .. code-block:: erlang
 
@@ -1061,24 +813,24 @@ emq_plugin_template.erl for example:
     load(Env) ->
         emqttd:hook('client.connected', fun ?MODULE:on_client_connected/3, [Env]),
         emqttd:hook('client.disconnected', fun ?MODULE:on_client_disconnected/3, [Env]),
-        emqttd:hook('client.subscribe', fun ?MODULE:on_client_subscribe/4, [Env]),
-        emqttd:hook('session.subscribed', fun ?MODULE:on_session_subscribed/4, [Env]),
-        emqttd:hook('client.unsubscribe', fun ?MODULE:on_client_unsubscribe/4, [Env]),
-        emqttd:hook('session.unsubscribed', fun ?MODULE:on_session_unsubscribed/4, [Env]),
+        emqttd:hook('client.subscribe', fun ?MODULE:on_client_subscribe/3, [Env]),
+        emqttd:hook('client.subscribe.after', fun ?MODULE:on_client_subscribe_after/3, [Env]),
+        emqttd:hook('client.unsubscribe', fun ?MODULE:on_client_unsubscribe/3, [Env]),
         emqttd:hook('message.publish', fun ?MODULE:on_message_publish/2, [Env]),
-        emqttd:hook('message.delivered', fun ?MODULE:on_message_delivered/4, [Env]),
-        emqttd:hook('message.acked', fun ?MODULE:on_message_acked/4, [Env]).
+        emqttd:hook('message.delivered', fun ?MODULE:on_message_delivered/3, [Env]),
+        emqttd:hook('message.acked', fun ?MODULE:on_message_acked/3, [Env]).
+
 
 Register CLI Modules
 --------------------
 
-emq_cli_demo.erl:
+emqttd_cli_demo.erl:
 
 .. code-block:: erlang
 
     -module(emqttd_cli_demo).
 
-    -include_lib("emqttd/include/emqttd_cli.hrl").
+    -include("../../../include/emqttd_cli.hrl").
 
     -export([cmd/1]).
 
@@ -1088,78 +840,27 @@ emq_cli_demo.erl:
     cmd(_) ->
         ?USAGE([{"cmd arg1 arg2", "cmd demo"}]).
 
-emq_plugin_template_app.erl - register the CLI module to *EMQ* broker:
+emqttd_plugin_template_app.erl - register the CLI module to emqttd broker:
 
 .. code-block:: erlang
 
-    emqttd_ctl:register_cmd(cmd, {emq_cli_demo, cmd}, []).
+    emqttd_ctl:register_cmd(cmd, {emqttd_cli_demo, cmd}, []).
 
 There will be a new CLI after the plugin loaded::
 
     ./bin/emqttd_ctl cmd arg1 arg2
 
-Create Configuration File
--------------------------
 
-Create `etc/${plugin_name}.conf|config` file for the plugin. The *EMQ* broker supports two type of config syntax:
+.. _emqttd_dashboard:       https://github.com/emqtt/emqttd_dashboard
+.. _emqttd_auth_http:       https://github.com/emqtt/emqttd_auth_http
+.. _emqttd_plugin_mysql:    https://github.com/emqtt/emqttd_plugin_mysql
+.. _emqttd_plugin_pgsql:    https://github.com/emqtt/emqttd_plugin_pgsql
+.. _emqttd_plugin_redis:    https://github.com/emqtt/emqttd_plugin_redis
+.. _emqttd_plugin_mongo:    https://github.com/emqtt/emqttd_plugin_mongo
+.. _emqttd_stomp:           https://github.com/emqtt/emqttd_stomp
+.. _emqttd_sockjs:          https://github.com/emqtt/emqttd_sockjs
+.. _emqttd_recon:           https://github.com/emqtt/emqttd_recon
+.. _emqttd_reloader:        https://github.com/emqtt/emqttd_reloader
+.. _emqttd_plugin_template: https://github.com/emqtt/emqttd_plugin_template
+.. _recon:                  http://ferd.github.io/recon/
 
-1. ${plugin_name}.config with erlang syntax: 
-
-.. code-block:: erlang
-
-    [
-      {plugin_name, [
-        {key, value}
-      ]}
-    ].
-
-2. ${plugin_name}.conf with a general `k = v` syntax:
-
-.. code-block:: properties
-
-    plugin_name.key = value
-
-Build and Release the Plugin
-----------------------------
-
-1. clone emqttd-relx project:
-
-.. code-block:: bash
-
-    git clone https://github.com/emqtt/emqttd-relx.git
-
-2. Add `DEPS` in Makefile:
-
-.. code-block:: makefile
-
-    DEPS += plugin_name
-    dep_plugin_name = git url_of_plugin
-
-3. Add the plugin in relx.config:
-
-.. code-block:: erlang
-
-    {plugin_name, load},
-
-.. _emq_dashboard:       https://github.com/emqtt/emqttd_dashboard
-.. _emq_auth_clientid:   https://github.com/emqtt/emq_auth_clientid
-.. _emq_auth_username:   https://github.com/emqtt/emq_auth_username
-.. _emq_auth_ldap:       https://github.com/emqtt/emq_auth_ldap
-.. _emq_auth_http:       https://github.com/emqtt/emq_auth_http
-.. _emq_auth_mysql:      https://github.com/emqtt/emq_auth_mysql
-.. _emq_auth_pgsql:      https://github.com/emqtt/emq_auth_pgsql
-.. _emq_auth_redis:      https://github.com/emqtt/emq_auth_redis
-.. _emq_auth_mongo:      https://github.com/emqtt/emq_auth_mongo
-.. _emq_mod_rewrite:     https://github.com/emqtt/emq_mod_rewrite
-.. _emq_sn:              https://github.com/emqtt/emq_sn
-.. _emq_coap:            https://github.com/emqtt/emq_coap
-.. _emq_stomp:           https://github.com/emqtt/emq_stomp
-.. _emq_sockjs:          https://github.com/emqtt/emq_sockjs
-.. _emq_recon:           https://github.com/emqtt/emq_recon
-.. _emq_reloader:        https://github.com/emqtt/emq_reloader
-.. _emq_plugin_template: https://github.com/emqtt/emq_plugin_template
-.. _recon:               http://ferd.github.io/recon/
-
-.. _emq_mod_retainer:     https://github.com/emqtt/emq_mod_retainer
-.. _emq_mod_presence:     https://github.com/emqtt/emq_mod_presence
-.. _emq_mod_subscription: https://github.com/emqtt/emq_mod_subscription

@@ -9,7 +9,7 @@ Clustering
 Distributed Erlang/OTP
 ----------------------
 
-Erlang/OTP is a concurrent, fault-tolerant, distributed programming platform. A distributed Erlang/OTP system consists of a number of Erlang runtime systems called 'node'. Nodes connect to each other with TCP/IP sockets and communicate by Message Passing.
+Erlang/OTP is a concurrent, fault-tolerant, distributed programming platform. A distributed Erlang/OTP system consists of a number of Erlang runtime systems called 'node'. Nodes connect to each other with TCP/IP sockets and communite by Message Passing.
 
 .. code::
 
@@ -161,26 +161,26 @@ Suppose we deploy two nodes cluster on s1.emqtt.io, s2.emqtt.io:
 emqttd@s1.emqtt.io setting
 --------------------------
 
-emqttd/etc/emq.conf::
+emqttd/etc/vm.args::
 
-    node.name = emqttd@s1.emqtt.io
+    -name emqttd@s1.emqtt.io
 
-    或
+    or
 
-    node.name = emqttd@192.168.0.10
+    -name emqttd@192.168.0.10
 
 .. WARNING:: The name cannot be changed after node joined the cluster.
 
 emqttd@s2.emqtt.io setting
 --------------------------
 
-emqttd/etc/emq.conf::
+emqttd/etc/vm.args::
 
-    node.name = emqttd@s2.emqtt.io
+    -name emqttd@s2.emqtt.io
 
-    或
+    or
 
-    node.name = emqttd@192.168.0.20
+    -name emqttd@192.168.0.20
 
 Join the cluster
 ----------------
@@ -245,7 +245,7 @@ The Firewall
 
 If there is a firewall between clustered nodes, the cluster requires to open 4369 port used by epmd daemon, and a port segment for nodes' communication.
 
-Configure the port segment in releases/2.0/sys.config, for example:
+Configure the port segment in etc/emqttd.config, for example:
 
 .. code-block:: erlang
 
@@ -273,4 +273,3 @@ Consistent Hash and DHT
 -----------------------
 
 Consistent Hash and DHT are popular in the design of NoSQL databases. Cluster of emqttd broker could support 10 million size of global routing table now. We could use the Consistent Hash or DHT to partition the routing table, and evolve the cluster to larger size.
-

@@ -5,7 +5,7 @@
 Installation
 ============
 
-The *EMQ* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
+The emqttd broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
 
 .. NOTE::
 
@@ -32,12 +32,10 @@ Download binary packages from: http://emqtt.io/downloads
 +-----------+------------------------------------------+
 | Windows   | http://emqtt.io/downloads/latest/windows |
 +-----------+------------------------------------------+
-| Docker    | http://emqtt.com/downloads/latest/docker |
-+-----------+------------------------------------------+
 
 The package name consists of platform, version and release time.
 
-For example: emqttd-centos64-v2.0-rc.2-20161019.zip
+For example: emqttd-centos64-1.1-beta-20160601.zip
 
 .. _install_on_linux:
 
@@ -49,7 +47,7 @@ Download CentOS Package from: http://emqtt.io/downloads/latest/centos, and then 
 
 .. code-block:: bash
 
-    unzip emqttd-centos64-v2.0-rc.2-20161019.zip
+    unzip emqttd-centos64-1.1-beta-20160601.zip
 
 Start the broker in console mode:
 
@@ -82,7 +80,7 @@ If the broker is started successfully, console will print:
     mqtt listen on 0.0.0.0:1883 with 16 acceptors.
     mqtts listen on 0.0.0.0:8883 with 4 acceptors.
     http listen on 0.0.0.0:8083 with 4 acceptors.
-    Erlang MQTT Broker 2.0 is running now
+    Erlang MQTT Broker 1.1 is running now
     Eshell V6.4  (abort with ^G)
     (emqttd@127.0.0.1)1>
 
@@ -94,13 +92,15 @@ Start the broker in daemon mode:
 
     ./bin/emqttd start
 
+The boot logs in log/emqttd_sasl.log file.
+
 Check the running status of the broker:
 
 .. code-block:: bash
 
     $ ./bin/emqttd_ctl status
     Node 'emqttd@127.0.0.1' is started
-    emqttd 2.0 is running
+    emqttd 1.1 is running
 
 Or check the status by URL::
 
@@ -130,18 +130,17 @@ We could install the broker on Mac OS X to develop and debug MQTT applications.
 
 Download Mac Package from: http://emqtt.io/downloads/latest/macosx
 
-Configure log level in `etc/emq.conf`, all MQTT messages recevied/sent will be printed on console:
+Configure 'lager' log level in 'etc/emqttd.config', all MQTT messages recevied/sent will be printed on console:
 
-.. code-block::
+.. code-block:: erlang
 
-    ## Console log. Enum: off, file, console, both
-    log.console = both
-
-    ## Console log level. Enum: debug, info, notice, warning, error, critical, alert, emergency
-    log.console.level = debug
-
-    ## Console log file
-    log.console.file = log/console.log
+    {lager, [
+        ...
+        {handlers, [
+            {lager_console_backend, info},
+            ...
+        ]}
+    ]},
 
 The install and boot process on Mac are same to Linux.
 
@@ -181,47 +180,13 @@ Uninstall emqttd service::
 
 .. WARNING:: './bin/emqttd_ctl' command line cannot work on Windows.
 
-.. _install_via_docker_image:
-
-------------------------
-Install via Docker Image
-------------------------
-
-Download *EMQ* 2.0 Docker Image:
-
-    http://emqtt.com/downloads/latest/docker
-
-unzip emqttd-docker image::
-
-    unzip emqttd-docker-v2.0.zip
-
-Load Docker Image::
-
-    docker load < emqttd-docker-v2.0
-
-Run the Container::
-
-    docker run -itd --net='host' --name emq20 emqttd-docker-v2.0
-
-Stop the broker::
-
-    docker stop emq20
-
-Start the broker::
-
-    docker start emq20
-
-Enter the running container::
-
-    docker exec -it emq20 /bin/bash
-
 .. _build_from_source:
 
 ----------------------
 Installing From Source
 ----------------------
 
-The *EMQ* broker requires Erlang/OTP R18+ and git client to build:
+The emqttd broker requires Erlang/OTP R17+ and git client to build:
 
 Install Erlang: http://www.erlang.org/
 
@@ -233,15 +198,15 @@ When all dependencies are ready, clone the emqttd project from github.com and bu
 
 .. code-block:: bash
 
-    git clone https://github.com/emqtt/emqttd-relx.git
+    git clone https://github.com/emqtt/emqttd.git
 
-    cd emqttd-relx && make
+    cd emqttd
 
-    cd _rel/emqttd && ./bin/emqttd console
+    make && make dist
 
 The binary package output in folder::
 
-    _rel/emqttd
+    rel/emqttd
 
 .. _tcp_ports:
 
@@ -252,27 +217,30 @@ TCP Ports Used
 +-----------+-----------------------------------+
 | 1883      | MQTT Port                         |
 +-----------+-----------------------------------+
-| 8883      | MQTT/SSL  Port                    |
+| 8883      | MQTT Over SSL Port                |
 +-----------+-----------------------------------+
 | 8083      | MQTT(WebSocket), HTTP API Port    |
 +-----------+-----------------------------------+
-| 8084      | MQTT(WebSocket/SSL), HTTP API Port|
-+-----------+-----------------------------------+
-| 18083     | Web Dashboard Port                |
+| 18083     | Dashboard Port                    |
 +-----------+-----------------------------------+
 
 The TCP ports used can be configured in etc/emqttd.config:
 
-.. code-block:: properties
+.. code-block:: erlang
 
-    ## TCP Listener: 1883, 127.0.0.1:1883, ::1:1883
-    mqtt.listener.tcp = 1883
+    {listeners, [
+        {mqtt, 1883, [
+            ...
+        ]},
 
-    ## SSL Listener: 8883, 127.0.0.1:8883, ::1:8883
-    mqtt.listener.ssl = 8883
-    
-    ## HTTP and WebSocket Listener
-    mqtt.listener.http = 8083
+        {mqtts, 8883, [
+            ...
+        ]},
+        %% HTTP and WebSocket Listener
+        {http, 8083, [
+            ...
+        ]}
+    ]},
 
 The 18083 port is used by Web Dashboard of the broker. Default login: admin, Password: public
 
@@ -282,38 +250,44 @@ The 18083 port is used by Web Dashboard of the broker. Default login: admin, Pas
 Quick Setup
 -----------
 
-Two main configuration files of the *EMQ* broker:
+Two main configuration files of the emqttd broker:
 
-+-----------------------+-----------------------------------+
-| etc/emq.conf          | EMQ Broker Config                 |
-+-----------------------+-----------------------------------+
-| etc/plugins/\*.conf   | EMQ Plugins' Config               |
-+-----------------------+-----------------------------------+
++-------------------+-----------------------------------+
+| etc/vm.args       | Erlang VM Arguments               |
++-------------------+-----------------------------------+
+| etc/emqttd.config | emqttd broker Config              |
++-------------------+-----------------------------------+
 
-Two important parameters in etc/emq.conf:
+Two important parameters in etc/vm.args:
 
-+--------------------+-------------------------------------------------------------------------+
-| node.process_limit | Max number of Erlang proccesses. A MQTT client consumes two proccesses. |
-|                    | The value should be larger than max_clients * 2                         | 
-+--------------------+-------------------------------------------------------------------------+
-| node.max_ports     | Max number of Erlang Ports. A MQTT client consumes one port.            |
-|                    | The value should be larger than max_clients.                            |
-+--------------------+-------------------------------------------------------------------------+
++-------+---------------------------------------------------------------------------+
+| +P    | Max number of Erlang proccesses. A MQTT client consumes two proccesses.   |
+|       | The value should be larger than max_clients * 2                           | 
++-------+---------------------------------------------------------------------------+
+| +Q    | Max number of Erlang Ports. A MQTT client consumes one port.              |
+|       | The value should be larger than max_clients.                              |
++-------+---------------------------------------------------------------------------+
 
 .. NOTE::
 
-    node.process_limit > maximum number of allowed concurrent clients * 2
-    node.max_ports > maximum number of allowed concurrent clients
+    +Q > maximum number of allowed concurrent clients
+    +P > maximum number of allowed concurrent clients * 2
 
 The maximum number of allowed MQTT clients:
 
-.. code-block:: properties
+.. code-block:: erlang
 
-    mqtt.listener.tcp = 1883
+    {listeners, [
+        {mqtt, 1883, [
+            %% TCP Acceptor Pool
+            {acceptors, 16},
 
-    mqtt.listener.tcp.acceptors = 8
+            %% Maximum number of concurrent MQTT clients
+            {max_clients, 8192},
 
-    mqtt.listener.tcp.max_clients = 1024
+            ...
+
+        ]},
 
 .. _init_d_emqttd:
 
@@ -380,7 +354,5 @@ boot test::
 
     ## erlexec: HOME must be set
     uncomment '# export HOME=/root' if "HOME must be set" error.
-
-.. _emq_dashboard:       https://github.com/emqtt/emqttd_dashboard
 
 

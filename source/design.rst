@@ -11,20 +11,9 @@ Design
 Architecture
 ------------
 
-The *EMQ* broker 1.0 is more like a network Switch or Router, not a traditional enterprise message queue. Compared to a network router that routes packets based on IP or MPLS label, the *EMQ* broker routes MQTT messages based on topic trie.
+The emqttd broker 1.0 is more like a network Switch or Router, not a traditional enterprise message queue. Compared to a network router that routes packets based on IP or MPLS label, the emqttd broker routes MQTT messages based on topic trie.
 
 .. image:: _static/images/concept.png
-
-The *EMQ* 2.0 seperated the Message Flow Plane and Monitor/Control Plane, the Architecture is something like::
-
-              Control Plane
-           --------------------
-              |            |
-  FrontEnd -> | Flow Plane | -> BackEnd
-              |            |
-            Session      Router
-           ---------------------
-               Monitor Plane
 
 Design Philosophy
 -----------------
@@ -200,7 +189,7 @@ The routing design follows two rules:
 Authentication and ACL
 ----------------------
 
-The *EMQ* broker supports an extensible authentication/ACL mechanism, which is implemented by emqttd_access_control, emqttd_auth_mod and emqttd_acl_mod modules.
+The emqttd broker supports an extensible authentication/ACL mechanism, which is implemented by emqttd_access_control, emqttd_auth_mod and emqttd_acl_mod modules.
 
 emqttd_access_control module provides two APIs that help register/unregister auth or ACL module:
 
@@ -241,26 +230,18 @@ The emqttd_auth_mod defines an Erlang behaviour for authentication module:
 
     -endif.
 
-The authentication modules implemented by plugins:
+The authentication modules implemented by default:
 
 +-----------------------+--------------------------------+
-| Plugin                | Authentication                 |
+| Module                | Authentication                 |
 +-----------------------+--------------------------------+
-| emq_auth_username     | Username and Password          |
+| emqttd_auth_username  | Username and Password          |
 +-----------------------+--------------------------------+
-| emq_auth_clientid     | ClientID and Password         |
+| emqttd_auth_clientid  | ClientID                       |
 +-----------------------+--------------------------------+
-| emq_auth_ldap         | LDAP                           |
+| emqttd_auth_ldap      | LDAP                           |
 +-----------------------+--------------------------------+
-| emq_auth_http         | HTTP API                       |
-+-----------------------+--------------------------------+
-| emq_auth_mysql        | MySQL                          |
-+-----------------------+--------------------------------+
-| emq_auth_pgsql        | PostgreSQL                     |
-+-----------------------+--------------------------------+
-| emq_auth_redis        | Redis                          |
-+-----------------------+--------------------------------+
-| emq_auth_mongo        |  MongoDB                       |
+| emqttd_auth_anonymous | Anonymous                      |
 +-----------------------+--------------------------------+
 
 Authorization(ACL)
@@ -298,7 +279,7 @@ The emqttd_acl_mod defines an Erlang behavihour for ACL module:
 
     -endif.
 
-emqttd_acl_internal implements the default ACL based on etc/acl.conf file:
+emqttd_acl_internal implements the default ACL based on etc/acl.config file:
 
 .. code-block:: erlang
 
@@ -334,9 +315,9 @@ emqttd_acl_internal implements the default ACL based on etc/acl.conf file:
 Hooks Design
 ------------
 
-The *EMQ* broker implements a simple but powerful hooks mechanism to help users develop plugin. The broker would run the hooks when a client is connected/disconnected, a topic is subscribed/unsubscribed or a MQTT message is published/delivered/acked.
+The emqttd broker implements a simple but powerful hooks mechanism to help users develop plugin. The broker would run the hooks when a client is connected/disconnected, a topic is subscribed/unsubscribed or a MQTT message is published/delivered/acked.
 
-Hooks defined by the *EMQ* 2.0 broker:
+Hooks defined by the emqttd 1.0 broker:
 
 +------------------------+------------------------------------------------------+
 | Hook                   | Description                                          |
@@ -345,11 +326,9 @@ Hooks defined by the *EMQ* 2.0 broker:
 +------------------------+------------------------------------------------------+
 | client.subscribe       | Run before client subscribes topics                  |
 +------------------------+------------------------------------------------------+
+| client.subscribe.after | Run After client subscribed topics                   |
++------------------------+------------------------------------------------------+
 | client.unsubscribe     | Run when client unsubscribes topics                  |
-+------------------------+------------------------------------------------------+
-| session.subscribed     | Run After client(session) subscribed a topic         |
-+------------------------+------------------------------------------------------+
-| session.unsubscribed   | Run After client(session) unsubscribed a topic       |
 +------------------------+------------------------------------------------------+
 | message.publish        | Run when a MQTT message is published                 |
 +------------------------+------------------------------------------------------+
@@ -360,7 +339,7 @@ Hooks defined by the *EMQ* 2.0 broker:
 | client.disconnected    | Run when client disconnected from broker             |
 +------------------------+------------------------------------------------------+
 
-The *EMQ* broker uses the `Chain-of-responsibility_pattern`_ to implement hook mechanism. The callback functions registered to hook will be executed one by one::
+The emqttd broker uses the `Chain-of-responsibility_pattern`_ to implement hook mechanism. The callback functions registered to hook will be executed one by one::
 
                      --------  ok | {ok, NewAcc}   --------  ok | {ok, NewAcc}   --------
      (Args, Acc) --> | Fun1 | -------------------> | Fun2 | -------------------> | Fun3 | --> {ok, Acc} | {stop, Acc}
@@ -382,7 +361,7 @@ The callback function for a hook should return:
 | {stop, NewAcc}  | Return Acc and Break   |
 +-----------------+------------------------+
 
-The input arguments for a callback function are depending on the types of hook. Clone the `emq_plugin_template`_ project to check the argument in detail.
+The input arguments for a callback function are depending on the types of hook. Clone the `emqttd_plugin_template`_ project to check the argument in detail.
 
 Hook Implementation
 -------------------
@@ -425,11 +404,11 @@ And implemented in emqttd_hook module:
 Hook Usage
 ----------
 
-The `emq_plugin_template`_ project provides the examples for hook usage:
+The `emqttd_plugin_template`_ project provides the examples for hook usage:
 
 .. code-block:: erlang
 
-    -module(emq_plugin_template).
+    -module(emqttd_plugin_template).
 
     -export([load/1, unload/0]).
 
@@ -463,7 +442,7 @@ The `emq_plugin_template`_ project provides the examples for hook usage:
 Plugin Design
 -------------
 
-Plugin is a normal erlang application that can be started/stopped dynamically by a running *EMQ* broker.
+Plugin is a normal erlang application that can be started/stopped dynamically by a running emqttd broker.
 
 emqttd_plugins Module
 ---------------------
@@ -498,35 +477,4 @@ http://github.com/emqtt/emqttd_plugin_template
 
 .. _eSockd: https://github.com/emqtt/esockd
 .. _Chain-of-responsibility_pattern: https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern
-.. _emq_plugin_template: https://github.com/emqtt/emq_plugin_template/blob/master/src/emq_plugin_template.erl
-
------------------
-Mnesia/ETS Tables
------------------
-
-+--------------------+--------+----------------------------------------+
-| Table              | Type   | Description                            |
-+====================+========+========================================+
-| mqtt_trie          | mnesia | Trie Table                             |
-+--------------------+--------+----------------------------------------+
-| mqtt_trie_node     | mnesia | Trie Node Table                        |
-+--------------------+--------+----------------------------------------+
-| mqtt_route         | mnesia | Global Route Table                     |
-+--------------------+--------+----------------------------------------+
-| mqtt_local_route   | mnesia | Local Route Table                      |
-+--------------------+--------+----------------------------------------+
-| mqtt_pubsub        | ets    | PubSub Tab                             |
-+--------------------+--------+----------------------------------------+
-| mqtt_subscriber    | ets    | Subscriber Tab                         |
-+--------------------+--------+----------------------------------------+
-| mqtt_subscription  | ets    | Subscription Tab                       |
-+--------------------+--------+----------------------------------------+
-| mqtt_session       | mnesia | Global Session Table                   |
-+--------------------+--------+----------------------------------------+
-| mqtt_local_session | ets    | Local Session Table                    |
-+--------------------+--------+----------------------------------------+
-| mqtt_client        | ets    | Client Table                           |
-+--------------------+--------+----------------------------------------+
-| mqtt_retained      | mnesia | Retained Message Table                 |
-+--------------------+--------+----------------------------------------+
-
+.. _emqttd_plugin_template: https://github.com/emqtt/emqttd_plugin_template/blob/master/src/emqttd_plugin_template.erl
