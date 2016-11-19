@@ -246,20 +246,19 @@ All the plugins' config files will be copied to emqttd/etc/plugins/ folder when 
       ▾ etc/
         ▸ modules/
         ▾ plugins/
-            emqtt_coap.conf
-            emqttd.conf
-            emqttd_auth_http.conf
-            emqttd_auth_mongo.conf
-            emqttd_auth_mysql.conf
-            emqttd_auth_pgsql.conf
-            emqttd_auth_redis.conf
-            emqttd_coap.conf
-            emqttd_dashboard.conf
-            emqttd_plugin_template.conf
-            emqttd_recon.conf
-            emqttd_reloader.conf
-            emqttd_sn.conf
-            emqttd_stomp.conf
+            emq_auth_http.conf
+            emq_auth_mongo.conf
+            emq_auth_mysql.conf
+            emq_auth_pgsql.conf
+            emq_auth_redis.conf
+            emq_coap.conf
+            emq_dashboard.conf
+            emq_plugin_template.conf
+            emq_recon.conf
+            emq_reloader.conf
+            emq_coap.conf
+            emq_sn.conf
+            emq_stomp.conf
 
 EMQ 2.0 Documentation
 ---------------------

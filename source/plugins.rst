@@ -245,9 +245,9 @@ Load HTTP Auth/ACL Plugin
 
     ./bin/emqttd_ctl plugins load emq_auth_http
 
-----------------------------------------
-emq_plugin_mysql - MySQL Auth/ACL Plugin
-----------------------------------------
+--------------------------------------
+emq_auth_mysql - MySQL Auth/ACL Plugin
+--------------------------------------
 
 MQTT Authentication, ACL with MySQL database.
 
@@ -295,7 +295,7 @@ MQTT ACL Table
 Configure MySQL Auth/ACL Plugin
 -------------------------------
 
-etc/plugins/emq_plugin_mysql.conf:
+etc/plugins/emq_auth_mysql.conf:
 
 .. code-block:: properties
 
@@ -521,7 +521,7 @@ MQTT Authentication/ACL with MongoDB: https://github.com/emqtt/emq_auth_mongo
 Configure MongoDB Auth/ACL Plugin
 ---------------------------------
 
-etc/plugins/emq_plugin_mongo.conf:
+etc/plugins/emq_auth_mongo.conf:
 
 .. code-block:: properties
 

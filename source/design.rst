@@ -487,14 +487,14 @@ Load a Plugin
 
 Use './bin/emqttd_ctl' CLI to load/unload a plugin::
 
-    ./bin/emqttd_ctl plugins load emqttd_plugin_redis
+    ./bin/emqttd_ctl plugins load emq_auth_redis
 
-    ./bin/emqttd_ctl plugins unload emqttd_plugin_redis
+    ./bin/emqttd_ctl plugins unload emq_auth_redis
 
 Plugin Template
 ---------------
 
-http://github.com/emqtt/emqttd_plugin_template
+http://github.com/emqtt/emq_plugin_template
 
 .. _eSockd: https://github.com/emqtt/esockd
 .. _Chain-of-responsibility_pattern: https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern
