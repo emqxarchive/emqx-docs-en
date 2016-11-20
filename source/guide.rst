@@ -186,7 +186,7 @@ Enable MySQL plugin:
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_plugin_mysql
+    ./bin/emqttd_ctl plugins load emq_auth_mysql
 
 PostgreSQL
 ----------
@@ -242,7 +242,7 @@ Enable the plugin:
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_plugin_pgsql
+    ./bin/emqttd_ctl plugins load emq_auth_pgsql
 
 Redis
 -----
@@ -874,8 +874,8 @@ Stop a Trace::
 .. _emq_auth_username: https://github.com/emqtt/emq_auth_username
 .. _emq_auth_ldap:     https://github.com/emqtt/emq_auth_ldap
 .. _emq_auth_http:     https://github.com/emqtt/emq_auth_http
-.. _emq_auth_mysql:    https://github.com/emqtt/emq_plugin_mysql
-.. _emq_auth_pgsql:    https://github.com/emqtt/emq_plugin_pgsql
-.. _emq_auth_redis:    https://github.com/emqtt/emq_plugin_redis
-.. _emq_auth_mongo:    https://github.com/emqtt/emq_plugin_mongo
+.. _emq_auth_mysql:    https://github.com/emqtt/emq_auth_mysql
+.. _emq_auth_pgsql:    https://github.com/emqtt/emq_auth_pgsql
+.. _emq_auth_redis:    https://github.com/emqtt/emq_auth_redis
+.. _emq_auth_mongo:    https://github.com/emqtt/emq_auth_mongo
 
