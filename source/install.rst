@@ -233,9 +233,9 @@ When all dependencies are ready, clone the emqttd project from github.com and bu
 
 .. code-block:: bash
 
-    git clone https://github.com/emqtt/emqttd-relx.git
+    git clone https://github.com/emqtt/emq-relx.git
 
-    cd emqttd-relx && make
+    cd emq-relx && make
 
     cd _rel/emqttd && ./bin/emqttd console
 
