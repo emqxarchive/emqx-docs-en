@@ -135,7 +135,7 @@ Company: http://emqtt.io
 
 Twitter: @emqtt
 
-Author: Feng Lee<feng@emqtt.io>
+Author: Feng Lee <feng@emqtt.io>
 
 http://emqttd.io/docs | http://docs.emqtt.com/
 
