@@ -15,17 +15,17 @@ Version 2.0 "West of West Lake"
 
 *Release Name: West of West Lake*
 
-The *EMQ* Version 2.0, named "West of West Lake", has been released with a lot of improvements and enhancements, and is ready to deploy in production.
+The *EMQ* Version 2.0, named "West of West Lake", has been released with a lot of improvements and enhancements, and is ready to deploy in production now.
 
 1. First of all, the *EMQ* broker now supports `Shared Subscription` and `Local Subscription`.
 
-2. The borker supports CoAP(RFC 7252) and MQTT-SN protocol/gateway now.
+2. Supports CoAP(RFC 7252) and MQTT-SN protocol/gateway.
 
 3. Adopt a more user-friendly `k = v` syntax for the new configuration file.
 
-4. Add more hooks and new plugins, integrate with LDAP, Redis, MySQL, PostgreSQL and MongoDB.
+4. Add more hooks and new plugins, integrate with HTTP, LDAP, Redis, MySQL, PostgreSQL and MongoDB.
 
-5. Cross-platform Builds and Deployment. Run the broker on Linux, Unix, Windows, Raspberry Pi and ARM platform. 
+5. Cross-platform Builds and Deployment. Run the broker on Linux, Unix, Windows, Raspberry Pi and ARM platform.
 
 Shared Subscription
 -------------------
@@ -38,7 +38,7 @@ Shared Subscription supports Load balancing to distribute MQTT messages between 
                                 |       | --Msg3--> Subscriber3
                                 ---------
 
-Two ways to create a shared subscription:
+Create a shared subscription with `$queue/` or `$share/<group>/` prefix:
 
 +-----------------+-------------------------------------------+
 |  Prefix         | Examples                                  |
@@ -51,7 +51,7 @@ Two ways to create a shared subscription:
 Local Subscription
 ------------------
 
-The 'Local Subscription' will not create global routes on clusted nodes, and only dispatch MQTT messages on local node.
+The `Local Subscription` will not create global routes on clustered nodes, and only dispatch MQTT messages on local node.
 
 Usage: subscribe a topic with `$local/` prefix.
 
@@ -77,7 +77,7 @@ MQTT-SN Plugin: https://github.com/emqtt/emq_sn
 New Configuration File
 ----------------------
 
-The *EMQ* 2.0 release integrated with `cuttlefish` library, and adopted a more user-friendly `k = v` syntax for the new configuration file:
+The release integrated with `cuttlefish` library, and adopted a more user-friendly `k = v` syntax for the new configuration file:
 
 .. code-block:: properties
 
@@ -88,7 +88,7 @@ The *EMQ* 2.0 release integrated with `cuttlefish` library, and adopted a more u
     mqtt.max_clientid_len = 1024
     ...
 
-The new configuration files will be preprocessed and translated to Erlang `app.config` before the EMQ broker started::
+The new configuration files will be preprocessed and translated to an Erlang `app.config` before the EMQ broker started::
 
     ----------------------                                          2.0/schema/*.schema      -------------------
     | etc/emq.conf       |                   -----------------              \|/              | data/app.config |
@@ -118,7 +118,7 @@ OS Environment Variables
 Docker Image
 ------------
 
-We released an official Docker Image for EMQ 2.0. The open source project for Dockerfile: https://github.com/emqtt/emq_docker.
+We released an official Docker Image for *EMQ* 2.0. The open source project for Dockerfile: https://github.com/emqtt/emq_docker.
 
 Full Support for Windows
 ------------------------
