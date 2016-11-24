@@ -11,7 +11,7 @@ Changes
 Version 2.0 "West of West Lake"
 -------------------------------
 
-*Release Date: 2016-10-24*
+*Release Date: 2016-11-24*
 
 *Release Name: West of West Lake*
 
