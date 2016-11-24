@@ -19,25 +19,35 @@ Download Packages
 
 Download binary packages from: http://emqtt.io/downloads
 
-+-----------+------------------------------------------+
-| Debian    | http://emqtt.io/downloads/latest/debian  |
-+-----------+------------------------------------------+
-| Ubuntu    | http://emqtt.io/downloads/latest/ubuntu  |
-+-----------+------------------------------------------+
-| CentOS    | http://emqtt.io/downloads/latest/centos  |
-+-----------+------------------------------------------+
-| FreeBSD   | http://emqtt.io/downloads/latest/freebsd |
-+-----------+------------------------------------------+
-| Mac OS X  | http://emqtt.io/downloads/latest/macosx  |
-+-----------+------------------------------------------+
-| Windows   | http://emqtt.io/downloads/latest/windows |
-+-----------+------------------------------------------+
-| Docker    | http://emqtt.com/downloads/latest/docker |
-+-----------+------------------------------------------+
++-------------+-----------------------------------------------+
+| Debian      | http://emqtt.com/downloads/latest/debian      |
++-------------+-----------------------------------------------+
+| Ubuntu12.04 | http://emqtt.com/downloads/latest/ubuntu12_04 |
++-------------+-----------------------------------------------+
+| Ubuntu14.04 | http://emqtt.com/downloads/latest/ubuntu14_04 |
++-------------+-----------------------------------------------+
+| Ubuntu16.04 | http://emqtt.com/downloads/latest/ubuntu16_04 |
++-------------+-----------------------------------------------+
+| CentOS7     | http://emqtt.com/downloads/latest/centos7     |
++-------------+-----------------------------------------------+
+| Debian7     | http://emqtt.com/downloads/latest/debian7     |
++-------------+-----------------------------------------------+
+| Debian8     | http://emqtt.com/downloads/latest/debian7     |
++-------------+-----------------------------------------------+
+| FreeBSD     | http://emqtt.com/downloads/latest/freebsd     |
++-------------+-----------------------------------------------+
+| Windows7    | http://emqtt.com/downloads/latest/windows7    |
++-------------+-----------------------------------------------+
+| Windows10   | http://emqtt.com/downloads/latest/windows10   |
++-------------+-----------------------------------------------+
+| Mac OS X    | http://emqtt.com/downloads/latest/macosx      |
++-------------+-----------------------------------------------+
+| Docker      | http://emqtt.com/downloads/latest/docker      |
++-------------+-----------------------------------------------+
 
 The package name consists of platform, version and release time.
 
-For example: emqttd-centos64-v2.0-rc.2-20161019.zip
+For example: emqttd-centos64-v2.0.zip
 
 .. _install_on_linux:
 
@@ -45,11 +55,11 @@ For example: emqttd-centos64-v2.0-rc.2-20161019.zip
 Installing on Linux
 -------------------
 
-Download CentOS Package from: http://emqtt.io/downloads/latest/centos, and then unzip:
+Download CentOS Package from: http://emqtt.io/downloads/latest/centos7, and then unzip:
 
 .. code-block:: bash
 
-    unzip emqttd-centos64-v2.0-rc.2-20161019.zip
+    unzip emqttd-centos64-v2.0.zip
 
 Start the broker in console mode:
 
@@ -163,6 +173,8 @@ If the broker started successfully, a Erlang console window will popup.
 
 Close the console window and stop the emqttd broker. Prepare to register emqttd as window service.
 
+.. WARNING:: Cannot register EMQ-2.0 as a windows service.
+
 Install emqttd serivce::
     
     .\bin\emqttd install
@@ -178,8 +190,6 @@ Stop emqttd serivce::
 Uninstall emqttd service::
 
     .\bin\emqttd uninstall
-
-.. WARNING:: './bin/emqttd_ctl' command line cannot work on Windows.
 
 .. _install_via_docker_image:
 
