@@ -1122,11 +1122,11 @@ Create `etc/${plugin_name}.conf|config` file for the plugin. The *EMQ* broker su
 Build and Release the Plugin
 ----------------------------
 
-1. clone emqttd-relx project:
+1. clone emq-relx project:
 
 .. code-block:: bash
 
-    git clone https://github.com/emqtt/emqttd-relx.git
+    git clone https://github.com/emqtt/emq-relx.git
 
 2. Add `DEPS` in Makefile:
 
