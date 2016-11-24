@@ -21,7 +21,7 @@ The main configuration files of the EMQ broker are under 'etc/' folder:
 EMQ 2.0 Config Syntax
 ---------------------
 
-The *EMQ* 2.0-rc.2 release integrated with `cuttlefish` library, and adopt a more user-friendly `k = v` syntax for configuration file:
+The *EMQ* 2.0-rc.2 release integrated with `cuttlefish` library, and adopted a more user-friendly `k = v` syntax for configuration file:
 
 .. code-block:: properties
 

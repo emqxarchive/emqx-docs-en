@@ -5,7 +5,7 @@
 Advanced
 ========
 
-*EMQ* 2.0-rc.2 release supports `Local Subscription` and `Shared Subscription`.
+*EMQ* 2.0 release supports `Local Subscription` and `Shared Subscription`.
 
 ------------------
 Local Subscription

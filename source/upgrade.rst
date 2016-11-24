@@ -5,6 +5,30 @@
 Upgrade
 =======
 
+.. _upgrade_2.0:
+
+--------------
+Upgrade to 2.0
+--------------
+
+.. NOTE:: Cannot upgrade 1.x releases to 2.0 smoothly.
+
+Upgrade steps:
+
+1. Download and install emqttd-2.0 to the new directory, for example::
+
+    Old installation: /opt/emqttd-1.1.3/
+
+    New installation: /opt/emqttd-2.0/
+
+2. Configure the etc/emq.conf for the 2.0 installation.
+
+3. Configure etc/plugins/{plugin}.conf for the 2.0 new installation if you loaded plugins.
+
+4. Edit the data/loaded_plugins, and add the plugins loaded in old installation.
+
+5. Stop the old emqttd, and start the 2.0 installation.
+
 .. _upgrade_1.1.2:
 
 ----------------

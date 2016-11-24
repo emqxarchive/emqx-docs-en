@@ -12,7 +12,7 @@ EMQ Node Bridge
 Two or more *EMQ* brokers could be bridged together. Bridges forward MQTT messages from one broker node to another::
 
                   ---------                     ---------                     ---------
-    Publisher --> | node1 | --Bridge Forward--> | node2 | --Bridge Forward--> | node3 | --> Subscriber
+    Publisher --> | Node1 | --Bridge Forward--> | Node2 | --Bridge Forward--> | Node3 | --> Subscriber
                   ---------                     ---------                     ---------
 
 Configure Bridge

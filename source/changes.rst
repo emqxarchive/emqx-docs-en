@@ -5,6 +5,186 @@
 Changes
 =======
 
+.. _release_2.0:
+
+-------------------------------
+Version 2.0 "West of West Lake"
+-------------------------------
+
+*Release Date: 2016-10-24*
+
+*Release Name: West of West Lake*
+
+The *EMQ* Version 2.0, named "West of West Lake", has been released with a lot of improvements and enhancements, and is ready to deploy in production.
+
+1. First of all, the *EMQ* broker now supports `Shared Subscription` and `Local Subscription`.
+
+2. The borker supports CoAP(RFC 7252) and MQTT-SN protocol/gateway now.
+
+3. Adopt a more user-friendly `k = v` syntax for the new configuration file.
+
+4. Add more hooks and new plugins, integrate with LDAP, Redis, MySQL, PostgreSQL and MongoDB.
+
+5. Cross-platform Builds and Deployment. Run the broker on Linux, Unix, Windows, Raspberry Pi and ARM platform. 
+
+Shared Subscription
+-------------------
+
+Shared Subscription supports Load balancing to distribute MQTT messages between multiple subscribers in the same group::
+
+                                ---------
+                                |       | --Msg1--> Subscriber1
+    Publisher--Msg1,Msg2,Msg3-->|  EMQ  | --Msg2--> Subscriber2
+                                |       | --Msg3--> Subscriber3
+                                ---------
+
+Two ways to create a shared subscription:
+
++-----------------+-------------------------------------------+
+|  Prefix         | Examples                                  |
++-----------------+-------------------------------------------+
+| $queue/         | mosquitto_sub -t '$queue/topic            |
++-----------------+-------------------------------------------+
+| $share/<group>/ | mosquitto_sub -t '$share/group/topic      |
++-----------------+-------------------------------------------+
+
+Local Subscription
+------------------
+
+The 'Local Subscription' will not create global routes on clusted nodes, and only dispatch MQTT messages on local node.
+
+Usage: subscribe a topic with `$local/` prefix.
+
+erlang.mk and relx
+------------------
+
+The *EMQ* 2.0 adopts `erlang.mk`_ and `relx`_ tools to build the whole projects on Linux, Unix and Windows.
+
+CoAP Support
+------------
+
+The *EMQ* 2.0 supports CoAP(RFC7252) protocol/gateway now, and supports communication between CoAP, MQTT-SN and MQTT clients.
+
+CoAP Protocol Plugin: https://github.com/emqtt/emqttd_coap
+
+MQTT-SN Support
+---------------
+
+The *EMQ* 2.0 now supports MQTT-SN protocol/gateway.
+
+MQTT-SN Plugin: https://github.com/emqtt/emq_sn
+
+New Configuration File
+----------------------
+
+The *EMQ* 2.0 release integrated with `cuttlefish` library, and adopted a more user-friendly `k = v` syntax for the new configuration file:
+
+.. code-block:: properties
+
+    ## Node name
+    node.name = emqttd@127.0.0.1
+    ...
+    ## Max ClientId Length Allowed.
+    mqtt.max_clientid_len = 1024
+    ...
+
+The new configuration files will be preprocessed and translated to Erlang `app.config` before the EMQ broker started::
+
+    ----------------------                                          2.0/schema/*.schema      -------------------
+    | etc/emq.conf       |                   -----------------              \|/              | data/app.config |
+    |       +            | --> mergeconf --> | data/app.conf | -->  cuttlefish generate  --> |                 |
+    | etc/plugins/*.conf |                   -----------------                               | data/vm.args    |
+    ----------------------                                                                   -------------------
+
+OS Environment Variables
+------------------------
+
++-------------------+----------------------------------------+
+| EMQ_NODE_NAME     | Erlang node name                       |
++-------------------+----------------------------------------+
+| EMQ_NODE_COOKIE   | Cookie for distributed erlang node     |
++-------------------+----------------------------------------+
+| EMQ_MAX_PORTS     | Maximum number of opened sockets       |
++-------------------+----------------------------------------+
+| EMQ_TCP_PORT      | MQTT TCP Listener Port, Default: 1883  |
++-------------------+----------------------------------------+
+| EMQ_SSL_PORT      | MQTT SSL Listener Port, Default: 8883  |
++-------------------+----------------------------------------+
+| EMQ_HTTP_PORT     | HTTP/WebSocket Port, Default: 8083     |
++-------------------+----------------------------------------+
+| EMQ_HTTPS_PORT    | HTTPS/WebSocket Port, Default: 8084    |
++-------------------+----------------------------------------+
+
+Docker Image
+------------
+
+We released an official Docker Image for EMQ 2.0. The open source project for Dockerfile: https://github.com/emqtt/emq_docker.
+
+Full Support for Windows
+------------------------
+
+The *EMQ* 2.0 fully supports Windows platform. You can run 'emqttd_ctl' command and cluster two nodes on Windows now.
+
+Bugfix and Enhancements
+-----------------------
+
+#764: add mqtt.cache_acl option
+
+#667: Configuring emqttd from environment variables
+
+#722: `mqtt/superuser` calls two times `emqtt_auth_http`
+
+#754: "-heart" option for EMQ 2.0
+
+#741: emq_auth_redis cannot use hostname as server address
+
+Plugins
+-------
+
++------------------------+-------------------------------+
+| Plugin                 | Description                   |
++========================+===============================+
+| `emq_dashboard`_       | Web Dashboard                 |
++------------------------+-------------------------------+
+| `emq_auth_clientid`_   | ClientId Auth Plugin          |
++------------------------+-------------------------------+
+| `emq_auth_username`_   | Username/Password Auth Plugin |
++------------------------+-------------------------------+
+| `emq_auth_ldap`_       | LDAP Auth                     |
++------------------------+-------------------------------+
+| `emq_auth_http`_       | HTTP Auth/ACL Plugin          |
++------------------------+-------------------------------+
+| `emq_auth_mysql`_      | MySQL Auth/ACL Plugin         |
++------------------------+-------------------------------+
+| `emq_auth_pgsql`_      | PostgreSQL Auth/ACL Plugin    |
++------------------------+-------------------------------+
+| `emq_auth_redis`_      | Redis Auth/ACL Plugin         |
++------------------------+-------------------------------+
+| `emq_auth_mongo`_      | MongoDB Auth/ACL Plugin       |
++------------------------+-------------------------------+
+| `emq_mod_presence`_    | Presence Module               |
++------------------------+-------------------------------+
+| `emq_mod_retainer`_    | Retainer Module               |
++------------------------+-------------------------------+
+| `emq_mod_rewrite`_     | Topic Rewrite Module          |
++------------------------+-------------------------------+
+| `emq_mod_subscription`_| Subscription Module           |
++------------------------+-------------------------------+
+| `emq_coap`_            | CoAP Protocol Plugin          |
++------------------------+-------------------------------+
+| `emq_sn`_              | MQTT-SN Protocol Plugin       |
++------------------------+-------------------------------+
+| `emq_stomp`_           | STOMP Protocol Plugin         |
++------------------------+-------------------------------+
+| `emq_sockjs`_          | STOMP over SockJS Plugin      |
++------------------------+-------------------------------+
+| `emq_recon`_           | Recon Plugin                  |
++------------------------+-------------------------------+
+| `emq_reloader`_        | Reloader Plugin               |
++------------------------+-------------------------------+
+| `emq_plugin_template`_ | Template Plugin               |
++------------------------+-------------------------------+
+
 .. _release_2.0_rc.3:
 
 ----------------
@@ -1727,13 +1907,31 @@ Version 0.1.0
 
 The first public release.
 
-.. _erlang.mk_:     https://erlang.mk
-.. _relx_:          https://github.com/erlware/relx
-.. _emqttd_:        https://github.com/emqtt/emqttd
-.. _emqttd_relx:    https://github.com/emqtt/emqttd-relx
-.. _emqttd_sn:      http://github.com/emqtt/emqttd_sn
-
+.. _erlang.mk:            https://erlang.mk
+.. _relx:                 https://github.com/erlware/relx
+.. _emqttd:               https://github.com/emqtt/emqttd
+.. _emqttd_relx:          https://github.com/emqtt/emqttd-relx
+.. _emqttd_sn:            https://github.com/emqtt/emqttd_sn
+.. _emq-relx:             https://github.com/emqtt/emq-relx
+.. _emq_dashboard:        https://github.com/emqtt/emqttd_dashboard
+.. _emq_auth_clientid:    https://github.com/emqtt/emq_auth_clientid
+.. _emq_auth_username:    https://github.com/emqtt/emq_auth_username
+.. _emq_auth_ldap:        https://github.com/emqtt/emq_auth_ldap
+.. _emq_auth_http:        https://github.com/emqtt/emq_auth_http
+.. _emq_auth_mysql:       https://github.com/emqtt/emq_auth_mysql
+.. _emq_auth_pgsql:       https://github.com/emqtt/emq_auth_pgsql
+.. _emq_auth_redis:       https://github.com/emqtt/emq_auth_redis
+.. _emq_auth_mongo:       https://github.com/emqtt/emq_auth_mongo
+.. _emq_mod_rewrite:      https://github.com/emqtt/emq_mod_rewrite
 .. _emq_mod_retainer:     https://github.com/emqtt/emq_mod_retainer
 .. _emq_mod_presence:     https://github.com/emqtt/emq_mod_presence
 .. _emq_mod_subscription: https://github.com/emqtt/emq_mod_subscription
+.. _emq_sn:               https://github.com/emqtt/emq_sn
+.. _emq_coap:             https://github.com/emqtt/emq_coap
+.. _emq_stomp:            https://github.com/emqtt/emq_stomp
+.. _emq_sockjs:           https://github.com/emqtt/emq_sockjs
+.. _emq_recon:            https://github.com/emqtt/emq_recon
+.. _emq_reloader:         https://github.com/emqtt/emq_reloader
+.. _emq_plugin_template:  https://github.com/emqtt/emq_plugin_template
+.. _recon:                http://ferd.github.io/recon/
 
