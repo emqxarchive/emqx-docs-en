@@ -7,19 +7,19 @@
 *EMQ* - Erlang MQTT Broker
 ==========================
 
-*EMQ* (Erlang MQTT Broker) is a massively scalable and clusterable MQTT V3.1/V3.1.1 broker written in Erlang/OTP.
+*EMQ(Erlang MQTT Broker)* is a distributed, massively scalable, highly extensible MQTT message broker written in Erlang/OTP.
 
 .. NOTE:: Adopt a shortened project name since 2.0 release: EMQ
 
-*EMQ* is fully open source and licensed under the Apache Version 2.0. emqttd implements both MQTT V3.1 and V3.1.1 protocol specifications, and supports WebSocket, STOMP, SockJS, CoAP and MQTT-SN at the same time.
+*EMQ* is fully open source and licensed under the Apache Version 2.0. *EMQ* implements both MQTT V3.1 and V3.1.1 protocol specifications, and supports MQTT-SN, CoAP, WebSocket, STOMP and SockJS at the same time.
 
-Latest release of the *EMQ* broker is scaling to 1.3 million MQTT connections on a 12 Core, 32G CentOS server.
+The *EMQ* project provides a scalable, reliable, enterprise-grade MQTT message Hub for IoT, M2M, Smart Hardware and Mobile Messaging Applications. Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ* brokers with asynchronous PUB/SUB MQTT messages.
+
+The 1.0 release of the *EMQ* broker is scaling to 1.3 million concurrent MQTT connections on a 12 Core, 32G CentOS server.
+
+The Company behind the open source *EMQ* broker: [emqtt.io](http://emqtt.io). Follow us on Twitter: [@emqtt](https://twitter.com/emqtt)
 
 .. image:: ./_static/images/emqtt.png
-
-The *EMQ* project provides a scalable, enterprise grade, extensible open-source MQTT broker for IoT, M2M, Smart Hardware, Mobile Messaging and HTML5 Web Messaging Applications.
-
-Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ* brokers with asynchronous PUB/SUB MQTT messages.
 
 +---------------+-----------------------------------------+
 | Homepage:     | http://emqtt.io                         |
