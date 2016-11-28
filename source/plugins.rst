@@ -705,10 +705,6 @@ etc/plugins/emq_mod_subscription.conf:
     ##module.subscription.2.topic = $user/%u
     ##module.subscription.2.qos = 1
 
-    ## Load static subscriptions from backend storage
-    ## Values: on | off
-    module.subscription.backend = on
-
 Load Subscription Module
 ------------------------
 
