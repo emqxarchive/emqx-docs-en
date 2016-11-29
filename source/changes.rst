@@ -5,6 +5,28 @@
 Changes
 =======
 
+.. _release_2.0.1:
+
+-------------
+Version 2.0.1
+-------------
+
+*Release Date: 2016-11-30*
+
+emqttd#781: Update README for EMQ 2.0
+
+emq_dashboard#84: Show the Cluster Status of Node
+
+emq_dashboard#79: disc_copies to store mqtt_admin table
+
+emq_auth_clientid: disc_copies to store mqtt_auth_clientid table
+
+emq_auth_username: disc_copies to store mqtt_auth_username table
+
+emq_mod_subscription#3: Remove emq_mod_subscription table and `module.subscription.backend` config
+
+emq_plugin_template#5: Unregister Auth/ACL modules when the plugin unloaded
+
 .. _release_2.0:
 
 -------------------------------
