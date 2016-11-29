@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Erlang MQTT Broker documentation build configuration file, created by
+# EMQ documentation build configuration file, created by
 # sphinx-quickstart on Mon Feb 22 00:46:47 2016.
 #
 # This file is execfile()d with the current directory set to its
@@ -30,6 +30,7 @@ import os
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
@@ -181,7 +182,7 @@ html_last_updated_fmt = '%b %d, %Y'
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ErlangMQTTBrokerdoc'
+htmlhelp_basename = 'EMQdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
