@@ -5,6 +5,38 @@
 Changes
 =======
 
+.. _release_2.0.1:
+
+-------------
+Version 2.0.1
+-------------
+
+*Release Date: 2016-11-30*
+
+Bugfix and Improvements
+-----------------------
+
+emq_dashboard
+emq_auth_clientid
+emq_auth_username
+emq_auth_ldap
+emq_auth_http
+emq_auth_mysql
+emq_auth_pgsql
+emq_auth_redis
+emq_auth_mongo
+emq_mod_rewrite
+emq_mod_retainer
+emq_mod_presence
+emq_mod_subscription
+emq_coap
+emq_sn
+emq_stomp
+emq_sockjs
+emq_recon
+emq_reloader
+emq_plugin_template
+
 .. _release_2.0:
 
 -------------------------------
