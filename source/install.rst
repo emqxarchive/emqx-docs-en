@@ -167,7 +167,7 @@ Unzip the package to install folder. Open the command line window and 'cd' to th
 
 Start the broker in console mode::
 
-    .\bin\emqttd console
+    bin\emqttd console
 
 If the broker started successfully, a Erlang console window will popup.
 
@@ -177,19 +177,19 @@ Close the console window and stop the emqttd broker. Prepare to register emqttd 
 
 Install emqttd serivce::
     
-    .\bin\emqttd install
+    bin\emqttd install
 
 Start emqttd serivce::
 
-    .\bin\emqttd start
+    bin\emqttd start
 
 Stop emqttd serivce::
 
-    .\bin\emqttd stop
+    bin\emqttd stop
 
 Uninstall emqttd service::
 
-    .\bin\emqttd uninstall
+    bin\emqttd uninstall
 
 .. _install_via_docker_image:
 
