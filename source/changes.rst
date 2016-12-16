@@ -5,6 +5,18 @@
 Changes
 =======
 
+.. _release_2.0.4:
+
+-------------
+Version 2.0.4
+-------------
+
+emqttd#822: Test cases for SSL connections
+
+emqttd#818: trap_exit to link WebSocket process
+
+emqttd#799: Can't publish via HTTPS
+
 .. _release_2.0.3:
 
 -------------
