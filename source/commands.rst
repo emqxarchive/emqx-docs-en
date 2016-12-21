@@ -532,7 +532,7 @@ The the 'emqttd1--sensor/#-->emqttd2' bridge::
 
     mosquitto_sub -t sensor/# -p 2883 -d
 
-    #emqttd1节点上
+    #emqttd1 node
 
     mosquitto_pub -t sensor/1/temperature -m "37.5" -d 
 
