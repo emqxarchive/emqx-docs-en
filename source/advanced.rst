@@ -38,8 +38,8 @@ Two ways to create a shared subscription:
 +-----------------+-------------------------------------------+
 |  Prefix         | Examples                                  |
 +-----------------+-------------------------------------------+
-| $queue/         | mosquitto_sub -t '$queue/topic            |
+| $queue/         | mosquitto_sub -t '$queue/topic'           |
 +-----------------+-------------------------------------------+
-| $share/<group>/ | mosquitto_sub -t '$share/group/topic      |
+| $share/<group>/ | mosquitto_sub -t '$share/group/topic'     |
 +-----------------+-------------------------------------------+
 
