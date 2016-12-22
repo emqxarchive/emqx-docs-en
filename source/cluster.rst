@@ -158,27 +158,27 @@ Suppose we deploy two nodes cluster on s1.emqtt.io, s2.emqtt.io:
 
 .. WARNING:: The node name is Name@Host, where Host is IP address or the fully qualified host name.
 
-emqttd@s1.emqtt.io setting
+emqttd@s1.emqtt.io config
 --------------------------
 
-emqttd/etc/emq.conf::
+etc/emq.conf::
 
     node.name = emqttd@s1.emqtt.io
 
-    或
+    or
 
     node.name = emqttd@192.168.0.10
 
 .. WARNING:: The name cannot be changed after node joined the cluster.
 
-emqttd@s2.emqtt.io setting
+emqttd@s2.emqtt.io config
 --------------------------
 
-emqttd/etc/emq.conf::
+etc/emq.conf::
 
     node.name = emqttd@s2.emqtt.io
 
-    或
+    or
 
     node.name = emqttd@192.168.0.20
 
