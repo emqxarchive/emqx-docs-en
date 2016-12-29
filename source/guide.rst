@@ -64,7 +64,8 @@ Configure default users in etc/plugins/emq_auth_username.conf:
 
 .. code-block:: properties
 
-    auth.username.$name=$password
+    ##auth.user.$N.username = admin
+    ##auth.user.$N.password = public
 
 Enable `emq_auth_username`_ plugin:
 
@@ -85,7 +86,8 @@ Configure Client Ids in etc/plugins/emq_auth_clientid.conf:
 
 .. code-block:: properties
 
-    auth.clientid.$id=$password
+    auth.client.$N.clientid = clientid
+    auth.client.$N.password = passwd
 
 Enable `emq_auth_clientid`_ plugin:
 
