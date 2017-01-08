@@ -5,6 +5,20 @@
 Changes
 =======
 
+.. _release_2.0.6:
+
+-------------
+Version 2.0.6
+-------------
+
+*Release Date: 2017-01-08*
+
+Upgrade the `esockd`_ library to v4.1.1
+
+esockd#41: Fast close the TCP socket if ssl:ssl_accept failed
+
+emq-relx#15: The EMQ 2.0 broker cannot run on Windows.
+
 .. _release_2.0.5:
 
 -------------
