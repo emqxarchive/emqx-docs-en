@@ -2013,6 +2013,7 @@ The first public release.
 
 .. _erlang.mk:            https://erlang.mk
 .. _relx:                 https://github.com/erlware/relx
+.. _esockd:               https://github.com/emqtt/esockd
 .. _emqttd:               https://github.com/emqtt/emqttd
 .. _emqttd_relx:          https://github.com/emqtt/emqttd-relx
 .. _emqttd_sn:            https://github.com/emqtt/emqttd_sn
