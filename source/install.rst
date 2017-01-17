@@ -223,7 +223,7 @@ Start the broker::
 
 Enter the running container::
 
-    docker exec -it emq20 /bin/bash
+    docker exec -it emq20 /bin/sh
 
 .. _build_from_source:
 
