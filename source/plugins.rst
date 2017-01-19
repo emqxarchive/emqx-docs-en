@@ -658,7 +658,7 @@ Load Presence Module
 emq_mod_retainer - Retainer Module
 ----------------------------------
 
-`Retainer` module is responsbile for storing MQTT retained messages.
+`Retainer` module is responsible for storing MQTT retained messages.
 
 .. NOTE:: Released in 2.0-rc.3: https://github.com/emqtt/emq_mod_retainer
 

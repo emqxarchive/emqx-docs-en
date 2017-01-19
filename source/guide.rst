@@ -343,7 +343,7 @@ Enable the plugin:
 ACL
 ---
 
-The ACL of *EMQ* broker is responsbile for authorizing MQTT clients to publish/subscribe topics.
+The ACL of *EMQ* broker is responsible for authorizing MQTT clients to publish/subscribe topics.
 
 The ACL rules define::
 
