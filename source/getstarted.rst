@@ -87,7 +87,7 @@ Installing from Source
 
     git clone https://github.com/emqtt/emqttd.git
 
-    cd emqttd && make && make dist
+    cd emqttd && make rel
 
     cd rel/emqttd && ./bin/emqttd console
 
