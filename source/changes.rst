@@ -5,6 +5,34 @@
 Changes
 =======
 
+.. _release_2.0.7:
+
+-------------
+Version 2.0.7
+-------------
+
+*Release Date: 2017-01-20*
+
+The Last Maintenance Release for EMQ 2.0, and support to build RPM/DEB Packages.
+
+Create the emq-package project: https://github.com/emqtt/emq-package
+
+emq-auth-http#9: Update the priv/emq_auth_http.schema, `cuttlefish:unset()` if no super_req/acl_req config exists
+
+emq-auth-mongo#31: `cuttlefish:unset()` if no ACL/super config exists
+
+emq-dashboard#91: Fix the exception caused by binary payload
+
+emq-relx#21: Improve the `bin\emqttd.cmd` batch script for windows platform
+
+emqttd#873: Documentation: installing-from-source
+
+emqttd#870: Documentation: The word in Documents is wrong
+
+emqttd#864: Hook 'client.unsubscribe' need to handle 'stop'
+
+emqttd#856: Support variables in etc/emq.conf: {{ runner_etc_dir }}, {{ runner_etc_dir }}, {{ runner_data_dir }}
+
 .. _release_2.0.6:
 
 -------------
