@@ -1,0 +1,137 @@
+{% extends "!layout.html" %}
+
+{%- block extrahead %}
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="/static/lib/html5shiv.min.js"></script>
+  <script src="/static/lib/respond.min.js"></script>
+  <script src="http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js"></script>
+<![endif]-->
+
+<script src="/static/js/base.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var anchor = encodeURI(window.location.hash);
+  if (anchor) {
+    var link = $('.sphinxsidebarwrapper').find('[href="' + anchor + '"]');
+    link.closest('li.toctree-l2').addClass('current');
+  }
+
+  $(document).on('click', ".sphinxsidebarwrapper .current ul li a", function() {
+      var target = $(this);
+      var parent_li = target.closest('li');
+      parent_li.siblings('li.current').removeClass('current');
+      parent_li.siblings().find('li.current').removeClass('current');
+      parent_li.find('> ul li.current').removeClass('current');
+      parent_li.toggleClass('current');
+  })
+
+
+  // doc version menu
+  var second_nav = $(".second-navbar");
+  var navbar_header = $(".second-navbar .navbar-header");
+  var nav_offset_top = second_nav.offset().top;
+  $(window).scroll(function() {
+    var top = $(document).scrollTop();
+    if (nav_offset_top <= top) {
+      second_nav.css({"position": "fixed", "margin-top": "0", "z-index": "1031"});
+      $(".document").css("margin-top", "141px");
+      navbar_header.css("display", "inline-block")
+    } else {
+      second_nav.css({"position": "relative", "margin-top": "71px", "z-index": "0"});
+      $(".document").css("margin-top", "0");
+      navbar_header.css("display", "none")
+    }
+  });
+
+
+  // doc menu active
+  var docs = $(".second-navbar .navbar-right li").find("a");
+  var pathname = window.location.pathname;
+  var version = pathname.split('/')[2]
+  for (var i=0; i<docs.length; i++) {
+    if (docs[i].href.indexOf(version) != -1) {
+      $(docs[i].parentElement).addClass('active');
+    }
+  }
+
+});
+</script>
+{% endblock %}
+
+{% block header %}
+<nav class="navbar navbar-default navbar-fixed-top navbar-padded app-navbar">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed p-x-0" data-toggle="collapse" data-target="#navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">
+        <em>EMQ</em>
+      </a>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class=""><a href="/downloads">Downloads</a></li>
+        <li class="active"><a href="/docs/v2/index.html">Documentation</a></li>
+        <li class=""><a href="/support ">Service</a></li>
+        <li class=""><a href="/changelogs ">ChangeLog</a></li>
+        <li class=""><a href="/about ">About</a></li>
+        <li>
+          <!--
+            <a class="github-button" href="https://github.com/emqtt/emqttd" data-icon="octicon-star" data-style="mega" data-count-href="/emqtt/emqttd/stargazers" data-count-api="/repos/emqtt/emqttd#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star emqtt/emqttd on GitHub">Star</a>
+          -->
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="https://github.com/emqtt/emqttd" class="star-button" style="color:#00ab6b;">
+            <span class="icon icon-star"></span>
+            <span style="padding-right: 10px;">Star</span>
+            <span class="star-text"></span>
+          </a>
+        </li>
+        <li><a href="http://emqtt.com">中文站</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+<nav class="navbar second-navbar" style="position: relative; margin-top: 71px;margin-bottom:0;">
+  <div class="container">
+    <div class="navbar-header">
+      <div class="navbar-brand">
+        <em>EMQ</em>
+        <span class="m-l">Documentation</span>
+      </div>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li id="v-1"><a href="/docs/v1/index.html">V1.0</a></li>
+      <li id="v-2"><a href="/docs/v2/index.html">V2.0</a></li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  {{ super() }}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+  {% set toctree = toctree(maxdepth=4, collapse=theme_collapse_navigation, includehidden=True) %}
+  {% if toctree %}
+    {{ toctree }}
+  {% else %}
+    <!-- Local TOC -->
+    <div class="local-toc">{{ toc }}</div>
+  {% endif %}
+{% endblock %}
+
