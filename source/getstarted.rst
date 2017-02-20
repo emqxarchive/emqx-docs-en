@@ -113,7 +113,7 @@ The Dashboard helps check running status of the broker, monitor statistics and m
 Plugins
 -------
 
-The *EMQ* broker could be extended by Plugins.  A plugin is an Erlang application to extend the *EMQ* broker:
+The *EMQ* broker could be extended by Plugins.  A plugin is an Erlang application that adds extra feature to the *EMQ* broker:
 
 +-------------------------+--------------------------------------------+
 | `emq_retainer`_         | Store Retained Messages                    |
