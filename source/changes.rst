@@ -7,53 +7,92 @@ Changes
 
 .. _release_2.1:
 
------------
-Version 2.1
------------
+----------------
+Version 2.1-beta
+----------------
 
 *Release Date: 2017-02-18*
 
-1. Improve the design of Session/Inflight.
+EMQ V2.1-beta is now available. We improved the design of Session/Inflight and use one timer to redeliver the inflight QoS1/2 messages, and improved the GC mechanism of MQTT connection process to reduce CPU usage at the high rate of messages.
 
-2. Support Client, Session statistics.
+Per Client, Session Statistics
+------------------------------
 
-@emqplus   Rename the emqttd_time APIs         a59d5bb
-@emqplus  Bump version to 2.1         61a54b4
-@emqplus Add inflight module and test suite          0810052
-@emqplus    Add emqttd_misc module          0bc071d
-@emqplus   Add 'syslog' config and update client, session config           a52754d
-@emqplus  Update copyright, format record, add 'AUTH' packet type for MQTT 5.0            4df2a71
-@emqplus Rename 'emqttd_hook' module to 'emqttd_hooks'           cae247b
-@emqplus    Update copyright and change the format of -type, -callback          9e0b2ed
-@emqplus   Change the message timestamp to 'os:timestamp()'            0019fb2
-@emqplus  Upgrade parse/2 function            796d5df
-@emqplus Rename now_to_secs, now_to_ms functions         640c928
-@emqplus    Update copyright and format code            d93caa7
-@emqplus   Update copyright and format code            1222746
-@emqplus  Move the 'MQTT_SOCKOPTS' macro to include/emqttd_protocol.hrl           dbcd79f
-@emqplus Improve the module and support statistics           23e49c3
-@emqplus    Improve the module and support statistics           90ff296
-@emqplus   Change the 'Env'            a54076c
-@emqplus  Update copyright info and format code           5a49196
-@emqplus Add 'local_session/0 function, change reg_session/3 unreg_session/1 f…  …           2021667
-@emqplus    Remove the 'DOWN' client from emqttd_stats          6b22fb0
-@emqplus   add 'packets/puback/missed', 'packets/pubrec/missed', 'packets/pubrel…  …           a5ac32b
-@emqplus  Add dropped/1 function          67566ca
-@emqplus Update protocol_name/1, type_name/1 functions for MQTT 5            bbbfafb
-@emqplus    Update protocol_name/1, type_name/1 functions for MQTT 5            d5ac9f0
-@emqplus   Change the restart strategy of the top supervisor           d91e49a
-@emqplus  Support client, session stats           fa8882b
-@emqplus Update copyright info           78c8856
-@emqplus    Upgrade copyright info          d69d769
-@emqplus   Replace 'size/1' with 'byte_size/1', serialize to output iolist         45a379f
-@emqplus  Rename emqttd_hook to emqttd_hooks          a345b36
-@emqplus Improve the session design, support tune_qos, enable_stats          bad855b
-@emqplus    Update rebar.config         a5ba86f
-@emqplus   Fix format of CT_SUITES         fde1f92
-@emqplus  Merge pull request #902 from emqtt/develop  …           e385556
-@turtleDeng  emqttd_hook -> emqttd_hooks, syslog         5419266
-@emqplus    Merge pull request #903 from emqtt/develop  …           269cef2
-@emqplus   Fix the error caused by emqttd:env/1
+Support Per Client, Session Statistics. Enable by configuration in etc/emq.conf::
+
+    mqtt.client.enable_stats = 60s
+
+    mqtt.session.enable_stats = 60s
+
+Add 'missed' Metrics
+--------------------
+
+The 'missed' metrics will be increased when EMQ broker received PUBACK, PUBREC, PUBREL, PUBCOMP packets from clients, but cannot find the corresponding messages in inflight window::
+
+    packets/puback/missed
+
+    packets/pubrec/missed
+
+    packets/pubrel/missed
+
+    packets/pubcomp/missed
+
+Integrate Syslog
+----------------
+
+Output EMQ log to syslog::
+
+    ## Syslog. Enum: on, off
+    log.syslog = on
+
+    ##  syslog level. Enum: debug, info, notice, warning, error, critical, alert, emergency
+    log.syslog.level = error
+
+Upgrade QoS
+-----------
+
+Support to upgrade QoS accoding to the subscription::
+
+    mqtt.session.upgrade_qos = on
+
+Add 'acl reload' CLI
+--------------------
+
+Reload acl.conf without restarting emqttd service (#885)
+
+etc/emq.conf Changes
+--------------------
+
+1. Rename mqtt.client_idle_timeout to mqtt.client.idle_timeout
+2. Add mqtt.client.enable_stats
+3. Add mqtt.session.upgrade_qos
+4. Delete mqtt.session.collect_interval
+5. Add mqtt.session.enable_stats
+6. Rename mqtt.session.expired_after to mqtt.session.expiry_interval
+
+Merge modules to emq_modules
+----------------------------
+
+Merge the emq_mod_presence, emq_mod_subscription, emq_mod_rewrite into emq_modules
+
+Rename emq_mod_retainer to emq_retainer project
+
+Dashboard Plugin
+----------------
+
+Overview page: Add 'missed' metrics
+Client page: Add 'SendMsg', 'RecvMsg' Fields
+Session page: DeliverMsg、EnqueueMsg Fields
+
+recon Plugin
+------------
+
+Change the datatype of 'recon.gc_interval' to duration
+
+reloader Plugin
+---------------
+
+Change the datatype of 'reloader.interval' to duration
 
 .. _release_2.0.7:
 

@@ -14,6 +14,10 @@ The plugins that *EMQ* 2.0-rc.2 released:
 +========================+===============================+
 | `emq_dashboard`_       | Web Dashboard                 |
 +------------------------+-------------------------------+
+| `emq_retainer`_        | Store Retained Messages       |
++------------------------+-------------------------------+
+| `emq_modules`_         | Extend Modules Plugin         |
++------------------------+-------------------------------+
 | `emq_auth_clientid`_   | ClientId Auth Plugin          |
 +------------------------+-------------------------------+
 | `emq_auth_username`_   | Username/Password Auth Plugin |
@@ -29,14 +33,6 @@ The plugins that *EMQ* 2.0-rc.2 released:
 | `emq_auth_redis`_      | Redis Auth/ACL Plugin         |
 +------------------------+-------------------------------+
 | `emq_auth_mongo`_      | MongoDB Auth/ACL Plugin       |
-+------------------------+-------------------------------+
-| `emq_mod_presence`_    | Presence Module               |
-+------------------------+-------------------------------+
-| `emq_mod_retainer`_    | Retainer Module               |
-+------------------------+-------------------------------+
-| `emq_mod_rewrite`_     | Topic Rewrite Module          |
-+------------------------+-------------------------------+
-| `emq_mod_subscription`_| Subscription Module           |
 +------------------------+-------------------------------+
 | `emq_coap`_            | CoAP Protocol Plugin          |
 +------------------------+-------------------------------+
@@ -59,7 +55,7 @@ emq_plugin_template - Template Plugin
 
 A plugin is just a normal Erlang application which has its own configuration file: 'etc/<PluginName>.conf|config'.
 
-emq_plugin_template is a plugin template. 
+emq_plugin_template is a plugin template.
 
 Load, unload Plugin
 -------------------
@@ -71,6 +67,35 @@ Use 'bin/emqttd_ctl plugins' CLI to load, unload a plugin::
     ./bin/emqttd_ctl plugins unload <PluginName>
 
     ./bin/emqttd_ctl plugins list
+
+------------------------------
+emq_retainer - Retainer Plugin
+------------------------------
+
+Renamed the `emq_mod_retainer`_ to `emq_retainer`_ project in 2.1-beta release.
+
+Configure Retainer Plugin
+-------------------------
+
+etc/plugins/emq_retainer.conf:
+
+.. code-block:: properties
+
+    ## disc: disc_copies, ram: ram_copies
+    ## Notice: retainer's storage_type on each node in a cluster must be the same!
+    retainer.storage_type = disc
+
+    ## Max number of retained messages
+    retainer.max_message_num = 1000000
+
+    ## Max Payload Size of retained message
+    retainer.max_payload_size = 64KB
+
+    ## Expiry interval. Never expired if 0
+    ## h - hour
+    ## m - minute
+    ## s - second
+    retainer.expiry_interval = 0
 
 ----------------------------------------
 emq_auth_clientid - ClientID Auth Plugin
@@ -624,13 +649,59 @@ Load MongoDB Auth/ACL Plugin
 
     ./bin/emqttd_ctl plugins load emq_auth_mongo
 
+----------------------------
+emq_modules - Modules Plugin
+----------------------------
+
+Merged the `emq_mod_presence`_, `emq_mod_subscription`_, `emq_mod_rewrite`_ into one `emq_modules`_ project.
+
+Configure Modules Plugin
+------------------------
+
+.. code-block:: properties
+
+    ##--------------------------------------------------------------------
+    ## Presence Module
+    ##--------------------------------------------------------------------
+
+    ## Enable Presence, Values: on | off
+    module.presence = on
+
+    module.presence.qos = 1
+
+    ##--------------------------------------------------------------------
+    ## Subscription Module
+    ##--------------------------------------------------------------------
+
+    ## Enable Subscription, Values: on | off
+    module.subscription = on
+
+    ## Subscribe the Topics automatically when client connected
+    module.subscription.1.topic = $client/%c
+    ## Qos of the subscription: 0 | 1 | 2
+    module.subscription.1.qos = 1
+
+    ## module.subscription.2.topic = $user/%u
+    ## module.subscription.2.qos = 1
+
+    ##--------------------------------------------------------------------
+    ## Rewrite Module
+    ##--------------------------------------------------------------------
+
+    ## Enable Rewrite, Values: on | off
+    module.rewrite = off
+
+    ## {rewrite, Topic, Re, Dest}
+    ## module.rewrite.rule.1 = "x/# ^x/y/(.+)$ z/y/$1"
+    ## module.rewrite.rule.2 = "y/+/z/# ^y/(.+)/z/(.+)$ y/z/$2"
+
 ----------------------------------
 emq_mod_presence - Presence Module
 ----------------------------------
 
 `Presence` module will publish presence message to $SYS topic when a client connected or disconnected:
 
-.. NOTE:: Released in 2.0-rc.3: https://github.com/emqtt/emq_mod_presence
+.. NOTE:: This project has been deprecated in 2.1-beta release.
 
 Configure Presence Module
 -------------------------
@@ -660,7 +731,7 @@ emq_mod_retainer - Retainer Module
 
 `Retainer` module is responsible for storing MQTT retained messages.
 
-.. NOTE:: Released in 2.0-rc.3: https://github.com/emqtt/emq_mod_retainer
+.. NOTE:: This project has been deprecated in 2.1-beta release.
 
 Configure Retainer Module
 -------------------------
@@ -696,7 +767,7 @@ emq_mod_subscription - Subscription Module
 
 `Subscription` module forces the client to subscribe some topics when connected to the broker:
 
-.. NOTE:: Released in 2.0-rc.3: https://github.com/emqtt/emq_mod_subscription
+.. NOTE:: This project has been deprecated in 2.1-beta release.
 
 Configure Subscription Module
 -----------------------------
@@ -727,6 +798,8 @@ emq_mod_rewrite - Topic Rewrite Module
 --------------------------------------
 
 Released in 2.0-rc.2: https://github.com/emqtt/emq_mod_rewrite
+
+.. NOTE:: This project has been deprecated in 2.1-beta release.
 
 Configure Rewrite Module
 ------------------------
@@ -1145,6 +1218,8 @@ Build and Release the Plugin
 
     {plugin_name, load},
 
+.. _emq_modules:          https://github.com/emqtt/emq_modules
+.. _emq_retainer:         https://github.com/emqtt/emq_retainer
 .. _emq_dashboard:        https://github.com/emqtt/emqttd_dashboard
 .. _emq_auth_clientid:    https://github.com/emqtt/emq_auth_clientid
 .. _emq_auth_username:    https://github.com/emqtt/emq_auth_username
@@ -1155,7 +1230,6 @@ Build and Release the Plugin
 .. _emq_auth_redis:       https://github.com/emqtt/emq_auth_redis
 .. _emq_auth_mongo:       https://github.com/emqtt/emq_auth_mongo
 .. _emq_mod_rewrite:      https://github.com/emqtt/emq_mod_rewrite
-.. _emq_mod_retainer:     https://github.com/emqtt/emq_mod_retainer
 .. _emq_mod_presence:     https://github.com/emqtt/emq_mod_presence
 .. _emq_mod_subscription: https://github.com/emqtt/emq_mod_subscription
 .. _emq_sn:               https://github.com/emqtt/emq_sn
