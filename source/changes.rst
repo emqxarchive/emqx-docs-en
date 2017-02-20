@@ -27,7 +27,7 @@ Support Per Client, Session Statistics. Enable by configuration in etc/emq.conf:
 Add 'missed' Metrics
 --------------------
 
-The 'missed' metrics will be increased when EMQ broker received PUBACK, PUBREC, PUBREL, PUBCOMP packets from clients, but cannot find the corresponding messages in inflight window::
+The 'missed' metrics will be increased when EMQ broker received PUBACK, PUBREC, PUBREL, PUBCOMP packets from clients, but missing in inflight window::
 
     packets/puback/missed
 
