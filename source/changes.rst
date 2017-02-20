@@ -13,7 +13,7 @@ Version 2.1-beta
 
 *Release Date: 2017-02-18*
 
-EMQ V2.1-beta is now available. We improved the design of Session/Inflight and use one timer to redeliver the inflight QoS1/2 messages, and improved the GC mechanism of MQTT connection process to reduce CPU usage at the high rate of messages.
+EMQ v2.1-beta is now available. We improved the design of Session/Inflight and use one timer to redeliver the inflight QoS1/2 messages, and improved the GC mechanism of MQTT connection process to reduce CPU usage at the high rate of messages.
 
 Per Client, Session Statistics
 ------------------------------
