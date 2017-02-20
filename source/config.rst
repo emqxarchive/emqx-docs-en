@@ -296,7 +296,7 @@ MQTT Session Parameters
 +------------------------------+----------------------------------------------------------+
 | session.upgrade_qos          | Upgrade QoS according to the subscription                |
 +------------------------------+----------------------------------------------------------+
-| session.max_inflight         | Max number of QoS1/2 messages that can be delivered in   |
+| session.max_inflight         | Max number of QoS1/2 messages that can be delivered at   |
 |                              | the same time                                            |
 +------------------------------+----------------------------------------------------------+
 | session.retry_interval       | Retry interval for unacked QoS1/2 messages.              |
