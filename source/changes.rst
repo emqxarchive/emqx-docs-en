@@ -5,6 +5,95 @@
 Changes
 =======
 
+.. _release_2.1:
+
+----------------
+Version 2.1-beta
+----------------
+
+*Release Date: 2017-02-18*
+
+EMQ v2.1-beta is now available. We improved the design of Session/Inflight and use one timer to redeliver the inflight QoS1/2 messages, and improved the GC mechanism of MQTT connection process to reduce CPU usage at the high rate of messages.
+
+Per Client, Session Statistics
+------------------------------
+
+Support Per Client, Session Statistics. Enable by configuration in etc/emq.conf::
+
+    mqtt.client.enable_stats = 60s
+
+    mqtt.session.enable_stats = 60s
+
+Add 'missed' Metrics
+--------------------
+
+The 'missed' metrics will be increased when EMQ broker received PUBACK, PUBREC, PUBREL, PUBCOMP packets from clients, but missing in inflight window::
+
+    packets/puback/missed
+
+    packets/pubrec/missed
+
+    packets/pubrel/missed
+
+    packets/pubcomp/missed
+
+Integrate Syslog
+----------------
+
+Output EMQ log to syslog::
+
+    ## Syslog. Enum: on, off
+    log.syslog = on
+
+    ##  syslog level. Enum: debug, info, notice, warning, error, critical, alert, emergency
+    log.syslog.level = error
+
+Upgrade QoS
+-----------
+
+Support to upgrade QoS accoding to the subscription::
+
+    mqtt.session.upgrade_qos = on
+
+Add 'acl reload' CLI
+--------------------
+
+Reload acl.conf without restarting emqttd service (#885)
+
+etc/emq.conf Changes
+--------------------
+
+1. Rename mqtt.client_idle_timeout to mqtt.client.idle_timeout
+2. Add mqtt.client.enable_stats
+3. Add mqtt.session.upgrade_qos
+4. Delete mqtt.session.collect_interval
+5. Add mqtt.session.enable_stats
+6. Rename mqtt.session.expired_after to mqtt.session.expiry_interval
+
+Merge modules to emq_modules
+----------------------------
+
+Merge the emq_mod_presence, emq_mod_subscription, emq_mod_rewrite into emq_modules
+
+Rename emq_mod_retainer to emq_retainer project
+
+Dashboard Plugin
+----------------
+
+Overview page: Add 'missed' metrics
+Client page: Add 'SendMsg', 'RecvMsg' Fields
+Session page: DeliverMsg、EnqueueMsg Fields
+
+recon Plugin
+------------
+
+Change the datatype of 'recon.gc_interval' to duration
+
+reloader Plugin
+---------------
+
+Change the datatype of 'reloader.interval' to duration
+
 .. _release_2.0.7:
 
 -------------

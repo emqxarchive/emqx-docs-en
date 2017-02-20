@@ -163,6 +163,17 @@ Crash Log
 
     log.crash.file = log/crash.log
 
+Syslog
+------
+
+.. code-block:: properties
+
+    ## Syslog. Enum: on, off
+    log.syslog = on
+
+    ##  syslog level. Enum: debug, info, notice, warning, error, critical, alert, emergency
+    log.syslog.level = error
+
 ------------------------
 MQTT Protocol Parameters
 ------------------------
@@ -189,7 +200,16 @@ MQTT Client Idle Timeout
 .. code-block:: properties
 
     ## Client Idle Timeout (Second)
-    mqtt.client_idle_timeout = 30
+    mqtt.client.idle_timeout = 30
+
+Enable Per Client Statistics
+----------------------------
+
+.. code-block:: properties
+
+    ## Enable client Stats: seconds or off
+    ## s - second
+    mqtt.client.enable_stats = off
 
 ----------------------------
 Allow Anonymous and ACL File
@@ -245,21 +265,25 @@ MQTT Session Parameters
 
 .. code-block:: properties
 
+    ## Upgrade QoS?
+    mqtt.session.upgrade_qos = off
+
     ## Max number of QoS 1 and 2 messages that can be “inflight” at one time.
     ## 0 means no limit
-    mqtt.session.max_inflight = 100
+    mqtt.session.max_inflight = 32
 
-    ## Retry interval for redelivering QoS1/2 messages.
-    mqtt.session.retry_interval = 60
-
-    ## Awaiting PUBREL Timeout
-    mqtt.session.await_rel_timeout = 20
+    ## Retry Interval for redelivering QoS1/2 messages.
+    mqtt.session.retry_interval = 20s
 
     ## Max Packets that Awaiting PUBREL, 0 means no limit
-    mqtt.session.max_awaiting_rel = 0
+    mqtt.session.max_awaiting_rel = 100
 
-    ## Statistics Collection Interval(seconds)
-    mqtt.session.collect_interval = 0
+    ## Awaiting PUBREL Timeout
+    mqtt.session.await_rel_timeout = 20s
+
+    ## Enable Statistics at the Interval(seconds)
+    ## s - second
+    mqtt.session.enable_stats = off
 
     ## Expired after 1 day:
     ## w - week
@@ -267,10 +291,12 @@ MQTT Session Parameters
     ## h - hour
     ## m - minute
     ## s - second
-    mqtt.session.expired_after = 1d
+    mqtt.session.expiry_interval = 2h
 
 +------------------------------+----------------------------------------------------------+
-| session.max_inflight         | Max number of QoS1/2 messages that can be delivered in   |
+| session.upgrade_qos          | Upgrade QoS according to the subscription                |
++------------------------------+----------------------------------------------------------+
+| session.max_inflight         | Max number of QoS1/2 messages that can be delivered at   |
 |                              | the same time                                            |
 +------------------------------+----------------------------------------------------------+
 | session.retry_interval       | Retry interval for unacked QoS1/2 messages.              |
@@ -279,9 +305,9 @@ MQTT Session Parameters
 +------------------------------+----------------------------------------------------------+
 | session.max_awaiting_rel     | Max number of Packets that Awaiting PUBREL               |
 +------------------------------+----------------------------------------------------------+
-| session.collect_interval     | Interval of Statistics Collection                        |
+| session.enable_stats         | Interval of Statistics Collection                        |
 +------------------------------+----------------------------------------------------------+
-| session.expired_after        | Expired after (unit: minute)                             |
+| session.expiry_interval      | Session expiry interval                                  |
 +------------------------------+----------------------------------------------------------+
 
 ------------------

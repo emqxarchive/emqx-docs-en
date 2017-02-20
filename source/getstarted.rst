@@ -113,16 +113,20 @@ The Dashboard helps check running status of the broker, monitor statistics and m
 Plugins
 -------
 
-The *EMQ* broker could be extended by Plugins.  A plugin is an Erlang application to extend the *EMQ* broker:
+The *EMQ* broker could be extended by Plugins.  A plugin is an Erlang application that adds extra feature to the *EMQ* broker:
 
++-------------------------+--------------------------------------------+
+| `emq_retainer`_         | Store Retained Messages                    |
++-------------------------+--------------------------------------------+
+| `emq_dashboard`_        | Web Dashboard                              |
++-------------------------+--------------------------------------------+
+| `emq_modules`_          | Presence, Subscription, Rewrite Modules    |
 +-------------------------+--------------------------------------------+
 | `emq_auth_clientid`_    | Authentication with ClientId               |
 +-------------------------+--------------------------------------------+
 | `emq_auth_username`_    | Authentication with Username and Password  |
 +-------------------------+--------------------------------------------+
 | `emq_plugin_template`_  | Plugin template and demo                   |
-+-------------------------+--------------------------------------------+
-| `emq_dashboard`_        | Web Dashboard                              |
 +-------------------------+--------------------------------------------+
 | `emq_auth_ldap`_        | LDAP Auth Plugin                           |
 +-------------------------+--------------------------------------------+
@@ -133,14 +137,6 @@ The *EMQ* broker could be extended by Plugins.  A plugin is an Erlang applicatio
 | `emq_auth_pgsql`_       | Authentication with PostgreSQL             |
 +-------------------------+--------------------------------------------+
 | `emq_auth_redis`_       | Authentication with Redis                  |
-+-------------------------+--------------------------------------------+
-| `emq_mod_rewrite`_      | Topics rewrite like HTTP rewrite module    |
-+-------------------------+--------------------------------------------+
-| `emq_mod_retainer`_     | Retainer Module                            |
-+-------------------------+--------------------------------------------+
-| `emq_mod_presence`_     | Presence Module                            |
-+-------------------------+--------------------------------------------+
-| `emq_mod_subscription`_ | Subscription Module                        |
 +-------------------------+--------------------------------------------+
 | `emq_mod_mongo`_        | Authentication with MongoDB                |
 +-------------------------+--------------------------------------------+
@@ -258,6 +254,8 @@ MQTT.org: https://github.com/mqtt/mqtt.github.io/wiki/libraries
 
 .. _emq_plugin_template:  https://github.com/emqtt/emq_plugin_template
 .. _emq_dashboard:        https://github.com/emqtt/emq_dashboard
+.. _emq_retainer:         https://github.com/emqtt/emq_retainer
+.. _emq_modules:          https://github.com/emqtt/emq_modules
 .. _emq_mod_rewrite:      https://github.com/emqtt/emq_mod_rewrite
 .. _emq_auth_clientid:    https://github.com/emqtt/emq_auth_clientid
 .. _emq_auth_username:    https://github.com/emqtt/emq_auth_username
