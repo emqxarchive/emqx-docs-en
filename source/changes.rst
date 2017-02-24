@@ -17,12 +17,12 @@ EMQ v2.1.0-beta.1 is now available.
 
 .. WARNING:: EMQ 2.1+ Requires Erlang/OTP R19+ to build.
 
-Since 2.1.0 release, we will tag EMQ versions accoding to the `Semantic Versioning 2.0.0<http://semver.org>`_ principles. And we will release EMQ versions monthly, odd releases for bugfix and optimization, and even release for bugfix and new features.
+Since 2.1.0 release, we will tag EMQ versions accoding to the `Semantic Versioning 2.0.0`_ principles. And we will release EMQ versions monthly, odd releases for bugfix and optimization, and even releases for bugfix and new features.
 
 Tune GC
---------
+-------
 
-1. All the WebSocket, Client, Session process will hiberante and GC after a period of idle time.
+1. All the WebSocket, Client, Session processes will hiberante and GC after a period of idle time.
 
 2. Add 'mqtt.conn.force_gc_count' configuration to force the Client, Session processes to GC when high message throughput.
 
@@ -2197,4 +2197,4 @@ The first public release.
 .. _emq_reloader:         https://github.com/emqtt/emq_reloader
 .. _emq_plugin_template:  https://github.com/emqtt/emq_plugin_template
 .. _recon:                http://ferd.github.io/recon/
-
+.. _`Semantic Versioning 2.0.0`:    http://semver.org
