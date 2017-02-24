@@ -207,9 +207,16 @@ Enable Per Client Statistics
 
 .. code-block:: properties
 
-    ## Enable client Stats: seconds or off
-    ## s - second
+    ## Enable client Stats: on | off
     mqtt.client.enable_stats = off
+
+Force GC Count
+--------------
+
+.. code-block:: properties
+
+    ## Force GC: integer. Value 0 disabled the Force GC.
+    mqtt.conn.force_gc_count = 100
 
 ----------------------------
 Allow Anonymous and ACL File
@@ -281,8 +288,7 @@ MQTT Session Parameters
     ## Awaiting PUBREL Timeout
     mqtt.session.await_rel_timeout = 20s
 
-    ## Enable Statistics at the Interval(seconds)
-    ## s - second
+    ## Enable Statistics: on | off 
     mqtt.session.enable_stats = off
 
     ## Expired after 1 day:

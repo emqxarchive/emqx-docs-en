@@ -5,6 +5,45 @@
 Changes
 =======
 
+.. _release_2.1.0-beta.1:
+
+--------------------
+Version 2.1.0-beta.1
+--------------------
+
+*Release Date: 2017-02-24*
+
+EMQ v2.1.0-beta.1 is now available.
+
+.. WARNING:: EMQ 2.1+ Requires Erlang/OTP R19+ to build.
+
+Since 2.1.0 release, we will tag EMQ versions accoding to the `Semantic Versioning 2.0.0<http://semver.org>`_ principles. And we will release EMQ versions monthly, odd releases for bugfix and optimization, and even release for bugfix and new features.
+
+Tune GC
+--------
+
+1. All the WebSocket, Client, Session process will hiberante and GC after a period of idle time.
+
+2. Add 'mqtt.conn.force_gc_count' configuration to force the Client, Session processes to GC when high message throughput.
+
+3. Tune the 'fullsweep_after' option of WebSocket, Client, Session processes.
+
+Hooks API
+---------
+
+Hooks module now support to register the same function with different tags.
+
+Bugfix
+------
+
+emqttd#916: Add 'mqtt_msg_from()' type
+
+emq-auth-http#15: ACL endpoint isnt called
+
+----------------
+Version 2.1-beta
+----------------
+
 .. _release_2.1:
 
 ----------------
