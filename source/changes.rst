@@ -17,7 +17,7 @@ EMQ v2.1.0-beta.1 is now available.
 
 .. WARNING:: EMQ 2.1+ Requires Erlang/OTP R19+ to build.
 
-Since 2.1.0 release, we will tag EMQ versions accoding to the `Semantic Versioning 2.0.0`_ principles. And we will release EMQ versions monthly, odd releases for bugfix and optimization, and even releases for bugfix and new features.
+Since 2.1.0 release, we will tag EMQ versions accoding to the `Semantic Versioning 2.0.0`_ principles. And we will release EMQ versions monthly, odd number releases for bugfix and optimization, and even number releases for bugfix and new features.
 
 Tune GC
 -------
