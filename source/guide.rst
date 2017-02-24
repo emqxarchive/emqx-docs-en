@@ -649,10 +649,8 @@ For the *EMQ* broker could be clustered, the $SYS topic path is started with::
 
 Sys Interval of publishing $SYS messages, could be configured in etc/emqttd.config::
 
-    {broker, [
-        %% System interval of publishing broker $SYS messages
-        {sys_interval, 60},
-
+    ## System Interval of publishing broker $SYS Messages
+    mqtt.broker.sys_interval = 60
 
 Broker Version, Uptime and Description
 ---------------------------------------
