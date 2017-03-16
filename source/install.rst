@@ -210,8 +210,8 @@ Load Docker Image::
     docker load < emqttd-docker-v2.0
 
 Run the Container::
-
-    docker run -itd --net='host' --name emq20 emqttd-docker-v2.0
+    
+    docker run -tid --name emq20 -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqttd-docker-v2.0
 
 Stop the broker::
 
