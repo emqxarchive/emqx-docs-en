@@ -5,6 +5,66 @@
 Changes
 =======
 
+.. _release_2.1.0-rc.2:
+
+------------------
+Version 2.1.0-rc.2
+------------------
+
+*Release Data: 2017-03-31*
+
+Support pbkdf2 hash (emq-auth-mongo#46)
+
+Kickout the conflict WebSocket connection (emqttd#963)
+
+Correct licence in app.src (emqttd#958)
+
+SSL options to connect to pgsql (emq-auth-pgsql#41)
+
+.. _release_2.1.0-rc.1:
+
+------------------
+Version 2.1.0-rc.1
+------------------
+
+*Release Data: 2017-03-24*
+
+EMQ fails to start if run under a different linux user than that which first ran it (emqttd#842)
+
+Depend on emqtt/pbkdf2 to fix the building errors of Travis CI (emqttd#957)
+
+Depend on goldrush and emqtt/pbkdf2 to resolve the building errors (emqttd#956)
+
+Fix 'rebar command not found' (emq-relx#33)
+
+Compile error in v2.1.0-beta.2 (emq-relx#32)
+
+Support salt with passwords (emq-auth-mongo#11)
+
+Change the default storage_type to 'ram' (emq-retainer#13)
+
+.. _release_2.1.0-beta.2:
+
+--------------------
+Version 2.1.0-beta.2
+--------------------
+
+*Release Data: 2017-03-13*
+
+Cannot find AwaitingAck (emqttd#597)
+
+EMQ V2.1 crash when public with QoS = 2 (emqttd#919)
+
+Support pbkdf2 hash (emqttd#940)
+
+Add src/emqttd.app.src to be compatible with rebar3 (emqttd#920)
+
+Add more test cases (emqttd#944)
+
+CRASH REPORT Process <0.1498.0> with 0 neighbours crashed with reason: {ssl_error,{tls_alert,"certificate unknown"}} in esockd_connection:upgrade (emqttd#915)
+
+auth.redis.password_hash = plain by default (emq-auth-redis#20)
+
 .. _release_2.1.0-beta.1:
 
 --------------------
@@ -19,8 +79,8 @@ EMQ v2.1.0-beta.1 is now available.
 
 Since 2.1.0 release, we will tag EMQ versions accoding to the `Semantic Versioning 2.0.0`_ principles. And we will release EMQ versions monthly, odd number releases for bugfix and optimization, and even number releases for bugfix and new features.
 
-Tune GC
--------
+Tuning GC
+---------
 
 1. All the WebSocket, Client, Session processes will hiberante and GC after a period of idle time.
 
