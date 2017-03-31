@@ -19,8 +19,8 @@ EMQ v2.1.0-beta.1 is now available.
 
 Since 2.1.0 release, we will tag EMQ versions accoding to the `Semantic Versioning 2.0.0`_ principles. And we will release EMQ versions monthly, odd number releases for bugfix and optimization, and even number releases for bugfix and new features.
 
-Tune GC
--------
+Tuning GC
+---------
 
 1. All the WebSocket, Client, Session processes will hiberante and GC after a period of idle time.
 
