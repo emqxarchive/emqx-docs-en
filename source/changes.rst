@@ -5,6 +5,95 @@
 Changes
 =======
 
+.. _release_2.2-beta.1:
+
+------------------
+Version 2.2-beta.1
+------------------
+
+*Release Data: 2017-05-05*
+
+EMQ 2.2-beta.1 is now available. Many new features including Web Hook, Lua Hook and Proxy Protocol have been released in this version.
+
+MQTT Listeners
+--------------
+
+Support to configure multiple MQTT TCP/SSL listeners for one EMQ node. For example::
+
+                             -------
+    -- External TCP 1883 --> |     |
+                             | EMQ | -- Internal TCP 2883 --> Service
+    -- External SSL 8883-->  |     |
+                             -------
+
+Configure a listener in etc/emq.conf::
+
+    listener.tcp.${name}= 127.0.0.1:2883
+
+    listener.tcp.${name}.acceptors = 16
+
+    listener.tcp.${name}.max_clients = 102400
+
+Proxy Protocol V1/2
+-------------------
+
+The EMQ cluster is usually deployed behind a Load Balancer, such as HAProxy or NGINX::
+
+                  -----
+                  |   |
+                  | L | --TCP 1883--> EMQ
+    --SSL 8883--> |   |                |
+                  | B | --TCP 1883--> EMQ
+                  |   |
+                  -----
+
+The LB can pass the source IP, port of the TCP connection on to EMQ cluster by Proxy Protocol.
+
+Enable Proxy Protocol support for MQTT Listener::
+
+    ## Proxy Protocol V1/2
+    ## listener.tcp.${name}.proxy_protocol = on
+    ## listener.tcp.${name}.proxy_protocol_timeout = 3s
+
+Web Hook Plugin
+---------------
+
+The Web Hook plugin `emq-web-hook`_ can trigger a webhook callback when a MQTT client connected to or disconnected from the broker, a MQTT message is published or acked.
+
+Lua Hook Plugin
+----------------
+
+The Lua Hook plugin `emq-lua-hook`_ make it possible to extend the broker and write business logic with Lua script.
+
+Improve the Auth/ACL Chain
+---------------------------
+
+We improved the Auth/ACL chain design in 2.2 release. The Auth request will be forwarded to next auth module if it is ignored by the current auth module::
+
+               --------------           -------------           --------------
+    Client --> | Redis Auth | -ignore-> | HTTP Auth | -ignore-> | MySQL Auth |
+               --------------           -------------           --------------
+                     |                       |                       |
+                    \|/                     \|/                     \|/
+               allow | deny            allow | deny            allow | deny
+
+Support bcrypt password hash
+-----------------------------
+
+Enable the `bcrypt` password hash in auth module, for example::
+
+    auth.redis.password_hash = bcrypt
+
+API Breaking Change
+-------------------
+
+etc/emq.conf: 'mqtt.queue.*' changed to 'mqtt.mqueue.*'
+
+emq-dashboard
+--------------
+
+Support 'Unsubscribe' action on WebSocket Page.
+
 .. _release_2.1.2:
 
 -------------
@@ -2297,6 +2386,8 @@ The first public release.
 .. _emq_mod_retainer:     https://github.com/emqtt/emq_mod_retainer
 .. _emq_mod_presence:     https://github.com/emqtt/emq_mod_presence
 .. _emq_mod_subscription: https://github.com/emqtt/emq_mod_subscription
+.. _emq-web-hook:         https://github.com/emqtt/emq_web_hook
+.. _emq-lua-hook:         https://github.com/emqtt/emq_lua_hook
 .. _emq_sn:               https://github.com/emqtt/emq_sn
 .. _emq_coap:             https://github.com/emqtt/emq_coap
 .. _emq_stomp:            https://github.com/emqtt/emq_stomp
