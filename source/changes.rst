@@ -5,13 +5,58 @@
 Changes
 =======
 
+.. _release_2.2-beta.2:
+
+------------------
+Version 2.2-beta.2
+------------------
+
+*Release Date: 2017-05-20*
+
+Bugfix and Enhancements
+-----------------------
+
+Add a 'websocket_protocol_header' option to handle WebSocket connection from WeChat (emqttd#1060)
+
+Assign username and password to MQTT-SN's CONNECT message (emqttd#1041)
+
+Allow for Content-Type:application/json in HTTP Publish API (emqttd#1045)
+
+emqttd_http.erl:data conversion (emqttd#1059)
+
+Seperate emq_sn from emqttd (emq-sn#24)
+
+Check St0's type, making it easier to debug crash problems (emq-lua-hook#6)
+
+Fix error: load xxx.lua (emq-lua-hook#8)
+
+Leave luerl alone as a rebar project (emq-lue-hook#9)
+
+Display websocket data in reverse order (emq-dashboard#118)
+
+priv/www/assets/js/dashboard.js:Fixed a typo (emq-dashboard#118)
+
+Update README
+-------------
+
+Update README of emq-auth-pgsql: add the 'ssl_opts' configuration (emq-auth-pgsql#56)
+
+Update README of emq-auth-mysql: fix the 'passwd_hash' typo (emq-auth-mysql#54)
+
+Update README of emq-auth-mongo: change 'aclquery' to 'acl_query' (emq-auth-mongo#63)
+
+Elixir Plugin
+--------------
+
+Add a new plugin `emq-elixir-plugin`_ to support Elixir language.
+
 .. _release_2.2-beta.1:
 
 ------------------
 Version 2.2-beta.1
 ------------------
 
-*Release Data: 2017-05-05*
+*Release Date: 2017-05-05*
 
 EMQ 2.2-beta.1 is now available. Many new features including Web Hook, Lua Hook and Proxy Protocol have been released in this version.
 
@@ -100,7 +145,7 @@ Support 'Unsubscribe' action on WebSocket Page.
 Version 2.1.2
 -------------
 
-*Release Data: 2017-04-21*
+*Release Date: 2017-04-21*
 
 Fix `emqttd_ctl sessions list` CLI
 
@@ -116,7 +161,7 @@ Unload  the 'session.created' and 'session.teminated' hooks (emq-plugin-template
 Version 2.1.1
 -------------
 
-*Release Data: 2017-04-14*
+*Release Date: 2017-04-14*
 
 Localhost:8083/status returns 404 when AWS LB check the health of EMQ (emqttd#984)
 
@@ -134,7 +179,7 @@ Upgrade emq-coap Plugin (emq-coap#21)
 Version 2.1.0
 -------------
 
-*Release Data: 2017-04-07*
+*Release Date: 2017-04-07*
 
 The stable release of 2.1 version.
 
@@ -148,7 +193,7 @@ Filter the empty fields in ACL table (emq-auth-mysql#39)
 Version 2.1.0-rc.2
 ------------------
 
-*Release Data: 2017-03-31*
+*Release Date: 2017-03-31*
 
 Support pbkdf2 hash (emq-auth-mongo#46)
 
@@ -164,7 +209,7 @@ SSL options to connect to pgsql (emq-auth-pgsql#41)
 Version 2.1.0-rc.1
 ------------------
 
-*Release Data: 2017-03-24*
+*Release Date: 2017-03-24*
 
 EMQ fails to start if run under a different linux user than that which first ran it (emqttd#842)
 
@@ -186,7 +231,7 @@ Change the default storage_type to 'ram' (emq-retainer#13)
 Version 2.1.0-beta.2
 --------------------
 
-*Release Data: 2017-03-13*
+*Release Date: 2017-03-13*
 
 Cannot find AwaitingAck (emqttd#597)
 
@@ -2397,3 +2442,4 @@ The first public release.
 .. _emq_plugin_template:  https://github.com/emqtt/emq_plugin_template
 .. _recon:                http://ferd.github.io/recon/
 .. _`Semantic Versioning 2.0.0`:    http://semver.org
+.. _emq-elixir-plugin:    https://github.com/emqtt/emq-elixir-plugin
