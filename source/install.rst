@@ -253,6 +253,34 @@ The binary package output in folder::
 
     _rel/emqttd
 
+----------------
+Build on Windows
+----------------
+
+Install Erlang: http://www.erlang.org/
+
+Install MSYS2: http://www.msys2.org/
+
+Use pacman of MSYS2 to install git and make:
+
+.. code-block:: bash
+
+    pacman -S git make
+
+Clone and build the `emq-relx`_ project:
+
+.. code-block:: bash
+
+    git clone -b windows https://github.com/emqtt/emqttd-relx.git
+
+    cd emqttd-relx && make
+
+Start the EMQ in console mode:
+
+.. code-block:: bash
+
+    cd _rel/emqttd && ./bin/emqttd console
+
 .. _tcp_ports:
 
 --------------
