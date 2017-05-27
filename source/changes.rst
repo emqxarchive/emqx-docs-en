@@ -31,7 +31,7 @@ Remove ‘check password===undefined && userName!== undefined’ (emq-dashboard#
 emq_auth_redis Plugin
 ---------------------
 
-Support 'HMGET mqtt_user:%u password' for authentication query
+Support 'HGET mqtt_user:%u password' for authentication query
 
 emq_auth_mongo Plugin
 ---------------------
