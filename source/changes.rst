@@ -5,6 +5,44 @@
 Changes
 =======
 
+.. _release_2.2-beta.3:
+
+------------------
+Version 2.2-beta.3
+------------------
+
+*Release Date: 2017-05-27*
+
+Bugfix and Enhancements
+-----------------------
+
+Call emit_stats when force GC (emqttd#1071)
+
+Update the default value of 'mqtt.mqueue.max_length' to 1000 (emqttd#1074)
+
+Update emq-auth-mongo READEME (emq-auth-mongo#66)
+
+Update default password field (emq-auth-mongo#67)
+
+Upgrade the mongodb library to v3.0.3
+
+Remove ‘check password===undefined && userName!== undefined’ (emq-dashboard#120)
+
+emq_auth_redis Plugin
+---------------------
+
+Support 'HMGET mqtt_user:%u password' for authentication query
+
+emq_auth_mongo Plugin
+---------------------
+
+Support mongodb Cluster, Replica Set
+
+Documentation
+--------------
+
+Add 'Build on Windows' chapter
+
 .. _release_2.2-beta.2:
 
 ------------------
