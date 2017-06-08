@@ -55,6 +55,7 @@ Contents:
    tune
    changes
    upgrade
+   mqtt-sn
 
 -------
 License
