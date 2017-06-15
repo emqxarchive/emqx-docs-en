@@ -13,8 +13,8 @@ Version 2.2-rc.1
 
 *Release Date: 2017-06-14*
 
-Bugfix and Enhancemenets
-------------------------
+Bugfix and Enhancements
+-----------------------
 
 Add a new listener for HTTP REST API (emqttd#1094)
 
