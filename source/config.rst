@@ -237,6 +237,9 @@ Enable the default ACL module:
 
 .. code-block:: properties
 
+    ## ACL nomatch
+    mqtt.acl_nomatch = allow
+
     ## Default ACL File
     mqtt.acl_file = etc/acl.conf
 
@@ -429,6 +432,8 @@ The TCP Ports occupied by the *EMQ* broker by default:
 +-----------+-----------------------------------+
 | 8084      | MQTT/WebSocket/SSL                |
 +-----------+-----------------------------------+
+| 8080      | HTTP Management API               |
++-----------+-----------------------------------+
 
 Listener Parameters:
 
@@ -591,6 +596,22 @@ MQTT/Websocket/SSL Listener - 8084
     ## listener.wss.external.verify = verify_peer
 
     ## listener.wss.external.fail_if_no_peer_cert = true
+
+HTTP API Listener - 8080
+------------------------
+
+.. code-block:: properties
+
+    ##--------------------------------------------------------------------
+    ## HTTP Management API Listener
+
+    listener.api.mgmt = 127.0.0.1:8080
+
+    listener.api.mgmt.acceptors = 4
+
+    listener.api.mgmt.max_clients = 64
+
+    listener.api.mgmt.access.1 = allow all
 
 --------------
 System Monitor
