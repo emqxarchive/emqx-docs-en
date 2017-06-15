@@ -114,11 +114,105 @@ Check the running status of the broker:
 
 Or check the status by URL::
 
-    http://localhost:8083/status
+    http://localhost:8080/status
 
 Stop the broker::
 
     ./bin/emqttd stop
+
+.. _install_via_rpm:
+
+---------------
+Install via RPM
+---------------
+
+Download the RPM packages:
+
++-------------+---------------------------------------------------+
+| CentOS6.8   | http://emqtt.com/downloads/latest/centos6-rpm     |
++-------------+---------------------------------------------------+
+| CentOS7     | http://emqtt.com/downloads/latest/centos7-rpm     |
++-------------+---------------------------------------------------+
+
+Install the package:
+
+.. code-block:: console
+
+    rpm -ivh --force emqttd-centos7-v2.1.2-1.el7.centos.x86_64.rpm
+
+.. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
+
+.. code-block:: console
+
+    yum install lksctp-tools
+
+Configuration, Data and Log Files:
+
++------------------------------+-----------------------------------------+
+| /etc/emqttd/emq.conf         | Configuration file for the EMQ Broker   |
++------------------------------+-----------------------------------------+
+| /etc/emqttd/plugins/\*.conf  | Configuration files for the EMQ Plugins |
++------------------------------+-----------------------------------------+
+| /var/lib/emqttd/             | Data files                              |
++------------------------------+-----------------------------------------+
+| /var/log/emqttd              | Log files                               |
++------------------------------+-----------------------------------------+
+
+Start/Stop the broker:
+
+.. code-block:: console
+
+    systemctl start|stop|restart emqttd.service
+
+.. _install_via_deb:
+
+---------------
+Install via DEB
+---------------
+
+Download the DEB packages:
+
++-------------+---------------------------------------------------+
+| Ubuntu12.04 | http://emqtt.com/downloads/latest/ubuntu12_04-deb |
++-------------+---------------------------------------------------+
+| Ubuntu14.04 | http://emqtt.com/downloads/latest/ubuntu14_04-deb |
++-------------+---------------------------------------------------+
+| Ubuntu16.04 | http://emqtt.com/downloads/latest/ubuntu16_04-deb |
++-------------+---------------------------------------------------+
+| Debian7     | http://emqtt.com/downloads/latest/debian7-deb     |
++-------------+---------------------------------------------------+
+| Debian8     | http://emqtt.com/downloads/latest/debian7-deb     |
++-------------+---------------------------------------------------+
+
+Install the package:
+
+.. code-block:: console
+
+    sudo dpkg -i emqttd-ubuntu16.04_v2.0_amd64.deb
+
+.. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
+
+.. code-block:: console
+
+    apt-get install lksctp-tools
+
+Configuration, Data and Log Files:
+
++------------------------------+-----------------------------------------+
+| /etc/emqttd/emq.conf         | Configuration file for the EMQ Broker   |
++------------------------------+-----------------------------------------+
+| /etc/emqttd/plugins/\*.conf  | Configuration files for the EMQ Plugins |
++------------------------------+-----------------------------------------+
+| /var/lib/emqttd/             | Data files                              |
++------------------------------+-----------------------------------------+
+| /var/log/emqttd              | Log files                               |
++------------------------------+-----------------------------------------+
+
+Start/Stop the broker:
+
+.. code-block:: console
+
+    service emqttd start|stop|restart
 
 .. _install_on_freebsd:
 
@@ -290,11 +384,13 @@ TCP Ports Used
 +-----------+-----------------------------------+
 | 1883      | MQTT Port                         |
 +-----------+-----------------------------------+
-| 8883      | MQTT/SSL  Port                    |
+| 8883      | MQTT/SSL Port                     |
 +-----------+-----------------------------------+
-| 8083      | MQTT(WebSocket), HTTP API Port    |
+| 8083      | MQTT/WebSocket Port               |
 +-----------+-----------------------------------+
-| 8084      | MQTT(WebSocket/SSL), HTTP API Port|
+| 8084      | MQTT/WebSocket/SSL Port           |
++-----------+-----------------------------------+
+| 8080      | HTTP Management API Port          |
 +-----------+-----------------------------------+
 | 18083     | Web Dashboard Port                |
 +-----------+-----------------------------------+
