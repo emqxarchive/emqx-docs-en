@@ -368,6 +368,9 @@ Enable the 'internal' ACL module in etc/emq.conf:
 
 .. code-block:: properties
 
+    ## ACL nomatch
+    mqtt.acl_nomatch = allow
+
     ## Default ACL File
     mqtt.acl_file = etc/acl.conf
 
@@ -580,11 +583,11 @@ HTTP Publish API
 
 The *EMQ* broker provides a HTTP API to help application servers publish messages to MQTT clients.
 
-HTTP API: POST http://host:8083/mqtt/publish
+HTTP API: POST http://host:8080/mqtt/publish
 
 Web servers such as PHP, Java, Python, NodeJS and Ruby on Rails could use HTTP POST to publish MQTT messages to the broker::
 
-    curl -v --basic -u user:passwd -d "qos=1&retain=0&topic=/a/b/c&message=hello from http..." -k http://localhost:8083/mqtt/publish
+    curl -v --basic -u user:passwd -d "qos=1&retain=0&topic=/a/b/c&message=hello from http..." -k http://localhost:8080/mqtt/publish
 
 Parameters of the HTTP API:
 
