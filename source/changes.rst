@@ -5,6 +5,27 @@
 Changes
 =======
 
+.. _release_2.2-rc.2:
+
+----------------
+Version 2.2-rc.2
+----------------
+
+*Release Date: 2017-07-03*
+
+.. WARNING:: 2.2-rc.2 requires Erlang/OTP R19.3+ to build.
+
+Bugfix and Enhancements
+-----------------------
+
+Compatible with Erlang/OTP R20 (emq-relx#77)
+
+CoAP gateway plugin supports coap-style publish & subscribe pattern. (emq_coap#33)
+
+MQTT-SN gateway plugin supports sleeping device (emq_sn#32)
+
+Upgrade esockd and mochiweb libraries to support restarting a listener
+
 .. _release_2.2-rc.1:
 
 ----------------
@@ -13,8 +34,8 @@ Version 2.2-rc.1
 
 *Release Date: 2017-06-14*
 
-Bugfix and Enhancemenets
-------------------------
+Bugfix and Enhancements
+-----------------------
 
 Add a new listener for HTTP REST API (emqttd#1094)
 
