@@ -138,7 +138,7 @@ The *EMQ* broker could be extended by Plugins.  A plugin is an Erlang applicatio
 +-------------------------+--------------------------------------------+
 | `emq_auth_redis`_       | Authentication with Redis                  |
 +-------------------------+--------------------------------------------+
-| `emq_mod_mongo`_        | Authentication with MongoDB                |
+| `emq_auth_mongo`_       | Authentication with MongoDB                |
 +-------------------------+--------------------------------------------+
 | `emq_sn`_               | MQTT-SN Protocol Plugin                    |
 +-------------------------+--------------------------------------------+
