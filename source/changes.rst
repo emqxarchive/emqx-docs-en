@@ -5,6 +5,28 @@
 Changes
 =======
 
+.. _release_2.2.0:
+
+-----------------------
+Version 2.2 "Nostalgia"
+-----------------------
+
+*Release Date: 2017-07-08*
+
+*Release Name: Nostalgia*
+
+The EMQ Version 2.2, named "Nostalgia", is available and ready to deploy in production now. EMQ R2.2 adds support for CoAP(RFC 7252), MQTT-SN protocols，and allows to extend the broker with Web Hook, Lua Hook, and Elixir Hook.
+
+Feature: Add 'listeners restart/stop' CLI command (emqttd#1135)
+
+Bugfix: Exit Code from emqttd_ctl (emqttd#1133)
+
+Bugfix: Fix spec errors found by dialyzer (emqttd#1136)
+
+Bugfix: Catch exceptions thrown from rpc:call/4 (emq-dashboard#128)
+
+Bugfix: Topic has been decoded by gen-coap, no conversion needed (emq-coap#43)
+
 .. _release_2.2-rc.2:
 
 ----------------
