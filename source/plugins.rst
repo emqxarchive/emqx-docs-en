@@ -76,7 +76,7 @@ Use 'bin/emqttd_ctl plugins' CLI to load, unload a plugin::
 emq_retainer - Retainer Plugin
 ------------------------------
 
-Renamed the `emq_mod_retainer`_ to `emq_retainer`_ project in 2.1-beta release.
+Renamed the `emq_mod_retainer` to `emq_retainer`_ project in 2.1-beta release.
 
 Configure Retainer Plugin
 -------------------------
