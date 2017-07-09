@@ -15,7 +15,7 @@ Version 2.2 "Nostalgia"
 
 *Release Name: Nostalgia*
 
-The EMQ Version 2.2, named "Nostalgia", is available and ready to deploy in production now. EMQ R2.2 adds support for CoAP(RFC 7252), MQTT-SN protocols, and allows to extend the broker with Web Hook, Lua Hook, and Elixir Hook.
+Release name "Nostalgia". From version 2.2, EMQ supports CoAP(RFC 7252), MQTT-SN protocols, and now it is extendible with Web Hook, Lua Hook and Elixir Hook.
 
 Feature: Add 'listeners restart/stop' CLI command (emqttd#1135)
 
