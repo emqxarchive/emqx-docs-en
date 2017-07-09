@@ -56,6 +56,9 @@ Contents:
    changes
    upgrade
    mqtt-sn
+   coap
+   mqtt
+   faq
 
 -------
 License

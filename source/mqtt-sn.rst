@@ -64,7 +64,7 @@ File: etc/plugins/emq_sn.conf:
 Load Plugin
 -------------
 
-.. code-block::
+.. code-block:: console
 
     ./bin/emqttd_ctl plugins load emq_sn
 

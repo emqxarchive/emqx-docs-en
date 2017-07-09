@@ -58,7 +58,7 @@ Configure etc/emq.conf to allow anonymous authentication:
 Username/Password
 -----------------
 
-Authenticate MQTT client with Username/Password::
+Authenticate MQTT client with Username/Password:
 
 Configure default users in etc/plugins/emq_auth_username.conf:
 
