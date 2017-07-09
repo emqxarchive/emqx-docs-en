@@ -15,7 +15,7 @@ Version 2.2 "Nostalgia"
 
 *Release Name: Nostalgia*
 
-The EMQ Version 2.2, named "Nostalgia", is available and ready to deploy in production now. EMQ R2.2 adds support for CoAP(RFC 7252), MQTT-SN protocols，and allows to extend the broker with Web Hook, Lua Hook, and Elixir Hook.
+The EMQ Version 2.2, named "Nostalgia", is available and ready to deploy in production now. EMQ R2.2 adds support for CoAP(RFC 7252), MQTT-SN protocols, and allows to extend the broker with Web Hook, Lua Hook, and Elixir Hook.
 
 Feature: Add 'listeners restart/stop' CLI command (emqttd#1135)
 
@@ -469,7 +469,7 @@ Dashboard Plugin
 
 Overview page: Add 'missed' metrics
 Client page: Add 'SendMsg', 'RecvMsg' Fields
-Session page: DeliverMsg、EnqueueMsg Fields
+Session page: Add DeliverMsg, EnqueueMsg Fields
 
 recon Plugin
 ------------
@@ -951,7 +951,7 @@ Version 2.0-beta.1
 EMQ - Shortened Project Name
 ----------------------------
 
-Adopt a shortened project name: EMQ(Erlang/Enterprise/Elastic MQTT Broker)，E means Erlang/OTP, Enterprise and Elastic.
+Adopt a shortened project name: EMQ(Erlang/Enterprise/Elastic MQTT Broker), E means Erlang/OTP, Enterprise and Elastic.
 
 Improve the Release Management
 ------------------------------
@@ -1171,7 +1171,7 @@ Upgrade eSockd library to 4.0, Show OTP Release on Overview Page (emqttd_dashboa
 
 Changing dashboard credentials for username authentication (emqttd_dashboard#56)
 
-Add './bin/emqttd_ctl admins' CLI，support to add/delete admins
+Add './bin/emqttd_ctl admins' CLI, support to add/delete admins
 
 HTTP Auth Plugin
 ----------------
@@ -2521,7 +2521,7 @@ The first public release.
 .. _relx:                 https://github.com/erlware/relx
 .. _esockd:               https://github.com/emqtt/esockd
 .. _emqttd:               https://github.com/emqtt/emqttd
-.. _emqttd_relx:          https://github.com/emqtt/emqttd-relx
+.. _emqttd-relx:          https://github.com/emqtt/emqttd-relx
 .. _emqttd_sn:            https://github.com/emqtt/emqttd_sn
 .. _emq-relx:             https://github.com/emqtt/emq-relx
 .. _emq_dashboard:        https://github.com/emqtt/emqttd_dashboard

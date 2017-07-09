@@ -54,11 +54,11 @@ The core features are solid and scalable. A small full-time team with many contr
 
 Wiki: https://github.com/emqtt/emqttd/wiki/One-Million-Connections
 
-##### Q5. 'session' identified by clientID？when session expired what will happen？All queued messages will be deleted and subscribed topics will be deleted too？when reconnected， need redo subscription？(#150)
+##### Q5. 'session' identified by clientID? when session expired what will happen? All queued messages will be deleted and subscribed topics will be deleted too? when reconnected, need redo subscription? (#150)
 
 When a client connected to broker with 'clean session' flag 0, a session identified by clientId will be created. The session will expire after 48 hours(configured in etc/emqttd.config) if no client connections bind with it, and all queued messages and subscriptions will be dropped.
 
-##### Q6. "{max_queued_messages, 100}" in 0.8 release or "{queue, {max_length, 1000},..." means queue for one session or one topic？If it stands for session，while one topic has lots of offline messages(100), the user's other topic offline messages will be flushed? (#150)
+##### Q6. "{max_queued_messages, 100}" in 0.8 release or "{queue, {max_length, 1000},..." means queue for one session or one topic? If it stands for session, while one topic has lots of offline messages(100), the user's other topic offline messages will be flushed? (#150)
 
 For session. Topic just dispatch messages to clients or sessions that matched the subscriptions. Will Flood.
 
