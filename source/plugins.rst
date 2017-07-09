@@ -604,7 +604,7 @@ etc/plugins/emq_auth_mongo.conf:
 MongoDB Database
 ----------------
 
-.. code-block::
+.. code-block:: console
 
     use mqtt
     db.createCollection("mqtt_user")

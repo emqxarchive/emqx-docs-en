@@ -1,5 +1,5 @@
 
-.. _commands::
+.. _commands:
 
 ========
 Commands
@@ -9,7 +9,7 @@ The './bin/emqttd_ctl' command line could be used to query and administrate the 
 
 .. WARNING:: Cannot work on Windows
 
-.. _command_status::
+.. _command_status:
 
 ------
 status
@@ -22,7 +22,7 @@ Show running status of the broker::
     Node 'emqttd@127.0.0.1' is started
     emqttd 2.0 is running
 
-.. _command_broker::
+.. _command_broker:
 
 ------
 broker
@@ -114,7 +114,7 @@ Query metrics of Bytes, MQTT Packets and Messages(sent/received)::
     packets/unsuback        : 0
     packets/unsubscribe     : 0
 
-.. _command_cluster::
+.. _command_cluster:
 
 -------
 cluster
@@ -179,7 +179,7 @@ Or remove emqttd2 from the cluster on emqttd1 node::
 
     cd emqttd1 && ./bin/emqttd_ctl cluster remove emqttd2@127.0.0.1
 
-.. _command_clients::
+.. _command_clients:
 
 -------
 clients
@@ -234,7 +234,7 @@ Kick out a MQTT Client::
 
     ./bin/emqttd_ctl clients kick "clientid"
 
-.. _command_sessions::
+.. _command_sessions:
 
 --------
 sessions
@@ -313,7 +313,7 @@ Show a session::
 
     Session(clientid, clean_sess=false, max_inflight=100, inflight_queue=0, message_queue=0, message_dropped=0, awaiting_rel=0, awaiting_ack=0, awaiting_comp=0, created_at=1452935508)
 
-.. _command_routes::
+.. _command_routes:
 
 ------
 routes
@@ -340,7 +340,7 @@ Show a route::
 
     t/+/x -> emqttd2@127.0.0.1,emqttd@127.0.0.1
 
-.. _command_topics::
+.. _command_topics:
 
 ------
 topics
@@ -369,7 +369,7 @@ Show a topic::
 
     $SYS/brokers: static
 
-.. _command_subscriptions::
+.. _command_subscriptions:
 
 -------------
 subscriptions
@@ -411,7 +411,7 @@ Show the subscriptions of a MQTT client::
 
     clientid: [{<<"x">>,1},{<<"topic2">>,1},{<<"topic3">>,1}]
 
-.. _command_plugins::
+.. _command_plugins:
 
 -------
 plugins
@@ -480,7 +480,7 @@ Unload a Plugin::
 
     Plugin emq_recon unloaded successfully.
 
-.. _command_bridges::
+.. _command_bridges:
 
 -------
 bridges
@@ -560,7 +560,7 @@ Delete the emqttd1--sensor/#-->emqttd2 bridge::
 
     bridge is stopped.
 
-.. _command_vm::
+.. _command_vm:
 
 --
 vm
@@ -628,7 +628,7 @@ Query max, active file descriptors of IO::
     io/max_fds              : 2560
     io/active_fds           : 1
 
-.. _command_trace::
+.. _command_trace:
 
 -----
 trace
@@ -694,7 +694,7 @@ List all traces::
     trace client clientid -> log/clientid_trace.log
     trace topic topic -> log/topic_trace.log
 
-.. _command_listeners::
+.. _command_listeners:
 
 ---------
 listeners
@@ -737,7 +737,7 @@ listener parameters:
 | shutdown_count  | Statistics of client shutdown reason |
 +----------------+---------------------------------------+
 
-.. _command_mnesia::
+.. _command_mnesia:
 
 ------
 mnesia
