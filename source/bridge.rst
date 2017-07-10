@@ -1,5 +1,5 @@
 
-.. _bridge::
+.. _bridge:
 
 ======
 Bridge

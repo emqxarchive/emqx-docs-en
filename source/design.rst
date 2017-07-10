@@ -248,7 +248,7 @@ The authentication modules implemented by plugins:
 +-----------------------+--------------------------------+
 | emq_auth_username     | Username and Password          |
 +-----------------------+--------------------------------+
-| emq_auth_clientid     | ClientID and Password         |
+| emq_auth_clientid     | ClientID and Password          |
 +-----------------------+--------------------------------+
 | emq_auth_ldap         | LDAP                           |
 +-----------------------+--------------------------------+

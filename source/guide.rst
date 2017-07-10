@@ -58,7 +58,7 @@ Configure etc/emq.conf to allow anonymous authentication:
 Username/Password
 -----------------
 
-Authenticate MQTT client with Username/Password::
+Authenticate MQTT client with Username/Password:
 
 Configure default users in etc/plugins/emq_auth_username.conf:
 
@@ -549,33 +549,31 @@ For example, we use mosquitto_sub/pub commands::
 
 MQTT V3.1.1 Protocol Specification: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
 
-MQTT Listener of emqttd broker is configured in etc/emq.conf:
-
-.. code-block:: erlang
+MQTT Listener of the EMQ broker is configured in etc/emq.conf:
 
 .. code-block:: properties
 
     ## TCP Listener: 1883, 127.0.0.1:1883, ::1:1883
-    mqtt.listener.tcp = 1883
+    listener.tcp.external = 1883
 
     ## Size of acceptor pool
-    mqtt.listener.tcp.acceptors = 8
+    listener.tcp.external.acceptors = 8
 
     ## Maximum number of concurrent clients
-    mqtt.listener.tcp.max_clients = 1024
+    listener.tcp.external.max_clients = 1024
 
 MQTT(SSL) Listener, Default Port is 8883:
 
 .. code-block:: properties
 
     ## SSL Listener: 8883, 127.0.0.1:8883, ::1:8883
-    mqtt.listener.ssl = 8883
+    listener.ssl.external = 8883
 
     ## Size of acceptor pool
-    mqtt.listener.ssl.acceptors = 4
+    listener.ssl.external.acceptors = 4
 
     ## Maximum number of concurrent clients
-    mqtt.listener.ssl.max_clients = 512
+    listener.ssl.external.max_clients = 512
 
 ----------------
 HTTP Publish API

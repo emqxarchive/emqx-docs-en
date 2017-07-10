@@ -236,7 +236,7 @@ Download Mac Package from: http://emqtt.io/downloads/latest/macosx
 
 Configure log level in `etc/emq.conf`, all MQTT messages recevied/sent will be printed on console:
 
-.. code-block::
+.. code-block:: bash 
 
     ## Console log. Enum: off, file, console, both
     log.console = both
@@ -516,5 +516,4 @@ boot test::
     uncomment '# export HOME=/root' if "HOME must be set" error.
 
 .. _emq_dashboard:       https://github.com/emqtt/emqttd_dashboard
-
-
+.. _emq-relx:            https://github.com/emqtt/emq-relx

@@ -34,10 +34,10 @@ The plugins that *EMQ* 2.0-rc.2 released:
 +------------------------+-------------------------------+
 | `emq_auth_mongo`_      | MongoDB Auth/ACL Plugin       |
 +------------------------+-------------------------------+
-| `emq_web_hook`_        | Web Hook插件                  |
-++---------------------------+---------------------------+
-| `emq_lua_hook`_        | Lua Hook插件                  |
-++---------------------------+---------------------------+
+| `emq_web_hook`_        | Web Hook Plugin               |
+++-----------------------+-------------------------------+
+| `emq_lua_hook`_        | Lua Hook Plugin               |
+++-----------------------+-------------------------------+
 | `emq_coap`_            | CoAP Protocol Plugin          |
 +------------------------+-------------------------------+
 | `emq_sn`_              | MQTT-SN Protocol Plugin       |
@@ -76,7 +76,7 @@ Use 'bin/emqttd_ctl plugins' CLI to load, unload a plugin::
 emq_retainer - Retainer Plugin
 ------------------------------
 
-Renamed the `emq_mod_retainer`_ to `emq_retainer`_ project in 2.1-beta release.
+Renamed the `emq_mod_retainer` to `emq_retainer`_ project in 2.1-beta release.
 
 Configure Retainer Plugin
 -------------------------
@@ -604,7 +604,7 @@ etc/plugins/emq_auth_mongo.conf:
 MongoDB Database
 ----------------
 
-.. code-block::
+.. code-block:: console
 
     use mqtt
     db.createCollection("mqtt_user")
