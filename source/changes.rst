@@ -15,7 +15,7 @@ Version 2.2 "Nostalgia"
 
 *Release Name: Nostalgia*
 
-Release name "Nostalgia". From version 2.2, EMQ supports CoAP(RFC 7252), MQTT-SN protocols, and now it is extendible with Web Hook, Lua Hook and Elixir Hook.
+EMQ 2.2.0 is available now! EMQ R2.2 supports CoAP(RFC 7252), MQTT-SN protocols completely, and it is extensible with Web Hook, Lua Hook and Elixir Hook.
 
 Feature: Add 'listeners restart/stop' CLI command (emqttd#1135)
 
