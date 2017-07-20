@@ -213,10 +213,10 @@ emqttd/etc/emq.conf 'listeners':
 .. code-block:: properties
 
     ## Size of acceptor pool
-    mqtt.listener.tcp.acceptors = 64
+    listener.tcp.acceptors = 64
 
     ## Maximum number of concurrent clients
-    mqtt.listener.tcp.max_clients = 1000000
+    listener.tcp.max_clients = 1000000
 
 Test Client
 -----------

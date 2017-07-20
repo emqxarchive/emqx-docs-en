@@ -400,13 +400,16 @@ The TCP ports used can be configured in etc/emqttd.config:
 .. code-block:: properties
 
     ## TCP Listener: 1883, 127.0.0.1:1883, ::1:1883
-    mqtt.listener.tcp = 1883
+    listener.tcp.external = 0.0.0.0:1883
 
     ## SSL Listener: 8883, 127.0.0.1:8883, ::1:8883
-    mqtt.listener.ssl = 8883
+    listener.ssl.external = 8883
     
-    ## HTTP and WebSocket Listener
-    mqtt.listener.http = 8083
+    ## External MQTT/WebSocket Listener
+    listener.ws.external = 8083
+    
+    ## HTTP Management API Listener
+    listener.api.mgmt = 127.0.0.1:8080
 
 The 18083 port is used by Web Dashboard of the broker. Default login: admin, Password: public
 
@@ -443,11 +446,11 @@ The maximum number of allowed MQTT clients:
 
 .. code-block:: properties
 
-    mqtt.listener.tcp = 1883
+    listener.tcp.external = 0.0.0.0:1883
+    
+    listener.tcp.external.acceptors = 8
 
-    mqtt.listener.tcp.acceptors = 8
-
-    mqtt.listener.tcp.max_clients = 1024
+    listener.tcp.external.max_clients = 1024
 
 .. _init_d_emqttd:
 

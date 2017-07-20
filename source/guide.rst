@@ -621,14 +621,14 @@ The Dashboard plugin provides a test page for WebSocket::
 
     http://127.0.0.1:18083/websocket.html
 
-Listener of WebSocket and HTTP Publish API is configured in etc/emqttd.config:
+Listener of WebSocket and HTTP Publish API is configured in etc/emq.config:
 
 .. code-block:: properties
 
-    ## HTTP and WebSocket Listener
-    mqtt.listener.http = 8083
-    mqtt.listener.http.acceptors = 4
-    mqtt.listener.http.max_clients = 64
+    ## MQTT/WebSocket Listener
+    listener.ws.external = 8083
+    listener.ws.external.acceptors = 4
+    listener.ws.external.max_clients = 64
 
 -----------
 $SYS Topics
