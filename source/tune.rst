@@ -108,9 +108,9 @@ Tune the acceptor pool, max_clients limit and sockopts for TCP listener in etc/e
 .. code-block:: properties
 
     ## TCP Listener
-    mqtt.listener.tcp = 1883
-    mqtt.listener.tcp.acceptors = 64
-    mqtt.listener.tcp.max_clients = 1000000
+    listener.tcp.external = 0.0.0.0:1883
+    listener.tcp.external.acceptors = 64
+    listener.tcp.external.max_clients = 1000000
 
 --------------
 Client Machine
