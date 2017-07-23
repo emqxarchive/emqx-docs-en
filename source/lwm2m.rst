@@ -5,7 +5,7 @@
 LWM2M Protocol
 ==============
 
-Lightweight M2M (LWM2M) is a set of protocols defined by the Open Mobile Alliance (OMA) for machine-to-machine (M2M) or Internet of Things (IoT) device management and communications. It can be found `Here <http://www.openmobilealliance.org/wp/>`_ .
+Lightweight M2M (LWM2M) is a set of protocols defined by the Open Mobile Alliance (OMA) for machine-to-machine (M2M) or Internet of Things (IoT) device management and communications. It can be found `here <http://www.openmobilealliance.org/wp/>`_ .
 
 LWM2M is based on coap protocol, and be carried on UDP or SMS.
 
