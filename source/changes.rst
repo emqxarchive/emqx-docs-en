@@ -13,7 +13,7 @@ Version 2.3-beta.1
 
 *Release Date: 2017-07-24*
 
-EMQ R2.3-beta.1 is available now! 该版本正式支持集群节点自动发现与集群脑裂自动愈合，支持基于IP Multicast、Etcd、Kubernetes等多种策略自动构建集群。
+EMQ R2.3-beta.1 is available now!. This release supports Network Partition Detection and Autoheal. It supports automatically forming clusters of Erlang nodes using stateies such as IP Multicast, Etcd and Kubernetes. 
 
 Node Discovery and Autocluster
 --------------------------------
