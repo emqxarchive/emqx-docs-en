@@ -109,7 +109,7 @@ EMQ R2.3 supports node discovery and autocluster with various strategies:
 +------------+---------------------------------+
 | mcast      | Autocluster by UDP Multicast    |
 +------------+---------------------------------+
-| dns        | Autocluster by DNA A Record     |
+| dns        | Autocluster by DNS A Record     |
 +------------+---------------------------------+
 | etcd       | Autocluster using etcd          |
 +------------+---------------------------------+
@@ -148,7 +148,7 @@ Autocluster by IP Multicast
 
     cluster.mcast.loop = on
 
-Autocluster by DNA A Record
+Autocluster by DNS A Record
 ---------------------------
 
 .. code-block:: properties

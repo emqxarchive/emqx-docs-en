@@ -27,7 +27,7 @@ EMQ R2.3 supports node discovery and autocluster with various strategies:
 +------------+---------------------------------+
 | mcast      | Autocluster by UDP Multicast    |
 +------------+---------------------------------+
-| dns        | Autocluster by DNA A Record     |
+| dns        | Autocluster by DNS A Record     |
 +------------+---------------------------------+
 | etcd       | Autocluster using etcd          |
 +------------+---------------------------------+
@@ -43,7 +43,7 @@ Enable autoheal of Network Partition by default:
 
     cluster.autoheal = on
 
-When network partition occurs, the following steps to heal the cluster if autoheal is enabled:
+When network partition occurs, the following steps are performed to heal the cluster if autoheal is enabled:
 
 1. Node reports the partitions to a leader node which has the oldest guid.
 
@@ -65,7 +65,7 @@ A down node will be removed from the cluster if autoclean is enabled:
 LWM2M Protocol Support
 -----------------------
 
-EMQ-LWM2M is an gatewaty plugin for EMQ，which implemnts most LWM2M features. MQTT client is able to access LWM2M device through emq-lwm2m plugin, by sending a command and reading its response.
+EMQ-LWM2M is a gatewaty plugin for EMQ，which implemnts most LWM2M features. MQTT client is able to access LWM2M device through emq-lwm2m plugin, by sending a command and reading its response.
 
 Lightweight M2M (LWM2M) is a set of protocols defined by the Open Mobile Alliance (OMA) for machine-to-machine (M2M) or Internet of Things (IoT) device management and communications
 
@@ -87,7 +87,7 @@ EMQ R2.3 released binary package for Debian 9.
 Erlang/OTP R20
 --------------
 
-EMQ R2.3 is compatible with Erlang/OTP R20, and all the binary packages is built on Erlang/OTP R20.
+EMQ R2.3 is compatible with Erlang/OTP R20, and all the binary packages are built on Erlang/OTP R20.
 
 .. _release_2.2.0:
 
