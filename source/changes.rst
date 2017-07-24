@@ -5,6 +5,90 @@
 Changes
 =======
 
+.. _release_2.3-beta.1:
+
+------------------
+Version 2.3-beta.1
+------------------
+
+*Release Date: 2017-07-24*
+
+EMQ R2.3-beta.1 is available now!. 该版本正式支持集群节点自动发现与集群脑裂自动愈合，支持基于IP Multicast、Etcd、Kubernetes等多种策略自动构建集群。
+
+Node Discovery and Autocluster
+--------------------------------
+
+EMQ R2.3 supports node discovery and autocluster with various strategies:
+
++------------+---------------------------------+
+| Strategy   | Description                     |
++============+=================================+
+| static     | Autocluster by static node list |
++------------+---------------------------------+
+| mcast      | Autocluster by UDP Multicast    |
++------------+---------------------------------+
+| dns        | Autocluster by DNA A Record     |
++------------+---------------------------------+
+| etcd       | Autocluster using etcd          |
++------------+---------------------------------+
+| k8s        | Autocluster on Kubernetes       |
++------------+---------------------------------+
+
+Network Partition and Autoheal
+------------------------------
+
+Enable autoheal of Network Partition by default:
+
+.. code-block:: properties
+
+    cluster.autoheal = on
+
+When network partition occurs, the following steps to heal the cluster if autoheal is enabled:
+
+1. Node reports the partitions to a leader node which has the oldest guid.
+
+2. Leader node create a global netsplit view and choose one node in the majority as coordinator.
+
+3. Leader node requests the coordinator to autoheal the network partition.
+
+4. Coordinator node reboots all the nodes in the minority side.
+
+Node down and Autoclean
+-----------------------
+
+A down node will be removed from the cluster if autoclean is enabled:
+
+.. code-block:: properties
+
+    cluster.autoclean = 5m
+
+LWM2M Protocol Support
+-----------------------
+
+EMQ-LWM2M is an gatewaty plugin for EMQ，which implemnts most LWM2M features. MQTT client is able to access LWM2M device through emq-lwm2m plugin, by sending a command and reading its response.
+
+Lightweight M2M (LWM2M) is a set of protocols defined by the Open Mobile Alliance (OMA) for machine-to-machine (M2M) or Internet of Things (IoT) device management and communications
+
+JWT Authentication
+------------------
+
+EMQ R2.3 supports JWT(JSON Web Token) Authentication with `emq-auth-jwt`_ plugin.
+
+Retainer Plugin
+---------------
+
+Retainer Plugin support 'disc_only' mode to store MQTT retained messages.
+
+Debian 9 Package
+----------------
+
+EMQ R2.3 released binary package for Debian 9.
+
+Erlang/OTP R20
+--------------
+
+EMQ R2.3 is compatible with Erlang/OTP R20, and all the binary packages is built on Erlang/OTP R20.
+
 .. _release_2.2.0:
 
 -----------------------
