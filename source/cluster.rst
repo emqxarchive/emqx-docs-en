@@ -146,64 +146,64 @@ Cluster Setup
 
 Suppose we deploy two nodes cluster on s1.emqtt.io, s2.emqtt.io:
 
-+--------------------------+-----------------+---------------------+
-| Node                     | Host(FQDN)      |  IP and Port        |
-+--------------------------+-----------------+---------------------+
-| emqttd@s1.emqtt.io or    | s1.emqtt.io     | 192.168.0.10:1883   |
-| emqttd@192.168.0.10      |                 |                     |
-+--------------------------+-----------------+---------------------+
-| emqttd@s2.emqtt.io or    | s2.emqtt.io     | 192.168.0.20:1883   |
-| emqttd@192.168.0.20      |                 |                     |
-+--------------------------+-----------------+---------------------+
++-----------------------+-----------------+---------------------+
+| Node                  | Host(FQDN)      |  IP and Port        |
++-----------------------+-----------------+---------------------+
+| emq@s1.emqtt.io or    | s1.emqtt.io     | 192.168.0.10:1883   |
+| emq@192.168.0.10      |                 |                     |
++-----------------------+-----------------+---------------------+
+| emq@s2.emqtt.io or    | s2.emqtt.io     | 192.168.0.20:1883   |
+| emq@192.168.0.20      |                 |                     |
++-----------------------+-----------------+---------------------+
 
 .. WARNING:: The node name is Name@Host, where Host is IP address or the fully qualified host name.
 
-emqttd@s1.emqtt.io config
---------------------------
+emq@s1.emqtt.io config
+----------------------
 
 etc/emq.conf::
 
-    node.name = emqttd@s1.emqtt.io
+    node.name = emq@s1.emqtt.io
 
     or
 
-    node.name = emqttd@192.168.0.10
+    node.name = emq@192.168.0.10
 
 .. WARNING:: The name cannot be changed after node joined the cluster.
 
-emqttd@s2.emqtt.io config
---------------------------
+emq@s2.emqtt.io config
+-----------------------
 
 etc/emq.conf::
 
-    node.name = emqttd@s2.emqtt.io
+    node.name = emq@s2.emqtt.io
 
     or
 
-    node.name = emqttd@192.168.0.20
+    node.name = emq@192.168.0.20
 
 Join the cluster
 ----------------
 
 Start the two broker nodes, and 'cluster join ' on emqttd@s2.emqtt.io::
 
-    $ ./bin/emqttd_ctl cluster join emqttd@s1.emqtt.io
+    $ ./bin/emqttd_ctl cluster join emq@s1.emqtt.io
 
     Join the cluster successfully.
-    Cluster status: [{running_nodes,['emqttd@s1.emqtt.io','emqttd@s2.emqtt.io']}]
+    Cluster status: [{running_nodes,['emq@s1.emqtt.io','emq@s2.emqtt.io']}]
 
-Or 'cluster join' on emqttd@s1.emqtt.io::
+Or 'cluster join' on emq@s1.emqtt.io::
 
-    $ ./bin/emqttd_ctl cluster join emqttd@s2.emqtt.io
+    $ ./bin/emqttd_ctl cluster join emq@s2.emqtt.io
 
     Join the cluster successfully.
-    Cluster status: [{running_nodes,['emqttd@s1.emqtt.io','emqttd@s2.emqtt.io']}]
+    Cluster status: [{running_nodes,['emq@s1.emqtt.io','emq@s2.emqtt.io']}]
 
 Query the cluster status::
 
     $ ./bin/emqttd_ctl cluster status
 
-    Cluster status: [{running_nodes,['emqttd@s1.emqtt.io','emqttd@s2.emqtt.io']}]
+    Cluster status: [{running_nodes,['emq@s1.emqtt.io','emq@s2.emqtt.io']}]
 
 Leave the cluster
 -----------------
@@ -214,13 +214,149 @@ Two ways to leave the cluster:
 
 2. remove: remove other nodes from the cluster
 
-emqttd@s2.emqtt.io node tries to leave the cluster::
+emq@s2.emqtt.io node tries to leave the cluster::
 
     $ ./bin/emqttd_ctl cluster leave
 
-Or remove emqttd@s2.emqtt.io node from the cluster on emqttd@s1.emqtt.io::
+Or remove emq@s2.emqtt.io node from the cluster on emq@s1.emqtt.io::
 
-    $ ./bin/emqttd_ctl cluster remove emqttd@s2.emqtt.io
+    $ ./bin/emqttd_ctl cluster remove emq@s2.emqtt.io
+
+------------------------------
+Node Discovery and Autocluster
+------------------------------
+
+EMQ R2.3 supports node discovery and autocluster with various strategies:
+
++------------+---------------------------------+
+| Strategy   | Description                     |
++============+=================================+
+| static     | Autocluster by static node list |
++------------+---------------------------------+
+| mcast      | Autocluster by UDP Multicast    |
++------------+---------------------------------+
+| dns        | Autocluster by DNS A Record     |
++------------+---------------------------------+
+| etcd       | Autocluster using etcd          |
++------------+---------------------------------+
+| k8s        | Autocluster on Kubernetes       |
++------------+---------------------------------+
+
+Autocluster by static node list
+-------------------------------
+
+.. code-block:: properties
+
+    cluster.discovery = static
+
+    ##--------------------------------------------------------------------
+    ## Cluster with static node list
+
+    cluster.static.seeds = emq1@127.0.0.1,ekka2@127.0.0.1
+
+Autocluster by IP Multicast
+---------------------------
+
+.. code-block:: properties
+
+    cluster.discovery = mcast
+
+    ##--------------------------------------------------------------------
+    ## Cluster with multicast
+
+    cluster.mcast.addr = 239.192.0.1
+
+    cluster.mcast.ports = 4369,4370
+
+    cluster.mcast.iface = 0.0.0.0
+
+    cluster.mcast.ttl = 255
+
+    cluster.mcast.loop = on
+
+Autocluster by DNS A Record
+---------------------------
+
+.. code-block:: properties
+
+    cluster.discovery = dns
+
+    ##--------------------------------------------------------------------
+    ## Cluster with DNS
+
+    cluster.dns.name = localhost
+
+    cluster.dns.app  = ekka
+
+Autocluster using etcd
+----------------------
+
+.. code-block:: properties
+
+    cluster.discovery = etcd
+
+    ##--------------------------------------------------------------------
+    ## Cluster with Etcd
+
+    cluster.etcd.server = http://127.0.0.1:2379
+
+    cluster.etcd.prefix = emqcl
+
+    cluster.etcd.node_ttl = 1m
+
+Autocluster on Kubernetes
+-------------------------
+
+.. code-block:: properties
+
+    cluster.discovery = k8s
+
+    ##--------------------------------------------------------------------
+    ## Cluster with k8s
+
+    cluster.k8s.apiserver = http://10.110.111.204:8080
+
+    cluster.k8s.service_name = ekka
+
+    ## Address Type: ip | dns
+    cluster.k8s.address_type = ip
+
+    ## The Erlang application name
+    cluster.k8s.app_name = ekka
+
+.. _cluster_netsplit:
+
+------------------------------
+Network Partition and Autoheal
+------------------------------
+
+Enable autoheal of Network Partition:
+
+.. code-block:: properties
+
+    cluster.autoheal = on
+
+When network partition occurs, the following steps to heal the cluster if autoheal is enabled:
+
+1. Node reports the partitions to a leader node which has the oldest guid.
+
+2. Leader node create a global netsplit view and choose one node in the majority as coordinator.
+
+3. Leader node requests the coordinator to autoheal the network partition.
+
+4. Coordinator node reboots all the nodes in the minority side.
+
+-----------------------
+Node down and Autoclean
+-----------------------
+
+A down node will be removed from the cluster if autoclean is enabled:
+
+.. code-block:: properties
+
+    cluster.autoclean = 5m
+
+.. _cluster_session:
 
 --------------------
 Session across Nodes

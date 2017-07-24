@@ -55,9 +55,10 @@ Contents:
    tune
    changes
    upgrade
-   mqtt-sn
-   coap
    mqtt
+   coap
+   mqtt-sn
+   lwm2m
    faq
 
 -------
