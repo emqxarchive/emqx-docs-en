@@ -13,7 +13,7 @@ Version 2.3-beta.1
 
 *Release Date: 2017-07-24*
 
-EMQ R2.3-beta.1 is available now!. This release supports automatic cluster node discovery and network partition autoheal. It supports automatically forming clusters of Erlang nodes by setting different strategies, such as IP Multicast, Etcd and Kubernetes. 
+EMQ R2.3-beta.1 is available now!. This release supports automatic cluster node discovery and network partition autoheal. It supports automatically forming clusters of Erlang nodes using different strategies, such as IP Multicast, Etcd and Kubernetes.
 
 Node Discovery and Autocluster
 --------------------------------
