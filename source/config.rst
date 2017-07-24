@@ -60,6 +60,144 @@ OS Environment Variables
 | EMQ_WSS_PORT     | MQTT/WebSocket/SSL Port, Default: 8084 |
 +------------------+----------------------------------------+
 
+-----------
+EMQ Cluster
+-----------
+
+Cluster Name
+------------
+
+.. code-block:: properties
+
+    ## Cluster name
+    cluster.name = emqcl
+
+Cluster Discovery
+-----------------
+
+.. code-block:: properties
+
+    ## Cluster discovery strategy: manual | static | mcast | dns | etcd | k8s
+    cluster.discovery = manual
+
+Cluster Autoheal
+----------------
+
+.. code-block:: properties
+
+    ## Cluster Autoheal: on | off
+    cluster.autoheal = on
+
+Cluster Autoclean
+-----------------
+
+.. code-block:: properties
+
+    ## Clean down node of the cluster
+    cluster.autoclean = 5m
+
+--------------------------
+EMQ Autodiscovery Strategy
+--------------------------
+
+EMQ R2.3 supports node discovery and autocluster with various strategies:
+
++------------+---------------------------------+
+| Strategy   | Description                     |
++============+=================================+
+| static     | Autocluster by static node list |
++------------+---------------------------------+
+| mcast      | Autocluster by UDP Multicast    |
++------------+---------------------------------+
+| dns        | Autocluster by DNA A Record     |
++------------+---------------------------------+
+| etcd       | Autocluster using etcd          |
++------------+---------------------------------+
+| k8s        | Autocluster on Kubernetes       |
++------------+---------------------------------+
+
+Autocluster by static node list
+-------------------------------
+
+.. code-block:: properties
+
+    cluster.discovery = static
+
+    ##--------------------------------------------------------------------
+    ## Cluster with static node list
+
+    cluster.static.seeds = emq1@127.0.0.1,ekka2@127.0.0.1
+
+Autocluster by IP Multicast
+---------------------------
+
+.. code-block:: properties
+
+    cluster.discovery = mcast
+
+    ##--------------------------------------------------------------------
+    ## Cluster with multicast
+
+    cluster.mcast.addr = 239.192.0.1
+
+    cluster.mcast.ports = 4369,4370
+
+    cluster.mcast.iface = 0.0.0.0
+
+    cluster.mcast.ttl = 255
+
+    cluster.mcast.loop = on
+
+Autocluster by DNA A Record
+---------------------------
+
+.. code-block:: properties
+
+    cluster.discovery = dns
+
+    ##--------------------------------------------------------------------
+    ## Cluster with DNS
+
+    cluster.dns.name = localhost
+
+    cluster.dns.app  = ekka
+
+Autocluster using etcd
+----------------------
+
+.. code-block:: properties
+
+    cluster.discovery = etcd
+
+    ##--------------------------------------------------------------------
+    ## Cluster with Etcd
+
+    cluster.etcd.server = http://127.0.0.1:2379
+
+    cluster.etcd.prefix = emqcl
+
+    cluster.etcd.node_ttl = 1m
+
+Autocluster on Kubernetes
+-------------------------
+
+.. code-block:: properties
+
+    cluster.discovery = k8s
+
+    ##--------------------------------------------------------------------
+    ## Cluster with k8s
+
+    cluster.k8s.apiserver = http://10.110.111.204:8080
+
+    cluster.k8s.service_name = ekka
+
+    ## Address Type: ip | dns
+    cluster.k8s.address_type = ip
+
+    ## The Erlang application name
+    cluster.k8s.app_name = ekka
+
 -------------------
 EMQ Node and Cookie
 -------------------
