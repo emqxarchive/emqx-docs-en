@@ -59,6 +59,13 @@ QoS0, QoS1, QoS2 Messages
 C->S Sequence...
 
 
+Qos is set in both PUBLISH and SUBSCRIBE. The publish message that a subscriber received has the mininum Qos between PUBLISH Qos and SUBSCRIBE Qos as the MQTT v3.1.1 addressed:
+
+::
+
+    The Server might grant a lower maximum QoS than the subscriber requested. The QoS of Payload Messages sent in response to a Subscription MUST be the minimum of the QoS of the originally published message and the maximum QoS granted by the Server.
+
+
 ----------------
 Retained Message
 ----------------
