@@ -5,6 +5,65 @@
 Changes
 =======
 
+.. _release_2.3-beta.2:
+
+------------------
+Version 2.3-beta.2
+------------------
+
+*Release Date: 2017-08-12*
+
+EMQ R2.3-beta.2, a development release, is available now! This release introduces new HTTP Managment API, and supports Hot configuration of some parameters and plugins.
+
+The plugins which support Hot configuration:
+
+- emq-stomp
+- emq-coap
+- emq-sn
+- emq-lwm2m
+- emq-dashboard
+- emq-retainer
+- emq-recon
+- emq-web-hook
+- emq-auth-jwt
+- emq-auth-http
+- emq-auth-mongo
+- emq-auth-mysql
+- emq-auth-pgsql
+- emq-auth-redis
+
+Enhancements
+------------
+
+1. Introduce new HTTP management API.
+
+2. Add ClientId parameter for HTTP Publish API.
+
+3. Allow configuring keepalive backoff.
+
+4. Remove the fullsweep_after option to lower CPU usage.
+
+5. Authorize HTTP Publish API with clientId.
+
+emq-sn Plugin (emq-sn#49)
+-------------------------
+
+1. Support CONNECT message in connected/wait_for_will_topic/wait_for_will_msg states.
+
+2. Clean registered topic for a restarted client.
+
+3. Bug fix of not clearing buffered PUBLISH messages received during asleep state as those messages are sent to client when client wakes up.
+
+emq-auth-ldap Plugin (emq-auth-ldap#21)
+---------------------------------------
+
+Improve the design LDAP authentication.
+
+emq-coap Plugin (emq-coap#51)
+-----------------------------
+
+Support CoAP PubSub Specification (https://www.ietf.org/id/draft-ietf-core-coap-pubsub-02.txt)
+
 .. _release_2.3-beta.1:
 
 ------------------
