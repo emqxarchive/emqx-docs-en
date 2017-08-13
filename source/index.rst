@@ -52,6 +52,7 @@ Contents:
    design
    commands
    plugins
+   rest
    tune
    changes
    upgrade
