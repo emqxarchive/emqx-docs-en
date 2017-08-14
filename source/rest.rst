@@ -23,7 +23,7 @@ The HTTP requests to the REST API are protected with HTTP Basic authentication, 
 
 .. code-block:: bash
 
-    curl -v --basic -u <user>:<passwd> -k http://localhost:8080/api/v2/nodes/emqx@127.0.0.1/clients
+    curl -v --basic -u <user>:<passwd> -k http://localhost:8080/api/v2/nodes/emq@127.0.0.1/clients
 
 
 -----
@@ -46,11 +46,11 @@ Response:
         "result":
         [
             {
-                "name": "emqx@127.0.0.1",
+                "name": "emq@127.0.0.1",
                 "version": "2.1.1",
-                "sysdescr": "EMQ X",
+                "sysdescr": "EMQ",
                 "uptime": "1 hours, 17 minutes, 1 seconds",
-                "datetime": "2017-04-14 14 (tel:2017041414):11:38",
+                "datetime": "2017-04-14 14:11:38",
                 "otp_release": "R19/8.3",
                 "node_status": "Running"
             }
@@ -66,7 +66,7 @@ Definition::
 
 Example Request::
 
-    GET api/v2/management/nodes/emqx@127.0.0.1
+    GET api/v2/management/nodes/emq@127.0.0.1
  
 Response:
 
@@ -79,7 +79,7 @@ Response:
             "version": "2.1.1",
             "sysdescr": "EMQ X",
             "uptime": "1 hours, 17 minutes, 18 seconds",
-            "datetime": "2017-04-14 14 (tel:2017041414):11:55",
+            "datetime": "2017-04-14 14:11:55",
             "otp_release": "R19/8.3",
             "node_status": "Running"
         }
@@ -101,7 +101,7 @@ Response:
         "result":
         [
             {
-                "name": "emqx@127.0.0.1",
+                "name": "emq@127.0.0.1",
                 "otp_release": "R19/8.3",
                 "memory_total": "69.19M",
                 "memory_used": "49.28M",
@@ -126,7 +126,7 @@ Definition::
 
 Example Request::
 
-    GET api/v2/monitoring/nodes/emqx@127.0.0.1
+    GET api/v2/monitoring/nodes/emq@127.0.0.1
 
 Response:
 
@@ -136,7 +136,7 @@ Response:
         "code": 0,
         "result":
         {
-            "name": "emqx@127.0.0.1",
+            "name": "emq@127.0.0.1",
             "otp_release": "R19/8.3",
             "memory_total": "69.19M",
             "memory_used": "49.24M",
@@ -168,7 +168,7 @@ Request parameter::
 
 Example Request::
 
-    GET api/v2/nodes/emqx@127.0.0.1/clients
+    GET api/v2/nodes/emq@127.0.0.1/clients
 
 Response:
 
@@ -207,7 +207,7 @@ Definition::
 
 Example Request::
 
-    GET api/v2/nodes/emqx@127.0.0.1/clients/C_1492145414740
+    GET api/v2/nodes/emq@127.0.0.1/clients/C_1492145414740
 
 Response:
 
@@ -282,7 +282,7 @@ Definition::
 
 Example Request::
 
-    GET api/v2/nodes/emqx@127.0.0.1/sessions
+    GET api/v2/nodes/emq@127.0.0.1/sessions
 
 Response:
 
@@ -323,7 +323,7 @@ Definition::
 
 Example Request::
 
-    GET api/v2/nodes/emqx@127.0.0.1/sessions/C_1492145414740
+    GET api/v2/nodes/emq@127.0.0.1/sessions/C_1492145414740
 
 Response:
 
@@ -405,7 +405,7 @@ Request parameters::
 
 Example Request::
 
-    GET api/v2/nodes/emqx@127.0.0.1/subscriptions
+    GET api/v2/nodes/emq@127.0.0.1/subscriptions
 
 Response:
 
@@ -517,7 +517,7 @@ Response:
             [
                 {
                     "topic": "$client/C_1492145414740",
-                    "node": "emqx@127.0.0.1"
+                    "node": "emq@127.0.0.1"
                 }
             ]
         }
@@ -546,164 +546,10 @@ Response:
             [
                 {
                     "topic": "topic",
-                    "node": "emqx@127.0.0.1"
+                    "node": "emq@127.0.0.1"
                 }
             ]
         }
-    }
-
------
-Users
------
-
-User Login
-----------
-
-Definition::
-
-    POST /api/v2/auth
-
-Request parameters:
-    
-.. code-block:: json
-
-    {
-        "username": "admin",
-        "password": "public"
-    }
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
-    }
-
-Create a new User
------------------
-
-Definition::
-
-    POST /api/v2/users/
-
-Request parameters:
-
-.. code-block:: json
-    
-    {
-        "username": "root",
-        "password": "root",
-        "email": "admin@emqtt.io",
-        "role": "administrator",
-        "remark": "123"
-    }
-    
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
-    }
-    
-Retrieve a User
----------------
-
-Definition::
-
-    GET /api/v2/users/{username}
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result":
-        {
-            "username": "root",
-            "email": "admin@emqtt.io",
-            "role": "administrator",
-            "remark": "123",
-            "created_at": "2017-04-14 13 (tel:2017041413):51:43"
-        }
-    }
-
-List all Users
---------------
-
-Definition::
-
-    GET /api/v2/users/
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result":
-        [
-            {
-                "username": "admin",
-                "email": "admin@emqtt.io",
-                "role": "administrator",
-                "remark": "administrator",
-                "created_at": "2017-04-07 10 (tel:2017040710):30:01"
-            },
-            {
-                "username": "root",
-                "email": "admin@emqtt.io",
-                "role": "administrator",
-                "remark": "123",
-                "created_at": "2017-04-14 13 (tel:2017041413):51:43"
-            }
-        ]
-    }
-
-Update a User
--------------
-
-Definition::
-
-    PUT /api/v2/users/{username}
-
-Request parameters:
-
-.. code-block:: json
-
-    {
-        "email": "admin@emqtt.io",
-        "role": "administrator",
-        "remark": "123456"
-    }
-
-Response:
-
-.. code-block:: bash
-
-    {
-        "code": 0,
-        "result": []
-    }
-
-Delete a User (Except Admin)
-----------------------------
-
-Definition::
-
-    DELETE /api/v2/users/{username}
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
     }
 
 -------
@@ -723,133 +569,132 @@ Response:
 
     {
         "code": 0,
-        "result":
-        [
+        "result": [
             {
-                "name": "emqx_auth_clientid",
-                "version": "2.1.1",
-                "description": "EMQ X Authentication with ClientId/Password",
+                "name": "emq_auth_clientid",
+                "version": "2.3",
+                "description": "Authentication with ClientId/Password",
                 "active": false
             },
             {
-                "name": "emqx_auth_eems",
-                "version": "1.0",
-                "description": "EMQ X Authentication/ACL with eems",
+                "name": "emq_auth_http",
+                "version": "2.3",
+                "description": "Authentication/ACL with HTTP API",
                 "active": false
             },
             {
-                "name": "emqx_auth_http",
-                "version": "2.1.1",
-                "description": "EMQ X Authentication/ACL with HTTP API",
+                "name": "emq_auth_jwt",
+                "version": "2.3",
+                "description": "Authentication with jwt",
+                "active": false
+            }, 
+            {
+                "name": "emq_auth_ldap",
+                "version": "2.3",
+                "description": "Authentication/ACL with LDAP",
                 "active": false
             },
             {
-                "name": "emqx_auth_ldap",
-                "version": "2.1.1",
-                "description": "EMQ X Authentication/ACL with LDAP",
+                "name": "emq_auth_mongo",
+                "version": "2.3",
+                "description": "Authentication/ACL with MongoDB",
                 "active": false
             },
             {
-                "name": "emqx_auth_mongo",
-                "version": "2.1.1",
-                "description": "EMQ X Authentication/ACL with MongoDB",
+                "name": "emq_auth_mysql",
+                "version": "2.3",
+                "description": "Authentication/ACL with MySQL",
                 "active": false
             },
             {
-                "name": "emqx_auth_mysql",
-                "version": "2.1.1",
-                "description": "EMQ X Authentication/ACL with MySQL",
+                "name": "emq_auth_pgsql",
+                "version": "2.3",
+                "description": "Authentication/ACL with PostgreSQL",
                 "active": false
             },
             {
-                "name": "emqx_auth_pgsql",
-                "version": "2.1.1",
-                "description": "EMQ X Authentication/ACL with PostgreSQL",
+                "name": "emq_auth_redis",
+                "version": "2.3",
+                "description": "Authentication/ACL with Redis",
                 "active": false
             },
             {
-                "name": "emqx_auth_redis",
-                "version": "2.1.1",
-                "description": "EMQ X Authentication/ACL with Redis",
+                "name": "emq_auth_username",
+                "version": "2.3",
+                "description": "Authentication with Username/Password",
                 "active": false
             },
             {
-                "name": "emqx_auth_username",
-                "version": "2.1.1",
-                "description": "EMQ X Authentication with Username/Password",
+                "name": "emq_coap",
+                "version": "2.3",
+                "description": "CoAP Gateway",
                 "active": false
             },
             {
-                "name": "emqx_backend_cassa",
-                "version": "2.1.1",
-                "description": "EMQ X Cassandra Backend",
-                "active": false
-            },
-            {
-                "name": "emqx_backend_mongo",
-                "version": "2.1.1",
-                "description": "EMQ X Mongodb Backend",
-                "active": false
-            },
-            {
-                "name": "emqx_backend_mysql",
-                "version": "2.1.0",
-                "description": "EMQ X MySQL Backend",
-                "active": false
-            },
-            {
-                "name": "emqx_backend_pgsql",
-                "version": "2.1.1",
-                "description": "EMQ X PostgreSQL Backend",
-                "active": false
-            },
-            {
-                "name": "emqx_backend_redis",
-                "version": "2.1.1",
-                "description": "EMQ X Redis Backend",
-                "active": false
-            },
-            {
-                "name": "emqx_bridge_kafka",
-                "version": "2.1.1",
-                "description": "EMQ X Kafka Bridge",
-                "active": false
-            },
-            {
-                "name": "emqx_bridge_rabbit",
-                "version": "2.1.1",
-                "description": "EMQ X Bridge RabbitMQ",
-                "active": false
-            },
-            {
-                "name": "emqx_dashboard",
-                "version": "2.1.1",
-                "description": "EMQ X Dashboard",
+                "name": "emq_dashboard",
+                "version": "2.3",
+                "description": "EMQ Web Dashboard",
                 "active": true
             },
             {
-                "name": "emqx_modules",
-                "version": "2.1.1",
-                "description": "EMQ X Modules",
+                "name": "emq_lua_hook",
+                "version": "2.3",
+                "description": "EMQ hooks in lua",
+                "active": false
+            },
+            {
+                "name": "emq_lwm2m",
+                "version": "0.1",
+                "description": "LWM2M Gateway",
+                "active": false
+            },
+            {
+                "name": "emq_modules",
+                "version": "2.3",
+                "description": "EMQ Modules",
                 "active": true
             },
             {
-                "name": "emqx_recon",
-                "version": "2.1.1",
+                "name": "emq_plugin_template",
+                "version": "2.3",
+                "description": "EMQ Plugin Template",
+                "active": false
+            },
+            {
+                "name": "emq_recon",
+                "version": "2.3",
                 "description": "Recon Plugin",
                 "active": true
             },
             {
-                "name": "emqx_reloader",
-                "version": "2.1.1",
+                "name": "emq_reloader",
+                "version": "2.3",
                 "description": "Reloader Plugin",
                 "active": false
             },
             {
-                "name": "emqx_retainer",
-                "version": "2.1.1",
-                "description": "EMQ X Retainer",
+                "name": "emq_retainer",
+                "version": "2.3",
+                "description": "EMQ Retainer",
                 "active": true
+            },
+            {
+                "name": "emq_sn",
+                "version": "2.3",
+                "description": "MQTT-SN Gateway",
+                "active": false
+            },
+            {
+                "name": "emq_stomp",
+                "version": "2.3",
+                "description": "Stomp Protocol Plugin",
+                "active": false
+            },
+            {
+                "name": "emq_web_hook",
+                "version": "2.3",
+                "description": "EMQ Webhook Plugin",
+                "active": false
             }
         ]
     }
@@ -883,7 +728,7 @@ List all Listeners
 
 Definition::
 
-    GET api/v2/listeners
+    GET api/v2/monitoring/listeners
 
 Response:
 
@@ -891,10 +736,16 @@ Response:
 
     {
         "code": 0,
-        "result":
-        {
-            "emqx@127.0.0.1":
-            [
+        "result": {
+            "emq@127.0.0.1": [
+                {
+                    "protocol": "dashboard:http",
+                    "listen": "18083",
+                    "acceptors": 2,
+                    "max_clients": 512,
+                    "current_clients": 0,
+                    "shutdown_count": []
+                },
                 {
                     "protocol": "mqtt:tcp",
                     "listen": "127.0.0.1:11883",
@@ -916,14 +767,14 @@ Response:
                     "listen": "8083",
                     "acceptors": 4,
                     "max_clients": 64,
-                    "current_clients": 1,
+                    "current_clients": 0,
                     "shutdown_count": []
                 },
                 {
                     "protocol": "mqtt:ssl",
                     "listen": "8883",
                     "acceptors": 16,
-                    "max_clients": 102400,
+                    "max_clients": 1024,
                     "current_clients": 0,
                     "shutdown_count": []
                 },
@@ -933,6 +784,14 @@ Response:
                     "acceptors": 4,
                     "max_clients": 64,
                     "current_clients": 0,
+                    "shutdown_count": []
+                },
+                {
+                    "protocol": "mqtt:api",
+                    "listen": "127.0.0.1:8080",
+                    "acceptors": 4,
+                    "max_clients": 64,
+                    "current_clients": 1,
                     "shutdown_count": []
                 }
             ]
@@ -944,11 +803,11 @@ List listeners of a Node
 
 Definition::
 
-    GET api/v2/listeners/{node_name}
+    GET api/v2/monitoring/listeners/{node_name}
 
 Example Request::
 
-    GET api/v2/listeners/emqx@127.0.0.1
+    GET api/v2/monitoring/listeners/emq@127.0.0.1
     
 Response:
 
@@ -956,8 +815,15 @@ Response:
 
     {
         "code": 0,
-        "result":
-        [
+        "result": [
+            {
+                "protocol": "mqtt:api",
+                "listen": "127.0.0.1:8080",
+                "acceptors": 4,
+                "max_clients": 64,
+                "current_clients": 1,
+                "shutdown_count": []
+            },
             {
                 "protocol": "mqtt:wss",
                 "listen": "8084",
@@ -970,7 +836,7 @@ Response:
                 "protocol": "mqtt:ssl",
                 "listen": "8883",
                 "acceptors": 16,
-                "max_clients": 102400,
+                "max_clients": 1024,
                 "current_clients": 0,
                 "shutdown_count": []
             },
@@ -979,7 +845,7 @@ Response:
                 "listen": "8083",
                 "acceptors": 4,
                 "max_clients": 64,
-                "current_clients": 1,
+                "current_clients": 0,
                 "shutdown_count": []
             },
             {
@@ -995,6 +861,14 @@ Response:
                 "listen": "127.0.0.1:11883",
                 "acceptors": 16,
                 "max_clients": 102400,
+                "current_clients": 0,
+                "shutdown_count": []
+            },
+            {
+                "protocol": "dashboard:http",
+                "listen": "18083",
+                "acceptors": 2,
+                "max_clients": 512,
                 "current_clients": 0,
                 "shutdown_count": []
             }
@@ -1051,7 +925,7 @@ Response:
     {
         "code": 0,
         "result": {
-            "emqx@127.0.0.1":
+            "emq@127.0.0.1":
             {
                 "packets/disconnect":0,
                 "messages/dropped":0,
@@ -1083,7 +957,6 @@ Response:
                 "messages/qos0/received":0,
                 "packets/subscribe":0,
                 "packets/pubrel/sent":0,
-                "messages/forward":0,
                 "messages/qos2/sent":0,
                 "packets/received":0,
                 "packets/pubrel/received":0,
@@ -1105,7 +978,7 @@ Definition::
 
 Example Request::
 
-    GET api/v2/monitoring/metrics/emqx@127.0.0.1
+    GET api/v2/monitoring/metrics/emq@127.0.0.1
 
 Response:
 
@@ -1144,7 +1017,6 @@ Response:
             "messages/qos0/received":0,
             "packets/subscribe":0,
             "packets/pubrel/sent":0,
-            "messages/forward":0,
             "messages/qos2/sent":0,
             "packets/received":0,
             "packets/pubrel/received":0,
@@ -1178,7 +1050,7 @@ Response:
     {
         "code": 0,
         "result": {
-            "emqx@127.0.0.1":
+            "emq@127.0.0.1":
             {
                 "clients/count":0,
                 "clients/max":0,
@@ -1207,7 +1079,7 @@ Definition::
 
 Example Request::
 
-    GET api/v2/monitoring/stats/emqx@127.0.0.1
+    GET api/v2/monitoring/stats/emq@127.0.0.1
 
 Response:
 

@@ -603,7 +603,11 @@ Parameters of the HTTP API:
 | message | Payload        |
 +---------+----------------+
 
-.. NOTE:: The API uses HTTP Basic Authentication.
+.. NOTE::
+    
+    The API uses HTTP Basic Authentication.
+    
+    The url of this API has been changed to 'api/v2/mqtt/publish' in v2.3-beta.2 release. Read the doc in :doc:`/rest`.
 
 -------------------
 MQTT Over WebSocket
