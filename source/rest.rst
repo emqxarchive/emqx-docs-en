@@ -50,7 +50,7 @@ Response:
                 "version": "2.1.1",
                 "sysdescr": "EMQ",
                 "uptime": "1 hours, 17 minutes, 1 seconds",
-                "datetime": "2017-04-14 14 (tel:2017041414):11:38",
+                "datetime": "2017-04-14 14:11:38",
                 "otp_release": "R19/8.3",
                 "node_status": "Running"
             }
@@ -79,7 +79,7 @@ Response:
             "version": "2.1.1",
             "sysdescr": "EMQ X",
             "uptime": "1 hours, 17 minutes, 18 seconds",
-            "datetime": "2017-04-14 14 (tel:2017041414):11:55",
+            "datetime": "2017-04-14 14:11:55",
             "otp_release": "R19/8.3",
             "node_status": "Running"
         }
