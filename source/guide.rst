@@ -603,8 +603,11 @@ Parameters of the HTTP API:
 | message | Payload        |
 +---------+----------------+
 
-.. NOTE:: The API uses HTTP Basic Authentication.
-.. NOTE:: v2.3-beta.2 Move to REST API, http://emqtt.io/docs/v2/rest.html#messages
+.. NOTE:: 
+    
+    The API uses HTTP Basic Authentication.
+    
+    v2.3-beta.2 Move to REST API, http://emqtt.io/docs/v2/rest.html#messages
 
 -------------------
 MQTT Over WebSocket
