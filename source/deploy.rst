@@ -17,7 +17,7 @@ Load Balancer (LB)
 
 The Load Balancer (LB) distributes MQTT connections and traffic from devices across the EMQ clusters. LB enhances the HA of the clusters, balances the loads among the cluster nodes and makes the dynamic expansion possible.
 
-It is recommended that SSL connections are terminated by a LB. The links between devices and the LB are secured by SSL, while the links between the LB and EMQ cluster nodes are plain TCP connections. By this setup, a single EMQ X cluster can serve a million devices.
+It is recommended that SSL connections are terminated by a LB. The links between devices and the LB are secured by SSL, while the links between the LB and EMQ cluster nodes are plain TCP connections. By this setup, a single EMQ cluster can serve a million devices.
 
 LB products of public cloud providers:
 
@@ -144,7 +144,7 @@ Direct connection of EMQ cluster
 
 EMQ cluster should be DNS-resolvable and the clients access the cluster via domain name or IP list:
 
-1. Deploy EMQ cluster. Please refer to the sections of 'Installation' and 'EMQ X nodes clustering' for details.
+1. Deploy EMQ cluster. Please refer to the sections of 'Installation' and 'EMQ nodes clustering' for details.
 
 2. Enable the access to the MQTT ports on the firewall (e.g. 1883, 8883).
 
