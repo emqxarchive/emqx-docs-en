@@ -78,7 +78,7 @@ Add user by './bin/emqttd_ctl users' command::
    $ ./bin/emqttd_ctl users add <Username> <Password>
 
 ClientId
---------
+---------
 
 Authentication with MQTT ClientId.
 
