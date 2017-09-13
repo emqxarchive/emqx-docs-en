@@ -16,6 +16,8 @@ Version 2.3-beta.4
 Highlights
 -----------
 
+Released a new sexy dashboard.
+
 Add more RESTful APIs for manangement and monitoring.
 
 Configuring the broker through CLI or API without having to restart.
@@ -34,13 +36,11 @@ Service not starting on Debian 8 Jessie (emqttd#1228)
 emq-dashboard
 -------------
 
-1. Released a new sexy dashboard!
+1. Support switching to other clustered node.
 
-2. Support switching to other clustered node.
+2. Configure and reboot the plugins on the dashboard.
 
-3. Configure and reboot the plugins on the dashboard.
-
-4. A login page to replace the basic authentication popup window.
+3. A login page to replace the basic authentication popup window.
 
 emq-coap
 ---------
