@@ -527,9 +527,6 @@ Configure `acl_query` and `acl_nomatch` in etc/plugins/emq_auth_mongo.conf:
 
     auth.mongo.acl_query.selector = username=%u
 
-    ## acl_nomatch
-    auth.mongo.acl_nomatch = deny
-
 ----------------------
 MQTT Publish/Subscribe
 ----------------------
