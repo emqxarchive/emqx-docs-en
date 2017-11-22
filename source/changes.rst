@@ -13,7 +13,7 @@ Version 2.3.0
 
 *Release Date: 2017-11-20*
 
-EMQ 2.3.0 is available now! EMQ R2.3.0 improved the PubSub design to avoid race-condition issue and optimized the message routing efficiency. 更新 EMQ 自带的自签名 SSL 证书，改进 Dashboard 界面与 API 设计。
+EMQ 2.3.0 is available now! EMQ R2.3.0 improved the PubSub design to avoid race-condition issue and optimized the message routing efficiency. The self-signed certificate for SSL is updated. This release also includes dashboard improvement and API design improvement.
 
 Bugfix and Enhancements
 ------------------------
