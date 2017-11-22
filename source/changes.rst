@@ -7,20 +7,20 @@ Changes
 
 .. _release_2.3.0:
 
--------------
-Version 2.3.0
--------------
+-------------------------------
+Version 2.3.0 "Passenger's Log"
+-------------------------------
 
 *Release Date: 2017-11-20*
 
-EMQ 2.3.0 is available now! EMQ R2.3.0 improved the PubSub design to avoid race-condition issue and optimized the message routing efficiency. The self-signed certificate for SSL is updated. This release also includes dashboard improvement and API design improvement.
+EMQ 2.3.0 is available now! EMQ R2.3.0 improved the PubSub design to avoid race-condition issue and optimized the message routing efficiency. The self-signed certificates for SSL released with EMQ has been updated. This release also improved the dashboard theme and API design.
 
 Bugfix and Enhancements
 ------------------------
 
 Fixed the issue that Retained message is not sent for Subscribe to existing topic. (emqttd#1314)
 
-Fixed the issue that The DUP flag MUST be set to 0 for all QoS 0 messages.(emqttd#1319)
+Fixed the issue that The DUP flag MUST be set to 0 for all QoS0 messages.(emqttd#1319)
 
 Improve the pubsub design and fix the race-condition issue. (emqttd#PR1342)
 
