@@ -13,7 +13,7 @@ Version 2.3.0 "Passenger's Log"
 
 *Release Date: 2017-11-20*
 
-EMQ 2.3.0 is available now! EMQ R2.3.0 improved the PubSub design to avoid race-condition issue and optimized the message routing efficiency. The self-signed certificates for SSL released with EMQ has been updated. This release also improved the dashboard theme and API design.
+EMQ 2.3.0 is available now! EMQ R2.3.0 improved the PubSub design to avoid race-condition issue and optimized the message routing efficiency. The self-signed certificates for SSL released with EMQ has been updated. This release also comes with a new dashboard theme and improvement of API design.
 
 Bugfix and Enhancements
 ------------------------
