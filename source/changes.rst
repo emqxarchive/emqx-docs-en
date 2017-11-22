@@ -29,14 +29,14 @@ Crash on macOS High Sierra (emqttd#1297)
 emq-dashboard Plugin (emq-dashboard#PR174)
 ------------------------------------------
 
-Upgrade the 'subscriptions' RESTful API.
+Upgraded the 'subscriptions' RESTful API.
 
-Improve the auth failure log. (emq-dashboard#59)
+Improvement of the auth failure log. (emq-dashboard#59)
 
 emq-coap Plugin (emq-coap#PR61)
 -------------------------------
 
-Replace coap_client with er_coap_client.
+Replaced coap_client with er_coap_client.
 
 Fixed: correct the output format of coap_discover() to enable ".well-known/core".
 
@@ -45,7 +45,7 @@ Refactor the coap_discover method.
 emq-relx
 --------
 
-Upgrade the `bin/nodetool` script to fix the `rpcterms` command.
+Upgraded the `bin/nodetool` script to fix the `rpcterms` command.
 
 emq-web-hook Plugin
 -------------------
@@ -62,7 +62,7 @@ Fixed jwt:decode/2 functions's return type.
 emq-auth-mongo Plugin(emq-auth-mongo#PR92)
 ------------------------------------------
 
-Update the default MongoDB server configuration.
+Updated the default MongoDB server configuration.
 
 .. _release_2.3-rc.2:
 
