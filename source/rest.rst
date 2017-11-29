@@ -162,7 +162,7 @@ Definition::
 
     GET api/v2/nodes/{node_name}/clients
 
-Request parameter::
+Request Parameter::
 
     curr_page={page_no}&page_size={page_size}
 
@@ -269,18 +269,18 @@ Response:
         }
     }
 
-断开集群内指定客户端连接
-------------------
+Disconnect a Specified Client in the Cluster 
+--------------------------------------------
 
-API定义::
+Definition::
 
     DELETE api/v2/clients/{clientid}
 
-请求示例::
+Example Request::
 
     DELETE api/v2/clients/C_1492145414740
 
-返回数据:
+Response:
 
 .. code-block:: json
 
@@ -289,14 +289,14 @@ API定义::
         "result": []
     }
 
-清除集群内指定客户端的ACL缓存
---------------------------
+Clear the ACL of a Specified Client in the Cluster
+--------------------------------------------------
 
-API定义::
+Definition::
 
     PUT api/v2/clients/{clientid}/clean_acl_cache
 
-请求参数:
+Request Parameter:
 
 .. code-block:: json
 
@@ -304,11 +304,11 @@ API定义::
         "topic": "test"
     }
 
-请求示例::
+Request Example::
 
     PUT api/v2/clients/C_1492145414740/clean_acl_cache
 
-返回数据:
+Response:
 
 .. code-block:: json
 
@@ -515,7 +515,7 @@ Definition::
 
     POST api/v2/mqtt/subscribe
 
-Reqeust parameters:
+Request parameters:
 
 .. code-block:: json
 
@@ -1153,22 +1153,22 @@ Response:
         }
     }
 
---------
-用户管理
---------
+---------------
+User Management
+---------------
 
-获取管理用户列表
---------------
+Retrieve Admin User List
+------------------------
 
-API定义::
-
-    GET api/v2/users
-
-请求示例::
+Definition::
 
     GET api/v2/users
 
-返回数据:
+Request Example::
+
+    GET api/v2/users
+
+Response:
 
 .. code-block:: json
 
@@ -1182,14 +1182,14 @@ API定义::
         ]
     }
 
-添加管理用户
-----------
+Add Admin User
+--------------
 
-API定义::
+Definition::
 
     POST api/v2/users
 
-请求参数::
+Request Parameter::
 
     {
         "username": "test_user",
@@ -1197,11 +1197,11 @@ API定义::
         "tags": "user"
     }
 
-请求示例::
+Request Example::
 
     POST api/v2/users
 
-返回数据:
+Response:
 
 .. code-block:: json
 
@@ -1210,24 +1210,24 @@ API定义::
         "result": []
     }
 
-修改管理用户信息
---------------
+Modify Admin User Information
+-----------------------------
 
-API定义::
+Definition::
 
     PUT api/v2/users/{username}
 
-请求参数::
+Request Parameter::
 
     {
         "tags": "admin"
     }
 
-请求示例::
+Request Example::
 
     PUT api/v2/users/test_user
 
-返回数据:
+Response:
 
 .. code-block:: json
 
@@ -1236,21 +1236,21 @@ API定义::
         "result": []
     }
 
-删除管理用户
------------
+Delete Admin User
+-----------------
 
-API定义::
+Definition::
 
     DELETE api/v2/users/{username}
 
-请求参数::
+Request Parameter::
 
 
-请求示例::
+Request Example::
 
     DELETE api/v2/users/test_user
 
-返回数据:
+Response:
 
 .. code-block:: json
 
@@ -1259,25 +1259,25 @@ API定义::
         "result": []
     }
 
-认证管理用户
------------
+Authenticate Admin User
+-----------------------
 
-API定义::
+Definition::
 
     DELETE api/v2/auth
 
-请求参数::
+Request Parameter::
 
     {
         "username": "test_user",
         "password": "password"
     }
 
-请求示例::
+Request Example::
 
     DELETE api/v2/auth
 
-返回数据:
+Response:
 
 .. code-block:: json
 
@@ -1286,25 +1286,25 @@ API定义::
         "result": []
     }
 
-修改管理用户密码
---------------
+Modify Admin User Password
+--------------------------
 
-API定义::
+Definition::
 
     DELETE api/v2/change_pwd/{username}
 
-请求参数::
+Request Parameter::
 
     {
         "password": "newpassword",
         "oldpassword": "password"
     }
 
-请求示例::
+Request Example::
 
     DELETE api/v2/change_pwd/test_user
 
-返回数据:
+Response:
 
 .. code-block:: json
 
@@ -1344,10 +1344,10 @@ Error Code
 +-------+-----------------------------------------+
 | 111   | plugin has been unloaded                |
 +-------+-----------------------------------------+
-| 112   | 用户不在线                              |
+| 112   | User offline                            |
 +-------+-----------------------------------------+
-| 113   | 用户已经存在                            |
+| 113   | User exists already                     |
 +-------+-----------------------------------------+
-| 114   | 旧密码错误                              |
+| 114   | Wrong old password                      |
 +-------+-----------------------------------------+
 
