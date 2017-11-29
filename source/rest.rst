@@ -269,6 +269,54 @@ Response:
         }
     }
 
+断开集群内指定客户端连接
+------------------
+
+API定义::
+
+    DELETE api/v2/clients/{clientid}
+
+请求示例::
+
+    DELETE api/v2/clients/C_1492145414740
+
+返回数据:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+清除集群内指定客户端的ACL缓存
+--------------------------
+
+API定义::
+
+    PUT api/v2/clients/{clientid}/clean_acl_cache
+
+请求参数:
+
+.. code-block:: json
+
+    {
+        "topic": "test"
+    }
+
+请求示例::
+
+    PUT api/v2/clients/C_1492145414740/clean_acl_cache
+
+返回数据:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
 --------
 Sessions
 --------
@@ -1105,6 +1153,166 @@ Response:
         }
     }
 
+--------
+用户管理
+--------
+
+获取管理用户列表
+--------------
+
+API定义::
+
+    GET api/v2/users
+
+请求示例::
+
+    GET api/v2/users
+
+返回数据:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": [
+            {
+                "username": "admin",
+                "tags": "administrator"
+            }
+        ]
+    }
+
+添加管理用户
+----------
+
+API定义::
+
+    POST api/v2/users
+
+请求参数::
+
+    {
+        "username": "test_user",
+        "password": "password",
+        "tags": "user"
+    }
+
+请求示例::
+
+    POST api/v2/users
+
+返回数据:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+修改管理用户信息
+--------------
+
+API定义::
+
+    PUT api/v2/users/{username}
+
+请求参数::
+
+    {
+        "tags": "admin"
+    }
+
+请求示例::
+
+    PUT api/v2/users/test_user
+
+返回数据:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+删除管理用户
+-----------
+
+API定义::
+
+    DELETE api/v2/users/{username}
+
+请求参数::
+
+
+请求示例::
+
+    DELETE api/v2/users/test_user
+
+返回数据:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+认证管理用户
+-----------
+
+API定义::
+
+    DELETE api/v2/auth
+
+请求参数::
+
+    {
+        "username": "test_user",
+        "password": "password"
+    }
+
+请求示例::
+
+    DELETE api/v2/auth
+
+返回数据:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+修改管理用户密码
+--------------
+
+API定义::
+
+    DELETE api/v2/change_pwd/{username}
+
+请求参数::
+
+    {
+        "password": "newpassword",
+        "oldpassword": "password"
+    }
+
+请求示例::
+
+    DELETE api/v2/change_pwd/test_user
+
+返回数据:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
 ----------
 Error Code
 ----------
@@ -1135,5 +1343,11 @@ Error Code
 | 110   | plugin has been loaded                  |
 +-------+-----------------------------------------+
 | 111   | plugin has been unloaded                |
++-------+-----------------------------------------+
+| 112   | 用户不在线                              |
++-------+-----------------------------------------+
+| 113   | 用户已经存在                            |
++-------+-----------------------------------------+
+| 114   | 旧密码错误                              |
 +-------+-----------------------------------------+
 
