@@ -1264,7 +1264,7 @@ Authenticate Admin User
 
 Definition::
 
-    DELETE api/v2/auth
+    POST api/v2/auth
 
 Request Parameter::
 
@@ -1275,7 +1275,7 @@ Request Parameter::
 
 Request Example::
 
-    DELETE api/v2/auth
+    POST api/v2/auth
 
 Response:
 
@@ -1291,7 +1291,7 @@ Modify Admin User Password
 
 Definition::
 
-    DELETE api/v2/change_pwd/{username}
+    PUT api/v2/change_pwd/{username}
 
 Request Parameter::
 
@@ -1302,7 +1302,7 @@ Request Parameter::
 
 Request Example::
 
-    DELETE api/v2/change_pwd/test_user
+    PUT api/v2/change_pwd/test_user
 
 Response:
 
