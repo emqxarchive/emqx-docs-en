@@ -162,7 +162,7 @@ Definition::
 
     GET api/v2/nodes/{node_name}/clients
 
-Request parameter::
+Request Parameter::
 
     curr_page={page_no}&page_size={page_size}
 
@@ -267,6 +267,54 @@ Response:
                 }
             ]
         }
+    }
+
+Disconnect a Specified Client in the Cluster 
+--------------------------------------------
+
+Definition::
+
+    DELETE api/v2/clients/{clientid}
+
+Example Request::
+
+    DELETE api/v2/clients/C_1492145414740
+
+Response:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+Clear the ACL of a Specified Client in the Cluster
+--------------------------------------------------
+
+Definition::
+
+    PUT api/v2/clients/{clientid}/clean_acl_cache
+
+Request Parameter:
+
+.. code-block:: json
+
+    {
+        "topic": "test"
+    }
+
+Request Example::
+
+    PUT api/v2/clients/C_1492145414740/clean_acl_cache
+
+Response:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
     }
 
 --------
@@ -467,7 +515,7 @@ Definition::
 
     POST api/v2/mqtt/subscribe
 
-Reqeust parameters:
+Request parameters:
 
 .. code-block:: json
 
@@ -1105,6 +1153,166 @@ Response:
         }
     }
 
+---------------
+User Management
+---------------
+
+Retrieve Admin User List
+------------------------
+
+Definition::
+
+    GET api/v2/users
+
+Request Example::
+
+    GET api/v2/users
+
+Response:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": [
+            {
+                "username": "admin",
+                "tags": "administrator"
+            }
+        ]
+    }
+
+Add Admin User
+--------------
+
+Definition::
+
+    POST api/v2/users
+
+Request Parameter::
+
+    {
+        "username": "test_user",
+        "password": "password",
+        "tags": "user"
+    }
+
+Request Example::
+
+    POST api/v2/users
+
+Response:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+Modify Admin User Information
+-----------------------------
+
+Definition::
+
+    PUT api/v2/users/{username}
+
+Request Parameter::
+
+    {
+        "tags": "admin"
+    }
+
+Request Example::
+
+    PUT api/v2/users/test_user
+
+Response:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+Delete Admin User
+-----------------
+
+Definition::
+
+    DELETE api/v2/users/{username}
+
+Request Parameter::
+
+
+Request Example::
+
+    DELETE api/v2/users/test_user
+
+Response:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+Authenticate Admin User
+-----------------------
+
+Definition::
+
+    POST api/v2/auth
+
+Request Parameter::
+
+    {
+        "username": "test_user",
+        "password": "password"
+    }
+
+Request Example::
+
+    POST api/v2/auth
+
+Response:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
+Modify Admin User Password
+--------------------------
+
+Definition::
+
+    PUT api/v2/change_pwd/{username}
+
+Request Parameter::
+
+    {
+        "password": "newpassword",
+        "oldpassword": "password"
+    }
+
+Request Example::
+
+    PUT api/v2/change_pwd/test_user
+
+Response:
+
+.. code-block:: json
+
+    {
+        "code": 0,
+        "result": []
+    }
+
 ----------
 Error Code
 ----------
@@ -1135,5 +1343,11 @@ Error Code
 | 110   | plugin has been loaded                  |
 +-------+-----------------------------------------+
 | 111   | plugin has been unloaded                |
++-------+-----------------------------------------+
+| 112   | User offline                            |
++-------+-----------------------------------------+
+| 113   | User exists already                     |
++-------+-----------------------------------------+
+| 114   | Wrong old password                      |
 +-------+-----------------------------------------+
 
