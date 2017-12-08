@@ -673,7 +673,7 @@ The topic path started with: $SYS/brokers/${node}/clients/
 |                          |  ts: 1432648482}                           |                                    |
 +--------------------------+--------------------------------------------+------------------------------------+
 | ${clientid}/disconnected | {reason: "keepalive_timeout",              | Publish when a client disconnected |
-|                          |  ts: 1432749431}                           |                                    |
+|                          |  username: "test", ts: 1432749431}         |                                    |
 +--------------------------+--------------------------------------------+------------------------------------+
 
 Properties of 'connected' Payload::

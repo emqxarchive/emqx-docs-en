@@ -5,6 +5,70 @@
 Changes
 =======
 
+-------------
+Version 2.3.1
+-------------
+
+*Release Date: 2017-12-03*
+
+Bugfix and Enhancements
+-----------------------
+
+Remove the unnecessary transactions to optimize session management.
+
+Should not exit arbitrarily when clientid conflicts in mnesia.
+
+Change the default value of 'mqtt.session.enable_stats' to 'on'.
+
+The DUP flag should be set to 0 for all QoS0 messages. (emqttd#1319)
+
+Fix the 'no function clause' exception. (emqttd#1293)
+
+The retained flags should be propagated for bridge. (emqttd#1293)
+
+The management API should listen on 0.0.0.0:8080. (emqttd#1353)
+
+Fast close the invalid websocket in init/1 function.
+
+erlang:demonitor/1 the reference when erasing a monitor. (emqttd#1340)
+
+emq-retainer
+------------
+
+Don't clean the retain flag after the retained message is stored.
+
+Add three CLIs for the retainer plugin. (emq-retainer#38)
+
+emq-dashboard
+-------------
+
+Refactor(priv/www): improve the `routing` page. (emq-dashboard#185)
+
+emq-modules
+-----------
+
+Turn off the `subscription` module by default. (emq-modules#26)
+
+emq-sn
+------
+
+Add an intergration test case for sleeping device.
+
+Do not send will topic if client is kicked out.
+
+Prevent crash information in log when emq_sn_gateway getting timeout, since it is a possible procedure.
+
+emq-relx
+--------
+
+Support node cookie value with `=` characters. (emq-relx#146)
+
+mochiweb
+--------
+
+Improve Req:get(peername) funciton to support `x-forwarded-for` and `x-remote-port`. (emqtt/mochiweb#9)
+
+
 .. _release_2.3.0:
 
 -------------------------------
