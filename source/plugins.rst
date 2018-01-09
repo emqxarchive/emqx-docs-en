@@ -696,8 +696,8 @@ Configure Modules Plugin
     module.rewrite = off
 
     ## {rewrite, Topic, Re, Dest}
-    ## module.rewrite.rule.1 = "x/# ^x/y/(.+)$ z/y/$1"
-    ## module.rewrite.rule.2 = "y/+/z/# ^y/(.+)/z/(.+)$ y/z/$2"
+    ## module.rewrite.rule.1 = x/# ^x/y/(.+)$ z/y/$1
+    ## module.rewrite.rule.2 = y/+/z/# ^y/(.+)/z/(.+)$ y/z/$2
 
 ----------------------------------
 emq_mod_presence - Presence Module
