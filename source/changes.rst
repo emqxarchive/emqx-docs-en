@@ -70,8 +70,6 @@ esockd
 
 Improve the parser of proxy protocol v2.
 
-Use CN as DN for PP2 will not pass subejct.
-
 Add 'send_timeout', 'send_timeout_close' options.
 
 Rename esockd_transport:port_command/2 function to async_send/2.
@@ -152,7 +150,7 @@ Turn off the `subscription` module by default. (emq-modules#26)
 emq-sn
 ------
 
-Add an intergration test case for sleeping device.
+Add an integration test case for sleeping device.
 
 Do not send will topic if client is kicked out.
 
