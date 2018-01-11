@@ -511,7 +511,7 @@ Sys Interval of Broker
 .. code-block:: properties
 
     ## System Interval of publishing broker $SYS Messages
-    mqtt.broker.sys_interval = 60
+    mqtt.broker.sys_interval = 60s
 
 -----------------
 PubSub Parameters
@@ -537,7 +537,7 @@ MQTT Bridge Parameters
     mqtt.bridge.max_queue_len = 10000
 
     ## Ping Interval of bridge node. Unit: Second
-    mqtt.bridge.ping_down_interval = 1
+    mqtt.bridge.ping_down_interval = 1s
 
 -------------------
 Plugins' Etc Folder
