@@ -77,7 +77,7 @@ Erlang nodes authenticate each other by a magic cookie when communicating. The c
 Cluster Design
 --------------
 
-The cluster architecture of emqttd broker is based on distrubuted Erlang/OTP and Mnesia database.
+The cluster architecture of emqttd broker is based on distributed Erlang/OTP and Mnesia database.
 
 The cluster design could be summarized by the following two rules:
 
