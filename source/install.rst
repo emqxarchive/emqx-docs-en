@@ -325,7 +325,7 @@ Enter the running container::
 Installing From Source
 ----------------------
 
-The *EMQ* broker requires Erlang/OTP R18+ and git client to build:
+The *EMQ* broker requires Erlang/OTP R20+ and git client to build:
 
 Install Erlang: http://www.erlang.org/
 
