@@ -360,7 +360,7 @@ Enable autoheal of Network Partition:
 
     cluster.autoheal = on
 
-When network partition occurs, the following steps to heal the cluster if autoheal is enabled:
+When network partition occurs, the following steps are performed to heal the cluster if autoheal is enabled:
 
 1. Node reports the partitions to a leader node which has the oldest guid.
 

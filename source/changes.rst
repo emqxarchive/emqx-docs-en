@@ -451,7 +451,7 @@ Version 2.3-beta.1
 
 *Release Date: 2017-07-24*
 
-EMQ R2.3-beta.1 is available now!. This release supports automatic cluster node discovery and network partition autoheal. It supports automatically forming clusters of Erlang nodes using different strategies, such as IP Multicast, Etcd and Kubernetes.
+EMQ R2.3-beta.1 is available now! This release supports automatic cluster node discovery and network partition autoheal. It supports automatically forming clusters of Erlang nodes using different strategies, such as IP Multicast, Etcd and Kubernetes.
 
 Node Discovery and Autocluster
 --------------------------------
@@ -503,7 +503,7 @@ A down node will be removed from the cluster if autoclean is enabled:
 LWM2M Protocol Support
 -----------------------
 
-EMQ-LWM2M is a gatewaty plugin for EMQ，which implemnts most LWM2M features. MQTT client is able to access LWM2M device through emq-lwm2m plugin, by sending a command and reading its response.
+EMQ-LWM2M is a gateway plugin for EMQ，which implements most LWM2M features. MQTT client is able to access LWM2M device through emq-lwm2m plugin, by sending a command and reading its response.
 
 Lightweight M2M (LWM2M) is a set of protocols defined by the Open Mobile Alliance (OMA) for machine-to-machine (M2M) or Internet of Things (IoT) device management and communications
 
