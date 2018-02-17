@@ -730,21 +730,19 @@ Load Presence Module
     ./bin/emqttd_ctl plugins load emq_mod_presence
 
 ----------------------------------
-emq_mod_retainer - Retainer Module
+emq_retainer - Retainer Module
 ----------------------------------
 
 `Retainer` module is responsible for storing MQTT retained messages.
 
-.. NOTE:: This project has been deprecated in 2.1-beta release.
-
 Configure Retainer Module
 -------------------------
 
-etc/plugins/emq_mod_retainer.conf:
+etc/plugins/emq_retainer.conf:
 
 .. code-block:: properties
 
-    ## disc: disc_copies, ram: ram_copies
+    ## ram: ram_copies, disc_only: disc_copies, disc: both memory and disc 
     module.retainer.storage_type = ram
 
     ## Max number of retained messages
@@ -756,6 +754,9 @@ etc/plugins/emq_mod_retainer.conf:
     ## Expired after seconds, never expired if 0
     module.retainer.expired_after = 0
 
+The default storage_type is `ram` which will lost all retained messages after a broker restart. If you want to persistent retained message through a broker restart, please set storage_type to `disc` or `disc_only`. Please note that any change of `storage_type` will not take effect until deleting data/mnesia/* and restarting broker.
+    
+    
 Load Retainer Module
 --------------------
 
