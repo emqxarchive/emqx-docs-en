@@ -73,11 +73,35 @@ Erlang nodes authenticate each other by a magic cookie when communicating. The c
 
 .. NOTE:: Content of this chapter is from: http://erlang.org/doc/reference_manual/distributed.html
 
+Distribution Protocol
+---------------------
+
+Erlang nodes can be connected via different distributed protocols including TCPv4, TCPv6 and TLS.
+
+.. code-block:: properties
+
+    ## Specify the erlang distributed protocol.
+    ##
+    ## Value: Enum
+    ##  - inet_tcp: the default; handles TCP streams with IPv4 addressing.
+    ##  - inet6_tcp: handles TCP with IPv6 addressing.
+    ##  - inet_tls: using TLS for Erlang Distribution.
+    ##
+    ## vm.args: -proto_dist inet_tcp
+    node.proto_dist = inet_tcp
+
+    ## Specify SSL Options in the file if using SSL for Erlang Distribution.
+    ##
+    ## Value: File
+    ##
+    ## vm.args: -ssl_dist_optfile <File>
+    ## node.ssl_dist_optfile = {{ platform_etc_dir }}/ssl_dist.conf
+
 --------------
 Cluster Design
 --------------
 
-The cluster architecture of emqttd broker is based on distrubuted Erlang/OTP and Mnesia database.
+The cluster architecture of emqttd broker is based on distributed Erlang/OTP and Mnesia database.
 
 The cluster design could be summarized by the following two rules:
 
