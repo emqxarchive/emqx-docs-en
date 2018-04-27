@@ -13,14 +13,19 @@ The *EMQ* broker supports to authenticate MQTT clients with ClientID, Username/P
 
 The authentication is provided by a list of plugins such as MySQL, PostgreSQL and Redis...
 
-If we enable several authentication plugins at the same time, the authentication process::
+If we enable several authentication plugins at the same time, the Auth request will be forwarded to next auth module
 
-               ----------------           ----------------           -------------
-    Client --> |   Username   | -ignore-> |   ClientID   | -ignore-> | Anonymous |
-               ----------------           ----------------           -------------
-                      |                         |                         |
-                     \|/                       \|/                       \|/
-                allow | deny              allow | deny              allow | deny
+the authentication process::
+
+              ---------------            --------------            ---------------
+  Client --> |  Redis Auth   | -ignore-> |  HTTP Auth  | -ignore-> |  MySQL Auth  |
+              ---------------            --------------            ---------------
+                    |                           |                         |
+                   \|/                         \|/                       \|/
+              allow | deny                allow | deny              allow | deny
+
+
+The order that the authentication will be carried out is determined by the order that the plugins are loaded (their order in `data/loaded_plugins`) 
 
 The authentication plugins implemented by default:
 
