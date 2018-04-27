@@ -15,7 +15,7 @@ The authentication is provided by a list of plugins such as MySQL, PostgreSQL an
 
 If we enable several authentication plugins at the same time, the Auth request will be forwarded to next auth module
 
-the authentication process::
+The authentication flow::
 
               ---------------            --------------            ---------------
   Client --> |  Redis Auth   | -ignore-> |  HTTP Auth  | -ignore-> |  MySQL Auth  |
