@@ -25,7 +25,7 @@ the authentication process::
               allow | deny                allow | deny              allow | deny
 
 
-The order that the authentication will be carried out is determined by the order that the plugins are loaded (their order in ``data/loaded_plugins``) 
+The order that the authentication will be carried out is determined by the order that the plugins are loaded (their order in ``./data/loaded_plugins``) 
 
 The authentication plugins implemented by default:
 
