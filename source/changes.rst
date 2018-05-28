@@ -5,6 +5,26 @@
 Changes
 =======
 
+.. _release_2.3.9:
+
+-------------
+Version 2.3.9
+-------------
+
+*Release Date: 2018-05-20*
+
+Bugfix and Enhancements
+-----------------------
+
+Bugfix: check params for REST publish API (#1599)
+
+Upgrade the mongodb library to v3.0.5
+
+esockd
+------
+
+Bugfix: proxy protocol - set socket to binary mode (#78)
+
 .. _release_2.3.8:
 
 -------------
