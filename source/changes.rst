@@ -5,6 +5,24 @@
 Changes
 =======
 
+.. _release_2.3.10:
+
+--------------
+Version 2.3.10
+--------------
+
+*Release Date: 2018-06-27*
+
+Bugfix and Enhancements
+-----------------------
+
+Upgrade the esockd library to v5.2.2
+
+emq-auth-http
+-------------
+
+Ignore auth on ignore in body, allows for chaining methods
+
 .. _release_2.3.9:
 
 -------------
