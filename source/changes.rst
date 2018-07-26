@@ -5,6 +5,35 @@
 Changes
 =======
 
+.. _release_2.3.11:
+
+--------------
+Version 2.3.11
+--------------
+
+*Release Date: 2018-07-23*
+
+Bugfix and Enhancements
+-----------------------
+
+Fix the getting config REST API which throws exceptions.
+
+Support to restart listeners when emqttd is running.
+
+Specify a fixed tag for the dependency libraries.
+
+emq-auth-jwt
+------------
+
+Fix token verification with jwerl 1.0.0
+
+emq-auth-mongo
+--------------
+
+Support $all variable in ACL query. (emq-auth-mongo#123)
+
+Support both clientid and username variables in all queries. (emq-auth-mongo#123)
+
 .. _release_2.3.10:
 
 --------------
