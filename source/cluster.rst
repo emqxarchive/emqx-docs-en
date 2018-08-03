@@ -27,7 +27,7 @@ Erlang/OTP is a concurrent, fault-tolerant, distributed programming platform. A 
 Node
 ----
 
-An erlang runtime system called 'node' is identified by a unique name like email addreass. Erlang nodes communicate with each other by the name.
+An erlang runtime system called 'node' is identified by a unique name like email address. Erlang nodes communicate with each other by the name.
 
 Suppose we start four Erlang nodes on localhost:
 
