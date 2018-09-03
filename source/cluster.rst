@@ -27,7 +27,7 @@ Erlang/OTP is a concurrent, fault-tolerant, distributed programming platform. A 
 Node
 ----
 
-An erlang runtime system called 'node' is identified by a unique name like email addreass. Erlang nodes communicate with each other by the name.
+An erlang runtime system called 'node' is identified by a unique name like email address. Erlang nodes communicate with each other by the name.
 
 Suppose we start four Erlang nodes on localhost:
 
@@ -73,11 +73,35 @@ Erlang nodes authenticate each other by a magic cookie when communicating. The c
 
 .. NOTE:: Content of this chapter is from: http://erlang.org/doc/reference_manual/distributed.html
 
+Distribution Protocol
+---------------------
+
+Erlang nodes can be connected via different distributed protocols including TCPv4, TCPv6 and TLS.
+
+.. code-block:: properties
+
+    ## Specify the erlang distributed protocol.
+    ##
+    ## Value: Enum
+    ##  - inet_tcp: the default; handles TCP streams with IPv4 addressing.
+    ##  - inet6_tcp: handles TCP with IPv6 addressing.
+    ##  - inet_tls: using TLS for Erlang Distribution.
+    ##
+    ## vm.args: -proto_dist inet_tcp
+    node.proto_dist = inet_tcp
+
+    ## Specify SSL Options in the file if using SSL for Erlang Distribution.
+    ##
+    ## Value: File
+    ##
+    ## vm.args: -ssl_dist_optfile <File>
+    ## node.ssl_dist_optfile = {{ platform_etc_dir }}/ssl_dist.conf
+
 --------------
 Cluster Design
 --------------
 
-The cluster architecture of emqttd broker is based on distrubuted Erlang/OTP and Mnesia database.
+The cluster architecture of emqttd broker is based on distributed Erlang/OTP and Mnesia database.
 
 The cluster design could be summarized by the following two rules:
 
@@ -379,34 +403,22 @@ If a persistent MQTT client connected to node1 first, then disconnected and conn
 The Firewall
 ------------
 
-If there is a firewall between clustered nodes, the cluster requires to open 4369 port used by epmd daemon, and a port segment for nodes' communication.
+If the nodes need to go through a Firewall, TCP port `4369` must be allowed for `epmd`,
+as well as a sequential range of TCP ports for communication between the distributed nodes.
 
-Configure the port segment in releases/2.0/sys.config, for example:
+That range of ports for erlang distribution is configured in `etc/emq.conf`, defaults to `6369-7369`:
 
-.. code-block:: erlang
+.. code-block:: properties
 
-    [{kernel, [
-        ...
-        {inet_dist_listen_min, 20000},
-        {inet_dist_listen_max, 21000}
-     ]},
-     ...
+    ## Distributed node port range
+    node.dist_listen_min = 6369
+    node.dist_listen_max = 7369
+    ...
 
-------------------
-Network Partitions
-------------------
-
-The emqttd 1.0 cluster requires reliable network to avoid network partitions. The cluster will not recover from a network partition automatically.
-
-If a network partition occures, there will be critical logs in log/emqttd_error.log::
-
-    Mnesia inconsistent_database event: running_partitioned_network, emqttd@host
-
-To recover from a network partition, you have to stop the nodes in a partition, clean the 'data/mneisa' of these nodes and reboot to join the cluster again.
+So by default, make sure TCP ports `4369` and `6369-7369` are allowed by your Firewall roles.
 
 -----------------------
 Consistent Hash and DHT
 -----------------------
 
 Consistent Hash and DHT are popular in the design of NoSQL databases. Cluster of emqttd broker could support 10 million size of global routing table now. We could use the Consistent Hash or DHT to partition the routing table, and evolve the cluster to larger size.
-

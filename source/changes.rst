@@ -5,6 +5,178 @@
 Changes
 =======
 
+.. _release_2.3.11:
+
+--------------
+Version 2.3.11
+--------------
+
+*Release Date: 2018-07-23*
+
+Bugfix and Enhancements
+-----------------------
+
+Fix the getting config REST API which throws exceptions.
+
+Support to restart listeners when emqttd is running.
+
+Specify a fixed tag for the dependency libraries.
+
+emq-auth-jwt
+------------
+
+Fix token verification with jwerl 1.0.0
+
+emq-auth-mongo
+--------------
+
+Support $all variable in ACL query. (emq-auth-mongo#123)
+
+Support both clientid and username variables in all queries. (emq-auth-mongo#123)
+
+.. _release_2.3.10:
+
+--------------
+Version 2.3.10
+--------------
+
+*Release Date: 2018-06-27*
+
+Bugfix and Enhancements
+-----------------------
+
+Upgrade the esockd library to v5.2.2
+
+emq-auth-http
+-------------
+
+Ignore auth on ignore in body, allows for chaining methods
+
+.. _release_2.3.9:
+
+-------------
+Version 2.3.9
+-------------
+
+*Release Date: 2018-05-20*
+
+Bugfix and Enhancements
+-----------------------
+
+Bugfix: check params for REST publish API (#1599)
+
+Upgrade the mongodb library to v3.0.5
+
+esockd
+------
+
+Bugfix: proxy protocol - set socket to binary mode (#78)
+
+.. _release_2.3.8:
+
+-------------
+Version 2.3.8
+-------------
+
+*Release Date: 2018-05-11*
+
+Bugfix and Enhancements
+-----------------------
+
+Bugfix: unregister users CLI when unload emq_auth_username (#1588)
+
+Bugfix: Should be an info level when change CleanSession (#1590)
+
+Bugfix: emqttd_ctl crashed when emq_auth_usename doesn't exist (#1588)
+
+emq-auth-mongo
+--------------
+
+Improve: Support authentication database (authSource) (#116)
+
+
+.. _release_2.3.7:
+
+--------------
+Version 2.3.7
+--------------
+
+*Release Date: 2018-04-22*
+
+Bugfix and Enhancements
+-----------------------
+
+Bugfix: fixed spec of function setstats/3 (#1575)
+
+Bugfix: clean dead persistent session on connect (#1575)
+
+Bugfix: dup flag not set when re-deliver (#1575)
+
+Bugfix: Upgrade the lager_console_backend config (#1575)
+
+Improve: Support set k8s namespace (#1575)
+
+Upgrade the ekka library to v0.2.3 (#1575)
+
+Improve: move PIPE_DIR dir from /tmp/${WHOAMI}_erl_pipes/$NAME/ to /$RUNNER_DATA_DIR/${WHOAMI}_erl_pipes/$NAME/ (emq-relx#188)
+
+emq-auth-http
+-------------
+
+Improve: Retry 3 times when httpc:request occurred socket_closed_remotely error (emq-auth-http#70)
+
+
+.. _release_2.3.6:
+
+-------------
+Version 2.3.6
+-------------
+
+*Release Date: 2018-03-25*
+
+Bugfix and Enhancements
+-----------------------
+
+Security: LWT message checking the ACL (#1524)
+
+Bugfix: Retain msgs should not be sent to existing subscriptions (#1529)
+
+emq-auth-jwt
+------------
+
+Validate JWT token using a expired field (#29)
+
+.. _release_2.3.5:
+
+-------------
+Version 2.3.5
+-------------
+
+*Release Date: 2018-03-03*
+
+Bugfix and Enhancements
+-----------------------
+
+Feature: Add etc/ssl_dist.conf file for erlang SSL distribution (emq-relx#178)
+
+Feature: Add node.ssl_dist_optfile option and etc/ssl_dist.conf file (#1512)
+
+Feature: Support Erlang Distribution over TLS (#1512)
+
+Improve: Tune off the 'tune_buffer' option for external MQTT connections (#1512)
+
+emq-sn
+------
+
+Clean registered topics if mqtt-sn client send a 2nd CONNECT in connected state (#76)
+
+Upgrade the esockd library to v5.2.1 (#76)
+
+emq-auth-http
+-------------
+
+Remove 'password' param from ACL and superuser requests (#66)
+
 .. _release_2.3.4:
 
 -------------

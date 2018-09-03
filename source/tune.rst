@@ -71,7 +71,7 @@ Connection Tracking::
 
 The TIME-WAIT Buckets Pool, Recycling and Reuse::
 
-    net.ipv4.tcp_max_tw_buckets=1048576
+    sysctl -w net.ipv4.tcp_max_tw_buckets=1048576
 
     # Enable fast recycling of TIME_WAIT sockets.  Enabling this
     # option is not recommended for devices communicating with the
@@ -83,7 +83,7 @@ The TIME-WAIT Buckets Pool, Recycling and Reuse::
 
 Timeout for FIN-WAIT-2 sockets::
 
-    net.ipv4.tcp_fin_timeout = 15
+    sysctl -w net.ipv4.tcp_fin_timeout = 15
 
 ----------------
 Erlang VM Tuning
