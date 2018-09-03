@@ -5,6 +5,163 @@
 Changes
 =======
 
+.. _release_3.0_beta.1:
+
+------------------
+Version 3.0-beta.1
+------------------
+
+*Release Date: 2018-08-31*
+
+*Release Name: Promises of Tomorrow*
+
+Introduction
+------------
+
+EMQ X 3.0, named "promise of Tomorrow", is a major release.
+
+EMQ X 3.0 is the first release that supports MQTT 5 Protocol standard; meanwhile it is backward compatible with MQTT 3 (3.1 & 3.1.1)
+
+Besides supporting MQTT 5, EMQ X 3.0 comes with more functional features. Performance and stability are also improved significantly after refactoring some core components.
+
+MQTT 5 Protocol Supoort
+-----------------------
+
+- New packet type
+
+  In MQTT 5 there is new packet type AUTH for authentication exchange.
+
+- Session expiry
+
+  Clean session flag in MQTT 3 is now split to Clean Start Flag and a Session Expiry Interval.
+
+- Message expiry
+
+  Allow an expiry interval to be set when a message is published.
+
+- Reason code on all ACKs
+
+  All responding packet includes a reason code. The communication partner can know if a request is successful or failed with what reason.
+
+- Reason string on all ACKs
+
+  An optional reason string to reason code is allowed.
+
+- Server disconnect
+
+  Now server can disconnect a connection.
+
+- Payload format and content type
+
+  Can specify the payload format and a MIME style content type when publishing.
+
+- Request/Response
+
+  Formalized request and response communication patter.
+
+- Shared subscriptions
+
+  EMQ X 2.x supports shared subscription on single-node as an unstandardized feature. Now in EMQ X 3.0, the shared subscription is cluster-wide.
+
+- Subscription ID
+
+  With a subscription ID the client is able to know the message comes from which subscription.
+
+- Topic alias
+
+  Topic can can have an integer alias, this reduces the communication overhead.
+
+- User properties
+
+  User properties can be added in most packets.
+
+- Maximum packet size
+
+  Broker specified max packet size is implemented in EMQ X 2.x already, When a oversized message is received, it will be dropped, and the client will get disconnected without informed about the reason. Now in EMQ X 3.0, the broker can disconnect the MQTT connection with a reason code.
+
+- Optional Server feature availability
+  Define the allowed features of the broker and specify them to the client.
+
+- Subscription options
+  Provide subscription options primarily to allow for message bridge applications.
+
+- Will delay
+
+  Allow to specify a delay between end of connection and sending the will message. This allows for brief interruptions of the connection without notification to others.
+
+- Server keep alive
+  Server can specify a keepalive value it wishes the client to use.
+
+- Assigned ClientID
+  In case where the ClientID is assigned by the server, return the assigned ClientID.
+
+- Server reference
+  Allow the server to specify an alternate server to use on CONNACK or DISCONNECT.
+
+Evolved Clustering Architecture
+-------------------------------
+
+The clustering architecture is evolved. Now a single cluster is able to serve ten-millions of concurrent connections.
+
+.. code-block:: properties
+
+    ----------             ----------
+    |  EMQX  |<--- MQTT--->|  EMQX  |
+    |--------|             |--------|
+    |  Ekka  |<----RPC---->|  Ekka  |
+    |--------|             |--------|
+    | Mnesia |<--Cluster-->| Mnesia |
+    |--------|             |--------|
+    | Kernel |<----TCP---->| Kernel |
+    ----------             ----------
+
+- Ekka is introduced to auto-cluster EMQX, and to auto-heal the cluster after net-split, following clustering methods are now supported:
+  - manual: nodes join a cluster manually;
+
+  - static: auto-clustering from a pre-defined node list;
+
+  - mcast: auto-clustering using IP multicast;
+
+  - dns: auto-clustering using DNS A-records;
+
+  - etcd: auto-clustering using etcd;
+
+  - ks8: auto-clustering using kubernetes.
+
+- A scalable RPC is introduced to mitigate network congestion among nodes to reduce the risk of net-split.
+
+Rate Limiting
+-------------
+
+The rate limiting is introduced to make the broker more resilient, there are 2 kinds of configurations to control:
+
+1. The overall message receiving rate in bytes;
+
+2. The rate of accepting new connections.
+
+Other Feature improvements and Bug Fixes
+----------------------------------------
+
+- Upgraded esockd;
+
+- Switched to cowboy HTTP stack for higher HTTP connection performance;
+
+- Refactored the ACL caching mechanism;
+
+- Added local and remote MQTT bridge;
+
+- Introduced "zone" in to EMQX, different zone can have different configuration;
+
+- Refactored session module, data copy among nodes is reduced, thus higher inter-nodes communication efficiency;
+
+- Improved of OpenLDAP Access Control;
+
+- Added a new plugin for delayed publish;
+
+- Support new statistic and metrics to Prometheus;
+
+- Improved the hooks.
+
 .. _release_2.3.11:
 
 --------------
