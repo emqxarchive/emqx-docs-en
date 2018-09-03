@@ -18,11 +18,11 @@ Version 3.0-beta.1
 Introduction
 ------------
 
-EMQ X 3.0, named "promise of Tomorrow", is a major release.
+EMQ X 3.0, named "Promise of Tomorrow", is a major release.
 
-EMQ X 3.0 is the first release that supports MQTT 5 Protocol standard; meanwhile it is backward compatible with MQTT 3 (3.1 & 3.1.1)
+EMQ X 3.0 is the first release that supports MQTT 5.0 Protocol Specification; meanwhile it is backward compatible with MQTT 3 (3.1 & 3.1.1)
 
-Besides supporting MQTT 5, EMQ X 3.0 comes with more functional features. Performance and stability are also improved significantly after refactoring some core components.
+Besides supporting MQTT 5.0, EMQ X 3.0 comes with more functional features. Performance and stability are also improved significantly after refactoring some core components.
 
 MQTT 5 Protocol Supoort
 -----------------------
