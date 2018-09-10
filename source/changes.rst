@@ -4,6 +4,92 @@
 =======
 Changes
 =======
+.. _release_3.0_beta.2:
+--------------
+EMQ X 3.0-beta.2
+--------------
+
+*Release Date: 2018-09-10*
+
+The EMQ X 3.0-beta.2 release is mainly for bug fixes and feature improvements on MQTT 5.0.
+
+EMQ X Core
+-------------
+
+Enhancements:
+
+- Support subscription options of MQTT 5.0
+
+  GitHub issues: 
+  `emqx/emqx#1788 <https://github.com/emqx/emqx/pull/1788>`_, 
+  `emqx/emqx-retainer#58 <https://github.com/emqx/emqx-retainer/pull/58>`_, 
+  `emqx/emqx#1803 <https://github.com/emqx/emqx/pull/1803>`_
+
+- Add validations for 'Topic-Alias' of MQTT 5.0
+
+  GitHub issues: 
+  `emqx/emqx#1789 <https://github.com/emqx/emqx/pull/1789>`_, 
+  `emqx/emqx#1802 <https://github.com/emqx/emqx/pull/1802>`_
+
+- Improve the design of hooks
+
+  GitHub issue: `emqx/emqx#1790 <https://github.com/emqx/emqx/pull/1790>`_
+
+- Rename 'emqx_mqtt_properties' module to 'emqx_mqtt_props'
+  
+  GitHub issue: `emqx/emqx#1791 <https://github.com/emqx/emqx/pull/1791>`_
+
+- Update emqx_zone
+  
+  GitHub issue: `emqx/emqx#1795 <https://github.com/emqx/emqx/pull/1795>`_
+
+Bug Fixes:
+
+- Fix an issue about 'Will Delay Interval' property
+  
+  GitHub issues: 
+  `emqx/emqx#1800 <https://github.com/emqx/emqx/pull/1800>`_, 
+  `emqx/emqx-delayed-publish#3 <https://github.com/emqx/emqx-delayed-publish/pull/3>`_
+
+- Fix an issue about 'Reserved' flag
+
+  GitHub issue: `emqx/emqx#1783 <https://github.com/emqx/emqx/pull/1783>`_ 
+
+- Generate a config file for testing
+  
+  GitHub issue: `emqx/emqx#1794 <https://github.com/emqx/emqx/pull/1794>`_
+  
+emqx-management (plugin)
+----------------------
+Enhancements:
+
+- Add restful APIs for banned
+
+  GitHub issue: `emqx/emqx-management#6 <https://github.com/emqx/emqx-management/pull/6>`_
+
+emqx-delayed-publish (plugin)
+----------------------
+Enhancements:
+
+- Refactor the code
+  
+  GitHub issue: `emqx/emqx-delayed-publish#4 <https://github.com/emqx/emqx-delayed-publish/pull/4>`_
+
+minirest (dependency)
+---------------------
+Enhancements:
+
+- Pass both query and body params within the callback args
+
+  GitHub issue: `emqx/minirest#4 <https://github.com/emqx/minirest/pull/4>`_
+
+emqx-rel (build-project)
+---------------------
+Enhancements: 
+
+- Fail fast in case the otp version in use is 20 or older
+  
+  GitHub issue: `emqx/emqx-rel#217 <https://github.com/emqx/emqx-rel/pull/217>`_
 
 .. _release_3.0_beta.1:
 
