@@ -11,12 +11,12 @@ EMQ X 3.0-beta.2
 
 *Release Date: 2018-09-10*
 
-This release is mainly for bug fixes and feature improvements on MQTT 5.0.
+The EMQ X 3.0-beta.2 release is mainly for bug fixes and feature improvements on MQTT 5.0.
 
 EMQ X Core
 -------------
 
-Enhancements
+Enhancements:
 
 - Support subscription options of MQTT 5.0
 
@@ -52,7 +52,7 @@ Enhancements
   GitHub issue: `emqx/emqx#1795 <https://github.com/emqx/emqx/pull/1795>`_
 
 
-Bug Fixes
+Bug Fixes:
 
 - Fix an issue about 'Will Delay Interval' property
   
@@ -66,7 +66,7 @@ Bug Fixes
 
 emqx-delayed-publish (plugin)
 ----------------------
-Enhancements
+Enhancements:
 
 - Refactor the code
   
@@ -74,7 +74,7 @@ Enhancements
 
 minirest (dependency)
 ---------------------
-Enhancements
+Enhancements:
 
 - Pass both query and body params within the callback args
 
@@ -82,9 +82,9 @@ Enhancements
 
 emqx-rel (build-project)
 ---------------------
-Enhancements 
+Enhancements: 
 
-- Fast building fail in case OTP-20 and older
+- Fail fast in case the otp version in use is 20 or older
   
   GitHub issue: `emqx/emqx-rel#217 <https://github.com/emqx/emqx-rel/pull/217>`_
 
