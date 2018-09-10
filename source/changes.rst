@@ -4,6 +4,50 @@
 =======
 Changes
 =======
+.. _release_3.0_beta.2:
+--------------
+Version 3.0-beta.2
+--------------
+
+*Release Date: 2018-09-10*
+
+Introduction
+------------
+This release is mainly for feature improvements and bug fixes.
+
+Feature improvements and Bug Fixes
+----------------------------------------
+
+Feature: Support subscription options of MQTT 5.0
+
+Feature: Add validations for 'Topic-Alias' of MQTT 5.0
+
+Feature: Add restful APIs for banned
+
+Feature: Update emqx_zone
+
+Feature: Improve the design of hooks
+
+Feature: Generate a config file for testing
+
+Feature: Rename 'emqx_mqtt_properties' module to 'emqx_mqtt_props'
+
+Bug fix: Fix an issue about 'Will Delay Interval' property
+
+Bug fix: Fix an issue about 'Reserved' flag
+
+emqx-delayed-publish
+----------------------
+Feature: Refactor the code
+
+minirest
+---------
+Feature: Pass both query and body params within the callback args
+
+emqx-rel
+---------
+Feature: Fast building fail in case OTP-20 and older
+
 
 .. _release_3.0_beta.1:
 
