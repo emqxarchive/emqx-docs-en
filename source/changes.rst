@@ -39,10 +39,6 @@ Enhancements:
   
   GitHub issue: `emqx/emqx#1791 <https://github.com/emqx/emqx/pull/1791>`_
 
-- Generate a config file for testing
-  
-  GitHub issue: `emqx/emqx#1794 <https://github.com/emqx/emqx/pull/1794>`_
-
 - Update emqx_zone
   
   GitHub issue: `emqx/emqx#1795 <https://github.com/emqx/emqx/pull/1795>`_
@@ -59,6 +55,10 @@ Bug Fixes:
 
   GitHub issue: `emqx/emqx#1783 <https://github.com/emqx/emqx/pull/1783>`_ 
 
+- Generate a config file for testing
+  
+  GitHub issue: `emqx/emqx#1794 <https://github.com/emqx/emqx/pull/1794>`_
+  
 emqx-management (plugin)
 ----------------------
 Enhancements:
