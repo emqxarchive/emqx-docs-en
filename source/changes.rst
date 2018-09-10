@@ -31,10 +31,6 @@ Enhancements:
   `emqx/emqx#1789 <https://github.com/emqx/emqx/pull/1789>`_, 
   `emqx/emqx#1802 <https://github.com/emqx/emqx/pull/1802>`_
 
-- Add restful APIs for banned
-
-  GitHub issue: `emqx/emqx-management#6 <https://github.com/emqx/emqx-management/pull/6>`_
-
 - Improve the design of hooks
 
   GitHub issue: `emqx/emqx#1790 <https://github.com/emqx/emqx/pull/1790>`_
@@ -51,7 +47,6 @@ Enhancements:
   
   GitHub issue: `emqx/emqx#1795 <https://github.com/emqx/emqx/pull/1795>`_
 
-
 Bug Fixes:
 
 - Fix an issue about 'Will Delay Interval' property
@@ -63,6 +58,14 @@ Bug Fixes:
 - Fix an issue about 'Reserved' flag
 
   GitHub issue: `emqx/emqx#1783 <https://github.com/emqx/emqx/pull/1783>`_ 
+
+emqx-management (plugin)
+----------------------
+Enhancements:
+
+- Add restful APIs for banned
+
+  GitHub issue: `emqx/emqx-management#6 <https://github.com/emqx/emqx-management/pull/6>`_
 
 emqx-delayed-publish (plugin)
 ----------------------
