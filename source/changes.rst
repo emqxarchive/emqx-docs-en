@@ -6,48 +6,87 @@ Changes
 =======
 .. _release_3.0_beta.2:
 --------------
-Version 3.0-beta.2
+EMQ X 3.0-beta.2
 --------------
 
 *Release Date: 2018-09-10*
 
-Introduction
-------------
-This release is mainly for feature improvements and bug fixes.
+This release is mainly for bug fixes and feature improvements on MQTT 5.0.
 
-Feature improvements and Bug Fixes
-----------------------------------------
+EMQ X Core
+-------------
 
-Feature: Support subscription options of MQTT 5.0
+Enhancements
 
-Feature: Add validations for 'Topic-Alias' of MQTT 5.0
+- Support subscription options of MQTT 5.0
 
-Feature: Add restful APIs for banned
+  GitHub issues: 
+  `emqx/emqx#1788 <https://github.com/emqx/emqx/pull/1788>`_, 
+  `emqx/emqx-retainer#58 <https://github.com/emqx/emqx-retainer/pull/58>`_, 
+  `emqx/emqx#1803 <https://github.com/emqx/emqx/pull/1803>`_
 
-Feature: Update emqx_zone
+- Add validations for 'Topic-Alias' of MQTT 5.0
 
-Feature: Improve the design of hooks
+  GitHub issues: 
+  `emqx/emqx#1789 <https://github.com/emqx/emqx/pull/1789>`_, 
+  `emqx/emqx#1802 <https://github.com/emqx/emqx/pull/1802>`_
 
-Feature: Generate a config file for testing
+- Add restful APIs for banned
 
-Feature: Rename 'emqx_mqtt_properties' module to 'emqx_mqtt_props'
+  GitHub issue: `emqx/emqx-management#6 <https://github.com/emqx/emqx-management/pull/6>`_
 
-Bug fix: Fix an issue about 'Will Delay Interval' property
+- Improve the design of hooks
 
-Bug fix: Fix an issue about 'Reserved' flag
+  GitHub issue: `emqx/emqx#1790 <https://github.com/emqx/emqx/pull/1790>`_
 
-emqx-delayed-publish
+- Rename 'emqx_mqtt_properties' module to 'emqx_mqtt_props'
+  
+  GitHub issue: `emqx/emqx#1791 <https://github.com/emqx/emqx/pull/1791>`_
+
+- Generate a config file for testing
+  
+  GitHub issue: `emqx/emqx#1794 <https://github.com/emqx/emqx/pull/1794>`_
+
+- Update emqx_zone
+  
+  GitHub issue: `emqx/emqx#1795 <https://github.com/emqx/emqx/pull/1795>`_
+
+
+Bug Fixes
+
+- Fix an issue about 'Will Delay Interval' property
+  
+  GitHub issues: 
+  `emqx/emqx#1800 <https://github.com/emqx/emqx/pull/1800>`_, 
+  `emqx/emqx-delayed-publish#3 <https://github.com/emqx/emqx-delayed-publish/pull/3>`_
+
+- Fix an issue about 'Reserved' flag
+
+  GitHub issue: `emqx/emqx#1783 <https://github.com/emqx/emqx/pull/1783>`_ 
+
+emqx-delayed-publish (plugin)
 ----------------------
-Feature: Refactor the code
+Enhancements
 
-minirest
----------
-Feature: Pass both query and body params within the callback args
+- Refactor the code
+  
+  GitHub issue: `emqx/emqx-delayed-publish#4 <https://github.com/emqx/emqx-delayed-publish/pull/4>`_
 
-emqx-rel
----------
-Feature: Fast building fail in case OTP-20 and older
+minirest (dependency)
+---------------------
+Enhancements
 
+- Pass both query and body params within the callback args
+
+  GitHub issue: `emqx/minirest#4 <https://github.com/emqx/minirest/pull/4>`_
+
+emqx-rel (build-project)
+---------------------
+Enhancements 
+
+- Fast building fail in case OTP-20 and older
+  
+  GitHub issue: `emqx/emqx-rel#217 <https://github.com/emqx/emqx-rel/pull/217>`_
 
 .. _release_3.0_beta.1:
 
