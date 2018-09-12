@@ -32,7 +32,7 @@ Please visit [emqtt.io](http://emqtt.io) for more service. Follow us on Twitter:
 +---------------+-----------------------------------------+
 | Mailing List: | emqtt@googlegroups.com                  |
 +---------------+-----------------------------------------+
-| Contact:      | contact@emqx.io <contact@emqx.io>       |
+| Contact:      | contact <contact@emqx.io>               |
 +---------------+-----------------------------------------+
 
 Contents:
