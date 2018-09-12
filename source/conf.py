@@ -49,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'EMQ X R3.0 - EMQ X Broker'
+project = u'EMQ X - MQTT Messaging Broker '
 copyright = u'2016-2018, EMQ Technologies Co., Ltd. <contact@emqx.io>'
 
 # The version info for the project you're documenting, acts as replacement for
