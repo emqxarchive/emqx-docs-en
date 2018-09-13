@@ -9,7 +9,7 @@ Advanced features
 Shared Subscription
 -------------------
 
-EMQ X R 3.0 supports shared subscription on cluster level. It allows load balancing between multiple subscribers in the same group to distribute MQTT messages. ::
+EMQ X R 3.0 supports shared subscription at cluster level. It allows load balancing between multiple subscribers in the same group when distributing MQTT messages. ::
 
                                 ---------
                                 |       | --Msg1--> Subscriber1
