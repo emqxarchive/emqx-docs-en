@@ -7,17 +7,20 @@ FAQ
 
 What is EMQ X suitable for?
 ----------------------------
-EMQ X is designed for IoT platform, as it support most of the popular IoT protocols: MQTT, MQTT-SN, CoAP, LwM2M, and STOMP.
 
-And and another use case is Instant Messaging via MQTT. Use EMQ X for the notifications and also for the signaling server of WebRTC.
+EMQ X is designed for help build large-scale IoT platforms and applications, as it supports most of the popular IoT protocols: MQTT, MQTT-SN, CoAP, LwM2M, and STOMP.
+
+And and another use case is Instant Messaging via MQTT. Use *EMQ X* for the notifications and also for the signaling server of WebRTC.
 
 Do I have to learn Erlang programming language to use EMQ X?
--------------------------------------------------------------------------------
+------------------------------------------------------------
+
 Not necessary. The config file is self-explained and thus easy to understand. There're several plugins developed by the EMQ X team, which should sufficient for most use cases.
 You could always write your own plugins if necessary, then a basic knowledge of Erlang is 'good to have'.
 
 I found the port 4369 and another random port(63703) are open, is this secure?
 -------------------------------------------------------------------------------
+
 ::
 
     tcp 0 0 0.0.0.0:4369 0.0.0.0:* LISTEN 13736/epmd
@@ -26,7 +29,8 @@ I found the port 4369 and another random port(63703) are open, is this secure?
     tcp 0 0 0.0.0.0:63703 0.0.0.0:* LISTEN 16745/beam.smp
     tcp 0 0 0.0.0.0:1883 0.0.0.0:* LISTEN 16745/beam.smp
 
-They are opened by erlang nodes.
+These TCP Ports are opened by EMQ X nodes.
+
 The TCP port 4369 is for erlang port mapping, and the *random ports* are communication ports for distributed erlang. All of these ports must be allowed to other nodes in the same cluster, by configuring your firewall.
 
 You may need to limit the *random ports* in a range, after that you can then allow this range of TCP ports in your firewall. For example, you could limit the range to 6369~6379 by following config in the emqx.conf::
@@ -40,9 +44,9 @@ The communication via these ports are secured by the cookie, so that one cannot 
 
 It is recommended that only keep your cluster in a sub-network behind a firewall, not across data-centers. But if you do want to, you could secure you distributed erlang via SSL, by configuring the `etc/ssl_dist.conf`. For more information, see `ssl_distribution <http://erlang.org/doc/apps/ssl/ssl_distribution.html>`_
 
-
 How do I config the ACL?
 ----------------------------
+
 Follow this doc: `emqx_guide#acl <http://emqtt.io/docs/v2/guide.html#acl>`_
 
 Start with the simplest one using etc/acl.conf::
@@ -61,28 +65,37 @@ Start with the simplest one using etc/acl.conf::
 
 ACL via databases such as mysql and mongodb should be similar, you'd better to test your ideas for better understanding.
 
-Is emqx is ready for production
-------------------------------------
-Yes. The core features are solid and stable. A small full-time team and many contributors from community are developing this project. You could submit issues if any feature requests or bug reports.
+Is emqx is ready for production?
+---------------------------------
+
+Yes. The core features are solid and stable. A full-time team and many contributors from community are developing this project. You could submit issues if any feature requests or bug reports.
 
 Benchmark and performance issue
-------------------------------------
+--------------------------------
+
 Check out the benchmark report here:
+
 `emqx-benchmark <https://emq-xmeter-benchmark-en.readthedocs.io/en/latest/>`_
 
 Is 'session' identified by ClientID? What will happen when session is expired?
 -------------------------------------------------------------------------------
+
 Yes, the session is identified by ClientID.
+
 When a client connected to broker with 'clean session = false', a session identified by clientId will be created. The session will expire after 48 hours(configured in etc/emqx.config) if no client connections bind with it, and all queued messages and subscriptions will be dropped.
 
 Is config 'max_mqueue_len' means queue for one session or one topic?
---------------------------------------------------------------------------------
+----------------------------------------------------------------------
+
 For a session. Topic just dispatch messages to clients or sessions that matched the subscriptions.
 
 What would happen when a session has too many offline messages on one topic?
---------------------------------------------------------------------------------
-If the offline messages in the session are exceed the 'max_mqueue_len', the older offline messages are dropped from the queue, no matter it is for which topic.
+------------------------------------------------------------------------------
 
-How do I config emqx only keep the latest retained message of a topic?
----------------------------------------------------------------------------------
+If the offline messages in the session are exceed the 'max_mqueue_len', the older offline messages are dropped from the queue.
+
+How do I configure emqx only keep the latest retained message of a topic?
+--------------------------------------------------------------------------
+
 The broker only keep the latest retained message of a topic, as specified by MQTT specifications.
+

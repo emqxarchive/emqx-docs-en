@@ -58,7 +58,6 @@ Contents:
    mqtt
    mqtt-sn
    lwm2m
-   faq
 
 -------
 License
