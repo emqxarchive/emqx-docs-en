@@ -5,7 +5,7 @@
 Installation
 ============
 
-The *EMQ* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
+The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
 
 .. NOTE::
 
@@ -47,7 +47,7 @@ Download binary packages from: http://emqtt.io/downloads
 
 The package name consists of platform, version and release time.
 
-For example: emqttd-centos64-v2.0.zip
+For example: emqx-centos64-v3.0.zip
 
 .. _install_on_linux:
 
@@ -59,42 +59,42 @@ Download CentOS Package from: http://emqtt.io/downloads/latest/centos7, and then
 
 .. code-block:: bash
 
-    unzip emqttd-centos64-v2.0.zip
+    unzip emqx-centos64-v3.0.zip
 
 Start the broker in console mode:
 
 .. code-block:: bash
 
-    cd emqttd && ./bin/emqttd console
+    cd emqx && ./bin/emqx console
 
 If the broker is started successfully, console will print:
 
 .. code-block:: bash
 
-    starting emqttd on node 'emqttd@127.0.0.1'
-    emqttd ctl is starting...[done]
-    emqttd trace is starting...[done]
-    emqttd pubsub is starting...[done]
-    emqttd stats is starting...[done]
-    emqttd metrics is starting...[done]
-    emqttd retainer is starting...[done]
-    emqttd pooler is starting...[done]
-    emqttd client manager is starting...[done]
-    emqttd session manager is starting...[done]
-    emqttd session supervisor is starting...[done]
-    emqttd broker is starting...[done]
-    emqttd alarm is starting...[done]
-    emqttd mod supervisor is starting...[done]
-    emqttd bridge supervisor is starting...[done]
-    emqttd access control is starting...[done]
-    emqttd system monitor is starting...[done]
+    starting emqx on node 'emqx@127.0.0.1'
+    emqx ctl is starting...[done]
+    emqx trace is starting...[done]
+    emqx pubsub is starting...[done]
+    emqx stats is starting...[done]
+    emqx metrics is starting...[done]
+    emqx retainer is starting...[done]
+    emqx pooler is starting...[done]
+    emqx client manager is starting...[done]
+    emqx session manager is starting...[done]
+    emqx session supervisor is starting...[done]
+    emqx broker is starting...[done]
+    emqx alarm is starting...[done]
+    emqx mod supervisor is starting...[done]
+    emqx bridge supervisor is starting...[done]
+    emqx access control is starting...[done]
+    emqx system monitor is starting...[done]
     http listen on 0.0.0.0:18083 with 4 acceptors.
     mqtt listen on 0.0.0.0:1883 with 16 acceptors.
     mqtts listen on 0.0.0.0:8883 with 4 acceptors.
     http listen on 0.0.0.0:8083 with 4 acceptors.
     Erlang MQTT Broker 2.0 is running now
     Eshell V6.4  (abort with ^G)
-    (emqttd@127.0.0.1)1>
+    (emqx@127.0.0.1)1>
 
 CTRL+C to close the console and stop the broker.
 
@@ -102,15 +102,15 @@ Start the broker in daemon mode:
 
 .. code-block:: bash
 
-    ./bin/emqttd start
+    ./bin/emqx start
 
 Check the running status of the broker:
 
 .. code-block:: bash
 
     $ ./bin/emqttd_ctl status
-    Node 'emqttd@127.0.0.1' is started
-    emqttd 2.0 is running
+    Node 'emqx@127.0.0.1' is started
+    emqx 2.0 is running
 
 Or check the status by URL::
 
@@ -118,7 +118,7 @@ Or check the status by URL::
 
 Stop the broker::
 
-    ./bin/emqttd stop
+    ./bin/emqx stop
 
 .. _install_via_rpm:
 
@@ -138,7 +138,7 @@ Install the package:
 
 .. code-block:: console
 
-    rpm -ivh emqttd-centos7-v2.1.2-1.el7.centos.x86_64.rpm
+    rpm -ivh emqx-centos7-v2.1.2-1.el7.centos.x86_64.rpm
 
 .. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
 
@@ -148,21 +148,21 @@ Install the package:
 
 Configuration, Data and Log Files:
 
-+------------------------------+-----------------------------------------+
-| /etc/emqttd/emq.conf         | Configuration file for the EMQ Broker   |
-+------------------------------+-----------------------------------------+
-| /etc/emqttd/plugins/\*.conf  | Configuration files for the EMQ Plugins |
-+------------------------------+-----------------------------------------+
-| /var/lib/emqttd/             | Data files                              |
-+------------------------------+-----------------------------------------+
-| /var/log/emqttd              | Log files                               |
-+------------------------------+-----------------------------------------+
++---------------------------+-------------------------------------------+
+| /etc/emqx/emq.conf        | Configuration file for the EMQ X Broker   |
++---------------------------+-------------------------------------------+
+| /etc/emqx/plugins/\*.conf | Configuration files for the EMQ X Plugins |
++---------------------------+-------------------------------------------+
+| /var/lib/emqx/            | Data files                                |
++---------------------------+-------------------------------------------+
+| /var/log/emqx             | Log files                                 |
++---------------------------+-------------------------------------------+
 
 Start/Stop the broker:
 
 .. code-block:: console
 
-    systemctl start|stop|restart emqttd.service
+    systemctl start|stop|restart emqx.service
 
 .. _install_via_deb:
 
@@ -188,7 +188,7 @@ Install the package:
 
 .. code-block:: console
 
-    sudo dpkg -i emqttd-ubuntu16.04_v2.0_amd64.deb
+    sudo dpkg -i emqx-ubuntu16.04_v2.0_amd64.deb
 
 .. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
 
@@ -198,21 +198,21 @@ Install the package:
 
 Configuration, Data and Log Files:
 
-+------------------------------+-----------------------------------------+
-| /etc/emqttd/emq.conf         | Configuration file for the EMQ Broker   |
-+------------------------------+-----------------------------------------+
-| /etc/emqttd/plugins/\*.conf  | Configuration files for the EMQ Plugins |
-+------------------------------+-----------------------------------------+
-| /var/lib/emqttd/             | Data files                              |
-+------------------------------+-----------------------------------------+
-| /var/log/emqttd              | Log files                               |
-+------------------------------+-----------------------------------------+
++------------------------------+-------------------------------------------+
+| /etc/emqx/emq.conf           | Configuration file for the EMQ X Broker   |
++------------------------------+-------------------------------------------+
+| /etc/emqx/plugins/\*.conf    | Configuration files for the EMQ X Plugins |
++------------------------------+-------------------------------------------+
+| /var/lib/emqx/               | Data files                                |
++------------------------------+-------------------------------------------+
+| /var/log/emqx                | Log files                                 |
++------------------------------+-------------------------------------------+
 
 Start/Stop the broker:
 
 .. code-block:: console
 
-    service emqttd start|stop|restart
+    service emqx start|stop|restart
 
 .. _install_on_freebsd:
 
@@ -236,7 +236,7 @@ Download Mac Package from: http://emqtt.io/downloads/latest/macosx
 
 Configure log level in `etc/emq.conf`, all MQTT messages recevied/sent will be printed on console:
 
-.. code-block:: bash 
+.. code-block:: bash
 
     ## Console log. Enum: off, file, console, both
     log.console = both
@@ -261,29 +261,29 @@ Unzip the package to install folder. Open the command line window and 'cd' to th
 
 Start the broker in console mode::
 
-    bin\emqttd console
+    bin\emqx console
 
 If the broker started successfully, a Erlang console window will popup.
 
-Close the console window and stop the emqttd broker. Prepare to register emqttd as window service.
+Close the console window and stop the emqx broker. Prepare to register emqx as window service.
 
-.. WARNING:: Cannot register EMQ-2.0 as a windows service.
+.. WARNING:: Cannot register EMQ X-2.0 as a windows service.
 
-Install emqttd serivce::
-    
-    bin\emqttd install
+Install emqx serivce::
 
-Start emqttd serivce::
+    bin\emqx install
 
-    bin\emqttd start
+Start emqx serivce::
 
-Stop emqttd serivce::
+    bin\emqx start
 
-    bin\emqttd stop
+Stop emqx serivce::
 
-Uninstall emqttd service::
+    bin\emqx stop
 
-    bin\emqttd uninstall
+Uninstall emqx service::
+
+    bin\emqx uninstall
 
 .. _install_via_docker_image:
 
@@ -291,33 +291,33 @@ Uninstall emqttd service::
 Install via Docker Image
 ------------------------
 
-Download *EMQ* 2.0 Docker Image:
+Download *EMQ X* 2.0 Docker Image:
 
     http://emqtt.com/downloads/latest/docker
 
-unzip emqttd-docker image::
+unzip emqx-docker image::
 
-    unzip emqttd-docker-v2.0.zip
+    unzip emqx-docker-v3.0.zip
 
 Load Docker Image::
 
-    docker load < emqttd-docker-v2.0
+    docker load < emqx-docker-v3.0
 
 Run the Container::
-    
-    docker run -tid --name emq20 -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 8080:8080 -p 18083:18083 emqttd-docker-v2.0
+
+    docker run -tid --name emq30 -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 8080:8080 -p 18083:18083 emqx-docker-v3.0
 
 Stop the broker::
 
-    docker stop emq20
+    docker stop emq30
 
 Start the broker::
 
-    docker start emq20
+    docker start emq30
 
 Enter the running container::
 
-    docker exec -it emq20 /bin/sh
+    docker exec -it emq30 /bin/sh
 
 .. _build_from_source:
 
@@ -325,7 +325,7 @@ Enter the running container::
 Installing From Source
 ----------------------
 
-The *EMQ* broker requires Erlang/OTP R20+ and git client to build:
+The *EMQ X* broker 3.0 requires Erlang/OTP R21+ and git client to build:
 
 Install Erlang: http://www.erlang.org/
 
@@ -333,7 +333,7 @@ Install Git Client: http://www.git-scm.com/
 
 Could use apt-get on Ubuntu, yum on CentOS/RedHat and brew on Mac to install Erlang and Git.
 
-When all dependencies are ready, clone the emqttd project from github.com and build:
+When all dependencies are ready, clone the emqx project from github.com and build:
 
 .. code-block:: bash
 
@@ -341,11 +341,11 @@ When all dependencies are ready, clone the emqttd project from github.com and bu
 
     cd emq-relx && make
 
-    cd _rel/emqttd && ./bin/emqttd console
+    cd _rel/emqx && ./bin/emqx console
 
 The binary package output in folder::
 
-    _rel/emqttd
+    _rel/emqx
 
 ----------------
 Build on Windows
@@ -365,15 +365,15 @@ Clone and build the `emq-relx`_ project:
 
 .. code-block:: bash
 
-    git clone -b windows https://github.com/emqtt/emqttd-relx.git
+    git clone -b windows https://github.com/emqtt/emqx-relx.git
 
-    cd emqttd-relx && make
+    cd emqx-relx && make
 
-Start the EMQ in console mode:
+Start the EMQ X in console mode:
 
 .. code-block:: bash
 
-    cd _rel/emqttd && ./bin/emqttd console
+    cd _rel/emqx && ./bin/emqx console
 
 .. _tcp_ports:
 
@@ -395,7 +395,7 @@ TCP Ports Used
 | 18083     | Web Dashboard Port                |
 +-----------+-----------------------------------+
 
-The TCP ports used can be configured in etc/emqttd.config:
+The TCP ports used can be configured in etc/emqx.config:
 
 .. code-block:: properties
 
@@ -404,10 +404,10 @@ The TCP ports used can be configured in etc/emqttd.config:
 
     ## SSL Listener: 8883, 127.0.0.1:8883, ::1:8883
     listener.ssl.external = 8883
-    
+
     ## External MQTT/WebSocket Listener
     listener.ws.external = 8083
-    
+
     ## HTTP Management API Listener
     listener.api.mgmt = 127.0.0.1:8080
 
@@ -419,19 +419,19 @@ The 18083 port is used by Web Dashboard of the broker. Default login: admin, Pas
 Quick Setup
 -----------
 
-Two main configuration files of the *EMQ* broker:
+Two main configuration files of the *EMQ X* broker:
 
 +-----------------------+-----------------------------------+
-| etc/emq.conf          | EMQ Broker Config                 |
+| etc/emq.conf          | EMQ X Broker Config               |
 +-----------------------+-----------------------------------+
-| etc/plugins/\*.conf   | EMQ Plugins' Config               |
+| etc/plugins/\*.conf   | EMQ X Plugins' Config             |
 +-----------------------+-----------------------------------+
 
 Two important parameters in etc/emq.conf:
 
 +--------------------+-------------------------------------------------------------------------+
 | node.process_limit | Max number of Erlang proccesses. A MQTT client consumes two proccesses. |
-|                    | The value should be larger than max_clients * 2                         | 
+|                    | The value should be larger than max_clients * 2                         |
 +--------------------+-------------------------------------------------------------------------+
 | node.max_ports     | Max number of Erlang Ports. A MQTT client consumes one port.            |
 |                    | The value should be larger than max_clients.                            |
@@ -447,7 +447,7 @@ The maximum number of allowed MQTT clients:
 .. code-block:: properties
 
     listener.tcp.external = 0.0.0.0:1883
-    
+
     listener.tcp.external.acceptors = 8
 
     listener.tcp.external.max_clients = 1024
@@ -455,17 +455,17 @@ The maximum number of allowed MQTT clients:
 .. _init_d_emqttd:
 
 -------------------
-/etc/init.d/emqttd
+/etc/init.d/emqx
 -------------------
 
 .. code-block:: bash
 
     #!/bin/sh
     #
-    # emqttd       Startup script for emqttd.
+    # emqx       Startup script for emqx.
     #
     # chkconfig: 2345 90 10
-    # description: emqttd is mqtt broker.
+    # description: emqx is mqtt broker.
 
     # source function library
     . /etc/rc.d/init.d/functions
@@ -473,13 +473,13 @@ The maximum number of allowed MQTT clients:
     # export HOME=/root
 
     start() {
-        echo "starting emqttd..."
-        cd /opt/emqttd && ./bin/emqttd start
+        echo "starting emqx..."
+        cd /opt/emqx && ./bin/emqx start
     }
 
     stop() {
-        echo "stopping emqttd..."
-        cd /opt/emqttd && ./bin/emqttd stop
+        echo "stopping emqx..."
+        cd /opt/emqx && ./bin/emqx stop
     }
 
     restart() {
@@ -505,13 +505,13 @@ The maximum number of allowed MQTT clients:
 
 chkconfig::
 
-    chmod +x /etc/init.d/emqttd
-    chkconfig --add emqttd
+    chmod +x /etc/init.d/emqx
+    chkconfig --add emqx
     chkconfig --list
 
 boot test::
 
-    service emqttd start
+    service emqx start
 
 .. NOTE::
 
