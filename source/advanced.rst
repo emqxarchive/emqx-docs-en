@@ -11,11 +11,11 @@ Shared Subscription
 
 EMQ X R 3.0 supports shared subscription at cluster level. It allows load balancing between multiple subscribers in the same group when distributing MQTT messages. ::
 
-                                ---------
-                                |       | --Msg1--> Subscriber1
-    Publisher--Msg1,Msg2,Msg3-->|  EMQ  | --Msg2--> Subscriber2
-                                |       | --Msg3--> Subscriber3
-                                ---------
+                                -----------
+                                |         | --Msg1--> Subscriber1
+    Publisher--Msg1,Msg2,Msg3-->|  EMQ X  | --Msg2--> Subscriber2
+                                |         | --Msg3--> Subscriber3
+                                -----------
 
 Two ways to create a shared subscription:
 
