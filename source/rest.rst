@@ -13,7 +13,7 @@ Base URL
 
 All REST APIs in the documentation have the following base URL::
 
-    http(s)://host:8080/api/v2/
+    http(s)://host:8080/api/v3/
 
 --------------------
 Basic Authentication
@@ -23,7 +23,7 @@ The HTTP requests to the REST API are protected with HTTP Basic authentication, 
 
 .. code-block:: bash
 
-    curl -v --basic -u <user>:<passwd> -k http://localhost:8080/api/v2/nodes/emq@127.0.0.1/clients
+    curl -v --basic -u <user>:<passwd> -k http://localhost:8080/api/v3/nodes/emqx@127.0.0.1/clients
 
 
 -----
@@ -35,11 +35,11 @@ List all Nodes in the Cluster
 
 Definition::
 
-    GET api/v2/management/nodes
+    GET api/v3/management/nodes
 
 Example Request::
 
-    GET api/v2/management/nodes
+    GET api/v3/management/nodes
 
 Response:
 
@@ -49,8 +49,8 @@ Response:
     	"code": 0,
     	"result": [
     		{
-    			"name": "emq@127.0.0.1",
-    			"version": "2.3.10",
+    			"name": "emqx@127.0.0.1",
+    			"version": "3.0",
     			"sysdescr": "Erlang MQTT Broker",
     			"uptime": "3 minutes, 32 seconds",
     			"datetime": "2018-06-29 09:03:52",
@@ -65,11 +65,11 @@ Retrieve a Node's Info
 
 Definition::
 
-    GET api/v2/management/nodes/{node_name}
+    GET api/v3/management/nodes/{node_name}
 
 Example Request::
 
-    GET api/v2/management/nodes/emq@127.0.0.1
+    GET api/v3/management/nodes/emqx@127.0.0.1
  
 Response:
 
@@ -78,7 +78,7 @@ Response:
     {
     	"code": 0,
     	"result": {
-    		"version": "2.3.10",
+    		"version": "3.0",
     		"sysdescr": "Erlang MQTT Broker",
     		"uptime": "5 minutes, 12 seconds",
     		"datetime": "2018-06-29 09:05:32",
@@ -92,11 +92,11 @@ List all Nodes'statistics in the Cluster
 
 Definition::
 
-    GET api/v2/monitoring/nodes
+    GET api/v3/monitoring/nodes
 
 Example Request::
 
-    GET api/v2/monitoring/nodes
+    GET api/v3/monitoring/nodes
 
 Response:
 
@@ -106,7 +106,7 @@ Response:
     	"code": 0,
     	"result": [
     		{
-    			"name": "emq@127.0.0.1",
+    			"name": "emqx@127.0.0.1",
     			"otp_release": "R20/9.3.3",
     			"memory_total": "72.94M",
     			"memory_used": "50.55M",
@@ -127,11 +127,11 @@ Retrieve a node's statistics
 
 Definition::
 
-    GET api/v2/monitoring/nodes/{node_name}
+    GET api/v3/monitoring/nodes/{node_name}
 
 Example Request::
 
-    GET api/v2/monitoring/nodes/emq@127.0.0.1
+    GET api/v3/monitoring/nodes/emqx@127.0.0.1
 
 Response:
 
@@ -140,7 +140,7 @@ Response:
     {
     	"code": 0,
     	"result": {
-    		"name": "emq@127.0.0.1",
+    		"name": "emqx@127.0.0.1",
     		"otp_release": "R20/9.3.3",
     		"memory_total": "73.69M",
     		"memory_used": "50.12M",
@@ -164,7 +164,7 @@ List all Clients on a Node
 
 Definition::
 
-    GET api/v2/nodes/{node_name}/clients
+    GET api/v3/nodes/{node_name}/clients
 
 Request Parameter::
 
@@ -172,7 +172,7 @@ Request Parameter::
 
 Example Request::
 
-    api/v2/nodes/emq@127.0.0.1/clients?curr_page=1&page_size=20
+    api/v3/nodes/emqx@127.0.0.1/clients?curr_page=1&page_size=20
 
 Response:
 
@@ -205,11 +205,11 @@ Retrieve a Client on a Node
 
 Definition::
 
-    GET api/v2/nodes/{node_name}/clients/{client_id}
+    GET api/v3/nodes/{node_name}/clients/{client_id}
 
 Example Request::
 
-    GET api/v2/nodes/emq@127.0.0.1/clients/mqttjs_722b4d845f
+    GET api/v3/nodes/emqx@127.0.0.1/clients/mqttjs_722b4d845f
 
 Response:
 
@@ -238,11 +238,11 @@ Retrieve a Client in the Cluster
 
 Definition::
 
-    GET api/v2/clients/{client_id}
+    GET api/v3/clients/{client_id}
 
 Example Request::
 
-    GET api/v2/clients/mqttjs_722b4d845f
+    GET api/v3/clients/mqttjs_722b4d845f
 
 Response:
 
@@ -271,11 +271,11 @@ Disconnect a Specified Client in the Cluster
 
 Definition::
 
-    DELETE api/v2/clients/{clientid}
+    DELETE api/v3/clients/{clientid}
 
 Example Request::
 
-    DELETE api/v2/clients/mqttjs_722b4d845f
+    DELETE api/v3/clients/mqttjs_722b4d845f
 
 Response:
 
@@ -291,7 +291,7 @@ Clear the ACL of a Specified Client in the Cluster
 
 Definition::
 
-    PUT api/v2/clients/{clientid}/clean_acl_cache
+    PUT api/v3/clients/{clientid}/clean_acl_cache
 
 Request Parameter:
 
@@ -303,7 +303,7 @@ Request Parameter:
 
 Request Example::
 
-    PUT api/v2/clients/C_1492145414740/clean_acl_cache
+    PUT api/v3/clients/C_1492145414740/clean_acl_cache
 
     Request Json Parameter:
     {
@@ -328,7 +328,7 @@ List all Sessions on a Node
 
 Definition::
 
-    GET api/v2/node/{node_name}/sessions
+    GET api/v3/node/{node_name}/sessions
 
 Request Parameter::
 
@@ -336,7 +336,7 @@ Request Parameter::
 
 Example Request::
 
-    GET api/v2/nodes/emq@127.0.0.1/sessions?curr_page=1&page_size=20
+    GET api/v3/nodes/emqx@127.0.0.1/sessions?curr_page=1&page_size=20
 
 Response:
 
@@ -372,11 +372,11 @@ Retrieve a Session on a Node
 
 Definition::
 
-    GET api/v2/nodes/{node_name}/sessions/{client_id}
+    GET api/v3/nodes/{node_name}/sessions/{client_id}
 
 Example Request::
 
-    GET api/v2/nodes/emq@127.0.0.1/sessions/mqttjs_722b4d845f
+    GET api/v3/nodes/emqx@127.0.0.1/sessions/mqttjs_722b4d845f
 
 Response:
 
@@ -408,11 +408,11 @@ Retrieve a Session in the Cluster
 
 Definition::
 
-    GET api/v2/sessions/{client_id}
+    GET api/v3/sessions/{client_id}
 
 Example Request::
 
-    GET api/v2/sessions/mqttjs_722b4d845f
+    GET api/v3/sessions/mqttjs_722b4d845f
 
 Response:
 
@@ -448,7 +448,7 @@ List all Subscriptions of a Node
 
 Definition::
 
-    GET api/v2/nodes/{node_name}/subscriptions
+    GET api/v3/nodes/{node_name}/subscriptions
     
 Request parameters::
 
@@ -456,7 +456,7 @@ Request parameters::
 
 Example Request::
 
-    GET api/v2/nodes/emq@127.0.0.1/subscriptions?curr_page=1&page_size=20
+    GET api/v3/nodes/emqx@127.0.0.1/subscriptions?curr_page=1&page_size=20
 
 Response:
 
@@ -484,11 +484,11 @@ List Subscriptions of a Client on a node
 
 Definition::
 
-    GET api/v2/nodes/{node_name}/subscriptions/{clientid}
+    GET api/v3/nodes/{node_name}/subscriptions/{clientid}
 
 Example Request::
 
-    GET api/v2/nodes/emq@127.0.0.1/subscriptions/mqttjs_722b4d845f
+    GET api/v3/nodes/emqx@127.0.0.1/subscriptions/mqttjs_722b4d845f
 
 Response:
 
@@ -512,11 +512,11 @@ List Subscriptions of a Client in cluster
 
 Definition::
 
-    GET api/v2/subscriptions/{clientid}
+    GET api/v3/subscriptions/{clientid}
 
 Example Request::
 
-    GET api/v2/subscriptions/mqttjs_722b4d845f
+    GET api/v3/subscriptions/mqttjs_722b4d845f
 
 Response:
 
@@ -544,7 +544,7 @@ List all Routes in the Cluster
 
 Definition::
 
-    GET api/v2/routes
+    GET api/v3/routes
 
 Request parameters::
 
@@ -552,7 +552,7 @@ Request parameters::
 
 Example Request::
     
-    GET api/v2/routes?curr_page=1&page_size=20
+    GET api/v3/routes?curr_page=1&page_size=20
 
 Response:
 
@@ -568,7 +568,7 @@ Response:
     		"objects": [
     			{
     				"topic": "/World",
-    				"node": "emq@127.0.0.1"
+    				"node": "emqx@127.0.0.1"
     			}
     		]
     	}
@@ -579,11 +579,11 @@ Retrieve a Route of Topic in the Cluster
 
 Definition::
 
-    GET api/v2/routes/{topic}
+    GET api/v3/routes/{topic}
 
 Example Request::
 
-    GET api/v2/routes//World
+    GET api/v3/routes//World
 
 Response:
 
@@ -595,7 +595,7 @@ Response:
     		"objects": [
     			{
     				"topic": "/World",
-    				"node": "emq@127.0.0.1"
+    				"node": "emqx@127.0.0.1"
     			}
     		]
     	}
@@ -610,7 +610,7 @@ Publish Message
 
 Definition::
  
-    POST api/v2/mqtt/publish
+    POST api/v3/mqtt/publish
 
 Request parameters:
 
@@ -628,7 +628,7 @@ Request parameters:
 
 Example Request::
 
-    POST api/v2/mqtt/publish
+    POST api/v3/mqtt/publish
 
     Request Json Parameter:
     {
@@ -653,7 +653,7 @@ Create a Subscription
 
 Definition::
 
-    POST api/v2/mqtt/subscribe
+    POST api/v3/mqtt/subscribe
 
 Request parameters:
 
@@ -667,7 +667,7 @@ Request parameters:
 
 Example Request::
  
-    POST api/v2/mqtt/subscribe
+    POST api/v3/mqtt/subscribe
     Request Json Parameter:
     {
 	      "topic" : "/World",
@@ -689,7 +689,7 @@ Unsubscribe Topic
 
 Definition::
 
-    POST api/v2/mqtt/unsubscribe
+    POST api/v3/mqtt/unsubscribe
 
 Request Parameter:
 
@@ -702,7 +702,7 @@ Request Parameter:
 
 Example Request::
 
-    POST api/v2/mqtt/unsubscribe
+    POST api/v3/mqtt/unsubscribe
     Request Json Parameter:
     {
 	      "topic" : "/World",
@@ -727,11 +727,11 @@ List all Plugins of a Node
 
 Definition::
 
-    GET /api/v2/nodes/{node_name}/plugins/
+    GET /api/v3/nodes/{node_name}/plugins/
 
 Example Request::
 
-    GET api/v2/nodes/emq@127.0.0.1/plugins
+    GET api/v3/nodes/emqx@127.0.0.1/plugins
 
 Response:
 
@@ -741,123 +741,123 @@ Response:
     	"code": 0,
     	"result": [
     		{
-    			"name": "emq_auth_clientid",
-    			"version": "2.3.10",
-    			"description": "Authentication with ClientId/Password",
+    			"name": "emqx_auth_clientid",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication with ClientId/Password",
     			"active": false
     		},
     		{
-    			"name": "emq_auth_http",
-    			"version": "2.3.10",
-    			"description": "Authentication/ACL with HTTP API",
+    			"name": "emqx_auth_http",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication/ACL with HTTP API",
     			"active": false
     		},
     		{
-    			"name": "emq_auth_jwt",
-    			"version": "2.3.10",
-    			"description": "Authentication with JWT",
+    			"name": "emqx_auth_jwt",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication with JWT",
     			"active": false
     		},
     		{
-    			"name": "emq_auth_ldap",
-    			"version": "2.3.10",
-    			"description": "Authentication/ACL with LDAP",
+    			"name": "emqx_auth_ldap",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication/ACL with LDAP",
     			"active": false
     		},
     		{
-    			"name": "emq_auth_mongo",
-    			"version": "2.3.10",
-    			"description": "Authentication/ACL with MongoDB",
+    			"name": "emqx_auth_mongo",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication/ACL with MongoDB",
     			"active": false
     		},
     		{
-    			"name": "emq_auth_mysql",
-    			"version": "2.3.10",
-    			"description": "Authentication/ACL with MySQL",
+    			"name": "emqx_auth_mysql",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication/ACL with MySQL",
     			"active": false
     		},
     		{
-    			"name": "emq_auth_pgsql",
-    			"version": "2.3.10",
-    			"description": "Authentication/ACL with PostgreSQL",
+    			"name": "emqx_auth_pgsql",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication/ACL with PostgreSQL",
     			"active": false
     		},
     		{
-    			"name": "emq_auth_redis",
-    			"version": "2.3.10",
-    			"description": "Authentication/ACL with Redis",
+    			"name": "emqx_auth_redis",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication/ACL with Redis",
     			"active": false
     		},
     		{
-    			"name": "emq_auth_username",
-    			"version": "2.3.10",
-    			"description": "Authentication with Username/Password",
+    			"name": "emqx_auth_username",
+    			"version": "3.0",
+    			"description": "EMQ X Authentication with Username/Password",
     			"active": false
     		},
     		{
-    			"name": "emq_coap",
-    			"version": "2.3.10",
-    			"description": "CoAP Gateway",
+    			"name": "emqx_coap",
+    			"version": "3.0",
+    			"description": "EMQ X CoAP Gateway",
     			"active": false
     		},
     		{
-    			"name": "emq_dashboard",
-    			"version": "2.3.10",
-    			"description": "EMQ Web Dashboard",
+    			"name": "emqx_dashboard",
+    			"version": "3.0",
+    			"description": "EMQ X Web Dashboard",
     			"active": true
     		},
     		{
-    			"name": "emq_lua_hook",
-    			"version": "2.3.10",
-    			"description": "EMQ Hooks in lua",
+    			"name": "emqx_lua_hook",
+    			"version": "3.0",
+    			"description": "EMQ X Hooks in lua",
     			"active": false
     		},
     		{
-    			"name": "emq_modules",
-    			"version": "2.3.10",
-    			"description": "EMQ Modules",
+    			"name": "emqx_modules",
+    			"version": "3.0",
+    			"description": "EMQ X Modules",
     			"active": true
     		},
     		{
-    			"name": "emq_plugin_template",
-    			"version": "2.3.10",
-    			"description": "EMQ Plugin Template",
+    			"name": "emqx_plugin_template",
+    			"version": "3.0",
+    			"description": "EMQ X Plugin Template",
     			"active": false
     		},
     		{
-    			"name": "emq_recon",
-    			"version": "2.3.10",
-    			"description": "Recon Plugin",
+    			"name": "emqx_recon",
+    			"version": "3.0",
+    			"description": "EMQ X Recon Plugin",
     			"active": true
     		},
     		{
-    			"name": "emq_reloader",
-    			"version": "2.3.10",
-    			"description": "Reloader Plugin",
+    			"name": "emqx_reloader",
+    			"version": "3.0",
+    			"description": "EMQ X Reloader Plugin",
     			"active": false
     		},
     		{
-    			"name": "emq_retainer",
-    			"version": "2.3.10",
-    			"description": "EMQ Retainer",
+    			"name": "emqx_retainer",
+    			"version": "3.0",
+    			"description": "EMQ X Retainer",
     			"active": true
     		},
     		{
-    			"name": "emq_sn",
-    			"version": "2.3.10",
-    			"description": "MQTT-SN Gateway",
+    			"name": "emqx_sn",
+    			"version": "3.0",
+    			"description": "EMQ X MQTT-SN Gateway",
     			"active": false
     		},
     		{
-    			"name": "emq_stomp",
-    			"version": "2.3.10",
-    			"description": "Stomp Protocol Plugin",
+    			"name": "emqx_stomp",
+    			"version": "3.0",
+    			"description": "EMQ X Stomp Protocol Plugin",
     			"active": false
     		},
     		{
-    			"name": "emq_web_hook",
-    			"version": "2.3.10",
-    			"description": "EMQ Webhook Plugin",
+    			"name": "emqx_web_hook",
+    			"version": "3.0",
+    			"description": "EMQ X Webhook Plugin",
     			"active": false
     		}
     	]
@@ -868,7 +868,7 @@ Start/Stop a Plugin
 
 Definition::
 
-    PUT /api/v2/nodes/{node_name}/plugins/{name}
+    PUT /api/v3/nodes/{node_name}/plugins/{name}
 
 Request parameters:
 
@@ -880,7 +880,7 @@ Request parameters:
 
 Example Request::
 
-    PUT api/v2/nodes/emq@127.0.0.1/plugins/emq_recon
+    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_recon
     Request Json Parameter:
     {
     	"active": true
@@ -900,7 +900,7 @@ List all Listeners
 
 Definition::
 
-    GET api/v2/monitoring/listeners
+    GET api/v3/monitoring/listeners
 
 Response:
 
@@ -909,7 +909,7 @@ Response:
     {
         "code": 0,
         "result": {
-            "emq@127.0.0.1": [
+            "emqx@127.0.0.1": [
                 {
                     "protocol": "dashboard:http",
                     "listen": "18083",
@@ -975,11 +975,11 @@ List listeners of a Node
 
 Definition::
 
-    GET api/v2/monitoring/listeners/{node_name}
+    GET api/v3/monitoring/listeners/{node_name}
 
 Example Request::
 
-    GET api/v2/monitoring/listeners/emq@127.0.0.1
+    GET api/v3/monitoring/listeners/emqx@127.0.0.1
     
 Response:
 
@@ -1056,7 +1056,7 @@ Get Statistics of all Nodes
 
 Definition::
 
-    GET api/v2/monitoring/metrics/
+    GET api/v3/monitoring/metrics/
 
 Response:
 
@@ -1110,11 +1110,11 @@ Get Statistics of specified Node
 
 Definition::
 
-    GET api/v2/monitoring/metrics/{node_name}
+    GET api/v3/monitoring/metrics/{node_name}
 
 Example Request::
 
-    GET api/v2/monitoring/metrics/emq@127.0.0.1
+    GET api/v3/monitoring/metrics/emqx@127.0.0.1
 
 Response:
 
@@ -1173,11 +1173,11 @@ Get Statistics of connected session in all nodes
 
 Definition::
 
-    GET api/v2/monitoring/stats
+    GET api/v3/monitoring/stats
 
 Example Request::
 
-    GET api/v2/monitoring/stats
+    GET api/v3/monitoring/stats
 
 Response:
 
@@ -1187,7 +1187,7 @@ Response:
     	"code": 0,
     	"result": [
     		{
-    			"emq@127.0.0.1": {
+    			"emqx@127.0.0.1": {
     				"clients/count": 0,
     				"clients/max": 0,
     				"retained/count": 3,
@@ -1213,11 +1213,11 @@ Get Statistics of connected session on specified node
 
 Definition::
 
-    GET api/v2/monitoring/stats/{node_name}
+    GET api/v3/monitoring/stats/{node_name}
 
 Example Request::
 
-    GET api/v2/monitoring/stats/emq@127.0.0.1
+    GET api/v3/monitoring/stats/emqx@127.0.0.1
 
 Response:
 
@@ -1252,11 +1252,11 @@ Get Modifiable configuration items of all nodes
 
 Definition::
 
-    GET api/v2/configs
+    GET api/v3/configs
 
 Example Request::
 
-    GET api/v2/configs
+    GET api/v3/configs
 
 Response:
 
@@ -1265,42 +1265,42 @@ Response:
     {
         "code": 0,
         "result": {
-            "emq@127.0.0.1": [
+            "emqx@127.0.0.1": [
                 {
                     "key": "log.console.level",
                     "value": "error",
                     "datatpye": "enum",
-                    "app": "emqttd"
+                    "app": "emqx"
                 },
                 {
                     "key": "mqtt.acl_file",
                     "value": "etc/acl.conf",
                     "datatpye": "string",
-                    "app": "emqttd"
+                    "app": "emqx"
                 },
                 {
                     "key": "mqtt.acl_nomatch",
                     "value": "allow",
                     "datatpye": "enum",
-                    "app": "emqttd"
+                    "app": "emqx"
                 },
                 {
                     "key": "mqtt.allow_anonymous",
                     "value": "true",
                     "datatpye": "enum",
-                    "app": "emqttd"
+                    "app": "emqx"
                 },
                 {
                     "key": "mqtt.broker.sys_interval",
                     "value": "60",
                     "datatpye": "integer",
-                    "app": "emqttd"
+                    "app": "emqx"
                 },
                 {
                     "key": "mqtt.cache_acl",
                     "value": "true",
                     "datatpye": "enum",
-                    "app": "emqttd"
+                    "app": "emqx"
                 }
             ]
         }
@@ -1315,7 +1315,7 @@ Definition::
 
 Example Request::
 
-    GET api/v2/nodes/emq@127.0.0.1/configs
+    GET api/v3/nodes/emqx@127.0.0.1/configs
 
 Response:
 
@@ -1328,37 +1328,37 @@ Response:
                 "key": "log.console.level",
                 "value": "error",
                 "datatpye": "enum",
-                "app": "emqttd"
+                "app": "emqx"
             },
             {
                 "key": "mqtt.acl_file",
                 "value": "etc/acl.conf",
                 "datatpye": "string",
-                "app": "emqttd"
+                "app": "emqx"
             },
             {
                 "key": "mqtt.acl_nomatch",
                 "value": "allow",
                 "datatpye": "enum",
-                "app": "emqttd"
+                "app": "emqx"
             },
             {
                 "key": "mqtt.allow_anonymous",
                 "value": "true",
                 "datatpye": "enum",
-                "app": "emqttd"
+                "app": "emqx"
             },
             {
                 "key": "mqtt.broker.sys_interval",
                 "value": "60",
                 "datatpye": "integer",
-                "app": "emqttd"
+                "app": "emqx"
             },
             {
                 "key": "mqtt.cache_acl",
                 "value": "true",
                 "datatpye": "enum",
-                "app": "emqttd"
+                "app": "emqx"
             }
         ]
     }
@@ -1368,7 +1368,7 @@ Modify configuration items of all nodes
 
 Definition::
 
-    PUT /api/v2/configs/{app_name}
+    PUT /api/v3/configs/{app_name}
 
 Request Parameter::
 
@@ -1379,7 +1379,7 @@ Request Parameter::
 
 Example Request::
 
-    PUT /api/v2/configs/emqttd
+    PUT /api/v3/configs/emqx
 
 Response:
 .. code-block:: json
@@ -1394,7 +1394,7 @@ Modify configuration items of specified node
 
 Definition::
 
-    PUT /api/v2/nodes/{node_name}/configs/{app_name}
+    PUT /api/v3/nodes/{node_name}/configs/{app_name}
 
 Request Parameter::
 
@@ -1417,11 +1417,11 @@ Get configuration items of specified plugin in specified node
 
 Definition::
 
-    GET api/v2/nodes/{node_name}/plugin_configs/{plugin_name}
+    GET api/v3/nodes/{node_name}/plugin_configs/{plugin_name}
 
 Example Request::
 
-    GET api/v2/nodes/emq@127.0.0.1/plugin_configs/emq_auth_http
+    GET api/v3/nodes/emqx@127.0.0.1/plugin_configs/emqx_auth_http
 
 Response:
 
@@ -1492,7 +1492,7 @@ Modify configuration item of specified plugin in specified node
 
 Definition::
 
-    PUT api/v2/nodes/{node_name}/plugin_configs/{plugin_name}
+    PUT api/v3/nodes/{node_name}/plugin_configs/{plugin_name}
 
 Request Parameter::
 
@@ -1510,7 +1510,7 @@ Request Parameter::
 
 Example Request::
 
-    PUT api/v2/nodes/emq@127.0.0.1/plugin_configs/emq_auth_http
+    PUT api/v3/nodes/emqx@127.0.0.1/plugin_configs/emqx_auth_http
 
 Response:
 
@@ -1531,11 +1531,11 @@ Retrieve Admin User List
 
 Definition::
 
-    GET api/v2/users
+    GET api/v3/users
 
 Request Example::
 
-    GET api/v2/users
+    GET api/v3/users
 
 Response:
 
@@ -1556,7 +1556,7 @@ Add Admin User
 
 Definition::
 
-    POST api/v2/users
+    POST api/v3/users
 
 Request Parameter::
 
@@ -1568,7 +1568,7 @@ Request Parameter::
 
 Request Example::
 
-    POST api/v2/users
+    POST api/v3/users
 
 Response:
 
@@ -1584,7 +1584,7 @@ Modify Admin User Information
 
 Definition::
 
-    PUT api/v2/users/{username}
+    PUT api/v3/users/{username}
 
 Request Parameter::
 
@@ -1594,7 +1594,7 @@ Request Parameter::
 
 Request Example::
 
-    PUT api/v2/users/test_user
+    PUT api/v3/users/test_user
 
 Response:
 
@@ -1610,14 +1610,14 @@ Delete Admin User
 
 Definition::
 
-    DELETE api/v2/users/{username}
+    DELETE api/v3/users/{username}
 
 Request Parameter::
 
 
 Request Example::
 
-    DELETE api/v2/users/test_user
+    DELETE api/v3/users/test_user
 
 Response:
 
@@ -1633,7 +1633,7 @@ Authenticate Admin User
 
 Definition::
 
-    POST api/v2/auth
+    POST api/v3/auth
 
 Request Parameter::
 
@@ -1644,7 +1644,7 @@ Request Parameter::
 
 Request Example::
 
-    POST api/v2/auth
+    POST api/v3/auth
 
 Response:
 
@@ -1660,7 +1660,7 @@ Modify Admin User Password
 
 Definition::
 
-    PUT api/v2/change_pwd/{username}
+    PUT api/v3/change_pwd/{username}
 
 Request Parameter::
 
@@ -1671,7 +1671,7 @@ Request Parameter::
 
 Request Example::
 
-    PUT api/v2/change_pwd/test_user
+    PUT api/v3/change_pwd/test_user
 
 Response:
 
