@@ -5,36 +5,36 @@
 MQTT-SN Protocol
 ================
 
-MQTT-SN stands for "MQTT for Sensor Networks" which is aimed at embedded devices on non-TCP/IP networks, such as Zigbee. Its offical site says:
+MQTT-SN stands for "MQTT for Sensor Networks" which aims at embedded devices on non-TCP/IP networks, such as ZIGBEE. Its offical site says:
 
 MQTT-SN is a publish/subscribe messaging protocol for wireless sensor networks (WSN), with the aim of extending the MQTT protocol beyond the reach of TCP/IP infrastructure for Sensor and Actuator solutions.
 
 MQTT-SN specification can be downloaded from http://mqtt.org/new/wp-content/uploads/2009/06/MQTT-SN_spec_v1.2.pdf.
     
-----------------
+---------------
 MQTT-SN vs MQTT
-----------------
+---------------
 
-MQTT-SN looks similar to MQTT in most part, such as WILL message, such as Connect/Subscribe/Publish command.
+MQTT-SN looks similar to MQTT in most parts, such as Will message, such as Connect/Subscribe/Publish command.
 
 The very difference between MQTT-SN and MQTT is the TopicId which replaces topic name in MQTT. TopicId is a 16 bits integer which stands for a topic name. Device and broker use REGISTER command to negotiate the mapping bewteen TopicId and topic name.
 
-MQTT-SN is able to update Will message, even delete it. But MQTT is not allowed to change Will which is set in Connect command only.
+MQTT-SN is able to update Will message, even delete it. But MQTT is not allowed to change Will which is set in CONNECT command only.
 
-MQTT-SN introduce gateways in its network. Gateway translate between MQTT-SN and MQTT, exchange messages between device and mqtt broker. And there is a mechanism that called gateway discovery, which enables device to find gateways automatically.
+MQTT-SN introduces gateways in its network. Gateway translates between MQTT-SN and MQTT, exchanges messages between device and MQTT broker. And there is a mechanism that called gateway discovery, which enables device to find gateways automatically.
 
-MQTT-SN support sleeping client feature which allows device to shutdown itself to save power for a while. Gateway need to buffer downlink publish message for sleeping devices, and push these message to devices once they are awake.
+MQTT-SN supports sleeping client feature which allows device to shutdown itself to save power for a while. Gateway needs to buffer downlink publish messages for sleeping devices, and pushes these messages to devices once they are awake.
 
 --------------
-EMQ-SN Plugin
+EMQX-SN Plugin
 --------------
 
-EMQ-SN is a EMQ plugin which implement most features of MQTT-SN. It serve as a MQTT-SN gateway on cloud, neighbor of EMQ broker.
+EMQX-SN is an EMQ X plugin which implements most features of MQTT-SN. It serves as an MQTT-SN gateway on cloud, who is the neighbor of EMQ X Broker.
 
 Plugin config
 -------------
 
-File: etc/plugins/emq_sn.conf:
+File: etc/plugins/emqx_sn.conf:
 
 .. code-block:: properties
 
@@ -48,25 +48,25 @@ File: etc/plugins/emq_sn.conf:
     
     mqtt.sn.password = abc
 
-+-----------------------------+-------------------------------------------------------------------------+
-| mqtt.sn.port                | The UDP port which emq-sn is listening on.                              |
-+-----------------------------+-------------------------------------------------------------------------+
-| mqtt.sn.advertise_duration  | The duration(seconds) that emq-sn broadcast ADVERTISE message through.  |
-+-----------------------------+-------------------------------------------------------------------------+
-| mqtt.sn.gateway_id          | Gateway id in ADVERTISE message.                                        |
-+-----------------------------+-------------------------------------------------------------------------+
-| mqtt.sn.username            | This parameter is optional. If specified, emq-sn will connect EMQTTD    |
-|                             | core with this username. It is useful if any auth plug-in is enabled.   |
-+-----------------------------+-------------------------------------------------------------------------+
-| mqtt.sn.password            | This parameter is optional. Pair with username above.                   |
-+-----------------------------+-------------------------------------------------------------------------+
++-----------------------------+--------------------------------------------------------------------------+
+| mqtt.sn.port                | The UDP port which emqx-sn is listening on.                              |
++-----------------------------+--------------------------------------------------------------------------+
+| mqtt.sn.advertise_duration  | The duration(seconds) that emqx-sn broadcasts ADVERTISE message through. |
++-----------------------------+--------------------------------------------------------------------------+
+| mqtt.sn.gateway_id          | Gateway id in ADVERTISE message.                                         |
++-----------------------------+--------------------------------------------------------------------------+
+| mqtt.sn.username            | This parameter is optional. If specified, emqx-sn will connect EMQ X      |
+|                             | Broker with this username. It is useful if any auth plug-in is enabled.  |
++-----------------------------+--------------------------------------------------------------------------+
+| mqtt.sn.password            | This parameter is optional. Pair with username above.                    |
++-----------------------------+--------------------------------------------------------------------------+
 
 Load Plugin
--------------
+-----------
 
 .. code-block:: console
 
-    ./bin/emqttd_ctl plugins load emq_sn
+    ./bin/emqx_ctl plugins load emqx_sn
 
 ----------------------
 MQTT-SN Client Library
