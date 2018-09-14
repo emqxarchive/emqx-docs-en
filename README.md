@@ -25,7 +25,7 @@
 * **[Configuration](http://docs.emqtt.com/en/latest/config.html)**
   * [EMQ X 3.0 Config Syntax](http://docs.emqtt.com/en/latest/config.html#emq-2-0-config-syntax)
   * [OS Environment Variables](http://docs.emqtt.com/en/latest/config.html#os-environment-variables)
-  * [EMQ Node and Cookie](http://docs.emqtt.com/en/latest/config.html#emq-node-and-cookie)
+  * [EMQ X Node and Cookie](http://docs.emqtt.com/en/latest/config.html#emq-node-and-cookie)
   * [Erlang VM Arguments](http://docs.emqtt.com/en/latest/config.html#erlang-vm-arguments)
   * [Log Level and File](http://docs.emqtt.com/en/latest/config.html#log-level-and-file)
   * [MQTT Protocol Parameters](http://docs.emqtt.com/en/latest/config.html#mqtt-protocol-parameters)
@@ -98,35 +98,32 @@
   * [admins](http://docs.emqtt.com/en/latest/commands.html#admins)
 
 * **[Plugins](http://docs.emqtt.com/en/latest/plugins.html)**
-  * [emq_plugin_template - Template Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-plugin-template-template-plugin)
-  * [emq_auth_clientid - ClientID Auth Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-clientid-clientid-auth-plugin)
-  * [emq_auth_username - Username Auth Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-username-username-auth-plugin)
-  * [emq_dashboard - Dashboard Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-dashboard-dashboard-plugin)
-  * [emq_auth_ldap: LDAP Auth Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-ldap-ldap-auth-plugin)
-  * [emq_auth_http - HTTP Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-http-http-auth-acl-plugin)
-  * [emq_auth_mysql - MySQL Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-mysql-mysql-auth-acl-plugin)
-  * [emq_auth_pgsql - PostgreSQL Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-pgsql-postgresql-auth-acl-plugin)
-  * [emq_auth_redis - Redis Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-redis-redis-auth-acl-plugin)
-  * [emq_auth_mongo - MongoDB Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-mongo-mongodb-auth-acl-plugin)
-  * [emq_mod_presence - Presence Module](http://docs.emqtt.com/en/latest/plugins.html#emq-mod-presence-presence-module)
-  * [emq_mod_retainer - Retainer Module](http://docs.emqtt.com/en/latest/plugins.html#emq-mod-retainer-retainer-module)
-  * [emq_mod_subscription - Subscription Module](http://docs.emqtt.com/en/latest/plugins.html#emq-mod-subscription-subscription-module)
-  * [emq_mod_rewrite - Topic Rewrite Module](http://docs.emqtt.com/en/latest/plugins.html#emq-mod-rewrite-topic-rewrite-module)
-  * [emq_coap: CoAP Protocol Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-coap-coap-protocol-plugin)
-  * [emq_sn: MQTT-SN Protocol](http://docs.emqtt.com/en/latest/plugins.html#emq-sn-mqtt-sn-protocol)
-  * [emq_stomp - STOMP Protocol](http://docs.emqtt.com/en/latest/plugins.html#emq-stomp-stomp-protocol)
-  * [emq_sockjs - STOMP/SockJS Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-sockjs-stomp-sockjs-plugin)
-  * [emq_recon - Recon Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-recon-recon-plugin)
-  * [emq_reloader - Reloader Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-reloader-reloader-plugin)
+  * [emqx_plugin_template - Template Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-plugin-template-template-plugin)
+  * [emqx_auth_clientid - ClientID Auth Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-clientid-clientid-auth-plugin)
+  * [emqx_auth_username - Username Auth Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-username-username-auth-plugin)
+  * [emqx_dashboard - Dashboard Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-dashboard-dashboard-plugin)
+  * [emqx_auth_ldap - LDAP Auth Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-ldap-ldap-auth-plugin)
+  * [emqx_auth_http - HTTP Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-http-http-auth-acl-plugin)
+  * [emqx_auth_mysql - MySQL Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-mysql-mysql-auth-acl-plugin)
+  * [emqx_auth_pgsql - PostgreSQL Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-pgsql-postgresql-auth-acl-plugin)
+  * [emqx_auth_redis - Redis Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-redis-redis-auth-acl-plugin)
+  * [emqx_auth_mongo - MongoDB Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-mongo-mongodb-auth-acl-plugin)
+  * [emqx_web_hook - Web Hook Plugin](http://docs.emqtt.com/en/latest/plugins.html)
+  * [emqx_lua_hook - Lua Hook Plugin](http://docs.emqtt.com/en/latest/plugins.html)
+  * [emqx_coap - CoAP Protocol Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-coap-coap-protocol-plugin)
+  * [emqx_sn - MQTT-SN Protocol](http://docs.emqtt.com/en/latest/plugins.html#emq-sn-mqtt-sn-protocol)
+  * [emqx_stomp - STOMP Protocol](http://docs.emqtt.com/en/latest/plugins.html#emq-stomp-stomp-protocol)
+  * [emqx_recon - Recon Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-recon-recon-plugin)
+  * [emqx_reloader - Reloader Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-reloader-reloader-plugin)
   * [Plugin Development Guide](http://docs.emqtt.com/en/latest/plugins.html#plugin-development-guide)
 
 * **[Tuning Guide](http://docs.emqtt.com/en/latest/tune.html)**
   * [Linux Kernel Tuning](http://docs.emqtt.com/en/latest/tune.html#linux-kernel-tuning)
   * [Network Tuning](http://docs.emqtt.com/en/latest/tune.html#network-tuning)
   * [Erlang VM Tuning](http://docs.emqtt.com/en/latest/tune.html#erlang-vm-tuning)
-  * [The EMQ Broker](http://docs.emqtt.com/en/latest/tune.html#the-emq-broker)
+  * [The EMQ X Broker](http://docs.emqtt.com/en/latest/tune.html#the-emq-broker)
   * [Client Machine](http://docs.emqtt.com/en/latest/tune.html#client-machine)
-  * [emqtt_benchmark](http://docs.emqtt.com/en/latest/tune.html#emqtt-benchmark)
+  * [emqx_benchmark](http://docs.emqtt.com/en/latest/tune.html#emqtt-benchmark)
 
 Contacts
 ========
@@ -135,6 +132,6 @@ Company: http://emqx.io
 
 Twitter: @emqtt
 
-Author: Feng Lee <feng@emqtt.io>
+Author: Feng Lee <feng@emqx.io>
 
 http://emqttd.io/docs | http://docs.emqtt.com/
