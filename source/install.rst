@@ -108,7 +108,7 @@ Check the running status of the broker:
 
 .. code-block:: bash
 
-    $ ./bin/emqttd_ctl status
+    $ ./bin/emqx_ctl status
     Node 'emqx@127.0.0.1' is started
     emqx 3.0 is running
 
@@ -149,7 +149,7 @@ Install the package:
 Configuration, Data and Log Files:
 
 +---------------------------+-------------------------------------------+
-| /etc/emqx/emq.conf        | Configuration file for the EMQ X Broker   |
+| /etc/emqx/emqx.conf        | Configuration file for the EMQ X Broker   |
 +---------------------------+-------------------------------------------+
 | /etc/emqx/plugins/\*.conf | Configuration files for the EMQ X Plugins |
 +---------------------------+-------------------------------------------+
@@ -199,7 +199,7 @@ Install the package:
 Configuration, Data and Log Files:
 
 +------------------------------+-------------------------------------------+
-| /etc/emqx/emq.conf           | Configuration file for the EMQ X Broker   |
+| /etc/emqx/emqx.conf           | Configuration file for the EMQ X Broker   |
 +------------------------------+-------------------------------------------+
 | /etc/emqx/plugins/\*.conf    | Configuration files for the EMQ X Plugins |
 +------------------------------+-------------------------------------------+
@@ -234,7 +234,7 @@ We could install the broker on Mac OS X to develop and debug MQTT applications.
 
 Download Mac Package from: http://emqtt.io/downloads/latest/macosx
 
-Configure log level in `etc/emq.conf`, all MQTT messages recevied/sent will be printed on console:
+Configure log level in `etc/emqx.conf`, all MQTT messages recevied/sent will be printed on console:
 
 .. code-block:: bash
 
@@ -337,9 +337,9 @@ When all dependencies are ready, clone the emqx project from github.com and buil
 
 .. code-block:: bash
 
-    git clone https://github.com/emqtt/emq-relx.git
+    git clone https://github.com/emqx/emqx-rel.git
 
-    cd emq-relx && make
+    cd emqx-rel && make
 
     cd _rel/emqx && ./bin/emqx console
 
@@ -361,13 +361,13 @@ Use pacman of MSYS2 to install git and make:
 
     pacman -S git make
 
-Clone and build the `emq-relx`_ project:
+Clone and build the `emqx-rel`_ project:
 
 .. code-block:: bash
 
-    git clone -b windows https://github.com/emqtt/emqx-relx.git
+    git clone -b windows https://github.com/emqx/emqx-rel.git
 
-    cd emqx-relx && make
+    cd emqx-rel && make
 
 Start the EMQ X in console mode:
 
@@ -422,12 +422,12 @@ Quick Setup
 Two main configuration files of the *EMQ X* broker:
 
 +-----------------------+-----------------------------------+
-| etc/emq.conf          | EMQ X Broker Config               |
+| etc/emqx.conf          | EMQ X Broker Config               |
 +-----------------------+-----------------------------------+
 | etc/plugins/\*.conf   | EMQ X Plugins' Config             |
 +-----------------------+-----------------------------------+
 
-Two important parameters in etc/emq.conf:
+Two important parameters in etc/emqx.conf:
 
 +--------------------+-------------------------------------------------------------------------+
 | node.process_limit | Max number of Erlang proccesses. A MQTT client consumes two proccesses. |
