@@ -110,11 +110,11 @@ Version 3.0-beta.1
 Introduction
 ------------
 
-3.0-beta.1 version is now officially released. It is backward compatible with MQTT 3 (3.1 & 3.1.1), and it also fully supports MQTT 5.0 specification.
+3.0-beta.1 version is now officially released. It is backward compatible with MQTT 3 (3.1 & 3.1.1), and it also supports new features of MQTT 5.0 specification.
 
 It also comes with some important features. Scalability and extensibility are improved significantly as well after refactoring some core components.
 
-MQTT 5.0 Protocol specification supoort
+MQTT 5.0 Protocol specification support
 ----------------------------------------
 
 - New packet type
