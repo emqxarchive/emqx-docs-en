@@ -20,7 +20,7 @@
   * [Installing From Source](http://docs.emqtt.com/en/latest/install.html#installing-from-source)
   * [TCP Ports Used](http://docs.emqtt.com/en/latest/install.html#tcp-ports-used)
   * [Quick Setup](http://docs.emqtt.com/en/latest/install.html#quick-setup)
-  * [/etc/init.d/emqttd](http://docs.emqtt.com/en/latest/install.html#etc-init-d-emqttd)
+  * [/etc/init.d/emqx](http://docs.emqtt.com/en/latest/install.html#etc-init-d-emqttd)
 
 * **[Configuration](http://docs.emqtt.com/en/latest/config.html)**
   * [EMQ X 3.0 Config Syntax](http://docs.emqtt.com/en/latest/config.html#emq-2-0-config-syntax)
