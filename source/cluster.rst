@@ -101,7 +101,7 @@ Erlang nodes can be connected via different distributed protocols including TCPv
 Cluster Design
 --------------
 
-The cluster architecture of EMQ X broker is based on distributed Erlang/OTP and Mnesia database.
+The cluster architecture of *EMQ X* broker is based on distributed Erlang/OTP and Mnesia database.
 
 The cluster design could be summarized by the following two rules:
 
@@ -109,7 +109,7 @@ The cluster design could be summarized by the following two rules:
 
 2. When a MQTT Client PUBLISH a message to a node, the node will lookup the Topic table and forward the message to nodes that subscribed to the Topic.
 
-Finally there will be a global route table(Topic -> Node) that replicated to all nodes in the cluster::
+Finally there will be a global route table(Topic -> Node) that is replicated to all nodes in the cluster::
 
     topic1 -> node1, node2
     topic2 -> node3
@@ -180,7 +180,7 @@ Suppose we deploy two nodes cluster on s1.emqx.io, s2.emqx.io:
 | emqx@192.168.0.20     |                 |                     |
 +-----------------------+-----------------+---------------------+
 
-.. Notice:: The node name is Name@Host, where Host is IP address or the fully qualified host name.
+.. NOTE:: The node name is Name@Host, where Host is IP address or the fully qualified host name.
 
 emqx@s1.emqx.io config
 ----------------------
@@ -250,7 +250,7 @@ Or remove emqx@s2.emqx.io node from the cluster on emqx@s1.emqx.io::
 Node Discovery and Autocluster
 ------------------------------
 
-EMQ X 3.0 supports node discovery and autocluster with various strategies:
+*EMQ X* 3.0 supports node discovery and autocluster with various strategies:
 
 +------------+---------------------------------+
 | Strategy   | Description                     |
@@ -421,4 +421,4 @@ So by default, make sure TCP ports `4369` and `6369-7369` are allowed by your Fi
 Consistent Hash and DHT
 -----------------------
 
-Consistent Hash and DHT are popular in the design of NoSQL databases. Cluster of EMQ X broker could support 10 million size of global routing table now. We could use the Consistent Hash or DHT to partition the routing table, and evolve the cluster to larger size.
+Consistent Hash and DHT are popular in the design of NoSQL databases. Cluster of *EMQ X* broker could support 10 million size of global routing table now. We could use the Consistent Hash or DHT to partition the routing table, and evolve the cluster to larger size.
