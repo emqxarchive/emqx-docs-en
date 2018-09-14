@@ -264,8 +264,6 @@ Query all sessions::
 
 Properties of Session:
 
-TODO:??
-
 +-------------------+----------------------------------------------------------------+
 | clean_sess        | clean sess flag. false: persistent, true: transient            |
 +-------------------+----------------------------------------------------------------+

@@ -816,6 +816,8 @@ Plugin Configuration Files
 +----------------------------------------+-----------------------------------+
 | etc/plugins/emqx_auth_redis.conf       | Redis Auth/ACL Plugin Config      |
 +----------------------------------------+-----------------------------------+
+| etc/plugins/emqx_auth_jwt.conf         | JWT Auth/ACL Plugin Config        |
++----------------------------------------+-----------------------------------+
 | etc/plugins/emqx_coap.conf             | CoAP Protocol Plugin Config       |
 +----------------------------------------+-----------------------------------+
 | etc/plugins/emqx_mod_presence.conf     | Presence Module Config            |
