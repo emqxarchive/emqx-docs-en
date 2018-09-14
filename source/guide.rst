@@ -477,7 +477,7 @@ Internal
 
 The internal(default) ACL of *EMQ X* broker is implemented by an 'internal' module.
 
-Enable the 'internal' ACL module in etc/emq.conf:
+Enable the 'internal' ACL module in etc/emqx.conf:
 
 .. code-block:: properties
 
@@ -647,7 +647,7 @@ Take mosquitto for example::
     mosquitto_pub -t topic -q 1 -m "Hello, MQTT!"
 
 
-MQTT Listener of the EMQ X broker is configured in etc/emq.conf:
+MQTT Listener of the EMQ X broker is configured in etc/emqx.conf:
 
 .. code-block:: properties
 
@@ -732,7 +732,7 @@ The Dashboard plugin provides a test page for WebSocket::
 
     http://127.0.0.1:18083/websocket.html
 
-Listener of WebSocket and HTTP Publish API is configured in etc/emq.conf:
+Listener of WebSocket and HTTP Publish API is configured in etc/emqx.conf:
 
 .. code-block:: properties
 
@@ -1082,4 +1082,5 @@ Stop a Trace::
 .. _emqx_auth_pgsql:    https://github.com/emqx/emqx_auth_pgsql
 .. _emqx_auth_redis:    https://github.com/emqx/emqx_auth_redis
 .. _emqx_auth_mongo:    https://github.com/emqx/emqx_auth_mongo
+.. _emqx_auth_jwt:      https://github.com/emqx/emqx-auth-jwt
 
