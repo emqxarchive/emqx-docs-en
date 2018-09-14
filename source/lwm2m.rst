@@ -21,7 +21,7 @@ LWM2M defines service on a device as Object and Resource, which is represented i
 EMQX-LWM2M plugin
 -----------------
 
-EMQX-LWM2M is an EMQ X plugin，which implemnts most LWM2M features. MQTT client is able to access LWM2M device through EMQX-LWM2M plugin, by sending a command and reading its response.
+EMQX-LWM2M is an *EMQ X* plugin，which implemnts most LWM2M features. MQTT client is able to access LWM2M device through EMQX-LWM2M plugin, by sending a command and reading its response.
 
 
 ---------------------------------
@@ -67,7 +67,7 @@ File: etc/emqx_lwm2m.conf::
 | lwm2m.certfile        | DTLS certificate                                                           |
 +-----------------------+----------------------------------------------------------------------------+
 | lwm2m.keyfile         | DTLS private key                                                           |
-+-----------------------------+----------------------------------------------------------------------+
++-----------------------+----------------------------------------------------------------------------+
 | lwm2m.xml_dir         | A directory to store XML files which define LWM2M Objects                  |
 +-----------------------+----------------------------------------------------------------------------+
 
