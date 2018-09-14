@@ -101,13 +101,13 @@ Erlang nodes can be connected via different distributed protocols including TCPv
 Cluster Design
 --------------
 
-The cluster architecture of emqttd broker is based on distributed Erlang/OTP and Mnesia database.
+The cluster architecture of EMQ X broker is based on distributed Erlang/OTP and Mnesia database.
 
 The cluster design could be summarized by the following two rules:
 
-1. When a MQTT client SUBSCRIBE a Topic on a node, the node will tell all the other nodes in the cluster: I subscribed a Topic.
+1. When a MQTT client SUBSCRIBE a Topic on a node, the node will tell all the other nodes in the cluster: I have a client subscribed to a Topic.
 
-2. When a MQTT Client PUBLISH a message to a node, the node will lookup the Topic table and forward the message to nodes that subscribed the Topic.
+2. When a MQTT Client PUBLISH a message to a node, the node will lookup the Topic table and forward the message to nodes that subscribed to the Topic.
 
 Finally there will be a global route table(Topic -> Node) that replicated to all nodes in the cluster::
 
@@ -120,7 +120,7 @@ Topic Trie and Route Table
 
 Every node in the cluster will store a topic trie and route table in mnesia database.
 
-Suppose that we create subscriptions:
+Suppose that we create following subscriptions:
 
 +----------------+-------------+----------------------------+
 | Client         | Node        |  Topics                    |
@@ -132,7 +132,7 @@ Suppose that we create subscriptions:
 | client3        | node3       | t/+/x, t/a                 |
 +----------------+-------------+----------------------------+
 
-Finally the topic trie and route table in the cluster::
+The topic trie and route table in the cluster will be::
 
     --------------------------
     |          t             |
@@ -168,66 +168,66 @@ Suppose client1 PUBLISH a message to the topic 't/a', the message Route and Deli
 Cluster Setup
 -------------
 
-Suppose we deploy two nodes cluster on s1.emqtt.io, s2.emqtt.io:
+Suppose we deploy two nodes cluster on s1.emqx.io, s2.emqx.io:
 
 +-----------------------+-----------------+---------------------+
 | Node                  | Host(FQDN)      |  IP and Port        |
 +-----------------------+-----------------+---------------------+
-| emq@s1.emqtt.io or    | s1.emqtt.io     | 192.168.0.10:1883   |
-| emq@192.168.0.10      |                 |                     |
+| emqx@s1.emqx.io or    | s1.emqx.io      | 192.168.0.10:1883   |
+| emqx@192.168.0.10     |                 |                     |
 +-----------------------+-----------------+---------------------+
-| emq@s2.emqtt.io or    | s2.emqtt.io     | 192.168.0.20:1883   |
-| emq@192.168.0.20      |                 |                     |
+| emqx@s2.emqx.io or    | s2.emqx.io      | 192.168.0.20:1883   |
+| emqx@192.168.0.20     |                 |                     |
 +-----------------------+-----------------+---------------------+
 
-.. WARNING:: The node name is Name@Host, where Host is IP address or the fully qualified host name.
+.. Notice:: The node name is Name@Host, where Host is IP address or the fully qualified host name.
 
-emq@s1.emqtt.io config
+emqx@s1.emqx.io config
 ----------------------
 
-etc/emq.conf::
+etc/emqx.conf::
 
-    node.name = emq@s1.emqtt.io
+    node.name = emqx@s1.emqx.io
 
     or
 
-    node.name = emq@192.168.0.10
+    node.name = emqx@192.168.0.10
 
 .. WARNING:: The name cannot be changed after node joined the cluster.
 
-emq@s2.emqtt.io config
+emqx@s2.emqx.io config
 -----------------------
 
-etc/emq.conf::
+etc/emqx.conf::
 
-    node.name = emq@s2.emqtt.io
+    node.name = emqx@s2.emqx.io
 
     or
 
-    node.name = emq@192.168.0.20
+    node.name = emqx@192.168.0.20
 
 Join the cluster
 ----------------
 
-Start the two broker nodes, and 'cluster join ' on emqttd@s2.emqtt.io::
+Start the two broker nodes, and 'cluster join ' on emqx@s2.emqx.io::
 
-    $ ./bin/emqttd_ctl cluster join emq@s1.emqtt.io
-
-    Join the cluster successfully.
-    Cluster status: [{running_nodes,['emq@s1.emqtt.io','emq@s2.emqtt.io']}]
-
-Or 'cluster join' on emq@s1.emqtt.io::
-
-    $ ./bin/emqttd_ctl cluster join emq@s2.emqtt.io
+    $ ./bin/emqx_ctl cluster join emqx@s1.emqx.io
 
     Join the cluster successfully.
-    Cluster status: [{running_nodes,['emq@s1.emqtt.io','emq@s2.emqtt.io']}]
+    Cluster status: [{running_nodes,['emqx@s1.emqx.io','emqx@s2.emqx.io']}]
+
+Or 'cluster join' on emqx@s1.emqx.io::
+
+    $ ./bin/emqx_ctl cluster join emqx@s2.emqx.io
+
+    Join the cluster successfully.
+    Cluster status: [{running_nodes,['emqx@s1.emqx.io','emqx@s2.emqx.io']}]
 
 Query the cluster status::
 
-    $ ./bin/emqttd_ctl cluster status
+    $ ./bin/emqx_ctl cluster status
 
-    Cluster status: [{running_nodes,['emq@s1.emqtt.io','emq@s2.emqtt.io']}]
+    Cluster status: [{running_nodes,['emqx@s1.emqx.io','emqx@s2.emqx.io']}]
 
 Leave the cluster
 -----------------
@@ -238,19 +238,19 @@ Two ways to leave the cluster:
 
 2. remove: remove other nodes from the cluster
 
-emq@s2.emqtt.io node tries to leave the cluster::
+emqx@s2.emqx.io node tries to leave the cluster::
 
-    $ ./bin/emqttd_ctl cluster leave
+    $ ./bin/emqx_ctl cluster leave
 
-Or remove emq@s2.emqtt.io node from the cluster on emq@s1.emqtt.io::
+Or remove emqx@s2.emqx.io node from the cluster on emqx@s1.emqx.io::
 
-    $ ./bin/emqttd_ctl cluster remove emq@s2.emqtt.io
+    $ ./bin/emqx_ctl cluster remove emqx@s2.emqx.io
 
 ------------------------------
 Node Discovery and Autocluster
 ------------------------------
 
-EMQ R2.3 supports node discovery and autocluster with various strategies:
+EMQ X 3.0 supports node discovery and autocluster with various strategies:
 
 +------------+---------------------------------+
 | Strategy   | Description                     |
@@ -406,7 +406,7 @@ The Firewall
 If the nodes need to go through a Firewall, TCP port `4369` must be allowed for `epmd`,
 as well as a sequential range of TCP ports for communication between the distributed nodes.
 
-That range of ports for erlang distribution is configured in `etc/emq.conf`, defaults to `6369-7369`:
+That range of ports for erlang distribution is configured in `etc/emqx.conf`, defaults to `6369-7369`:
 
 .. code-block:: properties
 
@@ -421,4 +421,4 @@ So by default, make sure TCP ports `4369` and `6369-7369` are allowed by your Fi
 Consistent Hash and DHT
 -----------------------
 
-Consistent Hash and DHT are popular in the design of NoSQL databases. Cluster of emqttd broker could support 10 million size of global routing table now. We could use the Consistent Hash or DHT to partition the routing table, and evolve the cluster to larger size.
+Consistent Hash and DHT are popular in the design of NoSQL databases. Cluster of EMQ X broker could support 10 million size of global routing table now. We could use the Consistent Hash or DHT to partition the routing table, and evolve the cluster to larger size.
