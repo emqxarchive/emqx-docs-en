@@ -238,13 +238,13 @@ Two ways to leave the cluster:
 
 2. remove: remove other nodes from the cluster
 
-emq@s2.emqtt.io node tries to leave the cluster::
+emqx@s2.emqx.io node tries to leave the cluster::
 
     $ ./bin/emqx_ctl cluster leave
 
 Or remove emqx@s2.emqx.io node from the cluster on emqx@s1.emqx.io::
 
-    $ ./bin/emqx_ctl cluster remove emq@s2.emqtt.io
+    $ ./bin/emqx_ctl cluster remove emqx@s2.emqx.io
 
 ------------------------------
 Node Discovery and Autocluster
