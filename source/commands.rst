@@ -120,7 +120,7 @@ Query metrics of Bytes, MQTT Packets and Messages(sent/received)::
 cluster
 -------
 
-Cluster two or more EMQ X brokers.
+Cluster two or more *EMQ X* brokers.
 
 +-----------------------+--------------------------------+
 | cluster join <Node>   | Join the cluster               |
@@ -132,7 +132,7 @@ Cluster two or more EMQ X brokers.
 | cluster status        | Query cluster status and nodes |
 +-----------------------+--------------------------------+
 
-Suppose we create two EMQ X nodes on localhost and cluster them:
+Suppose we create two *EMQ X* nodes on localhost and cluster them:
 
 +-----------+---------------------+-------------+
 | Folder    | Node                | MQTT Port   |
@@ -415,7 +415,7 @@ Show the subscriptions of an MQTT client::
 plugins
 -------
 
-List, load or unload plugins of EMQ X broker.
+List, load or unload plugins of *EMQ X* broker.
 
 +---------------------------+-------------------------+
 | plugins list              | List all plugins        |
@@ -442,7 +442,6 @@ List all plugins::
     Plugin(emqx_auth_username, version=3.0, description=Authentication with Username/Password, active=false)
     Plugin(emqx_coap, version=3.0, description=CoAP Gateway, active=false)
     Plugin(emqx_dashboard, version=3.0, description=Dashboard, active=true)
-    Plugin(emqx_mod_rewrite, version=3.0, description=EMQ X Rewrite Module, active=false)
     Plugin(emqx_plugin_template, version=3.0, description=EMQ X Plugin Template, active=false)
     Plugin(emqx_recon, version=3.0, description=Recon Plugin, active=false)
     Plugin(emqx_reloader, version=3.0, description=Reloader Plugin, active=false)
