@@ -113,14 +113,12 @@ The Dashboard helps check running status of the broker, monitor statistics and m
 Plugins
 -------
 
-The *EMQ X* broker could be extended by Plugins.  A plugin is an Erlang application that adds extra feature to the *EMQ* broker:
+The *EMQ X* broker could be extended by Plugins.  A plugin is an Erlang application that adds extra feature to the *EMQ X* broker:
 
 +-------------------------+--------------------------------------------+
 | `emqx_retainer`_        | Store Retained Messages                    |
 +-------------------------+--------------------------------------------+
 | `emqx_dashboard`_       | Web Dashboard                              |
-+-------------------------+--------------------------------------------+
-| `emqx_modules`_         | Presence, Subscription, Rewrite Modules    |
 +-------------------------+--------------------------------------------+
 | `emqx_auth_clientid`_   | Authentication with ClientId               |
 +-------------------------+--------------------------------------------+
@@ -149,6 +147,10 @@ The *EMQ X* broker could be extended by Plugins.  A plugin is an Erlang applicat
 | `emqx_recon`_           | Recon Plugin                               |
 +-------------------------+--------------------------------------------+
 | `emqx_reloader`_        | Reloader Plugin                            |
++-------------------------+--------------------------------------------+
+| `emqx_web_hook`_        | Web Hook Plugin                            |
++-------------------------+--------------------------------------------+
+| `emqx_lua_hook`_        | Lua Hook Plugin                            |
 +-------------------------+--------------------------------------------+
 
 A plugin could be enabled by 'bin/emqx_ctl plugins load' command.
@@ -253,8 +255,6 @@ MQTT.org: https://github.com/mqtt/mqtt.github.io/wiki/libraries
 .. _emqx_plugin_template:  https://github.com/emqx/emqx-plugin-template
 .. _emqx_dashboard:        https://github.com/emqx/emqx-dashboard
 .. _emqx_retainer:         https://github.com/emqx/emqx-retainer
-.. _emqx_modules:          https://github.com/emqx/emqx-modules
-.. _emqx_mod_rewrite:      https://github.com/emqx/emqx-mod-rewrite
 .. _emqx_auth_clientid:    https://github.com/emqx/emqx-auth-clientid
 .. _emqx_auth_username:    https://github.com/emqx/emqx-auth-username
 .. _emqx_auth_ldap:        https://github.com/emqx/emqx-auth-ldap
@@ -268,6 +268,5 @@ MQTT.org: https://github.com/mqtt/mqtt.github.io/wiki/libraries
 .. _emqx_recon:            https://github.com/emqx/emqx-recon
 .. _emqx_sn:               https://github.com/emqx/emqx-sn
 .. _emqx_coap:             https://github.com/emqx/emqx-coap
-.. _emqx_mod_retainer:     https://github.com/emqx/emqx-mod-retainer
-.. _emqx_mod_presence:     https://github.com/emqx/emqx-mod-presence
-.. _emqx_mod_subscription: https://github.com/emqx/emqx-mod-subscription
+.. _emqx_web_hook:         https://github.com/emqx/emqx-web-hook
+.. _emqx_lua_hook:         https://github.com/emqx/emqx-lua-hook
