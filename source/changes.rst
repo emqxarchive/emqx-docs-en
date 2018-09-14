@@ -7,13 +7,13 @@ Changes
 
 .. _release_3.0_beta.2:
 
------------------
-EMQ X 3.0-beta.2
------------------
+------------------
+Version 3.0-beta.2
+------------------
 
 *Release Date: 2018-09-10*
 
-The EMQ X 3.0-beta.2 release is mainly for bug fixes and feature improvements on MQTT 5.0.
+The EMQ X 3.0-beta.2 release is mainly for bug fixes and new features support for MQTT 5.0.
 
 EMQ X Core
 ----------
@@ -47,7 +47,7 @@ Enhancements:
 
 Bug Fixes:
 
-- Fix an issue about 'Will Delay Interval' property
+- Fix issues about 'Will Delay Interval' property
 
   GitHub issues:
   `emqx/emqx#1800 <https://github.com/emqx/emqx/pull/1800>`_,
@@ -57,7 +57,7 @@ Bug Fixes:
 
   GitHub issue: `emqx/emqx#1783 <https://github.com/emqx/emqx/pull/1783>`_
 
-- Generate a config file for testing
+- Generate a config file for unit test
 
   GitHub issue: `emqx/emqx#1794 <https://github.com/emqx/emqx/pull/1794>`_
 
@@ -66,7 +66,7 @@ emqx-management (plugin)
 
 Enhancements:
 
-- Add restful APIs for banned
+- Add restful APIs for banned function
 
   GitHub issue: `emqx/emqx-management#6 <https://github.com/emqx/emqx-management/pull/6>`_
 
@@ -84,7 +84,7 @@ minirest (dependency)
 
 Enhancements:
 
-- Pass both query and body params within the callback args
+- Pass both query and body params to the callback functions
 
   GitHub issue: `emqx/minirest#4 <https://github.com/emqx/minirest/pull/4>`_
 
@@ -93,7 +93,7 @@ emqx-rel (build-project)
 
 Enhancements:
 
-- Fail fast in case the otp version in use is 20 or older
+- Check OTP version while compiling.
 
   GitHub issue: `emqx/emqx-rel#217 <https://github.com/emqx/emqx-rel/pull/217>`_
 
@@ -103,25 +103,23 @@ Enhancements:
 Version 3.0-beta.1
 ------------------
 
-*Release Date: 2018-08-31*
+*Release Date: 2018-09-02*
 
 *Release Name: Promises of Tomorrow*
 
 Introduction
 ------------
 
-EMQ X 3.0, named "Promise of Tomorrow", is a major release.
+3.0-beta.1 version is now officially released. It is backward compatible with MQTT 3 (3.1 & 3.1.1), and it also supports new features of MQTT 5.0 specification.
 
-EMQ X 3.0 is the first release that supports MQTT 5.0 Protocol Specification; meanwhile it is backward compatible with MQTT 3 (3.1 & 3.1.1)
+It also comes with some important features. Scalability and extensibility are improved significantly as well after refactoring some core components.
 
-Besides supporting MQTT 5.0, EMQ X 3.0 comes with more functional features. Performance and stability are also improved significantly after refactoring some core components.
-
-MQTT 5.0 Protocol Supoort
--------------------------
+MQTT 5.0 Protocol specification support
+----------------------------------------
 
 - New packet type
 
-  In MQTT 5.0 there is new packet type AUTH for authentication exchange.
+  In MQTT 5.0 there is a new packet type AUTH for authentication exchange.
 
 - Session expiry
 
@@ -145,11 +143,11 @@ MQTT 5.0 Protocol Supoort
 
 - Payload format and content type
 
-  Can specify the payload format and a MIME style content type when publishing.
+  User can specify the payload format and a MIME style content type when publishing.
 
 - Request/Response
 
-  Formalized request and response communication patter.
+  Add a few properties, formalized request and response communication pattern.
 
 - Shared subscriptions
 
@@ -157,11 +155,11 @@ MQTT 5.0 Protocol Supoort
 
 - Subscription ID
 
-  With a subscription ID the client is able to know the message comes from which subscription.
+  With a subscription ID the client is able to know from which subscription the message comes.
 
 - Topic alias
 
-  Topic can can have an integer alias, this reduces the communication overhead.
+  Topic can have an integer alias, which reduces the communication overhead for the long topic names.
 
 - User properties
 
@@ -169,26 +167,31 @@ MQTT 5.0 Protocol Supoort
 
 - Maximum packet size
 
-  Broker specified max packet size is implemented in EMQ X 2.x already, When a oversized message is received, it will be dropped, and the client will get disconnected without informed about the reason. Now in EMQ X 3.0, the broker can disconnect the MQTT connection with a reason code.
+  Broker specified max packet size was already implemented in EMQ X 2.x. When an oversized message is received, it will be dropped, and broker will disconnect without informing about the reason. Now with MQTT 5.0 specification, client and broker can specify maximum messsage size limitation through CONNECT/CONNECT ACK packets.
 
-- Optional Server feature availability
-  Define the allowed features of the broker and specify them to the client.
+- Optional server feature availability (TODO)
+
+  Allowed features of the broker can be defined and the client can be informed of those features.
 
 - Subscription options
-  Provide subscription options primarily to allow for message bridge applications.
+
+  MQTT 5.0 provides subscription options primarily to allow for message bridge applications. For example, the option for handling nolocal and retained messages.
 
 - Will delay
 
-  Allow to specify a delay between end of connection and sending the will message. This allows for brief interruptions of the connection without notification to others.
+  MQTT 5.0 allows to specify a delay between end of connection and sending of the will message，so it can avoid to send out the will message during temporary network problems.
 
 - Server keep alive
-  Server can specify a keepalive value it wishes the client to use.
+
+  MQTT 5.0 allows server to specify a keepalive value it wishes the client to use.
 
 - Assigned ClientID
-  In case where the ClientID is assigned by the server, return the assigned ClientID.
+
+  In MQTT 5.0, if ClientID is assigned by the server, then the server should return the assigned ClientID to client.
 
 - Server reference
-  Allow the server to specify an alternate server to use on CONNACK or DISCONNECT.
+
+  MQTT 5.0 allows broker to specify an alternative broker for client to use, which is uesed for server redirection.
 
 Evolved Clustering Architecture
 -------------------------------
@@ -207,8 +210,9 @@ The clustering architecture is evolved. Now a single cluster is able to serve te
     | Kernel |<----TCP---->| Kernel |
     ----------             ----------
 
-- Ekka is introduced to auto-cluster EMQX, and to auto-heal the cluster after net-split, following clustering methods are now supported:
-  - manual: nodes join a cluster manually;
+- Ekka is introduced to auto-cluster EMQ X, and to auto-heal the cluster after net-split, following clustering methods are now supported:
+
+  - manual: nodes joining a cluster manually;
 
   - static: auto-clustering from a pre-defined node list;
 
@@ -225,11 +229,15 @@ The clustering architecture is evolved. Now a single cluster is able to serve te
 Rate Limiting
 -------------
 
-The rate limiting is introduced to make the broker more resilient, there are 2 kinds of configurations to control:
+The rate limiting is introduced to make the broker more resilient. User can configure MQTT TCP or SSL listener configuration.
 
-1. The overall message receiving rate in bytes;
+- Concurrent connection numbers: max_clients
 
-2. The rate of accepting new connections.
+- Connection rate limitation: max_conn_rate
+
+- Message delivery bytes limitation: rate_limit
+
+- Message delivery number rate limitation: max_publish_rate
 
 Other Feature improvements and Bug Fixes
 ----------------------------------------
@@ -242,15 +250,15 @@ Other Feature improvements and Bug Fixes
 
 - Added local and remote MQTT bridge;
 
-- Introduced "zone" in to EMQX, different zone can have different configuration;
+- Introduced concept of "zone", that different zones can have different configurations;
 
-- Refactored session module, data copy among nodes is reduced, thus higher inter-nodes communication efficiency;
+- Refactored session module, and reduced data copy among nodes, which led to higher inter-nodes communication efficiency;
 
-- Improved of OpenLDAP Access Control;
+- Improved OpenLDAP Access Control;
 
-- Added a new plugin for delayed publish;
+- Added delayed publish;
 
-- Support new statistic and metrics to Prometheus;
+- Supported new statistic and metrics to Prometheus;
 
 - Improved the hooks.
 
