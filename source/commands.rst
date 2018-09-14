@@ -9,6 +9,64 @@ The './bin/emqx_ctl' command line could be used to query and administrate the *E
 
 .. Warning:: under Windows OS the command line tool is './bin/emqx_ctl.cmd' .
 
+.. _command_mgmt:
+
+----
+mgmt
+----
+
+Manages the Apps of the broker.
+
++------------------------------+-------------------------------+
+| mgmt list                    | List the Apps                 |
++------------------------------+-------------------------------+
+| mgmt insert <AppId> <Name>   | Add App for REST API          |
++------------------------------+-------------------------------+
+| mgmt update <AppId> <status> | Update App for REST API       |
++------------------------------+-------------------------------+
+| mgmt lookup <AppId>          | Query App details of an AppId |
++------------------------------+-------------------------------+
+| mgmt delete <AppId>          | Delete Apps of an AppId       |
++------------------------------+-------------------------------+
+
+mgmt list
+---------
+
+List the Apps::
+
+
+     $ ./bin/emqx_ctl mgmt list
+     app_id: 901abdba8eb8c, secret: MjgzMzQ5MjM1MzUzMTc4MjgyMjE3NzU4ODcwMDg0NjQ4OTG, name: hello, desc: , status: true, expired: undefined
+
+mgmt insert <AppId> <Name>
+--------------------------
+
+Add App for REST API::
+
+    $ ./bin/emqx_ctl mgmt insert dbcb6e023370b world
+    AppSecret: MjgzMzQ5MjYyMTY3ODk4MjA5NzMwODExODMxMDM1NDk0NDA
+
+mgmt lookup <AppId>
+---------------------
+
+Query App details of an AppId::
+
+    $ ./bin/emqx_ctl mgmt lookup dbcb6e023370b
+    app_id: dbcb6e023370b
+    secret: MjgzMzQ5MjYyMTY3ODk4MjA5NzMwODExODMxMDM1NDk0NDA
+    name: world
+    desc: Application user
+    status: stop
+    expired: undefined
+
+mgmt delete <AppId>
+--------------------
+
+删除REST API的应用程序::
+
+    $ ./bin/emqx_ctl mgmt delete dbcb6e023370b
+    ok
+
 .. _command_status:
 
 ------
@@ -337,35 +395,6 @@ Show a route::
     $ ./bin/emqx_ctl routes show t/+/x
 
     t/+/x -> emqx2@127.0.0.1,emqx1@127.0.0.1
-
-.. _command_topics:
-
-------
-topics
-------
-
-Query topic table of the broker.
-
-topics list
------------
-
-Query all the topics::
-
-    $ ./bin/emqx_ctl topics list
-
-    $SYS/brokers/emqx1@127.0.0.1/metrics/packets/subscribe: static
-    $SYS/brokers/emqx1@127.0.0.1/stats/subscriptions/max: static
-    $SYS/brokers/emqx2@127.0.0.1/stats/subscriptions/count: static
-    ...
-
-topics show <Topic>
--------------------
-
-Show a topic::
-
-    $ ./bin/emqx_ctl topics show '$SYS/brokers'
-
-    $SYS/brokers: static
 
 .. _command_subscriptions:
 
