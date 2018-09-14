@@ -105,6 +105,8 @@ EMQ X Autodiscovery Strategy
 +------------+---------------------------------+
 | Strategy   | Description                     |
 +============+=================================+
+| manual     | Create cluster manually         |
++------------+---------------------------------+
 | static     | Autocluster by static node list |
 +------------+---------------------------------+
 | mcast      | Autocluster by UDP Multicast    |
@@ -115,6 +117,15 @@ EMQ X Autodiscovery Strategy
 +------------+---------------------------------+
 | k8s        | Autocluster on Kubernetes       |
 +------------+---------------------------------+
+
+Create cluster manually
+-----------------------
+
+This is the default configuration of clustering, nodes joins a cluster `./bin/emqx_ctl join <Node>` command:
+
+.. code-block:: properties
+
+    cluster.discovery = manual
 
 Autocluster by static node list
 -------------------------------
