@@ -19,1704 +19,2547 @@ All REST APIs in the documentation have the following base URL::
 Basic Authentication
 --------------------
 
-The HTTP requests to the REST API are protected with HTTP Basic authentication, For example:
+The HTTP requests to the REST API are protected with HTTP Basic authentication. You can create an application in Dashboard, using appid and appsecret to authenticate.  For example:
 
 .. code-block:: bash
 
-    curl -v --basic -u <user>:<passwd> -k http://localhost:8080/api/v3/nodes/emqx@127.0.0.1/clients
+    curl -v --basic -u <appid>:<appsecret> -k http://localhost:8080/api/v3/brokers
+
+----------
+API's Info
+----------
+
+List all API describe
+----------------------
 
 
------
-Nodes
------
-
-List all Nodes in the Cluster
------------------------------
 
 Definition::
 
-    GET api/v3/management/nodes
+    GET api/v3/
+
 
 Example Request::
 
-    GET api/v3/management/nodes
+    GET api/v3/
+
 
 Response:
 
 .. code-block:: json
 
-    {
-    	"code": 0,
-    	"result": [
-    		{
-    			"name": "emqx@127.0.0.1",
-    			"version": "3.0",
-    			"sysdescr": "Erlang MQTT Broker",
-    			"uptime": "3 minutes, 32 seconds",
-    			"datetime": "2018-06-29 09:03:52",
-    			"otp_release": "R20/9.3.3",
-    			"node_status": "Running"
-    		}
-    	]
-    }
+    [
+      {
+            "name": "list_brokers",
+            "method": "GET",
+            "path": "/brokers/",
+            "descr": "A list of brokers in the cluster"
+      },
+      {
+            "name": "list_connections",
+            "method": "GET",
+            "path": "/connections/",
+            "descr": "A list of connections in the cluster"
+      },
+      {
+            "name": "list_node_connections",
+            "method": "GET",
+            "path": "nodes/:node/connections/",
+            "descr": "A list of connections on a node"
+      },
+      {
+            "name": "list_listeners",
+            "method": "GET",
+            "path": "/listeners/",
+            "descr": "A list of listeners in the cluster"
+      },
+      {
+            "name": "list_node_listeners",
+            "method": "GET",
+            "path": "/nodes/:node/listeners",
+            "descr": "A list of listeners on the node"
+      },
+      {
+            "name": "list_node_metrics",
+            "method": "GET",
+            "path": "/nodes/:node/metrics/",
+            "descr": "A list of metrics of a node"
+      },
+      {
+            "name": "list_all_metrics",
+            "method": "GET",
+            "path": "/metrics/",
+            "descr": "A list of metrics of all nodes in the cluster"
+      },
+      {
+            "name": "list_nodes",
+            "method": "GET",
+            "path": "/nodes/",
+            "descr": "A list of nodes in the cluster"
+      },
+      {
+            "name": "list_sessions",
+            "method": "GET",
+            "path": "/sessions/",
+            "descr": "A list of sessions in the cluster"
+      },
+      {
+            "name": "list_node_sessions",
+            "method": "GET",
+            "path": "nodes/:node/sessions/",
+            "descr": "A list of sessions on a node"
+      },
+      {
+            "name": "lookup_node_stats",
+            "method": "GET",
+            "path": "/nodes/:node/stats/",
+            "descr": "A list of stats of a node"
+      },
+      {
+            "name": "list_stats",
+            "method": "GET",
+            "path": "/stats/",
+            "descr": "A list of stats of all nodes in the cluster"
+      },
+      {
+            "name": "list_subscriptions",
+            "method": "GET",
+            "path": "/subscriptions/",
+            "descr": "A list of subscriptions in the cluster"
+      },
+      {
+            "name": "lookup_client_subscriptions",
+            "method": "GET",
+            "path": "/subscriptions/:clientid",
+            "descr": "A list of subscriptions of a client"
+      },
+      {
+            "name": "lookup_client_subscriptions_with_node",
+            "method": "GET",
+            "path": "/nodes/:node/subscriptions/:clientid",
+            "descr": "A list of subscriptions of a client on the node"
+      },
+      {
+            "name": "list_node_subscriptions",
+            "method": "GET",
+            "path": "/nodes/:node/subscriptions/",
+            "descr": "A list of subscriptions on a node"
+      },
+      {
+            "name": "add_app",
+            "method": "POST",
+            "path": "/apps/",
+            "descr": "Add Application"
+      },
+      {
+            "name": "auth_user",
+            "method": "POST",
+            "path": "/auth",
+            "descr": "Authenticate an user"
+      },
+      {
+            "name": "change_pwd",
+            "method": "PUT",
+            "path": "/change_pwd/:username",
+            "descr": "Change password for an user"
+      },
+      {
+            "name": "clean_acl_cache",
+            "method": "DELETE",
+            "path": "/connections/:clientid/acl/:topic",
+            "descr": "Clean ACL cache of a connection"
+      },
+      {
+            "name": "create_user",
+            "method": "POST",
+            "path": "/users/",
+            "descr": "Create an user"
+      },
+      {
+            "name": "create_banned",
+            "method": "POST",
+            "path": "/banned/",
+            "descr": "Create banned"
+      },
+      {
+            "name": "del_app",
+            "method": "DELETE",
+            "path": "/apps/:appid",
+            "descr": "Delete Application"
+      },
+      {
+            "name": "delete_user",
+            "method": "DELETE",
+            "path": "/users/:name",
+            "descr": "Delete an user"
+      },
+      {
+            "name": "delete_banned",
+            "method": "DELETE",
+            "path": "/banned/:who",
+            "descr": "Delete banned"
+      },
+      {
+            "name": "get_all_configs",
+            "method": "GET",
+            "path": "/configs/",
+            "descr": "Get all configs"
+      },
+      {
+            "name": "get_all_configs",
+            "method": "GET",
+            "path": "/nodes/:node/configs/",
+            "descr": "Get all configs of a node"
+      },
+      {
+            "name": "get_broker",
+            "method": "GET",
+            "path": "/brokers/:node",
+            "descr": "Get broker info of a node"
+      },
+      {
+            "name": "get_plugin_configs",
+            "method": "GET",
+            "path": "/nodes/:node/plugin_configs/:plugin",
+            "descr": "Get configurations of a plugin on the node"
+      },
+      {
+            "name": "kickout_connection",
+            "method": "DELETE",
+            "path": "/connections/:clientid",
+            "descr": "Kick out a connection"
+      },
+      {
+            "name": "list_apps",
+            "method": "GET",
+            "path": "/apps/",
+            "descr": "List Applications"
+      },
+      {
+            "name": "list_node_alarms",
+            "method": "GET",
+            "path": "/alarms/:node",
+            "descr": "List alarms of a node"
+      },
+      {
+            "name": "list_all_alarms",
+            "method": "GET",
+            "path": "/alarms/",
+            "descr": "List all alarms"
+      },
+      {
+            "name": "list_all_plugins",
+            "method": "GET",
+            "path": "/plugins/",
+            "descr": "List all plugins in the cluster"
+      },
+      {
+            "name": "list_node_plugins",
+            "method": "GET",
+            "path": "/nodes/:node/plugins/",
+            "descr": "List all plugins on a node"
+      },
+      {
+            "name": "list_banned",
+            "method": "GET",
+            "path": "/banned/",
+            "descr": "List banned"
+      },
+      {
+            "name": "list_routes",
+            "method": "GET",
+            "path": "/routes/",
+            "descr": "List routes"
+      },
+      {
+            "name": "list_users",
+            "method": "GET",
+            "path": "/users/",
+            "descr": "List users"
+      },
+      {
+            "name": "load_plugin",
+            "method": "PUT",
+            "path": "/nodes/:node/plugins/:plugin/load",
+            "descr": "Load a plugin"
+      },
+      {
+            "name": "lookup_app",
+            "method": "GET",
+            "path": "/apps/:appid",
+            "descr": "Lookup Application"
+      },
+      {
+            "name": "lookup_connections",
+            "method": "GET",
+            "path": "/connections/:clientid",
+            "descr": "Lookup a connection in the cluster"
+      },
+      {
+            "name": "lookup_node_connections",
+            "method": "GET",
+            "path": "nodes/:node/connections/:clientid",
+            "descr": "Lookup a connection on node"
+      },
+      {
+            "name": "get_node",
+            "method": "GET",
+            "path": "/nodes/:node",
+            "descr": "Lookup a node in the cluster"
+      },
+      {
+            "name": "lookup_session",
+            "method": "GET",
+            "path": "/sessions/:clientid",
+            "descr": "Lookup a session in the cluster"
+      },
+      {
+            "name": "lookup_node_session",
+            "method": "GET",
+            "path": "nodes/:node/sessions/:clientid",
+            "descr": "Lookup a session on the node"
+      },
+      {
+            "name": "lookup_routes",
+            "method": "GET",
+            "path": "/routes/:topic",
+            "descr": "Lookup routes to a topic"
+      },
+      {
+            "name": "mqtt_publish",
+            "method": "POST",
+            "path": "/mqtt/publish",
+            "descr": "Publish a MQTT message"
+      },
+      {
+            "name": "mqtt_subscribe",
+            "method": "POST",
+            "path": "/mqtt/subscribe",
+            "descr": "Subscribe a topic"
+      },
+      {
+            "name": "unload_plugin",
+            "method": "PUT",
+            "path": "/nodes/:node/plugins/:plugin/unload",
+            "descr": "Unload a plugin"
+      },
+      {
+            "name": "mqtt_unsubscribe",
+            "method": "POST",
+            "path": "/mqtt/unsubscribe",
+            "descr": "Unsubscribe a topic"
+      },
+      {
+            "name": "update_app",
+            "method": "PUT",
+            "path": "/apps/:appid",
+            "descr": "Update Application"
+      },
+      {
+            "name": "update_user",
+            "method": "PUT",
+            "path": "/users/:name",
+            "descr": "Update an user"
+      },
+      {
+            "name": "update_config",
+            "method": "PUT",
+            "path": "/configs/:app",
+            "descr": "Update config of an application in the cluster"
+      },
+      {
+            "name": "update_node_config",
+            "method": "PUT",
+            "path": "/nodes/:node/configs/:app",
+            "descr": "Update config of an application on a node"
+      },
+      {
+            "name": "update_plugin_configs",
+            "method": "PUT",
+            "path": "/nodes/:node/plugin_configs/:plugin",
+            "descr": "Update configurations of a plugin on the node"
+      }
+    ]
+
+
+
+
+
+-----------------
+Cluster and Node
+-----------------
+
+List all Cluster
+-----------------
+
+
+
+Definition::
+
+    GET api/v3/brokers/
+
+
+Example Request::
+
+    GET api/v3/brokers/
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "datetime": "2018-09-14 10:23:04",
+            "node": "emqx@127.0.0.1",
+            "node_status": "Running",
+            "otp_release": "R21/10.0.5",
+            "sysdescr": "EMQ X Broker",
+            "uptime": "3 days,18 hours, 25 minutes, 11 seconds",
+            "version": "3.0"
+      }
+    ]
+
+
+
+
 
 Retrieve a Node's Info
 ----------------------
 
+
+
 Definition::
 
-    GET api/v3/management/nodes/{node_name}
+    GET api/v3/brokers/${node}
+
 
 Example Request::
 
-    GET api/v3/management/nodes/emqx@127.0.0.1
- 
+    GET api/v3/brokers/emqx@127.0.0.1
+
+
 Response:
 
 .. code-block:: json
 
     {
-    	"code": 0,
-    	"result": {
-    		"version": "3.0",
-    		"sysdescr": "Erlang MQTT Broker",
-    		"uptime": "5 minutes, 12 seconds",
-    		"datetime": "2018-06-29 09:05:32",
-    		"otp_release": "R20/9.3.3",
-    		"node_status": "Running"
-    	}
+      "datetime": "2018-09-14 10:23:04",
+      "node_status": "Running",
+      "otp_release": "R21/10.0.5",
+      "sysdescr": "EMQ X Broker",
+      "uptime": "3 days,18 hours, 25 minutes, 11 seconds",
+      "version": "3.0"
     }
+
+
+
 
 List all Nodes'statistics in the Cluster
-----------------------------------------
-
-Definition::
-
-    GET api/v3/monitoring/nodes
-
-Example Request::
-
-    GET api/v3/monitoring/nodes
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": [
-    		{
-    			"name": "emqx@127.0.0.1",
-    			"otp_release": "R20/9.3.3",
-    			"memory_total": "72.94M",
-    			"memory_used": "50.55M",
-    			"process_available": 262144,
-    			"process_used": 324,
-    			"max_fds": 7168,
-    			"clients": 0,
-    			"node_status": "Running",
-    			"load1": "1.65",
-    			"load5": "1.93",
-    			"load15": "2.01"
-    		}
-    	]
-    }
-
-Retrieve a node's statistics
----------------------------
-
-Definition::
-
-    GET api/v3/monitoring/nodes/{node_name}
-
-Example Request::
-
-    GET api/v3/monitoring/nodes/emqx@127.0.0.1
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"name": "emqx@127.0.0.1",
-    		"otp_release": "R20/9.3.3",
-    		"memory_total": "73.69M",
-    		"memory_used": "50.12M",
-    		"process_available": 262144,
-    		"process_used": 324,
-    		"max_fds": 7168,
-    		"clients": 0,
-    		"node_status": "Running",
-    		"load1": "1.88",
-    		"load5": "1.99",
-    		"load15": "2.02"
-    	}
-    }
-
--------
-Clients
--------
-
-List all Clients on a Node
---------------------------
-
-Definition::
-
-    GET api/v3/nodes/{node_name}/clients
-
-Request Parameter::
-
-    curr_page={page_no}&page_size={page_size}
-
-Example Request::
-
-    api/v3/nodes/emqx@127.0.0.1/clients?curr_page=1&page_size=20
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"current_page": 1,
-    		"page_size": 20,
-    		"total_num": 1,
-    		"total_page": 1,
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"username": "undefined",
-    				"ipaddress": "127.0.0.1",
-    				"port": 58459,
-    				"clean_sess": true,
-    				"proto_ver": 4,
-    				"keepalive": 60,
-    				"connected_at": "2018-06-29 09:15:25"
-    			}
-    		]
-    	}
-    }
-
-Retrieve a Client on a Node
---------------------------
-
-Definition::
-
-    GET api/v3/nodes/{node_name}/clients/{client_id}
-
-Example Request::
-
-    GET api/v3/nodes/emqx@127.0.0.1/clients/mqttjs_722b4d845f
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"username": "undefined",
-    				"ipaddress": "127.0.0.1",
-    				"port": 58459,
-    				"clean_sess": true,
-    				"proto_ver": 4,
-    				"keepalive": 60,
-    				"connected_at": "2018-06-29 09:15:25"
-    			}
-    		]
-    	}
-    }
-
-Retrieve a Client in the Cluster
--------------------------------
-
-Definition::
-
-    GET api/v3/clients/{client_id}
-
-Example Request::
-
-    GET api/v3/clients/mqttjs_722b4d845f
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"username": "undefined",
-    				"ipaddress": "127.0.0.1",
-    				"port": 58459,
-    				"clean_sess": true,
-    				"proto_ver": 4,
-    				"keepalive": 60,
-    				"connected_at": "2018-06-29 09:15:25"
-    			}
-    		]
-    	}
-    }
-
-Disconnect a Specified Client in the Cluster 
---------------------------------------------
-
-Definition::
-
-    DELETE api/v3/clients/{clientid}
-
-Example Request::
-
-    DELETE api/v3/clients/mqttjs_722b4d845f
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
-    }
-
-Clear the ACL of a Specified Client in the Cluster
---------------------------------------------------
-
-Definition::
-
-    PUT api/v3/clients/{clientid}/clean_acl_cache
-
-Request Parameter:
-
-.. code-block:: json
-
-    {
-        "topic": "test"
-    }
-
-Request Example::
-
-    PUT api/v3/clients/C_1492145414740/clean_acl_cache
-
-    Request Json Parameter:
-    {
-        "topic": "test"
-    }
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
-    }
-
---------
-Sessions
---------
-
-List all Sessions on a Node
----------------------------
-
-Definition::
-
-    GET api/v3/node/{node_name}/sessions
-
-Request Parameter::
-
-    curr_page={page_no}&page_size={page_size}
-
-Example Request::
-
-    GET api/v3/nodes/emqx@127.0.0.1/sessions?curr_page=1&page_size=20
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"current_page": 1,
-    		"page_size": 20,
-    		"total_num": 1,
-    		"total_page": 1,
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"clean_sess": true,
-    				"subscriptions": 0,
-    				"max_inflight": 32,
-    				"inflight_len": 0,
-    				"mqueue_len": 0,
-    				"mqueue_dropped": 0,
-    				"awaiting_rel_len": 0,
-    				"deliver_msg": 0,
-    				"enqueue_msg": 0,
-    				"created_at": "2018-06-29 10:05:13"
-    			}
-    		]
-    	}
-    }
-    
-Retrieve a Session on a Node
-----------------------------
-
-Definition::
-
-    GET api/v3/nodes/{node_name}/sessions/{client_id}
-
-Example Request::
-
-    GET api/v3/nodes/emqx@127.0.0.1/sessions/mqttjs_722b4d845f
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"clean_sess": true,
-    				"subscriptions": 0,
-    				"max_inflight": 32,
-    				"inflight_len": 0,
-    				"mqueue_len": 0,
-    				"mqueue_dropped": 0,
-    				"awaiting_rel_len": 0,
-    				"deliver_msg": 0,
-    				"enqueue_msg": 0,
-    				"created_at": "2018-06-29 10:05:13"
-    			}
-    		]
-    	}
-    }
-
-Retrieve a Session in the Cluster
---------------------------------
-
-Definition::
-
-    GET api/v3/sessions/{client_id}
-
-Example Request::
-
-    GET api/v3/sessions/mqttjs_722b4d845f
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"clean_sess": true,
-    				"subscriptions": 0,
-    				"max_inflight": 32,
-    				"inflight_len": 0,
-    				"mqueue_len": 0,
-    				"mqueue_dropped": 0,
-    				"awaiting_rel_len": 0,
-    				"deliver_msg": 0,
-    				"enqueue_msg": 0,
-    				"created_at": "2018-06-29 10:05:13"
-    			}
-    		]
-    	}
-    }
-    
--------------
-Subscriptions
--------------
-
-List all Subscriptions of a Node
---------------------------------
-
-Definition::
-
-    GET api/v3/nodes/{node_name}/subscriptions
-    
-Request parameters::
-
-    curr_page={page_no}&page_size={page_size}
-
-Example Request::
-
-    GET api/v3/nodes/emqx@127.0.0.1/subscriptions?curr_page=1&page_size=20
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"current_page": 1,
-    		"page_size": 20,
-    		"total_num": 1,
-    		"total_page": 1,
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"topic": "/World",
-    				"qos": 0
-    			}
-    		]
-    	}
-    }
-    
-List Subscriptions of a Client on a node
-------------------------------
-
-Definition::
-
-    GET api/v3/nodes/{node_name}/subscriptions/{clientid}
-
-Example Request::
-
-    GET api/v3/nodes/emqx@127.0.0.1/subscriptions/mqttjs_722b4d845f
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": {
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"topic": "/World",
-    				"qos": 0
-    			}
-    		]
-    	}
-    }
-
-List Subscriptions of a Client in cluster
 -----------------------------------------
 
+
+
 Definition::
 
-    GET api/v3/subscriptions/{clientid}
+    GET api/v3/nodes/
+
 
 Example Request::
 
-    GET api/v3/subscriptions/mqttjs_722b4d845f
+    GET api/v3/nodes/
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "connections": 2,
+            "load1": "2.50",
+            "load15": "2.09",
+            "load5": "2.23",
+            "max_fds": 7168,
+            "memory_total": "77.45M",
+            "memory_used": "59.81M",
+            "name": "emqx@127.0.0.1",
+            "node": "emqx@127.0.0.1",
+            "node_status": "Running",
+            "otp_release": "R21/10.0.5",
+            "process_available": 262144,
+            "process_used": 331,
+            "uptime": "3 days,18 hours, 25 minutes, 11 seconds",
+            "version": "3.0"
+      }
+    ]
+
+
+
+
+Retrieve a node's statistics
+-----------------------------
+
+
+
+Definition::
+
+    GET api/v3/nodes/${node}
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1
+
 
 Response:
 
 .. code-block:: json
 
     {
-    	"code": 0,
-    	"result": {
-    		"objects": [
-    			{
-    				"client_id": "mqttjs_722b4d845f",
-    				"topic": "/World",
-    				"qos": 0
-    			}
-    		]
-    	}
+      "connections": 2,
+      "load1": "2.50",
+      "load15": "2.09",
+      "load5": "2.23",
+      "max_fds": 7168,
+      "memory_total": 81211392,
+      "memory_used": 62588480,
+      "name": "emqx@127.0.0.1",
+      "node_status": "Running",
+      "otp_release": "R21/10.0.5",
+      "process_available": 262144,
+      "process_used": 331,
+      "uptime": "3 days,18 hours, 25 minutes, 11 seconds",
+      "version": "3.0"
     }
 
-------
+
+
+
+------------
+Connections
+------------
+
+List all Connections in the Cluster
+------------------------------------
+
+
+
+Definition::
+
+    GET api/v3/connections/
+
+
+Example Request::
+
+    GET api/v3/connections/?_page=1&_limit=10000
+
+
+Response:
+
+.. code-block:: json
+
+    {
+      "items": [
+            {
+                  "clean_start": true,
+                  "client_id": "emqx-api-test:v1",
+                  "connected_at": "2018-09-14 10:23:04",
+                  "ipaddress": "127.0.0.1",
+                  "is_bridge": false,
+                  "is_super": false,
+                  "keepalive": 60,
+                  "mountpoint": "undefined",
+                  "node": "emqx@127.0.0.1",
+                  "peercert": "nossl",
+                  "port": 60492,
+                  "proto_name": "MQTT",
+                  "proto_ver": 4,
+                  "username": "emqx-api-test:v1",
+                  "will_topic": "undefined",
+                  "zone": "external"
+            },
+            {
+                  "clean_start": true,
+                  "client_id": "mqttjs_68980a5d",
+                  "connected_at": "2018-09-14 10:23:04",
+                  "ipaddress": "127.0.0.1",
+                  "is_bridge": false,
+                  "is_super": false,
+                  "keepalive": 60,
+                  "mountpoint": "undefined",
+                  "node": "emqx@127.0.0.1",
+                  "peercert": "nossl",
+                  "port": 60491,
+                  "proto_name": "MQTT",
+                  "proto_ver": 4,
+                  "username": "undefined",
+                  "will_topic": "undefined",
+                  "zone": "external"
+            }
+      ],
+      "meta": {
+            "count": 2,
+            "limit": 10000,
+            "page": 1
+      }
+    }
+
+
+
+
+
+List all Connections on a Node
+--------------------------------
+
+
+
+Definition::
+
+    GET api/v3/nodes/${node}/connections/
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1/connections/?_page=1&_limit=10000
+
+
+Response:
+
+.. code-block:: json
+
+    {
+      "items": [
+            {
+                  "clean_start": true,
+                  "client_id": "emqx-api-test:v1",
+                  "connected_at": "2018-09-14 10:23:04",
+                  "ipaddress": "127.0.0.1",
+                  "is_bridge": false,
+                  "is_super": false,
+                  "keepalive": 60,
+                  "mountpoint": "undefined",
+                  "node": "emqx@127.0.0.1",
+                  "peercert": "nossl",
+                  "port": 60492,
+                  "proto_name": "MQTT",
+                  "proto_ver": 4,
+                  "username": "emqx-api-test:v1",
+                  "will_topic": "undefined",
+                  "zone": "external"
+            },
+            {
+                  "clean_start": true,
+                  "client_id": "mqttjs_68980a5d",
+                  "connected_at": "2018-09-14 10:23:04",
+                  "ipaddress": "127.0.0.1",
+                  "is_bridge": false,
+                  "is_super": false,
+                  "keepalive": 60,
+                  "mountpoint": "undefined",
+                  "node": "emqx@127.0.0.1",
+                  "peercert": "nossl",
+                  "port": 60491,
+                  "proto_name": "MQTT",
+                  "proto_ver": 4,
+                  "username": "undefined",
+                  "will_topic": "undefined",
+                  "zone": "external"
+            }
+      ],
+      "meta": {
+            "count": 2,
+            "limit": 10000,
+            "page": 1
+      }
+    }
+
+
+
+
+
+
+Retrieve a Connection in the Cluster
+-------------------------------------
+
+
+
+Definition::
+
+    GET api/v3/connections/${clientid}
+
+
+Example Request::
+
+    GET api/v3/connections/emqx-api-test:v1
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "clean_start": true,
+            "client_id": "emqx-api-test:v1",
+            "connected_at": "2018-09-14 10:23:04",
+            "ipaddress": "127.0.0.1",
+            "is_bridge": false,
+            "is_super": false,
+            "keepalive": 60,
+            "mountpoint": "undefined",
+            "node": "emqx@127.0.0.1",
+            "peercert": "nossl",
+            "port": 60492,
+            "proto_name": "MQTT",
+            "proto_ver": 4,
+            "username": "emqx-api-test:v1",
+            "will_topic": "undefined",
+            "zone": "external"
+      }
+    ]
+
+
+
+
+
+Retrieve a Connection on a Node
+--------------------------------
+
+
+
+Definition::
+
+    GET api/v3/nodes/${node}/connections/${clientid}
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1/connections/emqx-api-test:v1
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "clean_start": true,
+            "client_id": "emqx-api-test:v1",
+            "connected_at": "2018-09-14 10:23:04",
+            "ipaddress": "127.0.0.1",
+            "is_bridge": false,
+            "is_super": false,
+            "keepalive": 60,
+            "mountpoint": "undefined",
+            "node": "emqx@127.0.0.1",
+            "peercert": "nossl",
+            "port": 60492,
+            "proto_name": "MQTT",
+            "proto_ver": 4,
+            "username": "emqx-api-test:v1",
+            "will_topic": "undefined",
+            "zone": "external"
+      }
+    ]
+
+
+
+
+
+
+Kickout a Specified Connection of Cluster
+----------------------------------------------
+
+
+
+Definition::
+
+    DELETE api/v3/connections/${clientid}
+
+
+Example Request::
+
+    DELETE api/v3/connections/emqx-api-test:v1
+
+
+Response:
+
+.. code-block:: json
+
+"ok"
+
+
+
+
+
+
+---------
+Sessions
+---------
+
+List all Sessions in the Cluster
+---------------------------------
+
+
+
+Definition::
+
+    GET api/v3/sessions/
+
+
+Example Request::
+
+    GET api/v3/sessions/?_page=1&_limit=10000
+
+
+Response:
+
+.. code-block:: json
+
+    {
+      "items": [
+            {
+                  "awaiting_rel_len": 0,
+                  "binding": "local",
+                  "clean_start": true,
+                  "client_id": "emqx-api-test:v1",
+                  "created_at": "2018-09-14 10:23:04",
+                  "deliver_msg": 0,
+                  "enqueue_msg": 0,
+                  "expiry_interval": 7200,
+                  "heap_size": 376,
+                  "inflight_len": 0,
+                  "mailbox_len": 0,
+                  "max_awaiting_rel": 100,
+                  "max_inflight": 32,
+                  "max_mqueue": 1000,
+                  "max_subscriptions": 0,
+                  "mqueue_dropped": 0,
+                  "mqueue_len": 0,
+                  "node": "emqx@127.0.0.1",
+                  "reductions": 203,
+                  "subscriptions_count": 0,
+                  "username": "emqx-api-test:v1"
+            },
+            {
+                  "awaiting_rel_len": 0,
+                  "binding": "local",
+                  "clean_start": true,
+                  "client_id": "mqttjs_68980a5d",
+                  "created_at": "2018-09-14 10:23:04",
+                  "deliver_msg": 0,
+                  "enqueue_msg": 0,
+                  "expiry_interval": 7200,
+                  "heap_size": 233,
+                  "inflight_len": 0,
+                  "mailbox_len": 0,
+                  "max_awaiting_rel": 100,
+                  "max_inflight": 32,
+                  "max_mqueue": 1000,
+                  "max_subscriptions": 0,
+                  "mqueue_dropped": 0,
+                  "mqueue_len": 0,
+                  "node": "emqx@127.0.0.1",
+                  "reductions": 188,
+                  "subscriptions_count": 0,
+                  "username": "undefined"
+            }
+      ],
+      "meta": {
+            "count": 2,
+            "limit": 10000,
+            "page": 1
+      }
+    }
+
+
+
+
+
+Retrieve a Session in the Cluster
+----------------------------------
+
+
+
+Definition::
+
+    GET api/v3/sessions/${clientid}
+
+
+Example Request::
+
+    GET api/v3/sessions/emqx-api-test:v1
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "awaiting_rel_len": 0,
+            "binding": "local",
+            "clean_start": true,
+            "client_id": "emqx-api-test:v1",
+            "created_at": "2018-09-14 10:23:04",
+            "deliver_msg": 0,
+            "enqueue_msg": 0,
+            "expiry_interval": 7200,
+            "heap_size": 376,
+            "inflight_len": 0,
+            "mailbox_len": 0,
+            "max_awaiting_rel": 100,
+            "max_inflight": 32,
+            "max_mqueue": 1000,
+            "max_subscriptions": 0,
+            "mqueue_dropped": 0,
+            "mqueue_len": 0,
+            "node": "emqx@127.0.0.1",
+            "reductions": 203,
+            "subscriptions_count": 0,
+            "username": "emqx-api-test:v1"
+      }
+    ]
+
+
+
+
+
+List all Sessions on a Node
+----------------------------
+
+
+
+Definition::
+
+    GET api/v3/nodes/${node}/sessions/
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1/sessions/?_page=1&_limit=10000
+
+
+Response:
+
+.. code-block:: json
+
+    {
+      "items": [
+            {
+                  "awaiting_rel_len": 0,
+                  "binding": "local",
+                  "clean_start": true,
+                  "client_id": "emqx-api-test:v1",
+                  "created_at": "2018-09-14 10:23:04",
+                  "deliver_msg": 0,
+                  "enqueue_msg": 0,
+                  "expiry_interval": 7200,
+                  "heap_size": 376,
+                  "inflight_len": 0,
+                  "mailbox_len": 0,
+                  "max_awaiting_rel": 100,
+                  "max_inflight": 32,
+                  "max_mqueue": 1000,
+                  "max_subscriptions": 0,
+                  "mqueue_dropped": 0,
+                  "mqueue_len": 0,
+                  "node": "emqx@127.0.0.1",
+                  "reductions": 203,
+                  "subscriptions_count": 0,
+                  "username": "emqx-api-test:v1"
+            },
+            {
+                  "awaiting_rel_len": 0,
+                  "binding": "local",
+                  "clean_start": true,
+                  "client_id": "mqttjs_68980a5d",
+                  "created_at": "2018-09-14 10:23:04",
+                  "deliver_msg": 0,
+                  "enqueue_msg": 0,
+                  "expiry_interval": 7200,
+                  "heap_size": 233,
+                  "inflight_len": 0,
+                  "mailbox_len": 0,
+                  "max_awaiting_rel": 100,
+                  "max_inflight": 32,
+                  "max_mqueue": 1000,
+                  "max_subscriptions": 0,
+                  "mqueue_dropped": 0,
+                  "mqueue_len": 0,
+                  "node": "emqx@127.0.0.1",
+                  "reductions": 188,
+                  "subscriptions_count": 0,
+                  "username": "undefined"
+            }
+      ],
+      "meta": {
+            "count": 2,
+            "limit": 10000,
+            "page": 1
+      }
+    }
+
+
+
+
+
+
+Retrieve a Session on a Node
+------------------------------
+
+
+
+Definition::
+
+    GET api/v3/nodes/${node}/sessions/${clientid}
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1/sessions/emqx-api-test:v1
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "awaiting_rel_len": 0,
+            "binding": "local",
+            "clean_start": true,
+            "client_id": "emqx-api-test:v1",
+            "created_at": "2018-09-14 10:23:04",
+            "deliver_msg": 0,
+            "enqueue_msg": 0,
+            "expiry_interval": 7200,
+            "heap_size": 376,
+            "inflight_len": 0,
+            "mailbox_len": 0,
+            "max_awaiting_rel": 100,
+            "max_inflight": 32,
+            "max_mqueue": 1000,
+            "max_subscriptions": 0,
+            "mqueue_dropped": 0,
+            "mqueue_len": 0,
+            "node": "emqx@127.0.0.1",
+            "reductions": 203,
+            "subscriptions_count": 0,
+            "username": "emqx-api-test:v1"
+      }
+    ]
+
+
+
+
+
+
+
+--------------
+Subscriptions
+--------------
+
+
+List all Subscriptions in the Cluster
+--------------------------------------
+
+
+
+Definition::
+
+    GET api/v3/subscriptions/
+
+
+Example Request::
+
+    GET api/v3/subscriptions/?_page=1&_limit=10000
+
+
+Response:
+
+.. code-block:: json
+
+    {
+      "items": [
+            {
+                  "client_id": "emqx-api-test:v1",
+                  "node": "emqx@127.0.0.1",
+                  "qos": 0,
+                  "topic": "/test"
+            },
+            {
+                  "client_id": "mqttjs_68980a5d",
+                  "node": "emqx@127.0.0.1",
+                  "qos": 0,
+                  "topic": "/test"
+            }
+      ],
+      "meta": {
+            "count": 2,
+            "limit": 10000,
+            "page": 1
+      }
+    }
+
+
+
+
+
+List Subscriptions of a Connection in the Cluster
+--------------------------------------------------
+
+
+
+Definition::
+
+    GET api/v3/subscriptions/${clientid}
+
+
+Example Request::
+
+    GET api/v3/subscriptions/emqx-api-test:v1
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "client_id": "emqx-api-test:v1",
+            "node": "emqx@127.0.0.1",
+            "qos": 0,
+            "topic": "/test"
+      }
+    ]
+
+
+
+
+
+List all Subscriptions of a Node
+---------------------------------
+
+
+
+Definition::
+
+    GET api/v3/nodes/${node}/subscriptions/
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1/subscriptions/?_page=1&_limit=10000
+
+
+Response:
+
+.. code-block:: json
+
+    {
+      "items": [
+            {
+                  "client_id": "emqx-api-test:v1",
+                  "node": "emqx@127.0.0.1",
+                  "qos": 0,
+                  "topic": "/test"
+            },
+            {
+                  "client_id": "mqttjs_68980a5d",
+                  "node": "emqx@127.0.0.1",
+                  "qos": 0,
+                  "topic": "/test"
+            }
+      ],
+      "meta": {
+            "count": 2,
+            "limit": 10000,
+            "page": 1
+      }
+    }
+
+
+
+
+List Subscriptions of a Client on a node
+-----------------------------------------
+
+
+Definition::
+
+    GET api/v3/nodes/${node}/subscriptions/${clientid}
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1/subscriptions/emqx-api-test:v1
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "client_id": "emqx-api-test:v1",
+            "node": "emqx@127.0.0.1",
+            "qos": 0,
+            "topic": "/test"
+      }
+    ]
+
+
+
+
+-------
 Routes
-------
+-------
 
 List all Routes in the Cluster
 -------------------------------
 
+
+
 Definition::
 
-    GET api/v3/routes
+    GET api/v3/nodes/
 
-Request parameters::
-
-    curr_page={page_no}&page_size={page_size}
 
 Example Request::
-    
-    GET api/v3/routes?curr_page=1&page_size=20
+
+    GET api/v3/nodes/
+
 
 Response:
 
 .. code-block:: json
 
-    {
-    	"code": 0,
-    	"result": {
-    		"current_page": 1,
-    		"page_size": 20,
-    		"total_num": 1,
-    		"total_page": 1,
-    		"objects": [
-    			{
-    				"topic": "/World",
-    				"node": "emqx@127.0.0.1"
-    			}
-    		]
-    	}
-    }
+    [
+      {
+            "connections": 2,
+            "load1": "2.50",
+            "load15": "2.09",
+            "load5": "2.23",
+            "max_fds": 7168,
+            "memory_total": "77.45M",
+            "memory_used": "59.81M",
+            "name": "emqx@127.0.0.1",
+            "node": "emqx@127.0.0.1",
+            "node_status": "Running",
+            "otp_release": "R21/10.0.5",
+            "process_available": 262144,
+            "process_used": 331,
+            "uptime": "3 days,18 hours, 25 minutes, 11 seconds",
+            "version": "3.0"
+      }
+    ]
+
+
+
+
 
 Retrieve a Route of Topic in the Cluster
--------------------------------
+-----------------------------------------
+
+
 
 Definition::
 
-    GET api/v3/routes/{topic}
+    GET api/v3/routes/${topic}
+
 
 Example Request::
 
-    GET api/v3/routes//World
+    GET api/v3/routes//test
+
 
 Response:
 
 .. code-block:: json
 
-    {
-    	"code": 0,
-    	"result": {
-    		"objects": [
-    			{
-    				"topic": "/World",
-    				"node": "emqx@127.0.0.1"
-    			}
-    		]
-    	}
-    }
+    []
+
+
+
+
+
 
 ------------------
 Publish/Subscribe
 ------------------
 
 Publish Message
-------------------
+----------------
+
+
 
 Definition::
- 
+
     POST api/v3/mqtt/publish
 
-Request parameters:
+Request JSON Parameter:
 
 .. code-block:: json
 
     {
-    	"topic" : "/World",
-    	"payload": "hello",
-    	"qos": 0,
-    	"retain" : false,
-    	"client_id": "mqttjs_722b4d845f"
+      "topic": "test_topic",
+      "payload": "hello",
+      "qos": 1,
+      "retain": false,
+      "client_id": "mqttjs_ab9069449e"
     }
- 
-.. NOTE:: The topic parameter is required, other parameters are optional. Payload defaults to empty string, qos defaults to 0, retain defaults to false, client_id defaults to 'http'.
+
+      
 
 Example Request::
 
     POST api/v3/mqtt/publish
 
-    Request Json Parameter:
-    {
-	      "topic" : "/World",
-        "payload": "hello",
-	      "qos": 0,
-	      "retain" : false,
-    	  "client_id": "mqttjs_722b4d845f"
-    }
 
 Response:
-  
+
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": []
+      "code": 0
     }
+
+
+
+
+.. NOTE:: The topic parameter is required, other parameters are optional. Payload defaults to empty string, qos defaults to 0, retain defaults to false, client_id defaults to 'http'.
 
 Create a Subscription
 ----------------------
 
+
+
 Definition::
 
     POST api/v3/mqtt/subscribe
 
-Request parameters:
+Request JSON Parameter:
 
 .. code-block:: json
 
     {
-        "topic": "/World",
-        "qos": 0,
-        "client_id": "mqttjs_722b4d845f"
+      "topic": "test_topic",
+      "qos": 1,
+      "client_id": "mqttjs_ab9069449e"
     }
 
+      
+
 Example Request::
- 
+
     POST api/v3/mqtt/subscribe
-    Request Json Parameter:
-    {
-	      "topic" : "/World",
-	      "qos": 0,
-    	  "client_id": "mqttjs_722b4d845f"
-    }
+
 
 Response:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": []
+      "code": 112
     }
+
+
+
+
 
 Unsubscribe Topic
-------------
-
-Definition::
-
-    POST api/v3/mqtt/unsubscribe
-
-Request Parameter:
-
-.. code-block:: json
-
-    {
-	      "topic" : "/World",
-    	  "client_id": "mqttjs_722b4d845f"
-    }
-
-Example Request::
-
-    POST api/v3/mqtt/unsubscribe
-    Request Json Parameter:
-    {
-	      "topic" : "/World",
-    	  "client_id": "mqttjs_722b4d845f"
-    }
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
-    }
-
--------
-Plugins
--------
-
-List all Plugins of a Node
---------------------------
-
-Definition::
-
-    GET /api/v3/nodes/{node_name}/plugins/
-
-Example Request::
-
-    GET api/v3/nodes/emqx@127.0.0.1/plugins
-
-Response:
-
-.. code-block:: json
-
-    {
-    	"code": 0,
-    	"result": [
-    		{
-    			"name": "emqx_auth_clientid",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication with ClientId/Password",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_auth_http",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication/ACL with HTTP API",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_auth_jwt",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication with JWT",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_auth_ldap",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication/ACL with LDAP",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_auth_mongo",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication/ACL with MongoDB",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_auth_mysql",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication/ACL with MySQL",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_auth_pgsql",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication/ACL with PostgreSQL",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_auth_redis",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication/ACL with Redis",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_auth_username",
-    			"version": "3.0",
-    			"description": "EMQ X Authentication with Username/Password",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_coap",
-    			"version": "3.0",
-    			"description": "EMQ X CoAP Gateway",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_dashboard",
-    			"version": "3.0",
-    			"description": "EMQ X Web Dashboard",
-    			"active": true
-    		},
-    		{
-    			"name": "emqx_lua_hook",
-    			"version": "3.0",
-    			"description": "EMQ X Hooks in lua",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_modules",
-    			"version": "3.0",
-    			"description": "EMQ X Modules",
-    			"active": true
-    		},
-    		{
-    			"name": "emqx_plugin_template",
-    			"version": "3.0",
-    			"description": "EMQ X Plugin Template",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_recon",
-    			"version": "3.0",
-    			"description": "EMQ X Recon Plugin",
-    			"active": true
-    		},
-    		{
-    			"name": "emqx_reloader",
-    			"version": "3.0",
-    			"description": "EMQ X Reloader Plugin",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_retainer",
-    			"version": "3.0",
-    			"description": "EMQ X Retainer",
-    			"active": true
-    		},
-    		{
-    			"name": "emqx_sn",
-    			"version": "3.0",
-    			"description": "EMQ X MQTT-SN Gateway",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_stomp",
-    			"version": "3.0",
-    			"description": "EMQ X Stomp Protocol Plugin",
-    			"active": false
-    		},
-    		{
-    			"name": "emqx_web_hook",
-    			"version": "3.0",
-    			"description": "EMQ X Webhook Plugin",
-    			"active": false
-    		}
-    	]
-    }
-
-Start/Stop a Plugin
--------------------
-
-Definition::
-
-    PUT /api/v3/nodes/{node_name}/plugins/{name}
-
-Request parameters:
-
-.. code-block:: json 
-
-    {
-        "active": true/false,
-    }
-
-Example Request::
-
-    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_recon
-    Request Json Parameter:
-    {
-    	"active": true
-    }
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
-    }
-
-List all Listeners
 ------------------
 
+
+
 Definition::
 
-    GET api/v3/monitoring/listeners
+    POST api/v3/mqtt/unsubscribe
 
-Response:
+Request JSON Parameter:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": {
-            "emqx@127.0.0.1": [
-                {
-                    "protocol": "dashboard:http",
-                    "listen": "18083",
-                    "acceptors": 2,
-                    "max_clients": 512,
-                    "current_clients": 0,
-                    "shutdown_count": []
-                },
-                {
-                    "protocol": "mqtt:tcp",
-                    "listen": "127.0.0.1:11883",
-                    "acceptors": 16,
-                    "max_clients": 102400,
-                    "current_clients": 0,
-                    "shutdown_count": []
-                },
-                {
-                    "protocol": "mqtt:tcp",
-                    "listen": "0.0.0.0:1883",
-                    "acceptors": 16,
-                    "max_clients": 102400,
-                    "current_clients": 0,
-                    "shutdown_count": []
-                },
-                {
-                    "protocol": "mqtt:ws",
-                    "listen": "8083",
-                    "acceptors": 4,
-                    "max_clients": 64,
-                    "current_clients": 0,
-                    "shutdown_count": []
-                },
-                {
-                    "protocol": "mqtt:ssl",
-                    "listen": "8883",
-                    "acceptors": 16,
-                    "max_clients": 1024,
-                    "current_clients": 0,
-                    "shutdown_count": []
-                },
-                {
-                    "protocol": "mqtt:wss",
-                    "listen": "8084",
-                    "acceptors": 4,
-                    "max_clients": 64,
-                    "current_clients": 0,
-                    "shutdown_count": []
-                },
-                {
-                    "protocol": "mqtt:api",
-                    "listen": "127.0.0.1:8080",
-                    "acceptors": 4,
-                    "max_clients": 64,
-                    "current_clients": 1,
-                    "shutdown_count": []
-                }
-            ]
-        }
+      "topic": "test_topic",
+      "payload": "hello",
+      "qos": 1,
+      "retain": false,
+      "client_id": "mqttjs_ab9069449e"
     }
-    
-List listeners of a Node
-------------------------
 
-Definition::
-
-    GET api/v3/monitoring/listeners/{node_name}
+      
 
 Example Request::
 
-    GET api/v3/monitoring/listeners/emqx@127.0.0.1
-    
+    POST api/v3/mqtt/unsubscribe
+
+
 Response:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": [
-            {
-                "protocol": "mqtt:api",
-                "listen": "127.0.0.1:8080",
-                "acceptors": 4,
-                "max_clients": 64,
-                "current_clients": 1,
-                "shutdown_count": []
-            },
-            {
-                "protocol": "mqtt:wss",
-                "listen": "8084",
-                "acceptors": 4,
-                "max_clients": 64,
-                "current_clients": 0,
-                "shutdown_count": []
-            },
-            {
-                "protocol": "mqtt:ssl",
-                "listen": "8883",
-                "acceptors": 16,
-                "max_clients": 1024,
-                "current_clients": 0,
-                "shutdown_count": []
-            },
-            {
-                "protocol": "mqtt:ws",
-                "listen": "8083",
-                "acceptors": 4,
-                "max_clients": 64,
-                "current_clients": 0,
-                "shutdown_count": []
-            },
-            {
-                "protocol": "mqtt:tcp",
-                "listen": "0.0.0.0:1883",
-                "acceptors": 16,
-                "max_clients": 102400,
-                "current_clients": 0,
-                "shutdown_count": []
-            },
-            {
-                "protocol": "mqtt:tcp",
-                "listen": "127.0.0.1:11883",
-                "acceptors": 16,
-                "max_clients": 102400,
-                "current_clients": 0,
-                "shutdown_count": []
-            },
-            {
-                "protocol": "dashboard:http",
-                "listen": "18083",
-                "acceptors": 2,
-                "max_clients": 512,
-                "current_clients": 0,
-                "shutdown_count": []
-            }
-        ]
+      "code": 112
     }
 
--------------------------------------
-Statistics of packet sent and received
--------------------------------------
 
-Get Statistics of all Nodes
+
+
+--------
+Plugins
+--------
+
+List all Plugins of Cluster
+--------------------------------
+
+
+
+Definition::
+
+    GET api/v3/plugins/
+
+
+Example Request::
+
+    GET api/v3/plugins/
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "node": "emqx@127.0.0.1",
+            "plugins": [
+                  {
+                        "name": "emqx_auth_clientid",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication with ClientId/Password",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_auth_http",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication/ACL with HTTP API",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_auth_jwt",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication with JWT",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_auth_ldap",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication/ACL with LDAP",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_auth_mongo",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication/ACL with MongoDB",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_auth_mysql",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication/ACL with MySQL",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_auth_pgsql",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication/ACL with PostgreSQL",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_auth_redis",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication/ACL with Redis",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_auth_username",
+                        "version": "3.0",
+                        "description": "EMQ X Authentication with Username/Password",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_coap",
+                        "version": "3.0",
+                        "description": "EMQ X CoAP Gateway",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_dashboard",
+                        "version": "3.0",
+                        "description": "EMQ X Web Dashboard",
+                        "active": true
+                  },
+                  {
+                        "name": "emqx_delayed_publish",
+                        "version": "3.0",
+                        "description": "EMQ X Delayed Publish",
+                        "active": true
+                  },
+                  {
+                        "name": "emqx_lwm2m",
+                        "version": "3.0",
+                        "description": "EMQ X LwM2M Gateway",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_management",
+                        "version": "3.0",
+                        "description": "EMQ X Management API and CLI",
+                        "active": true
+                  },
+                  {
+                        "name": "emqx_plugin_template",
+                        "version": "3.0",
+                        "description": "EMQ X Plugin Template",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_recon",
+                        "version": "3.0",
+                        "description": "EMQ X Recon Plugin",
+                        "active": true
+                  },
+                  {
+                        "name": "emqx_reloader",
+                        "version": "3.0",
+                        "description": "EMQ X Reloader Plugin",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_retainer",
+                        "version": "3.0",
+                        "description": "EMQ X Retainer",
+                        "active": true
+                  },
+                  {
+                        "name": "emqx_sn",
+                        "version": "3.0",
+                        "description": "EMQ X MQTT-SN Gateway",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_statsd",
+                        "version": "3.0",
+                        "description": "Statsd for EMQ X",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_stomp",
+                        "version": "3.0",
+                        "description": "EMQ X Stomp Protocol Plugin",
+                        "active": false
+                  },
+                  {
+                        "name": "emqx_web_hook",
+                        "version": "3.0",
+                        "description": "EMQ X Webhook Plugin",
+                        "active": false
+                  }
+            ]
+      }
+    ]
+
+
+
+
+
+List all Plugins of a Node
+---------------------------
+
+
+
+Definition::
+
+    GET api/v3/nodes/${node}/plugins/
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1/plugins/
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "name": "emqx_auth_clientid",
+            "version": "3.0",
+            "description": "EMQ X Authentication with ClientId/Password",
+            "active": false
+      },
+      {
+            "name": "emqx_auth_http",
+            "version": "3.0",
+            "description": "EMQ X Authentication/ACL with HTTP API",
+            "active": false
+      },
+      {
+            "name": "emqx_auth_jwt",
+            "version": "3.0",
+            "description": "EMQ X Authentication with JWT",
+            "active": false
+      },
+      {
+            "name": "emqx_auth_ldap",
+            "version": "3.0",
+            "description": "EMQ X Authentication/ACL with LDAP",
+            "active": false
+      },
+      {
+            "name": "emqx_auth_mongo",
+            "version": "3.0",
+            "description": "EMQ X Authentication/ACL with MongoDB",
+            "active": false
+      },
+      {
+            "name": "emqx_auth_mysql",
+            "version": "3.0",
+            "description": "EMQ X Authentication/ACL with MySQL",
+            "active": false
+      },
+      {
+            "name": "emqx_auth_pgsql",
+            "version": "3.0",
+            "description": "EMQ X Authentication/ACL with PostgreSQL",
+            "active": false
+      },
+      {
+            "name": "emqx_auth_redis",
+            "version": "3.0",
+            "description": "EMQ X Authentication/ACL with Redis",
+            "active": false
+      },
+      {
+            "name": "emqx_auth_username",
+            "version": "3.0",
+            "description": "EMQ X Authentication with Username/Password",
+            "active": false
+      },
+      {
+            "name": "emqx_coap",
+            "version": "3.0",
+            "description": "EMQ X CoAP Gateway",
+            "active": false
+      },
+      {
+            "name": "emqx_dashboard",
+            "version": "3.0",
+            "description": "EMQ X Web Dashboard",
+            "active": true
+      },
+      {
+            "name": "emqx_delayed_publish",
+            "version": "3.0",
+            "description": "EMQ X Delayed Publish",
+            "active": true
+      },
+      {
+            "name": "emqx_lwm2m",
+            "version": "3.0",
+            "description": "EMQ X LwM2M Gateway",
+            "active": false
+      },
+      {
+            "name": "emqx_management",
+            "version": "3.0",
+            "description": "EMQ X Management API and CLI",
+            "active": true
+      },
+      {
+            "name": "emqx_plugin_template",
+            "version": "3.0",
+            "description": "EMQ X Plugin Template",
+            "active": false
+      },
+      {
+            "name": "emqx_recon",
+            "version": "3.0",
+            "description": "EMQ X Recon Plugin",
+            "active": true
+      },
+      {
+            "name": "emqx_reloader",
+            "version": "3.0",
+            "description": "EMQ X Reloader Plugin",
+            "active": false
+      },
+      {
+            "name": "emqx_retainer",
+            "version": "3.0",
+            "description": "EMQ X Retainer",
+            "active": true
+      },
+      {
+            "name": "emqx_sn",
+            "version": "3.0",
+            "description": "EMQ X MQTT-SN Gateway",
+            "active": false
+      },
+      {
+            "name": "emqx_statsd",
+            "version": "3.0",
+            "description": "Statsd for EMQ X",
+            "active": false
+      },
+      {
+            "name": "emqx_stomp",
+            "version": "3.0",
+            "description": "EMQ X Stomp Protocol Plugin",
+            "active": false
+      },
+      {
+            "name": "emqx_web_hook",
+            "version": "3.0",
+            "description": "EMQ X Webhook Plugin",
+            "active": false
+      }
+    ]
+
+
+
+
+
+Start a Plugin
+---------------
+
+
+
+Definition::
+
+    PUT api/v3/nodes/${node}/plugins/${plugin}/load
+
+
+Example Request::
+
+    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_auth_clientid/load
+
+
+Response:
+
+.. code-block:: json
+
+"ok"
+
+
+
+
+
+Start a Plugin
+---------------
+
+
+
+Definition::
+
+    PUT api/v3/nodes/${node}/plugins/${plugin}/unload
+
+
+Example Request::
+
+    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_auth_clientid/unload
+
+
+Response:
+
+.. code-block:: json
+
+"ok"
+
+
+
+
+
+----------
+Listeners
+----------
+
+List all Listeners of Cluster
+----------------------------------
+
+
+
+Definition::
+
+    GET api/v3/listeners/
+
+
+Example Request::
+
+    GET api/v3/listeners/
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "listeners": [
+                  {
+                        "acceptors": 16,
+                        "current_conns": 0,
+                        "listen_on": "8883",
+                        "max_conns": 102400,
+                        "protocol": "mqtt:ssl",
+                        "shutdown_count": []
+                  },
+                  {
+                        "acceptors": 8,
+                        "current_conns": 2,
+                        "listen_on": "0.0.0.0:1883",
+                        "max_conns": 1024000,
+                        "protocol": "mqtt:tcp",
+                        "shutdown_count": {
+                              "closed": 6,
+                              "kicked": 3
+                        }
+                  },
+                  {
+                        "acceptors": 4,
+                        "current_conns": 0,
+                        "listen_on": "127.0.0.1:11883",
+                        "max_conns": 10240000,
+                        "protocol": "mqtt:tcp",
+                        "shutdown_count": []
+                  },
+                  {
+                        "acceptors": 4,
+                        "current_conns": 1,
+                        "listen_on": "18083",
+                        "max_conns": 512,
+                        "protocol": "http:dashboard",
+                        "shutdown_count": []
+                  },
+                  {
+                        "acceptors": 2,
+                        "current_conns": 0,
+                        "listen_on": "8080",
+                        "max_conns": 512,
+                        "protocol": "http:management",
+                        "shutdown_count": []
+                  },
+                  {
+                        "acceptors": 4,
+                        "current_conns": 0,
+                        "listen_on": "8083",
+                        "max_conns": 102400,
+                        "protocol": "mqtt:ws",
+                        "shutdown_count": []
+                  },
+                  {
+                        "acceptors": 4,
+                        "current_conns": 0,
+                        "listen_on": "8084",
+                        "max_conns": 16,
+                        "protocol": "mqtt:wss",
+                        "shutdown_count": []
+                  }
+            ],
+            "node": "emqx@127.0.0.1"
+      }
+    ]
+
+
+
+
+
+ist all Listeners of a Node
 ----------------------------
 
-Definition::
 
-    GET api/v3/monitoring/metrics/
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": {
-            "packets/disconnect":0,
-            "messages/dropped":0,
-            "messages/qos2/received":0,
-            "packets/suback":0,
-            "packets/pubcomp/received":0,
-            "packets/unsuback":0,
-            "packets/pingresp":0,
-            "packets/puback/missed":0,
-            "packets/pingreq":0,
-            "messages/retained":3,
-            "packets/sent":0,
-            "messages/qos2/dropped":0,
-            "packets/unsubscribe":0,
-            "packets/pubrec/missed":0,
-            "packets/connack":0,
-            "packets/pubrec/sent":0,
-            "packets/publish/received":0,
-            "packets/pubcomp/sent":0,
-            "bytes/received":0,
-            "packets/connect":0,
-            "packets/puback/received":0,
-            "messages/sent":0,
-            "packets/publish/sent":0,
-            "bytes/sent":0,
-            "packets/pubrel/missed":0,
-            "packets/puback/sent":0,
-            "messages/qos0/received":0,
-            "packets/subscribe":0,
-            "packets/pubrel/sent":0,
-            "messages/qos2/sent":0,
-            "packets/received":0,
-            "packets/pubrel/received":0,
-            "messages/qos1/received":0,
-            "messages/qos1/sent":0,
-            "packets/pubrec/received":0,
-            "packets/pubcomp/missed":0,
-            "messages/qos0/sent":0
-        }
-    }
-
-Get Statistics of specified Node
-------------------------
 
 Definition::
 
-    GET api/v3/monitoring/metrics/{node_name}
+    GET api/v3/nodes/${node}/listeners
+
 
 Example Request::
 
-    GET api/v3/monitoring/metrics/emqx@127.0.0.1
+    GET api/v3/nodes/emqx@127.0.0.1/listeners
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "acceptors": 16,
+            "current_conns": 0,
+            "listen_on": "8883",
+            "max_conns": 102400,
+            "protocol": "mqtt:ssl",
+            "shutdown_count": []
+      },
+      {
+            "acceptors": 8,
+            "current_conns": 2,
+            "listen_on": "0.0.0.0:1883",
+            "max_conns": 1024000,
+            "protocol": "mqtt:tcp",
+            "shutdown_count": {
+                  "closed": 6,
+                  "kicked": 3
+            }
+      },
+      {
+            "acceptors": 4,
+            "current_conns": 0,
+            "listen_on": "127.0.0.1:11883",
+            "max_conns": 10240000,
+            "protocol": "mqtt:tcp",
+            "shutdown_count": []
+      },
+      {
+            "acceptors": 4,
+            "current_conns": 1,
+            "listen_on": "18083",
+            "max_conns": 512,
+            "protocol": "http:dashboard",
+            "shutdown_count": []
+      },
+      {
+            "acceptors": 2,
+            "current_conns": 0,
+            "listen_on": "8080",
+            "max_conns": 512,
+            "protocol": "http:management",
+            "shutdown_count": []
+      },
+      {
+            "acceptors": 4,
+            "current_conns": 0,
+            "listen_on": "8083",
+            "max_conns": 102400,
+            "protocol": "mqtt:ws",
+            "shutdown_count": []
+      },
+      {
+            "acceptors": 4,
+            "current_conns": 0,
+            "listen_on": "8084",
+            "max_conns": 16,
+            "protocol": "mqtt:wss",
+            "shutdown_count": []
+      }
+    ]
+
+
+
+
+---------------------------------------
+Statistics of packet sent and received
+---------------------------------------
+
+Get Statistics in the Cluster
+------------------------------
+
+
+
+Definition::
+
+    GET api/v3/metrics/
+
+
+Example Request::
+
+    GET api/v3/metrics/
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "node": "emqx@127.0.0.1",
+            "metrics": {
+                  "bytes/received": 750,
+                  "packets/pubrel/sent": 0,
+                  "packets/pubcomp/missed": 0,
+                  "packets/sent": 27,
+                  "packets/pubrel/received": 0,
+                  "messages/qos1/received": 0,
+                  "packets/publish/received": 4,
+                  "packets/auth": 0,
+                  "messages/qos0/received": 4,
+                  "packets/pubcomp/received": 0,
+                  "packets/unsuback": 0,
+                  "packets/pubrec/missed": 0,
+                  "messages/qos1/sent": 0,
+                  "messages/qos2/sent": 0,
+                  "bytes/sent": 236,
+                  "messages/received": 4,
+                  "messages/dropped": 3,
+                  "messages/qos2/received": 0,
+                  "packets/connect": 11,
+                  "messages/qos0/sent": 8,
+                  "packets/disconnect/received": 0,
+                  "packets/pubrec/sent": 0,
+                  "packets/publish/sent": 8,
+                  "packets/pubrec/received": 0,
+                  "packets/received": 23,
+                  "packets/unsubscribe": 0,
+                  "packets/subscribe": 8,
+                  "packets/disconnect/sent": 0,
+                  "packets/pingresp": 0,
+                  "messages/qos2/dropped": 0,
+                  "packets/puback/missed": 0,
+                  "packets/pingreq": 0,
+                  "packets/connack": 11,
+                  "packets/pubrel/missed": 0,
+                  "messages/sent": 8,
+                  "packets/suback": 8,
+                  "messages/retained": 3,
+                  "packets/puback/sent": 0,
+                  "packets/puback/received": 0,
+                  "messages/qos2/expired": 0,
+                  "messages/forward": 0,
+                  "messages/expired": 0,
+                  "packets/pubcomp/sent": 0
+            }
+      }
+    ]
+
+
+
+
+Get Statistics of specified Node
+---------------------------------
+
+
+
+Definition::
+
+    GET api/v3/nodes/${node}/metrics/
+
+
+Example Request::
+
+    GET api/v3/nodes/emqx@127.0.0.1/metrics/
+
 
 Response:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": {
-            "packets/disconnect":0,
-            "messages/dropped":0,
-            "messages/qos2/received":0,
-            "packets/suback":0,
-            "packets/pubcomp/received":0,
-            "packets/unsuback":0,
-            "packets/pingresp":0,
-            "packets/puback/missed":0,
-            "packets/pingreq":0,
-            "messages/retained":3,
-            "packets/sent":0,
-            "messages/qos2/dropped":0,
-            "packets/unsubscribe":0,
-            "packets/pubrec/missed":0,
-            "packets/connack":0,
-            "messages/received":0,
-            "packets/pubrec/sent":0,
-            "packets/publish/received":0,
-            "packets/pubcomp/sent":0,
-            "bytes/received":0,
-            "packets/connect":0,
-            "packets/puback/received":0,
-            "messages/sent":0,
-            "packets/publish/sent":0,
-            "bytes/sent":0,
-            "packets/pubrel/missed":0,
-            "packets/puback/sent":0,
-            "messages/qos0/received":0,
-            "packets/subscribe":0,
-            "packets/pubrel/sent":0,
-            "messages/qos2/sent":0,
-            "packets/received":0,
-            "packets/pubrel/received":0,
-            "messages/qos1/received":0,
-            "messages/qos1/sent":0,
-            "packets/pubrec/received":0,
-            "packets/pubcomp/missed":0,
-            "messages/qos0/sent":0
-        }
+      "bytes/received": 750,
+      "packets/pubrel/sent": 0,
+      "packets/pubcomp/missed": 0,
+      "packets/sent": 27,
+      "packets/pubrel/received": 0,
+      "messages/qos1/received": 0,
+      "packets/publish/received": 4,
+      "packets/auth": 0,
+      "messages/qos0/received": 4,
+      "packets/pubcomp/received": 0,
+      "packets/unsuback": 0,
+      "packets/pubrec/missed": 0,
+      "messages/qos1/sent": 0,
+      "messages/qos2/sent": 0,
+      "bytes/sent": 236,
+      "messages/received": 4,
+      "messages/dropped": 3,
+      "messages/qos2/received": 0,
+      "packets/connect": 11,
+      "messages/qos0/sent": 8,
+      "packets/disconnect/received": 0,
+      "packets/pubrec/sent": 0,
+      "packets/publish/sent": 8,
+      "packets/pubrec/received": 0,
+      "packets/received": 23,
+      "packets/unsubscribe": 0,
+      "packets/subscribe": 8,
+      "packets/disconnect/sent": 0,
+      "packets/pingresp": 0,
+      "messages/qos2/dropped": 0,
+      "packets/puback/missed": 0,
+      "packets/pingreq": 0,
+      "packets/connack": 11,
+      "packets/pubrel/missed": 0,
+      "messages/sent": 8,
+      "packets/suback": 8,
+      "messages/retained": 3,
+      "packets/puback/sent": 0,
+      "packets/puback/received": 0,
+      "messages/qos2/expired": 0,
+      "messages/forward": 0,
+      "messages/expired": 0,
+      "packets/pubcomp/sent": 0
     }
+
+
+
+
 
 --------------------------------
 Statistics of connected session
 --------------------------------
 
-Get Statistics of connected session in all nodes
-------------------------------------------------
+Get Statistics of connected session of Cluster
+---------------------------------------------------
+
+
 
 Definition::
 
-    GET api/v3/monitoring/stats
+    GET api/v3/stats/
+
 
 Example Request::
 
-    GET api/v3/monitoring/stats
+    GET api/v3/stats/
+
 
 Response:
 
 .. code-block:: json
 
-    {
-    	"code": 0,
-    	"result": [
-    		{
-    			"emqx@127.0.0.1": {
-    				"clients/count": 0,
-    				"clients/max": 0,
-    				"retained/count": 3,
-    				"retained/max": 3,
-    				"routes/count": 0,
-    				"routes/max": 0,
-    				"sessions/count": 0,
-    				"sessions/max": 0,
-    				"subscribers/count": 0,
-    				"subscribers/max": 0,
-    				"subscriptions/count": 0,
-    				"subscriptions/max": 0,
-    				"topics/count": 0,
-    				"topics/max": 0
-    			}
-    		}
-    	]
-    }
+    [
+      {
+            "node": "emqx@127.0.0.1",
+            "subscriptions/shared/max": 0,
+            "subscriptions/max": 2,
+            "subscribers/max": 2,
+            "topics/count": 0,
+            "subscriptions/count": 0,
+            "topics/max": 1,
+            "sessions/persistent/max": 2,
+            "connections/max": 2,
+            "subscriptions/shared/count": 0,
+            "sessions/persistent/count": 0,
+            "retained/count": 3,
+            "routes/count": 0,
+            "sessions/count": 0,
+            "retained/max": 3,
+            "sessions/max": 2,
+            "routes/max": 1,
+            "subscribers/count": 0,
+            "connections/count": 0
+      }
+    ]
+
+
 
 
 Get Statistics of connected session on specified node
------------------------------------------------------
+------------------------------------------------------
+
+
 
 Definition::
 
-    GET api/v3/monitoring/stats/{node_name}
+    GET api/v3/nodes/${node}/stats/
+
 
 Example Request::
 
-    GET api/v3/monitoring/stats/emqx@127.0.0.1
+    GET api/v3/nodes/emqx@127.0.0.1/stats/
 
-Response:
-
-.. code-block:: json
-
-   {
-   	 "code": 0,
-   	 "result": {
-       "clients/count": 0,
-       "clients/max": 0,
-       "retained/count": 3,
-       "retained/max": 3,
-       "routes/count": 0,
-       "routes/max": 0,
-       "sessions/count": 0,
-       "sessions/max": 0,
-       "subscribers/count": 0,
-       "subscribers/max": 0,
-       "subscriptions/count": 0,
-       "subscriptions/max": 0,
-       "topics/count": 0,
-       "topics/max": 0
-   	 }
-   }
-
------------------
-Hot configuration 
------------------
-
-Get Modifiable configuration items of all nodes
------------------------------------------------
-
-Definition::
-
-    GET api/v3/configs
-
-Example Request::
-
-    GET api/v3/configs
 
 Response:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": {
-            "emqx@127.0.0.1": [
-                {
-                    "key": "log.console.level",
-                    "value": "error",
-                    "datatpye": "enum",
-                    "app": "emqx"
-                },
-                {
-                    "key": "mqtt.acl_file",
-                    "value": "etc/acl.conf",
-                    "datatpye": "string",
-                    "app": "emqx"
-                },
-                {
-                    "key": "mqtt.acl_nomatch",
-                    "value": "allow",
-                    "datatpye": "enum",
-                    "app": "emqx"
-                },
-                {
-                    "key": "mqtt.allow_anonymous",
-                    "value": "true",
-                    "datatpye": "enum",
-                    "app": "emqx"
-                },
-                {
-                    "key": "mqtt.broker.sys_interval",
-                    "value": "60",
-                    "datatpye": "integer",
-                    "app": "emqx"
-                },
-                {
-                    "key": "mqtt.cache_acl",
-                    "value": "true",
-                    "datatpye": "enum",
-                    "app": "emqx"
-                }
-            ]
-        }
+      "subscriptions/shared/max": 0,
+      "subscriptions/max": 2,
+      "subscribers/max": 2,
+      "topics/count": 0,
+      "subscriptions/count": 0,
+      "topics/max": 1,
+      "sessions/persistent/max": 2,
+      "connections/max": 2,
+      "subscriptions/shared/count": 0,
+      "sessions/persistent/count": 0,
+      "retained/count": 3,
+      "routes/count": 0,
+      "sessions/count": 0,
+      "retained/max": 3,
+      "sessions/max": 2,
+      "routes/max": 1,
+      "subscribers/count": 0,
+      "connections/count": 0
     }
+
+
+
+
+
+------------------
+Hot configuration
+------------------
+
+Get Modifiable configuration items of Cluster
+--------------------------------------------------
+
+
+
+Definition::
+
+    GET api/v3/configs/
+
+
+Example Request::
+
+    GET api/v3/configs/
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "config": [
+                  {
+                        "key": "retainer.expiry_interval",
+                        "value": "0",
+                        "datatpye": "integer, duration",
+                        "app": "emqx_retainer"
+                  },
+                  {
+                        "key": "retainer.max_payload_size",
+                        "value": "1048576",
+                        "datatpye": "bytesize",
+                        "app": "emqx_retainer"
+                  },
+                  {
+                        "key": "retainer.max_retained_messages",
+                        "value": "0",
+                        "datatpye": "integer",
+                        "app": "emqx_retainer"
+                  }
+            ],
+            "node": "emqx@127.0.0.1"
+      }
+    ]
+
+
+
 
 Get Modifiable configuration items of specified node
-----------------------------------------------------
+-----------------------------------------------------
+
+
 
 Definition::
 
-    GET api/v2/nodes/{node_name}/configs
+    GET api/v3/nodes/${node}/configs/
+
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/configs
+    GET api/v3/nodes/${node}/configs/
+
 
 Response:
 
 .. code-block:: json
 
-    {
-        "code": 0,
-        "result": [
-            {
-                "key": "log.console.level",
-                "value": "error",
-                "datatpye": "enum",
-                "app": "emqx"
-            },
-            {
-                "key": "mqtt.acl_file",
-                "value": "etc/acl.conf",
-                "datatpye": "string",
-                "app": "emqx"
-            },
-            {
-                "key": "mqtt.acl_nomatch",
-                "value": "allow",
-                "datatpye": "enum",
-                "app": "emqx"
-            },
-            {
-                "key": "mqtt.allow_anonymous",
-                "value": "true",
-                "datatpye": "enum",
-                "app": "emqx"
-            },
-            {
-                "key": "mqtt.broker.sys_interval",
-                "value": "60",
-                "datatpye": "integer",
-                "app": "emqx"
-            },
-            {
-                "key": "mqtt.cache_acl",
-                "value": "true",
-                "datatpye": "enum",
-                "app": "emqx"
-            }
-        ]
-    }
+"ok"
 
-Modify configuration items of all nodes
----------------------------------------
+
+
+
+
+Modify configuration items of Cluster
+--------------------------------------
+
+
 
 Definition::
 
-    PUT /api/v3/configs/{app_name}
+    PUT api/v3/configs/:app
 
-Request Parameter::
+Request JSON Parameter:
 
-    {
-        "key"   : "mqtt.allow_anonymous",
-        "value" : "false"
-    }
-
-Example Request::
-
-    PUT /api/v3/configs/emqx
-
-Response:
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": []
+      "key": "mqtt.allow_anonymous",
+      "value": "false"
     }
+
+      
+
+Example Request::
+
+    PUT api/v3/configs/:app
+
+
+Response:
+
+.. code-block:: json
+
+"ok"
+
+
+
+
 
 Modify configuration items of specified node
---------------------------------------------
+---------------------------------------------
+
+
 
 Definition::
 
-    PUT /api/v3/nodes/{node_name}/configs/{app_name}
+    PUT api/v3/nodes/${node}/configs/:app
 
-Request Parameter::
-
-    {
-        "key"   : "mqtt.allow_anonymous",
-        "value" : "false"
-    }
-
-Response:
+Request JSON Parameter:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": []
+      "key": "mqtt.allow_anonymous",
+      "value": "false"
     }
 
-Get configuration items of specified plugin in specified node
--------------------------------------------------------------
-
-Definition::
-
-    GET api/v3/nodes/{node_name}/plugin_configs/{plugin_name}
+      
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/plugin_configs/emqx_auth_http
+    PUT api/v3/nodes/${node}/configs/:app
+
 
 Response:
 
 .. code-block:: json
 
-    {
-    	"code": 0,
-    	"result": [
-    		{
-    			"key": "auth.http.auth_req",
-    			"value": "http://127.0.0.1:8080/mqtt/auth",
-    			"desc": "",
-    			"required": true
-    		},
-    		{
-    			"key": "auth.http.auth_req.method",
-    			"value": "post",
-    			"desc": "",
-    			"required": true
-    		},
-    		{
-    			"key": "auth.http.auth_req.params",
-    			"value": "clientid=%c,username=%u,password=%P",
-    			"desc": "",
-    			"required": true
-    		},
-    		{
-    			"key": "auth.http.super_req",
-    			"value": "http://127.0.0.1:8080/mqtt/superuser",
-    			"desc": "",
-    			"required": true
-    		},
-    		{
-    			"key": "auth.http.super_req.method",
-    			"value": "post",
-    			"desc": "",
-    			"required": true
-    		},
-    		{
-    			"key": "auth.http.super_req.params",
-    			"value": "clientid=%c,username=%u",
-    			"desc": "",
-    			"required": true
-    		},
-    		{
-    			"key": "auth.http.acl_req",
-    			"value": "http://127.0.0.1:8080/mqtt/acl",
-    			"desc": "",
-    			"required": true
-    		},
-    		{
-    			"key": "auth.http.acl_req.method",
-    			"value": "get",
-    			"desc": "",
-    			"required": true
-    		},
-    		{
-    			"key": "auth.http.acl_req.params",
-    			"value": "access=%A,username=%u,clientid=%c,ipaddr=%a,topic=%t",
-    			"desc": "",
-    			"required": true
-    		}
-    	]
-    }
+"ok"
 
-Modify configuration item of specified plugin in specified node
----------------------------------------------------------------
+
+
+
+
+--------
+Alarms
+--------
+
+Get Modifiable alarms of Cluster
+-------------------------------------
+
+
 
 Definition::
 
-    PUT api/v3/nodes/{node_name}/plugin_configs/{plugin_name}
+    GET api/v3/alarms/${node}
 
-Request Parameter::
-
-    {
-        "auth.http.auth_req.method": "get",
-        "auth.http.auth_req": "http://127.0.0.1:8080/mqtt/auth",
-        "auth.http.auth_req.params": "clientid=%c,username=%u,password=%P",
-        "auth.http.acl_req.method": "get",
-        "auth.http.acl_req": "http://127.0.0.1:8080/mqtt/acl",
-        "auth.http.acl_req.params": "access=%A,username=%u,clientid=%c,ipaddr=%a,topic=%t",
-        "auth.http.super_req.method": "post",
-        "auth.http.super_req.params": "clientid=%c,username=%u",
-        "auth.http.super_req": "http://127.0.0.1:8080/mqtt/superuser"
-    }
 
 Example Request::
 
-    PUT api/v3/nodes/emqx@127.0.0.1/plugin_configs/emqx_auth_http
+    GET api/v3/alarms/emqx@127.0.0.1
+
 
 Response:
 
 .. code-block:: json
 
-    {
-        "code": 0,
-        "result": []
-    }
+    []
 
 
----------------
-User Management
----------------
 
-Retrieve Admin User List
-------------------------
+
+Get Modifiable alarms of specified node
+----------------------------------------
+
+
 
 Definition::
 
-    GET api/v3/users
+    GET api/v3/alarms/
 
-Request Example::
 
-    GET api/v3/users
+Example Request::
+
+    GET api/v3/alarms/
+
+
+Response:
+
+.. code-block:: json
+
+    [
+      {
+            "alarms": [],
+            "node": "emqx@127.0.0.1"
+      }
+    ]
+
+
+
+
+
+
+-------
+Banned
+-------
+
+List all Banned of Cluster
+------------------------------
+
+
+
+Definition::
+
+    GET api/v3/banned/
+
+
+Example Request::
+
+    GET api/v3/banned/?_page=1&_limit=10000
+
 
 Response:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": [
+      "items": [
             {
-                "username": "admin",
-                "tags": "administrator"
+                  "as": "client_id",
+                  "by": "undefined",
+                  "desc": "normal banned",
+                  "reason": "banned the clientId",
+                  "until": 1536146187,
+                  "who": "clientId/username/ipAddress"
             }
-        ]
+      ],
+      "meta": {
+            "count": 1,
+            "limit": 10000,
+            "page": 1
+      }
     }
 
-Add Admin User
---------------
+
+
+
+Create a Banned
+----------------
+
+
 
 Definition::
 
-    POST api/v3/users
+    POST api/v3/banned/
 
-Request Parameter::
+Request JSON Parameter:
+
+.. code-block:: json
 
     {
-        "username": "test_user",
-        "password": "password",
-        "tags": "user"
+      "who": "clientId/username/ipAddress",
+      "as": "client_id",
+      "reason": "banned the clientId",
+      "desc": "normal banned",
+      "until": 1536146187
     }
 
-Request Example::
+      
 
-    POST api/v3/users
+Example Request::
+
+    POST api/v3/banned/
+
 
 Response:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": []
+      "who": "clientId/username/ipAddress",
+      "as": "client_id",
+      "reason": "banned the clientId",
+      "desc": "normal banned",
+      "until": 1536146187
     }
 
-Modify Admin User Information
------------------------------
+
+
+
+Delete a Banned
+----------------
+
+
 
 Definition::
 
-    PUT api/v3/users/{username}
+    DELETE api/v3/banned/${who}?as=${as}
 
-Request Parameter::
 
-    {
-        "tags": "admin"
-    }
+Example Request::
 
-Request Example::
+    DELETE api/v3/banned/${who}?as=${as}
 
-    PUT api/v3/users/test_user
+
+Response:
+
+.. code-block:: json
+
+"ok"
+
+
+
+
+
+
+-------------------------
+Error Message/Pagination
+-------------------------
+
+
+When the HTTP status code is greater than 500, the response brings back the error message.
+-----------------------------------------------------------------------------------
+
+Example Request::
+
+    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_recon/load
 
 Response:
 
 .. code-block:: json
 
     {
-        "code": 0,
-        "result": []
+        "message": "already_started"
     }
 
-Delete Admin User
------------------
 
-Definition::
+Paging parameters and information
+----------------------------------
 
-    DELETE api/v3/users/{username}
+The API that uses the _page=1&_limit=10000 parameter in the request example supports paging::
 
-Request Parameter::
-
-
-Request Example::
-
-    DELETE api/v3/users/test_user
-
+    _page: Current Page
+    _limit: Page Size
+    
+    
 Response:
 
-.. code-block:: json
+.. code-block:: json    
 
     {
-        "code": 0,
-        "result": []
+      "items": [],
+      "meta": {
+          "page": 1,
+          "limit": 10000,
+          "count": 2
+      }
     }
-
-Authenticate Admin User
------------------------
-
-Definition::
-
-    POST api/v3/auth
-
-Request Parameter::
-
-    {
-        "username": "test_user",
-        "password": "password"
-    }
-
-Request Example::
-
-    POST api/v3/auth
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
-    }
-
-Modify Admin User Password
---------------------------
-
-Definition::
-
-    PUT api/v3/change_pwd/{username}
-
-Request Parameter::
-
-    {
-        "new_pwd": "newpassword",
-        "old_pwd": "password"
-    }
-
-Request Example::
-
-    PUT api/v3/change_pwd/test_user
-
-Response:
-
-.. code-block:: json
-
-    {
-        "code": 0,
-        "result": []
-    }
-
-----------
-Error Code
-----------
-
-+-------+-----------------------------------------+
-| Code  | Comment                                 |
-+=======+=========================================+
-| 0     | Success                                 |
-+-------+-----------------------------------------+
-| 101   | badrpc                                  |
-+-------+-----------------------------------------+
-| 102   | Unknown error                           |
-+-------+-----------------------------------------+
-| 103   | Username or password error              |
-+-------+-----------------------------------------+
-| 104   | empty username or password              |
-+-------+-----------------------------------------+
-| 105   | user does not exist                     |
-+-------+-----------------------------------------+
-| 106   | admin can not be deleted                |
-+-------+-----------------------------------------+
-| 107   | missing request parameter               |
-+-------+-----------------------------------------+
-| 108   | request parameter type error            |
-+-------+-----------------------------------------+
-| 109   | request parameter is not a json         |
-+-------+-----------------------------------------+
-| 110   | plugin has been loaded                  |
-+-------+-----------------------------------------+
-| 111   | plugin has been unloaded                |
-+-------+-----------------------------------------+
-| 112   | User offline                            |
-+-------+-----------------------------------------+
-| 113   | User exists already                     |
-+-------+-----------------------------------------+
-| 114   | Wrong old password                      |
-+-------+-----------------------------------------+
-
+    
