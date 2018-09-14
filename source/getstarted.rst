@@ -81,7 +81,7 @@ Installing on Mac, for example:
 Installing from Source
 ----------------------
 
-.. NOTE:: The *EMQ X* broker requires Erlang R19+ to build since 3.0 release.
+.. NOTE:: The *EMQ X* broker requires Erlang/OTP R21+ to build since 3.0 release.
 
 .. code-block:: bash
 
