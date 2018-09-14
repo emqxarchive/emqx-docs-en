@@ -5,37 +5,37 @@
 Configuration
 =============
 
-The main configuration files of the EMQ broker are under 'etc/' folder:
+The main configuration files of the EMQ X broker are under 'etc/' folder:
 
 +----------------------+-----------------------------------+
 | File                 | Description                       |
 +----------------------+-----------------------------------+
-| etc/emq.conf         | EMQ 2.0 Configuration File        |
+| etc/emqx.conf        | EMQ X 3.0 Configuration File      |
 +----------------------+-----------------------------------+
 | etc/acl.conf         | The default ACL File              |
 +----------------------+-----------------------------------+
 | etc/plugins/\*.conf  | Config Files of Plugins           |
 +----------------------+-----------------------------------+
 
----------------------
-EMQ 2.0 Config Syntax
----------------------
+-----------------------
+EMQ X 3.0 Config Syntax
+-----------------------
 
-The *EMQ* 2.0-rc.2 release integrated with `cuttlefish` library, and adopted a more user-friendly `k = v` syntax for configuration file:
+The *EMQ X* integrated with `cuttlefish` library, and uses a user-friendly `k = v` syntax for configuration file:
 
 .. code-block:: properties
 
     ## Node name
-    node.name = emqttd@127.0.0.1
+    node.name = emqx@127.0.0.1
     ...
     ## Max ClientId Length Allowed.
     mqtt.max_clientid_len = 1024
     ...
 
-The configuration files will be preprocessed and translated to Erlang `app.config` before the EMQ broker started::
+The configuration files will be preprocessed and translated to Erlang `app.config` before the EMQ X broker started::
 
-    ----------------------                                          2.0/schema/*.schema      -------------------
-    | etc/emq.conf       |                   -----------------              \|/              | data/app.config |
+    ----------------------                                          3.0/schema/*.schema      -------------------
+    | etc/emqx.conf      |                   -----------------              \|/              | data/app.config |
     |       +            | --> mergeconf --> | data/app.conf | -->  cuttlefish generate  --> |                 |
     | etc/plugins/*.conf |                   -----------------                               | data/vm.args    |
     ----------------------                                                                   -------------------
@@ -45,24 +45,24 @@ OS Environment Variables
 ------------------------
 
 +------------------+----------------------------------------+
-| EMQ_NODE_NAME    | Erlang node name                       |
+| EMQX_NODE_NAME   | Erlang node name                       |
 +------------------+----------------------------------------+
-| EMQ_NODE_COOKIE  | Cookie for distributed erlang node     |
+| EMQX_NODE_COOKIE | Cookie for distributed erlang node     |
 +------------------+----------------------------------------+
-| EMQ_MAX_PORTS    | Maximum number of opened sockets       |
+| EMQX_MAX_PORTS   | Maximum number of opened sockets       |
 +------------------+----------------------------------------+
-| EMQ_TCP_PORT     | MQTT TCP Listener Port, Default: 1883  |
+| EMQX_TCP_PORT    | MQTT TCP Listener Port, Default: 1883  |
 +------------------+----------------------------------------+
-| EMQ_SSL_PORT     | MQTT SSL Listener Port, Default: 8883  |
+| EMQX_SSL_PORT    | MQTT SSL Listener Port, Default: 8883  |
 +------------------+----------------------------------------+
-| EMQ_WS_PORT      | MQTT/WebSocket Port, Default: 8083     |
+| EMQX_WS_PORT     | MQTT/WebSocket Port, Default: 8083     |
 +------------------+----------------------------------------+
-| EMQ_WSS_PORT     | MQTT/WebSocket/SSL Port, Default: 8084 |
+| EMQX_WSS_PORT    | MQTT/WebSocket/SSL Port, Default: 8084 |
 +------------------+----------------------------------------+
 
------------
-EMQ Cluster
------------
+-------------
+EMQ X Cluster
+-------------
 
 Cluster Name
 ------------
@@ -96,11 +96,11 @@ Cluster Autoclean
     ## Clean down node of the cluster
     cluster.autoclean = 5m
 
---------------------------
-EMQ Autodiscovery Strategy
---------------------------
+----------------------------
+EMQ X Autodiscovery Strategy
+----------------------------
 
-EMQ R2.3 supports node discovery and autocluster with various strategies:
+EMQ X 3.0 supports node discovery and autocluster with various strategies:
 
 +------------+---------------------------------+
 | Strategy   | Description                     |
@@ -126,7 +126,7 @@ Autocluster by static node list
     ##--------------------------------------------------------------------
     ## Cluster with static node list
 
-    cluster.static.seeds = emq1@127.0.0.1,ekka2@127.0.0.1
+    cluster.static.seeds = emqx1@127.0.0.1,ekka2@127.0.0.1
 
 Autocluster by IP Multicast
 ---------------------------
@@ -198,19 +198,19 @@ Autocluster on Kubernetes
     ## The Erlang application name
     cluster.k8s.app_name = ekka
 
--------------------
-EMQ Node and Cookie
--------------------
+---------------------
+EMQ X Node and Cookie
+---------------------
 
-The node name and cookie of *EMQ* should be configured when clustering:
+The node name and cookie of *EMQ X* should be configured when clustering:
 
 .. code-block:: properties
 
     ## Node name
-    node.name = emqttd@127.0.0.1
+    node.name = emqx@127.0.0.1
 
     ## Cookie for distributed node
-    node.cookie = emq_dist_cookie
+    node.cookie = emqx_dist_cookie
 
 ---------------------------
 Erlang Distributed Protocol
@@ -383,7 +383,7 @@ Force GC Count
 Allow Anonymous and ACL File
 ----------------------------
 
-Allow Anonymous 
+Allow Anonymous
 ---------------
 
 .. code-block:: properties
@@ -420,7 +420,7 @@ Define ACL rules in etc/acl.conf. The rules by default:
     %% Allow all by default
     {allow, all}.
 
-An ACL rule is an Erlang tuple. The Access control module of *EMQ* broker matches the rule one by one from top to bottom::
+An ACL rule is an Erlang tuple. The Access control module of *EMQ X* broker matches the rule one by one from top to bottom::
 
               ---------              ---------              ---------
     Client -> | Rule1 | --nomatch--> | Rule2 | --nomatch--> | Rule3 | --> Default
@@ -452,7 +452,7 @@ MQTT Session Parameters
     ## Awaiting PUBREL Timeout
     mqtt.session.await_rel_timeout = 20s
 
-    ## Enable Statistics: on | off 
+    ## Enable Statistics: on | off
     mqtt.session.enable_stats = off
 
     ## Expired after 1 day:
@@ -582,7 +582,7 @@ Configure the TCP listeners for MQTT, MQTT/SSL, MQTT/WS, MQTT/WSS Protocols.
 
 The most important parameter for MQTT listener is `max_clients`: max concurrent clients allowed.
 
-The TCP Ports occupied by the *EMQ* broker by default:
+The TCP Ports occupied by the *EMQ X* broker by default:
 
 +-----------+-----------------------------------+
 | 1883      | MQTT Port                         |
@@ -609,7 +609,7 @@ Listener Parameters:
 MQTT/TCP Listener - 1883
 -------------------------
 
-*EMQ* 2.2 supports to configure multiple MQTT listeners.
+*EMQ X* 3.0 supports configuration of multiple MQTT listeners.
 
 .. code-block:: properties
 
@@ -802,44 +802,43 @@ Plugin Configuration Files
 +----------------------------------------+-----------------------------------+
 | File                                   | Description                       |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_auth_username.conf     | Username/Password Auth Plugin     |
+| etc/plugins/emqx_auth_username.conf    | Username/Password Auth Plugin     |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_auth_clientid.conf     | ClientId Auth Plugin              |
+| etc/plugins/emqx_auth_clientid.conf    | ClientId Auth Plugin              |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_auth_http.conf         | HTTP Auth/ACL Plugin Config       |
+| etc/plugins/emqx_auth_http.conf        | HTTP Auth/ACL Plugin Config       |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_auth_mongo.conf        | MongoDB Auth/ACL Plugin Config    |
+| etc/plugins/emqx_auth_mongo.conf       | MongoDB Auth/ACL Plugin Config    |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_auth_mysql.conf        | MySQL Auth/ACL Plugin Config      |
+| etc/plugins/emqx_auth_mysql.conf       | MySQL Auth/ACL Plugin Config      |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_auth_pgsql.conf        | Postgre Auth/ACL Plugin Config    |
+| etc/plugins/emqx_auth_pgsql.conf       | Postgre Auth/ACL Plugin Config    |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_auth_redis.conf        | Redis Auth/ACL Plugin Config      |
+| etc/plugins/emqx_auth_redis.conf       | Redis Auth/ACL Plugin Config      |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_coap.conf              | CoAP Protocol Plugin Config       |
+| etc/plugins/emqx_coap.conf             | CoAP Protocol Plugin Config       |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_mod_presence.conf      | Presence Module Config            |
+| etc/plugins/emqx_mod_presence.conf     | Presence Module Config            |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_mod_retainer.conf      | Retainer Module Config            |
+| etc/plugins/emqx_mod_retainer.conf     | Retainer Module Config            |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_mod_rewrite.config     | Rewrite Module Config             |
+| etc/plugins/emqx_mod_rewrite.config    | Rewrite Module Config             |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_mod_subscription.conf  | Subscription Module Config        |
+| etc/plugins/emqx_mod_subscription.conf | Subscription Module Config        |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_web_hook.conf          | Web Hook Plugin                   |
+| etc/plugins/emqx_web_hook.conf         | Web Hook Plugin                   |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_lua_hook.conf          | Lua Hook Plugin                   |
+| etc/plugins/emqx_lua_hook.conf         | Lua Hook Plugin                   |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_dashboard.conf         | Dashboard Plugin Config           |
+| etc/plugins/emqx_dashboard.conf        | Dashboard Plugin Config           |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_plugin_template.conf   | Template Plugin Config            |
+| etc/plugins/emqx_plugin_template.conf  | Template Plugin Config            |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_recon.conf             | Recon Plugin Config               |
+| etc/plugins/emqx_recon.conf            | Recon Plugin Config               |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_reloader.conf          | Reloader Plugin Config            |
+| etc/plugins/emqx_reloader.conf         | Reloader Plugin Config            |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_sn.conf                | MQTT-SN Protocal Plugin Config    |
+| etc/plugins/emqx_sn.conf               | MQTT-SN Protocal Plugin Config    |
 +----------------------------------------+-----------------------------------+
-| etc/plugins/emq_stomp.conf             | Stomp Protocl Plugin Config       |
+| etc/plugins/emqx_stomp.conf            | Stomp Protocl Plugin Config       |
 +----------------------------------------+-----------------------------------+
-

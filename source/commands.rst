@@ -444,8 +444,8 @@ List all plugins::
     Plugin(emqx_auth_username, version=3.0, description=Authentication with Username/Password, active=false)
     Plugin(emqx_coap, version=3.0, description=CoAP Gateway, active=false)
     Plugin(emqx_dashboard, version=3.0, description=Dashboard, active=true)
-    Plugin(emqx_mod_rewrite, version=3.0, description=EMQ Rewrite Module, active=false)
-    Plugin(emqx_plugin_template, version=3.0, description=EMQ Plugin Template, active=false)
+    Plugin(emqx_mod_rewrite, version=3.0, description=EMQ X Rewrite Module, active=false)
+    Plugin(emqx_plugin_template, version=3.0, description=EMQ X Plugin Template, active=false)
     Plugin(emqx_recon, version=3.0, description=Recon Plugin, active=false)
     Plugin(emqx_reloader, version=3.0, description=Reloader Plugin, active=false)
     Plugin(emqx_sn, version=3.0, description=MQTT-SN Gateway, active=false)
@@ -528,11 +528,11 @@ The bridge will forward all the the 'sensor/#' messages from emqx1 to emqx2::
 
 The the 'emqx1--sensor/#-->emqx2' bridge::
 
-    #emqttd2 node
+    #emqx2 node
 
     mosquitto_sub -t sensor/# -p 2883 -d
 
-    #emqttd1 node
+    #emqx1 node
 
     mosquitto_pub -t sensor/1/temperature -m "37.5" -d
 
