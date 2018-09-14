@@ -29,7 +29,7 @@ MQTT-SN supports sleeping client feature which allows device to shutdown itself 
 EMQX-SN Plugin
 --------------
 
-EMQX-SN is an EMQ X plugin which implements most features of MQTT-SN. It serves as an MQTT-SN gateway on cloud, who is the neighbor of EMQ X Broker.
+EMQX-SN is an *EMQ X* plugin which implements most features of MQTT-SN. It serves as an MQTT-SN gateway on cloud, who is the neighbor of *EMQ X* Broker.
 
 Plugin config
 -------------
@@ -55,7 +55,7 @@ File: etc/plugins/emqx_sn.conf:
 +-----------------------------+--------------------------------------------------------------------------+
 | mqtt.sn.gateway_id          | Gateway id in ADVERTISE message.                                         |
 +-----------------------------+--------------------------------------------------------------------------+
-| mqtt.sn.username            | This parameter is optional. If specified, emqx-sn will connect EMQ X      |
+| mqtt.sn.username            | This parameter is optional. If specified, emqx-sn will connect *EMQ X*   |
 |                             | Broker with this username. It is useful if any auth plug-in is enabled.  |
 +-----------------------------+--------------------------------------------------------------------------+
 | mqtt.sn.password            | This parameter is optional. Pair with username above.                    |
