@@ -69,17 +69,6 @@
   * [Local Subscription](https://developer.emqx.io/docs/emq/v3/en/advanced.html#local-subscription)
   * [Shared Subscription](https://developer.emqx.io/docs/emq/v3/en/advanced.html#shared-subscription)
 
-* **[Design](https://developer.emqx.io/docs/emq/v3/en/design.html)**
-  * [Architecture](https://developer.emqx.io/docs/emq/v3/en/design.html#architecture)
-  * [Connection Layer](https://developer.emqx.io/docs/emq/v3/en/design.html#connection-layer)
-  * [Session Layer](https://developer.emqx.io/docs/emq/v3/en/design.html#session-layer)
-  * [PubSub Layer](https://developer.emqx.io/docs/emq/v3/en/design.html#pubsub-layer)
-  * [Routing Layer](https://developer.emqx.io/docs/emq/v3/en/design.html#routing-layer)
-  * [Authentication and ACL](https://developer.emqx.io/docs/emq/v3/en/design.html#authentication-and-acl)
-  * [Hooks Design](https://developer.emqx.io/docs/emq/v3/en/design.html#hooks-design)
-  * [Plugin Design](https://developer.emqx.io/docs/emq/v3/en/design.html#plugin-design)
-  * [Mnesia/ETS Tables](https://developer.emqx.io/docs/emq/v3/en/design.html#mnesia-ets-tables)
-
 * **[Commands](https://developer.emqx.io/docs/emq/v3/en/commands.html)**
   * [status](https://developer.emqx.io/docs/emq/v3/en/commands.html#status)
   * [broker](https://developer.emqx.io/docs/emq/v3/en/commands.html#broker)
