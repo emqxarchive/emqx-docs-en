@@ -802,7 +802,7 @@ reload CLI
 emqx_plugin_template - Template Plugin
 --------------------------------------
 
-An EMQ X plugin is just a normal Erlang application which has its own configuration file: 'etc/plugins/<PluginName>.conf|config'.
+An *EMQ X* plugin is just a normal Erlang application which has its own configuration file: 'etc/plugins/<PluginName>.conf|config'.
 
 emqx_plugin_template is a plugin template.
 
