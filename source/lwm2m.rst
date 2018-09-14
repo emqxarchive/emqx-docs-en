@@ -21,7 +21,7 @@ LWM2M defines service on a device as Object and Resource, which is represented i
 EMQ-LWM2M plugin
 ----------------
 
-EMQ-LWM2M is an EMQ plugin，which implemnts most LWM2M features. MQTT client is able to access LWM2M device through emq-lwm2m plugin, by sending a command and reading its response.
+EMQ-LWM2M is an EMQ plugin，which implements most LWM2M features. MQTT client is able to access LWM2M device through emq-lwm2m plugin, by sending a command and reading its response.
 
 
 ------------------------------
