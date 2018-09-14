@@ -9,14 +9,14 @@ Get Started
 Overview
 --------
 
-*EMQ* (Erlang MQTT Broker) is an open source MQTT broker written in Erlang/OTP. Erlang/OTP is a concurrent, fault-tolerant, soft-realtime and distributed programming platform. MQTT is an extremely lightweight publish/subscribe messaging protocol powering IoT, M2M and Mobile applications.
+*EMQ X* (Erlang MQTT Broker) is an open source MQTT broker written in Erlang/OTP. Erlang/OTP is a concurrent, fault-tolerant, soft-realtime and distributed programming platform. MQTT is an extremely lightweight publish/subscribe messaging protocol powering IoT, M2M and Mobile applications.
 
-The *EMQ* project is aimed to implement a scalable, distributed, extensible open-source MQTT broker for IoT, M2M and Mobile applications that hope to handle millions of concurrent MQTT clients.
+The *EMQ X* project is aimed to implement a scalable, distributed, extensible open-source MQTT broker for IoT, M2M and Mobile applications that hope to handle millions of concurrent MQTT clients.
 
-Highlights of the *EMQ* broker:
+Highlights of the *EMQ X* broker:
 
-* Full MQTT V3.1/3.1.1 Protocol Specifications Support
-* Easy to Install - Quick Install on Linux, FreeBSD, Mac and Windows
+* Full MQTT V3.1/3.1.1 & V5.0 Protocol Specifications Support
+* Easy to Install - Quick Install on Linux, Mac and Windows
 * Massively scalable - Scaling to 1 million connections on a single server
 * Cluster and Bridge Support
 * Easy to extend - Hooks and plugins to customize or extend the broker
@@ -26,7 +26,7 @@ Highlights of the *EMQ* broker:
 Features
 --------
 
-* Full MQTT V3.1/V3.1.1 protocol specification support
+* Full MQTT V3.1/V3.1.1 & V5.0 protocol specifications support
 * QoS0, QoS1, QoS2 Publish and Subscribe
 * Session Management and Offline Messages
 * Retained Message
@@ -59,43 +59,43 @@ Quick Start
 Download and Install
 --------------------
 
-The *EMQ* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
+The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
 
-Download binary package from: http://emqtt.io/downloads.
+Download binary package from: http://emqx.io/downloads.
 
 Installing on Mac, for example:
 
 .. code-block:: bash
 
-    unzip emqttd-macosx-v2.0.zip && cd emqttd
+    unzip emqx-macosx-v3.0.zip && cd emqx
 
-    # Start emqttd
-    ./bin/emqttd start
+    # Start EMQ X
+    ./bin/emqx start
 
     # Check Status
-    ./bin/emqttd_ctl status
+    ./bin/emqx_ctl status
 
-    # Stop emqttd
-    ./bin/emqttd stop
+    # Stop EMQ X
+    ./bin/emqx stop
 
 Installing from Source
 ----------------------
 
-.. NOTE:: The *EMQ* broker requires Erlang R18+ to build since 1.1 release.
+.. NOTE:: The *EMQ X* broker requires Erlang R19+ to build since 3.0 release.
 
 .. code-block:: bash
 
-    git clone https://github.com/emqtt/emqttd.git
+    git clone https://github.com/emqx/emqx.git
 
-    cd emqttd && make rel
+    cd emqx && make rel
 
-    cd rel/emqttd && ./bin/emqttd console
+    cd rel/emqx && ./bin/emqx console
 
 -------------
 Web Dashboard
 -------------
 
-A Web Dashboard will be loaded when the *EMQ* broker is started successfully.
+A Web Dashboard will be loaded when the *EMQ X* broker is started successfully.
 
 The Dashboard helps check running status of the broker, monitor statistics and metrics of MQTT packets, query clients, sessions, topics and subscriptions.
 
@@ -113,63 +113,61 @@ The Dashboard helps check running status of the broker, monitor statistics and m
 Plugins
 -------
 
-The *EMQ* broker could be extended by Plugins.  A plugin is an Erlang application that adds extra feature to the *EMQ* broker:
+The *EMQ X* broker could be extended by Plugins.  A plugin is an Erlang application that adds extra feature to the *EMQ* broker:
 
 +-------------------------+--------------------------------------------+
-| `emq_retainer`_         | Store Retained Messages                    |
+| `emqx_retainer`_        | Store Retained Messages                    |
 +-------------------------+--------------------------------------------+
-| `emq_dashboard`_        | Web Dashboard                              |
+| `emqx_dashboard`_       | Web Dashboard                              |
 +-------------------------+--------------------------------------------+
-| `emq_modules`_          | Presence, Subscription, Rewrite Modules    |
+| `emqx_modules`_         | Presence, Subscription, Rewrite Modules    |
 +-------------------------+--------------------------------------------+
-| `emq_auth_clientid`_    | Authentication with ClientId               |
+| `emqx_auth_clientid`_   | Authentication with ClientId               |
 +-------------------------+--------------------------------------------+
-| `emq_auth_username`_    | Authentication with Username and Password  |
+| `emqx_auth_username`_   | Authentication with Username and Password  |
 +-------------------------+--------------------------------------------+
-| `emq_plugin_template`_  | Plugin template and demo                   |
+| `emqx_plugin_template`_ | Plugin template and demo                   |
 +-------------------------+--------------------------------------------+
-| `emq_auth_ldap`_        | LDAP Auth Plugin                           |
+| `emqx_auth_ldap`_       | LDAP Auth Plugin                           |
 +-------------------------+--------------------------------------------+
-| `emq_auth_http`_        | Authentication/ACL with HTTP API           |
+| `emqx_auth_http`_       | Authentication/ACL with HTTP API           |
 +-------------------------+--------------------------------------------+
-| `emq_auth_mysql`_       | Authentication with MySQL                  |
+| `emqx_auth_mysql`_      | Authentication with MySQL                  |
 +-------------------------+--------------------------------------------+
-| `emq_auth_pgsql`_       | Authentication with PostgreSQL             |
+| `emqx_auth_pgsql`_      | Authentication with PostgreSQL             |
 +-------------------------+--------------------------------------------+
-| `emq_auth_redis`_       | Authentication with Redis                  |
+| `emqx_auth_redis`_      | Authentication with Redis                  |
 +-------------------------+--------------------------------------------+
-| `emq_auth_mongo`_       | Authentication with MongoDB                |
+| `emqx_auth_mongo`_      | Authentication with MongoDB                |
 +-------------------------+--------------------------------------------+
-| `emq_sn`_               | MQTT-SN Protocol Plugin                    |
+| `emqx_sn`_              | MQTT-SN Protocol Plugin                    |
 +-------------------------+--------------------------------------------+
-| `emq_coap`_             | CoAP Protocol Plugin                       |
+| `emqx_coap`_            | CoAP Protocol Plugin                       |
 +-------------------------+--------------------------------------------+
-| `emq_stomp`_            | STOMP Protocol Plugin                      |
+| `emqx_stomp`_           | STOMP Protocol Plugin                      |
 +-------------------------+--------------------------------------------+
-| `emq_sockjs`_           | SockJS(Stomp) Plugin                       |
+| `emqx_recon`_           | Recon Plugin                               |
 +-------------------------+--------------------------------------------+
-| `emq_recon`_            | Recon Plugin                               |
-+-------------------------+--------------------------------------------+
-| `emq_reloader`_         | Reloader Plugin                            |
+| `emqx_reloader`_        | Reloader Plugin                            |
 +-------------------------+--------------------------------------------+
 
-A plugin could be enabled by 'bin/emqttd_ctl plugins load' command.
+A plugin could be enabled by 'bin/emqx_ctl plugins load' command.
 
-For example, enable 'emq_auth_pgsql' plugin::
+For example, enable 'emqx_auth_pgsql' plugin::
 
-    ./bin/emqttd_ctl plugins load emq_auth_pgsql
+    ./bin/emqx_ctl plugins load emqx_auth_pgsql
 
 -----------------------
 One Million Connections
 -----------------------
 
-Latest release of the *EMQ* broker is scaling to 1.3 million MQTT connections on a 12 Core, 32G CentOS server.
+Latest release of the *EMQ X* broker is scalable to 1.3 million MQTT connections on a 12 Core, 32G CentOS server.
 
 .. NOTE::
 
-    The emqttd broker only allows 512 concurrent connections by default, for 'ulimit -n' limit is 1024 on most platform.
+    The EMQ X broker only allows 512 concurrent connections by default, for that 'ulimit -n' limitation is set to 1024 on most platform.
 
-We need tune the OS Kernel, TCP Stack, Erlang VM and emqttd broker for one million connections benchmark.
+We need tune the OS Kernel, TCP Stack, Erlang VM and EMQ X broker for one million connections benchmark.
 
 Linux Kernel Parameters
 -----------------------
@@ -195,7 +193,7 @@ TCP Stack Parameters
 Erlang VM
 ---------
 
-emqttd/etc/emq.conf:
+emqx/etc/emqx.conf:
 
 .. code-block:: properties
 
@@ -208,7 +206,7 @@ emqttd/etc/emq.conf:
 Max Allowed Connections
 -----------------------
 
-emqttd/etc/emq.conf 'listeners':
+emqx/etc/emqx.conf 'listeners':
 
 .. code-block:: properties
 
@@ -252,26 +250,24 @@ MQTT.org: https://github.com/mqtt/mqtt.github.io/wiki/libraries
 .. _CocoaMQTT:       https://github.com/emqtt/CocoaMQTT
 .. _QMQTT:           https://github.com/emqtt/qmqtt
 
-.. _emq_plugin_template:  https://github.com/emqtt/emq_plugin_template
-.. _emq_dashboard:        https://github.com/emqtt/emq_dashboard
-.. _emq_retainer:         https://github.com/emqtt/emq_retainer
-.. _emq_modules:          https://github.com/emqtt/emq_modules
-.. _emq_mod_rewrite:      https://github.com/emqtt/emq_mod_rewrite
-.. _emq_auth_clientid:    https://github.com/emqtt/emq_auth_clientid
-.. _emq_auth_username:    https://github.com/emqtt/emq_auth_username
-.. _emq_auth_ldap:        https://github.com/emqtt/emq_auth_ldap
-.. _emq_auth_http:        https://github.com/emqtt/emq_auth_http
-.. _emq_auth_mysql:       https://github.com/emqtt/emq_auth_mysql
-.. _emq_auth_pgsql:       https://github.com/emqtt/emq_auth_pgsql
-.. _emq_auth_redis:       https://github.com/emqtt/emq_auth_redis
-.. _emq_auth_mongo:       https://github.com/emqtt/emq_auth_mongo
-.. _emq_reloader:         https://github.com/emqtt/emq_reloader
-.. _emq_stomp:            https://github.com/emqtt/emq_stomp
-.. _emq_sockjs:           https://github.com/emqtt/emq_sockjs
-.. _emq_recon:            https://github.com/emqtt/emq_recon
-.. _emq_sn:               https://github.com/emqtt/emq_sn
-.. _emq_coap:             https://github.com/emqtt/emq_coap
-.. _emq_mod_retainer:     https://github.com/emqtt/emq_mod_retainer
-.. _emq_mod_presence:     https://github.com/emqtt/emq_mod_presence
-.. _emq_mod_subscription: https://github.com/emqtt/emq_mod_subscription
-
+.. _emqx_plugin_template:  https://github.com/emqx/emqx-plugin-template
+.. _emqx_dashboard:        https://github.com/emqx/emqx-dashboard
+.. _emqx_retainer:         https://github.com/emqx/emqx-retainer
+.. _emqx_modules:          https://github.com/emqx/emqx-modules
+.. _emqx_mod_rewrite:      https://github.com/emqx/emqx-mod-rewrite
+.. _emqx_auth_clientid:    https://github.com/emqx/emqx-auth-clientid
+.. _emqx_auth_username:    https://github.com/emqx/emqx-auth-username
+.. _emqx_auth_ldap:        https://github.com/emqx/emqx-auth-ldap
+.. _emqx_auth_http:        https://github.com/emqx/emqx-auth-http
+.. _emqx_auth_mysql:       https://github.com/emqx/emqx-auth-mysql
+.. _emqx_auth_pgsql:       https://github.com/emqx/emqx-auth-pgsql
+.. _emqx_auth_redis:       https://github.com/emqx/emqx-auth-redis
+.. _emqx_auth_mongo:       https://github.com/emqx/emqx-auth-mongo
+.. _emqx_reloader:         https://github.com/emqx/emqx-reloader
+.. _emqx_stomp:            https://github.com/emqx/emqx-stomp
+.. _emqx_recon:            https://github.com/emqx/emqx-recon
+.. _emqx_sn:               https://github.com/emqx/emqx-sn
+.. _emqx_coap:             https://github.com/emqx/emqx-coap
+.. _emqx_mod_retainer:     https://github.com/emqx/emqx-mod-retainer
+.. _emqx_mod_presence:     https://github.com/emqx/emqx-mod-presence
+.. _emqx_mod_subscription: https://github.com/emqx/emqx-mod-subscription
