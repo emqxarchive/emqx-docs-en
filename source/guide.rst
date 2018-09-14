@@ -647,7 +647,7 @@ Take mosquitto for example::
     mosquitto_pub -t topic -q 1 -m "Hello, MQTT!"
 
 
-MQTT Listener of the EMQ X broker is configured in etc/emqx.conf:
+MQTT Listener of the *EMQ X* broker is configured in etc/emqx.conf:
 
 .. code-block:: properties
 
