@@ -8,14 +8,14 @@ FAQ
 What is EMQ X suitable for?
 ----------------------------
 
-EMQ X is designed for help build large-scale IoT platforms and applications, as it supports most of the popular IoT protocols: MQTT, MQTT-SN, CoAP, LwM2M, and STOMP.
+*EMQ X* is designed for help build large-scale IoT platforms and applications, as it supports most of the popular IoT protocols: MQTT, MQTT-SN, CoAP, LwM2M, and STOMP.
 
 And and another use case is Instant Messaging via MQTT. Use *EMQ X* for the notifications and also for the signaling server of WebRTC.
 
 Do I have to learn Erlang programming language to use EMQ X?
 ------------------------------------------------------------
 
-Not necessary. The config file is self-explained and thus easy to understand. There're several plugins developed by the EMQ X team, which should sufficient for most use cases.
+Not necessary. The config file is self-explained and thus easy to understand. There're several plugins developed by the *EMQ X* team, which should sufficient for most use cases.
 You could always write your own plugins if necessary, then a basic knowledge of Erlang is 'good to have'.
 
 I found the port 4369 and another random port(63703) are open, is this secure?
@@ -29,7 +29,7 @@ I found the port 4369 and another random port(63703) are open, is this secure?
     tcp 0 0 0.0.0.0:63703 0.0.0.0:* LISTEN 16745/beam.smp
     tcp 0 0 0.0.0.0:1883 0.0.0.0:* LISTEN 16745/beam.smp
 
-These TCP Ports are opened by EMQ X nodes.
+These TCP Ports are opened by *EMQ X* nodes.
 
 The TCP port 4369 is for erlang port mapping, and the *random ports* are communication ports for distributed erlang. All of these ports must be allowed to other nodes in the same cluster, by configuring your firewall.
 
@@ -65,7 +65,7 @@ Start with the simplest one using etc/acl.conf::
 
 ACL via databases such as mysql and mongodb should be similar, you'd better to test your ideas for better understanding.
 
-Is emqx is ready for production?
+Is EMQ X is ready for production?
 ---------------------------------
 
 Yes. The core features are solid and stable. A full-time team and many contributors from community are developing this project. You could submit issues if any feature requests or bug reports.
@@ -94,7 +94,7 @@ What would happen when a session has too many offline messages on one topic?
 
 If the offline messages in the session are exceed the 'max_mqueue_len', the older offline messages are dropped from the queue.
 
-How do I configure emqx only keep the latest retained message of a topic?
+How do I configure EMQ X only keep the latest retained message of a topic?
 --------------------------------------------------------------------------
 
 The broker only keep the latest retained message of a topic, as specified by MQTT specifications.
