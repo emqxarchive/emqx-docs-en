@@ -167,9 +167,9 @@ Latest release of the *EMQ X* broker is scalable to 1.3 million MQTT connections
 
 .. NOTE::
 
-    The EMQ X broker only allows 512 concurrent connections by default, for that 'ulimit -n' limitation is set to 1024 on most platform.
+    The *EMQ X* broker only allows 512 concurrent connections by default, for that 'ulimit -n' limitation is set to 1024 on most platform.
 
-We need tune the OS Kernel, TCP Stack, Erlang VM and EMQ X broker for one million connections benchmark.
+We need to tune the OS Kernel, TCP Stack, Erlang VM and *EMQ X* broker for one million connections benchmark.
 
 Linux Kernel Parameters
 -----------------------
