@@ -47,7 +47,7 @@ Enhancements:
 
 Bug Fixes:
 
-- Fix an issue about 'Will Delay Interval' property
+- Fix issues about 'Will Delay Interval' property
 
   GitHub issues:
   `emqx/emqx#1800 <https://github.com/emqx/emqx/pull/1800>`_,
@@ -110,16 +110,16 @@ Version 3.0-beta.1
 Introduction
 ------------
 
-3.0-beta.1 version is now officially released. It is backward compatible with MQTT 3 (3.1 & 3.1.1), and also fully support for MQTT 5.0 specification.
+3.0-beta.1 version is now officially released. It is backward compatible with MQTT 3 (3.1 & 3.1.1), and it also fully supports MQTT 5.0 specification.
 
-It also comes with some important features, scalability and extensibility are improved significantly as well after refactoring some core components.
+It also comes with some important features. Scalability and extensibility are improved significantly as well after refactoring some core components.
 
 MQTT 5.0 Protocol specification supoort
 ----------------------------------------
 
 - New packet type
 
-  In MQTT 5.0 there is new packet type AUTH for authentication exchange.
+  In MQTT 5.0 there is a new packet type AUTH for authentication exchange.
 
 - Session expiry
 
@@ -143,7 +143,7 @@ MQTT 5.0 Protocol specification supoort
 
 - Payload format and content type
 
-  Can specify the payload format and a MIME style content type when publishing.
+  User can specify the payload format and a MIME style content type when publishing.
 
 - Request/Response
 
@@ -155,11 +155,11 @@ MQTT 5.0 Protocol specification supoort
 
 - Subscription ID
 
-  With a subscription ID the client is able to know the message comes from which subscription.
+  With a subscription ID the client is able to know from which subscription the message comes.
 
 - Topic alias
 
-  Topic can can have an integer alias, this reduces the communication overhead for the long topic names.
+  Topic can have an integer alias, which reduces the communication overhead for the long topic names.
 
 - User properties
 
@@ -167,26 +167,31 @@ MQTT 5.0 Protocol specification supoort
 
 - Maximum packet size
 
-  Broker specified max packet size was already implemented in EMQ X 2.x. When a oversized message is received, it will be dropped, and broker disconnect without informed about the reason. Now with MQTT 5.0 specification, client and broker can specify maximum messsage size limitation through CONNECT/CONNECT ACK packets.
+  Broker specified max packet size was already implemented in EMQ X 2.x. When an oversized message is received, it will be dropped, and broker will disconnect without informing about the reason. Now with MQTT 5.0 specification, client and broker can specify maximum messsage size limitation through CONNECT/CONNECT ACK packets.
 
 - Optional server feature availability (TODO)
-  Define the allowed features of the broker and tell them to the client.
+
+  Allowed features of the broker can be defined and the client can be informed of those features.
 
 - Subscription options
+
   MQTT 5.0 provides subscription options primarily to allow for message bridge applications. For example, the option for handling nolocal and retained messages.
 
 - Will delay
 
-  MQTT 5.0 allows to specify a delay between end of connection and sending the will message， so it can avoid to send out the will message during temporary network problems.
+  MQTT 5.0 allows to specify a delay between end of connection and sending of the will message，so it can avoid to send out the will message during temporary network problems.
 
 - Server keep alive
+
   MQTT 5.0 allows server to specify a keepalive value it wishes the client to use.
 
 - Assigned ClientID
-  In MQTT 5.0, if ClientID is assigned by the server, then it returns the assigned ClientID to client.
+
+  In MQTT 5.0, if ClientID is assigned by the server, then the server should return the assigned ClientID to client.
 
 - Server reference
-  In MQTT 5.0, allow broker to specify an alternative broker to use for client, it is uesed for server redirection.
+
+  MQTT 5.0 allows broker to specify an alternative broker for client to use, which is uesed for server redirection.
 
 Evolved Clustering Architecture
 -------------------------------
@@ -206,7 +211,8 @@ The clustering architecture is evolved. Now a single cluster is able to serve te
     ----------             ----------
 
 - Ekka is introduced to auto-cluster EMQ X, and to auto-heal the cluster after net-split, following clustering methods are now supported:
-  - manual: nodes join a cluster manually;
+
+  - manual: nodes joining a cluster manually;
 
   - static: auto-clustering from a pre-defined node list;
 
@@ -223,7 +229,7 @@ The clustering architecture is evolved. Now a single cluster is able to serve te
 Rate Limiting
 -------------
 
-The rate limiting is introduced to make the broker more resilient. You can configure MQTT TCP or SSL listener configuration.
+The rate limiting is introduced to make the broker more resilient. User can configure MQTT TCP or SSL listener configuration.
 
 - Concurrent connection numbers: max_clients
 
@@ -232,7 +238,6 @@ The rate limiting is introduced to make the broker more resilient. You can confi
 - Message delivery bytes limitation: rate_limit
 
 - Message delivery number rate limitation: max_publish_rate
-
 
 Other Feature improvements and Bug Fixes
 ----------------------------------------
@@ -245,15 +250,15 @@ Other Feature improvements and Bug Fixes
 
 - Added local and remote MQTT bridge;
 
-- Introduced concept of "zone", different zones can have different configuration;
+- Introduced concept of "zone", that different zones can have different configurations;
 
-- Refactored session module, and reduced data copy among nodes, thus higher inter-nodes communication efficiency;
+- Refactored session module, and reduced data copy among nodes, which led to higher inter-nodes communication efficiency;
 
-- Improved of OpenLDAP Access Control;
+- Improved OpenLDAP Access Control;
 
 - Added delayed publish;
 
-- Support new statistic and metrics to Prometheus;
+- Supported new statistic and metrics to Prometheus;
 
 - Improved the hooks.
 
