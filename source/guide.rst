@@ -9,9 +9,9 @@ User Guide
 Authentication
 --------------
 
-The *EMQ* broker supports to authenticate MQTT clients with ClientID, Username/Password, IpAddress and even HTTP Cookies.
+The *EMQ X* broker supports to authenticate MQTT clients via ClientID, Username/Password, IpAddress and even HTTP Cookies.
 
-The authentication is provided by a list of plugins such as MySQL, PostgreSQL and Redis...
+The authentication is provided by a list of plugins such as MySQL, PostgresSQL, Redis, MongoDB, HTTP, LDAP.
 
 If we enable several authentication plugins at the same time, the Auth request will be forwarded to next auth module
 
@@ -25,106 +25,133 @@ The authentication flow::
               allow | deny                allow | deny              allow | deny
 
 
-The order that the authentication will be carried out is determined by the order that the plugins are loaded (their order of appearance in ``./data/loaded_plugins``) 
+The order that the authentication will be carried out is determined by the order that the plugins are loaded (their order of appearance in ``./data/loaded_plugins``)
 
 The authentication plugins implemented by default:
 
 +---------------------------+---------------------------+
 | Plugin                    | Description               |
 +===========================+===========================+
-| `emq_auth_clientid`_      | ClientId Auth Plugin      |
+| `emqx_auth_clientid`_     | ClientId Auth Plugin      |
 +---------------------------+---------------------------+
-| `emq_auth_username`_      | Username Auth Plugin      |
+| `emqx_auth_username`_     | Username Auth Plugin      |
 +---------------------------+---------------------------+
-| `emq_auth_ldap`_          | LDAP Auth Plugin          |
+| `emqx_auth_ldap`_         | LDAP Auth Plugin          |
 +---------------------------+---------------------------+
-| `emq_auth_http`_          | HTTP Auth/ACL Plugin      |
+| `emqx_auth_http`_         | HTTP Auth/ACL Plugin      |
 +---------------------------+---------------------------+
-| `emq_auth_mysql`_         | MySQL Auth/ACL Plugin     |
+| `emqx_auth_mysql`_        | MySQL Auth/ACL Plugin     |
 +---------------------------+---------------------------+
-| `emq_auth_pgsql`_         | Postgre Auth/ACL Plugin   |
+| `emqx_auth_pgsql`_        | PgSQL Auth/ACL Plugin     |
 +---------------------------+---------------------------+
-| `emq_auth_redis`_         | Redis Auth/ACL Plugin     |
+| `emqx_auth_redis`_        | Redis Auth/ACL Plugin     |
 +---------------------------+---------------------------+
-| `emq_auth_mongo`_         | MongoDB Auth/ACL Plugin   |
+| `emqx_auth_mongo`_        | MongoDB Auth/ACL Plugin   |
++---------------------------+---------------------------+
+| `emqx_auth_jwt`_          | JWT Auth/ACL Plugin       |
 +---------------------------+---------------------------+
 
 ---------------
 Allow Anonymous
 ---------------
 
-Configure etc/emq.conf to allow anonymous authentication:
+Configure etc/emqx.conf to allow anonymous authentication:
 
 .. code-block:: properties
 
     ## Allow Anonymous authentication
-    mqtt.allow_anonymous = true
+    allow_anonymous = true
 
 Username/Password
 -----------------
 
 Authenticate MQTT client with Username/Password:
 
-Configure default users in etc/plugins/emq_auth_username.conf:
+Configure default users in etc/plugins/emqx_auth_username.conf:
 
 .. code-block:: properties
 
     auth.user.$N.username = admin
     auth.user.$N.password = public
 
-Enable `emq_auth_username`_ plugin:
+Enable `emqx_auth_username`_ plugin:
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_username
+    ./bin/emqx_ctl plugins load emqx_auth_username
 
-Add user by './bin/emqttd_ctl users' command::
+Add user by './bin/emqx_ctl users' command::
 
-   $ ./bin/emqttd_ctl users add <Username> <Password>
+   $ ./bin/emqx_ctl users add <Username> <Password>
 
 ClientId
 ---------
 
 Authentication with MQTT ClientId.
 
-Configure Client Ids in etc/plugins/emq_auth_clientid.conf:
+Configure Client Ids in etc/plugins/emqx_auth_clientid.conf:
 
 .. code-block:: properties
 
     auth.client.$N.clientid = clientid
     auth.client.$N.password = passwd
 
-Enable `emq_auth_clientid`_ plugin:
+Enable `emqx_auth_clientid`_ plugin:
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_clientid
+    ./bin/emqx_ctl plugins load emqx_auth_clientid
 
 LDAP
 ----
 
-etc/plugins/emq_auth_ldap.conf:
+etc/plugins/emqx_auth_ldap.conf:
 
 .. code-block:: properties
 
+    ## LDAP server list, seperated by ','.
+    ## Value: String
     auth.ldap.servers = 127.0.0.1
 
+    ## LDAP server port.
+    ## Value: Port
     auth.ldap.port = 389
 
+    ## LDAP Bind DN.
+    ## Value: DN
+    auth.ldap.bind_dn = cn=root,dc=emqtt,dc=com
+
+    ## LDAP Bind Password.
+    ## Value: String
+    auth.ldap.bind_password = public
+
+    ## LDAP query timeout.
+    ## Value: Number
     auth.ldap.timeout = 30
 
-    auth.ldap.user_dn = uid=%u,ou=People,dc=example,dc=com
+    ## Authentication DN.
+    ##  -%u: username
+    ##  -%c: clientid
+    ##
+    ## Value: DN
+    auth.ldap.auth_dn = cn=%u,ou=auth,dc=emqtt,dc=com
 
+    ## Password hash.
+    ## Value: plain | md5 | sha | sha256
+    auth.ldap.password_hash = sha256
+
+    ## Whether to enable SSL.
+    ## Value: true | false
     auth.ldap.ssl = false
 
 Enable LDAP plugin::
 
-    ./bin/emqttd_ctl plugins load emq_auth_ldap
+    ./bin/emqx_ctl plugins load emqx_auth_ldap
 
 HTTP
 ----
 
-etc/plugins/emq_auth_http.conf:
+etc/plugins/emqx_auth_http.conf:
 
 .. code-block:: properties
 
@@ -140,7 +167,33 @@ etc/plugins/emq_auth_http.conf:
 
 Enable HTTP Plugin::
 
-    ./bin/emqttd_ctl plugins load emq_auth_http
+    ./bin/emqx_ctl plugins load emqx_auth_http
+
+
+JWT
+----
+
+etc/plugins/emqx_auth_jwt.conf:
+
+.. code-block:: properties
+
+    ##--------------------------------------------------------------------
+    ## JWT Auth Plugin
+    ##--------------------------------------------------------------------
+
+    ## HMAC Hash Secret.
+    ##
+    ## Value: String
+    auth.jwt.secret = emqxsecret
+
+    ## RSA or ECDSA public key file.
+    ##
+    ## Value: File
+    ## auth.jwt.pubkey = etc/certs/jwt_public_key.pem
+
+Enable JWT plugin::
+
+    ./bin/emqx_ctl plugins load emqx_auth_jwt
 
 MySQL
 -----
@@ -159,7 +212,7 @@ Authenticate with MySQL database. Suppose that we create a mqtt_user table:
       UNIQUE KEY `mqtt_username` (`username`)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-Configure the 'auth_query' and 'password_hash' in etc/plugins/emq_auth_mysql.conf:
+Configure the 'auth_query' and 'password_hash' in etc/plugins/emqx_auth_mysql.conf:
 
 .. code-block:: properties
 
@@ -170,10 +223,10 @@ Configure the 'auth_query' and 'password_hash' in etc/plugins/emq_auth_mysql.con
     auth.mysql.pool = 8
 
     ## Mysql Username
-    ## auth.mysql.username = 
+    ## auth.mysql.username =
 
     ## Mysql Password
-    ## auth.mysql.password = 
+    ## auth.mysql.password =
 
     ## Mysql Database
     auth.mysql.database = mqtt
@@ -193,34 +246,35 @@ Enable MySQL plugin:
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_mysql
+    ./bin/emqx_ctl plugins load emqx_auth_mysql
 
-PostgreSQL
-----------
+PostgresSQL
+-----------
 
-Authenticate with PostgreSQL database. Create a mqtt_user table:
+Authenticate with PostgresSQL database. Create a mqtt_user table:
 
 .. code-block:: sql
 
     CREATE TABLE mqtt_user (
       id SERIAL primary key,
+      is_superuser boolean,
       username character varying(100),
       password character varying(100),
       salt character varying(40)
     );
 
-Configure the 'auth_query' and 'password_hash' in etc/plugins/emq_auth_pgsql.conf:
+Configure the 'auth_query' and 'password_hash' in etc/plugins/emqx_auth_pgsql.conf:
 
 .. code-block:: properties
 
-    ## Postgre Server
+    ## Postgres Server
     auth.pgsql.server = 127.0.0.1:5432
 
     auth.pgsql.pool = 8
 
     auth.pgsql.username = root
 
-    #auth.pgsql.password = 
+    #auth.pgsql.password =
 
     auth.pgsql.database = mqtt
 
@@ -249,45 +303,72 @@ Enable the plugin:
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_pgsql
+    ./bin/emqx_ctl plugins load emqx_auth_pgsql
 
 Redis
 -----
 
 Authenticate with Redis. MQTT users could be stored in redis HASH, the key is "mqtt_user:<Username>".
 
-Configure 'auth_cmd' and 'password_hash' in etc/plugins/emq_auth_redis.conf:
+Configure 'auth_cmd' and 'password_hash' in etc/plugins/emqx_auth_redis.conf:
 
 .. code-block:: properties
 
-    ## Redis Server
-    auth.redis.server = 127.0.0.1:6379
+    ## Redis server address.
+    ##
+    ## Value: Port | IP:Port
+    ##
+    ## Redis Server: 6379, 127.0.0.1:6379, localhost:6379, Redis Sentinel: 127.0.0.1:26379
 
-    ## Redis Pool Size
+    ## Redis sentinel cluster name.
+    ##
+    ## Value: String
+    ## auth.redis.sentinel = mymaster
+
+    ## Redis pool size.
+    ##
+    ## Value: Number
     auth.redis.pool = 8
 
-    ## Redis Database
+    ## Redis database no.
+    ##
+    ## Value: Number
     auth.redis.database = 0
 
-    ## Redis Password
+    ## Redis password.
+    ##
+    ## Value: String
     ## auth.redis.password =
 
     ## Variables: %u = username, %c = clientid
 
     ## Authentication Query Command
-    auth.redis.auth_cmd = HGET mqtt_user:%u password
+    auth.redis.auth_cmd = HMGET mqtt_user:%u password
 
-    ## Password hash: plain, md5, sha, sha256, pbkdf2
+    ## Password hash: plain, md5, sha, sha256, pbkdf2, bcrypt
     auth.redis.password_hash = sha256
+
+    ## sha256 with salt prefix
+    ## auth.redis.password_hash = salt,sha256
+
+    ## sha256 with salt suffix
+    ## auth.redis.password_hash = sha256,salt
+
+    ## bcrypt with salt prefix
+    ## auth.redis.password_hash = salt,bcrypt
+
+    ## pbkdf2 with macfun iterations dklen
+    ## macfun: md4, md5, ripemd160, sha, sha224, sha256, sha384, sha512
+    ## auth.redis.password_hash = pbkdf2,sha256,1000,20
 
     ## Superuser Query Command
     auth.redis.super_cmd = HGET mqtt_user:%u is_superuser
 
-Enable the plugin:
+Enable Redis plugin:
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_redis
+    ./bin/emqx_ctl plugins load emqx_auth_redis
 
 MongoDB
 -------
@@ -301,21 +382,45 @@ Create a `mqtt_user` collection::
         created: "datetime"
     }
 
-Configure `super_query`, `auth_query` in etc/plugins/emq_auth_mongo.conf:
+Configure `super_query`, `auth_query` in etc/plugins/emqx_auth_mongo.conf:
 
 .. code-block:: properties
 
-    ## Mongo Server
+    ## MongoDB Topology Type.
+    ##
+    ## Value: single | unknown | sharded | rs
+    auth.mongo.type = single
+
+    ## The set name if type is rs.
+    ##
+    ## Value: String
+    ## auth.mongo.rs_set_name =
+
+    ## MongoDB server list.
+    ##
+    ## Value: String
+    ##
+    ## Examples: 127.0.0.1:27017,127.0.0.2:27017...
     auth.mongo.server = 127.0.0.1:27017
 
     ## Mongo Pool Size
     auth.mongo.pool = 8
 
-    ## Mongo User
-    ## auth.mongo.user = 
+    ## MongoDB login user.
+    ##
+    ## Value: String
+    ## auth.mongo.login =
 
-    ## Mongo Password
-    ## auth.mongo.password = 
+    ## MongoDB password.
+    ##
+    ## Value: String
+    ## auth.mongo.password =
+
+    ## MongoDB AuthSource
+    ##
+    ## Value: String
+    ## Default: mqtt
+    ## auth.mongo.auth_source = admin
 
     ## Mongo Database
     auth.mongo.database = mqtt
@@ -330,17 +435,20 @@ Configure `super_query`, `auth_query` in etc/plugins/emq_auth_mongo.conf:
     auth.mongo.auth_query.selector = username=%u
 
     ## super_query
+    ## Enable superuser query.
+    auth.mongo.super_query = on
+
     auth.mongo.super_query.collection = mqtt_user
 
     auth.mongo.super_query.super_field = is_superuser
 
     auth.mongo.super_query.selector = username=%u
 
-Enable the plugin:
+Enable MongoDB plugin:
 
 .. code-block:: bash
 
-    ./bin/emqttd_ctl plugins load emq_auth_mongo
+    ./bin/emqx_ctl plugins load emqx_auth_mongo
 
 .. _acl:
 
@@ -348,13 +456,13 @@ Enable the plugin:
 ACL
 ---
 
-The ACL of *EMQ* broker is responsible for authorizing MQTT clients to publish/subscribe topics.
+The Access Control Lists (ACL) of *EMQ X* broker is responsible for restricting the access to MQTT topics.
 
 The ACL rules define::
 
-    Allow|Deny Who Publish|Subscribe Topics
+    (Allow|Deny) Who (Publish|Subscribe) Topics
 
-Access Control Module of *EMQ* broker will match the rules one by one::
+Access Control Module of *EMQ X* broker will match the rules one by one::
 
               ---------              ---------              ---------
     Client -> | Rule1 | --nomatch--> | Rule2 | --nomatch--> | Rule3 | --> Default
@@ -367,40 +475,40 @@ Access Control Module of *EMQ* broker will match the rules one by one::
 Internal
 --------
 
-The default ACL of *EMQ* broker is implemented by an 'internal' module.
+The internal(default) ACL of *EMQ X* broker is implemented by an 'internal' module.
 
-Enable the 'internal' ACL module in etc/emq.conf:
+Enable the 'internal' ACL module in etc/emqx.conf:
 
 .. code-block:: properties
 
     ## ACL nomatch
-    mqtt.acl_nomatch = allow
+    acl_nomatch = allow
 
     ## Default ACL File
-    mqtt.acl_file = etc/acl.conf
+    acl_file = etc/acl.conf
 
 The ACL rules of 'internal' module are defined in 'etc/acl.conf' file:
 
 .. code-block:: erlang
 
-    %% Allow 'dashboard' to subscribe '$SYS/#'
+    %% Allow user with username 'dashboard' to subscribe '$SYS/#'
     {allow, {user, "dashboard"}, subscribe, ["$SYS/#"]}.
 
-    %% Allow clients from localhost to subscribe any topics
+    %% Allow clients from localhost to subscribe and publish to any topics
     {allow, {ipaddr, "127.0.0.1"}, pubsub, ["$SYS/#", "#"]}.
 
-    %% Deny clients to subscribe '$SYS#' and '#'
-    {deny, all, subscribe, ["$SYS/#", {eq, "#"}]}.
+    %% Deny clients to subscribe topics which matches '$SYS/#' and the topic exactly equals to 'abc/#'. But this doesn't deny topics such as 'abc' or 'abc/d'
+    {deny, all, subscribe, ["$SYS/#", {eq, "abc/#"}]}.
 
     %% Allow all by default
     {allow, all}.
 
-HTTP API
---------
+HTTP
+-----
 
-ACL by HTTP API: https://github.com/emqtt/emq_auth_http
+ACL by HTTP API: https://github.com/emqx/emqx_auth_http
 
-Configure etc/plugins/emq_auth_http.conf and enable the plugin:
+Configure etc/plugins/emqx_auth_http.conf and enable the plugin:
 
 .. code-block:: properties
 
@@ -436,17 +544,17 @@ ACL with MySQL database. The `mqtt_acl` table and default data:
         (6,1,'127.0.0.1',NULL,NULL,2,'#'),
         (7,1,NULL,'dashboard',NULL,1,'$SYS/#');
 
-Configure 'acl-query' and 'acl_nomatch' in etc/plugins/emq_auth_mysql.conf:
+Configure 'acl-query' and 'acl_nomatch' in etc/plugins/emqx_auth_mysql.conf:
 
 .. code-block:: properties
 
     ## ACL Query Command
     auth.mysql.acl_query = select allow, ipaddr, username, clientid, access, topic from mqtt_acl where ipaddr = '%a' or username = '%u' or username = '$all' or clientid = '%c'
 
-PostgreSQL
-----------
+PostgresSQL
+------------
 
-ACL with PostgreSQL database. The mqtt_acl table and default data:
+ACL with PostgresSQL database. The mqtt_acl table and default data:
 
 .. code-block:: sql
 
@@ -469,7 +577,7 @@ ACL with PostgreSQL database. The mqtt_acl table and default data:
         (6,1,'127.0.0.1',NULL,NULL,2,'#'),
         (7,1,NULL,'dashboard',NULL,1,'$SYS/#');
 
-Configure 'acl_query' and 'acl_nomatch' in etc/plugins/emq_auth_pgsql.conf:
+Configure 'acl_query' and 'acl_nomatch' in etc/plugins/emqx_auth_pgsql.conf:
 
 .. code-block:: properties
 
@@ -485,7 +593,7 @@ ACL with Redis. The ACL rules are stored in a Redis HashSet::
     HSET mqtt_acl:<username> topic2 2
     HSET mqtt_acl:<username> topic3 3
 
-Configure `acl_cmd` and `acl_nomatch` in etc/plugins/emq_auth_redis.conf:
+Configure `acl_cmd` and `acl_nomatch` in etc/plugins/emqx_auth_redis.conf:
 
 .. code-block:: properties
 
@@ -500,11 +608,11 @@ Store ACL Rules in a `mqtt_acl` collection:
 .. code-block:: json
 
     {
-        username: "username",
-        clientid: "clientid",
-        publish: ["topic1", "topic2", ...],
-        subscribe: ["subtop1", "subtop2", ...],
-        pubsub: ["topic/#", "topic1", ...]
+        "username": "username",
+        "clientid": "clientid",
+        "publish": ["topic1", "topic2"],
+        "subscribe": ["subtop1", "subtop2"],
+        "pubsub": ["topic/#", "topic1"]
     }
 
 For example, insert rules into `mqtt_acl` collection::
@@ -512,7 +620,7 @@ For example, insert rules into `mqtt_acl` collection::
     db.mqtt_acl.insert({username: "test", publish: ["t/1", "t/2"], subscribe: ["user/%u", "client/%c"]})
     db.mqtt_acl.insert({username: "admin", pubsub: ["#"]})
 
-Configure `acl_query` and `acl_nomatch` in etc/plugins/emq_auth_mongo.conf:
+Configure `acl_query` and `acl_nomatch` in etc/plugins/emqx_auth_mongo.conf:
 
 .. code-block:: properties
 
@@ -525,33 +633,36 @@ Configure `acl_query` and `acl_nomatch` in etc/plugins/emq_auth_mongo.conf:
 MQTT Publish/Subscribe
 ----------------------
 
-MQTT is a an extremely lightweight publish/subscribe messaging protocol desgined for IoT, M2M and Mobile applications.
+MQTT is a an extremely lightweight publish/subscribe messaging protocol designed for IoT, M2M and Mobile applications. Specifications:
+`MQTT V3.1.1 <http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html>`_
+`MQTT V5.0 <http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html>`_
 
 .. image:: _static/images/pubsub_concept.png
 
-Install and start the *EMQ* broker, and then any MQTT client could connect to the broker, subscribe topics and publish messages.
+Install and start the *EMQ X* broker, and then any MQTT client could connect to the broker, subscribe topics and publish messages. There're lots of `MQTT Client Libraries <https://github.com/mqtt/mqtt.github.io/wiki/libraries>`_ available from the community.
 
-MQTT Client Libraries: https://github.com/mqtt/mqtt.github.io/wiki/libraries
-
-For example, we use mosquitto_sub/pub commands::
+Take mosquitto for example::
 
     mosquitto_sub -t topic -q 2
     mosquitto_pub -t topic -q 1 -m "Hello, MQTT!"
 
-MQTT V3.1.1 Protocol Specification: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
 
-MQTT Listener of the EMQ broker is configured in etc/emq.conf:
+MQTT Listener of the EMQ X broker is configured in etc/emqx.conf:
 
 .. code-block:: properties
 
     ## TCP Listener: 1883, 127.0.0.1:1883, ::1:1883
-    listener.tcp.external = 1883
+    listener.tcp.external = 0.0.0.0:1883
 
     ## Size of acceptor pool
     listener.tcp.external.acceptors = 8
 
     ## Maximum number of concurrent clients
-    listener.tcp.external.max_clients = 1024
+    listener.tcp.external.max_connections = 1024000
+    ## Maximum external connections per second.
+    ##
+    ## Value: Number
+    listener.tcp.external.max_conn_rate = 1000
 
 MQTT(SSL) Listener, Default Port is 8883:
 
@@ -561,62 +672,67 @@ MQTT(SSL) Listener, Default Port is 8883:
     listener.ssl.external = 8883
 
     ## Size of acceptor pool
-    listener.ssl.external.acceptors = 4
+    listener.ssl.external.acceptors = 16
 
     ## Maximum number of concurrent clients
-    listener.ssl.external.max_clients = 512
+    listener.ssl.external.max_connections = 102400
+
+    ## Maximum MQTT/SSL connections per second.
+    ##
+    ## Value: Number
+    listener.ssl.external.max_conn_rate = 500
 
 ----------------
 HTTP Publish API
 ----------------
 
-The *EMQ* broker provides a HTTP API to help application servers publish messages to MQTT clients.
+The *EMQ X* broker provides a HTTP API for applications publishing messages to MQTT clients.
 
-HTTP API: POST http://host:8080/mqtt/publish
+HTTP API: POST http://localhost:8080/api/v3/mqtt/publish
 
-Web servers such as PHP, Java, Python, NodeJS and Ruby on Rails could use HTTP POST to publish MQTT messages to the broker::
+An cURL example::
 
-    curl -v --basic -u user:passwd -d "qos=1&retain=0&topic=/a/b/c&message=hello from http..." -k http://localhost:8080/mqtt/publish
+    curl -v --basic -u user:passwd -H "Content-Type: application/json" -d '{"qos":1, "retain": false, "topic":"world", "payload":"test" , "client_id": "C_1492145414740"}'  -k http://localhost:8080/api/v3/mqtt/publish
 
 Parameters of the HTTP API:
 
-+---------+----------------+
-| Name    | Description    |
-+=========+================+
-| client  | clientid       |
-+---------+----------------+
-| qos     | QoS(0, 1, 2)   |
-+---------+----------------+
-| retain  | Retain(0, 1)   |
-+---------+----------------+
-| topic   | Topic          |
-+---------+----------------+
-| message | Payload        |
-+---------+----------------+
++---------+-----------------------+
+| Name    | Description           |
++=========+=======================+
+| client  | ClientID              |
++---------+-----------------------+
+| qos     | QoS: 0 | 1 | 2        |
++---------+-----------------------+
+| retain  | Retain:true | false   |
++---------+-----------------------+
+| topic   | Topic                 |
++---------+-----------------------+
+| message | Payload               |
++---------+-----------------------+
 
 .. NOTE::
-    
-    The API uses HTTP Basic Authentication.
-    
-    The url of this API has been changed to 'api/v2/mqtt/publish' in v2.3-beta.2 release. Read the doc in :doc:`/rest`.
+
+    The API uses ``HTTP Basic Authentication``.
+
+    The url of this API has been changed to 'api/v3/mqtt/publish' in v3.0-beta.1 release. Read the doc in :doc:`/rest`.
 
 -------------------
 MQTT Over WebSocket
 -------------------
 
-Web browsers could connect to the emqttd broker directly by MQTT Over WebSocket.
+Web browsers could connect to the emqx broker directly by MQTT Over WebSocket.
 
-+-------------------------+----------------------------+
-| WebSocket URI:          | ws(s)://host:8083/mqtt     |
-+-------------------------+----------------------------+
-| Sec-WebSocket-Protocol: | 'mqttv3.1' or 'mqttv3.1.1' |
-+-------------------------+----------------------------+
++-------------------------+----------------------------------------+
+| WebSocket URI:          | ws(s)://host:8083/mqtt                 |
++-------------------------+----------------------------------------+
+| Sec-WebSocket-Protocol: | 'mqttv3.1', 'mqttv3.1.1' or 'mqttv5.0' |
++-------------------------+----------------------------------------+
 
 The Dashboard plugin provides a test page for WebSocket::
 
     http://127.0.0.1:18083/websocket.html
 
-Listener of WebSocket and HTTP Publish API is configured in etc/emq.config:
+Listener of WebSocket and HTTP Publish API is configured in etc/emqx.conf:
 
 .. code-block:: properties
 
@@ -624,29 +740,30 @@ Listener of WebSocket and HTTP Publish API is configured in etc/emq.config:
     listener.ws.external = 8083
     listener.ws.external.acceptors = 4
     listener.ws.external.max_clients = 64
+    listener.ws.external.max_conn_rate = 1000
 
 -----------
 $SYS Topics
 -----------
 
-The *EMQ* broker periodically publishes internal status, MQTT statistics, metrics and client online/offline status to $SYS/# topics.
+The *EMQ X* broker periodically publishes internal status, MQTT statistics, metrics and client online/offline status to $SYS/# topics.
 
-For the *EMQ* broker could be clustered, the $SYS topic path is started with::
+The $SYS topic path is prefixed with::
 
     $SYS/brokers/${node}/
 
-'${node}' is the erlang node name of emqttd broker. For example::
+Where '${node}' is the erlang node name of emqx broker. For example::
 
-    $SYS/brokers/emqttd@127.0.0.1/version
+    $SYS/brokers/emqx@127.0.0.1/version
 
-    $SYS/brokers/emqttd@host2/uptime
+    $SYS/brokers/emqx@host2/uptime
 
 .. NOTE:: The broker only allows clients from localhost to subscribe $SYS topics by default.
 
-Sys Interval of publishing $SYS messages, could be configured in etc/emqttd.config::
+The interval of publishing $SYS messages could be configured in etc/emqx.conf::
 
     ## System Interval of publishing broker $SYS Messages
-    mqtt.broker.sys_interval = 60
+    broker.sys_interval = 1m
 
 Broker Version, Uptime and Description
 ---------------------------------------
@@ -681,19 +798,32 @@ The topic path started with: $SYS/brokers/${node}/clients/
 |                          |  username: "test", ts: 1432749431}         |                                    |
 +--------------------------+--------------------------------------------+------------------------------------+
 
-Properties of 'connected' Payload::
+Properties of 'connected' Payload:
 
-    ipaddress: "127.0.0.1",
-    username:  "test",
-    session:   false,
-    protocol:  3,
-    connack:   0,
-    ts:        1432648482
+.. code-block:: json
 
-Properties of 'disconnected' Payload::
+    {
+        "clientid":    "test"
+        "username":    "test",
+        "ipaddress":   "127.0.0.1",
+        "clean_start": true,
+        "proto_ver":   4,
+        "proto_name":  "MQTT",
+        "keepalive":   60,
+        "connack":   0,
+        "ts":        1432648482
+    }
 
-    reason: normal,
-    ts:     1432648486
+Properties of 'disconnected' Payload:
+
+.. code-block:: json
+
+    {
+        "clientid":   "test"
+        "username":   "test",
+        "reason":     "normal",
+        "ts":         1432648486
+    }
 
 Broker Statistics
 -----------------
@@ -706,32 +836,44 @@ Clients
 +---------------------+---------------------------------------------+
 | Topic               | Description                                 |
 +---------------------+---------------------------------------------+
-| clients/count       | Count of current connected clients          |
+| connections/count   | Count of current connections                |
 +---------------------+---------------------------------------------+
-| clients/max         | Max number of cocurrent connected clients   |
+| connections/max     | Max number of current  connections          |
 +---------------------+---------------------------------------------+
 
 Sessions
 ........
 
-+---------------------+---------------------------------------------+
-| Topic               | Description                                 |
-+---------------------+---------------------------------------------+
-| sessions/count      | Count of current sessions                   |
-+---------------------+---------------------------------------------+
-| sessions/max        | Max number of sessions                      |
-+---------------------+---------------------------------------------+
++---------------------------+------------------------------------+
+| Topic                     | Description                        |
++---------------------------+------------------------------------+
+| sessions/count            | Count of current sessions          |
++---------------------------+------------------------------------+
+| sessions/max              | Max number of sessions             |
++---------------------------+------------------------------------+
+| sessions/persistent/count | Count of persistent sessions       |
++---------------------------+------------------------------------+
+| sessions/persistent/max   | Max number of persistent sessions  |
++---------------------------+------------------------------------+
 
 Subscriptions
 .............
 
-+---------------------+---------------------------------------------+
-| Topic               | Description                                 |
-+---------------------+---------------------------------------------+
-| subscriptions/count | Count of current subscriptions              |
-+---------------------+---------------------------------------------+
-| subscriptions/max   | Max number of subscriptions                 |
-+---------------------+---------------------------------------------+
++----------------------------+---------------------------------------------+
+| Topic                      | Description                                 |
++----------------------------+---------------------------------------------+
+| subscriptions/shared/max   | Max number of shared subscriptions          |
++----------------------------+---------------------------------------------+
+| subscriptions/shared/count | Count of current shared subscriptions       |
++----------------------------+---------------------------------------------+
+| subscriptions/max          | Max number of subscriptions                 |
++----------------------------+---------------------------------------------+
+| subscriptions/count        | Count of current subscriptions              |
++----------------------------+---------------------------------------------+
+| subscribers/max            | Max number of subscribers                   |
++----------------------------+---------------------------------------------+
+| subscribers/count          | Count of current subscribers                |
++----------------------------+---------------------------------------------+
 
 Topics
 ......
@@ -742,6 +884,28 @@ Topics
 | topics/count        | Count of current topics                     |
 +---------------------+---------------------------------------------+
 | topics/max          | Max number of topics                        |
++---------------------+---------------------------------------------+
+
+Retained
+.......................
+
++---------------------+---------------------------------------------+
+| Topic               | Description                                 |
++---------------------+---------------------------------------------+
+| retained/count      | Count of current retained messages          |
++---------------------+---------------------------------------------+
+| retained/max        | Max number of retained messages             |
++---------------------+---------------------------------------------+
+
+Routes
+.................
+
++---------------------+---------------------------------------------+
+| Topic               | Description                                 |
++---------------------+---------------------------------------------+
+| routes/count        | Count of current routes                     |
++---------------------+---------------------------------------------+
+| routes/max          | Max number of routes                        |
 +---------------------+---------------------------------------------+
 
 Broker Metrics
@@ -766,48 +930,92 @@ Packets Sent/Received
 +--------------------------+---------------------------------------------+
 | Topic                    | Description                                 |
 +--------------------------+---------------------------------------------+
-| packets/received         | MQTT Packets received                       |
+| packets/received         | Number Of MQTT Packets Received             |
 +--------------------------+---------------------------------------------+
-| packets/sent             | MQTT Packets sent                           |
+| packets/sent             | Number Of MQTT Packets Sent                 |
 +--------------------------+---------------------------------------------+
-| packets/connect          | MQTT CONNECT Packet received                |
+| packets/connect          | Number Of MQTT CONNECT Packets Received     |
 +--------------------------+---------------------------------------------+
-| packets/connack          | MQTT CONNACK Packet sent                    |
+| packets/connack          | Number Of MQTT CONNACK Packets Sent         |
 +--------------------------+---------------------------------------------+
-| packets/publish/received | MQTT PUBLISH packets received               |
+| packets/publish/received | Number Of MQTT PUBLISH Packets Received     |
 +--------------------------+---------------------------------------------+
-| packets/publish/sent     | MQTT PUBLISH packets sent                   |
+| packets/publish/sent     | Number Of MQTT PUBLISH Packets Sent         |
 +--------------------------+---------------------------------------------+
-| packets/subscribe        | MQTT SUBSCRIBE Packets received             |
+| packets/puback/received  | Number Of MQTT PUBACK Packets Received      |
 +--------------------------+---------------------------------------------+
-| packets/suback           | MQTT SUBACK packets sent                    |
+| packets/puback/sent      | Number Of MQTT PUBACK Packets Sent          |
 +--------------------------+---------------------------------------------+
-| packets/unsubscribe      | MQTT UNSUBSCRIBE Packets received           |
+| packets/puback/missed    | Number Of MQTT PUBACK Packets Missed        |
 +--------------------------+---------------------------------------------+
-| packets/unsuback         | MQTT UNSUBACK Packets sent                  |
+| packets/pubrec/received  | Number Of MQTT PUBREC Packets Received      |
 +--------------------------+---------------------------------------------+
-| packets/pingreq          | MQTT PINGREQ packets received               |
+| packets/pubrec/sent      | Number Of MQTT PUBREC Packets Sent          |
 +--------------------------+---------------------------------------------+
-| packets/pingresp         | MQTT PINGRESP Packets sent                  |
+| packets/pubrec/missed    | Number Of MQTT PUBREC Packets Missed        |
 +--------------------------+---------------------------------------------+
-| packets/disconnect       | MQTT DISCONNECT Packets received            |
+| packets/pubrel/received  | Number Of MQTT PUBREL Packets Received      |
++--------------------------+---------------------------------------------+
+| packets/pubrel/sent      | Number Of MQTT PUBREL Packets Sent          |
++--------------------------+---------------------------------------------+
+| packets/pubrel/missed    | Number Of MQTT PUBREL Packets Missed        |
++--------------------------+---------------------------------------------+
+| packets/pubcomp/received | Number Of MQTT PUBCOMP Packets Received     |
++--------------------------+---------------------------------------------+
+| packets/pubcomp/sent     | Number Of MQTT PUBCOMP Packets Sent         |
++--------------------------+---------------------------------------------+
+| packets/pubcomp/missed   | Number Of MQTT PUBCOMP Packets Missed       |
++--------------------------+---------------------------------------------+
+| packets/subscribe        | Number Of MQTT SUBSCRIBE Packets Received   |
++--------------------------+---------------------------------------------+
+| packets/suback           | Number Of MQTT SUBACK Packets Sent          |
++--------------------------+---------------------------------------------+
+| packets/unsubscribe      | Number Of MQTT UNSUBSCRIBE Packets Received |
++--------------------------+---------------------------------------------+
+| packets/unsuback         | Number Of MQTT UNSUBACK Packets Sent        |
++--------------------------+---------------------------------------------+
+| packets/pingreq          | Number Of MQTT PINGREQ Packets Received     |
++--------------------------+---------------------------------------------+
+| packets/pingresp         | Number Of MQTT PINGRESP Packets Sent        |
++--------------------------+---------------------------------------------+
+| packets/disconnect       | Number Of MQTT DISCONNECT Packets Received  |
++--------------------------+---------------------------------------------+
+| packets/auth             | Number Of Auth Packets Received             |
 +--------------------------+---------------------------------------------+
 
 Messages Sent/Received
 ......................
 
 +--------------------------+---------------------------------------------+
-| Topic                    | Description                                 |
+| Topic                    | Topic                                       |
 +--------------------------+---------------------------------------------+
-| messages/received        | Messages Received                           |
+| messages/received        | Number of messages received                 |
 +--------------------------+---------------------------------------------+
-| messages/sent            | Messages Sent                               |
+| messages/sent            | Number of messages sent                     |
 +--------------------------+---------------------------------------------+
-| messages/retained        | Messages Retained                           |
+| messages/expired         | Number of messages expired                  |
 +--------------------------+---------------------------------------------+
-| messages/stored          | TODO: Messages Stored                       |
+| messages/retained        | Number of messages retained                 |
 +--------------------------+---------------------------------------------+
-| messages/dropped         | Messages Dropped                            |
+| messages/dropped         | Number of messages dropped                  |
++--------------------------+---------------------------------------------+
+| messages/forward         | Number of messages forward by other nodes   |
++--------------------------+---------------------------------------------+
+| messages/qos0/received   | Number of QoS0 messages received            |
++--------------------------+---------------------------------------------+
+| messages/qos0/sent       | Number of QoS0 messages sent                |
++--------------------------+---------------------------------------------+
+| messages/qos1/received   | Number of QoS1 messages received            |
++--------------------------+---------------------------------------------+
+| messages/qos1/sent       | Number of QoS1 messages sent                |
++--------------------------+---------------------------------------------+
+| messages/qos2/received   | Number of QoS2 messages received            |
++--------------------------+---------------------------------------------+
+| messages/qos2/sent       | Number of QoS2 messages sent                |
++--------------------------+---------------------------------------------+
+| messages/qos2/expired    | Number of QoS2 messages expired             |
++--------------------------+---------------------------------------------+
+| messages/qos2/dropped    | Number of QoS2 messages dropped             |
 +--------------------------+---------------------------------------------+
 
 Broker Alarms
@@ -846,32 +1054,33 @@ Topic path started with: '$SYS/brokers/${node}/sysmon/'
 Trace
 -----
 
-The emqttd broker supports to trace MQTT packets received/sent from/to a client, or trace MQTT messages published to a topic.
+The emqx broker supports to trace MQTT packets received/sent from/to a client, or trace MQTT messages published to a topic.
 
 Trace a client::
 
-    ./bin/emqttd_ctl trace client "clientid" "trace_clientid.log"
+    ./bin/emqx_ctl trace client "clientid" "trace_clientid.log"
 
 Trace a topic::
 
-    ./bin/emqttd_ctl trace topic "topic" "trace_topic.log"
+    ./bin/emqx_ctl trace topic "topic" "trace_topic.log"
 
 Lookup Traces::
 
-    ./bin/emqttd_ctl trace list
+    ./bin/emqx_ctl trace list
 
 Stop a Trace::
 
-    ./bin/emqttd_ctl trace client "clientid" off
+    ./bin/emqx_ctl trace client "clientid" off
 
-    ./bin/emqttd_ctl trace topic "topic" off
+    ./bin/emqx_ctl trace topic "topic" off
 
-.. _emq_auth_clientid: https://github.com/emqtt/emq_auth_clientid
-.. _emq_auth_username: https://github.com/emqtt/emq_auth_username
-.. _emq_auth_ldap:     https://github.com/emqtt/emq_auth_ldap
-.. _emq_auth_http:     https://github.com/emqtt/emq_auth_http
-.. _emq_auth_mysql:    https://github.com/emqtt/emq_auth_mysql
-.. _emq_auth_pgsql:    https://github.com/emqtt/emq_auth_pgsql
-.. _emq_auth_redis:    https://github.com/emqtt/emq_auth_redis
-.. _emq_auth_mongo:    https://github.com/emqtt/emq_auth_mongo
+.. _emqx_auth_clientid: https://github.com/emqx/emqx_auth_clientid
+.. _emqx_auth_username: https://github.com/emqx/emqx_auth_username
+.. _emqx_auth_ldap:     https://github.com/emqx/emqx_auth_ldap
+.. _emqx_auth_http:     https://github.com/emqx/emqx_auth_http
+.. _emqx_auth_mysql:    https://github.com/emqx/emqx_auth_mysql
+.. _emqx_auth_pgsql:    https://github.com/emqx/emqx_auth_pgsql
+.. _emqx_auth_redis:    https://github.com/emqx/emqx_auth_redis
+.. _emqx_auth_mongo:    https://github.com/emqx/emqx_auth_mongo
+.. _emqx_auth_jwt:      https://github.com/emqx/emqx-auth-jwt
 
