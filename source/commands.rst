@@ -7,7 +7,7 @@ Commands
 
 The './bin/emqx_ctl' command line could be used to query and administrate the *EMQ X* broker.
 
-.. WARNING:: Cannot work on Windows
+.. Warning:: under Windows OS the command line tool is './bin/emqx_ctl.cmd' .
 
 .. _command_status:
 
