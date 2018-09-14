@@ -108,6 +108,7 @@
   * [emqx_auth_pgsql - PostgreSQL Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-pgsql-postgresql-auth-acl-plugin)
   * [emqx_auth_redis - Redis Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-redis-redis-auth-acl-plugin)
   * [emqx_auth_mongo - MongoDB Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-mongo-mongodb-auth-acl-plugin)
+  * [emqx_auth_jwt - JWT Auth/ACL Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-auth-jwt-mongodb-auth-acl-plugin)
   * [emqx_web_hook - Web Hook Plugin](http://docs.emqtt.com/en/latest/plugins.html)
   * [emqx_lua_hook - Lua Hook Plugin](http://docs.emqtt.com/en/latest/plugins.html)
   * [emqx_coap - CoAP Protocol Plugin](http://docs.emqtt.com/en/latest/plugins.html#emq-coap-coap-protocol-plugin)
