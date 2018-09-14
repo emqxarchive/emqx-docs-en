@@ -17,33 +17,37 @@ The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD,
 Download Packages
 -----------------
 
-Download binary packages from: http://emqtt.io/downloads
+Download binary packages from: https://www.emqx.io/downloads/broker
 
-+-------------+-----------------------------------------------+
-| Debian      | http://emqtt.com/downloads/latest/debian      |
-+-------------+-----------------------------------------------+
-| Ubuntu12.04 | http://emqtt.com/downloads/latest/ubuntu12_04 |
-+-------------+-----------------------------------------------+
-| Ubuntu14.04 | http://emqtt.com/downloads/latest/ubuntu14_04 |
-+-------------+-----------------------------------------------+
-| Ubuntu16.04 | http://emqtt.com/downloads/latest/ubuntu16_04 |
-+-------------+-----------------------------------------------+
-| CentOS7     | http://emqtt.com/downloads/latest/centos7     |
-+-------------+-----------------------------------------------+
-| Debian7     | http://emqtt.com/downloads/latest/debian7     |
-+-------------+-----------------------------------------------+
-| Debian8     | http://emqtt.com/downloads/latest/debian7     |
-+-------------+-----------------------------------------------+
-| FreeBSD     | http://emqtt.com/downloads/latest/freebsd     |
-+-------------+-----------------------------------------------+
-| Windows7    | http://emqtt.com/downloads/latest/windows7    |
-+-------------+-----------------------------------------------+
-| Windows10   | http://emqtt.com/downloads/latest/windows10   |
-+-------------+-----------------------------------------------+
-| Mac OS X    | http://emqtt.com/downloads/latest/macosx      |
-+-------------+-----------------------------------------------+
-| Docker      | http://emqtt.com/downloads/latest/docker      |
-+-------------+-----------------------------------------------+
+The following OS types are supported:
+
++-------------+
+| CentOS6.8   |
++-------------+
+| CentOS7     |
++-------------+
+| Debian7     |
++-------------+
+| Debian8     |
++-------------+
+| Debian9     |
++-------------+
+| Ubuntu12.04 |
++-------------+
+| Ubuntu14.04 |
++-------------+
+| Ubuntu16.04 |
++-------------+
+| Ubuntu18.04 |
++-------------+
+| Mac OS X    |
++-------------+
+| Windows7    |
++-------------+
+| Windows10   |
++-------------+
+| Docker      |
++-------------+
 
 The package name consists of platform, version and release time.
 
@@ -55,11 +59,11 @@ For example: emqx-centos64-v3.0.zip
 Installing on Linux
 -------------------
 
-Download CentOS Package from: http://emqtt.io/downloads/latest/centos7, and then unzip:
+Select Linux group from https://www.emqx.io/downloads/broker, download CentOS zip package, and then unzip:
 
 .. code-block:: bash
 
-    unzip emqx-centos64-v3.0.zip
+    unzip emqx-centos7-v3.0.zip
 
 Start the broker in console mode:
 
@@ -126,19 +130,19 @@ Stop the broker::
 Install via RPM
 ---------------
 
-Download the RPM packages:
+Select Linux group from https://www.emqx.io/downloads/broker, and download the RPM packages.
 
-+-------------+---------------------------------------------------+
-| CentOS6.8   | http://emqtt.com/downloads/latest/centos6-rpm     |
-+-------------+---------------------------------------------------+
-| CentOS7     | http://emqtt.com/downloads/latest/centos7-rpm     |
-+-------------+---------------------------------------------------+
++-------------+
+| CentOS6.8   |
++-------------+
+| CentOS7     |
++-------------+
 
 Install the package:
 
 .. code-block:: console
 
-    rpm -ivh emqx-centos7-v2.1.2-1.el7.centos.x86_64.rpm
+    rpm -ivh emqx-centos7-v3.0-el7.centos.x86_64.rpm
 
 .. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
 
@@ -149,7 +153,7 @@ Install the package:
 Configuration, Data and Log Files:
 
 +---------------------------+-------------------------------------------+
-| /etc/emqx/emqx.conf        | Configuration file for the EMQ X Broker   |
+| /etc/emqx/emqx.conf       | Configuration file for the EMQ X Broker   |
 +---------------------------+-------------------------------------------+
 | /etc/emqx/plugins/\*.conf | Configuration files for the EMQ X Plugins |
 +---------------------------+-------------------------------------------+
@@ -170,25 +174,29 @@ Start/Stop the broker:
 Install via DEB
 ---------------
 
-Download the DEB packages:
+Select Linux group from https://www.emqx.io/downloads/broker, and download the DEB packages.
 
-+-------------+---------------------------------------------------+
-| Ubuntu12.04 | http://emqtt.com/downloads/latest/ubuntu12_04-deb |
-+-------------+---------------------------------------------------+
-| Ubuntu14.04 | http://emqtt.com/downloads/latest/ubuntu14_04-deb |
-+-------------+---------------------------------------------------+
-| Ubuntu16.04 | http://emqtt.com/downloads/latest/ubuntu16_04-deb |
-+-------------+---------------------------------------------------+
-| Debian7     | http://emqtt.com/downloads/latest/debian7-deb     |
-+-------------+---------------------------------------------------+
-| Debian8     | http://emqtt.com/downloads/latest/debian7-deb     |
-+-------------+---------------------------------------------------+
++-------------+
+| Ubuntu12.04 |
++-------------+
+| Ubuntu14.04 |
++-------------+
+| Ubuntu16.04 |
++-------------+
+| Ubuntu18.04 |
++-------------+
+| Debian7     |
++-------------+
+| Debian8     |
++-------------+
+| Debian9     |
++-------------+
 
 Install the package:
 
 .. code-block:: console
 
-    sudo dpkg -i emqx-ubuntu16.04_v2.0_amd64.deb
+    sudo dpkg -i emqx-ubuntu12.04-v3.0_amd64.deb
 
 .. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
 
@@ -199,7 +207,7 @@ Install the package:
 Configuration, Data and Log Files:
 
 +------------------------------+-------------------------------------------+
-| /etc/emqx/emqx.conf           | Configuration file for the EMQ X Broker   |
+| /etc/emqx/emqx.conf          | Configuration file for the EMQ X Broker   |
 +------------------------------+-------------------------------------------+
 | /etc/emqx/plugins/\*.conf    | Configuration files for the EMQ X Plugins |
 +------------------------------+-------------------------------------------+
@@ -214,16 +222,6 @@ Start/Stop the broker:
 
     service emqx start|stop|restart
 
-.. _install_on_freebsd:
-
----------------------
-Installing on FreeBSD
----------------------
-
-Download FreeBSD Package from: http://emqtt.io/downloads/latest/freebsd
-
-The installing process is same to Linux.
-
 .. _install_on_mac:
 
 ----------------------
@@ -232,7 +230,7 @@ Installing on Mac OS X
 
 We could install the broker on Mac OS X to develop and debug MQTT applications.
 
-Download Mac Package from: http://emqtt.io/downloads/latest/macosx
+Select OSX group from https://www.emqx.io/downloads/broker, and download Mac package.
 
 Configure log level in `etc/emqx.conf`, all MQTT messages recevied/sent will be printed on console:
 
@@ -255,7 +253,7 @@ The install and boot process on Mac are same to Linux.
 Installing on Windows
 ---------------------
 
-Download Package from: http://emqtt.io/downloads/latest/windows.
+Select Windows group from https://www.emqx.io/downloads/broker, and download the package.
 
 Unzip the package to install folder. Open the command line window and 'cd' to the folder.
 
@@ -267,7 +265,7 @@ If the broker started successfully, a Erlang console window will popup.
 
 Close the console window and stop the emqx broker. Prepare to register emqx as window service.
 
-.. WARNING:: Cannot register EMQ X-3.0 as a windows service.
+.. WARNING:: EMQ X-3.0 cannot be registered as a windows service.
 
 Install emqx serivce::
 
@@ -291,9 +289,7 @@ Uninstall emqx service::
 Install via Docker Image
 ------------------------
 
-Download *EMQ X* 3.0 Docker Image:
-
-    http://emqtt.com/downloads/latest/docker
+Select Docker group from https://www.emqx.io/downloads/broker, and download *EMQ X* 3.0 Docker Image.
 
 unzip emqx-docker image::
 
@@ -422,7 +418,7 @@ Quick Setup
 Two main configuration files of the *EMQ X* broker:
 
 +-----------------------+-----------------------------------+
-| etc/emqx.conf          | EMQ X Broker Config               |
+| etc/emqx.conf         | EMQ X Broker Config               |
 +-----------------------+-----------------------------------+
 | etc/plugins/\*.conf   | EMQ X Plugins' Config             |
 +-----------------------+-----------------------------------+
@@ -518,5 +514,5 @@ boot test::
     ## erlexec: HOME must be set
     uncomment '# export HOME=/root' if "HOME must be set" error.
 
-.. _emq_dashboard:       https://github.com/emqtt/emqttd_dashboard
-.. _emq-relx:            https://github.com/emqtt/emq-relx
+.. _emq_dashboard:       https://github.com/emqx/emqx-dashboard
+.. _emq-relx:            https://github.com/emqx/emqx-rel
