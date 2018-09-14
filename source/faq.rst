@@ -8,14 +8,15 @@ FAQ
 What is EMQ X suitable for?
 ----------------------------
 
-*EMQ X* is designed for help build large-scale IoT platforms and applications, as it supports most of the popular IoT protocols: MQTT, MQTT-SN, CoAP, LwM2M, and STOMP.
+*EMQ X* is designed for helping build large-scale IoT platforms and applications, as it supports most of the popular IoT protocols: MQTT, MQTT-SN, CoAP, LwM2M, and STOMP.
 
-And and another use case is Instant Messaging via MQTT. Use *EMQ X* for the notifications and also for the signaling server of WebRTC.
+And another use case is Instant Messaging via MQTT. Use *EMQ X* for the notifications and also for the signaling server of WebRTC.
 
 Do I have to learn Erlang programming language to use EMQ X?
 ------------------------------------------------------------
 
-Not necessary. The config file is self-explained and thus easy to understand. There're several plugins developed by the *EMQ X* team, which should sufficient for most use cases.
+Not necessary. The config file is self-explained and thus easy to understand. There are several plugins developed by the *EMQ X* team, which should be sufficient for most use cases.
+
 You could always write your own plugins if necessary, then a basic knowledge of Erlang is 'good to have'.
 
 I found the port 4369 and another random port(63703) are open, is this secure?
@@ -33,7 +34,7 @@ These TCP Ports are opened by *EMQ X* nodes.
 
 The TCP port 4369 is for erlang port mapping, and the *random ports* are communication ports for distributed erlang. All of these ports must be allowed to other nodes in the same cluster, by configuring your firewall.
 
-You may need to limit the *random ports* in a range, after that you can then allow this range of TCP ports in your firewall. For example, you could limit the range to 6369~6379 by following config in the emqx.conf::
+You may need to limit the *random ports* in a range, after that you can allow this range of TCP ports in your firewall. For example, you could limit the range to 6369~6379 by following config in the emqx.conf::
 
     node.dist_listen_min = 6369
     node.dist_listen_max = 6379
@@ -63,12 +64,12 @@ Start with the simplest one using etc/acl.conf::
     %% Allow all by default
     {allow, all}.
 
-ACL via databases such as mysql and mongodb should be similar, you'd better to test your ideas for better understanding.
+ACL via databases such as mysql and mongodb should be similar. It is recommended to test your ideas for better understanding.
 
-Is EMQ X is ready for production?
----------------------------------
+Is EMQ X ready for production?
+------------------------------
 
-Yes. The core features are solid and stable. A full-time team and many contributors from community are developing this project. You could submit issues if any feature requests or bug reports.
+Yes. The core features are solid and stable. A full-time team and many contributors from community are developing this project. You could submit issues for any feature requests or bug reports.
 
 Benchmark and performance issue
 --------------------------------
@@ -82,20 +83,20 @@ Is 'session' identified by ClientID? What will happen when session is expired?
 
 Yes, the session is identified by ClientID.
 
-When a client connected to broker with 'clean session = false', a session identified by clientId will be created. The session will expire after 48 hours(configured in etc/emqx.config) if no client connections bind with it, and all queued messages and subscriptions will be dropped.
+When a client connects to broker with 'clean session = false', a session identified by ClientID will be created. The session will expire after 48 hours(configured in etc/emqx.config) if no client connections bind with it, and all queued messages and subscriptions will be dropped.
 
 Is config 'max_mqueue_len' means queue for one session or one topic?
 ----------------------------------------------------------------------
 
-For a session. Topic just dispatch messages to clients or sessions that matched the subscriptions.
+For one session. Topic just dispatches messages to clients or sessions that match the subscriptions.
 
 What would happen when a session has too many offline messages on one topic?
 ------------------------------------------------------------------------------
 
-If the offline messages in the session are exceed the 'max_mqueue_len', the older offline messages are dropped from the queue.
+If the offline messages in the session exceed the 'max_mqueue_len', the older offline messages are dropped from the queue.
 
-How do I configure EMQ X only keep the latest retained message of a topic?
---------------------------------------------------------------------------
+How do I configure EMQ X to only keep the latest retained message of a topic?
+-----------------------------------------------------------------------------
 
-The broker only keep the latest retained message of a topic, as specified by MQTT specifications.
+The broker only keeps the latest retained message of a topic, as specified by MQTT specifications.
 
