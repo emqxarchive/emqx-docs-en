@@ -9,7 +9,7 @@ User Guide
 Authentication
 --------------
 
-The *EMQ X* broker supports to authenticate MQTT clients with ClientID, Username/Password, IpAddress and even HTTP Cookies.
+The *EMQ X* broker supports to authenticate MQTT clients via ClientID, Username/Password, IpAddress and even HTTP Cookies.
 
 The authentication is provided by a list of plugins such as MySQL, PostgresSQL, Redis, MongoDB, HTTP, LDAP.
 
@@ -25,7 +25,7 @@ The authentication flow::
               allow | deny                allow | deny              allow | deny
 
 
-The order that the authentication will be carried out is determined by the order that the plugins are loaded (their order of appearance in ``./data/loaded_plugins``) 
+The order that the authentication will be carried out is determined by the order that the plugins are loaded (their order of appearance in ``./data/loaded_plugins``)
 
 The authentication plugins implemented by default:
 
@@ -42,7 +42,7 @@ The authentication plugins implemented by default:
 +---------------------------+---------------------------+
 | `emqx_auth_mysql`_        | MySQL Auth/ACL Plugin     |
 +---------------------------+---------------------------+
-| `emqx_auth_pgsql`_        | Postgre Auth/ACL Plugin   |
+| `emqx_auth_pgsql`_        | PgSQL Auth/ACL Plugin     |
 +---------------------------+---------------------------+
 | `emqx_auth_redis`_        | Redis Auth/ACL Plugin     |
 +---------------------------+---------------------------+
@@ -267,7 +267,7 @@ Configure the 'auth_query' and 'password_hash' in etc/plugins/emqx_auth_pgsql.co
 
 .. code-block:: properties
 
-    ## Postgre Server
+    ## Postgres Server
     auth.pgsql.server = 127.0.0.1:5432
 
     auth.pgsql.pool = 8
@@ -456,11 +456,11 @@ Enable MongoDB plugin:
 ACL
 ---
 
-The ACL of *EMQ X* broker is responsible for authorizing MQTT clients to publish/subscribe topics.
+The Access Control Lists (ACL) of *EMQ X* broker is responsible for restricting the access to MQTT topics.
 
 The ACL rules define::
 
-    Allow|Deny Who Publish|Subscribe Topics
+    (Allow|Deny) Who (Publish|Subscribe) Topics
 
 Access Control Module of *EMQ X* broker will match the rules one by one::
 
@@ -633,22 +633,19 @@ Configure `acl_query` and `acl_nomatch` in etc/plugins/emqx_auth_mongo.conf:
 MQTT Publish/Subscribe
 ----------------------
 
-MQTT is a an extremely lightweight publish/subscribe messaging protocol designed for IoT, M2M and Mobile applications.
+MQTT is a an extremely lightweight publish/subscribe messaging protocol designed for IoT, M2M and Mobile applications. Specifications:
+`MQTT V3.1.1 <http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html>`_
+`MQTT V5.0 <http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html>`_
 
 .. image:: _static/images/pubsub_concept.png
 
-Install and start the *EMQ X* broker, and then any MQTT client could connect to the broker, subscribe topics and publish messages.
+Install and start the *EMQ X* broker, and then any MQTT client could connect to the broker, subscribe topics and publish messages. There're lots of `MQTT Client Libraries <https://github.com/mqtt/mqtt.github.io/wiki/libraries>`_ available from the community.
 
-MQTT Client Libraries: https://github.com/mqtt/mqtt.github.io/wiki/libraries
-
-For example, we use mosquitto_sub/pub commands::
+Take mosquitto for example::
 
     mosquitto_sub -t topic -q 2
     mosquitto_pub -t topic -q 1 -m "Hello, MQTT!"
 
-MQTT V3.1.1 Protocol Specification: http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
-
-MQTT V5.0 Protocol Specification: http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html
 
 MQTT Listener of the EMQ X broker is configured in etc/emq.conf:
 
@@ -689,11 +686,11 @@ MQTT(SSL) Listener, Default Port is 8883:
 HTTP Publish API
 ----------------
 
-The *EMQ X* broker provides a HTTP API to help application servers publish messages to MQTT clients.
+The *EMQ X* broker provides a HTTP API for applications publishing messages to MQTT clients.
 
-HTTP API: POST http://host:8080/mqtt/publish
+HTTP API: POST http://localhost:8080/api/v3/mqtt/publish
 
-Web servers such as PHP, Java, Python, NodeJS and Ruby on Rails could use HTTP POST to publish MQTT messages to the broker::
+An cURL example::
 
     curl -v --basic -u user:passwd -H "Content-Type: application/json" -d '{"qos":1, "retain": false, "topic":"world", "payload":"test" , "client_id": "C_1492145414740"}'  -k http://localhost:8080/api/v3/mqtt/publish
 
@@ -715,7 +712,7 @@ Parameters of the HTTP API:
 
 .. NOTE::
 
-    The API uses HTTP Basic Authentication.
+    The API uses ``HTTP Basic Authentication``.
 
     The url of this API has been changed to 'api/v3/mqtt/publish' in v3.0-beta.1 release. Read the doc in :doc:`/rest`.
 
@@ -725,17 +722,17 @@ MQTT Over WebSocket
 
 Web browsers could connect to the emqx broker directly by MQTT Over WebSocket.
 
-+-------------------------+----------------------------+
-| WebSocket URI:          | ws(s)://host:8083/mqtt     |
-+-------------------------+----------------------------+
-| Sec-WebSocket-Protocol: | 'mqttv3.1' or 'mqttv3.1.1' |
-+-------------------------+----------------------------+
++-------------------------+----------------------------------------+
+| WebSocket URI:          | ws(s)://host:8083/mqtt                 |
++-------------------------+----------------------------------------+
+| Sec-WebSocket-Protocol: | 'mqttv3.1', 'mqttv3.1.1' or 'mqttv5.0' |
++-------------------------+----------------------------------------+
 
 The Dashboard plugin provides a test page for WebSocket::
 
     http://127.0.0.1:18083/websocket.html
 
-Listener of WebSocket and HTTP Publish API is configured in etc/emq.config:
+Listener of WebSocket and HTTP Publish API is configured in etc/emq.conf:
 
 .. code-block:: properties
 
@@ -751,7 +748,7 @@ $SYS Topics
 
 The *EMQ X* broker periodically publishes internal status, MQTT statistics, metrics and client online/offline status to $SYS/# topics.
 
-For the *EMQ X* broker could be clustered, the $SYS topic path is started with::
+The $SYS topic path is prefixed with::
 
     $SYS/brokers/${node}/
 
@@ -763,7 +760,7 @@ Where '${node}' is the erlang node name of emqx broker. For example::
 
 .. NOTE:: The broker only allows clients from localhost to subscribe $SYS topics by default.
 
-Sys Interval of publishing $SYS messages, could be configured in etc/emqx.config::
+The interval of publishing $SYS messages could be configured in etc/emqx.conf::
 
     ## System Interval of publishing broker $SYS Messages
     broker.sys_interval = 1m
@@ -865,17 +862,17 @@ Subscriptions
 +----------------------------+---------------------------------------------+
 | Topic                      | Description                                 |
 +----------------------------+---------------------------------------------+
-| subscriptions/shared/max   | Count of current subscriptions              |
+| subscriptions/shared/max   | Max number of shared subscriptions          |
 +----------------------------+---------------------------------------------+
-| subscriptions/shared/count | Count of current subscriptions              |
+| subscriptions/shared/count | Count of current shared subscriptions       |
 +----------------------------+---------------------------------------------+
-| subscriptions/max          | Count of current subscriptions              |
+| subscriptions/max          | Max number of subscriptions                 |
 +----------------------------+---------------------------------------------+
 | subscriptions/count        | Count of current subscriptions              |
 +----------------------------+---------------------------------------------+
-| subscribers/max            | Count of current subscriptions              |
+| subscribers/max            | Max number of subscribers                   |
 +----------------------------+---------------------------------------------+
-| subscribers/count          | Max number of subscriptions                 |
+| subscribers/count          | Count of current subscribers                |
 +----------------------------+---------------------------------------------+
 
 Topics

@@ -92,7 +92,7 @@ If the broker is started successfully, console will print:
     mqtt listen on 0.0.0.0:1883 with 16 acceptors.
     mqtts listen on 0.0.0.0:8883 with 4 acceptors.
     http listen on 0.0.0.0:8083 with 4 acceptors.
-    Erlang MQTT Broker 2.0 is running now
+    Erlang MQTT Broker 3.0 is running now
     Eshell V6.4  (abort with ^G)
     (emqx@127.0.0.1)1>
 
@@ -110,7 +110,7 @@ Check the running status of the broker:
 
     $ ./bin/emqttd_ctl status
     Node 'emqx@127.0.0.1' is started
-    emqx 2.0 is running
+    emqx 3.0 is running
 
 Or check the status by URL::
 
@@ -267,7 +267,7 @@ If the broker started successfully, a Erlang console window will popup.
 
 Close the console window and stop the emqx broker. Prepare to register emqx as window service.
 
-.. WARNING:: Cannot register EMQ X-2.0 as a windows service.
+.. WARNING:: Cannot register EMQ X-3.0 as a windows service.
 
 Install emqx serivce::
 
@@ -291,7 +291,7 @@ Uninstall emqx service::
 Install via Docker Image
 ------------------------
 
-Download *EMQ X* 2.0 Docker Image:
+Download *EMQ X* 3.0 Docker Image:
 
     http://emqtt.com/downloads/latest/docker
 
