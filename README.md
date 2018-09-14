@@ -1,4 +1,4 @@
-*EMQ* 2.0 Documentation
+*EMQ X* 3.0 Documentation
 =======================
 
 * **[Get Started](http://docs.emqtt.com/en/latest/getstarted.html)**
@@ -23,7 +23,7 @@
   * [/etc/init.d/emqttd](http://docs.emqtt.com/en/latest/install.html#etc-init-d-emqttd)
 
 * **[Configuration](http://docs.emqtt.com/en/latest/config.html)**
-  * [EMQ 2.0 Config Syntax](http://docs.emqtt.com/en/latest/config.html#emq-2-0-config-syntax)
+  * [EMQ X 3.0 Config Syntax](http://docs.emqtt.com/en/latest/config.html#emq-2-0-config-syntax)
   * [OS Environment Variables](http://docs.emqtt.com/en/latest/config.html#os-environment-variables)
   * [EMQ Node and Cookie](http://docs.emqtt.com/en/latest/config.html#emq-node-and-cookie)
   * [Erlang VM Arguments](http://docs.emqtt.com/en/latest/config.html#erlang-vm-arguments)
@@ -50,8 +50,8 @@
   * [Consistent Hash and DHT](http://docs.emqtt.com/en/latest/cluster.html#consistent-hash-and-dht)
 
 * **[Bridge](http://docs.emqtt.com/en/latest/bridge.html)**
-  * [EMQ Node Bridge](http://docs.emqtt.com/en/latest/bridge.html#emq-node-bridge)
-  * [EMQ Bridge CLI](http://docs.emqtt.com/en/latest/bridge.html#emq-bridge-cli)
+  * [EMQ X Node Bridge](http://docs.emqtt.com/en/latest/bridge.html#emq-node-bridge)
+  * [EMQ X Bridge CLI](http://docs.emqtt.com/en/latest/bridge.html#emq-bridge-cli)
   * [mosquitto Bridge](http://docs.emqtt.com/en/latest/bridge.html#mosquitto-bridge)
   * [rsmb Bridge](http://docs.emqtt.com/en/latest/bridge.html#rsmb-bridge)
 
@@ -131,11 +131,10 @@
 Contacts
 ========
 
-Company: http://emqtt.io
+Company: http://emqx.io
 
 Twitter: @emqtt
 
 Author: Feng Lee <feng@emqtt.io>
 
 http://emqttd.io/docs | http://docs.emqtt.com/
-
