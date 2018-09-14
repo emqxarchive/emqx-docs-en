@@ -5,12 +5,12 @@
 Configuration
 =============
 
-The main configuration files of the EMQ X broker are under 'etc/' folder:
+The main configuration files of the *EMQ X* broker are under 'etc/' folder:
 
 +----------------------+-----------------------------------+
 | File                 | Description                       |
 +----------------------+-----------------------------------+
-| etc/emqx.conf        | EMQ X 3.0 Configuration File      |
+| etc/emqx.conf        | *EMQ X* 3.0 Configuration File    |
 +----------------------+-----------------------------------+
 | etc/acl.conf         | The default ACL File              |
 +----------------------+-----------------------------------+
@@ -32,7 +32,7 @@ The *EMQ X* integrated with `cuttlefish` library, and uses a user-friendly `k = 
     mqtt.max_clientid_len = 1024
     ...
 
-The configuration files will be preprocessed and translated to Erlang `app.config` before the EMQ X broker started::
+The configuration files will be preprocessed and translated to Erlang `app.config` before the *EMQ X* broker started::
 
     ----------------------                                          3.0/schema/*.schema      -------------------
     | etc/emqx.conf      |                   -----------------              \|/              | data/app.config |
@@ -100,7 +100,7 @@ Cluster Autoclean
 EMQ X Autodiscovery Strategy
 ----------------------------
 
-EMQ X 3.0 supports node discovery and autocluster with various strategies:
+*EMQ X* 3.0 supports node discovery and autocluster with various strategies:
 
 +------------+---------------------------------+
 | Strategy   | Description                     |
@@ -799,48 +799,42 @@ System Monitor
 Plugin Configuration Files
 --------------------------
 
-+----------------------------------------+-----------------------------------+
-| File                                   | Description                       |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_auth_username.conf    | Username/Password Auth Plugin     |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_auth_clientid.conf    | ClientId Auth Plugin              |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_auth_http.conf        | HTTP Auth/ACL Plugin Config       |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_auth_mongo.conf       | MongoDB Auth/ACL Plugin Config    |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_auth_mysql.conf       | MySQL Auth/ACL Plugin Config      |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_auth_pgsql.conf       | Postgre Auth/ACL Plugin Config    |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_auth_redis.conf       | Redis Auth/ACL Plugin Config      |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_auth_jwt.conf         | JWT Auth/ACL Plugin Config        |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_coap.conf             | CoAP Protocol Plugin Config       |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_mod_presence.conf     | Presence Module Config            |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_mod_retainer.conf     | Retainer Module Config            |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_mod_rewrite.config    | Rewrite Module Config             |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_mod_subscription.conf | Subscription Module Config        |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_web_hook.conf         | Web Hook Plugin                   |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_lua_hook.conf         | Lua Hook Plugin                   |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_dashboard.conf        | Dashboard Plugin Config           |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_plugin_template.conf  | Template Plugin Config            |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_recon.conf            | Recon Plugin Config               |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_reloader.conf         | Reloader Plugin Config            |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_sn.conf               | MQTT-SN Protocal Plugin Config    |
-+----------------------------------------+-----------------------------------+
-| etc/plugins/emqx_stomp.conf            | Stomp Protocl Plugin Config       |
-+----------------------------------------+-----------------------------------+
++----------------------------------------+--------------------------------------+
+| File                                   | Description                          |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_auth_username.conf    | Username/Password Auth Plugin Config |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_auth_clientid.conf    | ClientId Auth Plugin Config          |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_ldap.conf             | LDAP Auth/ACL Plugin Config          |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_auth_http.conf        | HTTP Auth/ACL Plugin Config          |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_auth_mongo.conf       | MongoDB Auth/ACL Plugin Config       |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_auth_mysql.conf       | MySQL Auth/ACL Plugin Config         |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_auth_pgsql.conf       | Postgre Auth/ACL Plugin Config       |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_auth_redis.conf       | Redis Auth/ACL Plugin Config         |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_coap.conf             | CoAP Protocol Plugin Config          |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_retainer.conf         | Retainer Plugin Config               |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_web_hook.conf         | Web Hook Plugin Config               |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_lua_hook.conf         | Lua Hook Plugin Config               |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_dashboard.conf        | Dashboard Plugin Config              |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_plugin_template.conf  | Template Plugin Config               |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_recon.conf            | Recon Plugin Config                  |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_reloader.conf         | Reloader Plugin Config               |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_sn.conf               | MQTT-SN Protocal Plugin Config       |
++----------------------------------------+--------------------------------------+
+| etc/plugins/emqx_stomp.conf            | Stomp Protocl Plugin Config          |
++----------------------------------------+--------------------------------------+
