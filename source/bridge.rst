@@ -18,7 +18,7 @@ Two or more *EMQ X* brokers can be bridged together. Bridges forward MQTT messag
 Configure Bridge
 ----------------
 
-Suppose that we create two *EMQ* brokers on localhost:
+Suppose that we create two *EMQ X* brokers on localhost:
 
 +---------+---------------------+-----------+
 | Name    | Node                | MQTT Port |
@@ -69,9 +69,9 @@ Create a bridge that forwards all the 'sensor/#' messages from emqx1 to emqx2.
 
     ./bin/emqx_ctl bridges stop emqx2@127.0.0.1 sensor/#
 
---------------
-EMQ Bridge CLI
---------------
+----------------
+EMQ X Bridge CLI
+----------------
 
 .. code-block:: bash
 
@@ -119,7 +119,7 @@ A bridge configured in mosquitto.conf::
 RSMB Bridge
 -----------
 
-Bridge RSMB to EMQ broker, the configuration is similar to mosquitto's.
+Bridge RSMB to *EMQ X* broker, the configuration is similar to mosquitto's.
 
 broker.cfg::
 
