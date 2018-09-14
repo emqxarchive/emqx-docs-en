@@ -5,19 +5,19 @@
 Deployment
 ==========
 
-EMQ X Cluster can be deployed as an IoT Hub on an enterprise's private cloud, or on public clouds such as AWS, Azure and QingCloud.
+*EMQ X* Cluster can be deployed as an IoT Hub on an enterprise's private cloud, or on public clouds such as AWS, Azure and QingCloud.
 
 Typical deployment architecture:
 
-.. image:: _static/images/design_1.png
+.. image:: _static/images/deploy_1.png
 
 ------------------
 Load Balancer (LB)
 ------------------
 
-The Load Balancer (LB) distributes MQTT connections and traffic from devices across the EMQ X clusters. LB enhances the HA of the clusters, balances the loads among the cluster nodes and makes the dynamic expansion possible.
+The Load Balancer (LB) distributes MQTT connections and traffic from devices across the *EMQ X* clusters. LB enhances the HA of the clusters, balances the loads among the cluster nodes and makes the dynamic expansion possible.
 
-It is recommended that SSL connections are terminated by a LB. The links between devices and the LB are secured by SSL, while the links between the LB and EMQ X cluster nodes are plain TCP connections. By this setup, a single EMQ X cluster can serve a million devices.
+It is recommended that SSL connections are terminated by a LB. The links between devices and the LB are secured by SSL, while the links between the LB and *EMQ X* cluster nodes are plain TCP connections. By this setup, a single *EMQ X* cluster can serve a million devices.
 
 LB products of public cloud providers:
 
@@ -47,9 +47,9 @@ Recommend AWS with ELB for a public cloud deployment, and HAProxy for a private 
 EMQ X Cluster
 -------------
 
-EMQ X cluster nodes are deployed behind LB. It is suggested that the nodes are deployed on VPCs or on a private network. Cloud provider, such as AWS, Azure or QingCloud, usually provides VPC network.
+*EMQ X* cluster nodes are deployed behind LB. It is suggested that the nodes are deployed on VPCs or on a private network. Cloud provider, such as AWS, Azure or QingCloud, usually provides VPC network.
 
-EMQ X Provides the MQTT service on following TCP ports by default:
+*EMQ X* Provides the MQTT service on following TCP ports by default:
 
 +-----------+-----------------------------------+
 | 1883      | MQTT                              |
@@ -79,9 +79,9 @@ Deploying on QingCloud
 
 1. Create VPC network.
 
-2. Create a 'private network' for EMQ X cluster inside the VPC network, e.g. 192.168.0.0/24
+2. Create a 'private network' for *EMQ X* cluster inside the VPC network, e.g. 192.168.0.0/24
 
-3. Create 2 EMQ X hosts inside the private network, like:
+3. Create 2 *EMQ X* hosts inside the private network, like:
 
 +-------+-------------+
 | emqx1 | 192.168.0.2 |
@@ -89,7 +89,7 @@ Deploying on QingCloud
 | emqx2 | 192.168.0.3 |
 +-------+-------------+
 
-4. Install and cluster EMQ on these two hosts. Please refer to the sections of cluster installation for details.
+4. Install and cluster *EMQ X* on these two hosts. Please refer to the sections of cluster installation for details.
 
 5. Create LB and assign the public IP address.
 
@@ -109,7 +109,7 @@ Deploying on AWS
 
 1. Create VPC network.
 
-2. Create a 'private network' for EMQ cluster inside the VPC network, e.g. 192.168.0.0/24
+2. Create a 'private network' for *EMQ X* cluster inside the VPC network, e.g. 192.168.0.0/24
 
 3. Create 2 hosts inside the private network, like:
 
@@ -121,7 +121,7 @@ Deploying on AWS
 
 4. Open the TCP ports for MQTT services (e.g. 1883,8883) on the security group.
 
-5. Install and cluster EMQ on these two hosts. Please refer to the sections of cluster installation for details.
+5. Install and cluster *EMQ X* on these two hosts. Please refer to the sections of cluster installation for details.
 
 6. Create ELB (Classic Load Balancer), assign the VPC network, and assign the public IP address.
 
@@ -139,25 +139,25 @@ Or create SSL listener and terminate the SSL connections on the ELB:
 Deploying on private network
 ----------------------------
 
-Direct connection of EMQ cluster
+Direct connection of EMQ X cluster
 ----------------------------------
 
-EMQ X cluster should be DNS-resolvable and the clients access the cluster via domain name or IP list:
+*EMQ X* cluster should be DNS-resolvable and the clients access the cluster via domain name or IP list:
 
-1. Deploy EMQ X cluster. Please refer to the sections of 'Installation' and 'EMQ X nodes clustering' for details.
+1. Deploy *EMQ X* cluster. Please refer to the sections of 'Installation' and '*EMQ X* nodes clustering' for details.
 
 2. Enable the access to the MQTT ports on the firewall (e.g. 1883, 8883).
 
-3. Client devices access the EMQ X cluster via domain name or IP list.
+3. Client devices access the *EMQ X* cluster via domain name or IP list.
 
 .. NOTE:: This kind of deployment is NOT recommended.
 
 HAProxy -> EMQ X Cluster
 -------------------------
 
-HAProxy serves as a LB for EMQ X cluster and terminates the SSL connections:
+HAProxy serves as a LB for *EMQ X* cluster and terminates the SSL connections:
 
-1. Create EMQ X Cluster nodes like following:
+1. Create *EMQ X* Cluster nodes like following:
 
 +--------+-------------+
 | node   | IP          |
@@ -189,11 +189,11 @@ HAProxy serves as a LB for EMQ X cluster and terminates the SSL connections:
 NGINX Plus -> EMQ X Cluster
 ---------------------------
 
-NGINX Plus serves as a LB for EMQ X cluster and terminates the SSL connections:
+NGINX Plus serves as a LB for *EMQ X* cluster and terminates the SSL connections:
 
 1. Install the NGINX Plus. An instruction for Ubuntu: https://cs.nginx.com/repo_setup
 
-2. Create EMQ X cluster nodes like following:
+2. Create *EMQ X* cluster nodes like following:
 
 +--------+-------------+
 |  node  | IP          |
