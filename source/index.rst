@@ -54,7 +54,6 @@ Contents:
    rest
    tune
    changes
-   upgrade
    mqtt
    mqtt-sn
    lwm2m
