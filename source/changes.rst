@@ -5,6 +5,170 @@
 Changes
 =======
 
+------------------
+Version 3.0-beta.3
+------------------
+
+*Release Date: 2018-09-23*
+
+The EMQ X 3.0-beta.3 release is mainly for bug fixes and feature
+improvements on MQTT 5.0.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+-  Improve the ``force_gc_policy`` config
+
+   GitHub issues:
+   `emqx/emqx#1851 <https://github.com/emqx/emqx/pull/1851>`__
+
+-  Improve design of bridges
+
+   GitHub issues:
+   `emqx/emqx#1849 <https://github.com/emqx/emqx/pull/1849>`__
+
+-  Add force shutdown policy
+
+   GitHub issues:
+   `emqx/emqx#1836 <https://github.com/emqx/emqx/pull/1836>`__
+
+-  Add new shared subscription dispatch strategy
+
+   GitHub issues:
+   `emqx/emqx#1823 <https://github.com/emqx/emqx/pull/1823>`__
+
+-  Improve the design of ``esockd_connection_sup`` module
+
+   GitHub issues:
+   `emqx/emqx#86 <https://github.com/emqx/esockd/pull/86>`__
+
+-  Configurable websocket path
+
+   GitHub issues:
+   `emqx/emqx#1809 <https://github.com/emqx/emqx/pull/1809>`__,
+   `emqx/emqx#1814 <https://github.com/emqx/emqx/pull/1814>`__
+
+-  Improve handling of ``Message Expiry Interval`` property
+
+   GitHub
+   issues: `emqx/emqx#1813 <https://github.com/emqx/emqx/pull/1813>`__
+
+-  Support more gc enforcement policies
+
+   GitHub issues:
+   `emqx/emqx#1808 <https://github.com/emqx/emqx/pull/1808>`__
+
+-  Rebar3 and erlang.mk dual support
+
+   GitHub issues:
+   `emqx/emqx#1806 <https://github.com/emqx/emqx/pull/1806>`__
+
+Bug Fixes:
+
+-  Fix incorrect value of ``Maximum QoS`` property
+
+   GitHub issues:
+   `emqx/emqx#1848 <https://github.com/emqx/emqx/issues/1848>`__,
+   `emqx/emqx#1857 <https://github.com/emqx/emqx/pull/1857>`__
+
+-  Fix the handling for ``Session Expiry Interval`` property
+
+   GitHub issues:
+   `emqx/emqx#1833 <https://github.com/emqx/emqx/issues/1833>`__,
+   `emqx/emqx#1834 <https://github.com/emqx/emqx/issues/1834>`__,
+   `emqx/emqx#1845 <https://github.com/emqx/emqx/pull/1845>`__
+
+-  Fix an issue about ``Publish Limit`` config
+
+   GitHub issues:
+   `emqx/emqx#1847 <https://github.com/emqx/emqx/issues/1847>`__,
+   `emqx/emqx#1856 <https://github.com/emqx/emqx/pull/1856>`__
+
+-  Fix message delivery to remote connections
+
+   GitHub issues:
+   `emqx/emqx#1846 <https://github.com/emqx/emqx/pull/1846>`__
+
+-  Fix an issue in travis build
+
+   GitHub issues:
+   `emqx/emqx#1818 <https://github.com/emqx/emqx/pull/1818>`__
+
+-  Fix an issue when handling MQTT packages
+
+   GitHub issues:
+   `emqx/emqx#1811 <https://github.com/emqx/emqx/issues/1811>`__,
+   `emqx/emqx#1817 <https://github.com/emqx/emqx/pull/1817>`__
+
+emqx-ratainer (plugin)
+----------------------
+
+Enhancements:
+
+-  Support message level TTL for retained message
+
+   GitHub issues:
+   `emqx/emqx-retainer#52 <https://github.com/emqx/emqx-retainer/issues/52>`__,
+   `emqx/emqx-retainer#60 <https://github.com/emqx/emqx-retainer/pull/60>`__
+
+emqx-dashboard (plugin)
+-----------------------
+
+Bug Fixes:
+
+-  Fix metrics field
+
+   GitHub issues:
+   `emqx/emqx-dashboard#5 <https://github.com/emqx/emqx-dashboard/pull/5>`__
+
+emqx-management (plugin)
+------------------------
+
+Bug Fixes:
+
+-  Fix subscription error
+
+   GitHub issues:
+   `emqx/emqx-management#7 <https://github.com/emqx/emqx-management/pull/7>`__
+
+-  Improve CLI for bridges
+
+   GitHub commit:
+   `emqx/emqx-management#a8d0b397 <https://github.com/emqx/emqx-management/commit/a8d0b3978ee3d51119d0fb22a12286a83d30c5ff>`__
+
+emqx-web-hook (plugin)
+----------------------
+
+Bug Fixes:
+
+-  Fix load plugin error
+
+   GitHub commit:
+   `emqx/emqx-web-hook#331ca26 <https://github.com/emqx/emqx-web-hook/commit/331ca26550931d691c98173501ca0fb4780d7a9a>`__
+
+emqx-coap (plugin)
+------------------
+
+Enhancements:
+
+-  Introduce emqx-coap into EMQ X 3.0
+
+   GitHub issues:
+   `emqx/emqx-coap#86 <https://github.com/emqx/emqx-coap/pull/86>`__,
+   `emqx/gen_coap#8 <https://github.com/emqx/gen_coap/pull/8>`__
+
+emqx-docker (docker file)
+-------------------------
+
+Enhancements:
+
+-  Optimize docker file
+
+   GitHub issues:
+   `emqx/emqx-docker#71 <https://github.com/emqx/emqx-docker/pull/71>`__
+
 .. _release_3.0_beta.2:
 
 ------------------
