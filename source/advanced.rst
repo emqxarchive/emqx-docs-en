@@ -2,7 +2,7 @@
 .. _advanced:
 
 ==================
-Advanced features
+Advanced Features
 ==================
 
 -------------------
@@ -27,10 +27,9 @@ Two ways to create a shared subscription:
 | $share/<group>/ | mosquitto_sub -t '$share/group/topic'     |
 +-----------------+-------------------------------------------+
 
+example:
 .. code-block:: shell
 
     mosquitto_sub -t '$share/group/topic'
 
     mosquitto_pub -t 'topic' -m msg -q 2
-
-

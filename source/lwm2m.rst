@@ -23,7 +23,6 @@ EMQX-LWM2M plugin
 
 EMQX-LWM2M is an *EMQ X* plugin，which implements most LWM2M features. MQTT client is able to access LWM2M device through EMQX-LWM2M plugin, by sending a command and reading its response.
 
-
 ---------------------------------
 Convertion between MQTT and LWM2M
 ---------------------------------

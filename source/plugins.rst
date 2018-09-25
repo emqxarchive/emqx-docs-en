@@ -120,7 +120,6 @@ Load ClientId Auth Plugin
 .. code-block:: bash
 
     ./bin/emqx_ctl plugins load emqx_auth_clientid
-
 -----------------------------------------
 emqx_auth_username - Username Auth Plugin
 -----------------------------------------
@@ -238,7 +237,7 @@ Load HTTP Auth/ACL Plugin
 emqx_auth_mysql - MySQL Auth/ACL Plugin
 ---------------------------------------
 
-MQTT Authentication, ACL with MySQL database: https://github.com/emqx/emqx-auth-mysql
+MQTT Authentication, ACL against MySQL database: https://github.com/emqx/emqx-auth-mysql
 
 MQTT User Table
 ---------------
@@ -295,10 +294,10 @@ etc/plugins/emqx_auth_mysql.conf:
     auth.mysql.pool = 8
 
     ## Mysql Username
-    ## auth.mysql.username = 
+    ## auth.mysql.username =
 
     ## Mysql Password
-    ## auth.mysql.password = 
+    ## auth.mysql.password =
 
     ## Mysql Database
     auth.mysql.database = mqtt
@@ -328,7 +327,7 @@ Load MySQL Auth/ACL plugin
 emqx_auth_pgsql - PostgreSQL Auth/ACL Plugin
 --------------------------------------------
 
-MQTT Authentication/ACL with PostgreSQL database: https://github.com/emqx/emqx-auth-pgsql
+MQTT Authentication/ACL against PostgreSQL database: https://github.com/emqx/emqx-auth-pgsql
 
 Postgre MQTT User Table
 -----------------------
@@ -383,7 +382,7 @@ Configure host, username, password and database of PostgreSQL:
 
     auth.pgsql.username = root
 
-    #auth.pgsql.password = 
+    #auth.pgsql.password =
 
     auth.pgsql.database = mqtt
 
@@ -422,7 +421,7 @@ Load Postgre Auth/ACL Plugin
 emqx_auth_redis - Redis Auth/ACL Plugin
 ---------------------------------------
 
-MQTT Authentication, ACL with Redis: https://github.com/emqx/emqx-auth-redis
+MQTT Authentication, ACL against Redis: https://github.com/emqx/emqx_auth_redis
 
 Configure Redis Auth/ACL Plugin
 -------------------------------
@@ -496,7 +495,7 @@ Load Redis Auth/ACL Plugin
 emqx_auth_mongo - MongoDB Auth/ACL Plugin
 -----------------------------------------
 
-MQTT Authentication/ACL with MongoDB: https://github.com/emqx/emqx-auth-mongo
+MQTT Authentication/ACL against MongoDB: https://github.com/emqx/emqx-auth-mongo
 
 Configure MongoDB Auth/ACL Plugin
 ---------------------------------
@@ -512,10 +511,10 @@ etc/plugins/emqx_auth_mongo.conf:
     auth.mongo.pool = 8
 
     ## Mongo User
-    ## auth.mongo.user = 
+    ## auth.mongo.user =
 
     ## Mongo Password
-    ## auth.mongo.password = 
+    ## auth.mongo.password =
 
     ## Mongo Database
     auth.mongo.database = mqtt
@@ -653,10 +652,10 @@ libcoap Client
 
 .. code:: bash
 
-  yum install libcoap
+    yum install libcoap
 
-  % coap client publish message
-  coap-client -m post -e "qos=0&retain=0&message=payload&topic=hello" coap://localhost/mqtt
+    % coap client publish message
+    coap-client -m post -e "qos=0&retain=0&message=payload&topic=hello" coap://localhost/mqtt
 
 -------------------------
 emqx_sn: MQTT-SN Protocol
@@ -740,7 +739,6 @@ etc/plugins/emqx_recon.conf:
 .. code-block:: properties
 
     %% Garbage Collection: 10 minutes
-
     recon.gc_interval = 600
 
 Load Recon Plugin
@@ -806,6 +804,19 @@ An *EMQ X* plugin is just a normal Erlang application which has its own configur
 
 emqx_plugin_template is a plugin template.
 
+Clone emqx_plugin_template source from github.com::
+
+    git clone https://github.com/emqx/emqx-plugin-template.git
+
+Create a plugin project with erlang.mk and depends on 'emqx' application, the 'Makefile'::
+
+    PROJECT = emqx_plugin_abc
+    PROJECT_DESCRIPTION = EMQ X Abc Plugin
+    PROJECT_VERSION = 1.0
+
+    BUILD_DEPS = emqx
+    dep_emqx = git https://github.com/emqx/emqx master
+
 Load, unload Plugin
 -------------------
 
@@ -824,7 +835,7 @@ Plugin Development Guide
 Create a Plugin Project
 -----------------------
 
-Refer to `emqx_plugin_template`_ for the creation of new plugin project.
+Refer to `emqx_plugin_template`_ for new plugin project.
 
 Register Auth/ACL Modules
 -------------------------
@@ -958,7 +969,7 @@ Create Configuration File
 
 Create `etc/${plugin_name}.conf|config` file for the plugin (which will be put in the directory `etc/plugins/${plugin_name}` after compilation). The *EMQ X* broker supports two types of config syntax:
 
-1. ${plugin_name}.config with erlang syntax: 
+1. ${plugin_name}.config with erlang syntax:
 
 .. code-block:: erlang
 
@@ -1015,4 +1026,3 @@ Build and Release the Plugin
 .. _emqx_reloader:         https://github.com/emqx/emqx-reloader
 .. _emqx_plugin_template:  https://github.com/emqx/emqx-plugin-template
 .. _recon:                 http://ferd.github.io/recon/
-
