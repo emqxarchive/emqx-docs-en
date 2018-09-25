@@ -11,8 +11,7 @@ Version 3.0-beta.3
 
 *Release Date: 2018-09-23*
 
-The EMQ X 3.0-beta.3 release is mainly for bug fixes and feature
-improvements on MQTT 5.0.
+The EMQ X 3.0-beta.3 release is mainly for bug fixes and feature improvements on MQTT 5.0.
 
 EMQ X Core
 ----------
