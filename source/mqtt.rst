@@ -47,7 +47,7 @@ mqtt.org:
 
 TODO: LIST
 
-Maintained by emqtt.com:
+Maintained by emqx.io:
 
 TODO: LIST
 
@@ -103,6 +103,6 @@ mqtt.org:
 
 TODO: LIST
 
-Maintained by emqtt.com:
+Maintained by emqx.io:
 
 TODO: LIST

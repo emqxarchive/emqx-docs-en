@@ -1,77 +1,102 @@
+
+.. _FAQ:
+
 ===
 FAQ
 ===
 
+What is EMQ X suitable for?
+----------------------------
 
-##### Q1. Is port 4369 and another random port secure?
+*EMQ X* is designed for helping build large-scale IoT platforms and applications, as it supports most of the popular IoT protocols: MQTT, MQTT-SN, CoAP, LwM2M, and STOMP.
 
-```
-HI, when start emqttd , I found the port 4369 and another random port(63703) is open, are this security ?
+And another use case is Instant Messaging via MQTT. Use *EMQ X* for the notifications and also for the signaling server of WebRTC.
 
-Example: 
-tcp 0 0 0.0.0.0:4369 0.0.0.0:* LISTEN 13736/epmd
-tcp 0 0 0.0.0.0:8083 0.0.0.0:* LISTEN 16745/beam.smp
-tcp 0 0 0.0.0.0:8883 0.0.0.0:* LISTEN 16745/beam.smp
-tcp 0 0 0.0.0.0:63703 0.0.0.0:* LISTEN 16745/beam.smp
-tcp 0 0 0.0.0.0:1883 0.0.0.0:* LISTEN 16745/beam.smp
+Do I have to learn Erlang programming language to use EMQ X?
+------------------------------------------------------------
 
-1883: mqtt no ssl
-8883: mqtt with ssl
-8083: websocket
-```
+Not necessary. The config file is self-explained and thus easy to understand. There are several plugins developed by the *EMQ X* team, which should be sufficient for most use cases.
 
-4369 and some random ports are opened by erlang node for internal communication. Configure your firewall to allow 1883, 8883, 8083 ports to be accessed from outside for security.
+You could always write your own plugins if necessary, then a basic knowledge of Erlang is 'good to have'.
 
-Access control of emqttd broker has two layers:
+I found the port 4369 and another random port(63703) are open, is this secure?
+-------------------------------------------------------------------------------
 
-eSockd TCP Acceptor, Ipaddress based Access Control, Example:
+::
 
-```
-{access, [{deny, "192.168.1.1"},
-{allow, "192.168.1.0/24"},
-{deny, all}]}
-```
+    tcp 0 0 0.0.0.0:4369 0.0.0.0:* LISTEN 13736/epmd
+    tcp 0 0 0.0.0.0:8083 0.0.0.0:* LISTEN 16745/beam.smp
+    tcp 0 0 0.0.0.0:8883 0.0.0.0:* LISTEN 16745/beam.smp
+    tcp 0 0 0.0.0.0:63703 0.0.0.0:* LISTEN 16745/beam.smp
+    tcp 0 0 0.0.0.0:1883 0.0.0.0:* LISTEN 16745/beam.smp
 
-MQTT Subscribe/Publish Access Control by etc/acl.config, Example:
+These TCP Ports are opened by *EMQ X* nodes.
 
-```
-{allow, {ipaddr, "127.0.0.1"}, pubsub, ["$SYS/#", "#"]}.
+The TCP port 4369 is for erlang port mapping, and the *random ports* are communication ports for distributed erlang. All of these ports must be allowed to other nodes in the same cluster, by configuring your firewall.
 
-{deny, all, subscribe, ["$SYS/#", {eq, "#"}]}.
+You may need to limit the *random ports* in a range, after that you can allow this range of TCP ports in your firewall. For example, you could limit the range to 6369~6379 by following config in the emqx.conf::
 
-{allow, all}.
-```
+    node.dist_listen_min = 6369
+    node.dist_listen_max = 6379
 
-##### Q2. cannot compile emqttd under Chinese folder?
+The communication via these ports are secured by the cookie, so that one cannot access your cluster if he does not know the cookie::
 
-It seems that rebar cannot support Chinese folder name.
+    node.cookie = emqxsecretcookie
 
-##### Q3. emqttd is ready for production ? 
+It is recommended that only keep your cluster in a sub-network behind a firewall, not across data-centers. But if you do want to, you could secure you distributed erlang via SSL, by configuring the `etc/ssl_dist.conf`. For more information, see `ssl_distribution <http://erlang.org/doc/apps/ssl/ssl_distribution.html>`_
 
-The core features are solid and scalable. A small full-time team with many contributors are developing this project. You could submit issues if any feature requests or bug reports.
+How do I config the ACL?
+----------------------------
 
-##### Q4. Benchmark and performance issue
+Follow this doc: `emqx_guide#acl <http://emqtt.io/docs/v2/guide.html#acl>`_
 
-Wiki: https://github.com/emqtt/emqttd/wiki/One-Million-Connections
+Start with the simplest one using etc/acl.conf::
 
-##### Q5. 'session' identified by clientID? when session expired what will happen? All queued messages will be deleted and subscribed topics will be deleted too? when reconnected, need redo subscription? (#150)
+    %% Allow user with username 'dashboard' to subscribe '$SYS/#'
+    {allow, {user, "dashboard"}, subscribe, ["$SYS/#"]}.
 
-When a client connected to broker with 'clean session' flag 0, a session identified by clientId will be created. The session will expire after 48 hours(configured in etc/emqttd.config) if no client connections bind with it, and all queued messages and subscriptions will be dropped.
+    %% Allow clients from localhost to subscribe and publish to any topics
+    {allow, {ipaddr, "127.0.0.1"}, pubsub, ["$SYS/#", "#"]}.
 
-##### Q6. "{max_queued_messages, 100}" in 0.8 release or "{queue, {max_length, 1000},..." means queue for one session or one topic? If it stands for session, while one topic has lots of offline messages(100), the user's other topic offline messages will be flushed? (#150)
+    %% Deny clients to subscribe topics which matches '$SYS/#' and the topic exactly equals to 'abc/#'. But this doesn't deny topics such as 'abc' or 'abc/d'
+    {deny, all, subscribe, ["$SYS/#", {eq, "abc/#"}]}.
 
-For session. Topic just dispatch messages to clients or sessions that matched the subscriptions. Will Flood.
+    %% Allow all by default
+    {allow, all}.
 
-##### Q7. About the retained message, how to config one topic only keep the latest retained message, the older retained messages will be auto deleted?(#150)
+ACL via databases such as mysql and mongodb should be similar. It is recommended to test your ideas for better understanding.
 
-By default, the broker only keep the latest retained message of one topic.
+Is EMQ X ready for production?
+------------------------------
 
-##### Q8. When the persistent client with 'clean session' flag 0 is offline but not expired, will the broker put session's subscribed topic new messages to session's queue?(#150)
+Yes. The core features are solid and stable. A full-time team and many contributors from community are developing this project. You could submit issues for any feature requests or bug reports.
 
-Yes
+Benchmark and performance issue
+--------------------------------
 
-##### Q9. If max_length of queue is 100, when the session subscribed topic1 and topic2, what will happen when topic1 fill 70 messages, then topic2 fill 80 messages? After the reconnection, will the session lose first 50 message?(#150)
+Check out the benchmark report here:
 
-Lose the oldest 50 messages.
+`emqx-benchmark <https://emq-xmeter-benchmark-en.readthedocs.io/en/latest/>`_
 
+Is 'session' identified by ClientID? What will happen when session is expired?
+-------------------------------------------------------------------------------
+
+Yes, the session is identified by ClientID.
+
+When a client connects to broker with 'clean session = false', a session identified by ClientID will be created. The session will expire after 48 hours(configured in etc/emqx.config) if no client connections bind with it, and all queued messages and subscriptions will be dropped.
+
+Is config 'max_mqueue_len' means queue for one session or one topic?
+----------------------------------------------------------------------
+
+For one session. Topic just dispatches messages to clients or sessions that match the subscriptions.
+
+What would happen when a session has too many offline messages on one topic?
+------------------------------------------------------------------------------
+
+If the offline messages in the session exceed the 'max_mqueue_len', the older offline messages are dropped from the queue.
+
+How do I configure EMQ X to only keep the latest retained message of a topic?
+-----------------------------------------------------------------------------
+
+The broker only keeps the latest retained message of a topic, as specified by MQTT specifications.
 

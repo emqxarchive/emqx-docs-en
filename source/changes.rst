@@ -4,31 +4,196 @@
 =======
 Changes
 =======
+
+------------------
+Version 3.0-beta.3
+------------------
+
+*Release Date: 2018-09-23*
+
+The EMQ X 3.0-beta.3 release is mainly for bug fixes and feature improvements on MQTT 5.0.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+-  Improve the ``force_gc_policy`` config
+
+   GitHub issues:
+   `emqx/emqx#1851 <https://github.com/emqx/emqx/pull/1851>`__
+
+-  Improve design of bridges
+
+   GitHub issues:
+   `emqx/emqx#1849 <https://github.com/emqx/emqx/pull/1849>`__
+
+-  Add force shutdown policy
+
+   GitHub issues:
+   `emqx/emqx#1836 <https://github.com/emqx/emqx/pull/1836>`__
+
+-  Add new shared subscription dispatch strategy
+
+   GitHub issues:
+   `emqx/emqx#1823 <https://github.com/emqx/emqx/pull/1823>`__
+
+-  Improve the design of ``esockd_connection_sup`` module
+
+   GitHub issues:
+   `emqx/emqx#86 <https://github.com/emqx/esockd/pull/86>`__
+
+-  Configurable websocket path
+
+   GitHub issues:
+   `emqx/emqx#1809 <https://github.com/emqx/emqx/pull/1809>`__,
+   `emqx/emqx#1814 <https://github.com/emqx/emqx/pull/1814>`__
+
+-  Improve handling of ``Message Expiry Interval`` property
+
+   GitHub
+   issues: `emqx/emqx#1813 <https://github.com/emqx/emqx/pull/1813>`__
+
+-  Support more gc enforcement policies
+
+   GitHub issues:
+   `emqx/emqx#1808 <https://github.com/emqx/emqx/pull/1808>`__
+
+-  Rebar3 and erlang.mk dual support
+
+   GitHub issues:
+   `emqx/emqx#1806 <https://github.com/emqx/emqx/pull/1806>`__
+
+Bug Fixes:
+
+-  Fix incorrect value of ``Maximum QoS`` property
+
+   GitHub issues:
+   `emqx/emqx#1848 <https://github.com/emqx/emqx/issues/1848>`__,
+   `emqx/emqx#1857 <https://github.com/emqx/emqx/pull/1857>`__
+
+-  Fix the handling for ``Session Expiry Interval`` property
+
+   GitHub issues:
+   `emqx/emqx#1833 <https://github.com/emqx/emqx/issues/1833>`__,
+   `emqx/emqx#1834 <https://github.com/emqx/emqx/issues/1834>`__,
+   `emqx/emqx#1845 <https://github.com/emqx/emqx/pull/1845>`__
+
+-  Fix an issue about ``Publish Limit`` config
+
+   GitHub issues:
+   `emqx/emqx#1847 <https://github.com/emqx/emqx/issues/1847>`__,
+   `emqx/emqx#1856 <https://github.com/emqx/emqx/pull/1856>`__
+
+-  Fix message delivery to remote connections
+
+   GitHub issues:
+   `emqx/emqx#1846 <https://github.com/emqx/emqx/pull/1846>`__
+
+-  Fix an issue in travis build
+
+   GitHub issues:
+   `emqx/emqx#1818 <https://github.com/emqx/emqx/pull/1818>`__
+
+-  Fix an issue when handling MQTT packages
+
+   GitHub issues:
+   `emqx/emqx#1811 <https://github.com/emqx/emqx/issues/1811>`__,
+   `emqx/emqx#1817 <https://github.com/emqx/emqx/pull/1817>`__
+
+emqx-ratainer (plugin)
+----------------------
+
+Enhancements:
+
+-  Support message level TTL for retained message
+
+   GitHub issues:
+   `emqx/emqx-retainer#52 <https://github.com/emqx/emqx-retainer/issues/52>`__,
+   `emqx/emqx-retainer#60 <https://github.com/emqx/emqx-retainer/pull/60>`__
+
+emqx-dashboard (plugin)
+-----------------------
+
+Bug Fixes:
+
+-  Fix metrics field
+
+   GitHub issues:
+   `emqx/emqx-dashboard#5 <https://github.com/emqx/emqx-dashboard/pull/5>`__
+
+emqx-management (plugin)
+------------------------
+
+Bug Fixes:
+
+-  Fix subscription error
+
+   GitHub issues:
+   `emqx/emqx-management#7 <https://github.com/emqx/emqx-management/pull/7>`__
+
+-  Improve CLI for bridges
+
+   GitHub commit:
+   `emqx/emqx-management#a8d0b397 <https://github.com/emqx/emqx-management/commit/a8d0b3978ee3d51119d0fb22a12286a83d30c5ff>`__
+
+emqx-web-hook (plugin)
+----------------------
+
+Bug Fixes:
+
+-  Fix load plugin error
+
+   GitHub commit:
+   `emqx/emqx-web-hook#331ca26 <https://github.com/emqx/emqx-web-hook/commit/331ca26550931d691c98173501ca0fb4780d7a9a>`__
+
+emqx-coap (plugin)
+------------------
+
+Enhancements:
+
+-  Introduce emqx-coap into EMQ X 3.0
+
+   GitHub issues:
+   `emqx/emqx-coap#86 <https://github.com/emqx/emqx-coap/pull/86>`__,
+   `emqx/gen_coap#8 <https://github.com/emqx/gen_coap/pull/8>`__
+
+emqx-docker (docker file)
+-------------------------
+
+Enhancements:
+
+-  Optimize docker file
+
+   GitHub issues:
+   `emqx/emqx-docker#71 <https://github.com/emqx/emqx-docker/pull/71>`__
+
 .. _release_3.0_beta.2:
---------------
-EMQ X 3.0-beta.2
---------------
+
+------------------
+Version 3.0-beta.2
+------------------
 
 *Release Date: 2018-09-10*
 
-The EMQ X 3.0-beta.2 release is mainly for bug fixes and feature improvements on MQTT 5.0.
+The EMQ X 3.0-beta.2 release is mainly for bug fixes and new features support for MQTT 5.0.
 
 EMQ X Core
--------------
+----------
 
 Enhancements:
 
 - Support subscription options of MQTT 5.0
 
-  GitHub issues: 
-  `emqx/emqx#1788 <https://github.com/emqx/emqx/pull/1788>`_, 
-  `emqx/emqx-retainer#58 <https://github.com/emqx/emqx-retainer/pull/58>`_, 
+  GitHub issues:
+  `emqx/emqx#1788 <https://github.com/emqx/emqx/pull/1788>`_,
+  `emqx/emqx-retainer#58 <https://github.com/emqx/emqx-retainer/pull/58>`_,
   `emqx/emqx#1803 <https://github.com/emqx/emqx/pull/1803>`_
 
 - Add validations for 'Topic-Alias' of MQTT 5.0
 
-  GitHub issues: 
-  `emqx/emqx#1789 <https://github.com/emqx/emqx/pull/1789>`_, 
+  GitHub issues:
+  `emqx/emqx#1789 <https://github.com/emqx/emqx/pull/1789>`_,
   `emqx/emqx#1802 <https://github.com/emqx/emqx/pull/1802>`_
 
 - Improve the design of hooks
@@ -36,59 +201,63 @@ Enhancements:
   GitHub issue: `emqx/emqx#1790 <https://github.com/emqx/emqx/pull/1790>`_
 
 - Rename 'emqx_mqtt_properties' module to 'emqx_mqtt_props'
-  
+
   GitHub issue: `emqx/emqx#1791 <https://github.com/emqx/emqx/pull/1791>`_
 
 - Update emqx_zone
-  
+
   GitHub issue: `emqx/emqx#1795 <https://github.com/emqx/emqx/pull/1795>`_
 
 Bug Fixes:
 
-- Fix an issue about 'Will Delay Interval' property
-  
-  GitHub issues: 
-  `emqx/emqx#1800 <https://github.com/emqx/emqx/pull/1800>`_, 
+- Fix issues about 'Will Delay Interval' property
+
+  GitHub issues:
+  `emqx/emqx#1800 <https://github.com/emqx/emqx/pull/1800>`_,
   `emqx/emqx-delayed-publish#3 <https://github.com/emqx/emqx-delayed-publish/pull/3>`_
 
 - Fix an issue about 'Reserved' flag
 
-  GitHub issue: `emqx/emqx#1783 <https://github.com/emqx/emqx/pull/1783>`_ 
+  GitHub issue: `emqx/emqx#1783 <https://github.com/emqx/emqx/pull/1783>`_
 
-- Generate a config file for testing
-  
+- Generate a config file for unit test
+
   GitHub issue: `emqx/emqx#1794 <https://github.com/emqx/emqx/pull/1794>`_
-  
+
 emqx-management (plugin)
-----------------------
+------------------------
+
 Enhancements:
 
-- Add restful APIs for banned
+- Add restful APIs for banned function
 
   GitHub issue: `emqx/emqx-management#6 <https://github.com/emqx/emqx-management/pull/6>`_
 
 emqx-delayed-publish (plugin)
-----------------------
+-----------------------------
+
 Enhancements:
 
 - Refactor the code
-  
+
   GitHub issue: `emqx/emqx-delayed-publish#4 <https://github.com/emqx/emqx-delayed-publish/pull/4>`_
 
 minirest (dependency)
 ---------------------
+
 Enhancements:
 
-- Pass both query and body params within the callback args
+- Pass both query and body params to the callback functions
 
   GitHub issue: `emqx/minirest#4 <https://github.com/emqx/minirest/pull/4>`_
 
 emqx-rel (build-project)
----------------------
-Enhancements: 
+------------------------
 
-- Fail fast in case the otp version in use is 20 or older
-  
+Enhancements:
+
+- Check OTP version while compiling.
+
   GitHub issue: `emqx/emqx-rel#217 <https://github.com/emqx/emqx-rel/pull/217>`_
 
 .. _release_3.0_beta.1:
@@ -97,25 +266,23 @@ Enhancements:
 Version 3.0-beta.1
 ------------------
 
-*Release Date: 2018-08-31*
+*Release Date: 2018-09-02*
 
 *Release Name: Promises of Tomorrow*
 
 Introduction
 ------------
 
-EMQ X 3.0, named "Promise of Tomorrow", is a major release.
+3.0-beta.1 version is now officially released. It is backward compatible with MQTT 3 (3.1 & 3.1.1), and it also supports new features of MQTT 5.0 specification.
 
-EMQ X 3.0 is the first release that supports MQTT 5.0 Protocol Specification; meanwhile it is backward compatible with MQTT 3 (3.1 & 3.1.1)
+It also comes with some important features. Scalability and extensibility are improved significantly as well after refactoring some core components.
 
-Besides supporting MQTT 5.0, EMQ X 3.0 comes with more functional features. Performance and stability are also improved significantly after refactoring some core components.
-
-MQTT 5.0 Protocol Supoort
--------------------------
+MQTT 5.0 Protocol specification support
+----------------------------------------
 
 - New packet type
 
-  In MQTT 5.0 there is new packet type AUTH for authentication exchange.
+  In MQTT 5.0 there is a new packet type AUTH for authentication exchange.
 
 - Session expiry
 
@@ -139,11 +306,11 @@ MQTT 5.0 Protocol Supoort
 
 - Payload format and content type
 
-  Can specify the payload format and a MIME style content type when publishing.
+  User can specify the payload format and a MIME style content type when publishing.
 
 - Request/Response
 
-  Formalized request and response communication patter.
+  Add a few properties, formalized request and response communication pattern.
 
 - Shared subscriptions
 
@@ -151,11 +318,11 @@ MQTT 5.0 Protocol Supoort
 
 - Subscription ID
 
-  With a subscription ID the client is able to know the message comes from which subscription.
+  With a subscription ID the client is able to know from which subscription the message comes.
 
 - Topic alias
 
-  Topic can can have an integer alias, this reduces the communication overhead.
+  Topic can have an integer alias, which reduces the communication overhead for the long topic names.
 
 - User properties
 
@@ -163,26 +330,31 @@ MQTT 5.0 Protocol Supoort
 
 - Maximum packet size
 
-  Broker specified max packet size is implemented in EMQ X 2.x already, When a oversized message is received, it will be dropped, and the client will get disconnected without informed about the reason. Now in EMQ X 3.0, the broker can disconnect the MQTT connection with a reason code.
+  Broker specified max packet size was already implemented in EMQ X 2.x. When an oversized message is received, it will be dropped, and broker will disconnect without informing about the reason. Now with MQTT 5.0 specification, client and broker can specify maximum messsage size limitation through CONNECT/CONNECT ACK packets.
 
-- Optional Server feature availability
-  Define the allowed features of the broker and specify them to the client.
+- Optional server feature availability (TODO)
+
+  Allowed features of the broker can be defined and the client can be informed of those features.
 
 - Subscription options
-  Provide subscription options primarily to allow for message bridge applications.
+
+  MQTT 5.0 provides subscription options primarily to allow for message bridge applications. For example, the option for handling nolocal and retained messages.
 
 - Will delay
 
-  Allow to specify a delay between end of connection and sending the will message. This allows for brief interruptions of the connection without notification to others.
+  MQTT 5.0 allows to specify a delay between end of connection and sending of the will message，so it can avoid to send out the will message during temporary network problems.
 
 - Server keep alive
-  Server can specify a keepalive value it wishes the client to use.
+
+  MQTT 5.0 allows server to specify a keepalive value it wishes the client to use.
 
 - Assigned ClientID
-  In case where the ClientID is assigned by the server, return the assigned ClientID.
+
+  In MQTT 5.0, if ClientID is assigned by the server, then the server should return the assigned ClientID to client.
 
 - Server reference
-  Allow the server to specify an alternate server to use on CONNACK or DISCONNECT.
+
+  MQTT 5.0 allows broker to specify an alternative broker for client to use, which is uesed for server redirection.
 
 Evolved Clustering Architecture
 -------------------------------
@@ -201,8 +373,9 @@ The clustering architecture is evolved. Now a single cluster is able to serve te
     | Kernel |<----TCP---->| Kernel |
     ----------             ----------
 
-- Ekka is introduced to auto-cluster EMQX, and to auto-heal the cluster after net-split, following clustering methods are now supported:
-  - manual: nodes join a cluster manually;
+- Ekka is introduced to auto-cluster EMQ X, and to auto-heal the cluster after net-split, following clustering methods are now supported:
+
+  - manual: nodes joining a cluster manually;
 
   - static: auto-clustering from a pre-defined node list;
 
@@ -219,11 +392,15 @@ The clustering architecture is evolved. Now a single cluster is able to serve te
 Rate Limiting
 -------------
 
-The rate limiting is introduced to make the broker more resilient, there are 2 kinds of configurations to control:
+The rate limiting is introduced to make the broker more resilient. User can configure MQTT TCP or SSL listener configuration.
 
-1. The overall message receiving rate in bytes;
+- Concurrent connection numbers: max_clients
 
-2. The rate of accepting new connections.
+- Connection rate limitation: max_conn_rate
+
+- Message delivery bytes limitation: rate_limit
+
+- Message delivery number rate limitation: max_publish_rate
 
 Other Feature improvements and Bug Fixes
 ----------------------------------------
@@ -236,15 +413,15 @@ Other Feature improvements and Bug Fixes
 
 - Added local and remote MQTT bridge;
 
-- Introduced "zone" in to EMQX, different zone can have different configuration;
+- Introduced concept of "zone", that different zones can have different configurations;
 
-- Refactored session module, data copy among nodes is reduced, thus higher inter-nodes communication efficiency;
+- Refactored session module, and reduced data copy among nodes, which led to higher inter-nodes communication efficiency;
 
-- Improved of OpenLDAP Access Control;
+- Improved OpenLDAP Access Control;
 
-- Added a new plugin for delayed publish;
+- Added delayed publish;
 
-- Support new statistic and metrics to Prometheus;
+- Supported new statistic and metrics to Prometheus;
 
 - Improved the hooks.
 
@@ -2758,7 +2935,7 @@ Improve: There are two many "MQueue(~s) drop ~s" logs if the message queue of se
 
 Improve: gen_server2(from RabbitMQ) to improve emqttd_session, emqttd_pubsub
 
-Improve: Makefile to build plugins 
+Improve: Makefile to build plugins
 
 Bugfix: emqttd_broker:unhook/2 cannot work (#238)
 
@@ -2794,7 +2971,7 @@ Version 0.9.2-alpha
 
 *Release Date: 2015-07-18*
 
-Improve: issue #196 - Add New Hook 'client.subscribe.after' 
+Improve: issue #196 - Add New Hook 'client.subscribe.after'
 
 .. _release_0.9.1:
 
@@ -2806,7 +2983,7 @@ Version 0.9.1-alpha
 
 Bugfix: issue #189 - MQTT over WebSocket(SSL) cannot work?
 
-Bugfix: issue #193 - 'client.ack' hook should be renamed to 'message.acked', and called by emqttd_broker:foreach_hooks 
+Bugfix: issue #193 - 'client.ack' hook should be renamed to 'message.acked', and called by emqttd_broker:foreach_hooks
 
 .. _release_0.9.0:
 
@@ -3004,7 +3181,7 @@ Version 0.7.0-alpha
 
 [MQTT over WebSocket(SSL)](https://github.com/emqtt/emqttd/wiki/MQTT-Over-WebSocket) Now!
 
-[Plugin Achitecture](https://github.com/emqtt/emqttd/wiki/Plugin%20Design) based on OTP application 
+[Plugin Achitecture](https://github.com/emqtt/emqttd/wiki/Plugin%20Design) based on OTP application
 
 [Trace MQTT Packets or Messages](https://github.com/emqtt/emqttd/wiki/Trace%20Design) to log files
 
@@ -3014,7 +3191,7 @@ Feature: issue #49, #105 - Plugin Architecture Support
 
 Feature: issue #93 - Trace API Design
 
-Improve: issue #109 - emqttd_broker should add subscribe, notify API 
+Improve: issue #109 - emqttd_broker should add subscribe, notify API
 
 Improve: update README.md to add 'Goals', 'Contributors' chapters
 
@@ -3023,7 +3200,7 @@ Change: rename etc/app.config to etc/emqttd.config
 Change: etc/emqttd.config changed
 
 Bugfix: critical issue #54 - error when resume session!
- 
+
 Bugfix: issue #118 - error report when UNSUBSCRIBE with no topics
 
 Bugfix: issue #117 - sys_interval = 0 config cannot work
@@ -3040,7 +3217,7 @@ Version 0.6.2-alpha
 
 *Release Date: 2015-04-24*
 
-Bugfix: critical issue #54, #104, #106 - error when resume session 
+Bugfix: critical issue #54, #104, #106 - error when resume session
 
 Improve: add emqttd_cm_sup module, and use 'hash' gproc_pool to register/unregister client ids
 
@@ -3088,11 +3265,11 @@ Feature: issues#47 - authentication, authorization support
 
 Feature: issues#92 - merge emqttd_acl and emqttd_auth to emqttd_access_control
 
-Feature: emqttd_acl_mod, emqttd_auth_mod behaviour to extend ACL, authentication 
+Feature: emqttd_acl_mod, emqttd_auth_mod behaviour to extend ACL, authentication
 
 Feature: issues#85 - lager:info to log subscribe, unsubscribe actions
 
-Feature: issues#77 - authentication with clientid, ipaddress 
+Feature: issues#77 - authentication with clientid, ipaddress
 
 Improve: issues#90 - fix lager_file_backend log format, and rotate 10 log files
 
@@ -3139,7 +3316,7 @@ Benchmark this release on a ubuntu/14.04 server with 8 cores, 32G memory from Qi
     20Mbps In/Out Traffic,
     200K Topics,
     200K Subscribers,
-     
+
     Consumed 7G memory, 40% CPU/core
 
 Benchmark code: https://github.com/emqtt/emqttd_benchmark
@@ -3336,7 +3513,7 @@ Feature: retain messages, add emqtt_server module
 
 Feature: MQTT 3.1.1 null client_id support
 
-Bugfix: keepalive timeout to send will message 
+Bugfix: keepalive timeout to send will message
 
 Improve: overlapping subscription support
 
@@ -3358,7 +3535,7 @@ Version 0.2.1-beta
 
 pull request 26: Use binaries for topic paths and fix wildcard topics
 
-emqtt_pubsub.erl: fix wildcard topic match bug caused by binary topic in 0.2.0 
+emqtt_pubsub.erl: fix wildcard topic match bug caused by binary topic in 0.2.0
 
 Makefile: deps -> get-deps
 
@@ -3390,8 +3567,8 @@ Version 0.1.5
 
 *Release Date: 2013-01-05*
 
-Bugfix: remove QOS_1 match when handle PUBREL request 
- 
+Bugfix: remove QOS_1 match when handle PUBREL request
+
 Bugfix: reverse word in emqtt_topic:words/1 function
 
 .. _release_0.1.4:

@@ -5,7 +5,7 @@
 Tuning Guide
 ============
 
-Tuning the Linux Kernel, Networking, Erlang VM and the *EMQ* broker for one million concurrent MQTT connections.
+Tuning the Linux Kernel, Networking, Erlang VM and the *EMQ X* broker for one million concurrent MQTT connections.
 
 -------------------
 Linux Kernel Tuning
@@ -89,7 +89,7 @@ Timeout for FIN-WAIT-2 sockets::
 Erlang VM Tuning
 ----------------
 
-Tuning and optimize the Erlang VM in etc/emq.conf file:
+Tuning and optimize the Erlang VM in emqx/etc/emqx.conf file:
 
 .. code-block:: properties
 
@@ -100,10 +100,10 @@ Tuning and optimize the Erlang VM in etc/emq.conf file:
     node.max_ports = 1048576
 
 --------------
-The EMQ Broker
+The EMQ X Broker
 --------------
 
-Tune the acceptor pool, max_clients limit and sockopts for TCP listener in etc/emqttd.config:
+Tune the acceptor pool, max_clients limit and sockopts for TCP listener in emqx/etc/emqx.conf:
 
 .. code-block:: properties
 
@@ -116,7 +116,7 @@ Tune the acceptor pool, max_clients limit and sockopts for TCP listener in etc/e
 Client Machine
 --------------
 
-Tune the client machine to benchmark emqttd broker:
+Tune the client machine to benchmark emqx broker:
 
 .. code-block:: bash
 

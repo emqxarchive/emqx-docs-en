@@ -5,9 +5,67 @@
 Commands
 ========
 
-The './bin/emqttd_ctl' command line could be used to query and administrate the *EMQ* broker.
+The './bin/emqx_ctl' command line could be used to query and administrate the *EMQ X* broker.
 
-.. WARNING:: Cannot work on Windows
+.. Warning:: under Windows OS the command line tool is './bin/emqx_ctl.cmd' .
+
+.. _command_mgmt:
+
+----
+mgmt
+----
+
+Manages the Apps of the broker.
+
++------------------------------+-------------------------------+
+| mgmt list                    | List the Apps                 |
++------------------------------+-------------------------------+
+| mgmt insert <AppId> <Name>   | Add App for REST API          |
++------------------------------+-------------------------------+
+| mgmt update <AppId> <status> | Update App for REST API       |
++------------------------------+-------------------------------+
+| mgmt lookup <AppId>          | Query App details of an AppId |
++------------------------------+-------------------------------+
+| mgmt delete <AppId>          | Delete Apps of an AppId       |
++------------------------------+-------------------------------+
+
+mgmt list
+---------
+
+List the Apps::
+
+
+     $ ./bin/emqx_ctl mgmt list
+     app_id: 901abdba8eb8c, secret: MjgzMzQ5MjM1MzUzMTc4MjgyMjE3NzU4ODcwMDg0NjQ4OTG, name: hello, desc: , status: true, expired: undefined
+
+mgmt insert <AppId> <Name>
+--------------------------
+
+Add App for REST API::
+
+    $ ./bin/emqx_ctl mgmt insert dbcb6e023370b world
+    AppSecret: MjgzMzQ5MjYyMTY3ODk4MjA5NzMwODExODMxMDM1NDk0NDA
+
+mgmt lookup <AppId>
+---------------------
+
+Query App details of an AppId::
+
+    $ ./bin/emqx_ctl mgmt lookup dbcb6e023370b
+    app_id: dbcb6e023370b
+    secret: MjgzMzQ5MjYyMTY3ODk4MjA5NzMwODExODMxMDM1NDk0NDA
+    name: world
+    desc: Application user
+    status: stop
+    expired: undefined
+
+mgmt delete <AppId>
+--------------------
+
+删除REST API的应用程序::
+
+    $ ./bin/emqx_ctl mgmt delete dbcb6e023370b
+    ok
 
 .. _command_status:
 
@@ -17,10 +75,10 @@ status
 
 Show running status of the broker::
 
-    $ ./bin/emqttd_ctl status
+    $ ./bin/emqx_ctl status
 
-    Node 'emqttd@127.0.0.1' is started
-    emqttd 2.0 is running
+    Node 'emqx@127.0.0.1' is started
+    emqx 3.0 is running
 
 .. _command_broker:
 
@@ -44,19 +102,19 @@ Query basic information,  statistics and metrics of the broker.
 
 Query version, description and uptime of the broker::
 
-    $ ./bin/emqttd_ctl broker
+    $ ./bin/emqx_ctl broker
 
-    sysdescr  : Erlang MQTT Broker
-    version   : 0.15.0
+    sysdescr  : EMQ X Broker
+    version   : 3.0
     uptime    : 1 hours, 25 minutes, 24 seconds
-    datetime  : 2016-01-16 13:17:32
+    datetime  : 2018-09-13 13:17:32
 
 broker stats
 ------------
 
 Query statistics of MQTT Client, Session, Topic, Subscription and Route::
 
-    $ ./bin/emqttd_ctl broker stats
+    $ ./bin/emqx_ctl broker stats
 
     clients/count       : 1
     clients/max         : 1
@@ -78,7 +136,7 @@ broker metrics
 
 Query metrics of Bytes, MQTT Packets and Messages(sent/received)::
 
-    $ ./bin/emqttd_ctl broker metrics
+    $ ./bin/emqx_ctl broker metrics
 
     bytes/received          : 297
     bytes/sent              : 40
@@ -120,7 +178,7 @@ Query metrics of Bytes, MQTT Packets and Messages(sent/received)::
 cluster
 -------
 
-Cluster two or more emqttd brokers.
+Cluster two or more *EMQ X* brokers.
 
 +-----------------------+--------------------------------+
 | cluster join <Node>   | Join the cluster               |
@@ -132,52 +190,52 @@ Cluster two or more emqttd brokers.
 | cluster status        | Query cluster status and nodes |
 +-----------------------+--------------------------------+
 
-Suppose we create two emqttd nodes on localhost and cluster them:
+Suppose we create two *EMQ X* nodes on localhost and cluster them:
 
 +-----------+---------------------+-------------+
 | Folder    | Node                | MQTT Port   |
 +-----------+---------------------+-------------+
-| emqttd1   | emqttd1@127.0.0.1   | 1883        |
+| emqx1     | emqx1@127.0.0.1     | 1883        |
 +-----------+---------------------+-------------+
-| emqttd2   | emqttd2@127.0.0.1   | 2883        |
+| emqx2     | emqx2@127.0.0.1     | 2883        |
 +-----------+---------------------+-------------+
 
-Start emqttd1 node::
+Start emqx1 node::
 
-    cd emqttd1 && ./bin/emqttd start
+    cd emqx1 && ./bin/emqx start
 
-Start emqttd2 node::
+Start emqx2 node::
 
-    cd emqttd2 && ./bin/emqttd start
+    cd emqx2 && ./bin/emqx start
 
-Under emqttd2 folder:: 
+Under emqx2 folder::
 
-    $ ./bin/emqttd_ctl cluster join emqttd1@127.0.0.1
+    $ ./bin/emqx_ctl cluster join emqx1@127.0.0.1
 
     Join the cluster successfully.
-    Cluster status: [{running_nodes,['emqttd1@127.0.0.1','emqttd2@127.0.0.1']}]
+    Cluster status: [{running_nodes,['emqx1@127.0.0.1','emqx2@127.0.0.1']}]
 
 Query cluster status::
 
-    $ ./bin/emqttd_ctl cluster status
+    $ ./bin/emqx_ctl cluster status
 
-    Cluster status: [{running_nodes,['emqttd2@127.0.0.1','emqttd1@127.0.0.1']}]
+    Cluster status: [{running_nodes,['emqx2@127.0.0.1','emqx1@127.0.0.1']}]
 
 Message Route between nodes::
 
-    # Subscribe topic 'x' on emqttd1 node
+    # Subscribe topic 'x' on emqx1 node
     mosquitto_sub -t x -q 1 -p 1883
 
-    # Publish to topic 'x' on emqttd2 node
+    # Publish to topic 'x' on emqx2 node
     mosquitto_pub -t x -q 1 -p 2883 -m hello
 
-emqttd2 leaves the cluster::
+emqx2 leaves the cluster::
 
-    cd emqttd2 && ./bin/emqttd_ctl cluster leave
+    cd emqx2 && ./bin/emqx_ctl cluster leave
 
-Or remove emqttd2 from the cluster on emqttd1 node::
+Or remove emqx2 from the cluster on emqx1 node::
 
-    cd emqttd1 && ./bin/emqttd_ctl cluster remove emqttd2@127.0.0.1
+    cd emqx1 && ./bin/emqx_ctl cluster remove emqx2@127.0.0.1
 
 .. _command_clients:
 
@@ -190,9 +248,9 @@ Query MQTT clients connected to the broker:
 +-------------------------+----------------------------------+
 | clients list            | List all MQTT clients            |
 +-------------------------+----------------------------------+
-| clients show <ClientId> | Show a MQTT Client               |
+| clients show <ClientId> | Show an MQTT Client              |
 +-------------------------+----------------------------------+
-| clients kick <ClientId> | Kick out a MQTT client           |
+| clients kick <ClientId> | Kick out an MQTT client          |
 +-------------------------+----------------------------------+
 
 clients lists
@@ -200,7 +258,7 @@ clients lists
 
 Query All MQTT clients connected to the broker::
 
-    $ ./bin/emqttd_ctl clients list
+    $ ./bin/emqx_ctl clients list
 
     Client(mosqsub/43832-airlee.lo, clean_sess=true, username=test, peername=127.0.0.1:64896, connected_at=1452929113)
     Client(mosqsub/44011-airlee.lo, clean_sess=true, username=test, peername=127.0.0.1:64961, connected_at=1452929275)
@@ -223,16 +281,16 @@ clients show <ClientId>
 
 Show a specific MQTT Client::
 
-    ./bin/emqttd_ctl clients show "mosqsub/43832-airlee.lo"
+    ./bin/emqx_ctl clients show "mosqsub/43832-airlee.lo"
 
     Client(mosqsub/43832-airlee.lo, clean_sess=true, username=test, peername=127.0.0.1:64896, connected_at=1452929113)
 
 clients kick <ClientId>
 -----------------------
-        
+
 Kick out a MQTT Client::
 
-    ./bin/emqttd_ctl clients kick "clientid"
+    ./bin/emqx_ctl clients kick "clientid"
 
 .. _command_sessions:
 
@@ -257,14 +315,12 @@ sessions list
 
 Query all sessions::
 
-    $ ./bin/emqttd_ctl sessions list
+    $ ./bin/emqx_ctl sessions list
 
     Session(clientid, clean_sess=false, max_inflight=100, inflight_queue=0, message_queue=0, message_dropped=0, awaiting_rel=0, awaiting_ack=0, awaiting_comp=0, created_at=1452935508)
     Session(mosqsub/44101-airlee.lo, clean_sess=true, max_inflight=100, inflight_queue=0, message_queue=0, message_dropped=0, awaiting_rel=0, awaiting_ack=0, awaiting_comp=0, created_at=1452935401)
 
 Properties of Session:
-
-TODO:??
 
 +-------------------+----------------------------------------------------------------+
 | clean_sess        | clean sess flag. false: persistent, true: transient            |
@@ -291,7 +347,7 @@ sessions list persistent
 
 Query all persistent sessions::
 
-    $ ./bin/emqttd_ctl sessions list persistent
+    $ ./bin/emqx_ctl sessions list persistent
 
     Session(clientid, clean_sess=false, max_inflight=100, inflight_queue=0, message_queue=0, message_dropped=0, awaiting_rel=0, awaiting_ack=0, awaiting_comp=0, created_at=1452935508)
 
@@ -300,7 +356,7 @@ sessions list transient
 
 Query all transient sessions::
 
-    $ ./bin/emqttd_ctl sessions list transient
+    $ ./bin/emqx_ctl sessions list transient
 
     Session(mosqsub/44101-airlee.lo, clean_sess=true, max_inflight=100, inflight_queue=0, message_queue=0, message_dropped=0, awaiting_rel=0, awaiting_ack=0, awaiting_comp=0, created_at=1452935401)
 
@@ -309,7 +365,7 @@ sessions show <ClientId>
 
 Show a session::
 
-    $ ./bin/emqttd_ctl sessions show clientid
+    $ ./bin/emqx_ctl sessions show clientid
 
     Session(clientid, clean_sess=false, max_inflight=100, inflight_queue=0, message_queue=0, message_dropped=0, awaiting_rel=0, awaiting_ack=0, awaiting_comp=0, created_at=1452935508)
 
@@ -326,48 +382,19 @@ routes list
 
 List all routes::
 
-    $ ./bin/emqttd_ctl routes list
+    $ ./bin/emqx_ctl routes list
 
-    t2/# -> emqttd2@127.0.0.1
-    t/+/x -> emqttd2@127.0.0.1,emqttd@127.0.0.1
+    t2/# -> emqx2@127.0.0.1
+    t/+/x -> emqx2@127.0.0.1,emqx1@127.0.0.1
 
 routes show <Topic>
 -------------------
 
 Show a route::
 
-    $ ./bin/emqttd_ctl routes show t/+/x
+    $ ./bin/emqx_ctl routes show t/+/x
 
-    t/+/x -> emqttd2@127.0.0.1,emqttd@127.0.0.1
-
-.. _command_topics:
-
-------
-topics
-------
-
-Query topic table of the broker.
-
-topics list
------------
-
-Query all the topics::
-
-    $ ./bin/emqttd_ctl topics list
-
-    $SYS/brokers/emqttd@127.0.0.1/metrics/packets/subscribe: static
-    $SYS/brokers/emqttd@127.0.0.1/stats/subscriptions/max: static
-    $SYS/brokers/emqttd2@127.0.0.1/stats/subscriptions/count: static
-    ...
-
-topics show <Topic>
--------------------
-
-Show a topic::
-
-    $ ./bin/emqttd_ctl topics show '$SYS/brokers'
-
-    $SYS/brokers: static
+    t/+/x -> emqx2@127.0.0.1,emqx1@127.0.0.1
 
 .. _command_subscriptions:
 
@@ -388,7 +415,7 @@ subscriptions list
 
 Query all subscriptions::
 
-    $ ./bin/emqttd_ctl subscriptions list
+    $ ./bin/emqx_ctl subscriptions list
 
     mosqsub/91042-airlee.lo -> t/y:1
     mosqsub/90475-airlee.lo -> t/+/x:2
@@ -398,16 +425,16 @@ subscriptions list static
 
 List all static subscriptions::
 
-    $ ./bin/emqttd_ctl subscriptions list static
+    $ ./bin/emqx_ctl subscriptions list static
 
     clientid -> new_topic:1
 
 subscriptions show <ClientId>
 -----------------------------
 
-Show the subscriptions of a MQTT client::
+Show the subscriptions of an MQTT client::
 
-    $ ./bin/emqttd_ctl subscriptions show clientid
+    $ ./bin/emqx_ctl subscriptions show clientid
 
     clientid: [{<<"x">>,1},{<<"topic2">>,1},{<<"topic3">>,1}]
 
@@ -417,7 +444,7 @@ Show the subscriptions of a MQTT client::
 plugins
 -------
 
-List, load or unload plugins of emqttd broker.
+List, load or unload plugins of *EMQ X* broker.
 
 +---------------------------+-------------------------+
 | plugins list              | List all plugins        |
@@ -432,24 +459,23 @@ plugins list
 
 List all plugins::
 
-    $ ./bin/emqttd_ctl plugins list
+    $ ./bin/emqx_ctl plugins list
 
-    Plugin(emq_auth_clientid, version=2.0, description=Authentication with ClientId/Password, active=false)
-    Plugin(emq_auth_http, version=2.0, description=Authentication/ACL with HTTP API, active=false)
-    Plugin(emq_auth_ldap, version=2.0, description=Authentication/ACL with LDAP, active=false)
-    Plugin(emq_auth_mongo, version=2.0, description=Authentication/ACL with MongoDB, active=false)
-    Plugin(emq_auth_mysql, version=2.0, description=Authentication/ACL with MySQL, active=false)
-    Plugin(emq_auth_pgsql, version=2.0, description=Authentication/ACL with PostgreSQL, active=false)
-    Plugin(emq_auth_redis, version=2.0, description=Authentication/ACL with Redis, active=false)
-    Plugin(emq_auth_username, version=2.0, description=Authentication with Username/Password, active=false)
-    Plugin(emq_coap, version=0.2, description=CoAP Gateway, active=false)
-    Plugin(emq_dashboard, version=2.0, description=Dashboard, active=true)
-    Plugin(emq_mod_rewrite, version=2.0, description=EMQ Rewrite Module, active=false)
-    Plugin(emq_plugin_template, version=2.0, description=EMQ Plugin Template, active=false)
-    Plugin(emq_recon, version=2.0, description=Recon Plugin, active=false)
-    Plugin(emq_reloader, version=3.0, description=Reloader Plugin, active=false)
-    Plugin(emq_sn, version=0.2, description=MQTT-SN Gateway, active=false)
-    Plugin(emq_stomp, version=2.0, description=Stomp Protocol Plugin, active=false)
+    Plugin(emqx_auth_clientid, version=3.0, description=Authentication with ClientId/Password, active=false)
+    Plugin(emqx_auth_http, version=3.0, description=Authentication/ACL with HTTP API, active=false)
+    Plugin(emqx_auth_ldap, version=3.0, description=Authentication/ACL with LDAP, active=false)
+    Plugin(emqx_auth_mongo, version=3.0, description=Authentication/ACL with MongoDB, active=false)
+    Plugin(emqx_auth_mysql, version=3.0, description=Authentication/ACL with MySQL, active=false)
+    Plugin(emqx_auth_pgsql, version=3.0, description=Authentication/ACL with PostgreSQL, active=false)
+    Plugin(emqx_auth_redis, version=3.0, description=Authentication/ACL with Redis, active=false)
+    Plugin(emqx_auth_username, version=3.0, description=Authentication with Username/Password, active=false)
+    Plugin(emqx_coap, version=3.0, description=CoAP Gateway, active=false)
+    Plugin(emqx_dashboard, version=3.0, description=Dashboard, active=true)
+    Plugin(emqx_plugin_template, version=3.0, description=EMQ X Plugin Template, active=false)
+    Plugin(emqx_recon, version=3.0, description=Recon Plugin, active=false)
+    Plugin(emqx_reloader, version=3.0, description=Reloader Plugin, active=false)
+    Plugin(emqx_sn, version=3.0, description=MQTT-SN Gateway, active=false)
+    Plugin(emqx_stomp, version=3.0, description=Stomp Protocol Plugin, active=false)
 
 Properties of a plugin:
 
@@ -458,7 +484,7 @@ Properties of a plugin:
 +-------------+--------------------------+
 | description | Plugin Description       |
 +-------------+--------------------------+
-| active      | If the plugin is Loaded  | 
+| active      | If the plugin is Loaded  |
 +-------------+--------------------------+
 
 Load <Plugin>
@@ -466,19 +492,19 @@ Load <Plugin>
 
 Load a Plugin::
 
-    $ ./bin/emqttd_ctl plugins load emq_recon
+    $ ./bin/emqx_ctl plugins load emqx_recon
 
-    Start apps: [recon,emq_recon]
-    Plugin emq_recon loaded successfully.
+    Start apps: [recon,emqx_recon]
+    Plugin emqx_recon loaded successfully.
 
 Unload <Plugin>
 ---------------
 
 Unload a Plugin::
 
-    $ ./bin/emqttd_ctl plugins unload emq_recon
+    $ ./bin/emqx_ctl plugins unload emqx_recon
 
-    Plugin emq_recon unloaded successfully.
+    Plugin emqx_recon unloaded successfully.
 
 .. _command_bridges:
 
@@ -486,7 +512,7 @@ Unload a Plugin::
 bridges
 -------
 
-Bridge two or more *EMQ* brokers::
+Bridge two or more *EMQ X* brokers::
 
                   ---------                     ---------
     Publisher --> | node1 | --Bridge Forward--> | node2 | --> Subscriber
@@ -506,42 +532,42 @@ commands for bridge:
 | bridges stop <Node> <Topic>            | Delete a bridge              |
 +----------------------------------------+------------------------------+
 
-Suppose we create a bridge between emqttd1 and emqttd2 on localhost:
+Suppose we create a bridge between emqx1 and emqx2 on localhost:
 
 +---------+---------------------+-----------+
 | Name    | Node                | MQTT Port |
 +---------+---------------------+-----------+
-| emqttd1 | emqttd1@127.0.0.1   | 1883      |
+| emqx1   | emqx1@127.0.0.1     | 1883      |
 +---------+---------------------+-----------+
-| emqttd2 | emqttd2@127.0.0.1   | 2883      |
+| emqx2   | emqx2@127.0.0.1     | 2883      |
 +---------+---------------------+-----------+
 
-The bridge will forward all the the 'sensor/#' messages from emqttd1 to emqttd2:: 
+The bridge will forward all the the 'sensor/#' messages from emqx1 to emqx2::
 
-    $ ./bin/emqttd_ctl bridges start emqttd2@127.0.0.1 sensor/#
+    $ ./bin/emqx_ctl bridges start emqx2@127.0.0.1 sensor/#
 
     bridge is started.
-    
-    $ ./bin/emqttd_ctl bridges list
 
-    bridge: emqttd1@127.0.0.1--sensor/#-->emqttd2@127.0.0.1
+    $ ./bin/emqx_ctl bridges list
 
-The the 'emqttd1--sensor/#-->emqttd2' bridge:: 
+    bridge: emqx1@127.0.0.1--sensor/#-->emqx2@127.0.0.1
 
-    #emqttd2 node
+The the 'emqx1--sensor/#-->emqx2' bridge::
+
+    #emqx2 node
 
     mosquitto_sub -t sensor/# -p 2883 -d
 
-    #emqttd1 node
+    #emqx1 node
 
-    mosquitto_pub -t sensor/1/temperature -m "37.5" -d 
+    mosquitto_pub -t sensor/1/temperature -m "37.5" -d
 
 bridges options
 ---------------
 
 Show bridge options::
 
-    $ ./bin/emqttd_ctl bridges options
+    $ ./bin/emqx_ctl bridges options
 
     Options:
       qos     = 0 | 1 | 2
@@ -554,9 +580,9 @@ Show bridge options::
 bridges stop <Node> <Topic>
 ---------------------------
 
-Delete the emqttd1--sensor/#-->emqttd2 bridge::
+Delete the emqx1--sensor/#-->emqx2 bridge::
 
-    $ ./bin/emqttd_ctl bridges stop emqttd2@127.0.0.1 sensor/#
+    $ ./bin/emqx_ctl bridges stop emqx2@127.0.0.1 sensor/#
 
     bridge is stopped.
 
@@ -585,7 +611,7 @@ vm load
 
 Query load::
 
-    $ ./bin/emqttd_ctl vm load
+    $ ./bin/emqx_ctl vm load
 
     cpu/load1               : 2.21
     cpu/load5               : 2.60
@@ -596,7 +622,7 @@ vm memory
 
 Query memory::
 
-    $ ./bin/emqttd_ctl vm memory
+    $ ./bin/emqx_ctl vm memory
 
     memory/total            : 23967736
     memory/processes        : 3594216
@@ -613,7 +639,7 @@ vm process
 
 Query number of erlang processes::
 
-    $ ./bin/emqttd_ctl vm process
+    $ ./bin/emqx_ctl vm process
 
     process/limit           : 8192
     process/count           : 221
@@ -623,7 +649,7 @@ vm io
 
 Query max, active file descriptors of IO::
 
-    $ ./bin/emqttd_ctl vm io
+    $ ./bin/emqx_ctl vm io
 
     io/max_fds              : 2560
     io/active_fds           : 1
@@ -637,7 +663,7 @@ trace
 Trace MQTT packets, messages(sent/received) by ClientId or Topic.
 
 +-----------------------------------+-----------------------------------+
-| trace list                        | List all the traces               |
+| trace list                        | List all traces                   |
 +-----------------------------------+-----------------------------------+
 | trace client <ClientId> <LogFile> | Trace a client                    |
 +-----------------------------------+-----------------------------------+
@@ -653,7 +679,7 @@ trace client <ClientId> <LogFile>
 
 Start to trace a client::
 
-    $ ./bin/emqttd_ctl trace client clientid log/clientid_trace.log
+    $ ./bin/emqx_ctl trace client clientid log/clientid_trace.log
 
     trace client clientid successfully.
 
@@ -662,8 +688,8 @@ trace client <ClientId> off
 
 Stop tracing the client::
 
-    $ ./bin/emqttd_ctl trace client clientid off
-    
+    $ ./bin/emqx_ctl trace client clientid off
+
     stop tracing client clientid successfully.
 
 trace topic <Topic> <LogFile>
@@ -671,7 +697,7 @@ trace topic <Topic> <LogFile>
 
 Start to trace a topic::
 
-    $ ./bin/emqttd_ctl trace topic topic log/topic_trace.log
+    $ ./bin/emqx_ctl trace topic topic log/topic_trace.log
 
     trace topic topic successfully.
 
@@ -680,7 +706,7 @@ trace topic <Topic> off
 
 Stop tracing the topic::
 
-    $ ./bin/emqttd_ctl trace topic topic off
+    $ ./bin/emqx_ctl trace topic topic off
 
     stop tracing topic topic successfully.
 
@@ -689,7 +715,7 @@ trace list
 
 List all traces::
 
-    $ ./bin/emqttd_ctl trace list
+    $ ./bin/emqx_ctl trace list
 
     trace client clientid -> log/clientid_trace.log
     trace topic topic -> log/topic_trace.log
@@ -702,7 +728,7 @@ listeners
 
 Show all the TCP listeners::
 
-    $ ./bin/emqttd_ctl listeners
+    $ ./bin/emqx_ctl listeners
 
     listener on mqtt:ws:8083
       acceptors       : 4
@@ -764,7 +790,7 @@ admins add
 
 Add admin account::
 
-    $ ./bin/emqttd_ctl admins add root public
+    $ ./bin/emqx_ctl admins add root public
     ok
 
 admins passwd
@@ -772,7 +798,7 @@ admins passwd
 
 Reset password::
 
-    $ ./bin/emqttd_ctl admins passwd root private
+    $ ./bin/emqx_ctl admins passwd root private
     ok
 
 admins del
@@ -780,6 +806,5 @@ admins del
 
 Delete admin account::
 
-    $ ./bin/emqttd_ctl admins del root
+    $ ./bin/emqx_ctl admins del root
     ok
-
