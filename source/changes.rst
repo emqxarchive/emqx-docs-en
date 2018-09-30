@@ -6,6 +6,115 @@ Changes
 =======
 
 ------------------
+Version 3.0-beta.4
+------------------
+
+*Release Date: 2018-09-30*
+
+The EMQ X 3.0-beta.4 release is mainly for bug fixes and feature improvements on MQTT 5.0.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+-  Add ``max_heap_size`` for process
+
+   GitHub PR:
+   `emqx/emqx#1855 <https://github.com/emqx/emqx/pull/1855>`__
+
+-  Improve handling of ``Topic Alias Maximum`` and ``Receive Maximum`` properties
+
+   Github PR:
+   `emqx/emqx#1873 <https://github.com/emqx/emqx/pull/1873>`__
+
+-  Add ``Mountpoint`` to zone
+
+   Github PR:
+   `emqx/emqx#1869 <https://github.com/emqx/emqx/pull/1869>`__
+
+-  Improve travis build to support ``rebar3 xref``
+
+   Github PR:
+   `emqx/emqx#1861 <https://github.com/emqx/emqx/pull/1861>`__
+
+-  Upgrade dependency ``esockd`` to v5.4.2
+
+   Github PR:
+   `emqx/emqx#1875 <https://github.com/emqx/emqx/pull/1875>`__
+
+Bug Fixes:
+
+-  Fix sticky strategy when two or more shared subscriber groups
+
+   GitHub PR:
+   `emqx/emqx#1871 <https://github.com/emqx/emqx/pull/1871>`__
+
+-  Fix errors when running ``make app.config``
+
+   GitHub PR:
+   `emqx/emqx#1868 <https://github.com/emqx/emqx/pull/1868>`__
+
+-  Fix incorrect args
+
+   GitHub PR:
+   `emqx/emqx#1866 <https://github.com/emqx/emqx/pull/1866>`__
+
+emqx-passwd (plugin)
+--------------------
+
+Enhancements:
+
+-  Upgrade dependency ``erlang-bcrypt`` to v0.5.1 and expose ``check_pass`` for the use of various auth plugins
+
+   GitHub PR:
+   `emqx/emqx-passwd#3 <https://github.com/emqx/emqx-passwd/pull/3>`__
+
+emqx-delayed-publish (plugin)
+-----------------------------
+
+Bug Fixes:
+
+-  Fix incorrect matching
+
+   GitHub PR:
+   `emqx/emqx-delayed-publish#5 <https://github.com/emqx/emqx-delayed-publish/pull/5>`__
+
+erlang-bcrypt (dependency)
+--------------------------
+
+Enhancements:
+
+-  Add $2b, $2x and $2y prefixes support
+
+   GitHub PR:
+   `emqx/erlang-bcrypt#1 <https://github.com/emqx/erlang-bcrypt/pull/1>`__
+
+esockd (dependency)
+-------------------
+
+Enhancements:
+
+-  Add examples for DTLS PSK
+
+   GitHub PR:
+   `emqx/esockd#88 <https://github.com/emqx/esockd/pull/88>`__
+
+-  Improve start of SSL
+
+   Github PR:
+   `emqx/esockd#90 <https://github.com/emqx/esockd/pull/90>`__
+
+Bug Fixes:
+
+-  Fix DTLS start failure
+
+   GitHub PR:
+   `emqx/esockd#89 <https://github.com/emqx/esockd/pull/89>`__
+
+.. _release_3.0_beta.3:
+
+------------------
 Version 3.0-beta.3
 ------------------
 
