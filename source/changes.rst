@@ -18,27 +18,27 @@ EMQ X Core
 
 Enhancements:
 
--  Add ``max_heap_size`` for process
+-  Add `max_heap_size` for process
 
    GitHub PR:
    `emqx/emqx#1855 <https://github.com/emqx/emqx/pull/1855>`__
 
--  Improve handling of ``Topic Alias Maximum`` and ``Receive Maximum`` properties
+-  Improve handling of `Topic Alias Maximum` and `Receive Maximum` properties
 
    Github PR:
    `emqx/emqx#1873 <https://github.com/emqx/emqx/pull/1873>`__
 
--  Add ``Mountpoint`` to zone
+-  Add `Mountpoint` to zone
 
    Github PR:
    `emqx/emqx#1869 <https://github.com/emqx/emqx/pull/1869>`__
 
--  Improve travis build to support ``rebar3 xref``
+-  Improve travis build to support `rebar3 xref`
 
    Github PR:
    `emqx/emqx#1861 <https://github.com/emqx/emqx/pull/1861>`__
 
--  Upgrade dependency ``esockd`` to v5.4.2
+-  Upgrade dependency `esockd` to v5.4.2
 
    Github PR:
    `emqx/emqx#1875 <https://github.com/emqx/emqx/pull/1875>`__
@@ -50,7 +50,7 @@ Bug Fixes:
    GitHub PR:
    `emqx/emqx#1871 <https://github.com/emqx/emqx/pull/1871>`__
 
--  Fix errors when running ``make app.config``
+-  Fix errors when running `make app.config`
 
    GitHub PR:
    `emqx/emqx#1868 <https://github.com/emqx/emqx/pull/1868>`__
@@ -65,7 +65,7 @@ emqx-passwd (plugin)
 
 Enhancements:
 
--  Upgrade dependency ``erlang-bcrypt`` to v0.5.1 and expose ``check_pass`` for the use of various auth plugins
+-  Upgrade dependency `erlang-bcrypt` to v0.5.1 and expose `check_pass` for the use of various auth plugins
 
    GitHub PR:
    `emqx/emqx-passwd#3 <https://github.com/emqx/emqx-passwd/pull/3>`__
@@ -127,7 +127,7 @@ EMQ X Core
 
 Enhancements:
 
--  Improve the ``force_gc_policy`` config
+-  Improve the `force_gc_policy` config
 
    GitHub issues:
    `emqx/emqx#1851 <https://github.com/emqx/emqx/pull/1851>`__
@@ -147,7 +147,7 @@ Enhancements:
    GitHub issues:
    `emqx/emqx#1823 <https://github.com/emqx/emqx/pull/1823>`__
 
--  Improve the design of ``esockd_connection_sup`` module
+-  Improve the design of `esockd_connection_sup` module
 
    GitHub issues:
    `emqx/emqx#86 <https://github.com/emqx/esockd/pull/86>`__
@@ -158,7 +158,7 @@ Enhancements:
    `emqx/emqx#1809 <https://github.com/emqx/emqx/pull/1809>`__,
    `emqx/emqx#1814 <https://github.com/emqx/emqx/pull/1814>`__
 
--  Improve handling of ``Message Expiry Interval`` property
+-  Improve handling of `Message Expiry Interval` property
 
    GitHub
    issues: `emqx/emqx#1813 <https://github.com/emqx/emqx/pull/1813>`__
@@ -175,20 +175,20 @@ Enhancements:
 
 Bug Fixes:
 
--  Fix incorrect value of ``Maximum QoS`` property
+-  Fix incorrect value of `Maximum QoS` property
 
    GitHub issues:
    `emqx/emqx#1848 <https://github.com/emqx/emqx/issues/1848>`__,
    `emqx/emqx#1857 <https://github.com/emqx/emqx/pull/1857>`__
 
--  Fix the handling for ``Session Expiry Interval`` property
+-  Fix the handling for `Session Expiry Interval` property
 
    GitHub issues:
    `emqx/emqx#1833 <https://github.com/emqx/emqx/issues/1833>`__,
    `emqx/emqx#1834 <https://github.com/emqx/emqx/issues/1834>`__,
    `emqx/emqx#1845 <https://github.com/emqx/emqx/pull/1845>`__
 
--  Fix an issue about ``Publish Limit`` config
+-  Fix an issue about `Publish Limit` config
 
    GitHub issues:
    `emqx/emqx#1847 <https://github.com/emqx/emqx/issues/1847>`__,
