@@ -11,7 +11,7 @@ Version 3.0-rc.2
 
 *Release Date: 2018-10-27*
 
-The EMQ X 3.0-rc.2 release is mainly for bug fixes and new features improvements for MQTT 5.0.
+The EMQ X 3.0-rc.2 release improves the `Will Message` publishing mechanism, and adds support for using `ssl` certificate as `MQTT` username.
 
 EMQ X Core
 ----------
@@ -23,7 +23,7 @@ Enhancements:
   Github PR:
   `emqx/emqx#1889 <https://github.com/emqx/emqx/pull/1889>`__
 
-- Support use `ssl` certificate as 'MQTT' username
+- Support for using `ssl` certificate as `MQTT` username
   
   Github PR:
   `emqx/emqx#1913 <https://github.com/emqx/emqx/pull/1913>`__
