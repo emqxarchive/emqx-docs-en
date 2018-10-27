@@ -6,6 +6,41 @@ Changes
 =======
 
 ------------------
+Version 3.0-rc.2
+------------------
+
+*Release Date: 2018-10-27*
+
+The EMQ X 3.0-rc.2 release is mainly for bug fixes and new features improvements for MQTT 5.0.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Improve publish mechanism of `Will Message`
+
+  Github PR:
+  `emqx/emqx#1889 <https://github.com/emqx/emqx/pull/1889>`__
+
+- Support use `ssl` certificate as 'MQTT' username
+  
+  Github PR:
+  `emqx/emqx#1913 <https://github.com/emqx/emqx/pull/1913>`__
+
+- Improve test coverage for modules
+
+  Github PR:
+  `emqx/emqx#1921 <https://github.com/emqx/emqx/pull/1921>`__
+
+Bug Fixes:
+
+- Fix 'bad argument' error when `emqx_broker:subscribed` is called
+
+  Github PR:
+  `emqx/emqx#1921 <https://github.com/emqx/emqx/pull/1921>`__
+
+------------------
 Version 3.0-rc.1
 ------------------
 
@@ -21,41 +56,41 @@ Enhancements:
 - Add `request` & `response` support for `CONNECT` & `CONNACK`
 
   Github PR:
-  `emqx/emqx#1819 https://github.com/emqx/emqx/pull/1819/`__
+  `emqx/emqx#1819 <https://github.com/emqx/emqx/pull/1819>`__
 
 - Add warning logs for unauthorized subscribe
 
   Gihub PR:
 
-  `emqx/emqx#1878 https://github.com/emqx/emqx/pull/1878/`__
+  `emqx/emqx#1878 <https://github.com/emqx/emqx/pull/1878>`__
 
 - Improve coverage for `emqx_hooks`, and add test case for `emqx_mod_sup`
 
   Gihub PR:
 
-  `emqx/emqx#1892 https://github.com/emqx/emqx/pull/1892/`__  
+  `emqx/emqx#1892 <https://github.com/emqx/emqx/pull/1892>`__
 
 Bug Fixes:
 
 - Fix the bad link to ACL doc
 
   Github PR:
-  `emqx/emqx#1899 https://github.com/emqx/emqx/pull/1899/`__
+  `emqx/emqx#1899 <https://github.com/emqx/emqx/pull/1899>`__
 
 - Fix bug in validating publish packet
 
   Github PR:
-  `emqx/emqx#1888 https://github.com/emqx/emqx/pull/1888/`__
+  `emqx/emqx#1888 <https://github.com/emqx/emqx/pull/1888>`__
 
 - Fix bugs that not deliver `Reason Code` to client
 
   Github PR:
-  `emqx/emqx#1819 https://github.com/emqx/emqx/pull/1819/`__
+  `emqx/emqx#1819 <https://github.com/emqx/emqx/pull/1819>`__
 
 - Fix compatibility problems in `emqx_client` module
 
   Github PR:
-  `emqx/emqx#1819 https://github.com/emqx/emqx/pull/1819/`__
+  `emqx/emqx#1819 <https://github.com/emqx/emqx/pull/1819>`__
 
 emqx-lwm2m
 ----------
@@ -63,7 +98,7 @@ emqx-lwm2m
 - Update LwM2M plugin for EMQ X 3.0
 
   Github PR:
-  `emqx/emqx-lwm2m#3 https://github.com/emqx/emqx-lwm2m/pull/3`__
+  `emqx/emqx-lwm2m#3 <https://github.com/emqx/emqx-lwm2m/pull/3>`__
 
 ------------------
 Version 3.0-beta.4
