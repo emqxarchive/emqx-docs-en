@@ -11,7 +11,7 @@ Version 3.0-rc.3
 
 *Release Date: 2018-11-10*
 
-The EMQ X 3.0-rc.3 release rewrite `emqx_mqueue` module, support `MQTT-SN`, `CoAP` and `STOMP` protocols.
+The EMQ X 3.0-rc.3 release rewrites `emqx_mqueue` module, supports `MQTT-SN`, `CoAP` and `STOMP` protocols.
 
 EMQ X Core
 ----------
