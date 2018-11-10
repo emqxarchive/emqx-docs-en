@@ -6,6 +6,116 @@ Changes
 =======
 
 ------------------
+Version 3.0-rc.3
+------------------
+
+*Release Date: 2018-11-10*
+
+The EMQ X 3.0-rc.3 release rewrite `emqx_mqueue` module, support `MQTT-SN`, `CoAP` and `STOMP` protocols.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Replace macro `QOS$i` to `QOS_$i`
+
+  Github PR:
+  `emqx/emqx#1948 <https://github.com/emqx/emqx/pull/1948>`__
+
+- Fix config descriptions of `ACL cache`
+  
+  Github PR:
+  `emqx/emqx#1950 <https://github.com/emqx/emqx/pull/1950>`__
+
+- Rewrite `emqx_mqueue` module
+
+  Github PR:
+  `emqx/emqx#1926 <https://github.com/emqx/emqx/pull/1926>`__
+
+- Change `lager` to `logger`
+
+  Github PR:
+  `emqx/emqx#1898 <https://github.com/emqx/emqx/pull/1898>`__
+
+Bug Fixes:
+
+- Fix 'badarg' bug with duplicate subscriptions
+
+  Github PR:
+  `emqx/emqx#1943 <https://github.com/emqx/emqx/pull/1943>`__
+
+- Fix 'badarg' in `io_lib:format/2` when 'from' field is tuple 
+
+  Github PR:
+  `emqx/emqx#1954 <https://github.com/emqx/emqx/pull/1954>`__
+
+- `MQTT bridge` via `TLS`
+
+  Github PR:
+  `emqx/emqx#1949 <https://github.com/emqx/emqx/pull/1949>`__
+
+emqx-stomp (plugin)
+-------------------
+
+Enhancements:
+
+- Improve support for `receipt` frame, and add test cases
+
+  GitHub PR:
+  `emqx/emqx-stomp#53 <https://github.com/emqx/emqx-stomp/pull/53>`__
+
+emqx-sn (plugin)
+----------------
+
+Enhancements:
+
+- Improve support for `MQTT-SN` protocol
+
+  GitHub PR:
+  `emqx/emqx-sn#90 <https://github.com/emqx/emqx-sn/pull/90>`__
+
+emqx-lua-hook (plugin)
+----------------------
+
+Bug Fixes:
+
+- Fix errors when load/unload lua hooks
+
+  GitHub PR:
+  `emqx/emqx-lua-hook#41 <https://github.com/emqx/emqx-lua-hook/pull/41>`__
+
+emqx-statsd (plugin)
+--------------------
+
+Enhancements:
+
+- Add metrics
+
+  GitHub PR:
+  `emqx/emqx-statsd#4 <https://github.com/emqx/emqx-statsd/pull/4>`__
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Add `qos2/forward` metric
+
+  GitHub PR:
+  `emqx/emqx-dashboard#7 <https://github.com/emqx/emqx-dashboard/pull/7>`__
+
+emqx-auth-pgsql (plugin)
+------------------------
+
+Bug Fixes:
+
+- Fix error in `emqx-auth-pgsql` when the amount of concurrency is large
+
+  GitHub PR:
+  `emqx/emqx-auth-pgsql#94 <https://github.com/emqx/emqx-auth-pgsql/pull/94>`__
+
+------------------
 Version 3.0-rc.2
 ------------------
 
