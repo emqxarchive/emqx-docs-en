@@ -108,9 +108,9 @@ Enhancements:
 emqx-auth-pgsql (plugin)
 ------------------------
 
-Bug Fixes:
+Enhancements:
 
-- Fix error in `emqx-auth-pgsql` when the amount of concurrency is large
+- Improve concurrency performance in `emqx-auth-pgsql` 
 
   GitHub PR:
   `emqx/emqx-auth-pgsql#94 <https://github.com/emqx/emqx-auth-pgsql/pull/94>`__
