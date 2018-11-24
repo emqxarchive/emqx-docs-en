@@ -43,7 +43,7 @@ Enhancements:
   Github PR:
   `emqx/emqx#1973 <https://github.com/emqx/emqx/pull/1973>`__
 
-- Lazy evaluation when logging messages
+- Optimize log performance
 
   Github PR:
   `emqx/emqx#1960 <https://github.com/emqx/emqx/pull/1960>`__
