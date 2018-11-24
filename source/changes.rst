@@ -6,6 +6,148 @@ Changes
 =======
 
 ------------------
+Version 3.0-rc.4
+------------------
+
+*Release Date: 2018-11-24*
+
+The EMQ X 3.0-rc.4 release improves logging, enhances support for `Rebar3`, improves speed of build.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Add `ignore_loop_delive` flag for client with `MQTT v3.1.1` to avoid loop delivery
+
+  Github PR:
+  `emqx/emqx#1964 <https://github.com/emqx/emqx/pull/1964>`__
+
+- use `username` replace `client_id`, disabled default
+  
+  Github PR:
+  `emqx/emqx#1961 <https://github.com/emqx/emqx/pull/1961>`__
+
+- Enable `emqx.log` by default 
+
+  Github PR:
+  `emqx/emqx#1979 <https://github.com/emqx/emqx/pull/1979>`__
+
+- Add `CLI` for log level
+
+  Github PR:
+  `emqx/emqx#1977 <https://github.com/emqx/emqx/pull/1977>`__
+
+- Improve `CLI` for log tracer
+
+  Github PR:
+  `emqx/emqx#1973 <https://github.com/emqx/emqx/pull/1973>`__
+
+- Lazy evaluation when logging messages
+
+  Github PR:
+  `emqx/emqx#1960 <https://github.com/emqx/emqx/pull/1960>`__
+
+Bug Fixes:
+
+- Fix type validation for `User-Property`
+
+  Github PR:
+  `emqx/emqx#1969 <https://github.com/emqx/emqx/pull/1969>`__
+
+- Fix wrong description for `max_topic_alias`
+
+  Github PR:
+  `emqx/emqx#1962 <https://github.com/emqx/emqx/pull/1962>`__
+
+- Update proc meta-data for empty `client_id`
+
+  Github PR:
+  `emqx/emqx#1980 <https://github.com/emqx/emqx/pull/1980>`__
+
+emqx-coap (plugin)
+------------------
+
+Enhancements:
+
+- Support `Rebar3`
+
+  GitHub PR:
+  `emqx/emqx-coap#89 <https://github.com/emqx/emqx-coap/pull/89>`__
+
+Bug fixes:
+
+- Fix bad using of `sendfun`
+
+  GitHub PR:
+  `emqx/emqx-coap#89 <https://github.com/emqx/emqx-coap/pull/89>`__
+
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fix the unstable rest api for lookup connection in cluster mode
+
+  GitHub PR:
+  `emqx/emqx-management#11 <https://github.com/emqx/emqx-management/pull/11>`__
+
+emqx-lwm2m (plugin)
+-------------------
+
+Bug fixes:
+
+- Fix the processing of `update` packet
+
+  GitHub PR:
+  `emqx/emqx-lwm2m#8 <https://github.com/emqx/emqx-lwm2m/pull/8>`__
+
+ekka (dependency)
+-----------------
+
+Bug Fixes:
+
+- Fix bug in distributed lock
+
+  GitHub PR:
+  `emqx/ekka#39 <https://github.com/emqx/ekka/pull/39>`__
+
+minirest (dependency)
+---------------------
+
+Enhancements:
+
+- Support `Rebar3`
+
+  GitHub PR:
+  `emqx/minirest#6 <https://github.com/emqx/minirest/pull/6>`__
+
+cuttlefish (dependency)
+-----------------------
+
+Bug fixes:
+
+- Change default logger to `std_error`
+
+  GitHub PR:
+  `emqx/cuttlefish#4 <https://github.com/emqx/cuttlefish/pull/4>`__
+
+emqx-rel (build-project)
+------------------------
+
+Enhancements:
+
+- Build with `cuttlefish`
+
+  GitHub PR:
+  `emqx/emqx-rel#253 <https://github.com/emqx/emqx-rel/pull/253>`__
+
+- `delay_publish` plugin is disabled by default
+
+  GitHub PR:
+  `emqx/emqx-rel#251 <https://github.com/emqx/emqx-rel/pull/251>`__
+
+------------------
 Version 3.0-rc.3
 ------------------
 
