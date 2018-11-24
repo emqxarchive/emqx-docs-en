@@ -18,7 +18,7 @@ EMQ X Core
 
 Enhancements:
 
-- Add `ignore_loop_delive` flag for client with `MQTT v3.1.1` to avoid loop delivery
+- Add `ignore_loop_deliver` flag for client with `MQTT v3.1.1` to avoid loop delivery
 
   Github PR:
   `emqx/emqx#1964 <https://github.com/emqx/emqx/pull/1964>`__
