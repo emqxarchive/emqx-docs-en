@@ -11,7 +11,7 @@ Version 3.0-rc.4
 
 *Release Date: 2018-11-24*
 
-The EMQ X 3.0-rc.4 release improves logging, enhances support for `Rebar3`, improves speed of build.
+The EMQ X 3.0-rc.4 release improves logging, enhances support for `Rebar3`.
 
 EMQ X Core
 ----------
