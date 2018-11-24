@@ -23,7 +23,7 @@ Enhancements:
   Github PR:
   `emqx/emqx#1964 <https://github.com/emqx/emqx/pull/1964>`__
 
-- use `username` replace `client_id`, disabled default
+- Support using `username` to replace `client_id`, disabled by default
   
   Github PR:
   `emqx/emqx#1961 <https://github.com/emqx/emqx/pull/1961>`__
