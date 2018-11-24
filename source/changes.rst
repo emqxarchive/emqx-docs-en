@@ -92,16 +92,6 @@ Bug fixes:
   GitHub PR:
   `emqx/emqx-management#11 <https://github.com/emqx/emqx-management/pull/11>`__
 
-emqx-lwm2m (plugin)
--------------------
-
-Bug fixes:
-
-- Fix the processing of `update` packet
-
-  GitHub PR:
-  `emqx/emqx-lwm2m#8 <https://github.com/emqx/emqx-lwm2m/pull/8>`__
-
 ekka (dependency)
 -----------------
 
