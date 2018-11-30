@@ -89,6 +89,16 @@ Bug Fixes:
   GitHub PR:
   `emqx/emqx-dashboard#12 <https://github.com/emqx/emqx-dashboard/pull/12>`__
 
+emqx-management (plugin)
+------------------------
+
+Bug Fixes:
+
+- Fix clients `CLI` crash
+
+  GitHub PR:
+  `emqx/emqx-management#16 <https://github.com/emqx/emqx-management/pull/16>`__
+
 .. _release_3.0_rc.4:
 
 ------------------
