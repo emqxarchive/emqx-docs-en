@@ -13,7 +13,7 @@ Version 3.0-rc.5
 
 *Release Date: 2018-11-30*
 
-The EMQ X 3.0-rc.5 is a maintenance release, fix bugs and supports batch update of metrics.
+The EMQ X 3.0-rc.5 is now available. The maintenance release fixes some bugs and starts supporting batch update of metrics.
 
 EMQ X Core
 ----------
@@ -74,7 +74,7 @@ Enhancements:
 
 Bug Fixes:
 
-- Fix the bug that `username` and `clientid` in http request is empty in `emqx-web-hook`
+- `username` and `clientid` in http request is empty in `emqx-web-hook`
 
   GitHub PR:
   `emqx/emqx-web-hook#77 <https://github.com/emqx/emqx-web-hook/pull/77>`__
@@ -94,7 +94,7 @@ emqx-management (plugin)
 
 Bug Fixes:
 
-- Fix the crash of `clients` CLI
+- Fix the crash caused by `clients` CLI.
 
   GitHub PR:
   `emqx/emqx-management#16 <https://github.com/emqx/emqx-management/pull/16>`__
