@@ -5,6 +5,82 @@
 Changes
 =======
 
+.. _release_3.0_rc.5:
+
+------------------
+Version 3.0-rc.5
+------------------
+
+*Release Date: 2018-11-30*
+
+The EMQ X 3.0-rc.5 release supports batch committing of metrics and fixes bugs.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Reduce dependencies size
+
+  Github PR:
+  `emqx/emqx#1981 <https://github.com/emqx/emqx/pull/1981>`__
+
+- Support batch committing of metrics
+
+  Github PR:
+  `emqx/emqx#2001 <https://github.com/emqx/emqx/pull/2001>`__
+
+Bug Fixes:
+
+- Fix 'function_clause' in `emqx_router`
+
+  Github PR:
+  `emqx/emqx#1998 <https://github.com/emqx/emqx/pull/1998>`__
+
+- Remove simple log handler at startup
+
+  Github PR:
+  `emqx/emqx#2000 <https://github.com/emqx/emqx/pull/2000>`__
+
+emqx-passwd (plugin)
+--------------------
+
+Enhancements:
+
+- Support `Rebar3`
+
+  GitHub PR:
+  `emqx/emqx-passwd#6 <https://github.com/emqx/emqx-passwd/pull/6>`__
+
+emqx-web-hook (plugin)
+----------------------
+
+Enhancements:
+
+- Support `Rebar3`
+
+  GitHub PR:
+  `emqx/emqx-web-hook#77 <https://github.com/emqx/emqx-web-hook/pull/77>`__
+
+Bug Fixes:
+
+- Fix the bug that username and clientid in http request is empty in `emqx-web-hook`
+
+  GitHub PR:
+  `emqx/emqx-web-hook#77 <https://github.com/emqx/emqx-web-hook/pull/77>`__
+
+emqx-dashboard (plugin)
+-----------------------
+
+Bug Fixes:
+
+- Fix firefox browser can not copy application info
+
+  GitHub PR:
+  `emqx/emqx-dashboard#12 <https://github.com/emqx/emqx-dashboard/pull/12>`__
+
+.. _release_3.0_rc.4:
+
 ------------------
 Version 3.0-rc.4
 ------------------
@@ -137,6 +213,8 @@ Enhancements:
   GitHub PR:
   `emqx/emqx-rel#251 <https://github.com/emqx/emqx-rel/pull/251>`__
 
+.. _release_3.0_rc.3:
+
 ------------------
 Version 3.0-rc.3
 ------------------
@@ -247,6 +325,8 @@ Enhancements:
   GitHub PR:
   `emqx/emqx-auth-pgsql#94 <https://github.com/emqx/emqx-auth-pgsql/pull/94>`__
 
+.. _release_3.0_rc.2:
+
 ------------------
 Version 3.0-rc.2
 ------------------
@@ -281,6 +361,8 @@ Bug Fixes:
 
   Github PR:
   `emqx/emqx#1921 <https://github.com/emqx/emqx/pull/1921>`__
+
+.. _release_3.0_rc.1:
 
 ------------------
 Version 3.0-rc.1
@@ -341,6 +423,8 @@ emqx-lwm2m
 
   Github PR:
   `emqx/emqx-lwm2m#3 <https://github.com/emqx/emqx-lwm2m/pull/3>`__
+
+.. _release_3.0_beta.4:
 
 ------------------
 Version 3.0-beta.4
