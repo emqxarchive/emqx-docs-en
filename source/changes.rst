@@ -30,6 +30,11 @@ Enhancements:
   Github PR:
   `emqx/emqx#2001 <https://github.com/emqx/emqx/pull/2001>`__
 
+- Optimize read/write concurrency of `mnesia/ets` tables
+
+  Github PR:
+  `emqx/emqx#2006 <https://github.com/emqx/emqx/pull/2006>`__
+
 Bug Fixes:
 
 - Fix 'function_clause' in `emqx_router`
@@ -41,6 +46,11 @@ Bug Fixes:
 
   Github PR:
   `emqx/emqx#2000 <https://github.com/emqx/emqx/pull/2000>`__
+
+- Fix the atom leaks in `emqx_reason_codes` module
+
+  Github PR:
+  `emqx/emqx#2008 <https://github.com/emqx/emqx/pull/2008>`__
 
 emqx-passwd (plugin)
 --------------------
