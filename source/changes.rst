@@ -13,19 +13,19 @@ Version 3.0-rc.5
 
 *Release Date: 2018-11-30*
 
-The EMQ X 3.0-rc.5 release supports batch committing of metrics and fixes bugs.
+The EMQ X 3.0-rc.5 is a maintenance release, fix bugs and supports batch update of metrics.
 
 EMQ X Core
 ----------
 
 Enhancements:
 
-- Reduce dependencies size
+- Reduce dependencies' size
 
   Github PR:
   `emqx/emqx#1981 <https://github.com/emqx/emqx/pull/1981>`__
 
-- Support batch committing of metrics
+- Support batch update of metrics
 
   Github PR:
   `emqx/emqx#2001 <https://github.com/emqx/emqx/pull/2001>`__
@@ -42,7 +42,7 @@ Bug Fixes:
   Github PR:
   `emqx/emqx#1998 <https://github.com/emqx/emqx/pull/1998>`__
 
-- Remove simple log handler at startup
+- Remove `simple log handler` at startup
 
   Github PR:
   `emqx/emqx#2000 <https://github.com/emqx/emqx/pull/2000>`__
@@ -74,7 +74,7 @@ Enhancements:
 
 Bug Fixes:
 
-- Fix the bug that username and clientid in http request is empty in `emqx-web-hook`
+- Fix the bug that `username` and `clientid` in http request is empty in `emqx-web-hook`
 
   GitHub PR:
   `emqx/emqx-web-hook#77 <https://github.com/emqx/emqx-web-hook/pull/77>`__
@@ -84,7 +84,7 @@ emqx-dashboard (plugin)
 
 Bug Fixes:
 
-- Fix firefox browser can not copy application info
+- Firefox browser can not copy application info.
 
   GitHub PR:
   `emqx/emqx-dashboard#12 <https://github.com/emqx/emqx-dashboard/pull/12>`__
@@ -94,7 +94,7 @@ emqx-management (plugin)
 
 Bug Fixes:
 
-- Fix clients `CLI` crash
+- Fix the crash of `clients` CLI
 
   GitHub PR:
   `emqx/emqx-management#16 <https://github.com/emqx/emqx-management/pull/16>`__
