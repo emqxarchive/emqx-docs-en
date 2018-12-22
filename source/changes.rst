@@ -47,6 +47,11 @@ Enhancements:
   Github PR:
   `emqx/emqx#2060 <https://github.com/emqx/emqx/pull/2060>`__
 
+- Supports batch processing 'DOWN' events
+
+  Github PR:
+  `emqx/emqx#2060 <https://github.com/emqx/emqx/pull/2060>`__
+
 - Add sharding for subscription tables
 
   Github PR:
