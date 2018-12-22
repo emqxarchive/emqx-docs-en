@@ -5,6 +5,194 @@
 Changes
 =======
 
+.. _release_3.0.0:
+
+------------------
+Version 3.0.0
+------------------
+
+*Release Date: 2018-12-22*
+
+The EMQ X 3.0.0 is now available. In this release, we have re-designed the ETS tables for subscripions, and enhanced the performance by refactoring some modules and tuning the erlang vm args.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Move extra vm args to a separate vm.args file
+
+  Github PR:
+  `emqx/emqx#2033 <https://github.com/emqx/emqx/pull/2033>`__
+  `emqx/emqx#2057 <https://github.com/emqx/emqx/pull/2057>`__
+  `emqx/emqx#2070 <https://github.com/emqx/emqx/pull/2070>`__
+
+- Add will topic validation and acl check
+
+  Github PR:
+  `emqx/emqx#2075 <https://github.com/emqx/emqx/pull/2075>`__
+
+- Add option to disconnect client in case acl deny
+
+  Github PR:
+  `emqx/emqx#2059 <https://github.com/emqx/emqx/pull/2059>`__
+
+- Implement a new session supervisor
+
+  Github PR:
+  `emqx/emqx#2077 <https://github.com/emqx/emqx/pull/2077>`__
+
+- Add 'active_n' option to optimize the CPU usage of `emqx_connection`
+
+  Github PR:
+  `emqx/emqx#2060 <https://github.com/emqx/emqx/pull/2060>`__
+
+- Add sharding for subscription tables
+
+  Github PR:
+  `emqx/emqx#2044 <https://github.com/emqx/emqx/pull/2044>`__
+
+- Implement a new 'emqx_gc' module
+
+  Github PR:
+  `emqx/emqx#2090 <https://github.com/emqx/emqx/pull/2090>`__
+
+Bug Fixes:
+
+- Fix bug for `Topic Alias Maximum`
+
+  Github PR:
+  `emqx/emqx#2074 <https://github.com/emqx/emqx/pull/2074>`__
+
+- Fix a bug that will not send a will message in some cases
+
+  Github PR:
+  `emqx/emqx#2068 <https://github.com/emqx/emqx/pull/2068>`__
+
+emqx-auth-ldap (plugin)
+-----------------------
+
+Enhancements:
+
+- Better design
+
+  GitHub PR:
+  `emqx/emqx-auth-ldap#46 <https://github.com/emqx/emqx-auth-ldap/pull/46>`__
+
+emqx-lua-hook (plugin)
+----------------------
+
+Bug Fixes:
+
+- Make all test cases pass 
+
+  GitHub PR:
+  `emqx/emqx-lua-hook#45 <https://github.com/emqx/emqx-lua-hook/pull/45>`__
+
+emqx-management (plugin)
+------------------------
+
+Enhancements:
+
+- Add test cases for rest api and better design for the format of response 
+
+  GitHub PR:
+  `emqx/emqx-management#21 <https://github.com/emqx/emqx-management/pull/21>`__
+
+.. _release_3.0_rc.5:
+
+------------------
+Version 3.0-rc.5
+------------------
+
+*Release Date: 2018-11-30*
+
+The EMQ X 3.0-rc.5 is now available. The maintenance release fixes some bugs and starts supporting batch update of metrics.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Reduce dependencies' size
+
+  Github PR:
+  `emqx/emqx#1981 <https://github.com/emqx/emqx/pull/1981>`__
+
+- Support batch update of metrics
+
+  Github PR:
+  `emqx/emqx#2001 <https://github.com/emqx/emqx/pull/2001>`__
+
+- Optimize read/write concurrency of `mnesia/ets` tables
+
+  Github PR:
+  `emqx/emqx#2006 <https://github.com/emqx/emqx/pull/2006>`__
+
+Bug Fixes:
+
+- Fix 'function_clause' in `emqx_router`
+
+  Github PR:
+  `emqx/emqx#1998 <https://github.com/emqx/emqx/pull/1998>`__
+
+- Remove `simple log handler` at startup
+
+  Github PR:
+  `emqx/emqx#2000 <https://github.com/emqx/emqx/pull/2000>`__
+
+- Fix the atom leaks in `emqx_reason_codes` module
+
+  Github PR:
+  `emqx/emqx#2008 <https://github.com/emqx/emqx/pull/2008>`__
+
+emqx-passwd (plugin)
+--------------------
+
+Enhancements:
+
+- Support `Rebar3`
+
+  GitHub PR:
+  `emqx/emqx-passwd#6 <https://github.com/emqx/emqx-passwd/pull/6>`__
+
+emqx-web-hook (plugin)
+----------------------
+
+Enhancements:
+
+- Support `Rebar3`
+
+  GitHub PR:
+  `emqx/emqx-web-hook#77 <https://github.com/emqx/emqx-web-hook/pull/77>`__
+
+Bug Fixes:
+
+- `username` and `clientid` in http request is empty in `emqx-web-hook`
+
+  GitHub PR:
+  `emqx/emqx-web-hook#77 <https://github.com/emqx/emqx-web-hook/pull/77>`__
+
+emqx-dashboard (plugin)
+-----------------------
+
+Bug Fixes:
+
+- Firefox browser can not copy application info.
+
+  GitHub PR:
+  `emqx/emqx-dashboard#12 <https://github.com/emqx/emqx-dashboard/pull/12>`__
+
+emqx-management (plugin)
+------------------------
+
+Bug Fixes:
+
+- Fix the crash caused by `clients` CLI.
+
+  GitHub PR:
+  `emqx/emqx-management#16 <https://github.com/emqx/emqx-management/pull/16>`__
+
 .. _release_3.0_rc.5:
 
 ------------------
