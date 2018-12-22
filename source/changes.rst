@@ -20,7 +20,7 @@ EMQ X Core
 
 Enhancements:
 
-- Move extra vm args to a separate vm.args file
+- Move addtional vm args to a separate vm.args file
 
   Github PR:
   `emqx/emqx#2033 <https://github.com/emqx/emqx/pull/2033>`__
@@ -32,7 +32,7 @@ Enhancements:
   Github PR:
   `emqx/emqx#2075 <https://github.com/emqx/emqx/pull/2075>`__
 
-- Add option to disconnect client in case acl deny
+- Add option to disconnect client in case of ACL denied
 
   Github PR:
   `emqx/emqx#2059 <https://github.com/emqx/emqx/pull/2059>`__
@@ -64,7 +64,7 @@ Bug Fixes:
   Github PR:
   `emqx/emqx#2074 <https://github.com/emqx/emqx/pull/2074>`__
 
-- Fix a bug that will not send a will message in some cases
+- Fix a bug that would not send a will message in some cases
 
   Github PR:
   `emqx/emqx#2068 <https://github.com/emqx/emqx/pull/2068>`__
