@@ -93,7 +93,7 @@ Bug Fixes:
 
   GitHub PR:
   `emqx/emqx-lua-hook#45 <https://github.com/emqx/emqx-lua-hook/pull/45>`_
-
+  
 emqx-management (plugin)
 ------------------------
 
