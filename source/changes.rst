@@ -13,24 +13,24 @@ Version 3.0.1
 
 *Release Date: 2018-01-25*
 
-The EMQ X 3.0.1 is now available. In this release, 
+The EMQ X 3.0.1 is now available. Many improvements and bug fixes has been made.
 
 EMQ X Core
 ----------
 
 Enhancements:
 
-- Add +L vm args for reducing some memory
+- Add +L vm args for reducing some memory for emqx edge
 
   Github PR:
   `emqx/emqx#2110 <https://github.com/emqx/emqx/pull/2110>`_
 
-- Set logger level by one command
+- Change logger level in a single command
 
   Github PR:
   `emqx/emqx#2115 <https://github.com/emqx/emqx/pull/2115>`_
 
-- Support for bridge message persistence, and refactor bridge
+- Refactor the emqx bridge; Support bridge message persistence.
 
   Github PR:
   `emqx/emqx#2160 <https://github.com/emqx/emqx/pull/2160>`_,
@@ -49,7 +49,7 @@ Enhancements:
   Github PR:
   `emqx/emqx#2137 <https://github.com/emqx/emqx/pull/2137>`_
 
-- Improve the pool design
+- Improve the design of 'emqx_pool' module
 
   Github PR:
   `emqx/emqx#2138 <https://github.com/emqx/emqx/pull/2138>`_
@@ -59,15 +59,10 @@ Enhancements:
   Github PR:
   `emqx/emqx#2144 <https://github.com/emqx/emqx/pull/2144>`_
 
-- Support for restart emqx to make the new configuration take effect
+- Re-generate the configuration when restarting emqx
 
   Github PR:
   `emqx/emqx#2175 <https://github.com/emqx/emqx/pull/2175>`_
-
-- Add test case for 'emqx_sys_mon' module
-
-  Github PR:
-  `emqx/emqx#2150 <https://github.com/emqx/emqx/pull/2150>`_
 
 Bug Fixes:
 
@@ -116,7 +111,7 @@ emqx-management (plugin)
 
 Enhancements:
 
-- Add 'plugins reload <Name>' CLI, support for reload plugin to make the new configuration take effect
+- Add a new CLI 'plugins reload <Name>'; Re-generate the configuration when reloading emqx plugin
 
   Github PR:
   `emqx/emqx-management#30 <https://github.com/emqx/emqx-management/pull/30>`_
