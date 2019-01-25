@@ -5,6 +5,132 @@
 Changes
 =======
 
+.. _release_3.0.1:
+
+------------------
+Version 3.0.1
+------------------
+
+*Release Date: 2018-01-25*
+
+The EMQ X 3.0.1 is now available. In this release, 
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Add +L vm args for reducing some memory
+
+  Github PR:
+  `emqx/emqx#2110 <https://github.com/emqx/emqx/pull/2110>`_
+
+- Set logger level by one command
+
+  Github PR:
+  `emqx/emqx#2115 <https://github.com/emqx/emqx/pull/2115>`_
+
+- Support for bridge message persistence, and refactor bridge
+
+  Github PR:
+  `emqx/emqx#2160 <https://github.com/emqx/emqx/pull/2160>`_,
+  `emqx/emqx#2117 <https://github.com/emqx/emqx/pull/2117>`_,
+  `emqx/emqx#2113 <https://github.com/emqx/emqx/pull/2113>`_,
+  `emqx/emqx#2108 <https://github.com/emqx/emqx/pull/2108>`_,
+  `emqx/emqx#2053 <https://github.com/emqx/emqx/pull/2053>`_
+
+- Optimize route matching
+
+  Github PR:
+  `emqx/emqx#2124 <https://github.com/emqx/emqx/pull/2124>`_
+
+- Improve the design of 'emqx_client' module
+
+  Github PR:
+  `emqx/emqx#2137 <https://github.com/emqx/emqx/pull/2137>`_
+
+- Improve the pool design
+
+  Github PR:
+  `emqx/emqx#2138 <https://github.com/emqx/emqx/pull/2138>`_
+
+- Improve shared subscribe dispatch implementation
+
+  Github PR:
+  `emqx/emqx#2144 <https://github.com/emqx/emqx/pull/2144>`_
+
+- Support for restart emqx to make the new configuration take effect
+
+  Github PR:
+  `emqx/emqx#2175 <https://github.com/emqx/emqx/pull/2175>`_
+
+- Add test case for 'emqx_sys_mon' module
+
+  Github PR:
+  `emqx/emqx#2150 <https://github.com/emqx/emqx/pull/2150>`_
+
+Bug Fixes:
+
+- Fix crash if peer closed the connection
+
+  Github PR:
+  `emqx/emqx#2120 <https://github.com/emqx/emqx/pull/2120>`_
+
+- Fix the bug that send will message unexpectedly
+
+  Github PR:
+  `emqx/emqx#2156 <https://github.com/emqx/emqx/pull/2156>`_
+
+emqx-lwm2m (plugin)
+-------------------
+
+Bug Fixes:
+
+- Remove authentication for LwM2M
+
+  GitHub PR:
+  `emqx/emqx-lwm2m#14 <https://github.com/emqx/emqx-lwm2m/pull/14>`_
+
+emqx-auth-username (plugin)
+---------------------------
+
+Enhancements:
+
+- Support optional encryption modes
+
+  GitHub PR:
+  `emqx/emqx-auth-usernmae#64 <https://github.com/emqx/emqx-auth-username/pull/64>`_
+
+emqx-auth-clientid (plugin)
+---------------------------
+
+Enhancements:
+
+- Support optional encryption modes
+
+  GitHub PR:
+  `emqx/emqx-auth-clientid#52 <https://github.com/emqx/emqx-auth-username/pull/52>`_
+
+emqx-management (plugin)
+------------------------
+
+Enhancements:
+
+- Add 'plugins reload <Name>' CLI, support for reload plugin to make the new configuration take effect
+
+  Github PR:
+  `emqx/emqx-management#30 <https://github.com/emqx/emqx-management/pull/30>`_
+
+mysql-otp (dependency)
+----------------------
+
+Enhancements:
+
+- Add support for MySQL 8
+
+  GitHub PR:
+  `emqx/mysql-otp#1 <https://github.com/emqx/mysql-otp/pull/1>`_
+
 .. _release_3.0.0:
 
 ------------------
@@ -93,7 +219,7 @@ Bug Fixes:
 
   GitHub PR:
   `emqx/emqx-lua-hook#45 <https://github.com/emqx/emqx-lua-hook/pull/45>`_
-  
+
 emqx-management (plugin)
 ------------------------
 
