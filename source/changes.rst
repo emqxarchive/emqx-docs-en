@@ -116,16 +116,6 @@ Enhancements:
   Github PR:
   `emqx/emqx-management#30 <https://github.com/emqx/emqx-management/pull/30>`_
 
-mysql-otp (dependency)
-----------------------
-
-Enhancements:
-
-- Add support for MySQL 8
-
-  GitHub PR:
-  `emqx/mysql-otp#1 <https://github.com/emqx/mysql-otp/pull/1>`_
-
 .. _release_3.0.0:
 
 ------------------
