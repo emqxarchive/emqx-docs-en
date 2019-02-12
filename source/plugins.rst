@@ -151,7 +151,7 @@ etc/plugins/emq_auth_username.conf:
     ## Examples:
     ##auth.user.1.username = admin
     ##auth.user.1.password = public
-    ##auth.user.2.username = feng@emqtt.io
+    ##auth.user.2.username = feng@emqx.io
     ##auth.user.2.password = public
 
 Add username/password by `./bin/emqttd_ctl users` CLI:
