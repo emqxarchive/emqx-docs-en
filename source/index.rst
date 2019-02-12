@@ -20,9 +20,9 @@ The emqttd project provides a scalable, enterprise grade, extensible open-source
 Sensors, Mobiles, Web Browsers and Application Servers could be connected by emqttd brokers with asynchronous PUB/SUB MQTT messages.
 
 +---------------+-----------------------------------------+
-| Homepage:     | http://emqtt.io                         |
+| Homepage:     | http://emqx.io                         |
 +---------------+-----------------------------------------+
-| Downloads:    | http://emqtt.io/downloads               |
+| Downloads:    | http://www.emqx.io/downloads              |
 +---------------+-----------------------------------------+
 | GitHub:       | https://github.com/emqtt                |
 +---------------+-----------------------------------------+
@@ -32,7 +32,7 @@ Sensors, Mobiles, Web Browsers and Application Servers could be connected by emq
 +---------------+-----------------------------------------+
 | Mailing List: | emqtt@googlegroups.com                  |
 +---------------+-----------------------------------------+
-| Author:       | Feng Lee <feng@emqtt.io>                |
+| Author:       | Feng Lee <feng@emqx.io>                |
 +---------------+-----------------------------------------+
 
 .. NOTE:: MQTT-SN，CoAP Protocols are planned to 1.x release.
