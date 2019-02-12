@@ -17,20 +17,20 @@ The emqttd broker is cross-platform, which could be deployed on Linux, FreeBSD, 
 Download Packages
 -----------------
 
-Download binary packages from: http://emqtt.io/downloads
+Download binary packages from: http://emqx.io/downloads
 
 +-----------+------------------------------------------+
-| Debian    | http://emqtt.io/downloads/latest/debian  |
+| Debian    | http://emqx.io/downloads/latest/debian  |
 +-----------+------------------------------------------+
-| Ubuntu    | http://emqtt.io/downloads/latest/ubuntu  |
+| Ubuntu    | http://emqx.io/downloads/latest/ubuntu  |
 +-----------+------------------------------------------+
-| CentOS    | http://emqtt.io/downloads/latest/centos  |
+| CentOS    | http://emqx.io/downloads/latest/centos  |
 +-----------+------------------------------------------+
-| FreeBSD   | http://emqtt.io/downloads/latest/freebsd |
+| FreeBSD   | http://emqx.io/downloads/latest/freebsd |
 +-----------+------------------------------------------+
-| Mac OS X  | http://emqtt.io/downloads/latest/macosx  |
+| Mac OS X  | http://emqx.io/downloads/latest/macosx  |
 +-----------+------------------------------------------+
-| Windows   | http://emqtt.io/downloads/latest/windows |
+| Windows   | http://emqx.io/downloads/latest/windows |
 +-----------+------------------------------------------+
 
 The package name consists of platform, version and release time.
@@ -43,7 +43,7 @@ For example: emqttd-centos64-1.1-beta-20160601.zip
 Installing on Linux
 -------------------
 
-Download CentOS Package from: http://emqtt.io/downloads/latest/centos, and then unzip:
+Download CentOS Package from: http://emqx.io/downloads/latest/centos, and then unzip:
 
 .. code-block:: bash
 
@@ -116,7 +116,7 @@ Stop the broker::
 Installing on FreeBSD
 ---------------------
 
-Download FreeBSD Package from: http://emqtt.io/downloads/latest/freebsd
+Download FreeBSD Package from: http://emqx.io/downloads/latest/freebsd
 
 The installing process is same to Linux.
 
@@ -128,7 +128,7 @@ Installing on Mac OS X
 
 We could install the broker on Mac OS X to develop and debug MQTT applications.
 
-Download Mac Package from: http://emqtt.io/downloads/latest/macosx
+Download Mac Package from: http://emqx.io/downloads/latest/macosx
 
 Configure 'lager' log level in 'etc/emqttd.config', all MQTT messages recevied/sent will be printed on console:
 
@@ -150,7 +150,7 @@ The install and boot process on Mac are same to Linux.
 Installing on Windows
 ---------------------
 
-Download Package from: http://emqtt.io/downloads/latest/windows.
+Download Package from: http://emqx.io/downloads/latest/windows.
 
 Unzip the package to install folder. Open the command line window and 'cd' to the folder.
 

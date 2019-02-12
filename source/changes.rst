@@ -234,7 +234,7 @@ Do not expire the retained messages from $SYS/# topics (#500)
 Documentation
 --------------
 
-http://emqtt.io/docs
+https://developer.emqx.io/docs/
 
 http://docs.emqtt.com/
 
