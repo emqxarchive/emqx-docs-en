@@ -65,5 +65,5 @@ Contents:
 License
 -------
 
-Apache License Version 2.0
+_`Apache License Version 2.0 https://apache.org/licenses/LICENSE-2.0.html`
 
