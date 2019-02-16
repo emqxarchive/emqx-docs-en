@@ -25,23 +25,21 @@ Please visit `emqx.io`_ for details on the available flavors and services offere
 
 .. image:: ./_static/images/emqtt.png
 
-+---------------+-----------------------------------------+
-| Homepage:     | https://www.emqx.io                         |
-+---------------+-----------------------------------------+
-| Downloads:    | https://www.emqx.io/downloads               |
-+---------------+-----------------------------------------+
-| GitHub:       | https://github.com/emqx                |
-+---------------+-----------------------------------------+
-| Twitter:      | @emqx                                  |
-+---------------+-----------------------------------------+
-| Forum:        | https://groups.google.com/d/forum/emqx |
-+---------------+-----------------------------------------+
-| Mailing List: | emqx@googlegroups.com                  |
-+---------------+-----------------------------------------+
-| Contact:      | contact <contact@emqx.io>               |
-+---------------+-----------------------------------------+
 
-Contents:
+   * - Homepage
+     - http://emqx.io
+   * - Downloads
+     - http://emqx.io/downloads
+   * - GitHub
+     - https://github.com/emqx
+   * - Twitter
+     - https://twitter.com/emqtt
+   * - Discussion Forum
+     - https://groups.google.com/d/forum/emqx
+   * - Mailing List
+     - emqx@googlegroups.com
+   * - Contact
+     - contact <contact@emqx.io>
 
 .. toctree::
    :maxdepth: 2
