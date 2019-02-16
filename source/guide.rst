@@ -1074,13 +1074,13 @@ Stop a Trace::
 
     ./bin/emqx_ctl trace topic "topic" off
 
-.. _emqx_auth_clientid: https://github.com/emqx/emqx_auth_clientid
-.. _emqx_auth_username: https://github.com/emqx/emqx_auth_username
-.. _emqx_auth_ldap:     https://github.com/emqx/emqx_auth_ldap
-.. _emqx_auth_http:     https://github.com/emqx/emqx_auth_http
-.. _emqx_auth_mysql:    https://github.com/emqx/emqx_auth_mysql
-.. _emqx_auth_pgsql:    https://github.com/emqx/emqx_auth_pgsql
-.. _emqx_auth_redis:    https://github.com/emqx/emqx_auth_redis
-.. _emqx_auth_mongo:    https://github.com/emqx/emqx_auth_mongo
+.. _emqx_auth_clientid: https://github.com/emqx/emqx-auth-clientid
+.. _emqx_auth_username: https://github.com/emqx/emqx-auth-username
+.. _emqx_auth_ldap:     https://github.com/emqx/emqx-auth-ldap
+.. _emqx_auth_http:     https://github.com/emqx/emqx-auth-http
+.. _emqx_auth_mysql:    https://github.com/emqx/emqx-auth-mysql
+.. _emqx_auth_pgsql:    https://github.com/emqx/emqx-auth-pgsql
+.. _emqx_auth_redis:    https://github.com/emqx/emqx-auth-redis
+.. _emqx_auth_mongo:    https://github.com/emqx/emqx-auth-mongo
 .. _emqx_auth_jwt:      https://github.com/emqx/emqx-auth-jwt
 
