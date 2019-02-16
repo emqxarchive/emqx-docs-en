@@ -7,11 +7,14 @@
 *EMQ X* - MQTT Messaging Broker
 ===============================
 
-*EMQ X* is a distributed, massively scalable, highly extensible MQTT message broker written in Erlang/OTP.
+*EMQ X* is a distributed, massively scalable, highly extensible MQTT message
+broker written in Erlang/OTP. The project was formerly called emqtt.
 
-*EMQ X* is fully open source and licensed under the Apache Version 2.0. *EMQ X* implements both MQTT V3.1/V3.1.1 and V5.0 protocol specifications, and supports MQTT-SN, CoAP, WebSocket and STOMP at the same time.
+*EMQ X* is fully open source and licensed under the Apache Version 2.0.
+*EMQ X* implements both MQTT V3.1/V3.1.1 and V5.0 protocol specifications, and supports MQTT-SN, CoAP, WebSockets and STOMP.
 
-*EMQ X* provides a scalable, reliable, enterprise-grade MQTT message Hub for IoT, M2M, Smart Hardware and Mobile Messaging Applications. Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ X* brokers with asynchronous PUB/SUB MQTT messages.
+*EMQ X* provides a scalable, reliable, enterprise-grade MQTT message Hub for IoT, M2M, Smart Hardware and Mobile Messaging Applications.
+Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ X* brokers with asynchronous PUB/SUB MQTT messages.
 
 The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT connections on a 12 Core, 32G CentOS server.
 
