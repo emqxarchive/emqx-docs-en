@@ -16,7 +16,9 @@ broker written in Erlang/OTP. The project was formerly called emqtt.
 *EMQ X* provides a scalable, reliable, enterprise-grade MQTT message Hub for IoT, M2M, Smart Hardware and Mobile Messaging Applications.
 Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ X* brokers with asynchronous PUB/SUB MQTT messages.
 
-The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT connections on a 12 Core, 32G CentOS server.
+.. topic:: Massively scalable
+
+   The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT connections on a single 12 Core, 32G CentOS server.
 
 Please visit `emqx.io`_ for more service. Follow us on Twitter: `@emqx`_
 
