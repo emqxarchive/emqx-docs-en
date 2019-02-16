@@ -45,6 +45,7 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
+   :hidden:
 
    getstarted
    deploy
