@@ -20,10 +20,8 @@ Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EM
 
    The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT connections on a single 12 Core, 32G CentOS server.
 
-Please visit `emqx.io`_ for more service. Follow us on Twitter: `@emqx`_
-
-.. _emqx.io: https://www.emqx.io
-.. _@emqx: https://twitter.com/emqx
+EMQX has a vibrant community and is commercially backed by EMQ Technologies.
+Please visit `emqx.io`_ for details on the available flavors and services offered.
 
 .. image:: ./_static/images/emqtt.png
 
@@ -73,3 +71,4 @@ License
 
 _`Apache License Version 2.0 https://apache.org/licenses/LICENSE-2.0.html`
 
+.. _emqx.io: https://www.emqx.io
