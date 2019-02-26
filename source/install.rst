@@ -20,29 +20,29 @@ Download Packages
 Download binary packages from: http://emqx.io/downloads
 
 +-------------+-----------------------------------------------+
-| Debian      | http://emqtt.com/downloads/latest/debian      |
+| Debian      | https://www.emqx.io/downloads/v2/latest/emqttd-debian.zip      |
 +-------------+-----------------------------------------------+
-| Ubuntu12.04 | http://emqtt.com/downloads/latest/ubuntu12_04 |
+| Ubuntu12.04 | https://www.emqx.io/downloads/v2/latest/emqttd-ubuntu12.04.zip |
 +-------------+-----------------------------------------------+
-| Ubuntu14.04 | http://emqtt.com/downloads/latest/ubuntu14_04 |
+| Ubuntu14.04 | https://www.emqx.io/downloads/v2/latest/emqttd-ubuntu14.04.zip |
 +-------------+-----------------------------------------------+
-| Ubuntu16.04 | http://emqtt.com/downloads/latest/ubuntu16_04 |
+| Ubuntu16.04 | https://www.emqx.io/downloads/v2/latest/emqttd-ubuntu16.04.zip |
 +-------------+-----------------------------------------------+
-| CentOS7     | http://emqtt.com/downloads/latest/centos7     |
+| CentOS7     | https://www.emqx.io/downloads/v2/latest/emqttd-centos7.zip     |
 +-------------+-----------------------------------------------+
-| Debian7     | http://emqtt.com/downloads/latest/debian7     |
+| Debian7     | https://www.emqx.io/downloads/v2/latest/emqttd-debian7.zip     |
 +-------------+-----------------------------------------------+
-| Debian8     | http://emqtt.com/downloads/latest/debian7     |
+| Debian8     | https://www.emqx.io/downloads/v2/latest/emqttd-debian7.zip     |
 +-------------+-----------------------------------------------+
-| FreeBSD     | http://emqtt.com/downloads/latest/freebsd     |
+| FreeBSD     | https://www.emqx.io/downloads/v2/latest/emqttd-freebsd.zip     |
 +-------------+-----------------------------------------------+
-| Windows7    | http://emqtt.com/downloads/latest/windows7    |
+| Windows7    | https://www.emqx.io/downloads/v2/latest/emqttd-windows7.zip    |
 +-------------+-----------------------------------------------+
-| Windows10   | http://emqtt.com/downloads/latest/windows10   |
+| Windows10   | https://www.emqx.io/downloads/v2/latest/emqttd-windows10.zip   |
 +-------------+-----------------------------------------------+
-| Mac OS X    | http://emqtt.com/downloads/latest/macosx      |
+| Mac OS X    | https://www.emqx.io/downloads/v2/latest/emqttd-macosx.zip      |
 +-------------+-----------------------------------------------+
-| Docker      | http://emqtt.com/downloads/latest/docker      |
+| Docker      | https://www.emqx.io/downloads/v2/latest/emqttd-docker.zip      |
 +-------------+-----------------------------------------------+
 
 The package name consists of platform, version and release time.
@@ -55,7 +55,7 @@ For example: emqttd-centos64-v2.0.zip
 Installing on Linux
 -------------------
 
-Download CentOS Package from: http://emqtt.com/downloads/latest/centos7, and then unzip:
+Download CentOS Package from: https://www.emqx.io/downloads/v2/latest/emqttd-centos7, and then unzip.zip:
 
 .. code-block:: bash
 
@@ -129,9 +129,9 @@ Install via RPM
 Download the RPM packages:
 
 +-------------+---------------------------------------------------+
-| CentOS6.8   | http://emqtt.com/downloads/latest/centos6-rpm     |
+| CentOS6.8   | https://www.emqx.io/downloads/v2/latest/emqttd-centos6.rpm     |
 +-------------+---------------------------------------------------+
-| CentOS7     | http://emqtt.com/downloads/latest/centos7-rpm     |
+| CentOS7     | https://www.emqx.io/downloads/v2/latest/emqttd-centos7.rpm     |
 +-------------+---------------------------------------------------+
 
 Install the package:
@@ -173,15 +173,15 @@ Install via DEB
 Download the DEB packages:
 
 +-------------+---------------------------------------------------+
-| Ubuntu12.04 | http://emqtt.com/downloads/latest/ubuntu12_04-deb |
+| Ubuntu12.04 | https://www.emqx.io/downloads/v2/latest/emqttd-ubuntu12.04.deb |
 +-------------+---------------------------------------------------+
-| Ubuntu14.04 | http://emqtt.com/downloads/latest/ubuntu14_04-deb |
+| Ubuntu14.04 | https://www.emqx.io/downloads/v2/latest/emqttd-ubuntu14.04.deb |
 +-------------+---------------------------------------------------+
-| Ubuntu16.04 | http://emqtt.com/downloads/latest/ubuntu16_04-deb |
+| Ubuntu16.04 | https://www.emqx.io/downloads/v2/latest/emqttd-ubuntu16.04.deb |
 +-------------+---------------------------------------------------+
-| Debian7     | http://emqtt.com/downloads/latest/debian7-deb     |
+| Debian7     | https://www.emqx.io/downloads/v2/latest/emqttd-debian7.deb     |
 +-------------+---------------------------------------------------+
-| Debian8     | http://emqtt.com/downloads/latest/debian7-deb     |
+| Debian8     | https://www.emqx.io/downloads/v2/latest/emqttd-debian7.deb     |
 +-------------+---------------------------------------------------+
 
 Install the package:
@@ -220,7 +220,7 @@ Start/Stop the broker:
 Installing on FreeBSD
 ---------------------
 
-Download FreeBSD Package from: http://emqtt.com/downloads/latest/freebsd
+Download FreeBSD Package from: https://www.emqx.io/downloads/v2/latest/emqttd-freebsd.zip
 
 The installing process is same to Linux.
 
@@ -232,7 +232,7 @@ Installing on Mac OS X
 
 We could install the broker on Mac OS X to develop and debug MQTT applications.
 
-Download Mac Package from: http://emqtt.com/downloads/latest/macosx
+Download Mac Package from: https://www.emqx.io/downloads/v2/latest/emqttd-macosx.zip
 
 Configure log level in `etc/emq.conf`, all MQTT messages recevied/sent will be printed on console:
 
@@ -255,7 +255,7 @@ The install and boot process on Mac are same to Linux.
 Installing on Windows
 ---------------------
 
-Download Package from: http://emqtt.com/downloads/latest/windows.
+Download Package from: https://www.emqx.io/downloads/v2/latest/emqttd-windows.zip.
 
 Unzip the package to install folder. Open the command line window and 'cd' to the folder.
 
@@ -293,7 +293,7 @@ Install via Docker Image
 
 Download *EMQ* 2.0 Docker Image:
 
-    http://emqtt.com/downloads/latest/docker
+    https://www.emqx.io/downloads/v2/latest/emqttd-docker.zip
 
 unzip emqttd-docker image::
 
