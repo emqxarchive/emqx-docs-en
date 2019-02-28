@@ -17,7 +17,7 @@ The *EMQ* broker is cross-platform, which could be deployed on Linux, FreeBSD, M
 Download Packages
 -----------------
 
-Download binary packages from: http://emqx.io/downloads
+Download binary packages from: https://www.emqx.io/downloads
 
 +-------------+-----------------------------------------------+
 | Debian      | https://www.emqx.io/downloads/v2/latest/emqttd-debian.zip      |

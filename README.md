@@ -131,7 +131,7 @@
 Contacts
 ========
 
-Company: http://emqx.io
+Company: https://www.emqx.io
 
 Twitter: @emqtt
 
