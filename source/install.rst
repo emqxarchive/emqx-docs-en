@@ -17,20 +17,20 @@ The emqttd broker is cross-platform, which could be deployed on Linux, FreeBSD, 
 Download Packages
 -----------------
 
-Download binary packages from: http://emqx.io/downloads
+Download binary packages from: https://www.emqx.io/downloads
 
 +-----------+------------------------------------------+
-| Debian    | http://emqx.io/downloads/v1/latest/emqttd-debian.zip  |
+| Debian    | https://www.emqx.io/downloads/v1/latest/emqttd-debian.zip  |
 +-----------+------------------------------------------+
-| Ubuntu    | http://emqx.io/downloads/v1/latest/emqttd-ubuntu.zip  |
+| Ubuntu    | https://www.emqx.io/downloads/v1/latest/emqttd-ubuntu.zip  |
 +-----------+------------------------------------------+
-| CentOS    | http://emqx.io/downloads/v1/latest/emqttd-centos.zip  |
+| CentOS    | https://www.emqx.io/downloads/v1/latest/emqttd-centos.zip  |
 +-----------+------------------------------------------+
-| FreeBSD   | http://emqx.io/downloads/v1/latest/emqttd-freebsd.zip |
+| FreeBSD   | https://www.emqx.io/downloads/v1/latest/emqttd-freebsd.zip |
 +-----------+------------------------------------------+
-| Mac OS X  | http://emqx.io/downloads/v1/latest/emqttd-macosx.zip  |
+| Mac OS X  | https://www.emqx.io/downloads/v1/latest/emqttd-macosx.zip  |
 +-----------+------------------------------------------+
-| Windows   | http://emqx.io/downloads/v1/latest/emqttd-windows.zip |
+| Windows   | https://www.emqx.io/downloads/v1/latest/emqttd-windows.zip |
 +-----------+------------------------------------------+
 
 The package name consists of platform, version and release time.
@@ -43,7 +43,7 @@ For example: emqttd-centos64-1.1-beta-20160601.zip
 Installing on Linux
 -------------------
 
-Download CentOS Package from: http://emqx.io/downloads/v1/latest/emqttd-centos, and then unzip.zip:
+Download CentOS Package from: https://www.emqx.io/downloads/v1/latest/emqttd-centos, and then unzip.zip:
 
 .. code-block:: bash
 
@@ -116,7 +116,7 @@ Stop the broker::
 Installing on FreeBSD
 ---------------------
 
-Download FreeBSD Package from: http://emqx.io/downloads/v1/latest/emqttd-freebsd.zip
+Download FreeBSD Package from: https://www.emqx.io/downloads/v1/latest/emqttd-freebsd.zip
 
 The installing process is same to Linux.
 
@@ -128,7 +128,7 @@ Installing on Mac OS X
 
 We could install the broker on Mac OS X to develop and debug MQTT applications.
 
-Download Mac Package from: http://emqx.io/downloads/v1/latest/emqttd-macosx.zip
+Download Mac Package from: https://www.emqx.io/downloads/v1/latest/emqttd-macosx.zip
 
 Configure 'lager' log level in 'etc/emqttd.config', all MQTT messages recevied/sent will be printed on console:
 
@@ -150,7 +150,7 @@ The install and boot process on Mac are same to Linux.
 Installing on Windows
 ---------------------
 
-Download Package from: http://emqx.io/downloads/v1/latest/emqttd-windows.zip.
+Download Package from: https://www.emqx.io/downloads/v1/latest/emqttd-windows.zip.
 
 Unzip the package to install folder. Open the command line window and 'cd' to the folder.
 

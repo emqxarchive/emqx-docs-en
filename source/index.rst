@@ -20,9 +20,9 @@ The emqttd project provides a scalable, enterprise grade, extensible open-source
 Sensors, Mobiles, Web Browsers and Application Servers could be connected by emqttd brokers with asynchronous PUB/SUB MQTT messages.
 
 +---------------+-----------------------------------------+
-| Homepage:     | http://emqx.io                         |
+| Homepage:     | https://www.emqx.io                         |
 +---------------+-----------------------------------------+
-| Downloads:    | http://www.emqx.io/downloads              |
+| Downloads:    | https://www.emqx.io/downloads              |
 +---------------+-----------------------------------------+
 | GitHub:       | https://github.com/emqtt                |
 +---------------+-----------------------------------------+
