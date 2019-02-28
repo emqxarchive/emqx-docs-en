@@ -17,15 +17,15 @@ The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT 
 
 Please visit `emqx.io`_ for more service. Follow us on Twitter: `@emqx`_
 
-.. _emqx.io: http://emqx.io
+.. _emqx.io: https://www.emqx.io
 .. _@emqx: https://twitter.com/emqx
 
 .. image:: ./_static/images/emqtt.png
 
 +---------------+-----------------------------------------+
-| Homepage:     | http://emqx.io                         |
+| Homepage:     | https://www.emqx.io                         |
 +---------------+-----------------------------------------+
-| Downloads:    | http://emqx.io/downloads               |
+| Downloads:    | https://www.emqx.io/downloads               |
 +---------------+-----------------------------------------+
 | GitHub:       | https://github.com/emqx                |
 +---------------+-----------------------------------------+

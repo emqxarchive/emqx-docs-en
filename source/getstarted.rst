@@ -61,7 +61,7 @@ Download and Install
 
 The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
 
-Download binary package from: http://emqx.io/downloads.
+Download binary package from: https://www.emqx.io/downloads.
 
 Installing on Mac, for example:
 

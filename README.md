@@ -159,10 +159,10 @@
 Contacts
 ========
 
-Company: http://emqx.io
+Company: https://www.emqx.io
 
 Twitter: @emqx
 
 Author: Feng Lee <feng@emqx.io>
 
-http://emqx.io/docs | https://developer.emqx.io
+https://www.emqx.io/docs | https://developer.emqx.io
