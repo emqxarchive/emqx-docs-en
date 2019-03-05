@@ -14,7 +14,7 @@ Version 3.1-beta-1
 *Release Date: 2018-02-28*
 
 The EMQ X 3.1-beta.1 is now available. This version focuses on functional improvements, include
-introduced new bridge, supporting batch delivery, supporting redis cluster and so on.
+introducing new bridge, supporting batch delivery, supporting redis cluster and so on.
 
 EMQ X Core
 ----------
