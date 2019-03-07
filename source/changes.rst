@@ -5,6 +5,82 @@
 Changes
 =======
 
+.. _release_3.1-beta.1:
+
+------------------
+Version 3.1-beta-1
+------------------
+
+*Release Date: 2019-02-28*
+
+The EMQ X 3.1-beta.1 is now available. This version focuses on feature improvements. We
+introduced new broker bridge, implemented the batch packets delivery, added supports for redis cluster, and so on.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Introduce new bridge implement
+
+  Github PR:
+  `emqx/emqx#2199 <https://github.com/emqx/emqx/pull/2199>`_
+
+- Support batch delivery
+
+  Github PR:
+  `emqx/emqx#2253 <https://github.com/emqx/emqx/pull/2253>`_
+
+- Improve the `emqx_connection` module by using gen_statem behaviour
+
+  Github PR:
+  `emqx/emqx#2235 <https://github.com/emqx/emqx/pull/2235>`_
+
+- Add monitors and improve alarm handler
+
+  Github PR:
+  `emqx/emqx#2266 <https://github.com/emqx/emqx/pull/2266>`_
+
+emqx-auth-redis
+---------------
+
+Enhancements:
+
+- Support redis cluster
+
+  Github PR:
+  `emqx/emqx-auth-redis#93 <https://github.com/emqx/emqx-auth-redis/pull/93>`_
+
+emqx-dashboard
+--------------
+
+Enhancements:
+
+- Add test cases for `emqx_dashboard_cli` module
+
+  Github PR:
+  `emqx/emqx-dashboard#34 <https://github.com/emqx/emqx-dashboard/pull/34>`_
+
+emqx-auth-username
+------------------
+
+Enhancements:
+
+- Add new cli to update username
+
+  Github PR:
+  `emqx/emqx-auth-username#74 <https://github.com/emqx/emqx-auth-username/pull/74>`_
+
+emqx-auth-clientid
+------------------
+
+Enhancements:
+
+- Add new cli to update clientid
+
+  Github PR:
+  `emqx/emqx-auth-clientid#59 <https://github.com/emqx/emqx-auth-clientid/pull/59>`_
+
 .. _release_3.0.1:
 
 ------------------
