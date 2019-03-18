@@ -5,10 +5,150 @@
 Changes
 =======
 
+.. _release_3.1-beta.2:
+
+------------------
+Version 3.1-beta.2
+------------------
+
+*Release Date: 2019-03-16*
+
+EMQ X 3.1-beta.2 is now available. In this version we've redesigned the `hooks`, supported `TLS/PSK`,
+fixed some issues about `gen_rpc`, and so on.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Improve emqx hooks and credentials
+
+  Github PR:
+  `emqx/emqx#2309 <https://github.com/emqx/emqx/pull/2309>`_
+
+- Support TLS/DTLS PSK
+
+  Github PR:
+  `emqx/emqx#2297 <https://github.com/emqx/emqx/pull/2297>`_
+
+- Move request response out of emqx client
+
+  Github PR:
+  `emqx/emqx#2293 <https://github.com/emqx/emqx/pull/2293>`_
+
+Bug fixes:
+
+- Broker crash when forwarding message in cluster
+
+  Github issues:
+  `emqx/emqx#2290 <https://github.com/emqx/emqx/issues/2290>`_
+
+  Github PR:
+  `emqx/emqx#2320 <https://github.com/emqx/emqx/pull/2320>`_
+
+- Unload emqx_alarm_handler before unloading plugins when shutting down
+
+  Github PR:
+  `emqx/emqx#2316 <https://github.com/emqx/emqx/pull/2316>`_
+
+- Fixed a bug related to emqx bridge
+
+  Github issues:
+  `emqx/emqx#2312 <https://github.com/emqx/emqx/issues/2312>`_
+
+  Github PR:
+  `emqx/emqx#2313 <https://github.com/emqx/emqx/pull/2313>`_
+
+- Eliminate inflight full error
+
+  Github PR:
+  `emqx/emqx#2281 <https://github.com/emqx/emqx/pull/2281>`_
+
+emqx-management (plugin)
+------------------------
+
+Enhancements:
+
+- Add default application secret configuration
+
+  Github PR:
+  `emqx/emqx-management#58 <https://github.com/emqx/emqx-management/pull/58>`_
+
+- Fix plugin reload error when plugin is not started
+
+  Github PR:
+  `emqx/emqx-management#59 <https://github.com/emqx/emqx-management/pull/59>`_
+
+- Move plugin-related HTTP APIs to each plugin
+
+  Github PR:
+  `emqx/emqx-management#57 <https://github.com/emqx/emqx-management/pull/57>`_
+
+- Fix io/max_fds undefined issue
+
+  Github issues:
+  `emqx/emqx-management#2222 <https://github.com/emqx/emqx-management/issues/2222>`__
+
+  Github PR:
+  `emqx/emqx-management#54 <https://github.com/emqx/emqx-management/pull/54>`_
+
+emqx-auth-jwt (plugin)
+----------------------
+
+Enhancements:
+
+- Improve the JWT Auth plugin
+
+  Github PR:
+  `emqx/emqx-auth-jwt#63 <https://github.com/emqx/emqx-auth-jwt/pull/63>`_
+
+emqx-auth-username (plugin)
+---------------------------
+
+Enhancements:
+
+- Add CURD HTTP API for managing usernames
+
+  Github PR:
+  `emqx/emqx-auth-username#82 <https://github.com/emqx/emqx-auth-username/pull/82>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Bug fixes:
+
+- Fix bug when formatting message
+
+  Github issues:
+  `emqx/emqx-web-hook#93 <https://github.com/emqx/emqx-web-hook/issues/93>`_
+
+  Github PR:
+  `emqx/emqx-web-hook#96 <https://github.com/emqx/emqx-web-hook/pull/96>`_
+
+minirest (deps)
+---------------
+
+Bug fixes:
+
+- Filter the API for plugins that not started
+
+  Github PR:
+  `emqx/minirest#12 <https://github.com/emqx/minirest/pull/12>`_
+
+gen_rpc (deps)
+--------------
+
+Bug fixes:
+
+- Fix raw socket flags for 'gen_tcp'
+
+  Github PR:
+  `emqx/gen_rpc#5 <https://github.com/emqx/gen_rpc/pull/5>`_
+
 .. _release_3.1-beta.1:
 
 ------------------
-Version 3.1-beta-1
+Version 3.1-beta.1
 ------------------
 
 *Release Date: 2019-02-28*
@@ -87,7 +227,7 @@ Enhancements:
 Version 3.0.1
 ------------------
 
-*Release Date: 2018-01-25*
+*Release Date: 2019-01-25*
 
 The EMQ X 3.0.1 is now available. Many improvements and bug fixes has been made.
 
