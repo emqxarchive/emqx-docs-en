@@ -43,7 +43,6 @@ Please visit `emqx.io`_ for details on the available flavors and services offere
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
 
    getstarted
    deploy
