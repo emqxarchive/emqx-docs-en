@@ -34,8 +34,6 @@ If multiple groups are created on the broker, each group will receive one copy o
 The topic may contain wildcards (:code:`+` or :code:`#`) in it as per usual rules.
 Group is not allowed to contain the characters :code:`+`,:code:`#`, or :code:`/` in it.
 
-It is recommended to use QoS 2 when using shared subscriptions.
-
 Example:
 
 .. code-block:: shell
