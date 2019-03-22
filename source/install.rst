@@ -9,7 +9,7 @@ The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD,
 
 .. NOTE::
 
-    Linux, FreeBSD Recommended.
+    Linux and FreeBSD Recommended.
 
 .. _install_download:
 
@@ -17,9 +17,10 @@ The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD,
 Download Packages
 -----------------
 
-Download binary packages from: https://www.emqx.io/downloads/broker
+Prebuilt releases and packages are available from https://www.emqx.io/downloads/broker
 
-The following OS types are supported:
+The following environments are supported. For each supported OS, a precompiled zipped bundle is provided.
+Packages in rpm and deb formats are also available for RedHat and Debian family OS.
 
 +-------------+
 | CentOS6.8   |
@@ -49,17 +50,19 @@ The following OS types are supported:
 | Docker      |
 +-------------+
 
-The package name consists of platform, version and release time.
+The package name indicates flavor, platform, version and cpu architecture where applicable.
 
-For example: emqx-centos64-v3.0.zip
+For example: emqx-centos6.8-v3.0.1.zip is a zipped release of EMQX version v3.0 suitable for running on CentOS 6.8.
 
 .. _install_on_linux:
 
--------------------
-Installing on Linux
--------------------
+-------------------------
+Installing zipped release
+-------------------------
 
-Select Linux group from https://www.emqx.io/downloads/broker, download CentOS zip package, and then unzip:
+Select appropriate release zip from https://www.emqx.io/downloads/broker, download, and then unzip:
+
+The instructions are identical for all Linuxes and Mac OSX. we'll use CentOS 7 in the examples below.
 
 .. code-block:: bash
 
@@ -124,13 +127,26 @@ Stop the broker::
 
     ./bin/emqx stop
 
+Configuration, Data and Log Files for zipped releases are alongside the broker.
+The following paths are relative to the folder ``emqx`` extracted above.
+
++---------------------------+-------------------------------------------+
+| etc/emqx.conf             | Configuration file for the EMQ X Broker   |
++---------------------------+-------------------------------------------+
+| etc/plugins/\*.conf       | Configuration files for the EMQ X Plugins |
++---------------------------+-------------------------------------------+
+| data                      | Data files                                |
++---------------------------+-------------------------------------------+
+| log                       | Log files                                 |
++---------------------------+-------------------------------------------+
+
 .. _install_via_rpm:
 
 ---------------
 Install via RPM
 ---------------
 
-Select Linux group from https://www.emqx.io/downloads/broker, and download the RPM packages.
+RPM Packages are available for the following Operating Systems:
 
 +-------------+
 | CentOS6.8   |
@@ -138,11 +154,13 @@ Select Linux group from https://www.emqx.io/downloads/broker, and download the R
 | CentOS7     |
 +-------------+
 
+Select and download the appropriate package from https://www.emqx.io/downloads/broker.
+
 Install the package:
 
 .. code-block:: console
 
-    rpm -ivh emqx-centos7-v3.0-el7.centos.x86_64.rpm
+    rpm -ivh emqx-centos7-v3.0.1.x86_64.rpm
 
 .. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
 
@@ -174,7 +192,7 @@ Start/Stop the broker:
 Install via DEB
 ---------------
 
-Select Linux group from https://www.emqx.io/downloads/broker, and download the DEB packages.
+RPM Packages are available for the following Operating Systems:
 
 +-------------+
 | Ubuntu12.04 |
@@ -192,11 +210,13 @@ Select Linux group from https://www.emqx.io/downloads/broker, and download the D
 | Debian9     |
 +-------------+
 
+Select and download the appropriate package from https://www.emqx.io/downloads/broker.
+
 Install the package:
 
 .. code-block:: console
 
-    sudo dpkg -i emqx-ubuntu12.04-v3.0_amd64.deb
+    sudo dpkg -i emqx-ubuntu18.04-v3.0.1_amd64.deb
 
 .. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
 
@@ -221,31 +241,6 @@ Start/Stop the broker:
 .. code-block:: console
 
     service emqx start|stop|restart
-
-.. _install_on_mac:
-
-----------------------
-Installing on Mac OS X
-----------------------
-
-We could install the broker on Mac OS X to develop and debug MQTT applications.
-
-Select OSX group from https://www.emqx.io/downloads/broker, and download Mac package.
-
-Configure log level in `etc/emqx.conf`, all MQTT messages recevied/sent will be printed on console:
-
-.. code-block:: bash
-
-    ## Console log. Enum: off, file, console, both
-    log.console = both
-
-    ## Console log level. Enum: debug, info, notice, warning, error, critical, alert, emergency
-    log.console.level = debug
-
-    ## Console log file
-    log.console.file = log/console.log
-
-The install and boot process on Mac are same to Linux.
 
 .. _install_on_windows:
 
@@ -448,6 +443,28 @@ The maximum number of allowed MQTT clients:
 
     listener.tcp.external.max_clients = 1024
 
+
+.. _suggested_development_config:
+
+----------------------------
+Suggested development config
+----------------------------
+During development, it might be convenient to print all MQTT messages recevied/sent for debugging purposes.
+
+This can be achieved by setting log level to debug in `etc/emqx.conf`, 
+
+.. code-block:: bash
+
+    ## Console log. Enum: off, file, console, both
+    log.console = both
+
+    ## Console log level. Enum: debug, info, notice, warning, error, critical, alert, emergency
+    log.console.level = debug
+
+    ## Console log file
+    log.console.file = log/console.log
+
+
 .. _init_d_emqttd:
 
 -------------------
@@ -515,4 +532,4 @@ boot test::
     uncomment '# export HOME=/root' if "HOME must be set" error.
 
 .. _emq_dashboard:       https://github.com/emqx/emqx-dashboard
-.. _emq-relx:            https://github.com/emqx/emqx-rel
+.. _emqx-rel:            https://github.com/emqx/emqx-rel
