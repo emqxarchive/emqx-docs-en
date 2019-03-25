@@ -5,6 +5,75 @@
 Changes
 =======
 
+.. _release_3.1-beta.3:
+
+------------------
+Version 3.1-beta.3
+------------------
+
+*Release Date: 2019-03-22*
+
+EMQ X 3.1-beta.3 is now available. In this version we've introduced rule engine,
+improved plugin discovery mechanism, fixed some bugs, and so on.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Improve plugin discovery mechanism
+
+  Github PR:
+  `emqx/emqx#2339 <https://github.com/emqx/emqx/pull/2339>`_
+
+Bug fixes:
+
+- Fix bug of clearing alarm repeatedly
+
+  Github PR:
+  `emqx/emqx#2332 <https://github.com/emqx/emqx/pull/2332>`_
+
+- Fix bug of parsing sticky package failure
+
+  Github PR:
+  `emqx/emqx#2333 <https://github.com/emqx/emqx/pull/2333>`_
+
+- Set DUP flag in PUBLISH packet correctly
+
+  Github PR:
+  `emqx/emqx#2337 <https://github.com/emqx/emqx/pull/2337>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Implement prototype of rule engine
+
+  Github Repository:
+  `emqx/emqx-rule-engine <https://github.com/emqx/emqx-rule-engine>`_
+
+emqx-lua-hook (plugin)
+----------------------
+
+Enhancements:
+
+- Add auth and acl hook
+
+  Github PR:
+  `emqx/emqx-lua-hook#63 <https://github.com/emqx/emqx-lua-hook/pull/63>`_
+
+emqx-auth-mysql (plugin)
+------------------------
+
+Bug fixes:
+
+- Fix bug that ACL could not be loaded
+
+  Github PR:
+  `emqx/emqx-auth-mysql#130 <https://github.com/emqx/emqx-auth-mysql/pull/130>`_,
+  `emqx/emqx-auth-mysql#128 <https://github.com/emqx/emqx-auth-mysql/pull/128>`_
+
 .. _release_3.1-beta.2:
 
 ------------------
