@@ -7,38 +7,39 @@
 *EMQ X* - MQTT Messaging Broker
 ===============================
 
-*EMQ X* is a distributed, massively scalable, highly extensible MQTT message broker written in Erlang/OTP.
+*EMQ X* is a distributed, massively scalable, highly extensible MQTT message
+broker written in Erlang/OTP. The project was formerly called emqtt.
 
-*EMQ X* is fully open source and licensed under the Apache Version 2.0. *EMQ X* implements both MQTT V3.1/V3.1.1 and V5.0 protocol specifications, and supports MQTT-SN, CoAP, WebSocket and STOMP at the same time.
+*EMQ X* is fully open source and licensed under the Apache Version 2.0.
+*EMQ X* implements both MQTT V3.1/V3.1.1 and V5.0 protocol specifications, and supports MQTT-SN, CoAP, WebSockets and STOMP.
 
-*EMQ X* provides a scalable, reliable, enterprise-grade MQTT message Hub for IoT, M2M, Smart Hardware and Mobile Messaging Applications. Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ X* brokers with asynchronous PUB/SUB MQTT messages.
+*EMQ X* provides a scalable, reliable, enterprise-grade MQTT message Hub for IoT, M2M, Smart Hardware and Mobile Messaging Applications.
+Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ X* brokers with asynchronous PUB/SUB MQTT messages.
 
-The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT connections on a 12 Core, 32G CentOS server.
+.. topic:: Massively scalable
 
-Please visit `emqx.io`_ for more service. Follow us on Twitter: `@emqx`_
+   The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT connections on a single 12 Core, 32G CentOS server.
 
-.. _emqx.io: https://www.emqx.io
-.. _@emqx: https://twitter.com/emqx
+EMQX has a vibrant community and is commercially backed by EMQ Technologies.
+Please visit `emqx.io`_ for details on the available flavors and services offered.
 
 .. image:: ./_static/images/emqtt.png
 
-+---------------+-----------------------------------------+
-| Homepage:     | https://www.emqx.io                         |
-+---------------+-----------------------------------------+
-| Downloads:    | https://www.emqx.io/downloads               |
-+---------------+-----------------------------------------+
-| GitHub:       | https://github.com/emqx                |
-+---------------+-----------------------------------------+
-| Twitter:      | @emqx                                  |
-+---------------+-----------------------------------------+
-| Forum:        | https://groups.google.com/d/forum/emqx |
-+---------------+-----------------------------------------+
-| Mailing List: | emqx@googlegroups.com                  |
-+---------------+-----------------------------------------+
-| Contact:      | contact <contact@emqx.io>               |
-+---------------+-----------------------------------------+
 
-Contents:
+   * - Homepage
+     - http://emqx.io
+   * - Downloads
+     - http://emqx.io/downloads
+   * - GitHub
+     - https://github.com/emqx
+   * - Twitter
+     - https://twitter.com/emqtt
+   * - Discussion Forum
+     - https://groups.google.com/d/forum/emqx
+   * - Mailing List
+     - emqx@googlegroups.com
+   * - Contact
+     - contact <contact@emqx.io>
 
 .. toctree::
    :maxdepth: 2
@@ -65,5 +66,6 @@ Contents:
 License
 -------
 
-Apache License Version 2.0
+_`Apache License Version 2.0 https://apache.org/licenses/LICENSE-2.0.html`
 
+.. _emqx.io: https://www.emqx.io

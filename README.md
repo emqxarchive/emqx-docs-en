@@ -161,8 +161,8 @@ Contacts
 
 Company: https://www.emqx.io
 
-Twitter: @emqx
+Twitter: @emqtt
 
-Author: Feng Lee <feng@emqx.io>
+Author: Feng Lee <feng@emqx.io> and contributors.
 
 https://www.emqx.io/docs | https://developer.emqx.io

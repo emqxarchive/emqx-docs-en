@@ -9,13 +9,22 @@ User Guide
 Authentication
 --------------
 
-The *EMQ X* broker supports to authenticate MQTT clients via ClientID, Username/Password, IpAddress and even HTTP Cookies.
+The *EMQ X* broker supports authenticating MQTT clients via ClientID, Username/Password, IpAddress and even HTTP Cookies.
 
-The authentication is provided by a list of plugins such as MySQL, PostgresSQL, Redis, MongoDB, HTTP, LDAP.
+The authentication mechanism is pluggable, and the default installation comes with support for authenticating against:
 
-If we enable several authentication plugins at the same time, the Auth request will be forwarded to next auth module
+#. A fixed set of clients identified by clientid and password
+#. A fixed set of clients identified by username and password
+#. Entries in a database (MySQL, PostgresSQL, Redis, or MongoDB)
+#. Response from a configurable HTTP request
+#. Entries in an LDAP directory
+#. Json Web Tokens
 
-The authentication flow::
+Each of these is provided as a separate plugin, included in the default download. The user may enable any combination of these, or develop their own using the plugin API.
+
+If several authentication plugins are enabled at the same time, the order in which they are applied is significant. The request will be forwarded to next module in the chain if a plugin responds with ignore.
+
+For example::
 
               ---------------            --------------            ---------------
   Client --> |  Redis Auth   | -ignore-> |  HTTP Auth  | -ignore-> |  MySQL Auth  |
@@ -25,7 +34,7 @@ The authentication flow::
               allow | deny                allow | deny              allow | deny
 
 
-The order that the authentication will be carried out is determined by the order that the plugins are loaded (their order of appearance in ``./data/loaded_plugins``)
+The order in which the plugins are applied is the same as the order of their appearance in the file ``data/loaded_plugins``
 
 The authentication plugins implemented by default:
 
@@ -1074,13 +1083,13 @@ Stop a Trace::
 
     ./bin/emqx_ctl trace topic "topic" off
 
-.. _emqx_auth_clientid: https://github.com/emqx/emqx_auth_clientid
-.. _emqx_auth_username: https://github.com/emqx/emqx_auth_username
-.. _emqx_auth_ldap:     https://github.com/emqx/emqx_auth_ldap
-.. _emqx_auth_http:     https://github.com/emqx/emqx_auth_http
-.. _emqx_auth_mysql:    https://github.com/emqx/emqx_auth_mysql
-.. _emqx_auth_pgsql:    https://github.com/emqx/emqx_auth_pgsql
-.. _emqx_auth_redis:    https://github.com/emqx/emqx_auth_redis
-.. _emqx_auth_mongo:    https://github.com/emqx/emqx_auth_mongo
+.. _emqx_auth_clientid: https://github.com/emqx/emqx-auth-clientid
+.. _emqx_auth_username: https://github.com/emqx/emqx-auth-username
+.. _emqx_auth_ldap:     https://github.com/emqx/emqx-auth-ldap
+.. _emqx_auth_http:     https://github.com/emqx/emqx-auth-http
+.. _emqx_auth_mysql:    https://github.com/emqx/emqx-auth-mysql
+.. _emqx_auth_pgsql:    https://github.com/emqx/emqx-auth-pgsql
+.. _emqx_auth_redis:    https://github.com/emqx/emqx-auth-redis
+.. _emqx_auth_mongo:    https://github.com/emqx/emqx-auth-mongo
 .. _emqx_auth_jwt:      https://github.com/emqx/emqx-auth-jwt
 
