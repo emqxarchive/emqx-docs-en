@@ -303,48 +303,60 @@ The two most important parameters for Erlang VM:
 Log Level and File
 ------------------
 
-Console Log
------------
+Log to file or to console
+-------------------------
 
 .. code-block:: properties
 
-    ## Console log. Enum: off, file, console, both
-    log.console = console
+    ## Where to emit the logs.
+    log.to = both
 
-    ## Console log level. Enum: debug, info, notice, warning, error, critical, alert, emergency
-    log.console.level = error
+Config where to emit the logs. Can be one of
 
-    ## Console log file
-    ## log.console.file = log/console.log
+- off: disable logs entirely
+- file: write logs only to file
+- console: write logs only to standard I/O (the erlang shell)
+- both: write logs both to file and standard I/O (the erlang shell)
 
-Error Log
----------
-
-.. code-block:: properties
-
-    ## Error log file
-    log.error.file = log/error.log
-
-Crash Log
----------
+The log level
+-------------
 
 .. code-block:: properties
 
-    ## Enable the crash log. Enum: on, off
-    log.crash = on
+    ## The log severity level.
+    log.level = error
 
-    log.crash.file = log/crash.log
+Set the overall logger level, including the primary logger level and
+the logger handlers to file and console.
 
-Syslog
-------
+Configs for log files
+---------------------
 
 .. code-block:: properties
 
-    ## Syslog. Enum: on, off
-    log.syslog = on
+    ## The dir for log files.
+    log.dir = log
 
-    ##  syslog level. Enum: debug, info, notice, warning, error, critical, alert, emergency
-    log.syslog.level = error
+    ## The log filename for logs of level specified in "log.level".
+    log.file = emqx.log
+
+    ## Maximum size of each log file.
+    ## Default: 10M
+    ## Supported Unit: KB | MB | G
+    log.rotation.size = 10MB
+
+    ## Maximum rotation count of log files.
+    ## Default: 5
+    log.rotation.count = 5
+
+Config additional file logger handlers
+--------------------------------------
+
+Additional file logger handlers can be added for specific log levels.
+For example, to configure a additional file logger handler that write all
+messages that with level higher than or equal to info::
+
+    log.info.file = info.log
 
 ------------------------
 MQTT Protocol Parameters
