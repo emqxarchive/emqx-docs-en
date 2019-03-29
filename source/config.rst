@@ -329,6 +329,8 @@ The log level
 Set the overall logger level, including the primary logger level and
 the logger handlers to file and console.
 
+Use :ref:`command_log` to change logger level for each handler.
+
 Configs for log files
 ---------------------
 
