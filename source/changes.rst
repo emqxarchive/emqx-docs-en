@@ -98,7 +98,6 @@ Enhancements:
   Github Repository:
   `emqx/emqx-rule-engine <https://github.com/emqx/emqx-rule-engine>`_
 
-
 emqx-rel
 --------
 
@@ -107,12 +106,12 @@ Bug fixes:
 - Fix windows boot twice problem
 
   Github Commit:
-  `emqx/emqx-rel#726597d9c16769a6428507e7eb8ac9d56f35f28b <https://github.com/emqx/emqx-rel/commit/726597d9c16769a6428507e7eb8ac9d56f35f28b>`_
+  `emqx/emqx-rel#75de3441db9bf03d489609dcbb340a74de263508 <https://github.com/emqx/emqx-rel/commit/75de3441db9bf03d489609dcbb340a74de263508>`_
 
 - Fix the problem when boot path contains spaces or chinese character
 
   Github Commit:
-  `emqx/emqx-rel#ed50d8ba93e92eb44ec275f19228dd369c0ce7f <https://github.com/emqx/emqx-rel/commit/9ed50d8ba93e92eb44ec275f19228dd369c0ce7f>`_
+  `emqx/emqx-rel#75de3441db9bf03d489609dcbb340a74de263508 <https://github.com/emqx/emqx-rel/commit/75de3441db9bf03d489609dcbb340a74de263508>`_
 
 .. _release_3.1-beta.3:
 
