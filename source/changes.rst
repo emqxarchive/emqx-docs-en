@@ -13,7 +13,7 @@ Version 3.1-rc.2
 
 *Release Date: 2019-04-13*
 
-EMQ X 3.1-rc.2 is available now. This version we enhance Rule-Engine and fix bugs.
+EMQ X 3.1-rc.2 is now available. This version we enhance Rule-Engine and fix bugs.
 
 EMQ X Core
 ----------
@@ -32,7 +32,7 @@ Enhancements:
 
 Bug fixes:
 
-- Fix issue that metrics are missed in statistics
+- Fix issue that metrics are missed in statistics when session terminated
 
   Github PR:
   `emqx/emqx#2416 <https://github.com/emqx/emqx/pull/2416>`_
@@ -57,7 +57,7 @@ emqx-auth-username (plugin)
 
 Enhancements:
 
-- Remove the function which configure the default username in the profile
+- Remove the function which configures the default username in the profile
 
   Github PR:
   `emqx/emqx-auth-username#96 <https://github.com/emqx/emqx-auth-username/pull/96>`_
@@ -67,7 +67,7 @@ emqx-auth-clientid (plugin)
 
 Enhancements:
 
-- Remove the function which configure the default clientid in emqx_auth_username.conf
+- Remove the function which configures the default clientid in emqx_auth_username.conf
 
   Github PR:
   `emqx/emqx-auth-clientid#81 <https://github.com/emqx/emqx-auth-clientid/pull/81>`_
