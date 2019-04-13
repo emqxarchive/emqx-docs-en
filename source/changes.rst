@@ -5,6 +5,115 @@
 Changes
 =======
 
+.. _release_3.1-rc.2:
+
+-------------
+3.1-rc.2 版本
+-------------
+
+*Release Date: 2019-04-13*
+
+EMQ X 3.1-rc.2 is now available. In this version we've improved Rule-Engine, fix buges.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Redesign `ensure_start` and `ensure_stop` api of `emqx_bridge`
+
+  Github PR:
+  `emqx/emqx#2423 <https://github.com/emqx/emqx/pull/2423>`_
+
+- Provide handler to extend `emqx_bridge`
+
+  Github PR:
+  `emqx/emqx#2414 <https://github.com/emqx/emqx/pull/2414>`_
+
+Bug fixes:
+
+- Fix an issue that metrics are not updated correctly in some cases
+
+  Github PR:
+  `emqx/emqx#2416 <https://github.com/emqx/emqx/pull/2416>`_
+
+- Fix trace logger level not work
+
+  Github PR:
+  `emqx/emqx#2408 <https://github.com/emqx/emqx/pull/2408>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+Enhancements:
+
+- 支持用户的 WebServer 回传 Mountpoint
+
+  Github PR:
+  `emqx/emqx-auth-http#116 <https://github.com/emqx/emqx-auth-http/pull/116>`_
+
+emqx-auth-username (plugin)
+---------------------------
+
+Enhancements:
+
+- Remove the ability to configure the default username in the profile
+
+  Github PR:
+  `emqx/emqx-auth-username#96 <https://github.com/emqx/emqx-auth-username/pull/96>`_
+
+emqx-auth-clientid (plugin)
+---------------------------
+
+Enhancements:
+
+- Remove the ability to configure the default clientid in the profile
+
+  Github PR:
+  `emqx/emqx-auth-clientid#81 <https://github.com/emqx/emqx-auth-clientid/pull/81>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support format of standard POSIX CLI
+
+  Github PR:
+  `emqx/emqx-rule-engine#23 <https://github.com/emqx/emqx-rule-engine/pull/23>`_
+
+Bug fixes:
+
+- Fix Bugs in HTTP APIs
+
+  Github PR:
+  `emqx/emqx-rule-engine#21 <https://github.com/emqx/emqx-rule-engine/pull/21>`_
+
+emqx-packages (plugin)
+----------------------
+
+Bug fixes:
+
+- Fix EMQ X failed to boot in CentOS
+
+  Github Commit:
+  `emqx/emqx-packages#64760523ea29ca0ad1d85b763f0e8a8e6954db9c <https://github.com/emqx/emqx-packages/commit/64760523ea29ca0ad1d85b763f0e8a8e6954db9c>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Add Rule-Engine front page
+
+  Github PR:
+  `emqx/emqx-dashboard#50 <https://github.com/emqx/emqx-dashboard/pull/50>`_
+
+- Support unified management of Dashboard users in cluster
+
+  Github PR:
+  `emqx/emqx-dashboard#48 <https://github.com/emqx/emqx-dashboard/pull/48>`_
+
 .. _release_3.1-rc.1:
 
 ----------------
