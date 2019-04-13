@@ -13,26 +13,26 @@ Version 3.1-rc.2
 
 *Release Date: 2019-04-13*
 
-EMQ X 3.1-rc.2 is now available. This version we enhance Rule-Engine and fix bugs.
+EMQ X 3.1-rc.2 is now available. In this version we've enhanced the Rule-Engine and fixed some bugs.
 
 EMQ X Core
 ----------
 
 Enhancements:
 
-- Redesign `ensure_start` and `ensure_stop` api of `emqx_bridge`
+- Redesign ``ensure_start`` and ``ensure_stop`` api of ``emqx_bridge``
 
   Github PR:
   `emqx/emqx#2423 <https://github.com/emqx/emqx/pull/2423>`_
 
-- Expose handler of `emqx_bridge`
+- Expose handler of ``emqx_bridge``
 
   Github PR:
   `emqx/emqx#2414 <https://github.com/emqx/emqx/pull/2414>`_
 
 Bug fixes:
 
-- Fix issue that metrics are missed in statistics when session terminated
+- Fix and issue that metrics are missed in statistics when session terminated
 
   Github PR:
   `emqx/emqx#2416 <https://github.com/emqx/emqx/pull/2416>`_
@@ -47,7 +47,7 @@ emqx-auth-http (plugin)
 
 Enhancements:
 
-- Support to update mountpoint from user's Web Server in credentials
+- Support updating ``mountpoint`` from user's Web Server in credentials
 
   Github PR:
   `emqx/emqx-auth-http#116 <https://github.com/emqx/emqx-auth-http/pull/116>`_
@@ -57,7 +57,7 @@ emqx-auth-username (plugin)
 
 Enhancements:
 
-- Remove the function which configures the default username in the profile
+- Remove the function that configures usernames in the emqx_auth_username.conf
 
   Github PR:
   `emqx/emqx-auth-username#96 <https://github.com/emqx/emqx-auth-username/pull/96>`_
@@ -67,7 +67,7 @@ emqx-auth-clientid (plugin)
 
 Enhancements:
 
-- Remove the function which configures the default clientid in emqx_auth_username.conf
+- Remove the function that configures usernames in the emqx_auth_username.conf
 
   Github PR:
   `emqx/emqx-auth-clientid#81 <https://github.com/emqx/emqx-auth-clientid/pull/81>`_
@@ -77,14 +77,14 @@ emqx-rule-engine (plugin)
 
 Enhancements:
 
-- Make CLI of rule engine support POSIX style
+- Support Posix-Style CLI in rule engine CLI
 
   Github PR:
   `emqx/emqx-rule-engine#23 <https://github.com/emqx/emqx-rule-engine/pull/23>`_
 
 Bug fixes:
 
-- Fix Bugs of HTTP APIs
+- Fix some Bugs in HTTP APIs
 
   Github PR:
   `emqx/emqx-rule-engine#21 <https://github.com/emqx/emqx-rule-engine/pull/21>`_
@@ -104,12 +104,12 @@ emqx-dashboard (plugin)
 
 Enhancements:
 
-- Add interactive web page of Rule-Engine
+- Add interactive web interface for Rule-Engine
 
   Github PR:
   `emqx/emqx-dashboard#50 <https://github.com/emqx/emqx-dashboard/pull/50>`_
 
-- Support to manage users of Dashboard in cluster
+- Support managing users of Dashboard in cluster
 
   Github PR:
   `emqx/emqx-dashboard#48 <https://github.com/emqx/emqx-dashboard/pull/48>`_
