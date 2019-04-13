@@ -7,9 +7,9 @@ Changes
 
 .. _release_3.1-rc.2:
 
--------------
-3.1-rc.2 版本
--------------
+----------------
+Version 3.1-rc.2
+----------------
 
 *Release Date: 2019-04-13*
 
@@ -47,7 +47,7 @@ emqx-auth-http (plugin)
 
 Enhancements:
 
-- 支持用户的 WebServer 回传 Mountpoint
+- Support to return Mountpoint from user's WebServer
 
   Github PR:
   `emqx/emqx-auth-http#116 <https://github.com/emqx/emqx-auth-http/pull/116>`_
