@@ -32,7 +32,7 @@ Enhancements:
 
 Bug fixes:
 
-- Fix and issue that metrics are missed in statistics when session terminated
+- Fix an issue that metrics are missed in statistics when session terminated
 
   Github PR:
   `emqx/emqx#2416 <https://github.com/emqx/emqx/pull/2416>`_
