@@ -9,7 +9,7 @@ Advanced Features
 Shared Subscription
 -------------------
 
-*EMQ X* 3.0 supports shared subscription at cluster level. It allows load balancing between multiple subscribers in the same group when distributing MQTT messages. ::
+*EMQ X* 3.0 supports shared subscription at cluster level. Shared Subscription supports to distribute messages between multiple subscribers by packet load balancing. ::
 
                                 -----------
                                 |         | --Msg1--> Subscriber1
