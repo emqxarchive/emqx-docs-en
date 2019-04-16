@@ -2,71 +2,74 @@
 .. _image:
 
 ================
-青云映像 (Image)
+QingCloud image
 ================
 
-*EMQ* 消息服务器1.1.2版本正式登陆 `青云`_ 映像市场，用户可直接创建映像启用 EMQ 消息服务器:
+* EMQ* Message Server Version 1.1.2 officially landed in the `QingCloud` image market. Users can directly create images to enable EMQ message server.
 
 .. image:: ./_static/images/imagemarket.png
 
-映像属性
+Image Attributes
 --------
 
 +--------------+---------------------------------------------------+
-| 属性         | 值                                                |
+| Attributes   | Value                                             |
 +--------------+---------------------------------------------------+
-| 名称         | EMQ Ubuntu映像-百万级分布式物联网MQTT消息服务器   |
+| Name         | EMQ Ubuntu Image-Million-level distributed IoT MQTT|
+               |  message server                                   |
 +--------------+---------------------------------------------------+
-| 费用         | 免费                                              |
+| Cost         | Free                                              |
 +--------------+---------------------------------------------------+
-| 类别         | 物联网                                            |
+| Category     | IoT                                               |
 +--------------+---------------------------------------------------+
-|              | 百万级连接和分布式集群，发布订阅模式的开源 MQTT   |
-| 摘要         | 消息服务器。完整支持 MQTT、MQTT-SN、CoAP 等物联   |
-|              | 网协议。                                          |
+|              | A million-level connection and distributed cluster|
+|              | an open source MQTT message server by the pattern |
+|   Abstract   | of release and subscription.  Completely support  |
+|              | for Internet of Things protocols such as MQTT,    |
+|              | MQTT-SN, and CoAP.                                |
 +--------------+---------------------------------------------------+
-| 开发者       | feng@emqx.io                                     |
+| Developer    | feng@emqx.io                                      |
 +--------------+---------------------------------------------------+
-| 提交时间     | 2016-07-11                                        |
+| Submission time | 2016-07-11                                     |
 +--------------+---------------------------------------------------+
-| 更新时间     | 2016-07-11                                        |
+| Update time    | 2016-07-11                                      |
 +--------------+---------------------------------------------------+
 
-映像描述
+Image description
 --------
 
-1. 该映像基于EMQ 1.1.2版本创建，启动后 MQTT 服务器监听在 TCP 1883端口；
+1. The image is created based on EMQ version 1.1.2. After startup, the MQTT server is monitored on TCP 1883 port.
 
-2. EMQ 服务器 WEB 控制台，端口18083。默认管理员: admin, 密码: public，映像启动后请登录控制台修改默认密码；
+2. EMQ Server WEB Console, port 18083. Default administrator: admin, password: public, please change the default password after the image is launched.
 
-3. 映像默认没有开启 MQTT 认证，允许 MQTT 客户端匿名登录；
+3. The image does not have MQTT authentication by default which allows the MQTT client to log in anonymously;
 
-4. EMQ 程序部署在 /opt/emqttd/ 目录，用户可通过配置 etc/emqttd.config 或加载插件方式，开启 HTTP、PostgreSQL、MySQL、Redis、MongoDB 等多种认证方式；
+4. The EMQ program is deployed in the /opt/emqttd/ directory. Users can enable various authentication methods such as HTTP, PostgreSQL, MySQL, Redis, and MongoDB by configuring etc/emqttd.config or loading plug-ins.
 
-5. EMQ 消息服务器详细配置和使用，请参考文档: http://emqtt.com/docs/
+5. For detailed configuration and application of the EMQ message server, please refer to the documentation: http://emqtt.com/docs/
 
-本映像由 emqtt.com 与青云共同提供技术支持，用户QQ群组: 196066320
+This image is jointly supported by emqtt.com and QingCloud. User QQ group: 196066320
 
-映像当前版本
+Current version of image
 ------------
 
-映像包含组件:
+Image components:
 
-1. Erlang/OTP 18.3版本环境
+1. Erlang/OTP 18.3 version environment.
 
-2. EMQ 1.1.2版本
+2. EMQ 1.1.2 version
 
-映像配置说明:
+Image configuration instructions:
 
-1. 防火墙开启1883(MQTT)、8083(WebSocket)、18083(Dashboard控制台)端口。
+1. The  ports 1883 (MQTT), 8083 (WebSocket), and 18083 (Dashboard Console) is opened in firewall.
 
-2. Dashboard 控制台, 端口18083。默认管理员: admin, 密码: public，映像启动后请立即修改密码！
+2. Dashboard console, port 18083. Default administrator: admin, password: public, please change the password immediately after the image is launched!
 
-3. 映像默认允许1万线 MQTT 连接，最大可配置到10万线。
+3. The image allows 10,000 concurrent MQTT connections by default, Maximum configurable to 100,000 connections.
 
-4. 映像内存占用: 5万连接/1G内存。请用户根据 MQTT 消息吞吐量调整内存。
+4. Image memory oonsumption: 50,000 connections / 1G memory. User can adjust the memory based on the MQTT message throughput.
 
-EMQ 手工启停
+EMQ Manual start and stop
 ------------
 
 .. code::
@@ -74,5 +77,5 @@ EMQ 手工启停
     systemctl start emqttd
     systemctl stop emqttd
 
-.. _青云: https://www.qingcloud.com
+.. _QingCloud: https://www.qingcloud.com
 
