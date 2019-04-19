@@ -25,6 +25,11 @@ Enhancements:
   Github PR:
   `emqx/emqx#2438 <https://github.com/emqx/emqx/pull/2438>`_
 
+- Support configuring output length of log
+
+  Github PR:
+  `emqx/emqx#2461 <https://github.com/emqx/emqx/pull/2461>`_
+
 Bug fixes:
 
 - Fix an issue that ``emqx_client`` doesn't set Keep Alive field correctly for CONNECT packet
