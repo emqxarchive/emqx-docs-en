@@ -5,6 +5,103 @@
 Changes
 =======
 
+.. _release_3.1-rc.3:
+
+----------------
+Version 3.1-rc.3
+----------------
+
+*Release Date: 2019-04-19*
+
+EMQ X 3.1-rc.3 is now available. In this version we've enhanced the Rule-Engine and fixed some bugs.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Support flapping detection for clients, and banning abnormal clients
+
+  Github PR:
+  `emqx/emqx#2438 <https://github.com/emqx/emqx/pull/2438>`_
+
+Bug fixes:
+
+- Fix an issue that ``emqx_client`` doesn't set Keep Alive field correctly for CONNECT packet
+
+  Github PR:
+  `emqx/emqx#2443 <https://github.com/emqx/emqx/pull/2443>`_
+
+emqx-auth-mysql (plugin)
+------------------------
+
+Enhancements:
+
+- Support proxysql
+
+  Github PR:
+  `emqx/emqx-auth-mysql#134 <https://github.com/emqx/emqx-auth-mysql/pull/134>`_
+
+emqx-statsd (plugin)
+--------------------
+
+Bug fixes:
+
+- Fix an Windows compatibility issue
+
+  Github PR:
+  `emqx/emqx-statsd#24 <https://github.com/emqx/emqx-statsd/pull/24>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Enhancements:
+
+- Support event actions in webhook
+
+  Github Commit:
+  `emqx/emqx-web-hook#8367e0 <https://github.com/emqx/emqx-web-hook/commit/8367e02f5ccafc7df9600c258348461a67c171bd>`_
+
+- Improve specs of webhook resource
+
+  Github Commit:
+  `emqx/emqx-web-hook#5a1345 <https://github.com/emqx/emqx-web-hook/commit/5a13457d4f823fa80df1c7eab9a8e945ae6a0701>`_
+
+- Support search actions by hook type
+
+  Github Commit:
+  `emqx/emqx-web-hook#fb3b1b <https://github.com/emqx/emqx-web-hook/commit/fb3b1ba98ca3f2557a51be98a06537781119132c>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support search actoins by resource type
+
+  Github PR:
+  `emqx/emqx-rule-engine#25 <https://github.com/emqx/emqx-rule-engine/pull/25>`_
+
+- Load resource providers instead of register providers
+
+  Github PR:
+  `emqx/emqx-rule-engine#26 <https://github.com/emqx/emqx-rule-engine/pull/26>`_
+
+- Improve the input data for actions
+
+  Github PR:
+  `emqx/emqx-rule-engine#27 <https://github.com/emqx/emqx-rule-engine/pull/27>`_
+
+emqx-rel
+--------
+
+Bug fixes:
+
+- Fix start fail after changing log.rotation.size
+
+  Github PR:
+  `emqx/emqx-rel#336 <https://github.com/emqx/emqx-rel/pull/336>`_
+
 .. _release_3.1-rc.2:
 
 ----------------
