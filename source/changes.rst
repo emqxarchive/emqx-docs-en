@@ -14,6 +14,7 @@ Version 3.1-rc.3
 *Release Date: 2019-04-19*
 
 EMQ X 3.1-rc.3 is now available. In this version we've enhanced the Rule-Engine and fixed some bugs.
+Note: Starting with this release, add OpenSUSE's installation package, and no longer provide Debian 7's installation package.
 
 EMQ X Core
 ----------
