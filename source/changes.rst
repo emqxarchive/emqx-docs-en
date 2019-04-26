@@ -13,8 +13,8 @@ Version 3.1.0
 
 *Release Date: 2019-04-26*
 
-EMQ X 3.1.0 is now available. In this version we've supported rule engine fully,
-introduced storm module to support edge storm, refactored flapping code.
+EMQ X 3.1.0 is now available. The rule engine has become stable and production ready.
+We've also introduced an emqx-edge manager - the ``Storm``, and improved some code for flapping.
 
 EMQ X Core
 ----------
