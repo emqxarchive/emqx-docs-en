@@ -5,6 +5,77 @@
 Changes
 =======
 
+.. _release_3.1.0:
+
+-------------
+Version 3.1.0
+-------------
+
+*Release Date: 2019-04-26*
+
+EMQ X 3.1.0 is now available. In this version we've supported rule engine fully,
+introduced storm module to support management of edge device, refactored flapping code.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Add emqx_ct_helpers as deps and refactor test suites
+
+  Github PR:
+  `emqx/emqx#2480 <https://github.com/emqx/emqx/pull/2480>`_
+
+- Refactor flapping code
+
+  Github PR:
+  `emqx/emqx#2476 <https://github.com/emqx/emqx/pull/2476>`_
+
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fixed listeners acceptors is undefined
+
+  Github PR:
+  `emqx/emqx-management#76 <https://github.com/emqx/emqx-management/pull/76>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support validation of rule action params
+
+  Github PR:
+  `emqx/emqx-rule-engine#b28318 <https://github.com/emqx/emqx-rule-engine/commit/b283184dcbb207e8d58ac308c027a093a4f4ab88>`_
+
+- Check dependency when deleting resources
+
+  Github PR:
+  `emqx/emqx-rule-engine#fa75b9 <https://github.com/emqx/emqx-rule-engine/commit/fa75b952efb7951bc57242adc8e953dbbba6b2ed>`_
+
+- Remove ``from`` param from republish action
+
+  Github PR:
+  `emqx/emqx-rule-engine#8721eb <https://github.com/emqx/emqx-rule-engine/commit/8721ebe583d5426f239b5b1f044fe381bf4ea0b7>`_
+
+- Fix where clause of SQL cannot handle integers
+
+  Github PR:
+  `emqx/emqx-rule-engine#c9c761 <https://github.com/emqx/emqx-rule-engine/commit/c9c7616f86019657861dff408854e9c5238d666b>`_
+
+emqx-storm (plugin)
+-------------------
+
+Enhancements:
+
+- Support management of edge devices
+
+  Github Repository:
+  `emqx/emqx-storm <https://github.com/emqx/emqx-storm>`_
+
 .. _release_3.1-rc.3:
 
 ----------------
