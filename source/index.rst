@@ -15,10 +15,10 @@
 
 The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT connections on a 12 Core, 32G CentOS server.
 
-Please visit `emqx.io`_ for more service. Follow us on Twitter: `@emqx`_
+Please visit `emqx.io`_ for more service. Follow us on Twitter: `@emqtt`_
 
 .. _emqx.io: https://www.emqx.io
-.. _@emqx: https://twitter.com/emqx
+.. _@emqtt: https://twitter.com/emqtt
 
 .. image:: ./_static/images/emqtt.png
 
