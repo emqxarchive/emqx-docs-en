@@ -336,27 +336,27 @@ Query all sessions::
 Properties of the Session:
 
 +---------------------+------------------------------------------+
-| clean_start         | 建立连接时是否清理相关的会话             |
+| clean_start         | Clean sessions                           |
 +---------------------+------------------------------------------+
-| expiry_interval     | 会话过期间隔                             |
+| expiry_interval     | Session expiration interval              |
 +---------------------+------------------------------------------+
-| subscriptions_count | 当前订阅数量                             |
+| subscriptions_count | Current subscription                     |
 +---------------------+------------------------------------------+
-| max_inflight        | 飞行窗口(最大允许同时下发消息数)         |
+| max_inflight        | Max inflight window                      |
 +---------------------+------------------------------------------+
-| inflight            | 当前正在下发的消息数                     |
+| inflight            | Inflight window                          |
 +---------------------+------------------------------------------+
-| mqueue_len          | 当前缓存消息数                           |
+| mqueue_len          | Current cached messages.                 |
 +---------------------+------------------------------------------+
-| mqueue_dropped      | 会话丢掉的消息数                         |
+| mqueue_dropped      | Session dropped messages                 |
 +---------------------+------------------------------------------+
-| awaiting_rel        | 等待客户端发送 PUBREL 的 QoS2 消息数     |
+| awaiting_rel        | QoS2 msg waiting client to send PUBREL   |
 +---------------------+------------------------------------------+
-| deliver_msg         | 转发的消息数(包含重传)                   |
+| deliver_msg         | Deliver messages count                   |
 +---------------------+------------------------------------------+
-| enqueue_msg         | 缓存过的消息数                           |
+| enqueue_msg         | Number of cached messages                |
 +---------------------+------------------------------------------+
-| created_at          | 会话创建时间戳                           |
+| created_at          | Session create timestamp                 |
 +---------------------+------------------------------------------+
 
 sessions show <ClientId>
@@ -545,38 +545,38 @@ Reload a Plugin::
 bridges
 -------
 
-bridges 命令用于在多台 *EMQ X* 服务器节点间创建桥接::
+Bridges command is used to create bridges between multiple *EMQ X* server nodes::
 
                   ---------                     ---------
     Publisher --> | node1 | --Bridge Forward--> | node2 | --> Subscriber
                   ---------                     ---------
 
-+-----------------------------------------------+----------------------------+
-| bridges list                                  | 查询全部桥接               |
-+-----------------------------------------------+----------------------------+
-| bridges start <Name>                          | 开启一个桥接               |
-+-----------------------------------------------+----------------------------+
-| bridges stop <Name>                           | 停止一个桥接               |
-+-----------------------------------------------+----------------------------+
-| bridges forwards <Name>                       | 列出指定 bridge 的转发主题 |
-+-----------------------------------------------+----------------------------+
-| bridges add-forward <Name> <Topic>            | 向指定 bridge 添加转发主题 |
-+-----------------------------------------------+----------------------------+
-| bridges del-forward <Name> <Topic>            | 从指定 bridge 删除转发主题 |
-+-----------------------------------------------+----------------------------+
-| bridges subscriptions <Name>                  | 列出指定 bridge 的订阅主题 |
-+-----------------------------------------------+----------------------------+
-| bridges add-subscription <Name> <Topic> <QoS> | 向指定 bridge 添加订阅主题 |
-+-----------------------------------------------+----------------------------+
-| bridges del-subscription <Name> <Topic>       | 从指定 bridge 删除订阅主题 |
-+-----------------------------------------------+----------------------------+
++-----------------------------------------------+------------------------------------+
+| bridges list                                  | List bridges                       |
++-----------------------------------------------+------------------------------------+
+| bridges start <Name>                          | Start a bridge                     |
++-----------------------------------------------+------------------------------------+
+| bridges stop <Name>                           | Stop a bridge                      |
++-----------------------------------------------+------------------------------------+
+| bridges forwards <Name>                       | Show a bridge forward topic        |
++-----------------------------------------------+------------------------------------+
+| bridges add-forward <Name> <Topic>            | Add bridge forward topic           |
++-----------------------------------------------+------------------------------------+
+| bridges del-forward <Name> <Topic>            | Delete bridge forward topic        |
++-----------------------------------------------+------------------------------------+
+| bridges subscriptions <Name>                  | Show a bridge subscriptions topic  |
++-----------------------------------------------+------------------------------------+
+| bridges add-subscription <Name> <Topic> <QoS> | Add bridge subscriptions topic     |
++-----------------------------------------------+------------------------------------+
+| bridges del-subscription <Name> <Topic>       | Delete bridge subscriptions topic  |
++-----------------------------------------------+------------------------------------+
 
-关于 bridges 的配置项在 emqx/emqx.config文件内。
+The configuration items for bridges are in the emqx/emqx.config file.
 
 bridges list
 -------------
 
-查询全部桥接::
+List all bridge status::
 
     $ ./bin/emqx_ctl bridges list
 
@@ -585,7 +585,7 @@ bridges list
 bridges start <Name>
 --------------------
 
-开启一个桥接::
+Start a bridge ::
 
     $ ./bin/emqx_ctl bridges start emqx
 
@@ -594,7 +594,7 @@ bridges start <Name>
 bridges stop <Name>
 --------------------
 
-停止一个桥接::
+Stop a bridge::
 
     $ ./bin/emqx_ctl bridges stop emqx
 
@@ -603,7 +603,7 @@ bridges stop <Name>
 bridges forwards <Name>
 -----------------------
 
-列出指定 bridge 的转发主题::
+Show a bridge forward topic::
 
     $ ./bin/emqx_ctl bridges forwards emqx
 
@@ -612,7 +612,7 @@ bridges forwards <Name>
 bridges add-forward <Name> <Topic>
 ----------------------------------
 
-向指定 bridge 添加转发主题::
+Add bridge forward topic::
 
     $ ./bin/emqx_ctl bridges add-forward emqx device_status/#
 
@@ -621,34 +621,34 @@ bridges add-forward <Name> <Topic>
 bridges del-forward <Name> <Topic>
 ----------------------------------
 
-从指定 bridge 删除转发主题::
+Delete bridge forward topic::
 
     $ ./bin/emqx_ctl bridges del-forward emqx device_status/#
 
     Del-forward topic successfully.
 
-bridges add-subscription <Name> <Topic> <QoS>
----------------------------------------------
-
-向指定 bridge 添加订阅主题::
-
-    $ ./bin/emqx_ctl bridges add-subscription emqx cmd/topic 1
-
-    Add-subscription topic successfully.
-
 bridges subscriptions <Name>
 ----------------------------
 
-列出指定 bridge 的订阅::
+Show a bridge subscriptions topic::
 
     $ ./bin/emqx_ctl bridges subscriptions emqx
 
     topic: cmd/topic, qos: 1
 
+bridges add-subscription <Name> <Topic> <QoS>
+---------------------------------------------
+
+Add bridge subscriptions topic::
+
+    $ ./bin/emqx_ctl bridges add-subscription emqx cmd/topic 1
+
+    Add-subscription topic successfully.
+
 bridges del-subscription <Name> <Topic>
 ---------------------------------------
 
-从指定 bridge 删除订阅主题::
+Delete bridge subscriptions topic::
 
     $ ./bin/emqx_ctl bridges del-subscription emqx cmd/topic
 
@@ -768,24 +768,24 @@ Query the mnesia database system status.
 log
 ----
 
-log 命令用于设置日志等级。访问 `Documentation of logger <http://erlang.org/doc/apps/kernel/logger_chapter.html>`_ 以获取详细信息
+The log command is used to set the log level. Visit the `Documentation of logger <http://erlang.org/doc/apps/kernel/logger_chapter.html>`_ for more information
 
-+--------------------------------------------+----------------------------------------------------+
-| log set-level <Level>                      | 设置主日志等级和所有 Handlers 日志等级             |
-+--------------------------------------------+----------------------------------------------------+
-| log primary-level                          | 查看主日志等级                                     |
-+--------------------------------------------+----------------------------------------------------+
-| log primary-lelvel <Level>                 | 设置主日志等级                                     |
-+--------------------------------------------+----------------------------------------------------+
-| log handlers list                          | 查看当前安装的所有 Hanlders                        |
-+--------------------------------------------+----------------------------------------------------+
-| log handlers set-level <HandlerId> <Level> | 设置指定 Hanlder 的日志等级                        |
-+--------------------------------------------+----------------------------------------------------+
++--------------------------------------------+-------------------------------------------------------+
+| log set-level <Level>                      | Set the primary log level and all Handlers log levels |
++--------------------------------------------+-------------------------------------------------------+
+| log primary-level                          | Show the main log level                               |
++--------------------------------------------+-------------------------------------------------------+
+| log primary-lelvel <Level>                 | Set the primary log level                             |
++--------------------------------------------+-------------------------------------------------------+
+| log handlers list                          | Show all currently useing Hanlders                    |
++--------------------------------------------+-------------------------------------------------------+
+| log handlers set-level <HandlerId> <Level> | Set the log level for the specified Hanlder           |
++--------------------------------------------+-------------------------------------------------------+
 
 log set-level <Level>
 ---------------------
 
-设置主日志等级和所有 Handlers 日志等级::
+Set the primary log level and all Handlers log levels::
 
     $ ./bin/emqx_ctl log set-level debug
 
@@ -794,7 +794,7 @@ log set-level <Level>
 log primary-level
 -----------------
 
-查看主日志等级::
+Show the main log level::
 
     $ ./bin/emqx_ctl log primary-level
 
@@ -803,7 +803,7 @@ log primary-level
 log primary-level <Level>
 --------------------------
 
-设置主日志等级::
+Set the primary log level::
 
     $ ./bin/emqx_ctl log primary-level info
 
@@ -812,7 +812,7 @@ log primary-level <Level>
 log handlers list
 -----------------
 
-查看当前安装的所有 Hanlders::
+Show all currently useing Hanlders::
 
     $ ./bin/emqx_ctl log handlers list
 
@@ -823,7 +823,7 @@ log handlers list
 log handlers set-level <HandlerId> <Level>
 ------------------------------------------
 
-设置指定 Hanlder 的日志等级::
+Set the log level for the specified Hanlder::
 
     $ ./bin/emqx_ctl log handlers set-level emqx_logger_handler error
 
