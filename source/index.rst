@@ -7,8 +7,7 @@
 *EMQ X* - MQTT Messaging Broker
 ===============================
 
-*EMQ X* is a distributed, massively scalable, highly extensible MQTT message
-broker written in Erlang/OTP. The project was formerly called emqtt.
+*EMQ X* is a distributed, massively scalable, highly extensible MQTT message broker written in Erlang/OTP.
 
 *EMQ X* is fully open source and licensed under the Apache Version 2.0.
 *EMQ X* implements both MQTT V3.1/V3.1.1 and V5.0 protocol specifications, and supports MQTT-SN, CoAP, WebSockets and STOMP.
@@ -25,42 +24,41 @@ Please visit `emqx.io`_ for details on the available flavors and services offere
 
 .. image:: ./_static/images/emqtt.png
 
-
-   * - Homepage
-     - http://emqx.io
-   * - Downloads
-     - http://emqx.io/downloads
-   * - GitHub
-     - https://github.com/emqx
-   * - Twitter
-     - https://twitter.com/emqtt
-   * - Discussion Forum
-     - https://groups.google.com/d/forum/emqx
-   * - Mailing List
-     - emqx@googlegroups.com
-   * - Contact
-     - contact <contact@emqx.io>
-
 .. toctree::
    :maxdepth: 2
 
    getstarted
-   deploy
    install
-   config
-   cluster
-   bridge
    guide
-   advanced
-   design
-   commands
+   config
    plugins
+   commands
    rest
+   design
+   cluster
+   deploy
    tune
    changes
-   mqtt
-   mqtt-sn
-   lwm2m
+   upgrade
+   protocol
+
+*EMQ X*  Support and Contact:
+
++------------+--------------------------------+
+| Homepage:  | https://www.emqx.io            |
++------------+--------------------------------+
+| Project:   | https://github.com/emqx/emqx   |
++------------+--------------------------------+
+| Wechat:    | emqttd                         |
++------------+--------------------------------+
+| weibo:     | http://weibo.com/emqtt         |
++------------+--------------------------------+
+| Twitter:   | @emqtt                         |
++------------+--------------------------------+
+| Company:   | EMQ Technologies Co., Ltd.     |
++------------+--------------------------------+
+| contact:   | hong@emqx.io <hong@emqx.io>    |
++------------+--------------------------------+
 
 -------
 License
