@@ -241,7 +241,7 @@ emqx-auth-clientid (plugin)
 
 Enhancements:
 
-- Remove the function that configures usernames in the emqx_auth_username.conf
+- Remove the function that configures usernames in the emqx_auth_clientid.conf
 
   Github PR:
   `emqx/emqx-auth-clientid#81 <https://github.com/emqx/emqx-auth-clientid/pull/81>`_
