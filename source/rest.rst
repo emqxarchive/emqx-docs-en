@@ -500,8 +500,8 @@ Response:
     }
 
 
-Retrieve a Node's Info
-----------------------
+Retrieve Info of a Node
+-----------------------
 
 
 Definition::
@@ -529,8 +529,8 @@ Response:
   }
 
 
-List all Nodes'statistics in the Cluster
------------------------------------------
+List Statistics of All Nodes in the Cluster
+-------------------------------------------
 
 
 Definition::
@@ -569,8 +569,8 @@ Response:
   }
 
 
-Retrieve a node's statistics
------------------------------
+Retrieve Statistics of a Specific Node
+--------------------------------------
 
 
 Definition::
@@ -824,8 +824,8 @@ Response:
   }
 
 
-Kickout a Specified Connection of Cluster
------------------------------------------
+Kick-out a Specified Connection in Cluster
+------------------------------------------
 
 
 Definition::
@@ -2055,8 +2055,8 @@ Response:
   }
 
 
-Get Statistics of specified Node
----------------------------------
+Get Statistics of a specified Node
+----------------------------------
 
 
 Definition::
@@ -2265,8 +2265,8 @@ Response:
 Banned
 -------
 
-List all Banned of Cluster
----------------------------
+List all Ban Records in the Cluster
+-----------------------------------
 
 
 Definition::
@@ -2292,8 +2292,8 @@ Response:
   }
 
 
-Create a Banned
-----------------
+Create a Ban Record
+-------------------
 
 
 Definition::
@@ -2312,7 +2312,6 @@ Request JSON Parameter:
     "until": 1536146187
   }
 
-      
 Example Request::
 
     POST api/v3/banned/
@@ -2333,8 +2332,8 @@ Response:
   }
 
 
-Delete a Banned
-----------------
+Delete a Ban Record
+-------------------
 
 
 Definition::
@@ -2360,8 +2359,8 @@ Response:
 Error Message/Pagination
 -------------------------
 
-When the HTTP status code is greater than 500, the response brings back the error message.
-------------------------------------------------------------------------------------------
+When the HTTP status code is 5xx, the response returns the error message
+-------------------------------------------------------------------------
 
 Example Request::
 
@@ -2377,10 +2376,10 @@ Response:
   }
 
 
-Paging parameters and information
-----------------------------------
+Pagination parameters and meta-data
+-----------------------------------
 
-The API that uses the _page=1&_limit=10000 parameter in the request example supports paging::
+The API that uses the _page=1&_limit=10000 parameter in the request example supports pagination::
 
     _page: Current Page
     _limit: Page Size
@@ -2398,4 +2397,544 @@ Response:
       "limit": 10000,
       "count": 0
     }
+  }
+
+--------------------
+Rule Engine
+--------------------
+
+Create Rule
+-----------
+
+Definition::
+
+  POST api/v3/rules
+
+Parameters:
+
++-------------+-------------------------------------------+---------------------------------------+
+| name        | String, rule name                                                                 |
++-------------+-------------------------------------------+---------------------------------------+
+| for         | String, for which hook. Can be: "message.publish", "client.connected" ...         |
+|             | See :ref:`plugins` for details                                                    |
++-------------+-------------------------------------------+---------------------------------------+
+| rawsql      | String, the SQL                                                                   |
++-------------+-------------------------------------------+---------------------------------------+
+| actions     | JSON Array, the action list                                                       |
++-------------+-------------------------------------------+---------------------------------------+
+| -           | name                                      | String, name of the action            |
++-------------+-------------------------------------------+---------------------------------------+
+| -           | params                                    | JSON Object, parameters of the action |
++-------------+-------------------------------------------+---------------------------------------+
+| description | String, optional, description of the rule                                         |
++-------------+-------------------------------------------+---------------------------------------+
+
+Parameter Example:
+
+.. code-block:: json
+
+  {
+    "name": "test-rule",
+    "for": "message.publish",
+    "rawsql": "select * from \"t/a\"",
+    "actions": [{
+        "name": "built_in:inspect_action",
+        "params": {
+            "a": 1
+        }
+    }],
+    "description": "test-rule"
+  }
+
+Example Response:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": {
+        "actions": [{
+            "name": "built_in:inspect_action",
+            "params": {
+                "$resource": "built_in:test-resource",
+                "a": 1
+            }
+        }],
+        "description": "test-rule",
+        "enabled": true,
+        "for": "message.publish",
+        "id": "test-rule:1556263150688255821",
+        "name": "test-rule",
+        "rawsql": "select * from \"t/a\""
+    }
+  }
+
+Query Rule
+----------
+
+Definition::
+
+  GET api/v3/rules/:id
+
+Request Example::
+
+  GET api/v3/rules/test-rule:1556263150688255821
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": {
+        "actions": [{
+            "name": "built_in:inspect_action",
+            "params": {
+                "$resource": "built_in:test-resource",
+                "a": 1
+            }
+        }],
+        "description": "test-rule",
+        "enabled": true,
+        "for": "message.publish",
+        "id": "test-rule:1556263150688255821",
+        "name": "test-rule",
+        "rawsql": "select * from \"t/a\""
+    }
+  }
+
+List Rules
+----------------
+
+Definition::
+
+  GET api/v3/rules
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [{
+        "actions": [{
+            "name": "built_in:inspect_action",
+            "params": {
+                "$resource": "built_in:test-resource",
+                "a": 1
+            }
+        }],
+        "description": "test-rule",
+        "enabled": true,
+        "for": "message.publish",
+        "id": "test-rule:1556263150688255821",
+        "name": "test-rule",
+        "rawsql": "select * from \"t/a\""
+    }]
+  }
+
+
+Delete a Rule
+-------------
+
+Definition::
+
+  DELETE api/v3/rules/:id
+
+Request Example::
+
+  DELETE api/v3/rules/test-rule:1556263150688255821
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0
+  }
+
+
+List Actions
+----------------
+
+Definition::
+
+  GET api/v3/actions?for=${hook_type}
+
+Request Example::
+
+  GET api/v3/actions
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [{
+        "app": "emqx_rule_engine",
+        "description": "Republish a MQTT message to a another topic",
+        "for": "message.publish",
+        "name": "built_in:republish_action",
+        "params": {
+            "target_topic": {
+                "description": "Repubilsh the message to which topic",
+                "format": "topic",
+                "required": true,
+                "title": "To Which Topic",
+                "type": "string"
+            }
+        },
+        "type": "built_in"
+    }, {
+        "app": "emqx_web_hook",
+        "description": "Forward Events to Web Server",
+        "for": "$events",
+        "name": "web_hook:event_action",
+        "params": {
+            "$resource": {
+                "description": "Bind a resource to this action",
+                "required": true,
+                "title": "Resource ID",
+                "type": "string"
+            },
+            "template": {
+                "description": "The payload template to be filled with variables before sending messages",
+                "required": false,
+                "schema": {},
+                "title": "Payload Template",
+                "type": "object"
+            }
+        },
+        "type": "web_hook"
+    }, {
+        "app": "emqx_web_hook",
+        "description": "Forward Messages to Web Server",
+        "for": "message.publish",
+        "name": "web_hook:publish_action",
+        "params": {
+            "$resource": {
+                "description": "Bind a resource to this action",
+                "required": true,
+                "title": "Resource ID",
+                "type": "string"
+            }
+        },
+        "type": "web_hook"
+    }, {
+        "app": "emqx_rule_engine",
+        "description": "Inspect the details of action params for debug purpose",
+        "for": "$any",
+        "name": "built_in:inspect_action",
+        "params": {},
+        "type": "built_in"
+    }]
+  }
+
+Request Example::
+  GET 'api/v3/actions?for=client.connected'
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [{
+        "app": "emqx_rule_engine",
+        "description": "Inspect the details of action params for debug purpose",
+        "for": "$any",
+        "name": "built_in:inspect_action",
+        "params": {},
+        "type": "built_in"
+    }]
+  }
+
+Query Actions
+-------------
+
+Definition::
+
+  GET api/v3/actions/:action_name
+
+Request Example::
+
+  GET 'api/v3/actions/built_in:inspect_action'
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": {
+        "app": "emqx_rule_engine",
+        "description": "Inspect the details of action params for debug purpose",
+        "for": "$any",
+        "name": "built_in:inspect_action",
+        "params": {},
+        "type": "built_in"
+    }
+  }
+
+List Resource Types
+--------------------
+
+Definition::
+
+  GET api/v3/resource_types
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [{
+        "attrs": "undefined",
+        "config": {
+            "url": "http://host-name/chats"
+        },
+        "description": "forward msgs to host-name/chats",
+        "id": "web_hook:webhook1",
+        "name": "webhook1",
+        "type": "web_hook"
+    }, {
+        "attrs": "undefined",
+        "config": {
+            "a": 1
+        },
+        "description": "test-resource",
+        "id": "built_in:test-resource",
+        "name": "test-resource",
+        "type": "built_in"
+    }]
+  }
+
+Query Resource Types
+--------------------
+
+Definition::
+
+  GET api/v3/resource_types/:type
+
+Request Example::
+
+  GET api/v3/resource_types/built_in
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": {
+        "description": "The built in resource type for debug purpose",
+        "name": "built_in",
+        "params": {},
+        "provider": "emqx_rule_engine"
+    }
+  }
+
+
+Query Resources by Resource Type
+--------------------------------
+
+Definition::
+
+  GET api/v3/resource_types/:type/resources
+
+Request Example::
+
+  GET api/v3/resource_types/built_in/resources
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [{
+        "attrs": "undefined",
+        "config": {
+            "a": 1
+        },
+        "description": "test-resource",
+        "id": "built_in:test-resource",
+        "name": "test-resource",
+        "type": "built_in"
+    }]
+  }
+
+Query Actions by Resource Type
+------------------------------
+
+Definition::
+
+  GET api/v3/resource_types/:type/actions
+
+Request Example::
+  GET api/v3/resource_types/built_in/actions
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [{
+        "app": "emqx_rule_engine",
+        "description": "Inspect the details of action params for debug purpose",
+        "for": "$any",
+        "name": "built_in:inspect_action",
+        "params": {},
+        "type": "built_in"
+    }, {
+        "app": "emqx_rule_engine",
+        "description": "Republish a MQTT message to a another topic",
+        "for": "message.publish",
+        "name": "built_in:republish_action",
+        "params": {
+            "target_topic": {
+                "description": "Repubilsh the message to which topic",
+                "format": "topic",
+                "required": true,
+                "title": "To Which Topic",
+                "type": "string"
+            }
+        },
+        "type": "built_in"
+    }]
+  }
+
+Create Resource
+---------------
+
+Definition::
+
+  POST api/v3/resources
+
+Parameters:
+
++-------------+-----------------------------------------------+
+| name        | String, name of the resource                  |
++-------------+-----------------------------------------------+
+| type        | String, resource type                         |
++-------------+-----------------------------------------------+
+| config      | JSON Object, resource configuration           |
++-------------+-----------------------------------------------+
+| description | String, optional, description of the resource |
++-------------+-----------------------------------------------+
+
+Parameter Example::
+
+  {
+    "name": "test-resource",
+    "type": "built_in",
+    "config": {
+        "a": 1
+    },
+    "description": "test-resource"
+  }
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": {
+        "attrs": "undefined",
+        "config": {
+            "a": 1
+        },
+        "description": "test-resource",
+        "id": "built_in:test-resource",
+        "name": "test-resource",
+        "type": "built_in"
+    }
+  }
+
+
+List Resources
+---------------
+
+Definition::
+
+  GET api/v3/resources
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [{
+        "attrs": "undefined",
+        "config": {
+            "url": "http://host-name/chats"
+        },
+        "description": "forward msgs to host-name/chats",
+        "id": "web_hook:webhook1",
+        "name": "webhook1",
+        "type": "web_hook"
+    }, {
+        "attrs": "undefined",
+        "config": {
+            "a": 1
+        },
+        "description": "test-resource",
+        "id": "built_in:test-resource",
+        "name": "test-resource",
+        "type": "built_in"
+    }]
+  }
+
+
+Query Resource
+--------------
+
+Definition::
+
+  GET api/v3/resources/:resource_id
+
+Request Example::
+
+  GET 'api/v3/resources/built_in:test-resource'
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": {
+        "attrs": "undefined",
+        "config": {
+            "a": 1
+        },
+        "description": "test-resource",
+        "id": "built_in:test-resource",
+        "name": "test-resource",
+        "type": "built_in"
+    }
+  }
+
+Delete Resources
+----------------
+
+Definition::
+
+  DELETE api/v3/resources/:resource_id
+
+Request Example::
+
+  DELETE 'api/v3/resources/built_in:test-resource'
+
+Response Example:
+
+.. code-block:: json
+
+  {
+    "code": 0
   }

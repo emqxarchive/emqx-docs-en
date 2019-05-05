@@ -22,7 +22,7 @@ Show running status of the broker::
 mgmt
 -----
 
-Manages the Apps of the broker.
+Manages the ``apps`` of the broker.
 
 +------------------------------+-------------------------------+
 | mgmt list                    | List the Apps                 |
@@ -39,7 +39,7 @@ Manages the Apps of the broker.
 mgmt list
 ---------
 
-List the Apps::
+List the ``apps``::
 
     $ ./bin/emqx_ctl mgmt list
     app_id: 901abdba8eb8c, secret: MjgzMzQ5MjM1MzUzMTc4MjgyMjE3NzU4ODcwMDg0NjQ4OTG, name: hello, desc: , status: true, expired: undefined
@@ -47,7 +47,7 @@ List the Apps::
 mgmt insert <AppId> <Name>
 --------------------------
 
-Add App for REST API::
+Add an app for REST API::
 
     $ ./bin/emqx_ctl mgmt insert dbcb6e023370b world
     AppSecret: MjgzMzQ5MjYyMTY3ODk4MjA5NzMwODExODMxMDM1NDk0NDA
@@ -63,7 +63,7 @@ mgmt update <AppId> <status>::
 mgmt lookup <AppId>
 ---------------------
 
-Query App details of an AppId::
+Query details of an app::
 
     $ ./bin/emqx_ctl mgmt lookup dbcb6e023370b
     app_id: dbcb6e023370b
@@ -76,7 +76,7 @@ Query App details of an AppId::
 mgmt delete <AppId>
 --------------------
 
-Delete App details of an AppId::
+Delete an app::
 
     $ ./bin/emqx_ctl mgmt delete dbcb6e023370b
     ok
@@ -85,7 +85,7 @@ Delete App details of an AppId::
 broker
 ------
 
-Query basic information,  statistics and metrics of the broker.
+Query basic information, statistics and metrics of the broker.
 
 +----------------+-------------------------------------------------+
 | broker         | Show version, description, uptime of the broker |
@@ -203,7 +203,7 @@ Cluster two or more *EMQ X* brokers:
 | cluster status             | Query cluster status and nodes |
 +----------------------------+--------------------------------+
 
-Suppose we create two *EMQ X* nodes on localhost and cluster them:
+Suppose we have two *EMQ X* nodes on localhost and we want to cluster them together:
 
 +-----------+---------------------+-------------+
 | Folder    | Node                | MQTT Port   |
@@ -213,11 +213,9 @@ Suppose we create two *EMQ X* nodes on localhost and cluster them:
 | emqx2     | emqx2@127.0.0.1     | 2883        |
 +-----------+---------------------+-------------+
 
-Start emqx1 node::
+Start emqx1 and emqx2::
 
     $ cd emqx1 && ./bin/emqx start
-
-Start emqx2 node::
 
     $ cd emqx2 && ./bin/emqx start
 
@@ -228,13 +226,13 @@ Under emqx2 folder::
     Join the cluster successfully.
     Cluster status: [{running_nodes,['emqx1@127.0.0.1','emqx2@127.0.0.1']}]
 
-uery cluster status::
+Query cluster status::
 
     $ ./bin/emqx_ctl cluster status
 
     Cluster status: [{running_nodes,['emqx2@127.0.0.1','emqx1@127.0.0.1']}]
 
-Message Route between nodes::
+Message route between nodes::
 
     # Subscribe topic 'x' on emqx1 node
     $ mosquitto_sub -t x -q 1 -p 1883
@@ -275,7 +273,7 @@ Query MQTT clients connected to the broker:
 clients list
 ------------
 
-Query All MQTT clients connected to the broker::
+Query all MQTT clients connected to the broker::
 
     $ ./bin/emqx_ctl clients list
 
@@ -315,7 +313,7 @@ Kick out a MQTT Client::
 sessions
 --------
 
-Query all MQTT sessions. The broker will create a session for each MQTT client. Persistent Session if clean_session flag is true, transient session otherwise.
+Query all MQTT sessions. The broker will create a session for each MQTT client.
 
 +--------------------------+----------------------+
 | sessions list            | List all Sessions    |
@@ -516,7 +514,7 @@ Properties of a plugin:
 plugins load <Plugin>
 ---------------------
 
-Load a Plugin::
+Load a plugin::
 
     $ ./bin/emqx_ctl plugins load emqx_lua_hook
 
@@ -526,7 +524,7 @@ Load a Plugin::
 plugins unload <Plugin>
 -----------------------
 
-Unload a Plugin::
+Unload a plugin::
 
     $ ./bin/emqx_ctl plugins unload emqx_lua_hook
 
@@ -535,7 +533,7 @@ Unload a Plugin::
 plugins reload <Plugin>
 -----------------------
 
-Reload a Plugin::
+Reload a plugin::
 
     $ ./bin/emqx_ctl plugins reload emqx_lua_hook
 
@@ -545,7 +543,7 @@ Reload a Plugin::
 bridges
 -------
 
-Bridges command is used to create bridges between multiple *EMQ X* server nodes::
+Bridges command is used to create bridges between multiple *EMQ X* nodes::
 
                   ---------                     ---------
     Publisher --> | node1 | --Bridge Forward--> | node2 | --> Subscriber
@@ -812,7 +810,7 @@ Set the primary log level::
 log handlers list
 -----------------
 
-Show all currently useing Hanlders::
+Show all logger handlers::
 
     $ ./bin/emqx_ctl log handlers list
 
@@ -823,7 +821,7 @@ Show all currently useing Hanlders::
 log handlers set-level <HandlerId> <Level>
 ------------------------------------------
 
-Set the log level for the specified Hanlder::
+Set the log level for a specified handler::
 
     $ ./bin/emqx_ctl log handlers set-level emqx_logger_handler error
 
@@ -833,7 +831,7 @@ Set the log level for the specified Hanlder::
 trace
 ------
 
-The trace command is used to trace a client or Topic and print log information to a file.
+The trace command is used to trace a client or a topic and redirect related log messages to a file.
 
 +------------------------------------------------+-------------------------+
 | trace list                                     | Query all open traces   |
@@ -988,6 +986,205 @@ Stop listener port::
 
     Stop mqtt:tcp listener on 0.0.0.0:1883 successfully.
 
+----------------------------
+Rule Engine
+----------------------------
+
+-------
+rules
+-------
+
++-----------------------------------------------------------+----------------+
+| rules list                                                | List all rules |
++-----------------------------------------------------------+----------------+
+| rules show <RuleId>                                       | Show a rule    |
++-----------------------------------------------------------+----------------+
+| rules create <name> <hook> <sql> <actions> [-d [<descr>]] | Create a rule  |
++-----------------------------------------------------------+----------------+
+| rules delete <RuleId>                                     | Delete a rule  |
++-----------------------------------------------------------+----------------+
+
+rules create
+------------
+
+Create a new rule::
+
+    ## create a simple rule for testing, printing all messages sent to topic 't/a'
+    $ ./bin/emqx_ctl rules create \
+      'test1' \
+      'message.publish' \
+      'select * from "t/a"' \
+      '[{"name":"built_in:inspect_action", "params": {"a": 1}}]' \
+      -d 'Rule for debug'
+
+    Rule test1:1556242324634254201 created
+
+.. note:: A rule is identified by a server-side-generated ID. So run 'rules create' multiple times using the same name will create multiple rules with the same name but different IDs.
+
+rules list
+----------
+
+List all rules::
+
+    $ ./bin/emqx_ctl rules list
+
+    rule(id='test1:1556242324634254201', name='test1', for='message.publish', rawsql='select * from "t/a"', actions=[{"name":"built_in:inspect_action","params":{"a":1}}], enabled='true', description='Rule for debug')
+
+rules show
+----------
+
+Query a rule::
+
+    ## Query a rule by whose ID is 'test1:1556242324634254201'
+    $ ./bin/emqx_ctl rules show 'test1:1556242324634254201'
+
+    rule(id='test1:1556242324634254201', name='test1', for='message.publish', rawsql='select * from "t/a"', actions=[{"name":"built_in:inspect_action","params":{"a":1}}], enabled='true', description='Rule for debug')
+
+rules delete
+------------
+
+Delete a rule::
+
+    ## Delete a rule whose ID is 'test1:1556242324634254201'
+    $ ./bin/emqx_ctl rules delete 'test1:1556242324634254201'
+
+    ok
+
+--------------
+rule-actions
+--------------
+
++-----------------------------------------------+--------------------+
+| rule-actions list [-t [<type>]] [-k [<hook>]] | List all actions   |
++-----------------------------------------------+--------------------+
+| rule-actions show <ActionId>                  | Show a rule action |
++-----------------------------------------------+--------------------+
+
+.. important:: Actions could be built-in actions, or provided by emqx plugins, but cannot be added/deleted dynamically via CLI/API.
+
+rule-actions show
+-----------------
+
+Query actions::
+
+    ## Query the action named 'built_in:inspect_action'
+    $ ./bin/emqx_ctl rule-actions show 'built_in:inspect_action'
+
+    action(name='built_in:inspect_action', app='emqx_rule_engine', for='$any', type='built_in', params=#{}, description='Inspect the details of action params for debug purpose')
+
+rule-actions list
+-----------------
+
+List actions by hook or resource-type::
+
+    ## List all the actions
+    $ ./bin/emqx_ctl rule-actions list
+
+    action(name='built_in:republish_action', app='emqx_rule_engine', for='message.publish', type='built_in', params=#{target_topic => #{description => <<"Repubilsh the message to which topic">>,format => topic,required => true,title => <<"To Which Topic">>,type => string}}, description='Republish a MQTT message to a another topic')
+    action(name='web_hook:event_action', app='emqx_web_hook', for='$events', type='web_hook', params=#{'$resource' => #{description => <<"Bind a resource to this action">>,required => true,title => <<"Resource ID">>,type => string},template => #{description => <<"The payload template to be filled with variables before sending messages">>,required => false,schema => #{},title => <<"Payload Template">>,type => object}}, description='Forward Events to Web Server')
+    action(name='web_hook:publish_action', app='emqx_web_hook', for='message.publish', type='web_hook', params=#{'$resource' => #{description => <<"Bind a resource to this action">>,required => true,title => <<"Resource ID">>,type => string}}, description='Forward Messages to Web Server')
+    action(name='built_in:inspect_action', app='emqx_rule_engine', for='$any', type='built_in', params=#{}, description='Inspect the details of action params for debug purpose')
+
+    ## List all the hooks whose resource type is web_hook
+    $ ./bin/emqx_ctl rule-actions list -t web_hook
+
+    action(name='web_hook:event_action', app='emqx_web_hook', for='$events', type='web_hook', params=#{'$resource' => #{description => <<"Bind a resource to this action">>,required => true,title => <<"Resource ID">>,type => string},template => #{description => <<"The payload template to be filled with variables before sending messages">>,required => false,schema => #{},title => <<"Payload Template">>,type => object}}, description='Forward Events to Web Server')
+    action(name='web_hook:publish_action', app='emqx_web_hook', for='message.publish', type='web_hook', params=#{'$resource' => #{description => <<"Bind a resource to this action">>,required => true,title => <<"Resource ID">>,type => string}}, description='Forward Messages to Web Server')
+
+    ## List all the hooks whose hook type matched to 'client.connected'
+    $ ./bin/emqx_ctl rule-actions list -k 'client.connected'
+
+    action(name='built_in:inspect_action', app='emqx_rule_engine', for='$any', type='built_in', params=#{}, description='Inspect the details of action params for debug purpose')
+
+----------
+resources
+----------
+
++------------------------------------------------------------------------+--------------------+
+| emqx_ctl resources create <name> <type> [-c [<config>]] [-d [<descr>]] | Create a resource  |
++------------------------------------------------------------------------+--------------------+
+| resources list [-t <ResourceType>]                                     | List all resources |
++------------------------------------------------------------------------+--------------------+
+| resources show <ResourceId>                                            | Show a resource    |
++------------------------------------------------------------------------+--------------------+
+| resources delete <ResourceId>                                          | Delete a resource  |
++------------------------------------------------------------------------+--------------------+
+
+resources create
+----------------
+Create a new resource::
+
+    $ ./bin/emqx_ctl resources create 'webhook1' 'web_hook' -c '{"url": "http://host-name/chats"}' -d 'forward msgs to host-name/chats'
+
+    Resource web_hook:webhook1 created
+
+resources list
+--------------
+
+List all the resources::
+
+    $ ./bin/emqx_ctl resources list
+
+    resource(id='web_hook:webhook1', name='webhook1', type='web_hook', config=#{<<"url">> => <<"http://host-name/chats">>}, attrs=undefined, description='forward msgs to host-name/chats')
+
+resources list by type
+----------------------
+
+List resources by resource-type::
+
+    $ ./bin/emqx_ctl resources list --type 'debug_resource_type'
+
+    resource(id='web_hook:webhook1', name='webhook1', type='web_hook', config=#{<<"url">> => <<"http://host-name/chats">>}, attrs=undefined, description='forward msgs to host-name/chats')
+
+resources show
+--------------
+
+Query resources::
+
+    $ ./bin/emqx_ctl resources show 'web_hook:webhook1'
+
+    resource(id='web_hook:webhook1', name='webhook1', type='web_hook', config=#{<<"url">> => <<"http://host-name/chats">>}, attrs=undefined, description='forward msgs to host-name/chats')
+
+resources delete
+----------------
+
+Delete resources::
+
+    $ ./bin/emqx_ctl resources delete 'web_hook:webhook1'
+
+    ok
+
+---------------
+resource-types
+---------------
+
++----------------------------+-------------------------+
+| resource-types list        | List all resource-types |
++----------------------------+-------------------------+
+| resource-types show <Type> | Show a resource-type    |
++----------------------------+-------------------------+
+
+.. important:: Resource types could be built-in resource types, or provided by emqx plugins, but cannot be added/deleted dynamically via CLI/API.
+
+resource-types list
+-------------------
+
+List all the resource types::
+
+    ./bin/emqx_ctl resource-types list
+
+    resource_type(name='built_in', provider='emqx_rule_engine', params=#{}, on_create={emqx_rule_actions,on_resource_create}, description='The built in resource type for debug purpose')
+    resource_type(name='web_hook', provider='emqx_web_hook', params=#{headers => #{default => #{},description => <<"Request Header">>,schema => #{},title => <<"Request Header">>,type => object},method => #{default => <<"POST">>,description => <<"Request Method">>,enum => [<<"PUT">>,<<"POST">>],title => <<"Request Method">>,type => string},url => #{description => <<"Request URL">>,format => url,required => true,title => <<"Request URL">>,type => string}}, on_create={emqx_web_hook_actions,on_resource_create}, description='WebHook Resource')
+
+resource-types show
+-------------------
+
+Query a resource type by name::
+
+    $ ./bin/emqx_ctl resource-types show built_in
+
+    resource_type(name='built_in', provider='emqx_rule_engine', params=#{}, on_create={emqx_rule_actions,on_resource_create}, description='The built in resource type for debug purpose')
+
 ------
 recon
 ------
@@ -1004,7 +1201,7 @@ recon
 | recon remote_load Mod | recon:remote_load(Mod)                           |
 +-----------------------+--------------------------------------------------+
 
-访问 `Documentation for recon <http://ferd.github.io/recon/>`_ 以获取详细信息。
+See `Documentation for recon <http://ferd.github.io/recon/>`_ for more information.
 
 recon memory
 ------------
@@ -1118,7 +1315,7 @@ retainer
 retainer info
 -------------
 
-show all retainer messages count::
+Show count of retained messages::
 
     $ ./bin/emqx_ctl retainer info
 
@@ -1127,7 +1324,7 @@ show all retainer messages count::
 retainer topics
 ---------------
 
-show all retainer topic::
+Show retained topics::
 
     $ ./bin/emqx_ctl retainer topics
 
@@ -1138,7 +1335,7 @@ show all retainer topic::
 retainer clean
 --------------
 
-Clear all retainer messages::
+Clean all retained messages::
 
     $ ./bin/emqx_ctl retainer clean
 
@@ -1148,7 +1345,7 @@ Clear all retainer messages::
 admins
 ------
 
-The 'admins' CLI is used to add/del admin account, which is registered by the dashboard plugin.
+The 'admins' CLI is used to add/del admin account, which is registered on the emqx dashboard.
 
 +------------------------------------------+-----------------------------+
 | admins add <Username> <Password> <Tags>  | Create admin account        |
@@ -1184,4 +1381,3 @@ Delete admin account::
     $ ./bin/emqx_ctl admins del root
 
     ok
-
