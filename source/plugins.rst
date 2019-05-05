@@ -655,7 +655,7 @@ libcoap Client
     yum install libcoap
 
     % coap client publish message
-    coap-client -m post -e "qos=0&retain=0&message=payload&topic=hello" coap://localhost/mqtt
+    coap-client -m put -e "qos=0&retain=0&message=payload&topic=hello" coap://localhost/mqtt
 
 -------------------------
 emqx_sn: MQTT-SN Protocol
