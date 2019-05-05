@@ -320,9 +320,9 @@ Kubernetes namespace:
 
     cluster.k8s.namespace = default
 
-    -------------------
+----------------------
 EMQ X Node and Cookie
--------------------
+----------------------
 
 Erlang node name:
 
@@ -355,9 +355,9 @@ The EMQ X node is based on IPv4, IPv6 or TLS protocol of Erlang/OTP platform for
     ## Specify the parameter configuration of Erlang Distributed Communication SSL
     ## node.ssl_dist_optfile = etc/ssl_dist.conf
 
------------------
+--------------------
 Erlang VM parameters
------------------
+--------------------
 
 Erlang system heartbeat monitoring during running. Comment this line to disable heartbeat monitoring, or set the value as ``on`` to enable the function :
 
@@ -432,9 +432,9 @@ Port range of TCP connections for communication between Erlang distributed nodes
     node.dist_listen_min = 6396
     node.dist_listen_max = 6396
 
-------------
+---------------------------
 RPC parameter configuration
-------------
+---------------------------
 
 TCP port for RPC monitoring locally::
 
@@ -490,9 +490,9 @@ The maximum number of heartbeat detection failures before closing the connection
 
     rpc.socket_keepalive_count = 9
 
-------------
+----------------------------
 Log parameter configuration
-------------
+----------------------------
 
 Log output location, that can be set to write to the terminal or write to the file:
 
@@ -540,9 +540,9 @@ For example, the following configuration writes all logs higher than or equal to
 
     log.info.file = info.log
 
--------------------
+--------------------------------------
 Anonymous authentication and ACL files
--------------------
+--------------------------------------
 
 Whether to allow the client to pass the authentication as an anonymous identity:
 
@@ -626,9 +626,9 @@ Allow any situation other than the above rules:
 
 When the EMQ X message server receives an Publish or Subscribe request from MQTT client, it will match the ACL rule one by one until the match returns to allow or deny.
 
-----------------------------------
+-------------------------------------
 MQTT protocol parameter configuration
-----------------------------------
+-------------------------------------
 
 MQTT maximum packet size::
 
@@ -705,7 +705,7 @@ The onfigured matching rules used by listener are as follows, with priority Zone
 EMQ X supports to replace zone.$name.xxx with the corresponding $name. The $name in zone.external.xxx and zone.internal.xxx can be replaced with the corresponding name, or user can add a custom name of ``zone.$name.xxx``.
 
 External Zone  parameter settings
-------------------------
+---------------------------------
 
 The maximum time to wait for MQTT CONNECT packet after the TCP connection is established::
 
@@ -882,7 +882,7 @@ Flapping prohibited time:
     zone.external.flapping_banned_expiry_interval = 1h
 
 Internal Zone parameter settings
-------------------------
+--------------------------------
 
 Allow anonymous access:
 
@@ -962,9 +962,9 @@ Flapping banned time:
 
     zone.internal.flapping_banned_expiry_interval = 1h
 
----------------------------------------
+------------------------------------
 MQTT Listeners parameter description
----------------------------------------
+------------------------------------
 
 The EMQ X message server supports the MQTT, MQTT/SSL, and MQTT/WS protocol, and can set the port, maximum allowed connections, and other parameters through listener.tcp|ssl|ws|wss|.*.
 
@@ -984,21 +984,21 @@ The TCP service ports of the EMQ X message server that are enabled by default in
 
 Listener parameter description:
 
-+----------------------------------------+------------------------------------------+
-| listener.tcp.${name}.acceptors         | TCP Acceptor pool                        |
-+----------------------------------------+------------------------------------------+
-| listener.tcp.${name}.max_connections   | Maximum number of allowed TCP connections|
-+----------------------------------------+------------------------------------------+
-| listener.tcp.${name}.max_conn_rate     | Connection limit configuration           |
-+----------------------------------------+------------------------------------------+
++----------------------------------------+----------------------------------------------+
+| listener.tcp.${name}.acceptors         | TCP Acceptor pool                            |
++----------------------------------------+----------------------------------------------+
+| listener.tcp.${name}.max_connections   | Maximum number of allowed TCP connections    |
++----------------------------------------+----------------------------------------------+
+| listener.tcp.${name}.max_conn_rate     | Connection limit configuration               |
++----------------------------------------+----------------------------------------------+
 | listener.tcp.${name}.zone              | monitoring Which zone the listener belongs to|
-+----------------------------------------+------------------------------------------+
-| listener.tcp.${name}.rate_limit        | Connection rate configuration            |
-+----------------------------------------+------------------------------------------+
++----------------------------------------+----------------------------------------------+
+| listener.tcp.${name}.rate_limit        | Connection rate configuration                |
++----------------------------------------+----------------------------------------------+
 
------------------------
+-------------------------
 MQTT/TCP Listener - 1883
------------------------
+-------------------------
 
 The EMQ X supports the configuration of multiple MQTT protocol listeners, such as two listeners named external and internal:
 
@@ -1126,9 +1126,9 @@ Whether to set the SO_REUSEADDR flag:
 
     listener.tcp.external.reuseaddr = true
 
-----------------------
+-------------------------
 MQTT/SSL listener - 8883
-----------------------
+-------------------------
 
 SSL listening port:
 
@@ -1324,9 +1324,9 @@ Whether to set the SO_REUSEADDR flag:
 
     listener.ssl.external.reuseaddr = true
 
-----------------------------
+------------------------------
 MQTT/WebSocket listener - 8083
-----------------------------
+------------------------------
 
 MQTT/WebSocket listening port::
 
@@ -1486,9 +1486,9 @@ Maximum packet size, 0 means no limit:
 
     ## listener.ws.external.max_frame_size = 0
 
--------------------------------------
+----------------------------------------
 MQTT/WebSocket with SSL listener - 8084
--------------------------------------
+----------------------------------------
 
 MQTT/WebSocket with SSL listening port:
 
@@ -1714,9 +1714,9 @@ Maximum packet size, 0 means no limit:
 
     ## listener.wss.external.max_frame_size = 0
 
---------------
+--------
 Bridges 
---------------
+--------
 
 Bridges parameter setting
 --------------------------
@@ -1877,14 +1877,14 @@ Replayq data segment size:
 
     bridge.aws.queue.replayq_seg_bytes = 10MB
 
---------------
+--------
 Modules 
---------------
+--------
 
 EMQ X supports module expansion. The default three modules are the online and offline message status publishing module, the proxy subscription module, and the topic rewriting module.
 
 nline and offline message status publishing module
-----------------------
+---------------------------------------------------
 
 Whether to enable the online and offline message status publishing module:
 
@@ -1918,7 +1918,7 @@ Topics and QoS that are automatically subscribed when the client connects:
     ## module.subscription.2.qos = 1
 
 Topic rewriting module
-------------
+-----------------------
 
 Whether to enable the Topic rewriting module:
 
@@ -1933,9 +1933,9 @@ Topic rewriting rule:
     ## module.rewrite.rule.1 = x/# ^x/y/(.+)$ z/y/$1
     ## module.rewrite.rule.2 = y/+/z/# ^y/(.+)/z/(.+)$ y/z/$2
 
-----------------
+----------------------------------------
 Configuration file for plugin extension 
-----------------
+----------------------------------------
 
 The directory where the plugin configuration file is stored:
 
@@ -1951,9 +1951,9 @@ Path of the file to store list of plugins that needs to be automatically loaded 
 
 The EMQ X plugin configuration file, which is in the directory of etc/plugins/  by default, and can be adjusted by modification of plugins.etc_dir.
 
-----------------
+--------------------------
 Broker parameter settings
-----------------
+--------------------------
 
 System message publishing interval:
 
@@ -1991,9 +1991,9 @@ Whether to enable route batch cleaning:
 
     broker.route_batch_clean = on
 
----------------------
+-----------------------------
 Erlang VM listening settings
----------------------
+-----------------------------
 
 Whether to enable long_gc listening and how long garbage collection lasts that can trigger the long_gc event:
 

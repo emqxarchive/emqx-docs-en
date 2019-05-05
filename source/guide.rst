@@ -2,12 +2,12 @@
 .. _guide:
 
 User Guide
-^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^
 
 .. _start:
 
 Application startup
-------------------
+--------------------
 
 Download address: https://www.emqx.io/downloads/broker?osType=Linux
 
@@ -58,7 +58,7 @@ For example, the mosquitto_sub/pub command line publishes a subscription message
 .. _authentication:
 
 Authentication/access control
--------------
+------------------------------
 
 EMQ X Message Server Connection Authentication and Access Control are provided by a series of authentication plugins  whose name conforms to the rules of emqx_auth_<name>.
 
@@ -68,7 +68,7 @@ In EMQ X, these two functions are:
 2. Access Control: EMQ X verifies the permissions of each Publish/Subscribe client to allow/deny the corresponding action
 
 Authentication
->>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>
 
 EMQ X Message Server Authentication is provided by a series of authentication plugins that support authentication by username, password, ClientID or anonymous. 
 
@@ -87,14 +87,14 @@ etc/emqx.conf is configured to enable anonymous authentication:
 
 .. code:: properties
 
-    Allow anonymous access
+    ## Allow anonymous access
     ## Value: true | false
     allow_anonymous = true
 
 .. _acl:
 
 Access Control List
->>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>
 
 EMQ X message server implements MQTT client access control through an ACL (Access Control List).
 
@@ -147,7 +147,7 @@ The authentication plugins provided by EMQ X include:
 
 +----------------------------+-----------------------------------------------+
 | plugins                    | description                                   |
-+============================+===========================--------------------+
++============================+===============================================+
 | `emqx_auth_clientid`_      | ClientId authentication plugins               |
 +----------------------------+-----------------------------------------------+
 | `emqx_auth_username`_      | username and password authentication plugins  |
@@ -191,7 +191,7 @@ Shared subscriptions support two usage methods:
 
 +----------------------+-------------------------------------------+
 |  Subscription prefix | Example                                   |
-+--------------------- +-------------------------------------------+
++----------------------+-------------------------------------------+
 | $queue/              | mosquitto_sub -t '$queue/topic'           |
 +----------------------+-------------------------------------------+
 | $share/<group>/      | mosquitto_sub -t '$share/group/topic'     |
@@ -206,17 +206,17 @@ Example::
 
 The following strategies are supported by EMQ X to distribute messages:：
 
-+---------------------------+-----------------------------------------+
-| Strategy                  | Description                             |
-+===========================+=========================----------------+
-| random                    | random among all shared subscribers     |
-+---------------------------+-----------------------------------------+
-| round_robin               | according to subscription  order        |
-+---------------------------+-----------------------------------------+
-| sticky                    | the last dispatched subscriber is picked|
-+---------------------------+-----------------------------------------+
-| hash                    | According to the  ClientId  of distributor|
-+---------------------------+-----------------------------------------+
++---------------------------+--------------------------------------------+
+| Strategy                  | Description                                |
++===========================+============================================+
+| random                    | Random among all shared subscribers        |
++---------------------------+--------------------------------------------+
+| round_robin               | According to subscription  order           |
++---------------------------+--------------------------------------------+
+| sticky                    | The last dispatched subscriber is picked   |
++---------------------------+--------------------------------------------+
+| hash                      | According to the  ClientId  of distributor |
++---------------------------+--------------------------------------------+
 
 .. note:: When all subscribers are offline, a subscriber will still be picked and stored in the message queue of its Session.
 
@@ -224,10 +224,10 @@ The following strategies are supported by EMQ X to distribute messages:：
 .. _guide_bridge:
 
 Bridge
-------------------
+-------
 
 Bridge within EMQ X nodes
->>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 The concept of bridging is that EMQ X supports forwarding messages of one of its own topics to another MQTT Broker in some way.
 
@@ -270,7 +270,7 @@ The next two sections describe how to create a bridge of RPC/MQTT mode and creat
 
 
 EMQ X Node RPC Bridge Configuration
----------------------------
+------------------------------------
 
 The following is the basic configuration of RPC bridging. The simplest RPC bridging only needs to configure the following three items::
 
@@ -297,7 +297,7 @@ Limitations of RPC bridging:
 
 
 EMQ X node MQTT bridge configuration
->>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 Emqx 3.0 officially introduced mqtt bridge, so that emqx can bridge any mqtt broker. Because of the characteristics of the mqtt protocol itself, emqx can subscribe to the remote mqtt broker's topic through mqtt bridge, and then synchronize the remote mqtt broker's message to the local.
 
@@ -379,7 +379,7 @@ EMQ X MQTT bridging principle: By creating a mqtt client on the emqx broker, the
     bridge.emqx2.max_inflight_batches = 32
 
 EMQ X bridge cache configuration
------------------------
+---------------------------------
 
 The bridge of EMQ X has a message caching mechanism. The caching mechanism is applicable to both RPC bridging and MQTT bridging. When the bridge is disconnected (such as when the network connection is unstable), the forwards topic message can be cached to the local message queue. Until the bridge is restored, the message is re-forwarded to the remote node. The configuration of the cache queue is as follows::
 
@@ -401,7 +401,7 @@ The bridge of EMQ X has a message caching mechanism. The caching mechanism is ap
 
 
 EMQ X bridged command line application
------------------------
+---------------------------------------
 
 Bridge the CLI command:
 
@@ -486,8 +486,8 @@ Note: If it is required to create multiple bridges,  the default bridge configur
 
 .. _http_publish:
 
-HTTP publish interface
----------------------
+HTTP publish API
+-----------------------
 
 The EMQ X message server provides an HTTP publish interface through which an application server or web server can publish MQTT messages::
 
@@ -521,7 +521,7 @@ HTTP interface parameters:
     HTTP publishing interface uses authentication of `Basic <https://en.wikipedia.org/wiki/Basic_access_authentication>`_ . The user and password in the above example are from the AppId and password in the Applications under Dashboard.
 
 MQTT WebSocket connection
--------------------
+--------------------------
 
 EMQ X also supports WebSocket connections, which can be connected directly to the server via WebSocket:
 
@@ -538,7 +538,7 @@ The Dashboard plugin provides a test page for an MQTT WebSocket connection::
 .. _sys_topic:
 
 $SYS-System topic
--------------
+------------------
 
 The EMQ X message server periodically publishes its own running status, message statistics, client online and offline events to the system topic starting with $SYS/.
 
@@ -563,36 +563,36 @@ $SYS system message publish cycle is configured by etc/emqx.conf:
 .. _sys_brokers:
 
 Cluster status information
->>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-+--------------------------------+-----------------------+
-| Topic                          | Description           |
-+================================+=======================+
-| $SYS/brokers                   | cluster node list     |
-+--------------------------------+-----------------------+
-| $SYS/brokers/${node}/version   | EMQ X server version  |
-+--------------------------------+-----------------------+
-| $SYS/brokers/${node}/uptime    | EMQ X server startup time|
-+--------------------------------+-----------------------+
-| $SYS/brokers/${node}/datetime  | EMQ X server time      |
-+--------------------------------+-----------------------+
-| $SYS/brokers/${node}/sysdescr  | EMQ X Server Description|
-+--------------------------------+-----------------------+
++--------------------------------+---------------------------+
+| Topic                          | Description               |
++================================+===========================+
+| $SYS/brokers                   | cluster node list         |
++--------------------------------+---------------------------+
+| $SYS/brokers/${node}/version   | EMQ X server version      |
++--------------------------------+---------------------------+
+| $SYS/brokers/${node}/uptime    | EMQ X server startup time |
++--------------------------------+---------------------------+
+| $SYS/brokers/${node}/datetime  | EMQ X server time         |
++--------------------------------+---------------------------+
+| $SYS/brokers/${node}/sysdescr  | EMQ X Server Description  |
++--------------------------------+---------------------------+
 
 .. _sys_clients:
 
 Client online and offline events
->>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 $SYS topic prefix: $SYS/brokers/${node}/clients/
 
-+--------------------------+----------------------------------------------------------------------+
++--------------------------+-----------------------------------------------------------------------+
 | Topic                    | Description                                                           |
-+==========================+=========================================----------------------------=+
++==========================+=======================================================================+
 | ${clientid}/connected    | Online event. This message is published when a client goes online.    |
-+--------------------------+----------------------------------------------------------------------+
++--------------------------+-----------------------------------------------------------------------+
 | ${clientid}/disconnected | Offline event. This message is published when a client is offline     |
-+--------------------------+----------------------------------------------------------------------+
++--------------------------+-----------------------------------------------------------------------+
 
 The Payload of the 'connected' event message can be parsed into JSON format:
 
@@ -630,7 +630,7 @@ Statistics
 System topic prefix: $SYS/brokers/${node}/stats/
 
 Client statistics
-::::::::::
+::::::::::::::::::
 
 +---------------------+---------------------------------------------+
 | Topic               | Description                                 |
@@ -641,7 +641,7 @@ Client statistics
 +---------------------+---------------------------------------------+
 
 Session statistics
-::::::::
+:::::::::::::::::::
 
 +-----------------------------+---------------------------------------------+
 | Topic                       | Description                                 |
@@ -656,41 +656,41 @@ Session statistics
 +-----------------------------+---------------------------------------------+
 
 Subscription statistics
-::::::::
+::::::::::::::::::::::::
 
 +---------------------------------+---------------------------------------------+
-| Topic                           | Description                                  |
+| Topic                           | Description                                 |
 +---------------------------------+---------------------------------------------+
-| suboptions/count                | number of current subscription options       |
+| suboptions/count                | number of current subscription options      |
 +---------------------------------+---------------------------------------------+
-| suboptions/max                  | total number of maximum subscription options |
+| suboptions/max                  | total number of maximum subscription options|
 +---------------------------------+---------------------------------------------+
-| subscribers/max                 | total number of maximum subscribers          |
+| subscribers/max                 | total number of maximum subscribers         |
 +---------------------------------+---------------------------------------------+
-| subscribers/count               | number of current subscribers                |
+| subscribers/count               | number of current subscribers               |
 +---------------------------------+---------------------------------------------+
-| subscriptions/max               | maximum number of subscriptions              |
+| subscriptions/max               | maximum number of subscriptions             |
 +---------------------------------+---------------------------------------------+
-| subscriptions/count             | total number of current subscription         |
+| subscriptions/count             | total number of current subscription        |
 +---------------------------------+---------------------------------------------+
-| subscriptions/shared/count      | total number of current shared subscriptions |
+| subscriptions/shared/count      | total number of current shared subscriptions|
 +---------------------------------+---------------------------------------------+
-| subscriptions/shared/max        | 当前共享订阅总数                            |
+| subscriptions/shared/max        | maximum number of shared subscriptions      |      
 +---------------------------------+---------------------------------------------+
 
 Topic statistics
-::::::::
+:::::::::::::::::
 
 +---------------------+---------------------------------------------+
 | Topic               | Description                                 |
 +---------------------+---------------------------------------------+
 | topics/count        | total number of current  topics             |
 +---------------------+---------------------------------------------+
-| topics/max          | maximum number of topics                             |
+| topics/max          | maximum number of topics                    |
 +---------------------+---------------------------------------------+
 
 Routes statistics
-::::::::
+::::::::::::::::::
 
 +---------------------+---------------------------------------------+
 |Topic                | Description                                 |
@@ -703,12 +703,12 @@ Routes statistics
 .. note:: The topics/count and topics/max are numerically equal to routes/count and routes/max.
 
 bytes/packets/message statistics
->>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 System Topic Prefix: $SYS/brokers/${node}/metrics/
 
 sent and received bytes statistics
-::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::
 
 +---------------------+---------------------------------------------+
 | Topic               | Description                                 |
@@ -719,120 +719,120 @@ sent and received bytes statistics
 +---------------------+---------------------------------------------+
 
 MQTT sent and received packets statistics
-:::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::
 
-+-----------------------------+---------------------------------------------+
-| Topic                       | Description                                 |
-+-----------------------------+---------------------------------------------+
-| packets/received            | Accumulative received packets of MQTT       |
-+-----------------------------+---------------------------------------------+
-| packets/sent                | Accumulative sent packets of MQTT           |
-+-----------------------------+---------------------------------------------+
-| packets/connect             | Accumulative received packets of MQTT CONNECT|
-+-----------------------------+---------------------------------------------+
-| packets/connack             | Accumulative sent packets of MQTT CONNACK   |
-+-----------------------------+---------------------------------------------+
-| packets/publish/received    | Accumulative received packets of MQTT PUBLISH |
-+-----------------------------+---------------------------------------------+
-| packets/publish/sent        | Accumulative sent packets of MQTT PUBLISH   |
-+-----------------------------+---------------------------------------------+
-| packets/puback/received     | Accumulative received packets of MQTT PUBACK|
-+-----------------------------+---------------------------------------------+
-| packets/puback/sent         | Accumulative sent packets of MQTT PUBACK    |
-+-----------------------------+---------------------------------------------+
-| packets/puback/missed       | Accumulative missed packets of MQTT PUBACK  |
-+-----------------------------+---------------------------------------------+
-| packets/pubrec/received     | Accumulative received packets of MQTT PUBREC|
-+-----------------------------+---------------------------------------------+
-| packets/pubrec/sent         | Accumulative sent packets of MQTT PUBREC    |
-+-----------------------------+---------------------------------------------+
-| packets/pubrec/missed       | Accumulative missed packets of MQTT PUBREC  |
-+-----------------------------+---------------------------------------------+
-| packets/pubrel/received     | Accumulative received packets of MQTT PUBREL |
-+-----------------------------+---------------------------------------------+
-| packets/pubrel/sent         | Accumulative sent packets of MQTT PUBREL    |
-+-----------------------------+---------------------------------------------+
-| packets/pubrel/missed       | Accumulative missed packets of MQTT PUBREL  |
-+-----------------------------+---------------------------------------------+
-| packets/pubcomp/received    | Accumulative received packets of MQTT PUBCOMP|
-+-----------------------------+---------------------------------------------+
-| packets/pubcomp/sent        | Accumulative sent packets of MQTT PUBCOMP   |
-+-----------------------------+---------------------------------------------+
-| packets/pubcomp/missed      | Accumulative missed packets of MQTT PUBCOMP |
-+-----------------------------+---------------------------------------------+
-| packets/subscribe           | Accumulative received packets of MQTT SUBSCRIBE |
-+-----------------------------+---------------------------------------------+
-| packets/suback              | Accumulative sent packets of MQTT SUBACK   |
-+-----------------------------+---------------------------------------------+
++-----------------------------+---------------------------------------------------+
+| Topic                       | Description                                       |
++-----------------------------+---------------------------------------------------+
+| packets/received            | Accumulative received packets of MQTT             |
++-----------------------------+---------------------------------------------------+
+| packets/sent                | Accumulative sent packets of MQTT                 |
++-----------------------------+---------------------------------------------------+
+| packets/connect             | Accumulative received packets of MQTT CONNECT     |
++-----------------------------+---------------------------------------------------+
+| packets/connack             | Accumulative sent packets of MQTT CONNACK         |
++-----------------------------+---------------------------------------------------+
+| packets/publish/received    | Accumulative received packets of MQTT PUBLISH     |
++-----------------------------+---------------------------------------------------+
+| packets/publish/sent        | Accumulative sent packets of MQTT PUBLISH         |
++-----------------------------+---------------------------------------------------+
+| packets/puback/received     | Accumulative received packets of MQTT PUBACK      |
++-----------------------------+---------------------------------------------------+
+| packets/puback/sent         | Accumulative sent packets of MQTT PUBACK          |
++-----------------------------+---------------------------------------------------+
+| packets/puback/missed       | Accumulative missed packets of MQTT PUBACK        |
++-----------------------------+---------------------------------------------------+
+| packets/pubrec/received     | Accumulative received packets of MQTT PUBREC      |
++-----------------------------+---------------------------------------------------+
+| packets/pubrec/sent         | Accumulative sent packets of MQTT PUBREC          |
++-----------------------------+---------------------------------------------------+
+| packets/pubrec/missed       | Accumulative missed packets of MQTT PUBREC        |
++-----------------------------+---------------------------------------------------+
+| packets/pubrel/received     | Accumulative received packets of MQTT PUBREL      |
++-----------------------------+---------------------------------------------------+
+| packets/pubrel/sent         | Accumulative sent packets of MQTT PUBREL          |
++-----------------------------+---------------------------------------------------+
+| packets/pubrel/missed       | Accumulative missed packets of MQTT PUBREL        |
++-----------------------------+---------------------------------------------------+
+| packets/pubcomp/received    | Accumulative received packets of MQTT PUBCOMP     |
++-----------------------------+---------------------------------------------------+
+| packets/pubcomp/sent        | Accumulative sent packets of MQTT PUBCOMP         |
++-----------------------------+---------------------------------------------------+
+| packets/pubcomp/missed      | Accumulative missed packets of MQTT PUBCOMP       |
++-----------------------------+---------------------------------------------------+
+| packets/subscribe           | Accumulative received packets of MQTT SUBSCRIBE   |
++-----------------------------+---------------------------------------------------+
+| packets/suback              | Accumulative sent packets of MQTT SUBACK          |
++-----------------------------+---------------------------------------------------+
 | packets/unsubscribe         | Accumulative received packets of MQTT UNSUBSCRIBE |
-+-----------------------------+---------------------------------------------+
-| packets/unsuback            | Accumulative sent packets of  MQTT UNSUBACK |
-+-----------------------------+---------------------------------------------+
-| packets/pingreq             | Accumulative received packets of MQTT PINGREQ |
-+-----------------------------+---------------------------------------------+
-| packets/pingresp            | Accumulative sent packets of MQTT PINGRESP  |
-+-----------------------------+---------------------------------------------+
-| packets/disconnect/received | Accumulative received packets of MQTT DISCONNECT |
-+-----------------------------+---------------------------------------------+
++-----------------------------+---------------------------------------------------+
+| packets/unsuback            | Accumulative sent packets of  MQTT UNSUBACK       |
++-----------------------------+---------------------------------------------------+
+| packets/pingreq             | Accumulative received packets of MQTT PINGREQ     |
++-----------------------------+---------------------------------------------------+
+| packets/pingresp            | Accumulative sent packets of MQTT PINGRESP        |
++-----------------------------+---------------------------------------------------+
+| packets/disconnect/received | Accumulative received packets of MQTT DISCONNECT  |
++-----------------------------+---------------------------------------------------+
 | packets/disconnect/sent     | Accumulative sent packets of MQTT MQTT DISCONNECT |
-+-----------------------------+---------------------------------------------+
-| packets/auth                | Accumulative received packets of Auth       |
-+-----------------------------+---------------------------------------------+
++-----------------------------+---------------------------------------------------+
+| packets/auth                | Accumulative received packets of Auth             |
++-----------------------------+---------------------------------------------------+
 
 MQTT sent and received messages statistics
-:::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::
 
-+--------------------------+---------------------------------------------+
-| Topic                    | Description                                 |
-+--------------------------+---------------------------------------------+
-| messages/received        | Accumulative received messages              |
-+--------------------------+---------------------------------------------+
-| messages/sent            | Accumulative sent messages                  |
-+--------------------------+---------------------------------------------+
-| messages/expired         | Accumulative expired   messages             |
-+--------------------------+---------------------------------------------+
-| messages/retained        | Accumulative retained  messages             |
-+--------------------------+---------------------------------------------+
-| messages/dropped         | Total number of dropped messages            |
-+--------------------------+---------------------------------------------+
++--------------------------+------------------------------------------------+
+| Topic                    | Description                                    |
++--------------------------+------------------------------------------------+
+| messages/received        | Accumulative received messages                 |
++--------------------------+------------------------------------------------+
+| messages/sent            | Accumulative sent messages                     |
++--------------------------+------------------------------------------------+
+| messages/expired         | Accumulative expired   messages                |
++--------------------------+------------------------------------------------+
+| messages/retained        | Accumulative retained  messages                |
++--------------------------+------------------------------------------------+
+| messages/dropped         | Total number of dropped messages               |
++--------------------------+------------------------------------------------+
 | messages/forward         | Total number of messages forwarded by the node |
-+--------------------------+---------------------------------------------+
-| messages/qos0/received   | Accumulative received messages of QoS0     |
-+--------------------------+---------------------------------------------+
-| messages/qos0/sent       | Accumulative sent messages of QoS0          |
-+--------------------------+---------------------------------------------+
-| messages/qos1/received   | Accumulative received messages QoS1         |
-+--------------------------+---------------------------------------------+
-| messages/qos1/sent       | Accumulative sent   messages QoS1           |
-+--------------------------+---------------------------------------------+
-| messages/qos2/received   |  Accumulative received messages of QoS2     |
-+--------------------------+---------------------------------------------+
-| messages/qos2/sent       | Accumulative sent messages of QoS2          |
-+--------------------------+---------------------------------------------+
-| messages/qos2/expired    | Total number of expired messages  of QoS2   |
-+--------------------------+---------------------------------------------+
-| messages/qos2/dropped    | Total number of dropped messages  of QoS2   |
-+--------------------------+---------------------------------------------+
++--------------------------+------------------------------------------------+
+| messages/qos0/received   | Accumulative received messages of QoS0         |
++--------------------------+------------------------------------------------+
+| messages/qos0/sent       | Accumulative sent messages of QoS0             |
++--------------------------+------------------------------------------------+
+| messages/qos1/received   | Accumulative received messages QoS1            |
++--------------------------+------------------------------------------------+
+| messages/qos1/sent       | Accumulative sent   messages QoS1              |
++--------------------------+------------------------------------------------+
+| messages/qos2/received   |  Accumulative received messages of QoS2        |
++--------------------------+------------------------------------------------+
+| messages/qos2/sent       | Accumulative sent messages of QoS2             |
++--------------------------+------------------------------------------------+
+| messages/qos2/expired    | Total number of expired messages  of QoS2      |
++--------------------------+------------------------------------------------+
+| messages/qos2/dropped    | Total number of dropped messages  of QoS2      |
++--------------------------+------------------------------------------------+
 
 .. _sys_alarms:
 
 Alarms - system alarms
->>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 System Topic Prefix: $SYS/brokers/${node}/alarms/
 
-+------------------+------------------+
-| Topic            | Description      |
-+------------------+------------------+
++------------------+----------------------+
+| Topic            | Description          |
++------------------+----------------------+
 | ${alarmId}/alert | newly generated alarm|
-+------------------+------------------+
-| ${alarmId}/clear | cleared alarm    |
-+------------------+------------------+
++------------------+----------------------+
+| ${alarmId}/clear | cleared alarm        |
++------------------+----------------------+
 
 .. _sys_sysmon:
 
 Sysmon - system monitoring
->>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 System Topic Prefix: $SYS/brokers/${node}/sysmon/
 
@@ -853,7 +853,7 @@ System Topic Prefix: $SYS/brokers/${node}/sysmon/
 .. _trace:
 
 Trace
-----
+------
 
 EMQ X message server supports tracing all messages from a client or published to a topic.
 

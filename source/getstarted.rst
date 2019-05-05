@@ -51,9 +51,9 @@ Topic uses '/' as a separator to distinguish between different levels. Topics th
 
 .. _features:
 
--------------------------------
+---------------------------------------
 EMQ X R3.1 Message Server Features List
--------------------------------
+---------------------------------------
 
 * Complete MQTT V3.1/V3.1.1 and V5.0 protocol specification support
 * QoS0, QoS1, QoS2 message support
@@ -126,9 +126,9 @@ Console address: http://127.0.0.1:18083，default username: admin，password:pub
 
 .. _mqtt_clients:
 
---------------------
+--------------------------------
 Open source MQTT client project
---------------------
+--------------------------------
 
 GitHub: https://github.com/emqtt
 

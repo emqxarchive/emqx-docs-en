@@ -8,55 +8,55 @@ Through module registration and hooks (Hooks) mechanism，EMQ X broker supports 
 
 The official plug-ins provided by EMQ X include:：
 
-+---------------------------+---------------------------------------+------------------------------------+
-|  Plugin                   | Configuration file                    | Description                        |
-+===========================+=======================================+====================================+
-| `emqx_dashboard`_         + etc/plugins/emqx_dashbord.conf        | Web dashboard Plugin (Default)     |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_clientid`_     + etc/plugins/emqx_auth_clientid.conf   | ClientId Auth Plugin               |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_username`_     + etc/plugins/emqx_auth_username.conf   | Username/Password Auth Plugin      |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_jwt`_          + etc/plugins/emqx_auth_jwt.conf        | JWT Auth/access control            |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_ldap`_         + etc/plugins/emqx_auth_ldap.conf       | LDAP Auth/access control           |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_http`_         + etc/plugins/emqx_auth_http.conf       | HTTP Auth/access control           |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_mongo`_        + etc/plugins/emqx_auth_mongo.conf      | MongoDB Auth/access control        |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_mysql`_        + etc/plugins/emqx_auth_mysql.conf      | MySQL Auth/access control          |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_pgsql`_        + etc/plugins/emqx_auth_pgsql.conf      | PostgreSQL Auth/access control     |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_auth_redis`_        + etc/plugins/emqx_auth_redis.conf      | Redis Auth/access control          |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_psk_file`_          + etc/plugins/emqx_psk_file.conf        | PSK support                        |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_web_hook`_          + etc/plugins/emqx_web_hook.conf        | Web Hook Plugin                    |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_lua_hook`_          + etc/plugins/emqx_lua_hook.conf        | Lua Hook Plugin                    |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_retainer`_          + etc/plugins/emqx_retainer.conf        | Retain Message storage module      |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_rule_engine`_       + etc/plugins/emqx_rule_engine.conf     | Rule engine                        |
-+---------------------------+---------------------------------------+------------------------------------+
++---------------------------+---------------------------------------+-------------------------------------+
+|  Plugin                   | Configuration file                    | Description                         |
++===========================+=======================================+=====================================+
+| `emqx_dashboard`_         + etc/plugins/emqx_dashbord.conf        | Web dashboard Plugin (Default)      |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_clientid`_     + etc/plugins/emqx_auth_clientid.conf   | ClientId Auth Plugin                |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_username`_     + etc/plugins/emqx_auth_username.conf   | Username/Password Auth Plugin       |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_jwt`_          + etc/plugins/emqx_auth_jwt.conf        | JWT Auth/access control             |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_ldap`_         + etc/plugins/emqx_auth_ldap.conf       | LDAP Auth/access control            |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_http`_         + etc/plugins/emqx_auth_http.conf       | HTTP Auth/access control            |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_mongo`_        + etc/plugins/emqx_auth_mongo.conf      | MongoDB Auth/access control         |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_mysql`_        + etc/plugins/emqx_auth_mysql.conf      | MySQL Auth/access control           |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_pgsql`_        + etc/plugins/emqx_auth_pgsql.conf      | PostgreSQL Auth/access control      |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_auth_redis`_        + etc/plugins/emqx_auth_redis.conf      | Redis Auth/access control           |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_psk_file`_          + etc/plugins/emqx_psk_file.conf        | PSK support                         |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_web_hook`_          + etc/plugins/emqx_web_hook.conf        | Web Hook Plugin                     |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_lua_hook`_          + etc/plugins/emqx_lua_hook.conf        | Lua Hook Plugin                     |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_retainer`_          + etc/plugins/emqx_retainer.conf        | Retain Message storage module       |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_rule_engine`_       + etc/plugins/emqx_rule_engine.conf     | Rule engine                         |
++---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_delayed_publish`_   + etc/plugins/emqx_delayed_publish.conf | Client message publish delay support|
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_coap`_              + etc/plugins/emqx_coap.conf            | CoAP protocol support              |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_lwm2m`_             + etc/plugins/emqx_lwm2m.conf           | LwM2M protocol support             |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_sn`_                + etc/plugins/emqx_sn.conf              | MQTT-SN protocol support           |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_stomp`_             + etc/plugins/emqx_stomp.conf           | Stomp protocol support             |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_recon`_             + etc/plugins/emqx_recon.conf           | Recon performance debugging        |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_reloader`_          + etc/plugins/emqx_reloader.conf        | Reloader Code hot load plugin      |
-+---------------------------+---------------------------------------+------------------------------------+
-| `emqx_plugin_template`_   + etc/plugins/emqx_plugin_template.conf | plugin develop template            |
-+---------------------------+---------------------------------------+------------------------------------+
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_coap`_              + etc/plugins/emqx_coap.conf            | CoAP protocol support               |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_lwm2m`_             + etc/plugins/emqx_lwm2m.conf           | LwM2M protocol support              |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_sn`_                + etc/plugins/emqx_sn.conf              | MQTT-SN protocol support            |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_stomp`_             + etc/plugins/emqx_stomp.conf           | Stomp protocol support              |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_recon`_             + etc/plugins/emqx_recon.conf           | Recon performance debugging         |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_reloader`_          + etc/plugins/emqx_reloader.conf        | Reloader Code hot load plugin       |
++---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_plugin_template`_   + etc/plugins/emqx_plugin_template.conf | plugin develop template             |
++---------------------------+---------------------------------------+-------------------------------------+
 
 There are four ways to load plugins:
 
@@ -163,7 +163,7 @@ Username authentication plugin
 .. important:: Starting with EMQ X 3.1, only the REST API/CLI management clientid is supported, and adding the default username from the configuration file is no longer supported.
 
 Username authentication configuration
-:::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::
 
 etc/plugins/emqx_auth_username.conf:
 
@@ -174,7 +174,7 @@ etc/plugins/emqx_auth_username.conf:
     auth.user.password_hash = sha256
 
 JWT authentication plugin
-------------------------
+---------------------------
 
 `emqx_auth_jwt`_  supports a `JWT`_-based way to authenticate connected clients and only supports connection authentication. It parses and verifies the legitimacy and timeliness of the Token, and  allows connection when satisfied.
 
@@ -196,12 +196,12 @@ etc/plugins/emqx_auth_jwt.conf:
     auth.jwt.from = password
 
 LDAP authentication/access control plugin
---------------------------------------
+------------------------------------------
 
 `emqx_auth_ldap`_ Emqx_auth_ldap supports access to `LDAP`_ for connection authentication and access control.
 
 LDAP authentication plugin configuration
-::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::
 
 etc/plugins/emqx_auth_ldap.conf:
 
@@ -241,7 +241,7 @@ etc/plugins/emqx_auth_ldap.conf:
 
 
 HTTP authentication/access control plugin
-----------------------------------------
+-------------------------------------------
 
 `emqx_auth_http`_  implements the functionality of connection authentication and access control. It sends each request to the specified HTTP service and determines whether it has operational rights by its return value.
 The plugin supports a total of three requests:
@@ -431,7 +431,7 @@ In addition, to prevent the safety issue caused by password domain  being too si
 .. note:: %cn %dn support is added in version 3.1.
 
 Postgres authentication plugin
-------------------------------
+-------------------------------
 
 `emqx_auth_pgsql`_ implements connection authentication and access control by accessing Postgres. Two tables are required to be difined  as follows:
 
@@ -449,7 +449,7 @@ Postgres MQTT  User Table
     );
 
 Postgres MQTT Access control table
-::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::
 
 .. code:: sql
 
@@ -543,7 +543,7 @@ Enable the following configuration to support TLS connections to Postgres:
 .. note:: %cn %dn support is added in version 3.1.
 
 Redis Authentication/Access Control Plugin
----------------------------------------
+--------------------------------------------
 
 `emqx_auth_redis`_  implements connection authentication and access control functions by accessing Redis data.
 
@@ -698,7 +698,7 @@ etc/plugins/emqx_auth_mongo.conf:
 .. note:: %cn %dn support is added in version 3.1.
 
 MongoDB database
-::::::::::::::
+::::::::::::::::::
 
 .. code:: javascript
 
@@ -729,7 +729,7 @@ Example:
     db.mqtt_user:insert({username: "root", is_superuser: true})
 
 MongoDB ACL collection
-:::::::::::::::::::::
+:::::::::::::::::::::::
 
 .. code:: javascript
 
@@ -801,7 +801,7 @@ Retainer plugin
 `emqx_retainer`_  is set to start by default and provides Retained type message support for EMQ X. It stores the Retained messages for all topics in the cluster's database and posts the message when the client subscribes to the topic
 
 Retainer plugin configuration
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::
 
 etc/plugins/emqx_retainer.conf:
 
@@ -829,7 +829,7 @@ Delayed Publish plugin
 `emqx_delayed_publish`_ provides the function to delay sending messages. When the client posts a message to EMQ X using the special topic prefix ``$delayed/<seconds>/``, EMQ X will publish the topic message after <seconds> seconds. 
 
 CoAP  protocol plugin
---------------------
+-----------------------
 
 `emqx_coap`_ provides support for the CoAP protocol (RFC 7252)。
 
@@ -867,7 +867,7 @@ We can test EMQ X's support for the CoAP protocol by installing libcoap.
     coap-client -m put -e "qos=0&retain=0&message=payload&topic=hello" coap://localhost/mqtt
 
 LwM2M protocol plugin
-----------------
+----------------------
 
 `emqx_lwm2m`_ provides support for the LwM2M protocol.
 
@@ -925,7 +925,7 @@ Again, DTLS support can be enabled with the following configuration:
     lwm2m.keyfile = etc/certs/key.pem
 
 MQTT-SN  protocol plugin
-------------------
+-------------------------
 
 `emqx_sn`_ provides support for the MQTT-SN protocol
 
@@ -939,7 +939,7 @@ etc/plugins/emqx_sn.conf:
     mqtt.sn.port = 1884
 
 Stomp protocol plugin
------------------
+----------------------
 
 `emqx_stomp`_  provides support for the Stomp protocol, and supports client to connect to EMQ X through Stomp 1.0/1.1/1.2 protocol, publish and subscribe MQTT message.
 
@@ -971,7 +971,7 @@ etc/plugins/emqx_stomp.conf:
     stomp.listener.max_clients = 512
 
 Recon Performance Debugging Plugin
-----------------------------------
+-----------------------------------
 
 `emqx_recon`_ integrates the recon performance tuning library to view status information about the current system, for example:
 
@@ -996,7 +996,7 @@ etc/plugins/emqx_recon.conf:
     recon.gc_interval = 600
 
 Reloader  hot load plugin
---------------------
+--------------------------
 
 `emqx_reloader`_  is used for code hot-upgrade. After loading the plug-in, EMQ X updates the code automatically according to the configuration interval.
 
@@ -1020,7 +1020,7 @@ etc/plugins/emqx_reloader.conf:
     reloader.logfile = log/reloader.log
 
 Plugin development template
----------------
+----------------------------
 
 `emqx_plugin_template`_ is an EMQ X plugin template that doesn't make any sense in functionality.
 
@@ -1030,13 +1030,13 @@ EMQ X R3.1 plugin development
 -----------------------------
 
 Create a plugin project
-::::::::::::
+::::::::::::::::::::::::
 
 Create a new plugin project with reference to the `emqx_plugin_template`_ .
 .. NOTE:: The tag ``-emqx_plugin(?MODULE).`` must be added to the ``<plugin name>_app.erl`` file to indicate that this is a plugin for EMQ X.
 
 Create an authentication/access control module
-::::::::::::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::
 
 Authentication demo module - emqx_auth_demo.erl
 
@@ -1092,7 +1092,7 @@ Registration authentication, access control module - emqx_plugin_template_app.er
     ok = emqx:hook('client.check_acl', fun emqx_acl_demo:check_acl/5, []).
 
 Hooks
-::::::::::::::::
+:::::::
 
 client online and offline, topic subscription, message sending and receiving can be handlled through hooks.
 
@@ -1155,7 +1155,7 @@ All available hooks description:
 +------------------------+----------------------------------+
 
 Register CLI command
-::::::::::::::::::
+:::::::::::::::::::::
 
 Demo module for extended command line - emqx_cli_demo.erl
 
@@ -1184,7 +1184,7 @@ After the plugin is loaded，a new command line is added by ``./bin/emqx_ctl``�
     ./bin/emqx_ctl cmd arg1 arg2
 
 Plugin configuration file
-:::::::::::::::::::::::
+::::::::::::::::::::::::::
 
 The plugin comes with a configuration file placed in ``etc/${plugin_name}.conf|config``. EMQ X supports two plugin configuration formats:
 
@@ -1203,7 +1203,7 @@ The plugin comes with a configuration file placed in ``etc/${plugin_name}.conf|c
 .. NOTE:: ``k = v`` ormat configuration requires the plugin developer to create a ``priv/plugin_name.schema`` mapping file.
 
 Compile and release plugin
-:::::::::::::::::::::::
+:::::::::::::::::::::::::::
 
 1. clone emqx-rel project:
 

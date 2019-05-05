@@ -14,7 +14,7 @@ The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD,
 .. _install_download:
 
 *EMQ X* package download
------------------------
+-------------------------
 
 Each version of the EMQ X broker will release package of CentOS, Ubuntu, Debian, FreeBSD, macOS, Windows, openSUSE platform and Docker images.
 
@@ -30,7 +30,7 @@ CentOS
 + CentOS7.X
 
 Install via repository
->>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Install the required dependency
 
@@ -97,7 +97,7 @@ Install via repository
                 $ sudo service emqx start
 
 Install via rpm 
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>
 
 1.  Select the CentOS version via emqx.io or github and download the rpm package for the EMQ X version to be installed.
 
@@ -133,7 +133,7 @@ Install via rpm
                 $ sudo service emqx start
 
 Install via zip package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1. Select the CentOS version via emqx.io or github and download the zip package for the EMQ X version to be installed.
 
@@ -155,7 +155,7 @@ Install via zip package
         emqx v3.1.0 is running
 
 Ubuntu
-------
+-------
 
 + Bionic 18.04 (LTS)
 + Xenial 16.04 (LTS)
@@ -163,7 +163,7 @@ Ubuntu
 + Precise 12.04 (LTS)
 
 Install via repository
->>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Install the required dependency
 
@@ -262,7 +262,7 @@ Install via repository
                 $ sudo service emqx start
 
 Install via deb package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the Ubuntu version via emqx.io or github and download the deb package for the EMQ X version to be installed.
 
@@ -298,7 +298,7 @@ Install via deb package
                 $ sudo service emqx start
 
 Install via zip package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the Ubuntu version via emqx.io or github and download the zip package for the EMQ X version to be installed.
 
@@ -320,13 +320,13 @@ Install via zip package
         emqx v3.1.0 is running
 
 Debian
-------
+-------
 
 + Stretch (Debian 9)
 + Jessie (Debian 8)
 
 Install via repository
->>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Install the required dependency
 
@@ -425,7 +425,7 @@ Install via repository
                 $ sudo service emqx start
 
 Install via deb package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the Debian version via emqx.io or github and download the deb package for the EMQ X version to be installed.
 
@@ -461,7 +461,7 @@ Install via deb package
                 $ sudo service emqx start
 
 Install via zip package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the Debian version via emqx.io or github and download the zip package for the EMQ X version to be installed.
 
@@ -483,12 +483,12 @@ Install via zip package
         emqx v3.1.0 is running
 
 macOS
------
+------
 
 .. _Homebrew: https://brew.sh/
 
 Install via Homebrew 
->>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>
 
 1.  Add tap of EMQ X
 
@@ -515,7 +515,7 @@ Install via Homebrew
         emqx v3.1.0 is running
 
 Install via zip package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the EMQ X version via emqx.io or github and download the zip package to install.
 
@@ -537,7 +537,7 @@ Install via zip package
         emqx v3.1.0 is running
 
 Windows
--------
+--------
 
 1.  Select the Windows version via emqx.io or github and download the .zip package to install.
 
@@ -551,12 +551,12 @@ Windows
         emqx start
 
 openSUSE
---------
+---------
 
 + openSUSE leap
 
 Install via repository 
->>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Download the GPG public key and import it.
 
@@ -625,7 +625,7 @@ Install via repository
                 $ sudo service emqx start
 
 Install via rpm package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select openSUSE via emqx.io or github and download the rpm package for the EMQ X version to be installed.
 
@@ -661,7 +661,7 @@ Install via rpm package
                 $ sudo service emqx start
 
 Install via zip package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select openSUSE via emqx.io or github and download the zip package for the EMQ X version to be installed.
 
@@ -684,12 +684,12 @@ Install via zip package
         emqx v3.1.0 is running
 
 FreeBSD
--------
+--------
 
 + FreeBSD 12
 
 Install via zip package
->>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select FreeBSD via emqx.io or github and download the zip package for the EMQ X version to be installed.
 
@@ -711,7 +711,7 @@ Install via zip package
         emqx v3.1.0 is running
 
 Docker
-------
+-------
 
 .. _Docker Hub: https://hub.docker.com/r/emqx/emqx
 .. _EMQ X Docker: https://github.com/emqx/emqx-docker
@@ -741,10 +741,10 @@ Docker
 For more information on EMQ X Docker, please check `Docker Hub`_ or `EMQ X Docker`_.
 
 Source code compilation and installation
-----------------------------------------
+-----------------------------------------
 
 Environmental requirements
->>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 EMQ X broker is developed on the Erlang/OTP platform. It is maintanied and managed on GitHub, and source code compilation relies on the Erlang environment and the git client.
 
@@ -755,7 +755,7 @@ Erlang Install: http://www.erlang.org/
 Git client: http://www.git-scm.com/
 
 Compile and install EMQ X
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Get the source code
 
@@ -789,7 +789,7 @@ Compile and install EMQ X
         emqx v3.1.0 is running
 
 Windows source code compilation and installation
---------------------
+-------------------------------------------------
 
 Erlang install: http://www.erlang.org/
 
