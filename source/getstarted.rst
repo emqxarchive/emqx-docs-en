@@ -9,7 +9,7 @@ Get Started
 *EMQ X* R3.1 Message Server introduction
 -------------------------------------------
 
-EMQ X (Erlang/Enterprise/Elastic MQTT Broker) is an open source IoT MQTT message server based on the Erlang/OTP platform. Erlang/OTP is an excellent soft-realtime,Low-Latency and distributed language platform. MQTT is a lightweight, publish-subscribe model (PubSub) IoT message protocol.
+EMQ X (Erlang/Enterprise/Elastic MQTT Broker) is an open source IoT MQTT message server based on the Erlang/OTP platform. Erlang/OTP is an excellent soft-realtime, low-latency and distributed language platform. MQTT is a lightweight, publish-subscribe model (PubSub) IoT message protocol.
 
 *EMQ X* is designed for massive **mobile/IoT/vehicle** terminal access and realizes fast and low-latency message routing between massive physical network devices:
 
@@ -118,9 +118,9 @@ Once the package is downloaded, it can be unzipped the startup directly, such as
 
 After EMQ X is started, the MQTT client can access the system through port 1883. The running log output is in the directory of log/.
 
-EMQ X loads the Dashboard plugin and launches the web management console by default. Users can view server running status, statistics, Connections, Sessions, Topics, Subscriptions, and Plugins through the web console.
+EMQ X loads the dashboard plugin and launches the web management console by default. Users can view server running status, statistics, connections, sessions, topics, subscriptions, and plugins through the web console.
 
-Console address: http://127.0.0.1:18083，default username: admin，password:public
+Console address: http://127.0.0.1:18083，default username: admin，password: public
 
 .. image:: ./_static/images/dashboard.png
 
@@ -133,13 +133,13 @@ Open source MQTT client project
 GitHub: https://github.com/emqtt
 
 +--------------------+------------------------------------+
-| `emqttc`_          | Erlang MQTT client library         |
+| `emqttc`_          | Erlang MQTT Client Library         |
 +--------------------+------------------------------------+
 | `CocoaMQTT`_       | Swift Language MQTT Client Library |
 +--------------------+------------------------------------+
-| `QMQTT`_           | QT framework MQTT client library   |
+| `QMQTT`_           | QT framework MQTT Client Library   |
 +--------------------+------------------------------------+
-| `emqtt_benchmark`_ | MQTT connection and test tool      |
+| `emqtt_benchmark`_ | MQTT Benchmark Tool                |
 +--------------------+------------------------------------+
 
 Eclipse Paho: https://www.eclipse.org/paho/
