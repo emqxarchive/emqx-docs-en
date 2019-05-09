@@ -455,7 +455,7 @@ Bug fixes:
 Version 3.1-beta.3
 ------------------
 
-*Release Date: 2019-03-22*
+*Release Date: 2019-04-26*
 
 EMQ X 3.1-beta.3 is now available. In this version we've introduced rule engine,
 improved plugin discovery mechanism, fixed some bugs, and so on.

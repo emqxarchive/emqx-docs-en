@@ -1,9 +1,8 @@
-
 .. _bridge:
 
-===========
-Bridge Node
-===========
+======
+Bridge
+======
 
 .. _bridge_emqx:
 
@@ -11,225 +10,181 @@ Bridge Node
 EMQ X Node Bridge
 -----------------
 
-EMQ X support two ways to bridge different nodes, rpc and mqtt. However, RPC
-bridge just support forwarding message, it doesn't support to subscribe topics
-of remote nodes to sync messages. Instead, MQTT bridge both supports message
-synchronize from remote nodes and forwarding messages from local node.
+The concept of **Bridge** means that EMQ X supports forwarding messages of one of its own topics to another MQTT Broker in some way.
 
-Bridging nodes is different from cluster, it is only charge of forwarding
-messages on the basis of bridge rule. It won't copy the topic tree and routers.
+**Bridge ** differs from **Cluster** in that the bridge does not replicate the topic trie and routing tables and only forwards MQTT messages based on bridging rules.
 
-Two or more *EMQ X* brokers can be bridged together. Bridges forward MQTT messages from one broker node to another::
+At present, the bridging methods supported by EMQ X are as follows:
+
+- RPC bridge: RPC Bridge only supports message forwarding and does not support subscribing to the topic of remote nodes to synchronize data;
+- MQTT Bridge: MQTT Bridge supports both forwarding and data synchronization through subscription topic.
+
+These concepts are shown below:
+
+.. image:: ./_static/images/bridge.png
+
+In addition, the EMQ X message broker supports multi-node bridge mode interconnection::
 
                   ---------                     ---------                     ---------
     Publisher --> | Node1 | --Bridge Forward--> | Node2 | --Bridge Forward--> | Node3 | --> Subscriber
                   ---------                     ---------                     ---------
 
-Configure Bridge
------------------
+In EMQ X, bridge is configured by modifying ``etc/emqx.conf``. EMQ X distinguishes between different bridges based on different names. E.g::
 
-Suppose that we create two *EMQ X* brokers on localhost and create a bridge to
-forward messages of all sensors from emqx1 to emqx2.
+    ## Bridge address: node name for local bridge, host:port for remote.
+    bridge.aws.address = 127.0.0.1:1883
+
+This configuration declares a bridge named ``aws`` and specifies that it is bridged to the MQTT broker of 127.0.0.1:1883 by MQTT mode.
+
+In case of creating multiple bridges, it is convenient to replicate all configuration items of the first bridge, and modify the bridge name and other configuration items if necessary (such as bridge.$name.address, where $name refers to the name of bridge)
+
+The next two sections describe how to create a bridge in RPC and MQTT mode respectively and create a forwarding rule that forwards the messages from sensors. Assuming that two EMQ X nodes are running on two hosts:
 
 +---------+---------------------+-----------+
 | Name    | Node                | MQTT Port |
 +---------+---------------------+-----------+
-| emqx1   | emqx1@127.0.0.1     | 1883      |
+| emqx1   | emqx1@192.168.1.1   | 1883      |
 +---------+---------------------+-----------+
-| emqx2   | emqx2@127.0.0.1     | 2883      |
+| emqx2   | emqx2@192.168.1.2   | 1883      |
 +---------+---------------------+-----------+
 
-If the messages matched topic "sensor/#" are forwarded from node emqx1 to node
-emqx2. The bridge can be configured as bellow::
 
-    ## Bridge address: node name for local bridge, host:port for remote.
+EMQ X Node RPC Bridge Configuration
+-----------------------------------
+
+The following is the basic configuration of RPC bridging. A simplest RPC bridging only requires the following three items::
+
+    ## Bridge Address: Use node name (nodename@host) for rpc bridging, and host:port for mqtt connection
+    bridge.emqx2.address = emqx2@192.168.1.2
+
+    ## Forwarding topics of the message
+    bridge.emqx2.forwards = sensor1/#,sensor2/#
+
+    ## bridged mountpoint
+    bridge.emqx2.mountpoint = bridge/emqx2/${node}/
+
+If the messages received by the local node emqx1 matches the topic ``sersor1/#`` or ``sensor2/#``, these messages will be forwarded to the ``sensor1/#`` or ``sensor2/#`` topic of the remote node emqx2.
+
+``forwards`` is used to specify topics. Messages of the in ``forwards`` specified topics on local node are forwarded to the remote node.
+
+``mountpoint`` is used to add a topic prefix when forwarding a message. To use ``mountpoint``, the ``forwards`` directive must be set. In the above example, a message with the topic ``sensor1/hello`` received by the local node will be forwarded to the remote node with the topic ``bridge/emqx2/emqx1@192.168.1.1/sensor1/hello``.
+
+Limitations of RPC bridging:
+
+1. The RPC bridge of emqx can only forward local messages to the remote node, and cannot synchronize the messages of the remote node to the local node;
+
+2. RPC bridge can only bridge two EMQ X broker together and cannot bridge EMQ X broker to other MQTT brokers.
+
+
+EMQ X Node MQTT Bridge Configuration
+------------------------------------
+
+EMQ X 3.0 officially introduced MQTT bridge, so that EMQ X can bridge any MQTT broker. Because of the characteristics of the MQTT protocol, EMQ X can subscribe to the remote mqtt broker's topic through MQTT bridge, and then synchronize the remote MQTT broker's message to the local.
+
+EMQ X MQTT bridging principle: Create an MQTT client on the EMQ X broker, and connect this MQTT client to the remote MQTT broker. Therefore, in the MQTT bridge configuration, following fields may be set for the EMQ X to connect to the remote broker as an mqtt client::
+
+    ## Bridge Address: Use node name for rpc bridging, use host:port for mqtt connection
+    bridge.emqx2.address = 192.168.1.2:1883
+
+    ## Bridged Protocol Version
+    ## Enumeration value: mqttv3 | mqttv4 | mqttv5
+    bridge.emqx2.proto_ver = mqttv4
+
+    ## mqtt client's client_id
+    bridge.emqx2.client_id = bridge_emq
+
+    ## mqtt client's clean_start field
+    ## Note: Some MQTT Brokers need to set the clean_start value as `true`
+    bridge.emqx2.clean_start = true
+
+    ##  mqtt client's username field
+    bridge.emqx2.username = user
+
+    ## mqtt client's password field
+    bridge.emqx2.password = passwd
+
+    ## Whether the mqtt client uses ssl to connect to a remote serve or not
+    bridge.emqx2.ssl = off
+
+    ## CA Certificate of Client SSL Connection (PEM format)
+    bridge.emqx2.cacertfile = etc/certs/cacert.pem
+
+    ## SSL certificate of Client SSL connection 
+    bridge.emqx2.certfile = etc/certs/client-cert.pem
+
+    ## Key file of Client SSL connection 
+    bridge.emqx2.keyfile = etc/certs/client-key.pem
+
+    ## SSL encryption
+    bridge.emqx2.ciphers = ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384
+
+    ## TTLS PSK password
+    ## Note 'listener.ssl.external.ciphers' and 'listener.ssl.external.psk_ciphers' cannot be configured at the same time
     ##
-    ## Value: String
-    ## Example: emqx@127.0.0.1,  127.0.0.1:1883
-    bridge.emqx.address = 127.0.0.1:2883
-
-    ## Mountpoint of the bridge.
-    ##
-    ## Value: String
-    bridge.emqx.mountpoint = bridge/emqx/${node}/
-
-    ## Forward message topics
-    ##
-    ## Value: String
-    ## Example: topic1/#,topic2/#
-    bridge.emqx.forwards = sensor/#
-
-If the bridge is rpc bridge, the configuration entry: bridge.emqx.address = 127.0.0.1
-should be modified as emqx2@127.0.0.1
-
-EMQ X  MQTT bridge
------------------------------
-
-Some config entries can only take effect on mqtt bridge. For example::
-
-    ## Protocol version of the bridge.
-    ##
-    ## Value: Enum
-    ## - mqttv5
-    ## - mqttv4
-    ## - mqttv3
-    bridge.emqx.proto_ver = mqttv4
-
-    ## The ClientId of a remote bridge.
-    ##
-    ## Value: String
-    bridge.emqx.client_id = bridge_emq
-
-    ## The Clean start flag of a remote bridge.
-    ##
-    ## Value: boolean
-    ## Default: true
-    ##
-    ## NOTE: Some IoT platforms require clean_start
-    ##       must be set to 'true'
-    bridge.emqx.clean_start = true
-
-    ## The username for a remote bridge.
-    ##
-    ## Value: String
-    bridge.emqx.username = user
-
-    ## The password for a remote bridge.
-    ##
-    ## Value: String
-    bridge.emqx.password = passwd
-
-    ## Mountpoint of the bridge.
-    ##
-    ## Value: String
-    bridge.emqx.mountpoint = bridge/aws/${node}/
-
-    ## Forward message topics
-    ##
-    ## Value: String
-    ## Example: topic1/#,topic2/#
-    bridge.emqx.forwards = sensor1/#,sensor2/#
-
-    ## Bribge to remote server via SSL.
-    ##
-    ## Value: on | off
-    bridge.emqx.ssl = off
-
-    ## PEM-encoded CA certificates of the bridge.
-    ##
-    ## Value: File
-    bridge.emqx.cacertfile = {{ platform_etc_dir }}/certs/cacert.pem
-
-    ## Client SSL Certfile of the bridge.
-    ##
-    ## Value: File
-    bridge.emqx.certfile = {{ platform_etc_dir }}/certs/client-cert.pem
-
-    ## Client SSL Keyfile of the bridge.
-    ##
-    ## Value: File
-    bridge.emqx.keyfile = {{ platform_etc_dir }}/certs/client-key.pem
-
-    ## SSL Ciphers used by the bridge.
-    ##
-    ## Value: String
-    bridge.emqx.ciphers = ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384
-
-    ## Ciphers for TLS PSK.
-    ## Note that 'listener.ssl.external.ciphers' and 'listener.ssl.external.psk_ciphers' cannot
-    ## be configured at the same time.
     ## See 'https://tools.ietf.org/html/rfc4279#section-2'.
-    bridge.emqx.psk_ciphers = PSK-AES128-CBC-SHA,PSK-AES256-CBC-SHA,PSK-3DES-EDE-CBC-SHA,PSK-RC4-SHA
+    ## bridge.emqx2.psk_ciphers = PSK-AES128-CBC-SHA,PSK-AES256-CBC-SHA,PSK-3DES-EDE-CBC-SHA,PSK-RC4-SHA
 
-    ## Ping interval of a down bridge.
-    ##
-    ## Value: Duration
-    ## Default: 10 seconds
-    bridge.emqx.keepalive = 60s
+    ## Client's heartbeat interval
+    bridge.emqx2.keepalive = 60s
 
-    ## TLS versions used by the bridge.
-    ##
-    ## Value: String
-    bridge.emqx.tls_versions = tlsv1.2,tlsv1.1,tlsv1
+    ## Supported TLS version
+    bridge.emqx2.tls_versions = tlsv1.2,tlsv1.1,tlsv1
 
-    ## Subscriptions of the bridge topic.
-    ##
-    ## Value: String
-    bridge.emqx.subscription.1.topic = cmd/topic1
+    ## Forwarding topics of the message
+    bridge.emqx2.forwards = sensor1/#,sensor2/#
 
-    ## Subscriptions of the bridge qos.
-    ##
-    ## Value: Number
-    bridge.emqx.subscription.1.qos = 1
+    ## Bridged mountpoint
+    bridge.emqx2.mountpoint = bridge/emqx2/${node}/
 
-    ## Subscriptions of the bridge topic.
-    ##
-    ## Value: String
-    bridge.emqx.subscription.2.topic = cmd/topic2
+    ## Subscription topic for bridging
+    bridge.emqx2.subscription.1.topic = cmd/topic1
 
-    ## Subscriptions of the bridge qos.
-    ##
-    ## Value: Number
-    bridge.emqx.subscription.2.qos = 1
+    ## Subscription qos for bridging
+    bridge.emqx2.subscription.1.qos = 1
 
-    ## Start type of the bridge.
-    ##
-    ## Value: enum
-    ## manual
-    ## auto
-    bridge.emqx.start_type = manual
+    ## Subscription topic for bridging
+    bridge.emqx2.subscription.2.topic = cmd/topic2
 
-    ## Bridge reconnect time.
-    ##
-    ## Value: Duration
-    ## Default: 30 seconds
-    bridge.emqx.reconnect_interval = 30s
+    ## Subscription qos for bridging
+    bridge.emqx2.subscription.2.qos = 1
 
-    ## Retry interval for bridge QoS1 message delivering.
-    ##
-    ## Value: Duration
-    bridge.emqx.retry_interval = 20s
+    ## Bridging reconnection interval
+    ## Default: 30s
+    bridge.emqx2.reconnect_interval = 30s
 
-    ## Inflight size.
-    ##
-    ## Value: Integer
-    bridge.emqx.max_inflight_batches = 32
+    ## QoS1 message retransmission interval
+    bridge.emqx2.retry_interval = 20s
 
-    ## Max number of messages to collect in a batch for
-    ## each send call towards emqx_bridge_connect
-    ##
-    ## Value: Integer
-    ## default: 32
-    bridge.emqx.queue.batch_count_limit = 32
+    ## Inflight Size.
+    bridge.emqx2.max_inflight_batches = 32
 
-    ## Max number of bytes to collect in a batch for each
-    ## send call towards emqx_bridge_connect
-    ##
-    ## Value: Bytesize
-    ## default: 1000M
-    bridge.emqx.queue.batch_bytes_limit = 1000MB
 
-    ## Base directory for replayq to store messages on disk
-    ## If this config entry is missing or set to undefined,
-    ## replayq works in a mem-only manner.
-    ##
-    ## Value: String
-    bridge.emqx.queue.replayq_dir = {{ platform_data_dir }}/emqx_emqx_bridge/
+EMQ X Bridge Cache Configuration
+--------------------------------
 
-    ## Replayq segment size
-    ##
-    ## Value: Bytesize
-    bridge.emqx.queue.replayq_seg_bytes = 10MB
+The bridge of EMQ X has a message caching mechanism. The caching mechanism is applicable to both RPC bridging and MQTT bridging. When the bridge is disconnected (such as when the network connection is unstable), the messages with a topic specified in ``forwards`` can be cached to the local message queue. Until the bridge is restored, these messages are re-forwarded to the remote node. The configuration of the cache queue is as follows::
 
-MQTT bridge is more flexible than RPC bridge. The config entries above are used
-by MQTT connection. Not only the messages could be synchronized from remote node
-to local node via mqtt bridge, but also the messages could be persisted on disk
-when the mqtt bridge is broken. And when the bridge is resumed, the messages
-would be published to remote nodes again. The config entry related to message
-cache is beginning with `bridge.$(Bridgename).queue`. And the config entry related
-to sync remote topic is beginning with `bridge.$(Bridgename).subscription`.
+    ## emqx_bridge internal number of messages used for batch
+    bridge.emqx2.queue.batch_count_limit = 32
 
-User could also control the bridge via cli except config file.
+    ##  emqx_bridge internal number of message bytes used for batch
+    bridge.emqx2.queue.batch_bytes_limit = 1000MB
+
+    ## The path for placing replayq queue. If it is not specified, then replayq will run in `mem-only` mode and messages will not be cached on disk.
+    bridge.emqx2.queue.replayq_dir = data/emqx_emqx2_bridge/
+    
+    ## Replayq data segment size
+    bridge.emqx2.queue.replayq_seg_bytes = 10MB
+
+``Bridge.emqx2.queue.replayq_dir`` is a configuration parameter for specifying the path of the bridge storage queue.
+
+``bridge.emqx2.queue.replayq_seg_bytes`` is used to specify the size of the largest single file of the message queue that is cached on disk. If the message queue size exceeds the specified value, a new file is created to store the message queue.
+
+
+CLI for EMQ X Bridge
+--------------------
+
+CLI for EMQ X Bridge:
 
 .. code-block:: bash
 
@@ -243,28 +198,28 @@ User could also control the bridge via cli except config file.
     bridges subscriptions <Name>                    # Show a bridge subscriptions topic
     bridges add-subscription <Name> <Topic> <Qos>   # Add bridge subscriptions topic
 
-list bridges
+List all bridge states
 
 .. code-block:: bash
 
     $ ./bin/emqx_ctl bridges list
     name: emqx     status: Stopped
 
-Start specified bridge
+Start the specified bridge
 
 .. code-block:: bash
 
     $ ./bin/emqx_ctl bridges start emqx
     Start bridge successfully.
 
-Stop specified bridge
+Stop the specified bridge
 
 .. code-block:: bash
 
     $ ./bin/emqx_ctl bridges stop emqx
     Stop bridge successfully.
 
-List forwarded topics of specified bridge
+List the forwarding topics for the specified bridge
 
 .. code-block:: bash
 
@@ -272,21 +227,21 @@ List forwarded topics of specified bridge
     topic:   topic1/#
     topic:   topic2/#
 
-Add forwarded topic of specified bridge
+Add a forwarding topic for the specified bridge
 
 .. code-block:: bash
 
     $ ./bin/emqx_ctl bridges add-forwards emqx topic3/#
     Add-forward topic successfully.
 
-Delete forwared topic for specifed bridge
+Delete the forwarding topic for the specified bridge
 
 .. code-block:: bash
 
     $ ./bin/emqx_ctl bridges del-forwards emqx topic3/#
     Del-forward topic successfully.
 
-List subscriptions of specified bridge
+List subscriptions for the specified bridge
 
 .. code-block:: bash
 
@@ -294,31 +249,33 @@ List subscriptions of specified bridge
     topic: cmd/topic1, qos: 1
     topic: cmd/topic2, qos: 1
 
-Add subscription of specified bridge
+Add a subscription topic for the specified bridge
 
 .. code-block:: bash
 
-    $ ./_rel/emqx/bin/emqx_ctl bridges add-subscription emqx cmd/topic3 1
+    $ ./bin/emqx_ctl bridges add-subscription emqx cmd/topic3 1
     Add-subscription topic successfully.
 
-Delete subscribed topic of specified bridge
+Delete the subscription topic for the specified bridge
 
 .. code-block:: bash
 
-    $ ./_rel/emqx/bin/emqx_ctl bridges del-subscription aws cmd/topic3
+    $ ./bin/emqx_ctl bridges del-subscription emqx cmd/topic3
     Del-subscription topic successfully.
 
-.. _bridge_mosquitto:    
+Note: In case of creating multiple bridges, it is convenient to replicate all configuration items of the first bridge, and modify the bridge name and other configuration items if necessary.
 
------------------
-mosquitto Bridge
------------------
+.. _bridge_mosquitto:
 
-Bridge mosquitto to emqx broker::
+---------------------------
+Bridging Mosquitto to EMQ X
+---------------------------
+
+Mosquitto supports bridging to the EMQ X broker using a normal MQTT connection::
 
                  -------------             -----------------
     Sensor ----> | mosquitto | --Bridge--> |               |
-                 -------------             |     EMQ X     |
+                 -------------             |      EMQ X    |
                  -------------             |    Cluster    |
     Sensor ----> | mosquitto | --Bridge--> |               |
                  -------------             -----------------
@@ -326,28 +283,28 @@ Bridge mosquitto to emqx broker::
 mosquitto.conf
 --------------
 
-Suppose that we start an emqx broker on localost:2883, and mosquitto on localhost:1883.
+On the local server (192.168.1.1) start the EMQ X broker at port 1883, and on the remote server (192.168.1.2) port 1883 start the mosquitto and create a bridge.
 
-A bridge configured in mosquitto.conf::
+mosquitto.conf configuration::
 
     connection emqx
-    address 127.0.0.1:2883
+    address 192.168.1.1:1883
     topic sensor/# out 2
 
     # Set the version of the MQTT protocol to use with for this bridge. Can be one
-    # of mqttv31 or mqttv311. Default is mqttv31.
+    # of mqttv31 or mqttv311. Defaults to mqttv31.
     bridge_protocol_version mqttv311
 
 .. _bridge_rsmb:
 
------------
-RSMB Bridge
------------
+----------------------
+Bridging rsmb to EMQ X
+----------------------
 
-Bridge RSMB to *EMQ X* broker, the configuration is similar to mosquitto's.
+On the local server (192.168.1.1) port 1883 start the EMQ X broker at port 1883, and the remote server (192.168.1.2) port 1883 start rsmb and create a bridge.
 
-broker.cfg::
+broker.cfg bridge configuration::
 
     connection emqx
-    addresses 127.0.0.1:2883
+    addresses 192.168.1.1:1883
     topic sensor/#

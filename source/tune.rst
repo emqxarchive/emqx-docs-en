@@ -99,9 +99,9 @@ Tuning and optimize the Erlang VM in emqx/etc/emqx.conf file:
     ## Sets the maximum number of simultaneously existing ports for this system
     node.max_ports = 1048576
 
---------------
+-----------------
 The EMQ X Broker
---------------
+-----------------
 
 Tune the acceptor pool, max_clients limit and sockopts for TCP listener in emqx/etc/emqx.conf:
 
