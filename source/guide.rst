@@ -6,12 +6,12 @@ User Guide
 
 .. _start:
 
-Application startup
---------------------
+Start EMQ X Broker
+------------------
 
-Download address: https://www.emqx.io/downloads/broker?osType=Linux
+The EMQ X Broker can be downloaded at: https://www.emqx.io/downloads/broker?osType=Linux
 
-After downloading the package, it can be unzipped directly to start running. Taking macOS platform as an example:
+After downloading the package, it can be installed or unzipped directly to start running. Taking the zip package for MacOS platform as an example:
 
 .. code-block:: bash
 
@@ -42,37 +42,37 @@ The default TCP ports used by the EMQ X message server include:
 MQTT publish and subscription
 ------------------------------
 
-MQTT is a lightweight publish-subscribe message server designed for the mobile Internet and the Iot which currently supports MQTT v3.1.1 <http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html>`_ and `v5.0 <http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html>`_:
+EMQ X Broker is a lightweight publish-subscribe message broker designed for the mobile Internet and the IoT, it currently supports MQTT v3.1.1 <http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html>`_ and `v5.0 <http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html>`_:
 
 .. image:: ./_static/images/pubsub_concept.png
 
-After EMQ X is started, any device or terminal can connect to the server through the MQTT protocol and exchange messages via Publish/Subscribe.
+After EMQ X is started, devices and clients can connect to the broker through the MQTT protocol and exchange messages via Publish/Subscribe.
 
-MQTT client library: https://github.com/mqtt/mqtt.github.io/wiki/libraries
+Some popular MQTT client libraries can be found here: https://github.com/mqtt/mqtt.github.io/wiki/libraries
 
-For example, the mosquitto_sub/pub command line publishes a subscription message::
+For example, using the mosquitto_sub/pub client on command line to publish and to subscribe to messages::
 
     mosquitto_sub -h 127.0.0.1 -p 1883 -t topic -q 2
     mosquitto_pub -h 127.0.0.1 -p 1883 -t topic -q 1 -m "Hello, MQTT!"
 
 .. _authentication:
 
-Authentication/access control
-------------------------------
+Authentication and Access Control
+---------------------------------
 
-EMQ X Message Server Connection Authentication and Access Control are provided by a series of authentication plugins  whose name conforms to the rules of emqx_auth_<name>.
+EMQ X Broker provides **Connection Authentication** and **Access Control** using a series of authentication plugins,  whose name conforms to the pattern of emqx_auth_<name>.
 
 In EMQ X, these two functions are:
 
 1. Connection authentication: EMQ X verifies whether the client on each connection has access to the system. If not, it disconnects the connection
-2. Access Control: EMQ X verifies the permissions of each Publish/Subscribe client to allow/deny the corresponding action
+2. Access Control: EMQ X verifies the permissions of each Publish/Subscribe action of a client, and allows/denies the corresponding action
 
 Authentication
 >>>>>>>>>>>>>>>
 
-EMQ X Message Server Authentication is provided by a series of authentication plugins that support authentication by username, password, ClientID or anonymous. 
+EMQ X Message Broker's Authentication is provided by a series of authentication plugins. It supports authentication by username, password, ClientID or anonymous. 
 
-By default, anonymous authentication is enabled, and multiple authentication modules are started by loading the authentication plug-in to form an authentication chain::
+By default, anonymous authentication is enabled. Multiple authentication modules can be started by loading the corresponding authentication plug-ins and forming an authentication chain::
 
                --------------------------            --------------------------            --------------------------- 
     Client --> | Username authentication | -ignore-> | ClientID authentication | -ignore-> | anonymous authentication |
@@ -81,9 +81,9 @@ By default, anonymous authentication is enabled, and multiple authentication mod
                      \|/                       \|/                       \|/
                 allow | deny              allow | deny              allow | deny
 
-** anonymous authentication is started**
+** Start anonymous authentication**
 
-etc/emqx.conf is configured to enable anonymous authentication:
+Modify the ``etc/emqx.conf`` file to enable anonymous authentication:
 
 .. code:: properties
 
@@ -96,13 +96,13 @@ etc/emqx.conf is configured to enable anonymous authentication:
 Access Control List
 >>>>>>>>>>>>>>>>>>>>
 
-EMQ X message server implements MQTT client access control through an ACL (Access Control List).
+EMQ X Broker implements MQTT client access control through an ACL (Access Control List).
 
 ACL access control rule definition::
 
-    Allow|Deny Who Subscribe|Publish Topics
+    Allow|Deny Identity Subscribe|Publish Topics
 
-When the MQTT client initiates a subscribe/publish request, the access control module of EMQ X message server will match the ACL rules one by one until the match is successful:::
+When an MQTT client initiates a subscribe/publish request, the access control module of EMQ X Broker will match the ACL rules one by one until the match is successful:::
 
               ---------              ---------              ---------
     Client -> | Rule1 | --nomatch--> | Rule2 | --nomatch--> | Rule3 | --> Default
@@ -114,7 +114,7 @@ When the MQTT client initiates a subscribe/publish request, the access control m
 
 **Default access control settings**
 
-EMQ X Message Server's default access control can be set in etc/emqx.conf:
+EMQ X Message Broker's default access control can be set in file ``etc/emqx.conf``:
 
 .. code:: properties
 
@@ -126,7 +126,7 @@ EMQ X Message Server's default access control can be set in etc/emqx.conf:
     ## Value: File Name
     acl_file = etc/acl.conf
 
-The ACL rules are defined in etc/acl.conf which can be loaded into memory when EMQ X starts:
+The ACL rules are defined in file ``etc/acl.conf``, which is loaded into memory when EMQ X starts:
 
 .. code:: erlang
 
@@ -148,31 +148,31 @@ The authentication plugins provided by EMQ X include:
 +----------------------------+-----------------------------------------------+
 | plugins                    | description                                   |
 +============================+===============================================+
-| `emqx_auth_clientid`_      | ClientId authentication plugins               |
+| `emqx_auth_clientid`_      | ClientId authentication plugin                |
 +----------------------------+-----------------------------------------------+
-| `emqx_auth_username`_      | username and password authentication plugins  |
+| `emqx_auth_username`_      | username and password authentication plugin   |
 +----------------------------+-----------------------------------------------+
-| `emqx_auth_jwt`_           | JWT authentication plugins                    |
+| `emqx_auth_jwt`_           | JWT authentication plugin                     |
 +----------------------------+-----------------------------------------------+
-| `emqx_auth_ldap`_          | LDAP authentication plugins                   |
+| `emqx_auth_ldap`_          | LDAP authentication plugin                    |
 +----------------------------+-----------------------------------------------+
-| `emqx_auth_http`_          | HTTP authentication plugins                   |
+| `emqx_auth_http`_          | HTTP authentication plugin                    |
 +----------------------------+-----------------------------------------------+
-| `emqx_auth_mysql`_         | MySQ Lauthentication plugins                  |
+| `emqx_auth_mysql`_         | MySQ Lauthentication plugin                   |
 +----------------------------+-----------------------------------------------+
-| `emqx_auth_pgsql`_         | Postgre authentication plugins                |
+| `emqx_auth_pgsql`_         | Postgre authentication plugin                 |
 +----------------------------+-----------------------------------------------+
-| `emqx_auth_redis`_         | Redis authentication plugins                  |
+| `emqx_auth_redis`_         | Redis authentication plugin                   |
 +----------------------------+-----------------------------------------------+
-| `emqx_auth_mongo`_         | MongoDB authentication plugins                |
+| `emqx_auth_mongo`_         | MongoDB authentication plugin                 |
 +----------------------------+-----------------------------------------------+
 
-For the configuration and usage of each authentication plug-in, refer to authentication section of the `Plugin <https://developer.emqx.io/docs/emq/v3/cn/plugins.html>`_。
+For the configuration and usage of each authentication plug-in, please refer to authentication section of the `Plugins <https://developer.emqx.io/docs/emq/v3/cn/plugins.html>`_。
 
 
-.. note:: Multiple auth plug-ins can be started at the same time. During each check, check order is according to the priority from high to low. For the same priority, the plug-in that starts first checks first.
+.. note:: Multiple auth plug-ins can be started at the same time. The plug-in that starts first checks first.
 
-In addition, EMQ X also supports the use of PSK (Pre-shared Key) to control client access. However, the connection authentication chain mentioned above is not used in this mode. The verification is done during the SSL handshake. For details. see `Pre-shared Key <https://en.wikipedia.org/wiki/Pre-shared_key>`_ and `emqx_psk_file`_
+In addition, EMQ X also supports the use of PSK (Pre-shared Key) for authentication. However, the authentication chain mentioned above is not used in this case. The verification is done during the SSL handshake. For details please refer to `Pre-shared Key <https://en.wikipedia.org/wiki/Pre-shared_key>`_ and `emqx_psk_file`_
 
 .. _shared_sub:
 
@@ -215,7 +215,7 @@ The following strategies are supported by EMQ X to distribute messages:：
 +---------------------------+--------------------------------------------+
 | sticky                    | The last dispatched subscriber is picked   |
 +---------------------------+--------------------------------------------+
-| hash                      | According to the  ClientId  of distributor |
+| hash                      | Hash value of the ClientId of publisher    |
 +---------------------------+--------------------------------------------+
 
 .. note:: When all subscribers are offline, a subscriber will still be picked and stored in the message queue of its Session.
@@ -226,14 +226,14 @@ The following strategies are supported by EMQ X to distribute messages:：
 Bridge
 -------
 
-Bridge within EMQ X nodes
->>>>>>>>>>>>>>>>>>>>>>>>>>
+Bridging two EMQ X Nodes
+>>>>>>>>>>>>>>>>>>>>>>>>
 
-The concept of bridging is that EMQ X supports forwarding messages of one of its own topics to another MQTT Broker in some way.
+The concept of bridging is that EMQ X forwards messages of some of its topics to another MQTT Broker in some way.
 
-Difference between Bridge and cluster is that bridge does not replicate topic trees and routing tables, and only forwards MQTT messages based on bridging rules.
+Difference between Bridge and cluster is that bridge does not replicate topic trees and routing tables, a bridge only forwards MQTT messages based on bridging rules.
 
-At present, the bridging methods supported by EMQ X are as follows:
+Currently the bridging methods supported by EMQ X are as follows:
 
 - RPC bridge: RPC Bridge only supports message forwarding and does not support subscribing to the topic of remote nodes to synchronize data.
 - MQTT Bridge: MQTT Bridge supports both forwarding and data synchronization through subscription topic
@@ -242,23 +242,22 @@ The concept is shown below:
 
 .. image:: ./_static/images/bridge.png
 
-In addition, the EMQ X message server supports multi-node bridge mode interconnection::
+In addition, the EMQ X supports multi-node bridge mode interconnection::
 
                   ---------                     ---------                     ---------
                   Publisher --> | Node1 | --Bridge Forward--> | Node2 | --Bridge Forward--> | Node3 | --> Subscriber
                   ---------                     ---------                     ---------
 
-In EMQ X, bridge is configured by modifying etc/emqx.conf. EMQ X distinguishes between different bridges based on different names. E.g::
+In EMQ X, bridge is configured by modifying ``etc/emqx.conf``. EMQ X distinguishes between different bridges based on different names. E.g::
 
     ## Bridge address: node name for local bridge, host:port for remote.
     bridge.aws.address = 127.0.0.1:1883
 
-This configuration declares a bridge named aws and specifies that it is bridged to the MQTT server of 127.0.0.1:1883 by MQTT mode.
+This configuration declares a bridge named ``aws`` and specifies that it is bridged to the MQTT server of 127.0.0.1:1883 by MQTT mode.
 
-When the user need to create multiple bridges, he can copy all of its configuration items first, and use different name to indicate (such as bridge.$name.address where $name refers to the name of bridge)
+In case of creating multiple bridges, it is convenient to replicate all configuration items of the first bridge, and modify the bridge name and other configuration items if necessary (such as bridge.$name.address, where $name refers to the name of bridge)
 
-
-The next two sections describe how to create a bridge of RPC/MQTT mode and create a forwarding rule that forwards the sensor's topic message. Suppose you have two EMQ X nodes started on both hosts:
+The next two sections describe how to create a bridge in RPC and MQTT mode respectively and create a forwarding rule that forwards the messages from sensors. Assuming that two EMQ X nodes are running on two hosts:
 
 +---------+---------------------+-----------+
 | Name    | Node                | MQTT port |
@@ -283,25 +282,25 @@ The following is the basic configuration of RPC bridging. The simplest RPC bridg
     ## bridged mountpoint
     bridge.emqx2.mountpoint = bridge/emqx2/${node}/
 
-If the message received by the local emqx1 node matches the topic sersor1/#, sensor2/#, these messages will be forwarded to the sensor1/#, sensor2/# topic of the remote emqx2 node.
+If the message received by the local emqx1 node matches the topic ``sersor1/#`` or ``sensor2/#``, these messages will be forwarded to the ``sensor1/#`` or ``sensor2/#`` topic of the remote emqx2 node.
 
-Forwards is used to specify topics, and messages forwarded to the specified forwards of local node are forwarded to the remote node.
+``forwards`` is used to specify topics. Messages of the in ``forwards`` specified topics on local node are forwarded to the remote node.
 
-Mountpoint is used to add a subject prefix when forwarding a message. This configuration option must be used with forwards to forward the message with the topic sensor1/hello. When arriving the remote node , the topic is bridge/emqx2/emqx1@192.168.1.1/sensor1/hello.
+``mountpoint`` is used to add a topic prefix when forwarding a message. To use ``mountpoint``, the ``forwards`` directive must be set. In the above example, a message with the topic sensor1/hello received by the local node will be forwarded to the remote node with the topic ``bridge/emqx2/emqx1@192.168.1.1/sensor1/hello``.
 
 Limitations of RPC bridging:
 
 1. The RPC bridge of emqx can only forward local messages to the remote bridge node, and cannot synchronize the messages of the remote bridge node to the local node;
 
-2. RPC bridge can only bridge two emqx together and cannot bridge emqx to other mqtt brokers.
+2. RPC bridge can only bridge two EMQ X together and cannot bridge EMQ X to other mqtt brokers.
 
 
-EMQ X node MQTT bridge configuration
+EMQ X Node MQTT Bridge Configuration
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-Emqx 3.0 officially introduced mqtt bridge, so that emqx can bridge any mqtt broker. Because of the characteristics of the mqtt protocol itself, emqx can subscribe to the remote mqtt broker's topic through mqtt bridge, and then synchronize the remote mqtt broker's message to the local.
+EMQ X 3.0 officially introduced MQTT bridge, so that EMQ X can bridge any MQTT broker. Because of the characteristics of the MQTT protocol, EMQ X can subscribe to the remote mqtt broker's topic through MQTT bridge, and then synchronize the remote MQTT broker's message to the local.
 
-EMQ X MQTT bridging principle: By creating a mqtt client on the emqx broker, the mqtt client will connect to the remote mqtt broker. Therefore, in the mqtt bridge configuration, the field that is necessary for the  emqx connection as the mqtt client connection need to be set::
+EMQ X MQTT bridging principle: Create an MQTT client on the EMQ X broker, and connect this MQTT client to the remote MQTT broker. Therefore, in the MQTT bridge configuration, following fields may be set for the EMQ X to connect to the remote broker as an mqtt client::
 
     ## Bridge Address: Use node name for rpc bridging, use host:port for mqtt connection
     bridge.emqx2.address = 192.168.1.2:1883
@@ -378,10 +377,10 @@ EMQ X MQTT bridging principle: By creating a mqtt client on the emqx broker, the
     ## Inflight Size.
     bridge.emqx2.max_inflight_batches = 32
 
-EMQ X bridge cache configuration
----------------------------------
+EMQ X Bridge Cache Configuration
+--------------------------------
 
-The bridge of EMQ X has a message caching mechanism. The caching mechanism is applicable to both RPC bridging and MQTT bridging. When the bridge is disconnected (such as when the network connection is unstable), the forwards topic message can be cached to the local message queue. Until the bridge is restored, the message is re-forwarded to the remote node. The configuration of the cache queue is as follows::
+The bridge of EMQ X has a message caching mechanism. The caching mechanism is applicable to both RPC bridging and MQTT bridging. When the bridge is disconnected (such as when the network connection is unstable), the messages with a topic specified in ``forwards`` can be cached to the local message queue. Until the bridge is restored, these messages are re-forwarded to the remote node. The configuration of the cache queue is as follows::
 
     ## emqx_bridge internal number of messages used for batch
     bridge.emqx2.queue.batch_count_limit = 32
@@ -400,10 +399,10 @@ The bridge of EMQ X has a message caching mechanism. The caching mechanism is ap
 ``bridge.emqx2.queue.replayq_seg_bytes`` is used to specify the size of the largest single file of the message queue that is cached on disk. If the message queue size exceeds the specified value, a new file is created to store the message queue.
 
 
-EMQ X bridged command line application
----------------------------------------
+CLI for EMQ X Bridge
+--------------------
 
-Bridge the CLI command:
+CLI for EMQ X Bridge:
 
 .. code-block:: bash
 
@@ -482,11 +481,11 @@ Delete the subscription topic for the specified bridge
     $ ./bin/emqx_ctl bridges del-subscription emqx cmd/topic3
     Del-subscription topic successfully.
 
-Note: If it is required to create multiple bridges,  the default bridge configuration need to be copied to emqx.conf, and the name in bridge.${name}.config should be renamed as needed.
+Note: In case of creating multiple bridges, it is convenient to replicate all configuration items of the first bridge, and modify the bridge name and other configuration items if necessary.
 
 .. _http_publish:
 
-HTTP publish API
+HTTP Publish API
 -----------------------
 
 The EMQ X message server provides an HTTP publish interface through which an application server or web server can publish MQTT messages::
@@ -518,12 +517,12 @@ HTTP interface parameters:
 
 .. NOTE::
 
-    HTTP publishing interface uses authentication of `Basic <https://en.wikipedia.org/wiki/Basic_access_authentication>`_ . The user and password in the above example are from the AppId and password in the Applications under Dashboard.
+    HTTP publishing interface uses authentication of `Basic <https://en.wikipedia.org/wiki/Basic_access_authentication>`_ . The user and password in the above example are from the AppId and password in the Applications of Dashboard.
 
-MQTT WebSocket connection
---------------------------
+MQTT WebSocket Connection
+-------------------------
 
-EMQ X also supports WebSocket connections, which can be connected directly to the server via WebSocket:
+EMQ X also supports WebSocket connections, web browsers or applications can connect directly to the broker via WebSocket:
 
 +-------------------------+----------------------------+
 | WebSocket URI:          | ws(s)://host:8083/mqtt     |
@@ -531,26 +530,26 @@ EMQ X also supports WebSocket connections, which can be connected directly to th
 | Sec-WebSocket-Protocol: | 'mqttv3.1' or 'mqttv3.1.1' |
 +-------------------------+----------------------------+
 
-The Dashboard plugin provides a test page for an MQTT WebSocket connection::
+The Dashboard plugin provides a test tool for an MQTT WebSocket connection::
 
     http://127.0.0.1:18083/#/websocket
 
 .. _sys_topic:
 
-$SYS-System topic
-------------------
+$SYS - System topic
+-------------------
 
-The EMQ X message server periodically publishes its own running status, message statistics, client online and offline events to the system topic starting with $SYS/.
+The EMQ X Broker periodically publishes its running status, message statistics, client online and offline events to the system topic starting with ``$SYS/``.
 
-The $SYS topic path begins with $SYS/brokers/{node}/. {node} is the name of the node where the event/message is generated, for example::
+The ``$SYS`` topic path begins with ``$SYS/brokers/{node}/``. ``{node}`` is the name of the node where the event/message is generated, for example::
 
     $SYS/brokers/emqx@127.0.0.1/version
 
     $SYS/brokers/emqx@127.0.0.1/uptime
 
-.. NOTE:: By default, only the MQTT client of localhost is allowed to subscribe to the $SYS topic, and the access control rules can be modified by etc/acl.config.
+.. NOTE:: By default, only the MQTT client on localhost is allowed to subscribe to the $SYS topic, this can be changed by modifying the access control rules in file ``etc/acl.config``.
 
-$SYS system message publish cycle is configured by etc/emqx.conf:
+$SYS system message publish interval is configured in ``etc/emqx.conf``:
 
 .. code:: properties
 
@@ -570,18 +569,18 @@ Cluster status information
 +================================+===========================+
 | $SYS/brokers                   | cluster node list         |
 +--------------------------------+---------------------------+
-| $SYS/brokers/${node}/version   | EMQ X server version      |
+| $SYS/brokers/${node}/version   | EMQ X broker version      |
 +--------------------------------+---------------------------+
-| $SYS/brokers/${node}/uptime    | EMQ X server startup time |
+| $SYS/brokers/${node}/uptime    | EMQ X broker startup time |
 +--------------------------------+---------------------------+
-| $SYS/brokers/${node}/datetime  | EMQ X server time         |
+| $SYS/brokers/${node}/datetime  | EMQ X broker time         |
 +--------------------------------+---------------------------+
-| $SYS/brokers/${node}/sysdescr  | EMQ X Server Description  |
+| $SYS/brokers/${node}/sysdescr  | EMQ X broker Description  |
 +--------------------------------+---------------------------+
 
 .. _sys_clients:
 
-Client online and offline events
+Client Online and Offline Events
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 $SYS topic prefix: $SYS/brokers/${node}/clients/
@@ -684,7 +683,7 @@ Topic statistics
 +---------------------+---------------------------------------------+
 | Topic               | Description                                 |
 +---------------------+---------------------------------------------+
-| topics/count        | total number of current  topics             |
+| topics/count        | total number of current topics              |
 +---------------------+---------------------------------------------+
 | topics/max          | maximum number of topics                    |
 +---------------------+---------------------------------------------+
@@ -702,8 +701,8 @@ Routes statistics
 
 .. note:: The topics/count and topics/max are numerically equal to routes/count and routes/max.
 
-bytes/packets/message statistics
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Throughput (bytes/packets/message) statistics
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 System Topic Prefix: $SYS/brokers/${node}/metrics/
 
@@ -718,15 +717,15 @@ sent and received bytes statistics
 | bytes/sent          | Accumulated sent bytes                      |
 +---------------------+---------------------------------------------+
 
-MQTT sent and received packets statistics
+sent and received MQTT packets statistics
 ::::::::::::::::::::::::::::::::::::::::::
 
 +-----------------------------+---------------------------------------------------+
 | Topic                       | Description                                       |
 +-----------------------------+---------------------------------------------------+
-| packets/received            | Accumulative received packets of MQTT             |
+| packets/received            | Accumulative received MQTT packets                |
 +-----------------------------+---------------------------------------------------+
-| packets/sent                | Accumulative sent packets of MQTT                 |
+| packets/sent                | Accumulative sent MQTT packets                    |
 +-----------------------------+---------------------------------------------------+
 | packets/connect             | Accumulative received packets of MQTT CONNECT     |
 +-----------------------------+---------------------------------------------------+
@@ -776,7 +775,7 @@ MQTT sent and received packets statistics
 +-----------------------------+---------------------------------------------------+
 | packets/disconnect/sent     | Accumulative sent packets of MQTT MQTT DISCONNECT |
 +-----------------------------+---------------------------------------------------+
-| packets/auth                | Accumulative received packets of Auth             |
+| packets/auth                | Accumulative received packets of MQTT Auth        |
 +-----------------------------+---------------------------------------------------+
 
 MQTT sent and received messages statistics
@@ -821,13 +820,13 @@ Alarms - system alarms
 
 System Topic Prefix: $SYS/brokers/${node}/alarms/
 
-+------------------+----------------------+
-| Topic            | Description          |
-+------------------+----------------------+
-| ${alarmId}/alert | newly generated alarm|
-+------------------+----------------------+
-| ${alarmId}/clear | cleared alarm        |
-+------------------+----------------------+
++------------------+-----------------------+
+| Topic            | Description           |
++------------------+-----------------------+
+| ${alarmId}/alert | newly generated alarm |
++------------------+-----------------------+
+| ${alarmId}/clear | cleared alarm         |
++------------------+-----------------------+
 
 .. _sys_sysmon:
 
