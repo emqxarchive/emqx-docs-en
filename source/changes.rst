@@ -5,6 +5,59 @@
 Changes
 =======
 
+.. _release_3.1.1:
+
+-------------
+Version 3.1.1
+-------------
+
+*Release Date: 2019-05-10*
+
+EMQ X 3.1.1 is now available. In this version we've fixed bugs and improved stability.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Enlarge the maximum number of characters printed by each log event
+
+  Github PR:
+  `emqx/emqx#2509 <https://github.com/emqx/emqx/pull/2509>`_
+
+- ``force_shutdown_policy`` will use a different value according to digits of system
+
+  Github PR:
+  `emqx/emqx#2515 <https://github.com/emqx/emqx/pull/2515>`_
+
+Bug fixes:
+
+- Configure and use ``long_gc`` 与 ``long_schedule`` correctly
+
+  Github PR:
+  `emqx/emqx#2504 <https://github.com/emqx/emqx/pull/2504>`_,
+  `emqx/emqx#2513 <https://github.com/emqx/emqx/pull/2513>`_
+
+- Fix the issue ``suboptions/count`` not been updated
+
+  Github PR:
+  `emqx/emqx#2507 <https://github.com/emqx/emqx/pull/2507>`_
+
+emqx-lwm2m (plugin)
+-------------------
+
+Bug fixes:
+
+- Fix the issue that mountpoint didn't take effect
+
+  Github PR:
+  `emqx/emqx-lwm2m#34 <https://github.com/emqx/emqx-lwm2m/pull/34>`_
+
+- Fix the issue that message couldn't be forwarded by ``emqx-web-hook``
+
+  Github PR:
+  `emqx/emqx-lwm2m#35 <https://github.com/emqx/emqx-lwm2m/pull/35>`_
+
 .. _release_3.1.0:
 
 -------------
