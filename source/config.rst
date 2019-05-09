@@ -18,7 +18,7 @@ The main configuration files of the *EMQ X* broker are under 'etc/' folder:
 +----------------------+-----------------------------------+
 
 ----------------------------------
-EMQ X configuration change history
+EMQ X Configuration Change History
 ----------------------------------
 
 The EMQ X configuration file has been adjusted four times for the convenience of users and plug-in developers.
@@ -38,7 +38,7 @@ The EMQ X configuration file has been adjusted four times for the convenience of
             %% Authentication with clientid
             %{clientid, [{password, no}, {file, "etc/clients.config"}]},
 
-Erlang's native configuration format is multi-level nested, which is very unfriendly to non-Erlang developers.
+Erlang's native configuration format is multi-level nested, which is very unfriendly to non-Erlang developer users.
 
 2. EMQ X 2.0-beta.x version simplifies the native Erlang configuration file in a format similar to rebar.config or relx.config:
 
@@ -53,9 +53,9 @@ Erlang's native configuration format is multi-level nested, which is very unfrie
     %% Client Idle Timeout.
     {mqtt_client_idle_timeout, 30}. % Second
 
-The simplified Erlang native configuration format is user-friendly, but plug-in developers have to rely on the gen_conf library instead of  appliaton: get_env to read configuration parameters.
+The simplified Erlang native configuration format is user-friendly, but plug-in developers have to rely on the gen_conf library instead of appliaton: get_env to read configuration parameters.
 
-3. The formal version of EMQ X 2.0-rc.2 integrates the cuttlefish library, adopts the k = V universal format similar to sysctl, and translates it into Erlang native configuration format at system startup:
+3. The EMQ X 2.0-rc.2 integrates the cuttlefish library, adopts the k = V universal format similar to sysctl, and translates it into Erlang native configuration format at system startup:
 
 .. code-block:: properties
 
@@ -65,9 +65,7 @@ The simplified Erlang native configuration format is user-friendly, but plug-in 
     ## Max ClientId Length Allowed.
     mqtt.max_clientid_len = 1024
 
-4. EMQ X 3.0-beta.1 beta version officially renamed emqttd to emqx, and configuration name and configuration information changed in corresponding:
-
-Profile
+4. From EMQ X 3.0-beta.1 beta version, the emqttd is renamed to emqx, and configuration names and configuration values/information are changed in corresponding:
 
 .. code-block:: properties
 
@@ -81,7 +79,7 @@ Profile
     node.name = emqx@127.0.0.1
 
 
- Configuration File Processing Flow during EMQ X Start-up::
+ Configuration file processing flow during EMQ X start-up::
 
     ----------------------                                          3.0/schema/*.schema      -------------------
     | etc/emqx.conf      |                   -----------------              \|/              | data/app.config |
@@ -113,7 +111,7 @@ OS Environment Variables
 EMQ X Cluster Setup
 -------------------
 
-Cluster name：
+Cluster name:
 
 .. code-block:: properties
 
@@ -125,13 +123,13 @@ Cluster discovery strategy:
 
     cluster.discovery = manual
 
-Cluster Autoheal：
+Cluster Autoheal:
 
 .. code-block:: properties
 
     cluster.autoheal = on
 
-Cluster Autoclean：
+Cluster Autoclean:
 
 .. code-block:: properties
 
@@ -158,17 +156,17 @@ EMQ X Autodiscovery Strategy
 | k8s        | Autocluster on Kubernetes       |
 +------------+---------------------------------+
 
-Create cluster manually
+**Create cluster manually**
 
-This is the default configuration of clustering, nodes joins a cluster `./bin/emqx_ctl join <Node>` command:
+This is the default configuration of clustering, nodes join a cluster by executing `./bin/emqx_ctl join <Node>` CLI command:
 
 .. code-block:: properties
 
     cluster.discovery = manual
 
-Autocluster by static node list
+**Autocluster by static node list**
 
-Cluster discovery strategy is static:
+Configuration of static cluster discovery:
 
 .. code-block:: properties
 
@@ -180,9 +178,9 @@ Static node list:
 
     cluster.static.seeds = emqx1@127.0.0.1,emqx2@127.0.0.1
 
-Autocluster by IP Multicast
+**Autocluster by IP Multicast**
 
-Cluster discovery strategy is mcast:
+Configuration of cluster discovery by IP multicast:
 
 .. code-block:: properties
 
@@ -200,7 +198,7 @@ Multicast port range:
 
     cluster.mcast.ports = 4369,4370
 
-Network card address:
+Network adapter address:
 
 .. code-block:: properties
 
@@ -218,9 +216,9 @@ Whether to send multicast packets cyclically:
 
     cluster.mcast.loop = on
 
-Autocluster by DNS A Record
+**Autocluster by DNS A Record**
 
-Cluster discovery strategy is dns:
+Configuration of cluster discovery by DNS A record:
 
 .. code-block:: properties
 
@@ -232,15 +230,15 @@ dns name:
 
     cluster.dns.name = localhost
 
-Application name used to build the node name with the IP address:
+Application name is used to build the node name with the IP address:
 
 .. code-block:: properties
 
     cluster.dns.app  = emqx
 
-Autocluster using etcd
+**Autocluster using etcd** 
 
-Cluster discovery strategy is etcd:
+Configure cluster discovery by etcd:
 
 .. code-block:: properties
 
@@ -252,7 +250,7 @@ List of etcd servers, separated by ``,`` :
 
     cluster.etcd.server = http://127.0.0.1:2379
 
-For the prefix of the node path in etcd, each node in the cluster creates the following path in etcd: v2/keys/<prefix>/<cluster.name>/<node.name>:
+The prefix of the node's path in etcd. Each node in the cluster creates the following path in etcd: v2/keys/<prefix>/<cluster.name>/<node.name>:
 
 .. code-block:: properties
 
@@ -282,7 +280,7 @@ Path containing the PEM-encoded CA certificate file:
 
     cluster.etcd.ssl.cacertfile = etc/certs/ca.pem
 
-Autocluster on Kubernetes
+**Autocluster on Kubernetes**
 
 Cluster discovery strategy is k8s:
 
@@ -296,7 +294,7 @@ List of Kubernetes API servers, separated by ``,``:
 
     cluster.k8s.apiserver = http://10.110.111.204:8080
 
-Help find the service name of the EMQ X node in the cluster:
+The service name of the EMQ X node in the cluster:
 
 .. code-block:: properties
 
@@ -330,7 +328,7 @@ Erlang node name:
 
     node.name = emqx@127.0.0.1
 
-Erlang communication cookie within distributed node:
+Erlang communication cookie within distributed nodes:
 
 .. code-block:: properties
 
@@ -339,10 +337,10 @@ Erlang communication cookie within distributed node:
 .. NOTE::
 
     The Erlang/OTP platform application is composed of distributed Erlang nodes (processes). Each Erlang node (process) needs to be assigned a node name for mutual communication between nodes.
-    All Erlang nodes (processes) in communication are securely authenticated by a shared cookie.
+    All Erlang nodes (processes) in communication are authenticated by a shared cookie.
 
 ----------------------------
-EMQ X node connection method
+EMQ X Node Connection Method
 ----------------------------
 
 The EMQ X node is based on IPv4, IPv6 or TLS protocol of Erlang/OTP platform for connections:
@@ -356,7 +354,7 @@ The EMQ X node is based on IPv4, IPv6 or TLS protocol of Erlang/OTP platform for
     ## node.ssl_dist_optfile = etc/ssl_dist.conf
 
 --------------------
-Erlang VM parameters
+Erlang VM Parameters
 --------------------
 
 Erlang system heartbeat monitoring during running. Comment this line to disable heartbeat monitoring, or set the value as ``on`` to enable the function :
@@ -395,7 +393,7 @@ The maximum number of ETS tables. Note that mnesia and SSL will create a tempora
 
     node.max_ets_tables = 256000
 
-Adjust the GC to run more frequently:
+GC frequency:
 
 .. code-block:: properties
 
@@ -433,16 +431,16 @@ Port range of TCP connections for communication between Erlang distributed nodes
     node.dist_listen_max = 6396
 
 ---------------------------
-RPC parameter configuration
+RPC Parameter Configuration
 ---------------------------
 
-TCP port for RPC monitoring locally::
+TCP port for RPC (local)::
 
 .. code-block:: properties
 
     rpc.tcp_server_port = 5369
 
-TCP port for RPC end-to-end monitoring::
+TCP port for RPC(remote)::
 
 .. code-block:: properties
 
@@ -472,7 +470,7 @@ Synchronous call timeout:
 
     rpc.call_receive_timeout = 15s
 
-Maximum connection time when socket is idle:
+Maximum keep-alive time when socket is idle:
 
 .. code-block:: properties
 
@@ -491,10 +489,10 @@ The maximum number of heartbeat detection failures before closing the connection
     rpc.socket_keepalive_count = 9
 
 ----------------------------
-Log parameter configuration
+Log Parameter Configuration
 ----------------------------
 
-Log output location, that can be set to write to the terminal or write to the file:
+Log output location, it can be set to write to the terminal or write to the file:
 
 .. code-block:: properties
 
@@ -526,7 +524,7 @@ Set the maximum size of each log file:
 
     log.rotation.size = 10MB
 
-Set the maximum number of files for circular logging:
+Set the maximum number of files for log rotation:
 
 .. code-block:: properties
 
@@ -541,7 +539,7 @@ For example, the following configuration writes all logs higher than or equal to
     log.info.file = info.log
 
 --------------------------------------
-Anonymous authentication and ACL files
+Anonymous Authentication and ACL Files
 --------------------------------------
 
 Whether to allow the client to pass the authentication as an anonymous identity:
@@ -596,7 +594,7 @@ The access control rules are in the Erlang tuple format, and the access control 
                  \|/                    \|/                    \|/
             allow | deny           allow | deny           allow | deny
 
-Etc/acl.conf default access rule settings:
+``etc/acl.conf`` default access rule settings:
 
 Allow ``dashboard`` users to subscribe to ``$SYS/#``:
 
@@ -610,24 +608,24 @@ Allow local users to publish and subscribe all topics:
 
     {allow, {ipaddr, "127.0.0.1"}, pubsub, ["$SYS/#", "#"]}.
 
-Deny users other than native users to subscribe to  topics ``$SYS/#`` and ``#``:
+Deny users other than local users to subscribe to  topics ``$SYS/#`` and ``#``:
 
 .. code-block:: erlang
 
     {deny, all, subscribe, ["$SYS/#", {eq, "#"}]}.
 
-Allow any situation other than the above rules:
+Allow any access other than the above rules:
 
 .. code-block:: erlang
 
     {allow, all}.
 
-.. NOTE:: The default rule only allows native users to subscribe to $SYS/# and与 #.
+.. NOTE:: The default rule only allows local users to subscribe to $SYS/# and与 #.
 
-When the EMQ X message server receives an Publish or Subscribe request from MQTT client, it will match the ACL rule one by one until the match returns to allow or deny.
+When the EMQ X broker receives an Publish or Subscribe request from MQTT client, it will match the ACL rule one by one until the match returns to allow or deny.
 
 -------------------------------------
-MQTT protocol parameter configuration
+MQTT Protocol Parameter Configuration
 -------------------------------------
 
 MQTT maximum packet size::
@@ -684,11 +682,11 @@ Whether to allow the loop deliver of the message:
 
     mqtt.ignore_loop_deliver = false
 
-This configuration is primarily used by MQTT v3.1.1 to implement the function of No Local in MQTT 5.
+This configuration is mainly used to implement (backporting) the No Local feature in MQTT v3.1.1. This feature is standardized in MQTT 5.
 
-------------------------------------
-MQTT Zones parameter configuration
-------------------------------------
+----------------------------------
+MQTT Zones Parameter Configuration
+----------------------------------
 
 EMQ X uses Zone to manage configuration groups. A Zone defines a set of configuration items (such as the maximum number of connections, etc.), and Listener can specify to use a Zone to use all the configurations under that Zone. Multiple Listeners can share the same Zone.
 
