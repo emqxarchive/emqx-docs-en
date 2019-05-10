@@ -5,20 +5,20 @@
 Installation
 ============
 
-The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
+The *EMQ X* broker is cross-platform, it can be deployed on Linux, FreeBSD, Mac and Windows.
 
 .. NOTE::
 
-    Linux, FreeBSD Recommended.
+    It is recommended to deploy EMQ X on Linux for production environment.
 
 .. _install_download:
 
-*EMQ X* package download
+*EMQ X* Package Download
 -------------------------
 
-Each version of the EMQ X broker will release package of CentOS, Ubuntu, Debian, FreeBSD, macOS, Windows, openSUSE platform and Docker images.
+Each version of the EMQ X broker will release packages of CentOS, Ubuntu, Debian, openSUSE, FreeBSD, macOS, Windows platform and Docker images.
 
-Download adress: https://www.emqx.io/downloads
+Download address: https://www.emqx.io/downloads
 
 .. _emqx.io: https://www.emqx.io/downloads/broker?osType=Linux
 .. _github: https://github.com/emqx/emqx/releases
@@ -29,16 +29,16 @@ CentOS
 + CentOS6.X
 + CentOS7.X
 
-Install via repository
+Install via Repository
 >>>>>>>>>>>>>>>>>>>>>>>
 
-1.  Install the required dependency
+1.  Install the required dependencies
 
     .. code-block:: console
 
         $ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 
-2.  Use the following command to set up a stable repository, and take CentOS7 as an example.
+2.  Set up a stable repository, taking the CentOS7 as an example.
 
     .. code-block:: console
 
@@ -50,7 +50,7 @@ Install via repository
 
         $ sudo yum install emqx
 
-    .. NOTE::If prompted to accept the GPG key, verify that the key matches fc84 1ba6 3775 5ca8 487b 1e3c c0b4 0946 3e64 0d53 and accept the fingerprint if it matches.
+    .. NOTE::If prompted to accept the GPG key, please verify that the key's fingerprint matches fc84 1ba6 3775 5ca8 487b 1e3c c0b4 0946 3e64 0d53 and accept the fingerprint if it matches.
 
 
 4.  Install a specific version of EMQ X
@@ -96,7 +96,7 @@ Install via repository
 
                 $ sudo service emqx start
 
-Install via rpm 
+Install via rpm
 >>>>>>>>>>>>>>>>
 
 1.  Select the CentOS version via emqx.io or github and download the rpm package for the EMQ X version to be installed.
@@ -132,7 +132,7 @@ Install via rpm
 
                 $ sudo service emqx start
 
-Install via zip package
+Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1. Select the CentOS version via emqx.io or github and download the zip package for the EMQ X version to be installed.
@@ -155,14 +155,14 @@ Install via zip package
         emqx v3.1.0 is running
 
 Ubuntu
--------
+------
 
 + Bionic 18.04 (LTS)
 + Xenial 16.04 (LTS)
 + Trusty 14.04 (LTS)
 + Precise 12.04 (LTS)
 
-Install via repository
+Install via Repository
 >>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Install the required dependency
@@ -176,7 +176,7 @@ Install via repository
             gnupg-agent \
             software-properties-common
 
-2.  Add the official GPG key for EMQ X
+2.  Add the GPG key for EMQ X
 
     .. code-block:: console
 
@@ -192,7 +192,7 @@ Install via repository
             FC84 1BA6 3775 5CA8 487B  1E3C C0B4 0946 3E64 0D53
         uid           [ unknown] emqx team <support@emqx.io>
 
-3.  Use the following command to set up the stable repository. If an unstable repository is added, add the word 'unstable' after the word 'stable' in the following command.
+3.  Use the following command to set up the stable repository. If unstable repo is also needed, add the word 'unstable' after 'stable' in the following command.
 
     .. code-block:: console
 
@@ -215,7 +215,7 @@ Install via repository
 
         $ sudo apt install emqx
 
-    .. NOTE:: In the case where multiple EMQ X repositories are enabled, if the apt install and apt update commands do not specify a version number, the latest version of EMQ X is automatically installed. This is a problem for users with stability needs.
+    .. NOTE:: In the case where multiple EMQ X repositories are enabled, and the apt install and apt update commands is not specified with a version number, the latest version of EMQ X is installed. This could be a problem for users with stability needs.
 
 6.  Install a specific version of EMQ X
 
@@ -230,7 +230,7 @@ Install via repository
             emqx |      3.0.0 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
 
 
-    2.  nstall a specific version using the version string from the second column, such as 3.1.0
+    2.  Install a specific version using the version string from the second column, such as 3.1.0
 
         .. code-block:: console
 
@@ -261,7 +261,7 @@ Install via repository
 
                 $ sudo service emqx start
 
-Install via deb package
+Install via deb Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the Ubuntu version via emqx.io or github and download the deb package for the EMQ X version to be installed.
@@ -297,7 +297,7 @@ Install via deb package
 
                 $ sudo service emqx start
 
-Install via zip package
+Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the Ubuntu version via emqx.io or github and download the zip package for the EMQ X version to be installed.
@@ -325,7 +325,7 @@ Debian
 + Stretch (Debian 9)
 + Jessie (Debian 8)
 
-Install via repository
+Install via Repository
 >>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Install the required dependency
@@ -339,7 +339,7 @@ Install via repository
             gnupg-agent \
             software-properties-common
 
-2.  Add the official GPG key for EMQ X
+2.  Add the GPG key for EMQ X
 
     .. code-block:: console
 
@@ -355,7 +355,7 @@ Install via repository
             FC84 1BA6 3775 5CA8 487B  1E3C C0B4 0946 3E64 0D53
         uid           [ unknown] emqx team <support@emqx.io>
 
-3.  Use the following command to set up the stable repository. If an unstable repository is added, add the word 'unstable' after the word 'stable' in the following command.
+3.  Use the following command to set up the stable repository. If unstable repo is also needed, add the word 'unstable' after 'stable' in the following command.
 
     .. code-block:: console
 
@@ -378,7 +378,7 @@ Install via repository
 
         $ sudo apt install emqx
 
-    .. NOTE:: In the case where multiple EMQ X repositories are enabled, if the apt install and apt update commands do not specify a version number, the latest version of EMQ X is automatically installed. This is a problem for users with stability needs.
+    .. NOTE:: In the case where multiple EMQ X repositories are enabled, and the apt install and apt update commands is not specified with a version number, the latest version of EMQ X is installed. This is a problem for users with stability needs.
 
 6.  Install a specific version of EMQ X
 
@@ -424,7 +424,7 @@ Install via repository
 
                 $ sudo service emqx start
 
-Install via deb package
+Install via deb Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the Debian version via emqx.io or github and download the deb package for the EMQ X version to be installed.
@@ -460,7 +460,7 @@ Install via deb package
 
                 $ sudo service emqx start
 
-Install via zip package
+Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the Debian version via emqx.io or github and download the zip package for the EMQ X version to be installed.
@@ -487,11 +487,10 @@ macOS
 
 .. _Homebrew: https://brew.sh/
 
-Install via Homebrew 
+Install via Homebrew
 >>>>>>>>>>>>>>>>>>>>>
 
 1.  Add tap of EMQ X
-
 
     .. code-block:: console
 
@@ -514,7 +513,7 @@ Install via Homebrew
         Node 'emqx@127.0.0.1' is started
         emqx v3.1.0 is running
 
-Install via zip package
+Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select the EMQ X version via emqx.io or github and download the zip package to install.
@@ -555,7 +554,7 @@ openSUSE
 
 + openSUSE leap
 
-Install via repository 
+Install via Repository
 >>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Download the GPG public key and import it.
@@ -624,7 +623,7 @@ Install via repository
 
                 $ sudo service emqx start
 
-Install via rpm package
+Install via rpm Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select openSUSE via emqx.io or github and download the rpm package for the EMQ X version to be installed.
@@ -660,7 +659,7 @@ Install via rpm package
 
                 $ sudo service emqx start
 
-Install via zip package
+Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select openSUSE via emqx.io or github and download the zip package for the EMQ X version to be installed.
@@ -688,7 +687,7 @@ FreeBSD
 
 + FreeBSD 12
 
-Install via zip package
+Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Select FreeBSD via emqx.io or github and download the zip package for the EMQ X version to be installed.
@@ -718,7 +717,7 @@ Docker
 
 1.  Get docker image
 
-    +   Through `Docker Hub`_ 
+    +   Through `Docker Hub`_
 
         .. code-block:: console
 
@@ -738,15 +737,15 @@ Docker
 
         $ docker run -d --name emqx31 -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:v3.1.0
 
-For more information on EMQ X Docker, please check `Docker Hub`_ or `EMQ X Docker`_.
+For more information about EMQ X Docker, please check `Docker Hub`_ or `EMQ X Docker`_.
 
-Source code compilation and installation
+Source Code Compilation and Installation
 -----------------------------------------
 
 Environmental requirements
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-EMQ X broker is developed on the Erlang/OTP platform. It is maintanied and managed on GitHub, and source code compilation relies on the Erlang environment and the git client.
+EMQ X broker is developed on the Erlang/OTP platform. The project is maintained and managed on GitHub. The source code compilation relies on the Erlang environment and the git client.
 
 .. NOTE:: EMQ X relies on the Erlang R21.2+ version
 
@@ -754,7 +753,7 @@ Erlang Install: http://www.erlang.org/
 
 Git client: http://www.git-scm.com/
 
-Compile and install EMQ X
+Compile and Install EMQ X
 >>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 1.  Get the source code
@@ -795,13 +794,13 @@ Erlang install: http://www.erlang.org/
 
 MSYS2 install: http://www.msys2.org/
 
-After the MSYS2 is installed, software of the Git and Make can be installed according to the pacman package management tool in MSYS2.
+After the MSYS2 is installed, the Git and Make tools can be installed using the pacman package management tool in MSYS2.
 
 .. code-block:: bash
 
         pacman -S git make
 
-After the compilation environment is prepared, the clone code starts compiling.
+After the environment is ready, the  code can be compiled.
 
 .. code-block:: bash
 
@@ -811,9 +810,9 @@ After the compilation environment is prepared, the clone code starts compiling.
 
         cd _rel/emqx && ./bin/emqx console
 
- EMQ package compiled by the console
+ Star the compiled EMQ X on the console:
 
 .. code-block:: bash
 
-        cd _rel/emqx/bin 
+        cd _rel/emqx/bin
         emqx console

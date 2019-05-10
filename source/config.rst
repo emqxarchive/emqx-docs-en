@@ -236,7 +236,7 @@ Application name is used to build the node name with the IP address:
 
     cluster.dns.app  = emqx
 
-**Autocluster using etcd** 
+**Autocluster using etcd**
 
 Configure cluster discovery by etcd:
 
@@ -688,9 +688,9 @@ This configuration is mainly used to implement (backporting) the No Local featur
 MQTT Zones Parameter Configuration
 ----------------------------------
 
-EMQ X uses Zone to manage configuration groups. A Zone defines a set of configuration items (such as the maximum number of connections, etc.), and Listener can specify to use a Zone to use all the configurations under that Zone. Multiple Listeners can share the same Zone.
+EMQ X uses **Zone** to manage configuration groups. A Zone defines a set of configuration items (such as the maximum number of connections, etc.), and Listener can specify to use a Zone to use all the configurations under that Zone. Multiple Listeners can share the same Zone.
 
-The onfigured matching rules used by listener are as follows, with priority Zone > Global > Default:::
+Listeners are configured as follows, with priority Zone > Global > Default:::
 
                        ---------              ----------              -----------
     Listeners -------> | Zone  | --nomatch--> | Global | --nomatch--> | Default |
@@ -700,9 +700,9 @@ The onfigured matching rules used by listener are as follows, with priority Zone
                           \|/                     \|/                     \|/
                     Zone Configs            Global Configs           Default Configs
 
-EMQ X supports to replace zone.$name.xxx with the corresponding $name. The $name in zone.external.xxx and zone.internal.xxx can be replaced with the corresponding name, or user can add a custom name of ``zone.$name.xxx``.
+A zone config has a form ``zone.$name.xxx``, here the ``$name`` is the zone name. Such as ``zone.internal.xxx`` and ``zone.external.xxx``. User can also define customized zone name.
 
-External Zone  parameter settings
+External Zone  Parameter Settings
 ---------------------------------
 
 The maximum time to wait for MQTT CONNECT packet after the TCP connection is established::
@@ -807,7 +807,7 @@ Whether to allow QoS upgrade:
 
     zone.external.upgrade_qos = off
 
-The maximum size of the flight window:
+The maximum size of the in-flight window:
 
 .. code-block:: properties
 
@@ -879,7 +879,7 @@ Flapping prohibited time:
 
     zone.external.flapping_banned_expiry_interval = 1h
 
-Internal Zone parameter settings
+Internal Zone Parameter Settings
 --------------------------------
 
 Allow anonymous access:
@@ -918,7 +918,7 @@ The maximum number of  allowed topic subscriptions, 0 means no limit:
 
     zone.internal.max_subscriptions = 0
 
-The maximum size of the flight window:
+The maximum size of the in-flight window:
 
 .. code-block:: properties
 
@@ -961,12 +961,12 @@ Flapping banned time:
     zone.internal.flapping_banned_expiry_interval = 1h
 
 ------------------------------------
-MQTT Listeners parameter description
+MQTT Listeners Parameter Description
 ------------------------------------
 
-The EMQ X message server supports the MQTT, MQTT/SSL, and MQTT/WS protocol, and can set the port, maximum allowed connections, and other parameters through listener.tcp|ssl|ws|wss|.*.
+The EMQ X message server supports the MQTT, MQTT/SSL, and MQTT/WS protocol, the port, maximum allowed connections, and other parameters are configurable through ``listener.tcp|ssl|ws|wss|.*``.
 
-The TCP service ports of the EMQ X message server that are enabled by default include:
+The TCP ports of the EMQ X broker that are enabled by default include:
 
 +------+------------------------------+
 | 1883 | MQTT TCP protocol port       |
@@ -989,7 +989,7 @@ Listener parameter description:
 +----------------------------------------+----------------------------------------------+
 | listener.tcp.${name}.max_conn_rate     | Connection limit configuration               |
 +----------------------------------------+----------------------------------------------+
-| listener.tcp.${name}.zone              | monitoring Which zone the listener belongs to|
+| listener.tcp.${name}.zone              | To which zone the listener belongs           |
 +----------------------------------------+----------------------------------------------+
 | listener.tcp.${name}.rate_limit        | Connection rate configuration                |
 +----------------------------------------+----------------------------------------------+
@@ -998,7 +998,7 @@ Listener parameter description:
 MQTT/TCP Listener - 1883
 -------------------------
 
-The EMQ X supports the configuration of multiple MQTT protocol listeners, such as two listeners named external and internal:
+The EMQ X supports the configuration of multiple MQTT protocol listeners, for example, two listeners named ``external`` and ``internal``:
 
 TCP listeners:
 
@@ -1050,25 +1050,25 @@ Access control rules:
 
     listener.tcp.external.access.1 = allow all
 
-Whether the proxy protocol V1/2 is enabled when the EMQ X cluster is deployed in HAProxy or Nginx:
+Whether the proxy protocol V1/2 is enabled when the EMQ X cluster is deployed with HAProxy or Nginx:
 
 .. code-block:: properties
 
     ## listener.tcp.external.proxy_protocol = on
 
-Timeout period of the proxy protocol:
+Timeout of the proxy protocol:
 
 .. code-block:: properties
 
     ## listener.tcp.external.proxy_protocol_timeout = 3s
 
-Enable the X.509 certificate-based authentication option. EMQ X will use the public name of the certificate as the MQTT username:
+Enable the X.509 certificate-based authentication option. EMQ X will use the common name of the certificate as the MQTT username:
 
 .. code-block:: properties
 
     ## listener.tcp.external.peer_cert_as_username = cn
 
-The maximum length of the queue that suspends the connection:
+The maximum length of the queue of suspended connection:
 
 .. code-block:: properties
 
@@ -1112,7 +1112,7 @@ Whether to set buffer = max(sndbuf, recbuf):
 
     ## listener.tcp.external.tune_buffer = off
 
-Whether to set the TCP_NODELAY flag. If this option is enabled, the send buffer will attempt to send once there is data
+Whether to set the TCP_NODELAY flag. If this flag is set, it will attempt to send data once there is data in the send buffer.
 
 .. code-block:: properties
 
@@ -1125,7 +1125,7 @@ Whether to set the SO_REUSEADDR flag:
     listener.tcp.external.reuseaddr = true
 
 -------------------------
-MQTT/SSL listener - 8883
+MQTT/SSL Listener - 8883
 -------------------------
 
 SSL listening port:
@@ -1176,13 +1176,13 @@ TCP data receive rate limit:
 
     ## listener.ssl.external.rate_limit = 1024,4096
 
-Whether the proxy protocol V1/2 is enabled when the EMQ X cluster is deployed in HAProxy or Nginx:
+Whether the proxy protocol V1/2 is enabled when the EMQ X cluster is deployed with HAProxy or Nginx:
 
 .. code-block:: properties
 
     ## listener.ssl.external.proxy_protocol = on
 
-Timeout period of the proxy protocol:
+Timeout of the proxy protocol:
 
 .. code-block:: properties
 
@@ -1254,7 +1254,7 @@ Whether to allow the client to reuse an existing session:
 
     ## listener.ssl.external.reuse_sessions = on
 
-Whether to force passwords to be set in the order specified by the server, not by the client:
+Whether to force ciphers to be set in the order specified by the server, not by the client:
 
 .. code-block:: properties
 
@@ -1266,7 +1266,7 @@ Use the CN, EN, or CRT field in the client certificate as the username. Note tha
 
     ## listener.ssl.external.peer_cert_as_username = cn
 
-The maximum length of the queue that suspends the connection:
+The maximum length of the queue of suspended connection:
 
 .. code-block:: properties
 
@@ -1310,7 +1310,7 @@ Whether to set buffer = max(sndbuf, recbuf):
 
     ## listener.ssl.external.tune_buffer = off
 
-Whether to set the TCP_NODELAY flag. If this option is enabled, the send buffer will attempt to send once there is data:
+Whether to set the TCP_NODELAY flag. If this flag is set, it will attempt to send data once there is data in the send buffer:
 
 .. code-block:: properties
 
@@ -1323,10 +1323,10 @@ Whether to set the SO_REUSEADDR flag:
     listener.ssl.external.reuseaddr = true
 
 ------------------------------
-MQTT/WebSocket listener - 8083
+MQTT/WebSocket Listener - 8083
 ------------------------------
 
-MQTT/WebSocket listening port::
+MQTT/WebSocket listening port:
 
 .. code-block:: properties
 
@@ -1380,19 +1380,19 @@ Whether to verify that the protocol header is valid:
 
     listener.ws.external.verify_protocol_header = on
 
-Uses X-Forward-For to identify the original IP after the EMQ X cluster is deployed in NGINX or HAProxy:
+Uses X-Forward-For to identify the original IP after the EMQ X cluster is deployed with NGINX or HAProxy:
 
 .. code-block:: properties
 
     ## listener.ws.external.proxy_address_header = X-Forwarded-For
 
-Uses X-Forward-For to identify the original port after the EMQ X cluster is deployed in NGINX or HAProxy:
+Uses X-Forward-For to identify the original port after the EMQ X cluster is deployed with NGINX or HAProxy:
 
 .. code-block:: properties
 
     ## listener.ws.external.proxy_port_header = X-Forwarded-Port
 
-Whether the proxy protocol V1/2 is enabled when the EMQ X cluster is deployed in HAProxy or Nginx:
+Whether the proxy protocol V1/2 is enabled when the EMQ X cluster is deployed with HAProxy or Nginx:
 
 .. code-block:: properties
 
@@ -1404,7 +1404,7 @@ Proxy protocol timeout:
 
     ## listener.ws.external.proxy_protocol_timeout = 3s
 
-The maximum length of the queue that suspends the connection:
+The maximum length of the queue of suspended connection:
 
 .. code-block:: properties
 
@@ -1448,7 +1448,7 @@ Whether to set buffer  = max(sndbuf, recbuf):
 
     ## listener.ws.external.tune_buffer = off
 
-Whether to set the TCP_NODELAY flag. If this option is enabled, the send buffer will attempt to send once there is data:
+Whether to set the TCP_NODELAY flag. If this flag is set, it will attempt to send data once there is data in the send buffer:
 
 .. code-block:: properties
 
@@ -1484,9 +1484,9 @@ Maximum packet size, 0 means no limit:
 
     ## listener.ws.external.max_frame_size = 0
 
-----------------------------------------
-MQTT/WebSocket with SSL listener - 8084
-----------------------------------------
+---------------------------------------
+MQTT/WebSocket with SSL Listener - 8084
+---------------------------------------
 
 MQTT/WebSocket with SSL listening port:
 
@@ -1542,19 +1542,19 @@ Whether to verify that the protocol header is valid:
 
     listener.wss.external.verify_protocol_header = on
 
-Uses X-Forward-For to identify the original IP after the EMQ X cluster is deployed in NGINX or HAProxy:
+Uses X-Forward-For to identify the original IP after the EMQ X cluster is deployed with NGINX or HAProxy:
 
 .. code-block:: properties
 
     ## listener.wss.external.proxy_address_header = X-Forwarded-For
 
-Uses X-Forward-For to identify the original port after the EMQ X cluster is deployed in NGINX or HAProxy:
+Uses X-Forward-For to identify the original port after the EMQ X cluster is deployed with NGINX or HAProxy:
 
 .. code-block:: properties
 
     ## listener.wss.external.proxy_port_header = X-Forwarded-Port
 
-Whether the proxy protocol V1/2 is enabled when the EMQ X cluster is deployed in HAProxy or Nginx:
+Whether the proxy protocol V1/2 is enabled when the EMQ X cluster is deployed with HAProxy or Nginx:
 
 .. code-block:: properties
 
@@ -1626,7 +1626,7 @@ Whether to allow the client to reuse an existing session:
 
     ## listener.wss.external.reuse_sessions = on
 
-Whether to force passwords to be set in the order specified by the server, not by the client:
+Whether to force ciphers to be set in the order specified by the server, not by the client:
 
 .. code-block:: properties
 
@@ -1676,7 +1676,7 @@ When the sndbuf or recbuf value is set, val(buffer) is automatically set to the 
 
     ## listener.wss.external.buffer = 4KB
 
-Whether to set the TCP_NODELAY flag. If this option is enabled, the send buffer will attempt to send once there is data:
+Whether to set the TCP_NODELAY flag. If this option is enabled, it will attempt to send data once there is data in the send buffer :
 
 .. code-block:: properties
 
@@ -1713,13 +1713,13 @@ Maximum packet size, 0 means no limit:
     ## listener.wss.external.max_frame_size = 0
 
 --------
-Bridges 
+Bridges
 --------
 
-Bridges parameter setting
---------------------------
+Bridges Parameter Setting
+-------------------------
 
-Bridge address, use node name for rpc bridging, and use host:port for mqtt connection:
+Bridge address, use node name for RPC bridging, and use host:port for MQTT connection:
 
 .. code-block:: properties
 
@@ -1791,13 +1791,13 @@ Key file for SSL connection:
 
     bridge.aws.keyfile = etc/certs/client-key.pem
 
-SSL Password :
+SSL cipher suites:
 
 .. code-block:: properties
 
     #bridge.aws.ciphers = ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384
 
-TLS PSK Password :
+TLS PSK Password:
 
 .. code-block:: properties
 
@@ -1845,7 +1845,7 @@ Resending interval for QoS 1/2 messages:
 
     bridge.aws.retry_interval = 20s
 
-Flight window size:
+In-flight window size:
 
 .. code-block:: properties
 
@@ -1876,28 +1876,28 @@ Replayq data segment size:
     bridge.aws.queue.replayq_seg_bytes = 10MB
 
 --------
-Modules 
+Modules
 --------
 
-EMQ X supports module expansion. The default three modules are the online and offline message status publishing module, the proxy subscription module, and the topic rewriting module.
+EMQ X supports module expansion. The three default modules are the online and offline status message publishing module, the proxy subscription module, and the topic rewriting module.
 
-nline and offline message status publishing module
+Online and offline status message publishing module
 ---------------------------------------------------
 
-Whether to enable the online and offline message status publishing module:
+Whether to enable the online and offline status message publishing module:
 
 .. code-block:: properties
 
     module.presence = on
 
-QoS used by the online and offline message status publishing module to publish MQTT messages:
+QoS used by the online and offline status message publishing module to publish MQTT messages:
 
 .. code-block:: properties
 
     module.presence.qos = 1
 
-Proxy subscription module
----------------------------
+Proxy Subscription Module
+-------------------------
 
 Whether to enable the proxy subscription module:
 
@@ -1915,10 +1915,10 @@ Topics and QoS that are automatically subscribed when the client connects:
     ## module.subscription.2.topic = $user/%u
     ## module.subscription.2.qos = 1
 
-Topic rewriting module
------------------------
+Topic Rewriting Module
+----------------------
 
-Whether to enable the Topic rewriting module:
+Whether to enable the topic rewriting module:
 
 .. code-block:: properties
 
@@ -1931,9 +1931,9 @@ Topic rewriting rule:
     ## module.rewrite.rule.1 = x/# ^x/y/(.+)$ z/y/$1
     ## module.rewrite.rule.2 = y/+/z/# ^y/(.+)/z/(.+)$ y/z/$2
 
-----------------------------------------
-Configuration file for plugin extension 
-----------------------------------------
+-------------------------------
+Configuration Files for Plugins
+-------------------------------
 
 The directory where the plugin configuration file is stored:
 
@@ -1947,11 +1947,11 @@ Path of the file to store list of plugins that needs to be automatically loaded 
 
     plugins.loaded_file = data/loaded_plugins
 
-The EMQ X plugin configuration file, which is in the directory of etc/plugins/  by default, and can be adjusted by modification of plugins.etc_dir.
+The EMQ X plugin configuration file, which is in the directory of ``etc/plugins/`` by default, and can be adjusted by modification of plugins.etc_dir.
 
---------------------------
-Broker parameter settings
---------------------------
+-------------------------
+Broker Parameter Settings
+-------------------------
 
 System message publishing interval:
 
@@ -1989,11 +1989,11 @@ Whether to enable route batch cleaning:
 
     broker.route_batch_clean = on
 
------------------------------
-Erlang VM listening settings
------------------------------
+--------------------
+Erlang VM Monitoring
+--------------------
 
-Whether to enable long_gc listening and how long garbage collection lasts that can trigger the long_gc event:
+Whether to enable long_gc monitoring and how long garbage collection lasts that can trigger the long_gc event:
 
 .. code-block:: properties
 
