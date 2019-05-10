@@ -363,7 +363,7 @@ Erlang system heartbeat monitoring during running. Comment this line to disable 
 
     node.heartbeat = on
 
-The number of threads in the asynchronous thread pool, with the valid range: 0-1024::
+The number of threads in the asynchronous thread pool, with the valid range: 0-1024:
 
 .. code-block:: properties
 
@@ -434,19 +434,19 @@ Port range of TCP connections for communication between Erlang distributed nodes
 RPC Parameter Configuration
 ---------------------------
 
-TCP port for RPC (local)::
+TCP port for RPC (local):
 
 .. code-block:: properties
 
     rpc.tcp_server_port = 5369
 
-TCP port for RPC(remote)::
+TCP port for RPC(remote):
 
 .. code-block:: properties
 
     rpc.tcp_client_port = 5369
 
-RPC connection timeout::
+RPC connection timeout:
 
 .. code-block:: properties
 
@@ -628,7 +628,7 @@ When the EMQ X broker receives an Publish or Subscribe request from MQTT client,
 MQTT Protocol Parameter Configuration
 -------------------------------------
 
-MQTT maximum packet size::
+MQTT maximum packet size:
 
 .. code-block:: properties
 
@@ -705,7 +705,7 @@ A zone config has a form ``zone.$name.xxx``, here the ``$name`` is the zone name
 External Zone  Parameter Settings
 ---------------------------------
 
-The maximum time to wait for MQTT CONNECT packet after the TCP connection is established::
+The maximum time to wait for MQTT CONNECT packet after the TCP connection is established:
 
 .. code-block:: properties
 

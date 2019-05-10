@@ -138,7 +138,7 @@ GitHub: https://github.com/emqtt
 +--------------------+------------------------------------+
 | `QMQTT`_           | QT framework MQTT client library   |
 +--------------------+------------------------------------+
-| `emqtt_benchmark`_ | MQTT connection and test tool      |
+| `emqtt_benchmark`_ | MQTT benchmark tool                |
 +--------------------+------------------------------------+
 
 Eclipse Paho: https://www.eclipse.org/paho/

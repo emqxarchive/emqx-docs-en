@@ -20,6 +20,7 @@ EMQ X Broker is previously known as emqtt, since R3.1, the name is officially ch
 .. image:: ./_static/images/emqtt.png
 
 Index of *EMQ X Broker* R3.1 Document
+
 .. toctree::
    :maxdepth: 2
 
