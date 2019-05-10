@@ -5,243 +5,141 @@
 Get Started
 ===========
 
---------
-Overview
---------
+----------------------------------------
+*EMQ X* R3.1 Message Broker Introduction
+----------------------------------------
 
-*EMQ X* (Erlang MQTT Broker) is an open source MQTT broker written in Erlang/OTP. Erlang/OTP is a concurrent, fault-tolerant, soft-realtime and distributed programming platform. MQTT is an extremely lightweight publish/subscribe messaging protocol powering IoT, M2M and Mobile applications.
+EMQ X (Erlang/Enterprise/Elastic MQTT Broker) is an open source IoT MQTT message broker based on the Erlang/OTP platform. Erlang/OTP is an excellent Soft-Realtime, Low-Latency and Distributed development platform. MQTT is a lightweight message exchange protocol using publish-subscribe pattern.
 
-The *EMQ X* project is aimed to implement a scalable, distributed, extensible open-source MQTT broker for IoT, M2M and Mobile applications that hope to handle millions of concurrent MQTT clients.
+*EMQ X* is designed for massive clients access and realizes fast and low-latency message routing between massive physical network devices:
 
-Highlights of the *EMQ X* broker:
+1. Stable to host large-scale MQTT client connections, and a single-server node supports millions of connections.
 
-* Full MQTT V3.1/3.1.1 & V5.0 Protocol Specifications Support
-* Easy to Install - Quick Install on Linux, Mac and Windows
-* Massively scalable - Scaling to 1 million connections on a single server
-* Cluster and Bridge Support
-* Easy to extend - Hooks and plugins to customize or extend the broker
-* Pluggable Authentication - LDAP, MySQL, PostgreSQL, Redis Authentication Plugins
+2. Distributed cluster, fast and low-latency message routing, and single-cluster supports tens of thousands of routes.
 
---------
-Features
---------
+3. Extensible, support customized plugins, such as authentication and other functions.
 
-* Full MQTT V3.1/V3.1.1 & V5.0 protocol specifications support
-* QoS0, QoS1, QoS2 Publish and Subscribe
-* Session Management and Offline Messages
-* Retained Message
-* Last Will Message
-* TCP/SSL Connection
-* MQTT Over WebSocket(SSL)
-* HTTP Publish API
-* STOMP protocol
-* MQTT-SN Protocol
-* CoAP Protocol
-* STOMP over SockJS
-* $SYS/# Topics
-* ClientID Authentication
-* IpAddress Authentication
-* Username and Password Authentication
-* Access control based on IpAddress, ClientID, Username
-* Authentication with LDAP, Redis, MySQL, PostgreSQL and HTTP API
-* Cluster brokers on several servers
-* Bridge brokers locally or remotely
-* mosquitto, RSMB bridge
-* Extensible architecture with Hooks, Modules and Plugins
-* Passed eclipse paho interoperability tests
-* Local subscription
-* Shared subscription
+4. Comprehensive IoT protocol support, including MQTT, MQTT-SN, CoAP, LwM2M, and other TCP/UDP based proprietary protocol.
 
------------
-Quick Start
------------
+.. _mqtt_pubsub:
 
-Download and Install
---------------------
+--------------------------------------------
+MQTT and Publish-Subscribe Messaging Pattern
+--------------------------------------------
 
-The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
+MQTT message exchanging is based on the Publish-Subscribe pattern which is essentially different from the HTTP Request/Response pattern.
 
-Download binary package from: https://www.emqx.io/downloads.
+The **Subscriber** subscribes to a **Topic** from the **Broker**. The broker forwards the messages under a topic to all subscribers of this particular topic.
 
-Installing on Mac, for example:
+**'/'** is used as a separator to distinguish between different levels in a topic. Topics can contain wildcards, there are two wildcards allowed in MQTT topic: 1)the **'#'** for multiple topic levels, and 2) the **'+'** for single topic level. Topics that contain the wildcard '+' or '#' are also known as **Topic Filters**; those that do not contain wildcards are called Topic Names sometimes. For example::
+
+    sensor/1/temperature
+
+    chat/room/subject
+
+    presence/user/feng
+
+    sensor/1/#
+
+    sensor/+/temperature
+
+    uber/drivers/joe/inbox
+
+
+.. NOTE:: '+'matches single level and'#' matches multiple levels (must be at the end).
+.. NOTE:: Publishers can only post messages to 'topic names', and Subscribers can subscribe to multiple topic names by subscribing to 'topic filters'.
+
+.. _features:
+
+---------------------------------------
+EMQ X R3.1 Message Broker Features List
+---------------------------------------
+
+* Complete MQTT V3.1/V3.1.1 and V5.0 protocol specification support
+* Three QoS level: QoS0, QoS1 and QoS2 
+* Persistent session and offline message 
+* Retained message
+* Last Will message
+* TCP/SSL
+* MQTT/WebSocket/SSL
+* HTTP message publishing interface
+* $SYS/# (system topics)
+* client status via query and subscription
+* Authentication based on Client ID, Username or IP address
+* integration with Redis, MySQL, PostgreSQL, MongoDB, HTTP and LDAP (authentication and authorization) 
+* Browser cookie authentication
+* Access Control (ACL) based on client ID, IP address, and username
+* Cluster
+* Diverse cluster node discovery methods: manual, mcast, dns, etcd, k8s and etc 
+* Auto healing of network split
+* Message rate limit
+* Connection rate limit
+* Configuring nodes by zone
+* Bridging of multiple brokers via RPC
+* Bridging of multiple brokers via MQTT
+* Stomp protocol support
+* MQTT-SN protocol support
+* CoAP protocol support
+* SockJS support
+* Delayed publish ($delay/topic)
+* Flapping detection
+* Blacklist support
+* Shared subscription ($share/<group>/topic)
+* TLS/PSK support
+* Rule engine 
+
+.. _quick_start:
+
+----------------------------------------
+Download and Start EMQ X in Five Minutes
+----------------------------------------
+
+For each version EMQ X will be released as installation packages or zip packages for diverse OSes and platforms, including CentOS, Ubuntu, Debian, FreeBSD, macOS, Windows and etc. It is also available as Docker image.
+
+Download address: https://www.emqx.io/downloads/broker?osType=Linux
+
+
+Once the package is downloaded and installed (or unzipped), the EQM X is ready to start. Taking the zip package for Mac as an example:
+
 
 .. code-block:: bash
 
-    unzip emqx-macosx-v3.0.zip && cd emqx
+    unzip emqx-macosx-v3.1.0.zip && cd emqx
 
-    # Start EMQ X
+    # start emqx
     ./bin/emqx start
 
-    # Check Status
+    # Check the running status
     ./bin/emqx_ctl status
 
-    # Stop EMQ X
+    # stop emqx
     ./bin/emqx stop
 
-Installing from Source
-----------------------
+After EMQ X is started, the MQTT client can connect to it through port 1883. By default, the running log is in the directory of ``log/``.
 
-.. NOTE:: The *EMQ X* broker requires Erlang/OTP R21+ to build since 3.0 release.
+EMQ X loads the Dashboard plugin and launches the web management console by default. Users can check the broker running status, statistics, connections, sessions, topics, subscriptions, and plugins through the web console.
 
-.. code-block:: bash
-
-    git clone https://github.com/emqx/emqx.git
-
-    cd emqx && make rel
-
-    cd rel/emqx && ./bin/emqx console
-
--------------
-Web Dashboard
--------------
-
-A Web Dashboard will be loaded when the *EMQ X* broker is started successfully.
-
-The Dashboard helps check running status of the broker, monitor statistics and metrics of MQTT packets, query clients, sessions, topics and subscriptions.
-
-+------------------+---------------------------+
-| Default Address  | http://localhost:18083    |
-+------------------+---------------------------+
-| Default User     | admin                     |
-+------------------+---------------------------+
-| Default Password | public                    |
-+------------------+---------------------------+
+Console address: http://127.0.0.1:18083，default username: admin，password:public
 
 .. image:: ./_static/images/dashboard.png
 
--------
-Plugins
--------
+.. _mqtt_clients:
 
-The *EMQ X* broker could be extended by Plugins.  A plugin is an Erlang application that adds extra feature to the *EMQ X* broker:
-
-+-------------------------+--------------------------------------------+
-| `emqx_retainer`_        | Store Retained Messages                    |
-+-------------------------+--------------------------------------------+
-| `emqx_dashboard`_       | Web Dashboard                              |
-+-------------------------+--------------------------------------------+
-| `emqx_auth_clientid`_   | Authentication with ClientId               |
-+-------------------------+--------------------------------------------+
-| `emqx_auth_username`_   | Authentication with Username and Password  |
-+-------------------------+--------------------------------------------+
-| `emqx_plugin_template`_ | Plugin template and demo                   |
-+-------------------------+--------------------------------------------+
-| `emqx_auth_ldap`_       | LDAP Auth Plugin                           |
-+-------------------------+--------------------------------------------+
-| `emqx_auth_http`_       | Authentication/ACL with HTTP API           |
-+-------------------------+--------------------------------------------+
-| `emqx_auth_mysql`_      | Authentication with MySQL                  |
-+-------------------------+--------------------------------------------+
-| `emqx_auth_pgsql`_      | Authentication with PostgreSQL             |
-+-------------------------+--------------------------------------------+
-| `emqx_auth_redis`_      | Authentication with Redis                  |
-+-------------------------+--------------------------------------------+
-| `emqx_auth_mongo`_      | Authentication with MongoDB                |
-+-------------------------+--------------------------------------------+
-| `emqx_sn`_              | MQTT-SN Protocol Plugin                    |
-+-------------------------+--------------------------------------------+
-| `emqx_coap`_            | CoAP Protocol Plugin                       |
-+-------------------------+--------------------------------------------+
-| `emqx_stomp`_           | STOMP Protocol Plugin                      |
-+-------------------------+--------------------------------------------+
-| `emqx_recon`_           | Recon Plugin                               |
-+-------------------------+--------------------------------------------+
-| `emqx_reloader`_        | Reloader Plugin                            |
-+-------------------------+--------------------------------------------+
-| `emqx_web_hook`_        | Web Hook Plugin                            |
-+-------------------------+--------------------------------------------+
-| `emqx_lua_hook`_        | Lua Hook Plugin                            |
-+-------------------------+--------------------------------------------+
-
-A plugin could be enabled by 'bin/emqx_ctl plugins load' command.
-
-For example, enable 'emqx_auth_pgsql' plugin::
-
-    ./bin/emqx_ctl plugins load emqx_auth_pgsql
-
------------------------
-One Million Connections
------------------------
-
-Latest release of the *EMQ X* broker is scalable to 1.3 million MQTT connections on a 12 Core, 32G CentOS server.
-
-.. NOTE::
-
-    The *EMQ X* broker only allows 512 concurrent connections by default, for that 'ulimit -n' limitation is set to 1024 on most platform.
-
-We need to tune the OS Kernel, TCP Stack, Erlang VM and *EMQ X* broker for one million connections benchmark.
-
-Linux Kernel Parameters
------------------------
-
-.. code-block:: bash
-
-    # 2M:
-    sysctl -w fs.file-max=2097152
-    sysctl -w fs.nr_open=2097152
-    echo 2097152 > /proc/sys/fs/nr_open
-
-    # 1M:
-    ulimit -n 1048576
-
-TCP Stack Parameters
---------------------
-
-.. code-block:: bash
-
-    # backlog
-    sysctl -w net.core.somaxconn=65536
-
-Erlang VM
----------
-
-emqx/etc/emqx.conf:
-
-.. code-block:: properties
-
-    ## Erlang Process Limit
-    node.process_limit = 2097152
-
-    ## Sets the maximum number of simultaneously existing ports for this system
-    node.max_ports = 1048576
-
-Max Allowed Connections
------------------------
-
-emqx/etc/emqx.conf 'listeners':
-
-.. code-block:: properties
-
-    ## Size of acceptor pool
-    listener.tcp.acceptors = 64
-
-    ## Maximum number of concurrent clients
-    listener.tcp.max_clients = 1000000
-
-Test Client
------------
-
-.. code-block:: bash
-
-    sysctl -w net.ipv4.ip_local_port_range="500 65535"
-    echo 1000000 > /proc/sys/fs/nr_open
-    ulimit -n 100000
-
----------------------
-MQTT Client Libraries
----------------------
+--------------------------------
+Open Source MQTT Client Project
+--------------------------------
 
 GitHub: https://github.com/emqtt
 
-+--------------------+----------------------+
-| `emqttc`_          | Erlang MQTT Client   |
-+--------------------+----------------------+
-| `emqtt_benchmark`_ | MQTT benchmark Tool  |
-+--------------------+----------------------+
-| `CocoaMQTT`_       | Swift MQTT Client    |
-+--------------------+----------------------+
-| `QMQTT`_           | QT MQTT Client       |
-+--------------------+----------------------+
++--------------------+------------------------------------+
+| `emqttc`_          | Erlang MQTT client library         |
++--------------------+------------------------------------+
+| `CocoaMQTT`_       | Swift Language MQTT Client Library |
++--------------------+------------------------------------+
+| `QMQTT`_           | QT framework MQTT client library   |
++--------------------+------------------------------------+
+| `emqtt_benchmark`_ | MQTT benchmark tool                |
++--------------------+------------------------------------+
 
 Eclipse Paho: https://www.eclipse.org/paho/
 
@@ -251,22 +149,3 @@ MQTT.org: https://github.com/mqtt/mqtt.github.io/wiki/libraries
 .. _emqtt_benchmark: https://github.com/emqtt/emqtt_benchmark
 .. _CocoaMQTT:       https://github.com/emqtt/CocoaMQTT
 .. _QMQTT:           https://github.com/emqtt/qmqtt
-
-.. _emqx_plugin_template:  https://github.com/emqx/emqx-plugin-template
-.. _emqx_dashboard:        https://github.com/emqx/emqx-dashboard
-.. _emqx_retainer:         https://github.com/emqx/emqx-retainer
-.. _emqx_auth_clientid:    https://github.com/emqx/emqx-auth-clientid
-.. _emqx_auth_username:    https://github.com/emqx/emqx-auth-username
-.. _emqx_auth_ldap:        https://github.com/emqx/emqx-auth-ldap
-.. _emqx_auth_http:        https://github.com/emqx/emqx-auth-http
-.. _emqx_auth_mysql:       https://github.com/emqx/emqx-auth-mysql
-.. _emqx_auth_pgsql:       https://github.com/emqx/emqx-auth-pgsql
-.. _emqx_auth_redis:       https://github.com/emqx/emqx-auth-redis
-.. _emqx_auth_mongo:       https://github.com/emqx/emqx-auth-mongo
-.. _emqx_reloader:         https://github.com/emqx/emqx-reloader
-.. _emqx_stomp:            https://github.com/emqx/emqx-stomp
-.. _emqx_recon:            https://github.com/emqx/emqx-recon
-.. _emqx_sn:               https://github.com/emqx/emqx-sn
-.. _emqx_coap:             https://github.com/emqx/emqx-coap
-.. _emqx_web_hook:         https://github.com/emqx/emqx-web-hook
-.. _emqx_lua_hook:         https://github.com/emqx/emqx-lua-hook

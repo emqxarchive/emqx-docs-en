@@ -5,6 +5,40 @@
 Upgrade
 =======
 
+.. _upgrade_3.1:
+
+---------------
+Upgrade to 3.1
+---------------
+
+.. NOTE:: The 3.1 version newly designed the project architecture, configuration method and plug-in management method. 2.x and 1.x version upgrades require reconfiguration deployment.
+
+Upgrade steps:
+
+1. Download and install emqx-3.1 to the new directory, for example /opt/emqx-3.1/.
+
+2. Refer to the old version of etc/vm.args, etc/emqttd.config or etc/emq.conf to configure version 3.1 of etc/emqx.conf.
+
+3. Reconfigure etc/plugins/{plugin}.conf.
+
+4. Edit the data/loaded_plugins, and add the plugins loaded in old installation.
+
+5. Stop the old emqttd, and start the 3.1 installation.
+
+.. _upgrade_2.0.3:
+
+-----------------
+Upgrade to 2.0.3
+-----------------
+
+Upgrade steps:
+
+1. Download and extract the 2.0.3 version to the new installation directory, for example /opt/emqttd-2.0.3/.
+
+2. The old version of the 'etc/' configuration file, the 'data/' data file is overwritten to the new version of the directory.
+
+3. Stop the old emqttd, and start the 2.0.3 installation.
+
 .. _upgrade_2.0:
 
 --------------
@@ -54,4 +88,5 @@ Steps:
 3. Copy the plugins/{plugin}/etc/* from the old installation if you loaded plugins.
 
 4. Stop the old emqttd, and start the new one.
+
 

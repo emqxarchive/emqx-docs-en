@@ -5,13 +5,457 @@
 Changes
 =======
 
+.. _release_3.1.1:
+
+-------------
+Version 3.1.1
+-------------
+
+*Release Date: 2019-05-10*
+
+EMQ X 3.1.1 is now available. In this version we've fixed bugs and improved stability.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Enlarge the maximum number of characters printed by each log event
+
+  Github PR:
+  `emqx/emqx#2509 <https://github.com/emqx/emqx/pull/2509>`_
+
+- ``force_shutdown_policy`` will use a different value according to digits of system
+
+  Github PR:
+  `emqx/emqx#2515 <https://github.com/emqx/emqx/pull/2515>`_
+
+Bug fixes:
+
+- Configure and use ``long_gc`` 与 ``long_schedule`` correctly
+
+  Github PR:
+  `emqx/emqx#2504 <https://github.com/emqx/emqx/pull/2504>`_,
+  `emqx/emqx#2513 <https://github.com/emqx/emqx/pull/2513>`_
+
+- Fix the issue ``suboptions/count`` not been updated
+
+  Github PR:
+  `emqx/emqx#2507 <https://github.com/emqx/emqx/pull/2507>`_
+
+emqx-lwm2m (plugin)
+-------------------
+
+Bug fixes:
+
+- Fix the issue that mountpoint didn't take effect
+
+  Github PR:
+  `emqx/emqx-lwm2m#34 <https://github.com/emqx/emqx-lwm2m/pull/34>`_
+
+- Fix the issue that message couldn't be forwarded by ``emqx-web-hook``
+
+  Github PR:
+  `emqx/emqx-lwm2m#35 <https://github.com/emqx/emqx-lwm2m/pull/35>`_
+
+.. _release_3.1.0:
+
+-------------
+Version 3.1.0
+-------------
+
+*Release Date: 2019-04-26*
+
+EMQ X 3.1.0 is now available. The rule engine has become stable and production ready.
+We've also introduced an emqx-edge manager - the ``Storm``, and improved some code for flapping.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Add emqx_ct_helpers as deps and refactor test suites
+
+  Github PR:
+  `emqx/emqx#2480 <https://github.com/emqx/emqx/pull/2480>`_
+
+- Refactor flapping code
+
+  Github PR:
+  `emqx/emqx#2476 <https://github.com/emqx/emqx/pull/2476>`_
+
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fixed listeners acceptors is undefined
+
+  Github PR:
+  `emqx/emqx-management#76 <https://github.com/emqx/emqx-management/pull/76>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support validation of rule action params
+
+  Github PR:
+  `emqx/emqx-rule-engine#b28318 <https://github.com/emqx/emqx-rule-engine/commit/b283184dcbb207e8d58ac308c027a093a4f4ab88>`_
+
+- Check dependency when deleting resources
+
+  Github PR:
+  `emqx/emqx-rule-engine#fa75b9 <https://github.com/emqx/emqx-rule-engine/commit/fa75b952efb7951bc57242adc8e953dbbba6b2ed>`_
+
+- Remove ``from`` param from republish action
+
+  Github PR:
+  `emqx/emqx-rule-engine#8721eb <https://github.com/emqx/emqx-rule-engine/commit/8721ebe583d5426f239b5b1f044fe381bf4ea0b7>`_
+
+- Fix where clause of SQL cannot handle integers
+
+  Github PR:
+  `emqx/emqx-rule-engine#c9c761 <https://github.com/emqx/emqx-rule-engine/commit/c9c7616f86019657861dff408854e9c5238d666b>`_
+
+emqx-storm (plugin)
+-------------------
+
+Enhancements:
+
+- Support edge storm
+
+  Github Repository:
+  `emqx/emqx-storm <https://github.com/emqx/emqx-storm>`_
+
+.. _release_3.1-rc.3:
+
+----------------
+Version 3.1-rc.3
+----------------
+
+*Release Date: 2019-04-19*
+
+EMQ X 3.1-rc.3 is now available. In this version we've enhanced the Rule-Engine and fixed some bugs.
+Note: Starting with this release, add OpenSUSE's installation package, and no longer provide Debian 7's installation package.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Support flapping detection for clients, and banning abnormal clients
+
+  Github PR:
+  `emqx/emqx#2438 <https://github.com/emqx/emqx/pull/2438>`_
+
+- Support configuring output length of log
+
+  Github PR:
+  `emqx/emqx#2461 <https://github.com/emqx/emqx/pull/2461>`_
+
+Bug fixes:
+
+- Fix an issue that ``emqx_client`` doesn't set Keep Alive field correctly for CONNECT packet
+
+  Github PR:
+  `emqx/emqx#2443 <https://github.com/emqx/emqx/pull/2443>`_
+
+emqx-auth-mysql (plugin)
+------------------------
+
+Enhancements:
+
+- Support proxysql
+
+  Github PR:
+  `emqx/emqx-auth-mysql#134 <https://github.com/emqx/emqx-auth-mysql/pull/134>`_
+
+emqx-statsd (plugin)
+--------------------
+
+Bug fixes:
+
+- Fix an Windows compatibility issue
+
+  Github PR:
+  `emqx/emqx-statsd#24 <https://github.com/emqx/emqx-statsd/pull/24>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Enhancements:
+
+- Support event actions in webhook
+
+  Github Commit:
+  `emqx/emqx-web-hook#8367e0 <https://github.com/emqx/emqx-web-hook/commit/8367e02f5ccafc7df9600c258348461a67c171bd>`_
+
+- Improve specs of webhook resource
+
+  Github Commit:
+  `emqx/emqx-web-hook#5a1345 <https://github.com/emqx/emqx-web-hook/commit/5a13457d4f823fa80df1c7eab9a8e945ae6a0701>`_
+
+- Support search actions by hook type
+
+  Github Commit:
+  `emqx/emqx-web-hook#fb3b1b <https://github.com/emqx/emqx-web-hook/commit/fb3b1ba98ca3f2557a51be98a06537781119132c>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support search actoins by resource type
+
+  Github PR:
+  `emqx/emqx-rule-engine#25 <https://github.com/emqx/emqx-rule-engine/pull/25>`_
+
+- Load resource providers instead of register providers
+
+  Github PR:
+  `emqx/emqx-rule-engine#26 <https://github.com/emqx/emqx-rule-engine/pull/26>`_
+
+- Improve the input data for actions
+
+  Github PR:
+  `emqx/emqx-rule-engine#27 <https://github.com/emqx/emqx-rule-engine/pull/27>`_
+
+emqx-rel
+--------
+
+Bug fixes:
+
+- Fix start fail after changing log.rotation.size
+
+  Github PR:
+  `emqx/emqx-rel#336 <https://github.com/emqx/emqx-rel/pull/336>`_
+
+.. _release_3.1-rc.2:
+
+----------------
+Version 3.1-rc.2
+----------------
+
+*Release Date: 2019-04-13*
+
+EMQ X 3.1-rc.2 is now available. In this version we've enhanced the Rule-Engine and fixed some bugs.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Redesign ``ensure_start`` and ``ensure_stop`` api of ``emqx_bridge``
+
+  Github PR:
+  `emqx/emqx#2423 <https://github.com/emqx/emqx/pull/2423>`_
+
+- Expose handler of ``emqx_bridge``
+
+  Github PR:
+  `emqx/emqx#2414 <https://github.com/emqx/emqx/pull/2414>`_
+
+Bug fixes:
+
+- Fix an issue that metrics are missed in statistics when session terminated
+
+  Github PR:
+  `emqx/emqx#2416 <https://github.com/emqx/emqx/pull/2416>`_
+
+- Check log level before tracing
+
+  Github PR:
+  `emqx/emqx#2408 <https://github.com/emqx/emqx/pull/2408>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+Enhancements:
+
+- Support updating ``mountpoint`` from user's Web Server in credentials
+
+  Github PR:
+  `emqx/emqx-auth-http#116 <https://github.com/emqx/emqx-auth-http/pull/116>`_
+
+emqx-auth-username (plugin)
+---------------------------
+
+Enhancements:
+
+- Remove the function that configures username in the emqx_auth_username.conf
+
+  Github PR:
+  `emqx/emqx-auth-username#96 <https://github.com/emqx/emqx-auth-username/pull/96>`_
+
+emqx-auth-clientid (plugin)
+---------------------------
+
+Enhancements:
+
+- Remove the function that configures clientid in the emqx_auth_clientid.conf
+
+  Github PR:
+  `emqx/emqx-auth-clientid#81 <https://github.com/emqx/emqx-auth-clientid/pull/81>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support Posix-Style CLI in rule engine CLI
+
+  Github PR:
+  `emqx/emqx-rule-engine#23 <https://github.com/emqx/emqx-rule-engine/pull/23>`_
+
+Bug fixes:
+
+- Fix some Bugs in HTTP APIs
+
+  Github PR:
+  `emqx/emqx-rule-engine#21 <https://github.com/emqx/emqx-rule-engine/pull/21>`_
+
+emqx-packages (plugin)
+----------------------
+
+Bug fixes:
+
+- Fix issue that EMQ X boots abortively on CentOS
+
+  Github Commit:
+  `emqx/emqx-packages#64760523ea29ca0ad1d85b763f0e8a8e6954db9c <https://github.com/emqx/emqx-packages/commit/64760523ea29ca0ad1d85b763f0e8a8e6954db9c>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Add interactive web interface for Rule-Engine
+
+  Github PR:
+  `emqx/emqx-dashboard#50 <https://github.com/emqx/emqx-dashboard/pull/50>`_
+
+- Support managing users of Dashboard in cluster
+
+  Github PR:
+  `emqx/emqx-dashboard#48 <https://github.com/emqx/emqx-dashboard/pull/48>`_
+
+.. _release_3.1-rc.1:
+
+----------------
+Version 3.1-rc.1
+----------------
+
+*Release Date: 2019-04-04*
+
+EMQ X 3.1-rc.1 is now available. In this version we've improved rule engine,
+fixed some bugs, improved the stability, and so on.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Support compress websocket message
+
+  Github PR:
+  `emqx/emqx#2356 <https://github.com/emqx/emqx/pull/2356>`_
+
+- `etcd` cluster support SSL connection
+
+  Github PR:
+  `emqx/emqx#2367 <https://github.com/emqx/emqx/pull/2367>`_
+
+- Support proxy protocol of websocket
+
+  Github PR:
+  `emqx/emqx#2372 <https://github.com/emqx/emqx/pull/2372>`_
+
+Bug fixes:
+
+- Fix the error logic in the monitor modules
+
+  Github PR:
+  `emqx/emqx#2353 <https://github.com/emqx/emqx/pull/2353>`_
+
+- Fix `allow_anonymous` behavoir error
+
+  Github PR:
+  `emqx/emqx#2355 <https://github.com/emqx/emqx/pull/2355>`_
+
+- Fix drain the session process mailbox handling error
+
+  Github PR:
+  `emqx/emqx#2373 <https://github.com/emqx/emqx/pull/2373>`_
+
+- Fix the problem that `message.dropped` hook will not be triggered in some cases
+
+  Github PR:
+  `emqx/emqx#2399 <https://github.com/emqx/emqx/pull/2399>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+Enhancements:
+
+- Support for using Subject Name and Common Name for authentication
+
+  Github PR:
+  `emqx/emqx-auth-http <https://github.com/emqx/emqx-auth-http/pull/113>`_
+
+emqx-auth-clientid (plugin)
+---------------------------
+
+Enhancements:
+
+- Support for operating ClientId via REST API
+
+  Github PR:
+  `emqx/emqx-auth-clientid <https://github.com/emqx/emqx-auth-clientid/pull/78>`_
+
+emqx-auth-jwt (plugin)
+----------------------
+
+Enhancements:
+
+- Support to verify the specified claims fields
+
+  Github PR:
+  `emqx/emqx-auth-jwt#69 <https://github.com/emqx/emqx-auth-jwt/pull/69>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Improve rule engine
+
+  Github Repository:
+  `emqx/emqx-rule-engine <https://github.com/emqx/emqx-rule-engine>`_
+
+emqx-rel
+--------
+
+Bug fixes:
+
+- Fix windows boot twice problem
+
+  Github Commit:
+  `emqx/emqx-rel#75de3441db9bf03d489609dcbb340a74de263508 <https://github.com/emqx/emqx-rel/commit/75de3441db9bf03d489609dcbb340a74de263508>`_
+
+- Fix the problem when boot path contains spaces or chinese character
+
+  Github Commit:
+  `emqx/emqx-rel#75de3441db9bf03d489609dcbb340a74de263508 <https://github.com/emqx/emqx-rel/commit/75de3441db9bf03d489609dcbb340a74de263508>`_
+
 .. _release_3.1-beta.3:
 
 ------------------
 Version 3.1-beta.3
 ------------------
 
-*Release Date: 2019-03-22*
+*Release Date: 2019-04-26*
 
 EMQ X 3.1-beta.3 is now available. In this version we've introduced rule engine,
 improved plugin discovery mechanism, fixed some bugs, and so on.
