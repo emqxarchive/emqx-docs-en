@@ -203,8 +203,9 @@ Example::
 
     mosquitto_pub -t 'topic' -m msg -q 2
 
+The dispatch strategy for shared messages can be configured by the ``broker.shared_subscription_strategy`` field in the ``etc/emqx.conf``
 
-The following strategies are supported by EMQ X to distribute messages:：
+The following strategies are supported by EMQ X to distribute messages:
 
 +---------------------------+--------------------------------------------+
 | Strategy                  | Description                                |
