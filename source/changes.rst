@@ -13,7 +13,7 @@ Version 3.2-beta.1
 
 *Release Date: 2019-05-27*
 
-EMQ X 3.2-beta.1 is now available. In this version we've supported building through rebar3 and improved rule engine.
+EMQ X 3.2-beta.1 is now available. We've changed our build tool from erlang.mk to rebar3, and improved the rule-engine.
 
 EMQ X Core
 ----------
@@ -70,7 +70,7 @@ emqx-web-hook (plugin)
 
 Enhancements:
 
-- Add a option to encode payload field
+- Add an option for encoding payload field
 
   Github PR:
   `emqx/emqx-web-hook#119 <https://github.com/emqx/emqx-web-hook/pull/119>`_
