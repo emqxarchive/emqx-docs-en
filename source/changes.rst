@@ -50,6 +50,11 @@ Bug fixes:
   Github PR:
   `emqx/emqx#2559 <https://github.com/emqx/emqx/pull/2559>`_
 
+- Fixed an error when publishing MQTT-SN, CoAP messages
+
+  Github PR:
+  `emqx/emqx#2556 <https://github.com/emqx/emqx/pull/2556>`_
+
 emqx-rule-engine (plugin)
 -------------------------
 
