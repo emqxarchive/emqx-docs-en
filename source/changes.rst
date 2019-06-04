@@ -5,6 +5,101 @@
 Changes
 =======
 
+.. _release_3.2-beta.1:
+
+------------------
+Version 3.2-beta.1
+------------------
+
+*Release Date: 2019-05-27*
+
+EMQ X 3.2-beta.1 is now available. We've changed our build tool from erlang.mk to rebar3, and improved the rule-engine.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Build with rebar3
+
+  Github PR:
+  `emqx/emqx#2475 <https://github.com/emqx/emqx/pull/2475>`_,
+  `emqx/emqx#2510 <https://github.com/emqx/emqx/pull/2510>`_,
+  `emqx/emqx#2518 <https://github.com/emqx/emqx/pull/2518>`_,
+  `emqx/emqx#2521 <https://github.com/emqx/emqx/pull/2521>`_
+
+- Support `{active, N}` for SSL connection
+
+  Github PR:
+  `emqx/emqx#2531 <https://github.com/emqx/emqx/pull/2531>`_
+
+- Improve the behaviour of anonymous access
+
+  Github PR:
+  `emqx/emqx#2355 <https://github.com/emqx/emqx/pull/2355>`_
+
+- Speed up zone access
+
+  Github PR:
+  `emqx/emqx#2548 <https://github.com/emqx/emqx/pull/2548>`_
+
+Bug fixes:
+
+- Fixed a fatal error in the `emqx_sm`
+
+  Github PR:
+  `emqx/emqx#2559 <https://github.com/emqx/emqx/pull/2559>`_
+
+- Fixed an error when publishing MQTT-SN, CoAP messages
+
+  Github PR:
+  `emqx/emqx#2556 <https://github.com/emqx/emqx/pull/2556>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Better rule engine
+
+  Github Repository:
+  `emqx/emqx-rule-engine <https://github.com/emqx/emqx-rule-engine>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Enhancements:
+
+- Add an option for encoding payload field
+
+  Github PR:
+  `emqx/emqx-web-hook#119 <https://github.com/emqx/emqx-web-hook/pull/119>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+Enhancements:
+
+- More opts for http request
+
+  Github PR:
+  `emqx/emqx-auth-http#128 <https://github.com/emqx/emqx-auth-http/pull/128>`_
+
+- Add more parameters for acl/auth request
+
+  Github PR:
+  `emqx/emqx-auth-http#127 <https://github.com/emqx/emqx-auth-http/pull/127>`_
+
+emqx-sn (plugin)
+----------------
+
+Bug fixes:
+
+- Fix wrong function call
+
+  Github PR:
+  `emqx/emqx-sn#118 <https://github.com/emqx/emqx-sn/pull/118>`_
+
 .. _release_3.1.1:
 
 -------------
