@@ -15,8 +15,6 @@ Version 3.2-beta.2
 
 EMQ X 3.2-beta.2 is now available. The rule-engine is more user-friendly now, and it supports TimescaleDB and InfluxDB.
 
-We've changed our build tool from erlang.mk to rebar3, and improved the rule-engine.
-
 emqx-rule-engine (plugin)
 -------------------------
 
