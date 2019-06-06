@@ -15,6 +15,16 @@ Version 3.2-beta.2
 
 EMQ X 3.2-beta.2 is now available. The rule-engine is more user-friendly now, and it supports TimescaleDB and InfluxDB.
 
+EMQ X Core
+----------
+
+Bug fixes:
+
+- Fix `emqx/emqx: issue#2553 <https://github.com/emqx/emqx/issues/2553>`_
+
+  Github PR:
+  `emqx/emqx#2596 <https://github.com/emqx/emqx/pull/2596>`_
+
 emqx-rule-engine (plugin)
 -------------------------
 
@@ -100,6 +110,36 @@ Enhancements:
 
   Github Repository:
   `emqx/emqx-backend-influxdb <https://github.com/emqx/emqx-backend-influxdb>`_
+
+emqx-docker (plugin)
+--------------------
+
+Bug fixes:
+
+- Fix `emqx/emqx-docker: issue#115 <https://github.com/emqx/emqx-docker/issues/115>`_
+
+  Github Commit:
+  `emqx/emqx-docker#f3c219 <https://github.com/emqx/emqx-docker/commit/f3c21978f5ffefd5d419bc78a1caf1ad71de9c91>`_
+
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fix the issue of reloading plugin
+
+  Github PR:
+  `emqx/emqx-management#91 <https://github.com/emqx/emqx-management/pull/91>`_
+
+ekka (deps)
+-----------
+
+Bug fixes:
+
+- Fix the issue makes `emqx_sm_locker` crash
+
+  Github Commit:
+  `emqx/ekka#2d5bf2 <https://github.com/emqx/ekka/commit/2d5bf2a1f10d84408e4b35d3e274a49f395056c3>`_
 
 .. _release_3.2-beta.1:
 
