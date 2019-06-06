@@ -5,6 +5,104 @@
 Changes
 =======
 
+.. _release_3.2-beta.2:
+
+------------------
+Version 3.2-beta.2
+------------------
+
+*Release Date: 2019-06-06*
+
+EMQ X 3.2-beta.2 is now available. The rule-engine is more user-friendly now, and it supports TimescaleDB and InfluxDB.
+
+We've changed our build tool from erlang.mk to rebar3, and improved the rule-engine.
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support testing SQL in the dashboard
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3e7c4c <https://github.com/emqx/emqx-rule-engine/commit/3e7c4cbe275d8f120ad8efb83fd23ee571d465db>`_
+
+- Preprocess prepared statement for better performance
+
+  Github Commit:
+  `emqx/emqx-rule-engine#fa3720 <https://github.com/emqx/emqx-rule-engine/commit/fa37205850c6efe9af5f8ca2f230e17c7de2adb4>`_,
+  `emqx/emqx-rule-engine#b00fad <https://github.com/emqx/emqx-rule-engine/commit/b00fad45c283fa2ec3aa57353bbe161960547461>`_
+
+- Adapt rule engine to emqx cluster
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3da7fe <https://github.com/emqx/emqx-rule-engine/commit/3da7fed60d92c9a994c2aed5f34509c0d0d4eff4>`_,
+  `emqx/emqx-rule-engine#4963b0 <https://github.com/emqx/emqx-rule-engine/commit/4963b0ee3a6114ebe74b48876d25723137df14ad>`_
+
+- Support showing resource status from dashboard
+
+  Github Commit:
+  `emqx/emqx-rule-engine#dd9a8d <https://github.com/emqx/emqx-rule-engine/commit/dd9a8d4801f650c1ac888f7420f5497f7d0d6c73>`_,
+  `emqx/emqx-rule-engine#d16224 <https://github.com/emqx/emqx-rule-engine/commit/d162246c0b630e059c21f7b36e50154f3d7832e3>`_,
+  `emqx/emqx-rule-engine#e4574c <https://github.com/emqx/emqx-rule-engine/commit/e4574c9554d7e7d79a8ce55a6c9e4089ee00db79>`_
+
+- Support restarting resources in dashboard
+
+  Github Commit:
+  `emqx/emqx-rule-engine#ccbffd <https://github.com/emqx/emqx-rule-engine/commit/ccbffd7d5db514adf6cd20e8d139e73f80bc1c96>`_
+
+- Support check HTTP connectivity
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3feffc <https://github.com/emqx/emqx-rule-engine/commit/3feffcd5a3f0da78725f1208594cea1b3273ec0b>`_
+
+Bug fixes:
+
+- Fix check dependency error before deleting resources
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3265ff <https://github.com/emqx/emqx-rule-engine/commit/3265ffe10584f0edccc084e6f78ae035ba310c07>`_
+
+- Fix resources never destroyed
+
+  Github Commit:
+  `emqx/emqx-rule-engine#58a1ce <https://github.com/emqx/emqx-rule-engine/commit/58a1ce45e1cf96cf05481d8ed076febef0d41976>`_
+
+- Fix SQL nested put failure
+
+  Github Commit:
+  `emqx/emqx-rule-engine#64776a <https://github.com/emqx/emqx-rule-engine/commit/64776aebde1fe48c1038fba3b61f457590ab4408>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+Enhancements:
+
+- Support HTTPS
+
+  Github PR:
+  `emqx/emqx-auth-http#133 <https://github.com/emqx/emqx-auth-http/pull/133>`_
+
+emqx-backend-pgsql (plugin)
+---------------------------
+
+Enhancements:
+
+- Support TimescaleDB for rule engine
+
+  Github PR:
+  `emqx/emqx-backend-pgsql#44 <https://github.com/emqx/emqx-backend-pgsql/pull/44>`_
+
+emqx-backend-influxdb (plugin)
+------------------------------
+
+Enhancements:
+
+- Implement backend of InfluxDB, and support rule engine
+
+  Github Repository:
+  `emqx/emqx-backend-influxdb <https://github.com/emqx/emqx-backend-influxdb>`_
+
 .. _release_3.2-beta.1:
 
 ------------------
