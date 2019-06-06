@@ -5,6 +5,71 @@
 Changes
 =======
 
+.. _release_3.1.2:
+
+--------------
+Version 3.1.2
+--------------
+
+*Release Date: 2019-06-06*
+
+EMQ X 3.1.2 is now available. We've fixed bugs and improved stability.
+
+EMQ X Core
+----------
+
+Bug fixes:
+
+- Fix `emqx/emqx: issue #2595 <https://github.com/emqx/emqx/issues/2595>`_
+
+  Github PR:
+  `emqx/emqx#2601 <https://github.com/emqx/emqx/pull/2601>`_
+
+- Fix the issue that failed when setting the log level
+
+  Github PR:
+  `emqx/emqx#2600 <https://github.com/emqx/emqx/pull/2600>`_
+
+- Fix the issue that doesn't match the return value
+
+  Github PR:
+  `emqx/emqx#2560 <https://github.com/emqx/emqx/pull/2560>`_
+
+- Hotfix for ``emqx_sn`` and ``emqx_coap`` plugins
+
+  Github PR:
+  `emqx/emqx#2556 <https://github.com/emqx/emqx/pull/2556>`_
+
+emqx-coap (plugin)
+------------------
+
+Bug fixes:
+
+- Fix the issue that messages can't be published
+
+  Github PR:
+  `emqx/emqx-coap#120 <https://github.com/emqx/emqx-coap/pull/120>`_
+
+ekka (deps)
+-----------
+
+Bug fixes:
+
+- Fix the issue makes ``emqx_sm_locker`` crash
+
+  Github PR:
+  `emqx/ekka#54 <https://github.com/emqx/ekka/pull/54>`_
+
+- Fix the issue that k8s can't use dns cluster
+
+  Github PR:
+  `emqx/ekka#53 <https://github.com/emqx/ekka/pull/53>`_
+
+- Fix the issue that etcd cluster is unusable
+
+  Github PR:
+  `emqx/ekka#52 <https://github.com/emqx/ekka/pull/52>`_
+
 .. _release_3.2-beta.1:
 
 ------------------
