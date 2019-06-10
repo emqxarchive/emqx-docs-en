@@ -91,26 +91,6 @@ Enhancements:
   Github PR:
   `emqx/emqx-auth-http#133 <https://github.com/emqx/emqx-auth-http/pull/133>`_
 
-emqx-backend-pgsql (plugin)
----------------------------
-
-Enhancements:
-
-- Support TimescaleDB for rule engine
-
-  Github PR:
-  `emqx/emqx-backend-pgsql#44 <https://github.com/emqx/emqx-backend-pgsql/pull/44>`_
-
-emqx-backend-influxdb (plugin)
-------------------------------
-
-Enhancements:
-
-- Implement backend of InfluxDB, and support rule engine
-
-  Github Repository:
-  `emqx/emqx-backend-influxdb <https://github.com/emqx/emqx-backend-influxdb>`_
-
 emqx-docker (plugin)
 --------------------
 
