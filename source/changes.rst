@@ -201,11 +201,6 @@ Enhancements:
   Github PR:
   `emqx/emqx-auth-http#128 <https://github.com/emqx/emqx-auth-http/pull/128>`_
 
-- Add more parameters for acl/auth request
-
-  Github PR:
-  `emqx/emqx-auth-http#127 <https://github.com/emqx/emqx-auth-http/pull/127>`_
-
 emqx-sn (plugin)
 ----------------
 
