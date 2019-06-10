@@ -13,7 +13,7 @@ Version 3.2-beta.2
 
 *Release Date: 2019-06-06*
 
-EMQ X 3.2-beta.2 is now available. The rule-engine is more user-friendly now, and it supports TimescaleDB and InfluxDB.
+EMQ X 3.2-beta.2 is now available. We've improved rule engine and fixed bugs.
 
 EMQ X Core
 ----------
