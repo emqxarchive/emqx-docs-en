@@ -5,70 +5,121 @@
 Changes
 =======
 
-.. _release_3.1.2:
+.. _release_3.2-beta.2:
 
---------------
-Version 3.1.2
---------------
+------------------
+Version 3.2-beta.2
+------------------
 
 *Release Date: 2019-06-06*
 
-EMQ X 3.1.2 is now available. We've fixed bugs and improved stability.
+EMQ X 3.2-beta.2 is now available. We've improved rule engine and fixed bugs.
 
 EMQ X Core
 ----------
 
 Bug fixes:
 
-- Fix `emqx/emqx: issue #2595 <https://github.com/emqx/emqx/issues/2595>`_
+- Fix `emqx/emqx: issue#2553 <https://github.com/emqx/emqx/issues/2553>`_
 
   Github PR:
-  `emqx/emqx#2601 <https://github.com/emqx/emqx/pull/2601>`_
+  `emqx/emqx#2596 <https://github.com/emqx/emqx/pull/2596>`_
 
-- Fix the issue that failed when setting the log level
+emqx-rule-engine (plugin)
+-------------------------
 
-  Github PR:
-  `emqx/emqx#2600 <https://github.com/emqx/emqx/pull/2600>`_
+Enhancements:
 
-- Fix the issue that doesn't match the return value
+- Support testing SQL in the dashboard
 
-  Github PR:
-  `emqx/emqx#2560 <https://github.com/emqx/emqx/pull/2560>`_
+  Github Commit:
+  `emqx/emqx-rule-engine#3e7c4c <https://github.com/emqx/emqx-rule-engine/commit/3e7c4cbe275d8f120ad8efb83fd23ee571d465db>`_
 
-- Hotfix for ``emqx_sn`` and ``emqx_coap`` plugins
+- Preprocess prepared statement for better performance
 
-  Github PR:
-  `emqx/emqx#2556 <https://github.com/emqx/emqx/pull/2556>`_
+  Github Commit:
+  `emqx/emqx-rule-engine#fa3720 <https://github.com/emqx/emqx-rule-engine/commit/fa37205850c6efe9af5f8ca2f230e17c7de2adb4>`_,
+  `emqx/emqx-rule-engine#b00fad <https://github.com/emqx/emqx-rule-engine/commit/b00fad45c283fa2ec3aa57353bbe161960547461>`_
 
-emqx-coap (plugin)
-------------------
+- Adapt rule engine to emqx cluster
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3da7fe <https://github.com/emqx/emqx-rule-engine/commit/3da7fed60d92c9a994c2aed5f34509c0d0d4eff4>`_,
+  `emqx/emqx-rule-engine#4963b0 <https://github.com/emqx/emqx-rule-engine/commit/4963b0ee3a6114ebe74b48876d25723137df14ad>`_
+
+- Support showing resource status from dashboard
+
+  Github Commit:
+  `emqx/emqx-rule-engine#dd9a8d <https://github.com/emqx/emqx-rule-engine/commit/dd9a8d4801f650c1ac888f7420f5497f7d0d6c73>`_,
+  `emqx/emqx-rule-engine#d16224 <https://github.com/emqx/emqx-rule-engine/commit/d162246c0b630e059c21f7b36e50154f3d7832e3>`_,
+  `emqx/emqx-rule-engine#e4574c <https://github.com/emqx/emqx-rule-engine/commit/e4574c9554d7e7d79a8ce55a6c9e4089ee00db79>`_
+
+- Support restarting resources in dashboard
+
+  Github Commit:
+  `emqx/emqx-rule-engine#ccbffd <https://github.com/emqx/emqx-rule-engine/commit/ccbffd7d5db514adf6cd20e8d139e73f80bc1c96>`_
+
+- Support check HTTP connectivity
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3feffc <https://github.com/emqx/emqx-rule-engine/commit/3feffcd5a3f0da78725f1208594cea1b3273ec0b>`_
 
 Bug fixes:
 
-- Fix the issue that messages can't be published
+- Fix check dependency error before deleting resources
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3265ff <https://github.com/emqx/emqx-rule-engine/commit/3265ffe10584f0edccc084e6f78ae035ba310c07>`_
+
+- Fix resources never destroyed
+
+  Github Commit:
+  `emqx/emqx-rule-engine#58a1ce <https://github.com/emqx/emqx-rule-engine/commit/58a1ce45e1cf96cf05481d8ed076febef0d41976>`_
+
+- Fix SQL nested put failure
+
+  Github Commit:
+  `emqx/emqx-rule-engine#64776a <https://github.com/emqx/emqx-rule-engine/commit/64776aebde1fe48c1038fba3b61f457590ab4408>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+Enhancements:
+
+- Support HTTPS
 
   Github PR:
-  `emqx/emqx-coap#120 <https://github.com/emqx/emqx-coap/pull/120>`_
+  `emqx/emqx-auth-http#133 <https://github.com/emqx/emqx-auth-http/pull/133>`_
+
+emqx-docker (plugin)
+--------------------
+
+Bug fixes:
+
+- Fix `emqx/emqx-docker: issue#115 <https://github.com/emqx/emqx-docker/issues/115>`_
+
+  Github Commit:
+  `emqx/emqx-docker#f3c219 <https://github.com/emqx/emqx-docker/commit/f3c21978f5ffefd5d419bc78a1caf1ad71de9c91>`_
+
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fix the issue of reloading plugin
+
+  Github PR:
+  `emqx/emqx-management#91 <https://github.com/emqx/emqx-management/pull/91>`_
 
 ekka (deps)
 -----------
 
 Bug fixes:
 
-- Fix the issue makes ``emqx_sm_locker`` crash
+- Fix the issue makes `emqx_sm_locker` crash
 
-  Github PR:
-  `emqx/ekka#54 <https://github.com/emqx/ekka/pull/54>`_
-
-- Fix the issue that k8s can't use dns cluster
-
-  Github PR:
-  `emqx/ekka#53 <https://github.com/emqx/ekka/pull/53>`_
-
-- Fix the issue that etcd cluster is unusable
-
-  Github PR:
-  `emqx/ekka#52 <https://github.com/emqx/ekka/pull/52>`_
+  Github Commit:
+  `emqx/ekka#2d5bf2 <https://github.com/emqx/ekka/commit/2d5bf2a1f10d84408e4b35d3e274a49f395056c3>`_
 
 .. _release_3.2-beta.1:
 
@@ -150,11 +201,6 @@ Enhancements:
   Github PR:
   `emqx/emqx-auth-http#128 <https://github.com/emqx/emqx-auth-http/pull/128>`_
 
-- Add more parameters for acl/auth request
-
-  Github PR:
-  `emqx/emqx-auth-http#127 <https://github.com/emqx/emqx-auth-http/pull/127>`_
-
 emqx-sn (plugin)
 ----------------
 
@@ -164,6 +210,71 @@ Bug fixes:
 
   Github PR:
   `emqx/emqx-sn#118 <https://github.com/emqx/emqx-sn/pull/118>`_
+
+.. _release_3.1.2:
+
+--------------
+Version 3.1.2
+--------------
+
+*Release Date: 2019-06-06*
+
+EMQ X 3.1.2 is now available. We've fixed bugs and improved stability.
+
+EMQ X Core
+----------
+
+Bug fixes:
+
+- Fix `emqx/emqx: issue #2595 <https://github.com/emqx/emqx/issues/2595>`_
+
+  Github PR:
+  `emqx/emqx#2601 <https://github.com/emqx/emqx/pull/2601>`_
+
+- Fix the issue that failed when setting the log level
+
+  Github PR:
+  `emqx/emqx#2600 <https://github.com/emqx/emqx/pull/2600>`_
+
+- Fix the issue that doesn't match the return value
+
+  Github PR:
+  `emqx/emqx#2560 <https://github.com/emqx/emqx/pull/2560>`_
+
+- Hotfix for ``emqx_sn`` and ``emqx_coap`` plugins
+
+  Github PR:
+  `emqx/emqx#2556 <https://github.com/emqx/emqx/pull/2556>`_
+
+emqx-coap (plugin)
+------------------
+
+Bug fixes:
+
+- Fix the issue that messages can't be published
+
+  Github PR:
+  `emqx/emqx-coap#120 <https://github.com/emqx/emqx-coap/pull/120>`_
+
+ekka (deps)
+-----------
+
+Bug fixes:
+
+- Fix the issue makes ``emqx_sm_locker`` crash
+
+  Github PR:
+  `emqx/ekka#54 <https://github.com/emqx/ekka/pull/54>`_
+
+- Fix the issue that k8s can't use dns cluster
+
+  Github PR:
+  `emqx/ekka#53 <https://github.com/emqx/ekka/pull/53>`_
+
+- Fix the issue that etcd cluster is unusable
+
+  Github PR:
+  `emqx/ekka#52 <https://github.com/emqx/ekka/pull/52>`_
 
 .. _release_3.1.1:
 
