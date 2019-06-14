@@ -5,6 +5,61 @@
 Changes
 =======
 
+.. _release_3.2-beta.3:
+
+------------------
+Version 3.2-beta.3
+------------------
+
+*Release Date: 2019-06-14*
+
+EMQ X 3.2-beta.3 is now available. We've improved rule engine and fixed bugs.
+
+EMQ X Core
+----------
+
+Bug fixes:
+
+- Fix the issue that not checking ``Will Retain`` flag
+
+  Github PR:
+  `emqx/emqx#2607 <https://github.com/emqx/emqx/pull/2607>`_
+
+- Fix `emqx/emqx: issue#2591 <https://github.com/emqx/emqx/issues/2591>`_
+
+  Github PR:
+  `emqx/emqx#2615 <https://github.com/emqx/emqx/pull/2615>`_
+
+- Remove characters limit for logging by default
+
+  Github PR:
+  `emqx/emqx#2617 <https://github.com/emqx/emqx/pull/2617>`_
+
+- Fix the issue that can’t handle fragmented tcp packet correctly
+
+  Github PR:
+  `emqx/emqx#2611 <https://github.com/emqx/emqx/pull/2611>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support metrics like count of rule matched
+
+  Github PR:
+  `emqx/emqx-rule-engine#63 <https://github.com/emqx/emqx-rule-engine/pull/63>`_
+
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fix the issue that CLI kicks websocket connection failed
+
+  Github PR:
+  `emqx/emqx-management#93 <https://github.com/emqx/emqx-management/pull/93>`_
+
 .. _release_3.2-beta.2:
 
 ------------------
