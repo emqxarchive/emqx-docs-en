@@ -35,15 +35,10 @@ Bug fixes:
   Github PR:
   `emqx/emqx#2617 <https://github.com/emqx/emqx/pull/2617>`_
 
-emqx-bridge-kafka (plugin)
---------------------------
-
-Bug fixes:
-
-- Fix the issue that function of testing connection doesn't come into effect
+- Fix the issue that can’t handle fragmented tcp packet correctly
 
   Github PR:
-  `emqx/emqx-bridge-kafka#57 <https://github.com/emqx/emqx-bridge-kafka/pull/57>`_
+  `emqx/emqx#2611 <https://github.com/emqx/emqx/pull/2611>`_
 
 emqx-rule-engine (plugin)
 -------------------------
