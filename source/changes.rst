@@ -30,6 +30,11 @@ Bug fixes:
   Github PR:
   `emqx/emqx#2615 <https://github.com/emqx/emqx/pull/2615>`_
 
+- Remove characters limit for logging by default
+
+  Github PR:
+  `emqx/emqx#2617 <https://github.com/emqx/emqx/pull/2617>`_
+
 emqx-bridge-kafka (plugin)
 --------------------------
 
