@@ -5,6 +5,51 @@
 Changes
 =======
 
+.. _release_3.2-beta.3:
+
+------------------
+Version 3.2-beta.3
+------------------
+
+*Release Date: 2019-06-14*
+
+EMQ X 3.2-beta.3 is now available. We've improved rule engine and fixed bugs.
+
+EMQ X Core
+----------
+
+Bug fixes:
+
+- Fix the issue that not checking ``Will Retain`` flag
+
+  Github PR:
+  `emqx/emqx#2607 <https://github.com/emqx/emqx/pull/2607>`_
+
+- Fix `emqx/emqx: issue#2591 <https://github.com/emqx/emqx/issues/2591>`_
+
+  Github PR:
+  `emqx/emqx#2615 <https://github.com/emqx/emqx/pull/2615>`_
+
+emqx-bridge-kafka (plugin)
+--------------------------
+
+Bug fixes:
+
+- Fix the issue that function of testing connection doesn't come into effect
+
+  Github PR:
+  `emqx/emqx-bridge-kafka#57 <https://github.com/emqx/emqx-bridge-kafka/pull/57>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support metrics like count of rule matched
+
+  Github PR:
+  `emqx/emqx-rule-engine#63 <https://github.com/emqx/emqx-rule-engine/pull/63>`_
+
 .. _release_3.2-beta.2:
 
 ------------------
