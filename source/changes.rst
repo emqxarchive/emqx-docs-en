@@ -50,6 +50,16 @@ Enhancements:
   Github PR:
   `emqx/emqx-rule-engine#63 <https://github.com/emqx/emqx-rule-engine/pull/63>`_
 
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fix the issue that CLI kicks websocket connection failed
+
+  Github PR:
+  `emqx/emqx-management#93 <https://github.com/emqx/emqx-management/pull/93>`_
+
 .. _release_3.2-beta.2:
 
 ------------------
