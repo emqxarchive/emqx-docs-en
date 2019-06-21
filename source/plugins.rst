@@ -252,7 +252,7 @@ This plugin supports three requests:
 
 The request's parameter can be customized using the client's Username, IP address, and so on.
 
-.. NOTE:: %cn %dn support is added in the 3.1 version.
+.. NOTE:: %C %d support is added in the 3.1 version.
 
 HTTP Authentication Plugin Configuration
 ::::::::::::::::::::::::::::::::::::::::
@@ -261,13 +261,35 @@ etc/plugins/emqx_auth_http.conf:
 
 .. code:: properties
 
+    ## Time-out time for the http request, 0 is never timeout.
+    ## auth.http.request.timeout = 0
+
+    ## Connection time-out time, used during the initial request
+    ## when the client is connecting to the server
+    ## auth.http.request.connect_timout = 0
+
+    ## Re-send http reuqest times
+    auth.http.request.retry_times = 3
+
+    ## The interval for re-sending the http request
+    auth.http.request.retry_interval = 1s
+
+    ## The 'Exponential Backoff' mechanism for re-sending request. The actually
+    ## re-send time interval is `interval * backoff ^ times`
+    auth.http.request.retry_backoff = 2.0
+
+    ## https options
+    ## auth.http.ssl.cacertfile = {{ platform_etc_dir }}/certs/ca.pem
+    ## auth.http.ssl.certfile = {{ platform_etc_dir }}/certs/client-cert.pem
+    ## auth.http.ssl.keyfile = {{ platform_etc_dir }}/certs/client-key.pem
+
     ## Placeholder:
     ##  - %u: username
     ##  - %c: clientid
     ##  - %a: ipaddress
     ##  - %P: password
-    ##  - %cn: common name of client TLS cert
-    ##  - %dn: subject of client TLS cert
+    ##  - %C: common name of client TLS cert
+    ##  - %d: subject of client TLS cert
     auth.http.auth_req = http://127.0.0.1:8080/mqtt/auth
 
     ## HTTP method and parameter configuration for AUTH requests
@@ -399,11 +421,14 @@ etc/plugins/emqx_auth_mysql.conf:
     ## Mysql authentication user table name
     auth.mysql.database = mqtt
 
+    ## Mysql query timeout
+    auth.mysql.query_timeout = 5s
+
     ## Available placeholders:
     ##  - %u: username
     ##  - %c: clientid
-    ##  - %cn: common name of client TLS cert
-    ##  - %dn: subject of client TLS cert
+    ##  - %C: common name of client TLS cert
+    ##  - %d: subject of client TLS cert
     ## Note: This SQL queries `password` field only
     auth.mysql.auth_query = select password from mqtt_user where username = '%u' limit 1
 
@@ -435,7 +460,7 @@ To prevent the security issue caused by password being too simple, the plugin al
     ## macfun: md4, md5, ripemd160, sha, sha224, sha256, sha384, sha512
     ## auth.mysql.password_hash = pbkdf2,sha256,1000,20
 
-.. note:: %cn %dn support is added in version 3.1.
+.. note:: %C %d support is added in version 3.1.
 
 PostgreSQL Authentication Plugin
 --------------------------------
@@ -504,8 +529,8 @@ etc/plugins/emqx_auth_pgsql.conf:
     ## Placeholder:
     ##  - %u: username
     ##  - %c: clientid
-    ##  - %cn: common name of client TLS cert
-    ##  - %dn: subject of client TLS cert
+    ##  - %C: common name of client TLS cert
+    ##  - %d: subject of client TLS cert
     auth.pgsql.auth_query = select password from mqtt_user where username = '%u' limit 1
 
     ## Encryption method: plain | md5 | sha | sha256 | bcrypt
@@ -548,7 +573,7 @@ Enable the following configuration to support TLS connections to PostgreSQL:
     ## auth.pgsql.ssl_opts.certfile =
     ## auth.pgsql.ssl_opts.cacertfile =
 
-.. note:: %cn %dn support is added in version 3.1.
+.. note:: %C %d support is added in version 3.1.
 
 Redis Authentication/Access Control Plugin
 ------------------------------------------
@@ -585,12 +610,15 @@ etc/plugins/emqx_auth_redis.conf:
     ## Redis password
     ## auth.redis.password =
 
+    ## Redis query timeout
+    auth.redis.query_timeout = 5s
+
     ## Authentication Query Command
     ## Placeholder:
     ##  - %u: username
     ##  - %c: clientid
-    ##  - %cn: common name of client TLS cert
-    ##  - %dn: subject of client TLS cert
+    ##  - %C: common name of client TLS cert
+    ##  - %d: subject of client TLS cert
     auth.redis.auth_cmd = HMGET mqtt_user:%u password
 
     ## Password encryption method.
@@ -619,7 +647,7 @@ The password can be hashed for higher security:
     ## macfun: md4, md5, ripemd160, sha, sha224, sha256, sha384, sha512
     ## auth.redis.password_hash = pbkdf2,sha256,1000,20
 
-.. note::  %cn %dn support is added in version 3.1.
+.. note::  %C %d support is added in version 3.1.
 
 Redis User Hash
 ::::::::::::::::
@@ -678,6 +706,9 @@ etc/plugins/emqx_auth_mongo.conf:
     ## Authentication data table name
     auth.mongo.database = mqtt
 
+    ## MongoDB query timeout
+    auth.mongo.query_timeout = 5s
+
     ## Authentication Query Configuration
     auth.mongo.auth_query.collection = mqtt_user
     auth.mongo.auth_query.password_field = password
@@ -687,8 +718,8 @@ etc/plugins/emqx_auth_mongo.conf:
     ## Placeholder:
     ##  - %u: username
     ##  - %c: clientid
-    ##  - %cn: common name of client TLS cert
-    ##  - %dn: subject of client TLS cert
+    ##  - %C: common name of client TLS cert
+    ##  - %d: subject of client TLS cert
     auth.mongo.auth_query.selector = username=%u
 
     ## Super User Query
@@ -703,7 +734,7 @@ etc/plugins/emqx_auth_mongo.conf:
 
     auth.mongo.acl_query.selector = username=%u
 
-.. note:: %cn %dn support is added in version 3.1.
+.. note:: %C %d support is added in version 3.1.
 
 MongoDB database
 ::::::::::::::::::
@@ -858,9 +889,16 @@ DTLS can be enabled if the following two configuration items are set:
 
 .. code:: properties
 
-    coap.keyfile = etc/certs/key.pem
+    ## Listen port for DTLS
+    coap.dtls.port = 5684
 
-    coap.certfile = etc/certs/cert.pem
+    coap.dtls.keyfile = {{ platform_etc_dir }}/certs/key.pem
+    coap.dtls.certfile = {{ platform_etc_dir }}/certs/cert.pem
+
+    ## DTLS options
+    ## coap.dtls.verify = verify_peer
+    ## coap.dtls.cacertfile = {{ platform_etc_dir }}/certs/cacert.pem
+    ## coap.dtls.fail_if_no_peer_cert = false
 
 Test the CoAP Plugin
 ::::::::::::::::::::
