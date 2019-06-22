@@ -100,11 +100,6 @@ Enhancements:
   `emqx/emqx-rel#375 <https://github.com/emqx/emqx-rel/pull/375>`_,
   `emqx/emqx-rel#376 <https://github.com/emqx/emqx-rel/pull/376>`_
 
-- Fix the issue about registering windows service
-
-  GitHub PR:
-  `emqx/emqx-rel#375 <https://github.com/emqx/emqx-rel/pull/378>`_
-
 .. _release_3.2-beta.3:
 
 ------------------
