@@ -59,26 +59,6 @@ Enhancements:
   Github PR:
   `emqx/emqx-rule-engine#67 <https://github.com/emqx/emqx-rule-engine/pull/67>`_
 
-emqx-backend-influxdb (plugin)
-------------------------------
-
-Enhancements:
-
-- Support using wildcard topic in the template file
-
-  Github PR:
-  `emqx/emqx-backend-influxdb#9 <https://github.com/emqx/emqx-backend-influxdb/pull/9>`_
-
-emqx-backend-opentsdb (plugin)
-------------------------------
-
-Enhancements:
-
-- Support using wildcard topic in the template file
-
-  Github PR:
-  `emqx/emqx-backend-opentsdb#15 <https://github.com/emqx/emqx-backend-opentsdb/pull/15>`_
-
 emqx-sn (plugin)
 ----------------
 
@@ -99,16 +79,6 @@ Bug fixes:
   Github PR:
   `emqx/emqx-sn#130 <https://github.com/emqx/emqx-sn/pull/130>`_
 
-emqx-bridge-pulsar (plugin)
----------------------------
-
-Enhancements:
-
-- A plugin that bridges data to ``Pulsar``
-
-  Github Repository:
-  `emqx/emqx-bridge-pulsar <https://github.com/emqx/emqx-bridge-pulsar>`_
-
 emqx-auth-jwt (plugin)
 -----------------------
 
@@ -118,36 +88,6 @@ Bug fixes:
 
   Github PR:
   `emqx/emqx-auth-jwt#88 <https://github.com/emqx/emqx-auth-jwt/pull/88>`_
-
-gen_influxdb (dependency)
--------------------------
-
-Bug fixes:
-
-- Fix the issue that ``encode/1`` returns error when input data type is atom
-
-  Github PR:
-  `emqx/gen_influxdb#4 <https://github.com/emqx/gen_influxdb/pull/4>`_
-
-gen_opentsdb (dependency)
--------------------------
-
-Bug fixes:
-
-- Fix the issue that ``encode/1`` returns error when input data type is atom
-
-  Github PR:
-  `emqx/gen_opentsdb#5 <https://github.com/emqx/gen_opentsdb/pull/5>`_
-
-pulsar-client-erl (dependency)
-------------------------------
-
-Enhancements:
-
-- Library of ``Pulsar`` client
-
-  Github Repository:
-  `emqx/pulsar-client-erl <https://github.com/emqx/pulsar-client-erl>`_
 
 emqx-rel (build-project)
 ------------------------
