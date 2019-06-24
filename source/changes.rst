@@ -5,6 +5,101 @@
 Changes
 =======
 
+.. _release_3.2-rc.1:
+
+----------------
+Version 3.2-rc.1
+----------------
+
+*Release Date: 2019-06-22*
+
+EMQ X 3.2-rc.1 is now available. We've enhanced features and fixed bugs.
+
+Enhancements:
+
+- Support setting prefix of log message
+
+  Github PR:
+  `emqx/emqx#2627 <https://github.com/emqx/emqx/pull/2627>`_
+
+- Improve precision of the timestamp of clients' connecting and disconnecting in system messages
+
+  Github PR:
+  `emqx/emqx#2641 <https://github.com/emqx/emqx/pull/2641>`_
+
+- Optimize develop workflow and support ``make run``
+
+  Github PR:
+  `emqx/emqx#2644 <https://github.com/emqx/emqx/pull/2644>`_
+
+Bug fixes:
+
+- Fix the issue that flapping module can't read configuration correctly
+
+  Github PR:
+  `emqx/emqx#2628 <https://github.com/emqx/emqx/pull/2628>`_
+
+- Fix the issue that unavailable ``cpu_sup:util/0`` result in crash in Windows
+
+  Github PR:
+  `emqx/emqx#2629 <https://github.com/emqx/emqx/pull/2629>`_
+
+- Fix `emqx/emqx: issue#2619 <https://github.com/emqx/emqx/issues/2619>`_
+
+  Github PR:
+  `emqx/emqx#2646 <https://github.com/emqx/emqx/pull/2646>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support fetching resource status periodically and setting alarms
+
+  Github PR:
+  `emqx/emqx-rule-engine#67 <https://github.com/emqx/emqx-rule-engine/pull/67>`_
+
+emqx-sn (plugin)
+----------------
+
+Bug fixes:
+
+- Fix the misjudgement of ``keepalive_timeout``
+
+  Github PR:
+  `emqx/emqx-sn#127 <https://github.com/emqx/emqx-sn/pull/127>`_
+
+- Fix the issue that don't read ``idle_timeout`` correctly
+
+  Github PR:
+  `emqx/emqx-sn#128 <https://github.com/emqx/emqx-sn/pull/128>`_
+
+- Fix the test case
+
+  Github PR:
+  `emqx/emqx-sn#130 <https://github.com/emqx/emqx-sn/pull/130>`_
+
+emqx-auth-jwt (plugin)
+-----------------------
+
+Bug fixes:
+
+- Read pubkey correctly
+
+  Github PR:
+  `emqx/emqx-auth-jwt#88 <https://github.com/emqx/emqx-auth-jwt/pull/88>`_
+
+emqx-rel (build-project)
+------------------------
+
+Enhancements:
+
+- Make the building more intelligent and robust
+
+  GitHub PR:
+  `emqx/emqx-rel#375 <https://github.com/emqx/emqx-rel/pull/375>`_,
+  `emqx/emqx-rel#376 <https://github.com/emqx/emqx-rel/pull/376>`_
+
 .. _release_3.2-beta.3:
 
 ------------------
