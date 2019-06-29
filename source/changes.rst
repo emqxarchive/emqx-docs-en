@@ -5,6 +5,83 @@
 Changes
 =======
 
+.. _release_3.2-rc.2:
+
+----------------
+Version 3.2-rc.2
+----------------
+
+*Release Date: 2019-06-29*
+
+EMQ X 3.2-rc.2 is mainly for bug fixes.
+
+Enhancements:
+
+- Change the default logger level to **warning**
+
+  Github PR:
+  `emqx/emqx#2657 <https://github.com/emqx/emqx/pull/2657>`_
+
+- Add history alarm list API
+
+  Github PRs:
+  `emqx/emqx#2660 <https://github.com/emqx/emqx/pull/2660>`_
+  `emqx/emqx-management#98 <https://github.com/emqx/emqx-management/pull/98>`_
+
+Bug fixes:
+
+- Clean the stale sessions:
+
+  Github PR:
+  `emqx/emqx#2655 <https://github.com/emqx/emqx/pull/2655>`_
+
+- Fix the massages order when batch dispatching:
+
+  Github PR:
+  `emqx/emqx#2650 <https://github.com/emqx/emqx/pull/2650>`_
+
+  Thank the contributions from `tradingtrace <https://github.com/tradingtrace>`_ !
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Add an action "do nothing" for debug purpose.
+
+  Github PR:
+  `emqx/emqx-rule-engine#70 <https://github.com/emqx/emqx-rule-engine/pull/70>`_
+
+- Change data type of the ``retain`` flag to integer
+
+  Github RP:
+  `emqx/emqx-rule-engine#72 <https://github.com/emqx/emqx-rule-engine/pull/72>`_
+
+Bug fixes:
+
+- Escape SQL reserved keyword timestamp:
+
+  Github PR:
+  `emqx/emqx-rule-engine#71 <https://github.com/emqx/emqx-rule-engine/pull/71>`_
+
+emq-bridge-mqtt (plugin)
+------------------------
+
+- Migrate the MQTT bridge from emqx project to a separated plugin:
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#2 <https://github.com/emqx/emqx-bridge-mqtt/pull/2>`_
+
+emqx-rel (build project)
+------------------------
+
+Bug fixes:
+
+- Fixed a windows service register bug:
+
+  Github PR:
+  `emqx/emqx-rel#381 <https://github.com/emqx/emqx-rel/pull/381>`_
+
 .. _release_3.2-rc.1:
 
 ----------------
