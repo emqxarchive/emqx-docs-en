@@ -5,6 +5,90 @@
 Changes
 =======
 
+.. _release_3.2-rc.3:
+
+----------------
+Version 3.2-rc.3
+----------------
+
+*Release Date: 2019-07-06*
+
+EMQ X 3.2-rc.3 is now available. We've enhanced features and fixed bugs.
+
+Bug fixes:
+
+- Fix `emqx/emqx: issue#2635 <https://github.com/emqx/emqx/issues/2635>`_
+
+  Github PR:
+  `emqx/emqx#2663 <https://github.com/emqx/emqx/pull/2663>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Bug fixes:
+
+- Fix the issue that the count of ``actions.failure`` doesn't grow
+
+  Github PR:
+  `emqx/emqx-web-hook#137 <https://github.com/emqx/emqx-web-hook/pull/137>`_
+
+emqx-bridge-mqtt (plugin)
+-------------------------
+
+Enhancements:
+
+- Add the option of bridge mode
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#6 <https://github.com/emqx/emqx-bridge-mqtt/pull/6>`_
+
+- Optimize the ACK mechanism for RPC messages
+- Support for MQTT/RPC Bridge of Rule Engine caching messages to local disk queues
+- Fix the issue that MQTT/RPC Bridge of Rule Engine can’t bridge to remote EMQ X node
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#7 <https://github.com/emqx/emqx-bridge-mqtt/pull/7>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Add cluster support for rules and resource API
+
+  Github PR:
+  `emqx/emqx-rule-engine#75 <https://github.com/emqx/emqx-rule-engine/pull/75>`_
+
+- Add API for returning available columns of trigger events
+
+  Github PR:
+  `emqx/emqx-rule-engine#74 <https://github.com/emqx/emqx-rule-engine/pull/74>`_,
+  `emqx/emqx-rule-engine#77 <https://github.com/emqx/emqx-rule-engine/pull/77>`_
+
+Bug fixes:
+
+- Fix the issue caused by fetching resource status timeout
+
+  Github PR:
+  `emqx/emqx-rule-engine#76 <https://github.com/emqx/emqx-rule-engine/pull/76>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Rules engine metrics are subdivided into nodes
+
+  Github PR:
+  `emqx/emqx-dashboard#114 <https://github.com/emqx/emqx-dashboard/pull/114>`_
+
+Bug fixes:
+
+- Fix bugs in resource creation
+
+  Github PR:
+  `emqx/emqx-dashboard#114 <https://github.com/emqx/emqx-dashboard/pull/114>`_
+
 .. _release_3.2-rc.2:
 
 ----------------
