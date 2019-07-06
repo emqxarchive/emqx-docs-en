@@ -75,14 +75,14 @@ Bug fixes:
 emqx-dashboard (plugin)
 -----------------------
 
-功能增强:
+Enhancements:
 
 - Rules engine metrics are subdivided into nodes
 
   Github PR:
   `emqx/emqx-dashboard#114 <https://github.com/emqx/emqx-dashboard/pull/114>`_
 
-错误修复:
+Bug fixes:
 
 - Fix bugs in resource creation
 
