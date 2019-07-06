@@ -44,7 +44,6 @@ Enhancements:
 
 - Optimize the ACK mechanism for RPC messages
 - Support for MQTT/RPC Bridge of Rule Engine caching messages to local disk queues
-- Disable MQTT/RPC Bridge of Rule Engine recording metrics
 - Fix the issue that MQTT/RPC Bridge of Rule Engine can’t bridge to remote EMQ X node
 
   Github PR:
@@ -59,6 +58,12 @@ Enhancements:
 
   Github PR:
   `emqx/emqx-rule-engine#75 <https://github.com/emqx/emqx-rule-engine/pull/75>`_
+
+- Add API for returning available columns of trigger events
+
+  Github PR:
+  `emqx/emqx-rule-engine#74 <https://github.com/emqx/emqx-rule-engine/pull/74>`_,
+  `emqx/emqx-rule-engine#77 <https://github.com/emqx/emqx-rule-engine/pull/77>`_
 
 Bug fixes:
 
