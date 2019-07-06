@@ -42,7 +42,10 @@ Enhancements:
   Github PR:
   `emqx/emqx-bridge-mqtt#6 <https://github.com/emqx/emqx-bridge-mqtt/pull/6>`_
 
-- Better design
+- Optimize the ACK mechanism for RPC messages
+- Support for MQTT/RPC Bridge of Rule Engine caching messages to local disk queues
+- Disable MQTT/RPC Bridge of Rule Engine recording metrics
+- Fix the issue that MQTT/RPC Bridge of Rule Engine can’t bridge to remote EMQ X node
 
   Github PR:
   `emqx/emqx-bridge-mqtt#7 <https://github.com/emqx/emqx-bridge-mqtt/pull/7>`_
@@ -63,6 +66,23 @@ Bug fixes:
 
   Github PR:
   `emqx/emqx-rule-engine#76 <https://github.com/emqx/emqx-rule-engine/pull/76>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+功能增强:
+
+- Rules engine metrics are subdivided into nodes
+
+  Github PR:
+  `emqx/emqx-dashboard#114 <https://github.com/emqx/emqx-dashboard/pull/114>`_
+
+错误修复:
+
+- Fix bugs in resource creation
+
+  Github PR:
+  `emqx/emqx-dashboard#114 <https://github.com/emqx/emqx-dashboard/pull/114>`_
 
 .. _release_3.2-rc.2:
 
