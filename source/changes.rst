@@ -5,6 +5,65 @@
 Changes
 =======
 
+.. _release_3.2-rc.3:
+
+----------------
+Version 3.2-rc.3
+----------------
+
+*Release Date: 2019-07-06*
+
+EMQ X 3.2-rc.3 is now available. We've enhanced features and fixed bugs.
+
+Bug fixes:
+
+- Fix `emqx/emqx: issue#2635 <https://github.com/emqx/emqx/issues/2635>`_
+
+  Github PR:
+  `emqx/emqx#2663 <https://github.com/emqx/emqx/pull/2663>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Bug fixes:
+
+- Fix the issue that the count of ``actions.failure`` doesn't grow
+
+  Github PR:
+  `emqx/emqx-web-hook#137 <https://github.com/emqx/emqx-web-hook/pull/137>`_
+
+emqx-bridge-mqtt (plugin)
+-------------------------
+
+Enhancements:
+
+- Add the option of bridge mode
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#6 <https://github.com/emqx/emqx-bridge-mqtt/pull/6>`_
+
+- Better design
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#7 <https://github.com/emqx/emqx-bridge-mqtt/pull/7>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Add cluster support for rules and resource API
+
+  Github PR:
+  `emqx/emqx-rule-engine#75 <https://github.com/emqx/emqx-rule-engine/pull/75>`_
+
+Bug fixes:
+
+- Fix the issue caused by fetching resource status timeout
+
+  Github PR:
+  `emqx/emqx-rule-engine#76 <https://github.com/emqx/emqx-rule-engine/pull/76>`_
+
 .. _release_3.2-rc.2:
 
 ----------------
