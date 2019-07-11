@@ -5,6 +5,33 @@
 Changes
 =======
 
+.. _release_3.2.0:
+
+-------------
+Version 3.2.0
+-------------
+
+*Release Date: 2019-07-11*
+
+Bug fixes and Enhancements
+--------------------------
+
+Support Rebar3 to speed up building of project.
+
+Enhance rule engine, including clustering support and Dashboard support more rule engine operations.
+
+The function of MQTT Bridge is implemented by plugin.
+
+Add HTTP APIs to get alarm history.
+
+Fix the logic for anonymous access.
+
+Fix an error occurred during publishing MQTT-SN, CoAP messages.
+
+Fix a windows service registering bug.
+
+Fix the issue that CLI kicks websocket connection failed.
+
 .. _release_3.2-rc.3:
 
 ----------------
