@@ -11,26 +11,39 @@ Changes
 Version 3.2.0
 -------------
 
-*Release Date: 2019-07-11*
+*Release Date: 2019-07-12*
 
-Bug fixes and Enhancements
---------------------------
+EMQ X 3.2.0 is mainly for improvements of rule engine.
 
-Support Rebar3 to speed up building of project.
+Rule Engine
+-----------
 
-Enhance rule engine, including clustering support and Dashboard support more rule engine operations.
+Improve rule engine and ui of dashboard, support more actions.
 
-The function of MQTT Bridge is implemented by plugin.
+Project building
+----------------
 
-Add HTTP APIs to get alarm history.
+Support rebar3 to build project.
 
-Fix the logic for anonymous access.
+MQTT Broker Bridge
+------------------
 
-Fix an error occurred during publishing MQTT-SN, CoAP messages.
+Bridging to MQTT Broker is now provided by emqx-bridge-mqtt (plugin) instead.
 
-Fix a windows service registering bug.
+HTTP Plugin
+-----------
 
-Fix the issue that CLI kicks websocket connection failed.
+Support HTTPs.
+
+Cluster (ekka)
+--------------
+
+Improve stability of emqx cluster.
+
+Other Plugins and Dependencies
+------------------------------
+
+Fix Windows service registering issue.
 
 .. _release_3.2-rc.3:
 
