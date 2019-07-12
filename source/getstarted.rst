@@ -6,7 +6,7 @@ Get Started
 ===========
 
 ----------------------------------------
-*EMQ X* R3.1 Message Broker Introduction
+*EMQ X* R3.2 Message Broker Introduction
 ----------------------------------------
 
 EMQ X (Erlang/Enterprise/Elastic MQTT Broker) is an open source IoT MQTT message broker based on the Erlang/OTP platform. Erlang/OTP is an excellent Soft-Realtime, Low-Latency and Distributed development platform. MQTT is a lightweight message exchange protocol using publish-subscribe pattern.
@@ -56,8 +56,8 @@ EMQ X R3.1 Message Broker Features List
 ---------------------------------------
 
 * Complete MQTT V3.1/V3.1.1 and V5.0 protocol specification support
-* Three QoS level: QoS0, QoS1 and QoS2 
-* Persistent session and offline message 
+* Three QoS level: QoS0, QoS1 and QoS2
+* Persistent session and offline message
 * Retained message
 * Last Will message
 * TCP/SSL
@@ -66,11 +66,11 @@ EMQ X R3.1 Message Broker Features List
 * $SYS/# (system topics)
 * client status via query and subscription
 * Authentication based on Client ID, Username or IP address
-* integration with Redis, MySQL, PostgreSQL, MongoDB, HTTP and LDAP (authentication and authorization) 
+* integration with Redis, MySQL, PostgreSQL, MongoDB, HTTP and LDAP (authentication and authorization)
 * Browser cookie authentication
 * Access Control (ACL) based on client ID, IP address, and username
 * Cluster
-* Diverse cluster node discovery methods: manual, mcast, dns, etcd, k8s and etc 
+* Diverse cluster node discovery methods: manual, mcast, dns, etcd, k8s and etc
 * Auto healing of network split
 * Message rate limit
 * Connection rate limit
@@ -86,7 +86,7 @@ EMQ X R3.1 Message Broker Features List
 * Blacklist support
 * Shared subscription ($share/<group>/topic)
 * TLS/PSK support
-* Rule engine 
+* Rule engine
 
 .. _quick_start:
 
@@ -104,7 +104,7 @@ Once the package is downloaded and installed (or unzipped), the EQM X is ready t
 
 .. code-block:: bash
 
-    unzip emqx-macosx-v3.1.0.zip && cd emqx
+    unzip emqx-macosx-v3.2.0.zip && cd emqx
 
     # start emqx
     ./bin/emqx start
