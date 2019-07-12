@@ -821,13 +821,13 @@ Alarms - system alarms
 
 System Topic Prefix: $SYS/brokers/${node}/alarms/
 
-+------------------+-----------------------+
-| Topic            | Description           |
-+------------------+-----------------------+
-| ${alarmId}/alert | newly generated alarm |
-+------------------+-----------------------+
-| ${alarmId}/clear | cleared alarm         |
-+------------------+-----------------------+
++-------+-----------------------+
+| Topic | Description           |
++-------+-----------------------+
+| alert | newly generated alarm |
++-------+-----------------------+
+| clear | cleared alarm         |
++-------+-----------------------+
 
 .. _sys_sysmon:
 

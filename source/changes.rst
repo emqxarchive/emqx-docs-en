@@ -5,6 +5,628 @@
 Changes
 =======
 
+.. _release_3.2.0:
+
+-------------
+Version 3.2.0
+-------------
+
+*Release Date: 2019-07-12*
+
+EMQ X 3.2.0 is mainly for improvements of rule engine.
+
+Rule Engine
+-----------
+
+Improve rule engine and ui of dashboard, support more actions.
+
+Project building
+----------------
+
+Support rebar3 to build project.
+
+MQTT Broker Bridge
+------------------
+
+Bridging to MQTT Broker is now provided by emqx-bridge-mqtt (plugin) instead.
+
+HTTP Plugin
+-----------
+
+Support HTTPs.
+
+Cluster (ekka)
+--------------
+
+Improve stability of emqx cluster.
+
+Other Plugins and Dependencies
+------------------------------
+
+Fix Windows service registering issue.
+
+.. _release_3.2-rc.3:
+
+----------------
+Version 3.2-rc.3
+----------------
+
+*Release Date: 2019-07-06*
+
+EMQ X 3.2-rc.3 is now available. We've enhanced features and fixed bugs.
+
+Bug fixes:
+
+- Fix `emqx/emqx: issue#2635 <https://github.com/emqx/emqx/issues/2635>`_
+
+  Github PR:
+  `emqx/emqx#2663 <https://github.com/emqx/emqx/pull/2663>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Bug fixes:
+
+- Fix the issue that the count of ``actions.failure`` doesn't grow
+
+  Github PR:
+  `emqx/emqx-web-hook#137 <https://github.com/emqx/emqx-web-hook/pull/137>`_
+
+emqx-bridge-mqtt (plugin)
+-------------------------
+
+Enhancements:
+
+- Add the option of bridge mode
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#6 <https://github.com/emqx/emqx-bridge-mqtt/pull/6>`_
+
+- Optimize the ACK mechanism for RPC messages
+- Support for MQTT/RPC Bridge of Rule Engine caching messages to local disk queues
+- Fix the issue that MQTT/RPC Bridge of Rule Engine can’t bridge to remote EMQ X node
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#7 <https://github.com/emqx/emqx-bridge-mqtt/pull/7>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Add cluster support for rules and resource API
+
+  Github PR:
+  `emqx/emqx-rule-engine#75 <https://github.com/emqx/emqx-rule-engine/pull/75>`_
+
+- Add API for returning available columns of trigger events
+
+  Github PR:
+  `emqx/emqx-rule-engine#74 <https://github.com/emqx/emqx-rule-engine/pull/74>`_,
+  `emqx/emqx-rule-engine#77 <https://github.com/emqx/emqx-rule-engine/pull/77>`_
+
+Bug fixes:
+
+- Fix the issue caused by fetching resource status timeout
+
+  Github PR:
+  `emqx/emqx-rule-engine#76 <https://github.com/emqx/emqx-rule-engine/pull/76>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Rules engine metrics are subdivided into nodes
+
+  Github PR:
+  `emqx/emqx-dashboard#114 <https://github.com/emqx/emqx-dashboard/pull/114>`_
+
+Bug fixes:
+
+- Fix bugs in resource creation
+
+  Github PR:
+  `emqx/emqx-dashboard#114 <https://github.com/emqx/emqx-dashboard/pull/114>`_
+
+.. _release_3.2-rc.2:
+
+----------------
+Version 3.2-rc.2
+----------------
+
+*Release Date: 2019-06-29*
+
+EMQ X 3.2-rc.2 is mainly for bug fixes.
+
+Enhancements:
+
+- Change the default logger level to **warning**
+
+  Github PR:
+  `emqx/emqx#2657 <https://github.com/emqx/emqx/pull/2657>`_
+
+- Add history alarm list API
+
+  Github PRs:
+  `emqx/emqx#2660 <https://github.com/emqx/emqx/pull/2660>`_
+  `emqx/emqx-management#98 <https://github.com/emqx/emqx-management/pull/98>`_
+
+Bug fixes:
+
+- Clean the stale sessions:
+
+  Github PR:
+  `emqx/emqx#2655 <https://github.com/emqx/emqx/pull/2655>`_
+
+- Fix the massages order when batch dispatching:
+
+  Github PR:
+  `emqx/emqx#2650 <https://github.com/emqx/emqx/pull/2650>`_
+
+  Thank the contributions from `tradingtrace <https://github.com/tradingtrace>`_ !
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Add an action "do nothing" for debug purpose.
+
+  Github PR:
+  `emqx/emqx-rule-engine#70 <https://github.com/emqx/emqx-rule-engine/pull/70>`_
+
+- Change data type of the ``retain`` flag to integer
+
+  Github RP:
+  `emqx/emqx-rule-engine#72 <https://github.com/emqx/emqx-rule-engine/pull/72>`_
+
+Bug fixes:
+
+- Escape SQL reserved keyword timestamp:
+
+  Github PR:
+  `emqx/emqx-rule-engine#71 <https://github.com/emqx/emqx-rule-engine/pull/71>`_
+
+emq-bridge-mqtt (plugin)
+------------------------
+
+- Migrate the MQTT bridge from emqx project to a separated plugin:
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#2 <https://github.com/emqx/emqx-bridge-mqtt/pull/2>`_
+
+emqx-rel (build project)
+------------------------
+
+Bug fixes:
+
+- Fixed a windows service register bug:
+
+  Github PR:
+  `emqx/emqx-rel#381 <https://github.com/emqx/emqx-rel/pull/381>`_
+
+.. _release_3.2-rc.1:
+
+----------------
+Version 3.2-rc.1
+----------------
+
+*Release Date: 2019-06-22*
+
+EMQ X 3.2-rc.1 is now available. We've enhanced features and fixed bugs.
+
+Enhancements:
+
+- Support setting prefix of log message
+
+  Github PR:
+  `emqx/emqx#2627 <https://github.com/emqx/emqx/pull/2627>`_
+
+- Improve precision of the timestamp of clients' connecting and disconnecting in system messages
+
+  Github PR:
+  `emqx/emqx#2641 <https://github.com/emqx/emqx/pull/2641>`_
+
+- Optimize develop workflow and support ``make run``
+
+  Github PR:
+  `emqx/emqx#2644 <https://github.com/emqx/emqx/pull/2644>`_
+
+Bug fixes:
+
+- Fix the issue that flapping module can't read configuration correctly
+
+  Github PR:
+  `emqx/emqx#2628 <https://github.com/emqx/emqx/pull/2628>`_
+
+- Fix the issue that unavailable ``cpu_sup:util/0`` result in crash in Windows
+
+  Github PR:
+  `emqx/emqx#2629 <https://github.com/emqx/emqx/pull/2629>`_
+
+- Fix `emqx/emqx: issue#2619 <https://github.com/emqx/emqx/issues/2619>`_
+
+  Github PR:
+  `emqx/emqx#2646 <https://github.com/emqx/emqx/pull/2646>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support fetching resource status periodically and setting alarms
+
+  Github PR:
+  `emqx/emqx-rule-engine#67 <https://github.com/emqx/emqx-rule-engine/pull/67>`_
+
+emqx-sn (plugin)
+----------------
+
+Bug fixes:
+
+- Fix the misjudgement of ``keepalive_timeout``
+
+  Github PR:
+  `emqx/emqx-sn#127 <https://github.com/emqx/emqx-sn/pull/127>`_
+
+- Fix the issue that don't read ``idle_timeout`` correctly
+
+  Github PR:
+  `emqx/emqx-sn#128 <https://github.com/emqx/emqx-sn/pull/128>`_
+
+- Fix the test case
+
+  Github PR:
+  `emqx/emqx-sn#130 <https://github.com/emqx/emqx-sn/pull/130>`_
+
+emqx-auth-jwt (plugin)
+-----------------------
+
+Bug fixes:
+
+- Read pubkey correctly
+
+  Github PR:
+  `emqx/emqx-auth-jwt#88 <https://github.com/emqx/emqx-auth-jwt/pull/88>`_
+
+emqx-rel (build-project)
+------------------------
+
+Enhancements:
+
+- Make the building more intelligent and robust
+
+  GitHub PR:
+  `emqx/emqx-rel#375 <https://github.com/emqx/emqx-rel/pull/375>`_,
+  `emqx/emqx-rel#376 <https://github.com/emqx/emqx-rel/pull/376>`_
+
+.. _release_3.2-beta.3:
+
+------------------
+Version 3.2-beta.3
+------------------
+
+*Release Date: 2019-06-14*
+
+EMQ X 3.2-beta.3 is now available. We've improved rule engine and fixed bugs.
+
+EMQ X Core
+----------
+
+Bug fixes:
+
+- Fix the issue that not checking ``Will Retain`` flag
+
+  Github PR:
+  `emqx/emqx#2607 <https://github.com/emqx/emqx/pull/2607>`_
+
+- Fix `emqx/emqx: issue#2591 <https://github.com/emqx/emqx/issues/2591>`_
+
+  Github PR:
+  `emqx/emqx#2615 <https://github.com/emqx/emqx/pull/2615>`_
+
+- Remove characters limit for logging by default
+
+  Github PR:
+  `emqx/emqx#2617 <https://github.com/emqx/emqx/pull/2617>`_
+
+- Fix the issue that can’t handle fragmented tcp packet correctly
+
+  Github PR:
+  `emqx/emqx#2611 <https://github.com/emqx/emqx/pull/2611>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support metrics like count of rule matched
+
+  Github PR:
+  `emqx/emqx-rule-engine#63 <https://github.com/emqx/emqx-rule-engine/pull/63>`_
+
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fix the issue that CLI kicks websocket connection failed
+
+  Github PR:
+  `emqx/emqx-management#93 <https://github.com/emqx/emqx-management/pull/93>`_
+
+.. _release_3.2-beta.2:
+
+------------------
+Version 3.2-beta.2
+------------------
+
+*Release Date: 2019-06-06*
+
+EMQ X 3.2-beta.2 is now available. We've improved rule engine and fixed bugs.
+
+EMQ X Core
+----------
+
+Bug fixes:
+
+- Fix `emqx/emqx: issue#2553 <https://github.com/emqx/emqx/issues/2553>`_
+
+  Github PR:
+  `emqx/emqx#2596 <https://github.com/emqx/emqx/pull/2596>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Support testing SQL in the dashboard
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3e7c4c <https://github.com/emqx/emqx-rule-engine/commit/3e7c4cbe275d8f120ad8efb83fd23ee571d465db>`_
+
+- Preprocess prepared statement for better performance
+
+  Github Commit:
+  `emqx/emqx-rule-engine#fa3720 <https://github.com/emqx/emqx-rule-engine/commit/fa37205850c6efe9af5f8ca2f230e17c7de2adb4>`_,
+  `emqx/emqx-rule-engine#b00fad <https://github.com/emqx/emqx-rule-engine/commit/b00fad45c283fa2ec3aa57353bbe161960547461>`_
+
+- Adapt rule engine to emqx cluster
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3da7fe <https://github.com/emqx/emqx-rule-engine/commit/3da7fed60d92c9a994c2aed5f34509c0d0d4eff4>`_,
+  `emqx/emqx-rule-engine#4963b0 <https://github.com/emqx/emqx-rule-engine/commit/4963b0ee3a6114ebe74b48876d25723137df14ad>`_
+
+- Support showing resource status from dashboard
+
+  Github Commit:
+  `emqx/emqx-rule-engine#dd9a8d <https://github.com/emqx/emqx-rule-engine/commit/dd9a8d4801f650c1ac888f7420f5497f7d0d6c73>`_,
+  `emqx/emqx-rule-engine#d16224 <https://github.com/emqx/emqx-rule-engine/commit/d162246c0b630e059c21f7b36e50154f3d7832e3>`_,
+  `emqx/emqx-rule-engine#e4574c <https://github.com/emqx/emqx-rule-engine/commit/e4574c9554d7e7d79a8ce55a6c9e4089ee00db79>`_
+
+- Support restarting resources in dashboard
+
+  Github Commit:
+  `emqx/emqx-rule-engine#ccbffd <https://github.com/emqx/emqx-rule-engine/commit/ccbffd7d5db514adf6cd20e8d139e73f80bc1c96>`_
+
+- Support check HTTP connectivity
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3feffc <https://github.com/emqx/emqx-rule-engine/commit/3feffcd5a3f0da78725f1208594cea1b3273ec0b>`_
+
+Bug fixes:
+
+- Fix check dependency error before deleting resources
+
+  Github Commit:
+  `emqx/emqx-rule-engine#3265ff <https://github.com/emqx/emqx-rule-engine/commit/3265ffe10584f0edccc084e6f78ae035ba310c07>`_
+
+- Fix resources never destroyed
+
+  Github Commit:
+  `emqx/emqx-rule-engine#58a1ce <https://github.com/emqx/emqx-rule-engine/commit/58a1ce45e1cf96cf05481d8ed076febef0d41976>`_
+
+- Fix SQL nested put failure
+
+  Github Commit:
+  `emqx/emqx-rule-engine#64776a <https://github.com/emqx/emqx-rule-engine/commit/64776aebde1fe48c1038fba3b61f457590ab4408>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+Enhancements:
+
+- Support HTTPS
+
+  Github PR:
+  `emqx/emqx-auth-http#133 <https://github.com/emqx/emqx-auth-http/pull/133>`_
+
+emqx-docker (plugin)
+--------------------
+
+Bug fixes:
+
+- Fix `emqx/emqx-docker: issue#115 <https://github.com/emqx/emqx-docker/issues/115>`_
+
+  Github Commit:
+  `emqx/emqx-docker#f3c219 <https://github.com/emqx/emqx-docker/commit/f3c21978f5ffefd5d419bc78a1caf1ad71de9c91>`_
+
+emqx-management (plugin)
+------------------------
+
+Bug fixes:
+
+- Fix the issue of reloading plugin
+
+  Github PR:
+  `emqx/emqx-management#91 <https://github.com/emqx/emqx-management/pull/91>`_
+
+ekka (deps)
+-----------
+
+Bug fixes:
+
+- Fix the issue makes `emqx_sm_locker` crash
+
+  Github Commit:
+  `emqx/ekka#2d5bf2 <https://github.com/emqx/ekka/commit/2d5bf2a1f10d84408e4b35d3e274a49f395056c3>`_
+
+.. _release_3.2-beta.1:
+
+------------------
+Version 3.2-beta.1
+------------------
+
+*Release Date: 2019-05-27*
+
+EMQ X 3.2-beta.1 is now available. We've changed our build tool from erlang.mk to rebar3, and improved the rule-engine.
+
+EMQ X Core
+----------
+
+Enhancements:
+
+- Build with rebar3
+
+  Github PR:
+  `emqx/emqx#2475 <https://github.com/emqx/emqx/pull/2475>`_,
+  `emqx/emqx#2510 <https://github.com/emqx/emqx/pull/2510>`_,
+  `emqx/emqx#2518 <https://github.com/emqx/emqx/pull/2518>`_,
+  `emqx/emqx#2521 <https://github.com/emqx/emqx/pull/2521>`_
+
+- Support `{active, N}` for SSL connection
+
+  Github PR:
+  `emqx/emqx#2531 <https://github.com/emqx/emqx/pull/2531>`_
+
+- Improve the behaviour of anonymous access
+
+  Github PR:
+  `emqx/emqx#2355 <https://github.com/emqx/emqx/pull/2355>`_
+
+- Speed up zone access
+
+  Github PR:
+  `emqx/emqx#2548 <https://github.com/emqx/emqx/pull/2548>`_
+
+Bug fixes:
+
+- Fixed a fatal error in the `emqx_sm`
+
+  Github PR:
+  `emqx/emqx#2559 <https://github.com/emqx/emqx/pull/2559>`_
+
+- Fixed an error when publishing MQTT-SN, CoAP messages
+
+  Github PR:
+  `emqx/emqx#2556 <https://github.com/emqx/emqx/pull/2556>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Better rule engine
+
+  Github Repository:
+  `emqx/emqx-rule-engine <https://github.com/emqx/emqx-rule-engine>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Enhancements:
+
+- Add an option for encoding payload field
+
+  Github PR:
+  `emqx/emqx-web-hook#119 <https://github.com/emqx/emqx-web-hook/pull/119>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+Enhancements:
+
+- More opts for http request
+
+  Github PR:
+  `emqx/emqx-auth-http#128 <https://github.com/emqx/emqx-auth-http/pull/128>`_
+
+emqx-sn (plugin)
+----------------
+
+Bug fixes:
+
+- Fix wrong function call
+
+  Github PR:
+  `emqx/emqx-sn#118 <https://github.com/emqx/emqx-sn/pull/118>`_
+
+.. _release_3.1.2:
+
+--------------
+Version 3.1.2
+--------------
+
+*Release Date: 2019-06-06*
+
+EMQ X 3.1.2 is now available. We've fixed bugs and improved stability.
+
+EMQ X Core
+----------
+
+Bug fixes:
+
+- Fix `emqx/emqx: issue #2595 <https://github.com/emqx/emqx/issues/2595>`_
+
+  Github PR:
+  `emqx/emqx#2601 <https://github.com/emqx/emqx/pull/2601>`_
+
+- Fix the issue that failed when setting the log level
+
+  Github PR:
+  `emqx/emqx#2600 <https://github.com/emqx/emqx/pull/2600>`_
+
+- Fix the issue that doesn't match the return value
+
+  Github PR:
+  `emqx/emqx#2560 <https://github.com/emqx/emqx/pull/2560>`_
+
+- Hotfix for ``emqx_sn`` and ``emqx_coap`` plugins
+
+  Github PR:
+  `emqx/emqx#2556 <https://github.com/emqx/emqx/pull/2556>`_
+
+emqx-coap (plugin)
+------------------
+
+Bug fixes:
+
+- Fix the issue that messages can't be published
+
+  Github PR:
+  `emqx/emqx-coap#120 <https://github.com/emqx/emqx-coap/pull/120>`_
+
+ekka (deps)
+-----------
+
+Bug fixes:
+
+- Fix the issue makes ``emqx_sm_locker`` crash
+
+  Github PR:
+  `emqx/ekka#54 <https://github.com/emqx/ekka/pull/54>`_
+
+- Fix the issue that k8s can't use dns cluster
+
+  Github PR:
+  `emqx/ekka#53 <https://github.com/emqx/ekka/pull/53>`_
+
+- Fix the issue that etcd cluster is unusable
+
+  Github PR:
+  `emqx/ekka#52 <https://github.com/emqx/ekka/pull/52>`_
+
 .. _release_3.1.1:
 
 -------------

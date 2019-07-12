@@ -792,27 +792,46 @@ Windows source code compilation and installation
 
 Erlang install: http://www.erlang.org/
 
-MSYS2 install: http://www.msys2.org/
+scoop install: http://scoop.sh/
 
-After the MSYS2 is installed, the Git and Make tools can be installed using the pacman package management tool in MSYS2.
-
-.. code-block:: bash
-
-        pacman -S git make
-
-After the environment is ready, the  code can be compiled.
+After the scoop is installed, the Git, Make and erlang can be installed using the scoop package management tool.
 
 .. code-block:: bash
 
-        git clone -b win30 https://github.com/emqx/emqx-rel.git
+        scoop install git make curl erlang
+
+After the environment is ready, the code can be compiled.
+
+rebar3 install:
+
+.. code-block:: bash
+
+        git clone https://github.com/erlang/rebar3.git
+
+        cd rebar3
+
+        bootstrap
+
+After rebar3 is built successfully, add rebar3 path into the environment path of windows
+
+.. code-block:: bash
+
+        git clone https://github.com/emqx/emqx-rel.git
 
         cd emqx-relx && make
 
-        cd _rel/emqx && ./bin/emqx console
+        cd _rel/emqx && ./bin/emqx start
 
- Star the compiled EMQ X on the console:
+Star the compiled EMQ X on the console:
 
 .. code-block:: bash
 
         cd _rel/emqx/bin
         emqx console
+
+Register windows service:
+
+.. code-block:: bash
+
+       cd _build/emqx/rel/emqx
+       emqx install
