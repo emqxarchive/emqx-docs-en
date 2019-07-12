@@ -1257,18 +1257,31 @@ Compile and Release Plugin
 
     git clone https://github.com/emqx/emqx-rel.git
 
-2. Add ``DEPS`` in Makefile:
-
-.. code:: makefile
-
-    DEPS += plugin_name
-    dep_plugin_name = git url_of_plugin
-
-3. The release paragraph in relx.config is added:
+2. Add dependency in rebar.config:
 
 .. code:: erlang
 
-    {plugin_name, load},
+    {deps,
+       [ {plugin_name, {git, "url_of_plugin", {tag, "tag_of_plugin"}}}
+       , ....
+       ....
+       ]
+    }
+
+3. The relx paragraph in rebar.config is added:
+
+.. code:: erlang
+
+    {relx,
+        [...
+        , ...
+        , {release, {emqx, git_describe},
+           [
+             {plugin_name, load},
+           ]
+          }
+        ]
+    }
 
 .. _emqx_dashboard:        https://github.com/emqx/emqx-dashboard
 .. _emqx_retainer:         https://github.com/emqx/emqx-retainer
