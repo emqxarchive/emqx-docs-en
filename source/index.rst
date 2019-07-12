@@ -7,7 +7,7 @@
 *EMQ X Broker* - High Performance MQTT Message Broker
 =====================================================
 
-*EMQ X Broker* R3.1 is a distributed, massively scalable, highly extensible MQTT message broker written in Erlang/OTP.
+*EMQ X Broker* R3.2 is a distributed, massively scalable, highly extensible MQTT message broker written in Erlang/OTP.
 
 EMQ X Broker is previously known as emqtt, since R3.1, the name is officially changed to EMQ X Broker.
 
@@ -19,7 +19,7 @@ EMQ X Broker is previously known as emqtt, since R3.1, the name is officially ch
 
 .. image:: ./_static/images/emqtt.png
 
-Index of *EMQ X Broker* R3.1 Document
+Index of *EMQ X Broker* R3.2 Document
 
 .. toctree::
    :maxdepth: 2

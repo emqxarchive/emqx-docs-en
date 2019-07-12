@@ -41,6 +41,8 @@ The official plug-ins provided by EMQ X include:
 +---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_rule_engine`_       + etc/plugins/emqx_rule_engine.conf     | Rule engine                         |
 +---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_bridge_mqtt`_       + etc/plugins/emqx_bridge_mqtt.conf     | MQTT Message Bridge                 |
++---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_delayed_publish`_   + etc/plugins/emqx_delayed_publish.conf | Delayed publish support             |
 +---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_coap`_              + etc/plugins/emqx_coap.conf            | CoAP protocol support               |
@@ -1306,6 +1308,7 @@ Compile and Release Plugin
 .. _emqx_psk_file:         https://github.com/emqx/emqx-psk-file
 .. _emqx_plugin_template:  https://github.com/emqx/emqx-plugin-template
 .. _emqx_rule_engine:      https://github.com/emqx/emqx-rule-engine
+.. _emqx_bridge_mqtt:      https://github.com/emqx/emqx-bridge-mqtt
 .. _recon:                 http://ferd.github.io/recon/
 .. _LDAP:                  https://ldap.com
 .. _JWT:                   https://jwt.io
