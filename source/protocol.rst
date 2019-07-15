@@ -406,7 +406,7 @@ Convertion between MQTT and LWM2M
 
 Commands from MQTT client to LWM2M device is carried in following topic:
 
-.. code-block::
+.. code-block:: console
 
     "lwm2m/{?device_end_point_name}/command".
 
@@ -416,7 +416,7 @@ And MQTT Payload will be a json format data which specifies the command. Please 
 
 Response from LWM2M device to MQTT client is carried in following topic:
     
-.. code-block::
+.. code-block:: console
 
     "lwm2m/{?device_end_point_name}/response".
 
@@ -449,7 +449,7 @@ File: etc/emqx_lwm2m.conf::
 Start emqx-lwm2m
 ''''''''''''''''
 
-.. code-block::
+.. code-block:: console
 
     ./bin/emqx_ctl plugins load emqx_lwm2m
 
@@ -461,3 +461,7 @@ LWM2M clients
 - https://github.com/AVSystem/Anjay
 - https://github.com/ConnectivityFoundry/AwaLWM2M
 - http://www.eclipse.org/leshan/
+
+.. _emqttc: https://github.com/emqtt/emqttc
+.. _CocoaMQTT: https://github.com/emqtt/CocoaMQTT
+.. _QMQTT: https://github.com/emqtt/qmqtt

@@ -711,7 +711,7 @@ The maximum time to wait for MQTT CONNECT packet after the TCP connection is est
 
     zone.external.idle_timeout = 15s
 
- Message Publish rate limit:
+Message Publish rate limit:
 
 .. code-block:: properties
 
