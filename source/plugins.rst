@@ -401,7 +401,7 @@ MQTT Access Control Table
         (6,1,'127.0.0.1',NULL,NULL,2,'#'),
         (7,1,NULL,'dashboard',NULL,1,'$SYS/#');
 
- MySQL Authentication Plugin Configuration
+MySQL Authentication Plugin Configuration
 ::::::::::::::::::::::::::::::::::::::::::
 
 etc/plugins/emqx_auth_mysql.conf:
@@ -905,7 +905,7 @@ DTLS can be enabled if the following two configuration items are set:
 Test the CoAP Plugin
 ::::::::::::::::::::
 
-A CoAP client is necessary to test CoAP plugin. In following example the `libcap`_ is used.
+A CoAP client is necessary to test CoAP plugin. In following example the `libcoap`_ is used.
 
 .. code:: bash
 
@@ -1033,7 +1033,7 @@ Recon Performance Debugging Plugin
     recon node_stats             #recon:node_stats(10, 1000)
     recon remote_load Mod        #recon:remote_load(Mod)
 
- Recon Plugin Configuration
+Recon Plugin Configuration
 :::::::::::::::::::::::::::
 
 etc/plugins/emqx_recon.conf:
