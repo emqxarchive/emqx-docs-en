@@ -142,7 +142,7 @@ etc/plugins/emqx_dashboard.conf:
     ## dashboard.listener.https.verify = verify_peer
     ## dashboard.listener.https.fail_if_no_peer_cert = true
 
-HTTP API and CLI Management plugin
+HTTP API and CLI Management Plugin
 ----------------------------------
 
 `emqx_management`_ is the HTTP API and CLI management plugin of the *EMQ X* broker，which is enabled by default. When *EMQ X* starts successfully, users can query the current client list and other operations via the HTTP API and CLI provided by this plugin. For details see :ref:`rest_api` and :ref:`commands`.
