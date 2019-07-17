@@ -711,7 +711,7 @@ The maximum time to wait for MQTT CONNECT packet after the TCP connection is est
 
     zone.external.idle_timeout = 15s
 
- Message Publish rate limit:
+Message Publish rate limit:
 
 .. code-block:: properties
 
@@ -974,8 +974,6 @@ The TCP ports of the EMQ X broker that are enabled by default include:
 | 8883 | MQTT/TCP SSL port            |
 +------+------------------------------+
 | 8083 | MQTT/WebSocket port          |
-+------+------------------------------+
-| 8080 | HTTP Management API port     |
 +------+------------------------------+
 | 8084 | MQTT/WebSocket with SSL port |
 +------+------------------------------+
