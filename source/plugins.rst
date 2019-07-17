@@ -13,6 +13,8 @@ The official plug-ins provided by EMQ X include:
 +===========================+=======================================+=====================================+
 | `emqx_dashboard`_         + etc/plugins/emqx_dashbord.conf        | Web dashboard Plugin (Default)      |
 +---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_management`_        + etc/plugins/emqx_management.conf      | HTTP API and CLI Management Plugin  |
++---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_auth_clientid`_     + etc/plugins/emqx_auth_clientid.conf   | ClientId Auth Plugin                |
 +---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_auth_username`_     + etc/plugins/emqx_auth_username.conf   | Username/Password Auth Plugin       |
@@ -138,6 +140,45 @@ etc/plugins/emqx_dashboard.conf:
     ## dashboard.listener.https.cacertfile = etc/certs/cacert.pem
     ## dashboard.listener.https.verify = verify_peer
     ## dashboard.listener.https.fail_if_no_peer_cert = true
+
+HTTP API and CLI Management Plugin
+----------------------------------
+
+`emqx_management`_ is the HTTP API and CLI management plugin for the EMQ X broker, which is enabled by default. When EMQ X starts successfully, users can query the current client list and other operations through the HTTP API and CLI provided by the plugin, see :ref:`rest_api` and :ref:`commands`。
+
+HTTP API and CLI Mangement Settings
+:::::::::::::::::::::::::::::::::::
+
+etc/plugins/emqx_management.conf:
+
+.. code:: properties
+
+    ## Max Row Limit
+    management.max_row_limit = 10000
+
+    ## Default Application Secret
+    # management.application.default_secret = public
+
+    ## Management HTTP Service Port Configuration
+    management.listener.http = 8080
+    management.listener.http.acceptors = 2
+    management.listener.http.max_clients = 512
+    management.listener.http.backlog = 512
+    management.listener.http.send_timeout = 15s
+    management.listener.http.send_timeout_close = on
+
+    ## Management HTTPS Service Port Configuration
+    ## management.listener.https = 8081
+    ## management.listener.https.acceptors = 2
+    ## management.listener.https.max_clients = 512
+    ## management.listener.https.backlog = 512
+    ## management.listener.https.send_timeout = 15s
+    ## management.listener.https.send_timeout_close = on
+    ## management.listener.https.certfile = etc/certs/cert.pem
+    ## management.listener.https.keyfile = etc/certs/key.pem
+    ## management.listener.https.cacertfile = etc/certs/cacert.pem
+    ## management.listener.https.verify = verify_peer
+    ## management.listener.https.fail_if_no_peer_cert = true
 
 ClientID authentication plugin
 -------------------------------
@@ -1286,6 +1327,7 @@ Compile and Release Plugin
     }
 
 .. _emqx_dashboard:        https://github.com/emqx/emqx-dashboard
+.. _emqx_management:       https://github.com/emqx/emqx-management
 .. _emqx_retainer:         https://github.com/emqx/emqx-retainer
 .. _emqx_delayed_publish:  https://github.com/emqx/emqx-delayed-publish
 .. _emqx_auth_clientid:    https://github.com/emqx/emqx-auth-clientid
