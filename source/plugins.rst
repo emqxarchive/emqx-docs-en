@@ -13,6 +13,8 @@ The official plug-ins provided by EMQ X include:
 +===========================+=======================================+=====================================+
 | `emqx_dashboard`_         + etc/plugins/emqx_dashbord.conf        | Web dashboard Plugin (Default)      |
 +---------------------------+---------------------------------------+-------------------------------------+
+| `emqx_management`_        + etc/plugins/emqx_management.conf      | HTTP API and CLI management plugin  |
++---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_auth_clientid`_     + etc/plugins/emqx_auth_clientid.conf   | ClientId Auth Plugin                |
 +---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_auth_username`_     + etc/plugins/emqx_auth_username.conf   | Username/Password Auth Plugin       |
@@ -41,7 +43,7 @@ The official plug-ins provided by EMQ X include:
 +---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_rule_engine`_       + etc/plugins/emqx_rule_engine.conf     | Rule engine                         |
 +---------------------------+---------------------------------------+-------------------------------------+
-| `emqx_bridge_mqtt`_       + etc/plugins/emqx_bridge_mqtt.conf     | MQTT Message Bridge                 |
+| `emqx_bridge_mqtt`_       + etc/plugins/emqx_bridge_mqtt.conf     | MQTT Message Bridge Plugin          |
 +---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_delayed_publish`_   + etc/plugins/emqx_delayed_publish.conf | Delayed publish support             |
 +---------------------------+---------------------------------------+-------------------------------------+
@@ -59,6 +61,7 @@ The official plug-ins provided by EMQ X include:
 +---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_plugin_template`_   + etc/plugins/emqx_plugin_template.conf | plugin develop template             |
 +---------------------------+---------------------------------------+-------------------------------------+
+
 
 There are four ways to load plugins:
 
@@ -138,6 +141,45 @@ etc/plugins/emqx_dashboard.conf:
     ## dashboard.listener.https.cacertfile = etc/certs/cacert.pem
     ## dashboard.listener.https.verify = verify_peer
     ## dashboard.listener.https.fail_if_no_peer_cert = true
+
+HTTP API and CLI management plugin
+-----------------------------------------
+
+`emqx_management`_ is the HTTP API and CLI management plugin of *EMQ X*，this plugin is enabled by default. When *EMQ X* is started successfully,uusers can query the client list and so on via the HTTP API and CLI provided by this plugin. For details see :ref:`rest_api` and :ref:`commands`.
+
+HTTP API and CLI management configuration
+:::::::::::::::::::::::::::::::::::::::::
+
+etc/plugins/emqx_management.conf:
+
+.. code:: properties
+
+    ## Max Row Limit, used by page mechanism
+    management.max_row_limit = 10000
+
+    ## Application default secret
+    # management.application.default_secret = public
+
+    ## HTTP Listener
+    management.listener.http = 8080
+    management.listener.http.acceptors = 2
+    management.listener.http.max_clients = 512
+    management.listener.http.backlog = 512
+    management.listener.http.send_timeout = 15s
+    management.listener.http.send_timeout_close = on
+
+    ## HTTPS Listener
+    ## management.listener.https = 8081
+    ## management.listener.https.acceptors = 2
+    ## management.listener.https.max_clients = 512
+    ## management.listener.https.backlog = 512
+    ## management.listener.https.send_timeout = 15s
+    ## management.listener.https.send_timeout_close = on
+    ## management.listener.https.certfile = etc/certs/cert.pem
+    ## management.listener.https.keyfile = etc/certs/key.pem
+    ## management.listener.https.cacertfile = etc/certs/cacert.pem
+    ## management.listener.https.verify = verify_peer
+    ## management.listener.https.fail_if_no_peer_cert = true
 
 ClientID authentication plugin
 -------------------------------
@@ -246,6 +288,7 @@ HTTP Authentication/Access Control Plugin
 -------------------------------------------
 
 `emqx_auth_http`_  implements connection authentication and access control via HTTP. It sends request to a specified HTTP service and determines whether it has access rights by the return value.
+
 This plugin supports three requests:
 
 1. **auth.http.auth_req**: connection authentication
@@ -266,8 +309,7 @@ etc/plugins/emqx_auth_http.conf:
     ## Time-out time for the http request, 0 is never timeout.
     ## auth.http.request.timeout = 0
 
-    ## Connection time-out time, used during the initial request
-    ## when the client is connecting to the server
+    ## Connection time-out time, used during the initial request when the client is connecting to the server
     ## auth.http.request.connect_timout = 0
 
     ## Re-send http reuqest times
@@ -276,11 +318,10 @@ etc/plugins/emqx_auth_http.conf:
     ## The interval for re-sending the http request
     auth.http.request.retry_interval = 1s
 
-    ## The 'Exponential Backoff' mechanism for re-sending request. The actually
-    ## re-send time interval is `interval * backoff ^ times`
+    ## The 'Exponential Backoff' mechanism for re-sending request. The actually re-send time interval is `interval * backoff ^ times`
     auth.http.request.retry_backoff = 2.0
 
-    ## https options
+    ## https certification configuration
     ## auth.http.ssl.cacertfile = {{ platform_etc_dir }}/certs/ca.pem
     ## auth.http.ssl.certfile = {{ platform_etc_dir }}/certs/client-cert.pem
     ## auth.http.ssl.keyfile = {{ platform_etc_dir }}/certs/client-key.pem
@@ -441,11 +482,6 @@ etc/plugins/emqx_auth_mysql.conf:
     auth.mysql.super_query = select is_superuser from mqtt_user where username = '%u' limit 1
 
     ## ACL query statement
-    ##
-    ## Available placeholders:
-    ##  - %a: ipaddr
-    ##  - %u: username
-    ##  - %c: clientid
     ## Note: You can add the 'ORDER BY' statement to control the rules match order
     auth.mysql.acl_query = select allow, ipaddr, username, clientid, access, topic from mqtt_acl where ipaddr = '%a' or username = '%u' or username = '$all' or clientid = '%c'
 
@@ -818,6 +854,11 @@ etc/plugins/emqx_web_hook.conf:
     ## Callback Web Server Address
     web.hook.api.url = http://127.0.0.1:8080
 
+    ## Encode message payload field
+    ## Value: undefined | base64 | base62
+    ## Default: undefined (Do not encode)
+    ## web.hook.encode_payload = base64
+
     ## Message and event configuration
     web.hook.rule.client.connected.1     = {"action": "on_client_connected"}
     web.hook.rule.client.disconnected.1  = {"action": "on_client_disconnected"}
@@ -863,6 +904,130 @@ etc/plugins/emqx_retainer.conf:
     ## Expiration time, 0 means never expired
     ## Unit:  h hour; m minute; s second.For example, 60m means 60 minutes.
     retainer.expiry_interval = 0
+
+MQTT Message Bridge Plugin
+--------------------------
+
+The concept of **Bridge** is that EMQ X forwards messages of some of its topics to another MQTT Broker in some way.
+
+Difference between **Bridge** and **cluster** is that bridge does not replicate topic trees and routing tables, a bridge only forwards MQTT messages based on Bridge rules.
+
+Currently the Bridge methods supported by EMQ X are as follows:
+
+- RPC bridge: RPC Bridge only supports message forwarding and does not support subscribing to the topic of remote nodes to synchronize data.
+- MQTT Bridge: MQTT Bridge supports both forwarding and data synchronization through subscription topic
+
+In EMQ X, bridge is configured by modifying ``etc/plugins/emqx_bridge_mqtt.conf``. EMQ X distinguishes between different bridges based on different names. E.g::
+
+    ## Bridge address: node name for local bridge, host:port for remote.
+    bridge.mqtt.aws.address = 127.0.0.1:1883
+
+This configuration declares a bridge named ``aws`` and specifies that it is bridged to the MQTT server of ``127.0.0.1:1883`` by MQTT mode.
+
+In case of creating multiple bridges, it is convenient to replicate all configuration items of the first bridge, and modify the bridge name and other configuration items if necessary (such as bridge.mqtt.$name.address, where $name refers to the name of bridge)
+
+MQTT Bridge Plugin Configuration
+::::::::::::::::::::::::::::::::
+
+etc/plugins/emqx_bridge_mqtt.conf
+
+.. code:: properties
+
+    ## Bridge Address: Use node name (nodename@host) for rpc Bridge, and host:port for mqtt connection
+    bridge.mqtt.aws.address = emqx2@192.168.1.2
+
+    ## Forwarding topics of the message
+    bridge.mqtt.aws.forwards = sensor1/#,sensor2/#
+
+    ## bridged mountpoint
+    bridge.mqtt.aws.mountpoint = bridge/emqx2/${node}/
+
+    ## Bridge Address: Use node name for rpc Bridge, use host:port for mqtt connection
+    bridge.mqtt.aws.address = 192.168.1.2:1883
+
+    ## Bridged Protocol Version
+    ## Enumeration value: mqttv3 | mqttv4 | mqttv5
+    bridge.mqtt.aws.proto_ver = mqttv4
+
+    ## mqtt client's client_id
+    bridge.mqtt.aws.client_id = bridge_emq
+
+    ## mqtt client's clean_start field
+    ## Note: Some MQTT Brokers need to set the clean_start value as `true`
+    bridge.mqtt.aws.clean_start = true
+
+    ##  mqtt client's username field
+    bridge.mqtt.aws.username = user
+
+    ## mqtt client's password field
+    bridge.mqtt.aws.password = passwd
+
+    ## Whether the mqtt client uses ssl to connect to a remote serve or not
+    bridge.mqtt.aws.ssl = off
+
+    ## CA Certificate of Client SSL Connection (PEM format)
+    bridge.mqtt.aws.cacertfile = etc/certs/cacert.pem
+
+    ## SSL certificate of Client SSL connection
+    bridge.mqtt.aws.certfile = etc/certs/client-cert.pem
+
+    ## Key file of Client SSL connection
+    bridge.mqtt.aws.keyfile = etc/certs/client-key.pem
+
+    ## SSL encryption
+    bridge.mqtt.aws.ciphers = ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384
+
+    ## TTLS PSK password
+    ## Note 'listener.ssl.external.ciphers' and 'listener.ssl.external.psk_ciphers' cannot be configured at the same time
+    ##
+    ## See 'https://tools.ietf.org/html/rfc4279#section-2'.
+    ## bridge.mqtt.aws.psk_ciphers = PSK-AES128-CBC-SHA,PSK-AES256-CBC-SHA,PSK-3DES-EDE-CBC-SHA,PSK-RC4-SHA
+
+    ## Client's heartbeat interval
+    bridge.mqtt.aws.keepalive = 60s
+
+    ## Supported TLS version
+    bridge.mqtt.aws.tls_versions = tlsv1.2,tlsv1.1,tlsv1
+
+    ## Forwarding topics of the message
+    bridge.mqtt.aws.forwards = sensor1/#,sensor2/#
+
+    ## Bridged mountpoint
+    bridge.mqtt.aws.mountpoint = bridge/emqx2/${node}/
+
+    ## Subscription topic for Bridge
+    bridge.mqtt.aws.subscription.1.topic = cmd/topic1
+
+    ## Subscription qos for Bridge
+    bridge.mqtt.aws.subscription.1.qos = 1
+
+    ## Subscription topic for Bridge
+    bridge.mqtt.aws.subscription.2.topic = cmd/topic2
+
+    ## Subscription qos for Bridge
+    bridge.mqtt.aws.subscription.2.qos = 1
+
+    ## Bridge reconnection interval
+    ## Default: 30s
+    bridge.mqtt.aws.reconnect_interval = 30s
+
+    ## QoS1 message retransmission interval
+    bridge.mqtt.aws.retry_interval = 20s
+
+    ## Inflight Size.
+    bridge.mqtt.aws.max_inflight_batches = 32
+
+    ## emqx_bridge internal number of messages used for batch
+    bridge.mqtt.aws.queue.batch_count_limit = 32
+
+    ##  emqx_bridge internal number of message bytes used for batch
+    bridge.mqtt.aws.queue.batch_bytes_limit = 1000MB
+
+    ## The path for placing replayq queue. If the item is not specified in the configuration, then replayq will run in `mem-only` mode and messages will not be cached on disk.
+    bridge.mqtt.aws.queue.replayq_dir = data/emqx_emqx2_bridge/
+
+    ## Replayq data segment size
+    bridge.mqtt.aws.queue.replayq_seg_bytes = 10MB
 
 Delayed Publish Plugin
 -----------------------
@@ -1074,7 +1239,7 @@ Plugin Development Template
 
 When developers need to customize a plugin, they can view this plugin's code and structure to deliver a standard EMQ X plugin faster. The plugin is actually a normal ``Erlang Application`` with the configuration file: ``etc/${PluginName}.config``.
 
-EMQ X R3.1 Plugin Development
+EMQ X R3.2 Plugin Development
 -----------------------------
 
 Create a Plugin Project
