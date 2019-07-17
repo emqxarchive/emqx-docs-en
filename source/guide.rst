@@ -15,7 +15,7 @@ After downloading the package, it can be installed or unzipped directly to start
 
 .. code-block:: bash
 
-    unzip emqx-macosx-v3.1.0.zip && cd emqx
+    unzip emqx-macosx-v3.2.0.zip && cd emqx
 
     # Start emqx
     ./bin/emqx start
@@ -70,13 +70,13 @@ In EMQ X, these two functions are:
 Authentication
 >>>>>>>>>>>>>>>
 
-EMQ X Message Broker's Authentication is provided by a series of authentication plugins. It supports authentication by username, password, ClientID or anonymous. 
+EMQ X Message Broker's Authentication is provided by a series of authentication plugins. It supports authentication by username, password, ClientID or anonymous.
 
 By default, anonymous authentication is enabled. Multiple authentication modules can be started by loading the corresponding authentication plug-ins and forming an authentication chain::
 
-               --------------------------            --------------------------            --------------------------- 
+               --------------------------            --------------------------            ---------------------------
     Client --> | Username authentication | -ignore-> | ClientID authentication | -ignore-> | anonymous authentication |
-               --------------------------            --------------------------            --------------------------- 
+               --------------------------            --------------------------            ---------------------------
                       |                         |                         |
                      \|/                       \|/                       \|/
                 allow | deny              allow | deny              allow | deny
@@ -329,10 +329,10 @@ EMQ X MQTT bridging principle: Create an MQTT client on the EMQ X broker, and co
     ## CA Certificate of Client SSL Connection (PEM format)
     bridge.mqtt.aws.cacertfile = etc/certs/cacert.pem
 
-    ## SSL certificate of Client SSL connection 
+    ## SSL certificate of Client SSL connection
     bridge.mqtt.aws.certfile = etc/certs/client-cert.pem
 
-    ## Key file of Client SSL connection 
+    ## Key file of Client SSL connection
     bridge.mqtt.aws.keyfile = etc/certs/client-key.pem
 
     ## SSL encryption
@@ -391,7 +391,7 @@ The bridge of EMQ X has a message caching mechanism. The caching mechanism is ap
 
     ## The path for placing replayq queue. If the item is not specified in the configuration, then replayq will run in `mem-only` mode and messages will not be cached on disk.
     bridge.mqtt.aws.queue.replayq_dir = data/emqx_emqx2_bridge/
-    
+
     ## Replayq data segment size
     bridge.mqtt.aws.queue.replayq_seg_bytes = 10MB
 
@@ -614,7 +614,7 @@ The Payload of the 'connected' event message can be parsed into JSON format:
 The Payload of the 'disconnected' event message can be parsed into JSON format:
 
 .. code:: json
-    
+
     {
         "clientid":"id1",
         "username":"u",
@@ -675,7 +675,7 @@ Subscription statistics
 +---------------------------------+---------------------------------------------+
 | subscriptions/shared/count      | total number of current shared subscriptions|
 +---------------------------------+---------------------------------------------+
-| subscriptions/shared/max        | maximum number of shared subscriptions      |      
+| subscriptions/shared/max        | maximum number of shared subscriptions      |
 +---------------------------------+---------------------------------------------+
 
 Topic statistics
