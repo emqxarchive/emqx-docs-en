@@ -975,8 +975,6 @@ The TCP ports of the EMQ X broker that are enabled by default include:
 +------+------------------------------+
 | 8083 | MQTT/WebSocket port          |
 +------+------------------------------+
-| 8080 | HTTP Management API port     |
-+------+------------------------------+
 | 8084 | MQTT/WebSocket with SSL port |
 +------+------------------------------+
 

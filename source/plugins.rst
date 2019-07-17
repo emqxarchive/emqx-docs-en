@@ -13,7 +13,7 @@ The official plug-ins provided by EMQ X include:
 +===========================+=======================================+=====================================+
 | `emqx_dashboard`_         + etc/plugins/emqx_dashbord.conf        | Web dashboard Plugin (Default)      |
 +---------------------------+---------------------------------------+-------------------------------------+
-| `emqx_management`_        + etc/plugins/emqx_management.conf      | HTTP API and CLI management plugin  |
+| `emqx_management`_        + etc/plugins/emqx_management.conf      | HTTP API and CLI Management Plugin  |
 +---------------------------+---------------------------------------+-------------------------------------+
 | `emqx_auth_clientid`_     + etc/plugins/emqx_auth_clientid.conf   | ClientId Auth Plugin                |
 +---------------------------+---------------------------------------+-------------------------------------+
@@ -145,7 +145,7 @@ etc/plugins/emqx_dashboard.conf:
 HTTP API and CLI management plugin
 -----------------------------------------
 
-`emqx_management`_ is the HTTP API and CLI management plugin of *EMQ X*，this plugin is enabled by default. When *EMQ X* is started successfully,uusers can query the client list and so on via the HTTP API and CLI provided by this plugin. For details see :ref:`rest_api` and :ref:`commands`.
+`emqx_management`_ is the HTTP API and CLI management plugin of the *EMQ X* broker，this plugin is enabled by default. When *EMQ X* is started successfully, users can query the current client list and other operations via the HTTP API and CLI provided by this plugin. For details see :ref:`rest_api` and :ref:`commands`.
 
 HTTP API and CLI management configuration
 :::::::::::::::::::::::::::::::::::::::::
@@ -154,13 +154,13 @@ etc/plugins/emqx_management.conf:
 
 .. code:: properties
 
-    ## Max Row Limit, used by page mechanism
+    ## Max Row Limit
     management.max_row_limit = 10000
 
-    ## Application default secret
+    ## Default Application Secret
     # management.application.default_secret = public
 
-    ## HTTP Listener
+    ## Management HTTP Service Port Configuration
     management.listener.http = 8080
     management.listener.http.acceptors = 2
     management.listener.http.max_clients = 512
@@ -168,7 +168,7 @@ etc/plugins/emqx_management.conf:
     management.listener.http.send_timeout = 15s
     management.listener.http.send_timeout_close = on
 
-    ## HTTPS Listener
+    ## Management HTTPS Service Port Configuration
     ## management.listener.https = 8081
     ## management.listener.https.acceptors = 2
     ## management.listener.https.max_clients = 512
@@ -1451,6 +1451,7 @@ Compile and Release Plugin
     }
 
 .. _emqx_dashboard:        https://github.com/emqx/emqx-dashboard
+.. _emqx_management:       https://github.com/emqx/emqx-management
 .. _emqx_retainer:         https://github.com/emqx/emqx-retainer
 .. _emqx_delayed_publish:  https://github.com/emqx/emqx-delayed-publish
 .. _emqx_auth_clientid:    https://github.com/emqx/emqx-auth-clientid

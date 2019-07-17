@@ -48,420 +48,529 @@ Response:
       "code": 0,
       "data": [
         {
-            "name": "list_clientid",
-            "method": "GET",
-            "path": "/auth_clientid",
-            "descr": "List available clientid in the cluster"
+          "name": "list_clientid",
+          "method": "GET",
+          "path": "/auth_clientid",
+          "descr": "List available clientid in the cluster"
         },
         {
-            "name": "lookup_clientid",
-            "method": "GET",
-            "path": "/auth_clientid/:clientid",
-            "descr": "Lookup clientid in the cluster"
+          "name": "lookup_clientid",
+          "method": "GET",
+          "path": "/auth_clientid/:clientid",
+          "descr": "Lookup clientid in the cluster"
         },
         {
-            "name": "add_clientid",
-            "method": "POST",
-            "path": "/auth_clientid",
-            "descr": "Add clientid in the cluster"
+          "name": "add_clientid",
+          "method": "POST",
+          "path": "/auth_clientid",
+          "descr": "Add clientid in the cluster"
         },
         {
-            "name": "update_clientid",
-            "method": "PUT",
-            "path": "/auth_clientid/:clientid",
-            "descr": "Update clientid in the cluster"
+          "name": "update_clientid",
+          "method": "PUT",
+          "path": "/auth_clientid/:clientid",
+          "descr": "Update clientid in the cluster"
         },
         {
-            "name": "delete_clientid",
-            "method": "DELETE",
-            "path": "/auth_clientid/:clientid",
-            "descr": "Delete clientid in the cluster"
+          "name": "delete_clientid",
+          "method": "DELETE",
+          "path": "/auth_clientid/:clientid",
+          "descr": "Delete clientid in the cluster"
         },
         {
-            "name": "list_username",
-            "method": "GET",
-            "path": "/auth_username",
-            "descr": "List available username in the cluster"
+          "name": "list_username",
+          "method": "GET",
+          "path": "/auth_username",
+          "descr": "List available username in the cluster"
         },
         {
-            "name": "lookup_username",
-            "method": "GET",
-            "path": "/auth_username/:username",
-            "descr": "Lookup username in the cluster"
+          "name": "lookup_username",
+          "method": "GET",
+          "path": "/auth_username/:username",
+          "descr": "Lookup username in the cluster"
         },
         {
-            "name": "add_username",
-            "method": "POST",
-            "path": "/auth_username",
-            "descr": "Add username in the cluster"
+          "name": "add_username",
+          "method": "POST",
+          "path": "/auth_username",
+          "descr": "Add username in the cluster"
         },
         {
-            "name": "update_username",
-            "method": "PUT",
-            "path": "/auth_username/:username",
-            "descr": "Update username in the cluster"
+          "name": "update_username",
+          "method": "PUT",
+          "path": "/auth_username/:username",
+          "descr": "Update username in the cluster"
         },
         {
-            "name": "delete_username",
-            "method": "DELETE",
-            "path": "/auth_username/:username",
-            "descr": "Delete username in the cluster"
+          "name": "delete_username",
+          "method": "DELETE",
+          "path": "/auth_username/:username",
+          "descr": "Delete username in the cluster"
         },
         {
-            "name": "list_all_alarms",
-            "method": "GET",
-            "path": "/alarms/",
-            "descr": "List all alarms"
+          "name": "auth_user",
+          "method": "POST",
+          "path": "/auth",
+          "descr": "Authenticate an user"
         },
         {
-            "name": "list_node_alarms",
-            "method": "GET",
-            "path": "/alarms/:node",
-            "descr": "List alarms of a node"
+          "name": "create_user",
+          "method": "POST",
+          "path": "/users/",
+          "descr": "Create an user"
         },
         {
-            "name": "list_banned",
-            "method": "GET",
-            "path": "/banned/",
-            "descr": "List banned"
+          "name": "list_users",
+          "method": "GET",
+          "path": "/users/",
+          "descr": "List users"
         },
         {
-            "name": "create_banned",
-            "method": "POST",
-            "path": "/banned/",
-            "descr": "Create banned"
+          "name": "update_user",
+          "method": "PUT",
+          "path": "/users/:name",
+          "descr": "Update an user"
         },
         {
-            "name": "delete_banned",
-            "method": "DELETE",
-            "path": "/banned/:who",
-            "descr": "Delete banned"
+          "name": "delete_user",
+          "method": "DELETE",
+          "path": "/users/:name",
+          "descr": "Delete an user"
         },
         {
-            "name": "list_brokers",
-            "method": "GET",
-            "path": "/brokers/",
-            "descr": "A list of brokers in the cluster"
+          "name": "change_pwd",
+          "method": "PUT",
+          "path": "/change_pwd/:username",
+          "descr": "Change password for an user"
         },
         {
-            "name": "get_broker",
-            "method": "GET",
-            "path": "/brokers/:node",
-            "descr": "Get broker info of a node"
+          "name": "list_all_alarms",
+          "method": "GET",
+          "path": "/alarms/present",
+          "descr": "List all alarms"
         },
         {
-            "name": "get_all_configs",
-            "method": "GET",
-            "path": "/configs/",
-            "descr": "Get all configs"
+          "name": "list_node_alarms",
+          "method": "GET",
+          "path": "/alarms/present/:node",
+          "descr": "List alarms of a node"
         },
         {
-            "name": "get_all_configs",
-            "method": "GET",
-            "path": "/nodes/:node/configs/",
-            "descr": "Get all configs of a node"
+          "name": "list_all_alarm_history",
+          "method": "GET",
+          "path": "/alarms/history",
+          "descr": "List all alarm history"
         },
         {
-            "name": "update_config",
-            "method": "PUT",
-            "path": "/configs/:app",
-            "descr": "Update config of an application in the cluster"
+          "name": "list_node_alarm_history",
+          "method": "GET",
+          "path": "/alarms/history/:node",
+          "descr": "List alarm history of a node"
         },
         {
-            "name": "update_node_config",
-            "method": "PUT",
-            "path": "/nodes/:node/configs/:app",
-            "descr": "Update config of an application on a node"
+          "name": "add_app",
+          "method": "POST",
+          "path": "/apps/",
+          "descr": "Add Application"
         },
         {
-            "name": "get_plugin_configs",
-            "method": "GET",
-            "path": "/nodes/:node/plugin_configs/:plugin",
-            "descr": "Get configurations of a plugin on the node"
+          "name": "del_app",
+          "method": "DELETE",
+          "path": "/apps/:appid",
+          "descr": "Delete Application"
         },
         {
-            "name": "update_plugin_configs",
-            "method": "PUT",
-            "path": "/nodes/:node/plugin_configs/:plugin",
-            "descr": "Update configurations of a plugin on the node"
+          "name": "list_apps",
+          "method": "GET",
+          "path": "/apps/",
+          "descr": "List Applications"
         },
         {
-            "name": "list_connections",
-            "method": "GET",
-            "path": "/connections/",
-            "descr": "A list of connections in the cluster"
+          "name": "lookup_app",
+          "method": "GET",
+          "path": "/apps/:appid",
+          "descr": "Lookup Application"
         },
         {
-            "name": "list_node_connections",
-            "method": "GET",
-            "path": "nodes/:node/connections/",
-            "descr": "A list of connections on a node"
+          "name": "update_app",
+          "method": "PUT",
+          "path": "/apps/:appid",
+          "descr": "Update Application"
         },
         {
-            "name": "lookup_node_connections",
-            "method": "GET",
-            "path": "nodes/:node/connections/:clientid",
-            "descr": "Lookup a connection on node"
+          "name": "list_banned",
+          "method": "GET",
+          "path": "/banned/",
+          "descr": "List banned"
         },
         {
-            "name": "lookup_connections",
-            "method": "GET",
-            "path": "/connections/:clientid",
-            "descr": "Lookup a connection in the cluster"
+          "name": "create_banned",
+          "method": "POST",
+          "path": "/banned/",
+          "descr": "Create banned"
         },
         {
-            "name": "lookup_node_connection_via_username",
-            "method": "GET",
-            "path": "/nodes/:node/connection/username/:username",
-            "descr": "Lookup a connection via username in the cluster "
+          "name": "delete_banned",
+          "method": "DELETE",
+          "path": "/banned/:who",
+          "descr": "Delete banned"
         },
         {
-            "name": "lookup_connection_via_username",
-            "method": "GET",
-            "path": "/connection/username/:username",
-            "descr": "Lookup a connection via username on a node "
+          "name": "list_brokers",
+          "method": "GET",
+          "path": "/brokers/",
+          "descr": "A list of brokers in the cluster"
         },
         {
-            "name": "kickout_connection",
-            "method": "DELETE",
-            "path": "/connections/:clientid",
-            "descr": "Kick out a connection"
+          "name": "get_broker",
+          "method": "GET",
+          "path": "/brokers/:node",
+          "descr": "Get broker info of a node"
         },
         {
-            "name": "list_listeners",
-            "method": "GET",
-            "path": "/listeners/",
-            "descr": "A list of listeners in the cluster"
+          "name": "get_all_configs",
+          "method": "GET",
+          "path": "/configs/",
+          "descr": "Get all configs"
         },
         {
-            "name": "list_node_listeners",
-            "method": "GET",
-            "path": "/nodes/:node/listeners",
-            "descr": "A list of listeners on the node"
+          "name": "get_all_configs",
+          "method": "GET",
+          "path": "/nodes/:node/configs/",
+          "descr": "Get all configs of a node"
         },
         {
-            "name": "list_all_metrics",
-            "method": "GET",
-            "path": "/metrics/",
-            "descr": "A list of metrics of all nodes in the cluster"
+          "name": "update_config",
+          "method": "PUT",
+          "path": "/configs/:app",
+          "descr": "Update config of an application in the cluster"
         },
         {
-            "name": "list_node_metrics",
-            "method": "GET",
-            "path": "/nodes/:node/metrics/",
-            "descr": "A list of metrics of a node"
+          "name": "update_node_config",
+          "method": "PUT",
+          "path": "/nodes/:node/configs/:app",
+          "descr": "Update config of an application on a node"
         },
         {
-            "name": "list_nodes",
-            "method": "GET",
-            "path": "/nodes/",
-            "descr": "A list of nodes in the cluster"
+          "name": "get_plugin_configs",
+          "method": "GET",
+          "path": "/nodes/:node/plugin_configs/:plugin",
+          "descr": "Get configurations of a plugin on the node"
         },
         {
-            "name": "get_node",
-            "method": "GET",
-            "path": "/nodes/:node",
-            "descr": "Lookup a node in the cluster"
+          "name": "update_plugin_configs",
+          "method": "PUT",
+          "path": "/nodes/:node/plugin_configs/:plugin",
+          "descr": "Update configurations of a plugin on the node"
         },
         {
-            "name": "list_all_plugins",
-            "method": "GET",
-            "path": "/plugins/",
-            "descr": "List all plugins in the cluster"
+          "name": "list_connections",
+          "method": "GET",
+          "path": "/connections/",
+          "descr": "A list of connections in the cluster"
         },
         {
-            "name": "list_node_plugins",
-            "method": "GET",
-            "path": "/nodes/:node/plugins/",
-            "descr": "List all plugins on a node"
+          "name": "list_node_connections",
+          "method": "GET",
+          "path": "nodes/:node/connections/",
+          "descr": "A list of connections on a node"
         },
         {
-            "name": "load_plugin",
-            "method": "PUT",
-            "path": "/nodes/:node/plugins/:plugin/load",
-            "descr": "Load a plugin"
+          "name": "lookup_node_connections",
+          "method": "GET",
+          "path": "nodes/:node/connections/:clientid",
+          "descr": "Lookup a connection on node"
         },
         {
-            "name": "unload_plugin",
-            "method": "PUT",
-            "path": "/nodes/:node/plugins/:plugin/unload",
-            "descr": "Unload a plugin"
+          "name": "lookup_connections",
+          "method": "GET",
+          "path": "/connections/:clientid",
+          "descr": "Lookup a connection in the cluster"
         },
         {
-            "name": "mqtt_subscribe",
-            "method": "POST",
-            "path": "/mqtt/subscribe",
-            "descr": "Subscribe a topic"
+          "name": "lookup_node_connection_via_username",
+          "method": "GET",
+          "path": "/nodes/:node/connection/username/:username",
+          "descr": "Lookup a connection via username in the cluster "
         },
         {
-            "name": "mqtt_publish",
-            "method": "POST",
-            "path": "/mqtt/publish",
-            "descr": "Publish a MQTT message"
+          "name": "lookup_connection_via_username",
+          "method": "GET",
+          "path": "/connection/username/:username",
+          "descr": "Lookup a connection via username on a node "
         },
         {
-            "name": "mqtt_unsubscribe",
-            "method": "POST",
-            "path": "/mqtt/unsubscribe",
-            "descr": "Unsubscribe a topic"
+          "name": "kickout_connection",
+          "method": "DELETE",
+          "path": "/connections/:clientid",
+          "descr": "Kick out a connection"
         },
         {
-            "name": "list_routes",
-            "method": "GET",
-            "path": "/routes/",
-            "descr": "List routes"
+          "name": "list_listeners",
+          "method": "GET",
+          "path": "/listeners/",
+          "descr": "A list of listeners in the cluster"
         },
         {
-            "name": "lookup_routes",
-            "method": "GET",
-            "path": "/routes/:topic",
-            "descr": "Lookup routes to a topic"
+          "name": "list_node_listeners",
+          "method": "GET",
+          "path": "/nodes/:node/listeners",
+          "descr": "A list of listeners on the node"
         },
         {
-            "name": "list_sessions",
-            "method": "GET",
-            "path": "/sessions/",
-            "descr": "A list of sessions in the cluster"
+          "name": "list_all_metrics",
+          "method": "GET",
+          "path": "/metrics/",
+          "descr": "A list of metrics of all nodes in the cluster"
         },
         {
-            "name": "list_node_sessions",
-            "method": "GET",
-            "path": "nodes/:node/sessions/",
-            "descr": "A list of sessions on a node"
+          "name": "list_node_metrics",
+          "method": "GET",
+          "path": "/nodes/:node/metrics/",
+          "descr": "A list of metrics of a node"
         },
         {
-            "name": "lookup_session",
-            "method": "GET",
-            "path": "/sessions/:clientid",
-            "descr": "Lookup a session in the cluster"
+          "name": "list_nodes",
+          "method": "GET",
+          "path": "/nodes/",
+          "descr": "A list of nodes in the cluster"
         },
         {
-            "name": "lookup_node_session",
-            "method": "GET",
-            "path": "nodes/:node/sessions/:clientid",
-            "descr": "Lookup a session on the node"
+          "name": "get_node",
+          "method": "GET",
+          "path": "/nodes/:node",
+          "descr": "Lookup a node in the cluster"
         },
         {
-            "name": "list_stats",
-            "method": "GET",
-            "path": "/stats/",
-            "descr": "A list of stats of all nodes in the cluster"
+          "name": "list_all_plugins",
+          "method": "GET",
+          "path": "/plugins/",
+          "descr": "List all plugins in the cluster"
         },
         {
-            "name": "lookup_node_stats",
-            "method": "GET",
-            "path": "/nodes/:node/stats/",
-            "descr": "A list of stats of a node"
+          "name": "list_node_plugins",
+          "method": "GET",
+          "path": "/nodes/:node/plugins/",
+          "descr": "List all plugins on a node"
         },
         {
-            "name": "list_subscriptions",
-            "method": "GET",
-            "path": "/subscriptions/",
-            "descr": "A list of subscriptions in the cluster"
+          "name": "load_plugin",
+          "method": "PUT",
+          "path": "/nodes/:node/plugins/:plugin/load",
+          "descr": "Load a plugin"
         },
         {
-            "name": "list_node_subscriptions",
-            "method": "GET",
-            "path": "/nodes/:node/subscriptions/",
-            "descr": "A list of subscriptions on a node"
+          "name": "unload_plugin",
+          "method": "PUT",
+          "path": "/nodes/:node/plugins/:plugin/unload",
+          "descr": "Unload a plugin"
         },
         {
-            "name": "lookup_client_subscriptions",
-            "method": "GET",
-            "path": "/subscriptions/:clientid",
-            "descr": "A list of subscriptions of a client"
+          "name": "reload_plugin",
+          "method": "PUT",
+          "path": "/nodes/:node/plugins/:plugin/reload",
+          "descr": "Reload a plugin"
         },
         {
-            "name": "lookup_client_subscriptions_with_node",
-            "method": "GET",
-            "path": "/nodes/:node/subscriptions/:clientid",
-            "descr": "A list of subscriptions of a client on the node"
+          "name": "mqtt_subscribe",
+          "method": "POST",
+          "path": "/mqtt/subscribe",
+          "descr": "Subscribe a topic"
         },
         {
-            "name": "create_rule",
-            "method": "POST",
-            "path": "/rules/",
-            "descr": "Create a rule"
+          "name": "mqtt_publish",
+          "method": "POST",
+          "path": "/mqtt/publish",
+          "descr": "Publish a MQTT message"
         },
         {
-            "name": "list_rules",
-            "method": "GET",
-            "path": "/rules/",
-            "descr": "A list of all rules"
+          "name": "mqtt_unsubscribe",
+          "method": "POST",
+          "path": "/mqtt/unsubscribe",
+          "descr": "Unsubscribe a topic"
         },
         {
-            "name": "show_rule",
-            "method": "GET",
-            "path": "/rules/:id",
-            "descr": "Show a rule"
+          "name": "list_routes",
+          "method": "GET",
+          "path": "/routes/",
+          "descr": "List routes"
         },
         {
-            "name": "delete_rule",
-            "method": "DELETE",
-            "path": "/rules/:id",
-            "descr": "Delete a rule"
+          "name": "lookup_routes",
+          "method": "GET",
+          "path": "/routes/:topic",
+          "descr": "Lookup routes to a topic"
         },
         {
-            "name": "list_actions",
-            "method": "GET",
-            "path": "/actions/",
-            "descr": "A list of all actions"
+          "name": "list_sessions",
+          "method": "GET",
+          "path": "/sessions/",
+          "descr": "A list of sessions in the cluster"
         },
         {
-            "name": "show_action",
-            "method": "GET",
-            "path": "/actions/:name",
-            "descr": "Show an action"
+          "name": "list_node_sessions",
+          "method": "GET",
+          "path": "nodes/:node/sessions/",
+          "descr": "A list of sessions on a node"
         },
         {
-            "name": "list_resources",
-            "method": "GET",
-            "path": "/resources/",
-            "descr": "A list of all resources"
+          "name": "lookup_session",
+          "method": "GET",
+          "path": "/sessions/:clientid",
+          "descr": "Lookup a session in the cluster"
         },
         {
-            "name": "create_resource",
-            "method": "POST",
-            "path": "/resources/",
-            "descr": "Create a resource"
+          "name": "lookup_node_session",
+          "method": "GET",
+          "path": "nodes/:node/sessions/:clientid",
+          "descr": "Lookup a session on the node"
         },
         {
-            "name": "show_resource",
-            "method": "GET",
-            "path": "/resources/:id",
-            "descr": "Show a resource"
+          "name": "clean_presisent_session",
+          "method": "DELETE",
+          "path": "/sessions/persistent/:clientid",
+          "descr": "Clean a persistent session in the cluster"
         },
         {
-            "name": "delete_resource",
-            "method": "DELETE",
-            "path": "/resources/:id",
-            "descr": "Delete a resource"
+          "name": "clean_node_presisent_session",
+          "method": "DELETE",
+          "path": "nodes/:node/sessions/persistent/:clientid",
+          "descr": "Clean a persistent session on the node"
         },
         {
-            "name": "list_resource_types",
-            "method": "GET",
-            "path": "/resource_types/",
-            "descr": "List all resource types"
+          "name": "list_stats",
+          "method": "GET",
+          "path": "/stats/",
+          "descr": "A list of stats of all nodes in the cluster"
         },
         {
-            "name": "show_resource_type",
-            "method": "GET",
-            "path": "/resource_types/:name",
-            "descr": "Show a resource type"
+          "name": "lookup_node_stats",
+          "method": "GET",
+          "path": "/nodes/:node/stats/",
+          "descr": "A list of stats of a node"
         },
         {
-            "name": "list_resources_by_type",
-            "method": "GET",
-            "path": "/resource_types/:type/resources",
-            "descr": "List all resources of a resource type"
+          "name": "list_subscriptions",
+          "method": "GET",
+          "path": "/subscriptions/",
+          "descr": "A list of subscriptions in the cluster"
         },
         {
-            "name": "list_actions_by_type",
-            "method": "GET",
-            "path": "/resource_types/:type/actions",
-            "descr": "List all actions of a resource type"
-        }]
-      }
+          "name": "list_node_subscriptions",
+          "method": "GET",
+          "path": "/nodes/:node/subscriptions/",
+          "descr": "A list of subscriptions on a node"
+        },
+        {
+          "name": "lookup_client_subscriptions",
+          "method": "GET",
+          "path": "/subscriptions/:clientid",
+          "descr": "A list of subscriptions of a client"
+        },
+        {
+          "name": "lookup_client_subscriptions_with_node",
+          "method": "GET",
+          "path": "/nodes/:node/subscriptions/:clientid",
+          "descr": "A list of subscriptions of a client on the node"
+        },
+        {
+          "name": "create_rule",
+          "method": "POST",
+          "path": "/rules/",
+          "descr": "Create a rule"
+        },
+        {
+          "name": "list_rules",
+          "method": "GET",
+          "path": "/rules/",
+          "descr": "A list of all rules"
+        },
+        {
+          "name": "show_rule",
+          "method": "GET",
+          "path": "/rules/:id",
+          "descr": "Show a rule"
+        },
+        {
+          "name": "delete_rule",
+          "method": "DELETE",
+          "path": "/rules/:id",
+          "descr": "Delete a rule"
+        },
+        {
+          "name": "list_actions",
+          "method": "GET",
+          "path": "/actions/",
+          "descr": "A list of all actions"
+        },
+        {
+          "name": "show_action",
+          "method": "GET",
+          "path": "/actions/:name",
+          "descr": "Show an action"
+        },
+        {
+          "name": "list_resources",
+          "method": "GET",
+          "path": "/resources/",
+          "descr": "A list of all resources"
+        },
+        {
+          "name": "create_resource",
+          "method": "POST",
+          "path": "/resources/",
+          "descr": "Create a resource"
+        },
+        {
+          "name": "show_resource",
+          "method": "GET",
+          "path": "/resources/:id",
+          "descr": "Show a resource"
+        },
+        {
+          "name": "get_resource_status",
+          "method": "GET",
+          "path": "/resource_status/:id",
+          "descr": "Get status of a resource"
+        },
+        {
+          "name": "start_resource",
+          "method": "POST",
+          "path": "/resources/:id",
+          "descr": "Start a resource"
+        },
+        {
+          "name": "delete_resource",
+          "method": "DELETE",
+          "path": "/resources/:id",
+          "descr": "Delete a resource"
+        },
+        {
+          "name": "list_resource_types",
+          "method": "GET",
+          "path": "/resource_types/",
+          "descr": "List all resource types"
+        },
+        {
+          "name": "show_resource_type",
+          "method": "GET",
+          "path": "/resource_types/:name",
+          "descr": "Show a resource type"
+        },
+        {
+          "name": "list_resources_by_type",
+          "method": "GET",
+          "path": "/resource_types/:type/resources",
+          "descr": "List all resources of a resource type"
+        },
+        {
+          "name": "list_events",
+          "method": "GET",
+          "path": "/rule_events/",
+          "descr": "List all events with detailed info"
+        }
+      ]
+    }
 
 
 -----------------
@@ -2213,17 +2322,17 @@ Response:
 Alarms
 ----------
 
-Get Modifiable alarms of Cluster
----------------------------------
+Get Current Alarms of Cluster
+-----------------------------
 
 
 Definition::
 
-    GET api/v3/alarms/
+    GET api/v3/alarms/present
 
 Example Request::
 
-    GET api/v3/alarms/
+    GET api/v3/alarms/present
 
 Response:
 
@@ -2239,17 +2348,16 @@ Response:
     ]
   }
 
-
-Get Modifiable alarms of specified node
-----------------------------------------
+Get Current Alarms of Specified Node
+------------------------------------
 
 Definition::
 
-    GET api/v3/alarms/${node}
+    GET api/v3/alarms/present/${node}
 
 Example Request::
 
-    GET api/v3/alarms/emqx@127.0.0.1
+    GET api/v3/alarms/present/emqx@127.0.0.1
 
 Response:
 
@@ -2260,6 +2368,62 @@ Response:
     "data": []
   }
 
+Get Alarms History of Cluster
+-----------------------------
+
+Definition::
+
+    GET api/v3/alarms/history
+
+Example Request::
+
+    GET api/v3/alarms/history
+
+Response:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [
+      {
+        "alarms": [
+          {
+            "clear_at": "2019-07-10 16:54:35",
+            "desc": "82.60344181007542",
+            "id": "cpu_high_watermark"
+          }
+        ],
+        "node": "emqx@127.0.0.1"
+      }
+    ]
+  }
+
+Get Alarms History of Specified Node
+------------------------------------
+
+Definition::
+
+    GET api/v3/alarms/present/${node}
+
+Example Request::
+
+    GET api/v3/alarms/present/emqx@127.0.0.1
+
+Response:
+
+.. code-block:: json
+
+  {
+    "code": 0,
+    "data": [
+      {
+        "clear_at": "2019-07-10 16:54:35",
+        "desc": "82.60344181007542",
+        "id": "cpu_high_watermark"
+      }
+    ]
+  }
 
 -------
 Banned
