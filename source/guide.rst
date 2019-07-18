@@ -228,7 +228,7 @@ The concept is shown below:
 
 .. image:: ./_static/images/bridge.png
 
-In addition, the EMQ X supports multi-node bridge mode interconnection::
+In addition, the EMQ X supports multi-node bridge mode interconnection:
 
 .. image:: _static/images/guide_5.png
 

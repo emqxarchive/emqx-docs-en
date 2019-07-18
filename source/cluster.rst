@@ -11,18 +11,7 @@ Distributed Erlang/OTP
 
 Erlang/OTP is a concurrent, fault-tolerant, distributed programming platform. A distributed Erlang/OTP system consists of a number of Erlang runtime systems called 'node'. Nodes connect to each other with TCP/IP sockets and communicate by Message Passing.
 
-.. code::
-
-    ---------         ---------
-    | Node1 | --------| Node2 |
-    ---------         ---------
-        |     \     /    |
-        |       \ /      |
-        |       / \      |
-        |     /     \    |
-    ---------         ---------
-    | Node3 | --------| Node4 |
-    ---------         ---------
+.. image:: _static/images/cluster_1.png
 
 Node
 ----
@@ -132,20 +121,9 @@ Suppose that we create following subscriptions:
 | client3        | node3       | t/+/x, t/a                 |
 +----------------+-------------+----------------------------+
 
-The topic trie and route table in the cluster will be::
+The topic trie and route table in the cluster will be:
 
-    --------------------------
-    |          t             |
-    |         / \            |
-    |        +   #           |
-    |      /  \              |
-    |    x      y            |
-    --------------------------
-    | t/+/x -> node1, node3  |
-    | t/+/y -> node1         |
-    | t/#   -> node2         |
-    | t/a   -> node3         |
-    --------------------------
+.. image:: _static/images/cluster_2.png
 
 Message Route and Deliver
 --------------------------
@@ -388,16 +366,9 @@ Session across Nodes
 
 The persistent MQTT sessions (clean session = false) are across nodes in the cluster.
 
-If a persistent MQTT client connected to node1 first, then disconnected and connects to node2, the MQTT connection and session will be located on different nodes::
+If a persistent MQTT client connected to node1 first, then disconnected and connects to node2, the MQTT connection and session will be located on different nodes:
 
-                                      node1
-                                   -----------
-                               |-->| session |
-                               |   -----------
-                 node2         |
-              --------------   |
-     client-->| connection |<--|
-              --------------
+.. image:: _static/images/cluster_3.png
 
 ------------
 The Firewall
