@@ -271,18 +271,18 @@ The `emqx_plugin_template`_ project provides the examples for hook usage:
 
     -export([load/1, unload/0]).
 
-    -export([on_message_publish/2, on_message_delivered/3, on_message_acked/3]).
+    -export([on_message_publish/2, on_message_deliver/3, on_message_acked/3]).
 
     load(Env) ->
         emqx:hook('message.publish', fun ?MODULE:on_message_publish/2, [Env]),
-        emqx:hook('message.delivered', fun ?MODULE:on_message_delivered/3, [Env]),
+        emqx:hook('message.deliver', fun ?MODULE:on_message_deliver/3, [Env]),
         emqx:hook('message.acked', fun ?MODULE:on_message_acked/3, [Env]).
 
     on_message_publish(Message, _Env) ->
         io:format("publish ~s~n", [emqx_message:format(Message)]),
         {ok, Message}.
 
-    on_message_delivered(Credentials, Message, _Env) ->
+    on_message_deliver(Credentials, Message, _Env) ->
         io:format("delivered to client ~s: ~s~n", [Credentials, emqx_message:format(Message)]),
         {ok, Message}.
 
@@ -293,7 +293,7 @@ The `emqx_plugin_template`_ project provides the examples for hook usage:
     unload() ->
         emqx:unhook('message.publish', fun ?MODULE:on_message_publish/2),
         emqx:unhook('message.acked', fun ?MODULE:on_message_acked/3),
-        emqx:unhook('message.delivered', fun ?MODULE:on_message_delivered/3).
+        emqx:unhook('message.deliver', fun ?MODULE:on_message_deliver/3).
 
 .. _design_auth_acl:
 
