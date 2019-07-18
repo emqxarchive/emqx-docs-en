@@ -584,15 +584,9 @@ Etc/acl.conf access control rule definition::
 
     Allow|Deny User|IP Address|ClientID Publish|Subscribe Topic List
 
-The access control rules are in the Erlang tuple format, and the access control module matches the rules one by one::
+The access control rules are in the Erlang tuple format, and the access control module matches the rules one by one:
 
-              ---------              ---------              ---------
-    Client -> | Rule1 | --nomatch--> | Rule2 | --nomatch--> | Rule3 | --> Default
-              ---------              ---------              ---------
-                  |                      |                      |
-                match                  match                  match
-                 \|/                    \|/                    \|/
-            allow | deny           allow | deny           allow | deny
+.. image:: _static/images/config_1.png
 
 ``etc/acl.conf`` default access rule settings:
 
