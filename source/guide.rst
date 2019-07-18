@@ -42,9 +42,9 @@ The default TCP ports used by the EMQ X message server include:
 MQTT publish and subscription
 ------------------------------
 
-EMQ X Broker is a lightweight publish-subscribe message broker designed for the mobile Internet and the IoT, it currently supports MQTT v3.1.1 <http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html>`_ and `v5.0 <http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html>`_:
+EMQ X Broker is a lightweight publish-subscribe message broker designed for the mobile Internet and the IoT, it currently supports MQTT `v3.1.1 <http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html>`_ and `v5.0 <http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html>`_:
 
-.. image:: ./_static/images/pubsub_concept.png
+.. image:: ./_static/images/guide_1.png
 
 After EMQ X is started, devices and clients can connect to the broker through the MQTT protocol and exchange messages via Publish/Subscribe.
 
@@ -72,14 +72,9 @@ Authentication
 
 EMQ X Message Broker's Authentication is provided by a series of authentication plugins. It supports authentication by username, password, ClientID or anonymous.
 
-By default, anonymous authentication is enabled. Multiple authentication modules can be started by loading the corresponding authentication plug-ins and forming an authentication chain::
+By default, anonymous authentication is enabled. Multiple authentication modules can be started by loading the corresponding authentication plug-ins and forming an authentication chain:
 
-               --------------------------            --------------------------            ---------------------------
-    Client --> | Username authentication | -ignore-> | ClientID authentication | -ignore-> | anonymous authentication |
-               --------------------------            --------------------------            ---------------------------
-                      |                         |                         |
-                     \|/                       \|/                       \|/
-                allow | deny              allow | deny              allow | deny
+.. image:: _static/images/guide_2.png
 
 ** Start anonymous authentication**
 
@@ -102,15 +97,9 @@ ACL access control rule definition::
 
     Allow|Deny Identity Subscribe|Publish Topics
 
-When an MQTT client initiates a subscribe/publish request, the access control module of EMQ X Broker will match the ACL rules one by one until the match is successful:::
+When an MQTT client initiates a subscribe/publish request, the access control module of EMQ X Broker will match the ACL rules one by one until the match is successful:
 
-              ---------              ---------              ---------
-    Client -> | Rule1 | --nomatch--> | Rule2 | --nomatch--> | Rule3 | --> Default
-              ---------              ---------              ---------
-                  |                      |                      |
-                match                  match                  match
-                 \|/                    \|/                    \|/
-            allow | deny           allow | deny           allow | deny
+.. image:: _static/images/guide_3.png
 
 **Default access control settings**
 
@@ -167,7 +156,7 @@ The authentication plugins provided by EMQ X include:
 | `emqx_auth_mongo`_         | MongoDB authentication plugin                 |
 +----------------------------+-----------------------------------------------+
 
-For the configuration and usage of each authentication plug-in, please refer to authentication section of the `Plugins <https://developer.emqx.io/docs/emq/v3/cn/plugins.html>`_。
+For the configuration and usage of each authentication plug-in, please refer to authentication section of the `Plugins <https://developer.emqx.io/docs/emq/v3/cn/plugins.html>`_.
 
 
 .. note:: Multiple auth plug-ins can be started at the same time. The plug-in that starts first checks first.
@@ -179,13 +168,9 @@ In addition, EMQ X also supports the use of PSK (Pre-shared Key) for authenticat
 Shared Subscription
 --------------------
 
-The EMQ X R3.0 supports cluster-level shared subscriptions that supports multiple message delivery strategies::
+The EMQ X R3.0 supports cluster-level shared subscriptions that supports multiple message delivery strategies:
 
-                                ---------
-                                |       | --Msg1--> Subscriber1
-    Publisher--Msg1,Msg2,Msg3-->| EMQ X | --Msg2--> Subscriber2
-                                |       | --Msg3--> Subscriber3
-                                ---------
+.. image:: ./_static/images/guide_4.png
 
 Shared subscriptions support two usage methods:
 
@@ -243,11 +228,9 @@ The concept is shown below:
 
 .. image:: ./_static/images/bridge.png
 
-In addition, the EMQ X supports multi-node bridge mode interconnection::
+In addition, the EMQ X supports multi-node bridge mode interconnection:
 
-                  ---------                     ---------                     ---------
-                  Publisher --> | Node1 | --Bridge Forward--> | Node2 | --Bridge Forward--> | Node3 | --> Subscriber
-                  ---------                     ---------                     ---------
+.. image:: _static/images/guide_5.png
 
 In EMQ X, bridge is configured by modifying ``etc/plugins/emqx_bridge_mqtt.conf``. EMQ X distinguishes between different bridges based on different names. E.g::
 
