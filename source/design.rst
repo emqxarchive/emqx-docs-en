@@ -221,7 +221,7 @@ The callback function for a hook should return:
 | {stop, NewAcc}  | Return Acc and Break   |
 +-----------------+------------------------+
 
-The input arguments for a callback function depends on the types of hook. Checkout the `emq_plugin_template`_ project to see the hook examples in detail.
+The input arguments for a callback function depends on the types of hook. Checkout the `emqx_plugin_template`_ project to see the hook examples in detail.
 
 Hook Implementation
 -------------------
@@ -263,11 +263,11 @@ The hook APIs are defined in the ``emqx`` module:
 Hook Usage
 ----------
 
-The `emq_plugin_template`_ project provides the examples for hook usage:
+The `emqx_plugin_template`_ project provides the examples for hook usage:
 
 .. code-block:: erlang
 
-    -module(emq_plugin_template).
+    -module(emqx_plugin_template).
 
     -export([load/1, unload/0]).
 
@@ -385,23 +385,23 @@ The Authentication/ACL plugins implemented by emqx organization:
 +-----------------------+--------------------------------+
 | Plugin                | Authentication                 |
 +-----------------------+--------------------------------+
-| emq_auth_username     | Username and Password          |
+| emqx_auth_username    | Username and Password          |
 +-----------------------+--------------------------------+
-| emq_auth_clientid     | ClientID and Password          |
+| emqx_auth_clientid    | ClientID and Password          |
 +-----------------------+--------------------------------+
-| emq_auth_ldap         | LDAP                           |
+| emqx_auth_ldap        | LDAP                           |
 +-----------------------+--------------------------------+
-| emq_auth_http         | HTTP API                       |
+| emqx_auth_http        | HTTP API                       |
 +-----------------------+--------------------------------+
-| emq_auth_mysql        | MySQL                          |
+| emqx_auth_mysql       | MySQL                          |
 +-----------------------+--------------------------------+
-| emq_auth_pgsql        | PostgreSQL                     |
+| emqx_auth_pgsql       | PostgreSQL                     |
 +-----------------------+--------------------------------+
-| emq_auth_redis        | Redis                          |
+| emqx_auth_redis       | Redis                          |
 +-----------------------+--------------------------------+
-| emq_auth_mongo        | MongoDB                        |
+| emqx_auth_mongo       | MongoDB                        |
 +-----------------------+--------------------------------+
-| emq_auth_jwt          | JWT                            |
+| emqx_auth_jwt         | JWT                            |
 +-----------------------+--------------------------------+
 
 .. _design_plugin:
@@ -434,18 +434,18 @@ Load a Plugin
 
 Use './bin/emqx_ctl' CLI to load/unload a plugin::
 
-    ./bin/emqx_ctl plugins load emq_auth_redis
+    ./bin/emqx_ctl plugins load emqx_auth_redis
 
-    ./bin/emqx_ctl plugins unload emq_auth_redis
+    ./bin/emqx_ctl plugins unload emqx_auth_redis
 
 Plugin Template
 ---------------
 
-http://github.com/emqx/emq_plugin_template
+http://github.com/emqx/emqx_plugin_template
 
 .. _eSockd: https://github.com/emqx/esockd
 .. _Chain-of-responsibility_pattern: https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern
-.. _emq_plugin_template: https://github.com/emqx/emq_plugin_template/blob/master/src/emq_plugin_template.erl
+.. _emqx_plugin_template: https://github.com/emqx/emqx_plugin_template/blob/master/src/emqx_plugin_template.erl
 
 -----------------
 Mnesia/ETS Tables
