@@ -5,6 +5,84 @@
 Changes
 =======
 
+.. _release_3.2.1:
+
+-------------
+Version 3.2.1
+-------------
+
+*Release Date: 2019-07-20*
+
+EMQ X 3.2.1 is now available. We've enhanced performance and fixed bugs.
+
+Enhancements:
+
+- Optimize calling of ``gen_rpc``
+
+  Github PR:
+  `emqx/emqx#2694 <https://github.com/emqx/emqx/pull/2694>`_
+
+- Support using hostname to auto discover k8s cluster
+
+  Github PR:
+  `emqx/emqx#2699 <https://github.com/emqx/emqx/pull/2699>`_
+
+Bug fixes:
+
+- Fix the issue that encouter crash when Websocket connections go offline abnormally
+
+  Github PR:
+  `emqx/emqx#2697 <https://github.com/emqx/emqx/pull/2697>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Improve parameters for republish action
+
+  Github PR:
+  `emqx/emqx-rule-engine#81 <https://github.com/emqx/emqx-rule-engine/pull/81>`_
+
+Bug fixes:
+
+- Fix the issue that Dashboard fail to select payload
+
+  Github PR:
+  `emqx/emqx-rule-engine#83 <https://github.com/emqx/emqx-rule-engine/pull/83>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Bug fixes:
+
+- Fix the issue that resources list renders wrongly on Dashboard in Safari
+
+  Github PR:
+  `emqx/emqx-dashboard#124 <https://github.com/emqx/emqx-dashboard/pull/124>`_,
+  `emqx/emqx-dashboard#125 <https://github.com/emqx/emqx-dashboard/pull/125>`_,
+  `emqx/emqx-dashboard#126 <https://github.com/emqx/emqx-dashboard/pull/126>`_
+
+emqx-lwm2m (plugin)
+-------------------
+
+Enhancements:
+
+- Compatible with client login using LwM2M v1.1
+
+  Github Commit:
+  `emqx/emqx-lwm2m#1c03bf <https://github.com/emqx/emqx-lwm2m/commit/1c03bf3b6a9cae7ed52f87ee219e9dd9d8824892>`_
+
+emqx-rel (build project)
+------------------------
+
+Enhancements:
+
+- Support building ``emqx-rel`` with built-in rebar3
+
+  Github PR:
+  `emqx/emqx-rel#394 <https://github.com/emqx/emqx-rel/pull/394>`_
+
 .. _release_3.2.0:
 
 -------------
