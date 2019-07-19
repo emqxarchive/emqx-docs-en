@@ -17,19 +17,24 @@ EMQ X 3.2.1 is now available. We've enhanced performance and fixed bugs.
 
 Enhancements:
 
-- Optimize calling of ``gen_rpc``
+- Optimize the performance of ``gen_rpc``
 
   Github PR:
   `emqx/emqx#2694 <https://github.com/emqx/emqx/pull/2694>`_
 
-- Support using hostname to auto discover k8s cluster
+- Support using hostname to automatically discover k8s cluster
 
   Github PR:
   `emqx/emqx#2699 <https://github.com/emqx/emqx/pull/2699>`_
 
+- Change default uptime heartbeat interval to 30s
+
+  Github PR:
+  `emqx/emqx#2696 <https://github.com/emqx/emqx/pull/2696>`_
+
 Bug fixes:
 
-- Fix the issue that encouter crash when Websocket connections go offline abnormally
+- Fix the issue that encouter crash when Websocket sessions go offline abnormally
 
   Github PR:
   `emqx/emqx#2697 <https://github.com/emqx/emqx/pull/2697>`_
@@ -82,6 +87,11 @@ Enhancements:
 
   Github PR:
   `emqx/emqx-rel#394 <https://github.com/emqx/emqx-rel/pull/394>`_
+
+- Delay EMQ X windows service auto start
+
+  Github PR:
+  `emqx/emqx-rel#395 <https://github.com/emqx/emqx-rel/pull/395>`_
 
 .. _release_3.2.0:
 
