@@ -27,7 +27,7 @@ Enhancements:
   Github PR:
   `emqx/emqx#2699 <https://github.com/emqx/emqx/pull/2699>`_
 
-- Change default uptime heartbeat interval to 30s
+- Change the default uptime heartbeat interval to 30s
 
   Github PR:
   `emqx/emqx#2696 <https://github.com/emqx/emqx/pull/2696>`_
@@ -61,7 +61,7 @@ emqx-dashboard (plugin)
 
 Bug fixes:
 
-- Fix the issue that resources list renders wrongly on Dashboard in Safari
+- Fix the issue rendering resources list incorrectly in Dashboard on Safari
 
   Github PR:
   `emqx/emqx-dashboard#124 <https://github.com/emqx/emqx-dashboard/pull/124>`_,
