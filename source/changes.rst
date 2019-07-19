@@ -51,7 +51,7 @@ Enhancements:
 
 Bug fixes:
 
-- Fix the issue that Dashboard fail to select payload
+- Fix the issue that fail to select payload fields using '.'
 
   Github PR:
   `emqx/emqx-rule-engine#83 <https://github.com/emqx/emqx-rule-engine/pull/83>`_
