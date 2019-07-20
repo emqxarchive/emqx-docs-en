@@ -39,6 +39,11 @@ Bug fixes:
   Github PR:
   `emqx/emqx#2697 <https://github.com/emqx/emqx/pull/2697>`_
 
+- Fix the issue that ws_channel is still online when session closed on exception
+
+  Github PR:
+  `emqx/emqx#2704 <https://github.com/emqx/emqx/pull/2704>`_
+
 emqx-rule-engine (plugin)
 -------------------------
 
