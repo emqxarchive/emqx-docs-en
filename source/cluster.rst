@@ -134,13 +134,13 @@ Suppose client1 PUBLISH a message to the topic 't/a', the message Route and Deli
 
     title: Message Route and Deliver
 
-    client1->node1: Publish[t/a]
-    node1-->node2: Route[t/#]
-    node1-->node3: Route[t/a]
-    node2-->client2: Deliver[t/#]
-    node3-->client3: Deliver[t/a]
+    client1 -> node1: Publish[t/a]
+        node1 --> node2: Route[t/#]
+            node2 --> client2: Deliver[t/#]
+        node1 --> node3: Route[t/a]
+            node3 --> client3: Deliver[t/a]
 
-.. image:: _static/images/route.png
+.. image:: _static/images/design_8.png
 
 -------------
 Cluster Setup
