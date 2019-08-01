@@ -79,8 +79,8 @@ The TIME-WAIT Buckets Pool, Recycling and Reuse::
     # Since some NAT gateways pass through IP timestamp values, one
     # IP can appear to have non-increasing timestamps.
     #
-    # sysctl -w net.ipv4.tcp_tw_recycle = 1
-    # sysctl -w net.ipv4.tcp_tw_reuse = 1
+    # sysctl -w net.ipv4.tcp_tw_recycle=1
+    # sysctl -w net.ipv4.tcp_tw_reuse=1
 
 Timeout for FIN-WAIT-2 sockets::
 
