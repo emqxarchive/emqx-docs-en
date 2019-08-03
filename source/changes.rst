@@ -5,6 +5,50 @@
 Changes
 =======
 
+.. _release_3.2.2:
+
+--------------
+Version 3.2.2
+--------------
+
+*Release Date: 2019-08-03*
+
+EMQ X 3.2.2 is now available, and this version focuses on bug fixes.
+
+Enhancements:
+
+- Extends configurations of ``gen_rpc``
+
+  Github PR:
+  `emqx/emqx#2732 <https://github.com/emqx/emqx/pull/2732>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Bug fixes:
+
+- Fix the issue testing URL connectivity
+
+  Github PR:
+  `emqx/emqx-rule-engine#88 <https://github.com/emqx/emqx-rule-engine/pull/88>`_
+
+emqx-dashboard (plugin)
+------------------------
+
+Enhancements:
+
+- Add help page
+
+ekka (dependency)
+-----------------
+
+Bug fixes:
+
+- Fix the issue that releasing lock could causes crash
+
+  Github PR:
+  `emqx/ekka#60 <https://github.com/emqx/ekka/pull/60>`_
+
 .. _release_3.2.1:
 
 -------------
