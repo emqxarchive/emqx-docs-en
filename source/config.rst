@@ -434,6 +434,18 @@ Port range of TCP connections for communication between Erlang distributed nodes
 RPC Parameter Configuration
 ---------------------------
 
+RPC Mode (sync | async):
+
+.. code-block:: properties
+
+    rpc.mode = async
+
+Max batch size of async RPC requests:
+
+.. code-block:: properties
+
+    rpc.async_batch_size = 256
+
 TCP port for RPC (local):
 
 .. code-block:: properties
@@ -445,6 +457,12 @@ TCP port for RPC(remote):
 .. code-block:: properties
 
     rpc.tcp_client_port = 5369
+
+Number of outgoing RPC connections.
+
+.. code-block:: properties
+
+    rpc.tcp_client_num = 32
 
 RPC connection timeout:
 
@@ -487,6 +505,24 @@ The maximum number of heartbeat detection failures before closing the connection
 .. code-block:: properties
 
     rpc.socket_keepalive_count = 9
+
+Size of TCP send buffer:
+
+.. code-block:: properties
+
+    rpc.socket_sndbuf = 1MB
+
+Size of TCP receive buffer:
+
+.. code-block:: properties
+
+    rpc.socket_recbuf = 1MB
+
+Size of user-level software socket buffer:
+
+.. code-block:: properties
+
+    rpc.socket_buffer = 1MB
 
 ----------------------------
 Log Parameter Configuration
