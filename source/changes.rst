@@ -4416,7 +4416,7 @@ All the plugins' config files will be copied to emqttd/etc/plugins/ folder when 
 EMQ 2.0 Documentation
 ---------------------
 
-https://developer.emqx.io/docs/emq/v2/en/index.html
+https://docs.emqx.io/broker/v2/en/index.html
 
 .. _release_1.1.3:
 
@@ -4647,7 +4647,7 @@ Do not expire the retained messages from $SYS/# topics (#500)
 Documentation
 --------------
 
-https://developer.emqx.io/docs/emq/v2/en/index.html
+https://docs.emqx.io/broker/v2/en/index.html
 
 http://docs.emqtt.com/
 
