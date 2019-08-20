@@ -664,13 +664,13 @@ MQTT maximum packet size:
 
     mqtt.max_packet_size = 1MB
 
- Maximum length of ClientId:
+Maximum length of ClientId:
 
 .. code-block:: properties
 
     mqtt.max_clientid_len = 65535
 
- Maximum level of Topic, 0 means no limit:
+Maximum level of Topic, 0 means no limit:
 
 .. code-block:: properties
 
