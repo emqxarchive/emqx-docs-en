@@ -5,6 +5,43 @@
 Changes
 =======
 
+.. _release_3.2.3:
+
+--------------
+Version 3.2.3
+--------------
+
+*Release Date: 2019-09-16*
+
+EMQ X 3.2.3 is now available, and this version focuses on bug fixes.
+
+Bug fixes:
+
+- Fix the issue that the alarm of CPU usage triggered abnormally when emqx container is running
+
+  GitHub Commit:
+  `emqx/emqx#9cdaa7 <https://github.com/emqx/emqx/commit/9cdaa71a66c44d6bfd7606f8e64bc6670f619cdf>`_
+
+- Fix the issue that the mechanism of message expiration doesn't take effect
+
+  Github Commit:
+  `emqx/emqx#31671f <https://github.com/emqx/emqx/commit/31671f5ee5516e04ca6c648679f030b790c84fd9>`_
+
+- Fix the issue thar placeholder like '%c' in mountpoint doesn't take effect
+
+  Github Commit:
+  `emqx/emqx#58ba22 <https://github.com/emqx/emqx/commit/58ba22dfc79ce81ac74fffae60a624d2238585ca>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Bug fixes:
+
+- Fix the issue that the function of SSL is unavailable
+
+  Github Commit:
+  `emqx/emqx-dashboard#272a42 <https://github.com/emqx/emqx-dashboard/commit/272a42b5ac7b28f52e5e71fae540e47278fac9d5>`_
+
 .. _release_3.2.2:
 
 --------------
