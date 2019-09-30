@@ -5,6 +5,16 @@
 Changes
 =======
 
+.. _release_4.0-beta.1:
+
+------------------
+Version 4.0-beta.1
+------------------
+
+*Release Date: 2019-09-30*
+
+EMQ X 4.0-beta.1 is now available. We redesigned the internal modules to increase throughtput dramatically. 
+
 .. _release_3.2.3:
 
 --------------
