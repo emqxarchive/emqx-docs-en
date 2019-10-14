@@ -5,6 +5,59 @@
 Changes
 =======
 
+.. _release_4.0-beta.2:
+
+------------------
+Version 4.0-beta.2
+------------------
+
+*Release Date: 2019-10-14*
+
+EMQ X 4.0-beta.2 is now available. This version focuses on bug fixes and continues to optimize the internal module design.
+
+Bug fixes:
+
+- Fix the issue that failure of SSL handshake could cause crash
+
+  Github PR:
+  `emqx/emqx#2963 <https://github.com/emqx/emqx/pull/2963>`_
+
+- Check topic level for PUBLISH packet
+
+  Github PR:
+  `emqx/emqx#2964 <https://github.com/emqx/emqx/pull/2964>`_
+
+emqtt (plugin)
+--------------
+
+Enhancements:
+
+- Implement the command line interface
+
+  Github PR:
+  `emqx/emqtt#91 <https://github.com/emqx/emqtt/pull/91>`_
+
+emqx-sn (plugin)
+----------------
+
+Bug fixes:
+
+- Upgrade the MQTT-SN plugin to version 4.0
+
+  Github PR:
+  `emqx/emqx-sn#145 <https://github.com/emqx/emqx-sn/pull/145>`_
+
+emqx-coap (plugin)
+------------------
+
+Bug fixes:
+
+- Upgrade the CoAP plugin to version 4.0
+
+  Github Commit:
+  `emqx/emqx-coap#c7c175 <https://github.com/emqx/emqx-coap/commit/c7c17540c1248dcdd402b41323c23a211e8292fc>`_,
+  `emqx/emqx-coap#9b8ede <https://github.com/emqx/emqx-coap/commit/9b8ede093cfc3b7211663520e496c579c11611f6>`_
+
 .. _release_4.0-beta.1:
 
 ------------------
