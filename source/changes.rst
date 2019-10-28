@@ -5,6 +5,82 @@
 Changes
 =======
 
+.. _release_3.2.4:
+
+-------------
+Version 3.2.4
+-------------
+
+*Release Date: 2019-10-28*
+
+EMQ X 3.2.4 is now available. This version mainly adds IPv6 support for Dashbaord and REST APIs, and fixes some bugs.
+
+Bug fixes:
+
+- Fix the issue that 'max_subscriptions' don't working
+
+  Github PR:
+  `emqx/emqx#2922 <https://github.com/emqx/emqx/pull/2922>`_
+
+  Github Issue:
+  `emqx/emqx#2908 <https://github.com/emqx/emqx/issues/2908>`_
+
+emqx-auth-mysql (plugin)
+------------------------
+
+Bug fixes:
+
+- Gets the value corresponding to placeholders more securely
+
+  Github PR:
+  `emqx/emqx-auth-mysql#180 <https://github.com/emqx/emqx-auth-mysql/pull/180>`_
+
+  Github Issue:
+  `emqx/emqx#2937 <https://github.com/emqx/emqx/issues/2937>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Support for IPv6 access to Dashbaord
+
+  Github PR:
+  `emqx/emqx-dashboard#161 <https://github.com/emqx/emqx-dashboard/pull/161>`_
+
+emqx-management (plugin)
+------------------------
+
+Enhancements:
+
+- REST API supports IPv6
+
+  Github PR:
+  `emqx/emqx-management#134 <https://github.com/emqx/emqx-management/pull/134>`_
+
+emqx-delay-publish (plugin)
+---------------------------
+
+Bug fixes:
+
+- Fix the issue that delayed messages are published disorderly, thanks contribution of `soldag <https://github.com/soldag>`_
+
+  Github PR:
+  `emqx/emqx-delay-publish#49 <https://github.com/emqx/emqx-delay-publish/pull/49>`_
+
+  Github Issue:
+  `emqx/emqx-delay-publish#15 <https://github.com/emqx/emqx-delay-publish/issues/15>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Improved the SQL syntax for decoding the payload of JSON format
+
+  Github Repository:
+  `emqx/emqx-rule-engine <https://github.com/emqx/emqx-rule-engine>`_
+
 .. _release_4.0-beta.2:
 
 ------------------
