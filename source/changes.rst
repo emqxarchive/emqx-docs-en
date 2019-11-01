@@ -5,6 +5,68 @@
 Changes
 =======
 
+.. _release_4.0-beta.3:
+
+-------------------
+Version 4.0-beta.3
+-------------------
+
+*Release Date: 2019-11-01*
+
+EMQ X 4.0-beta.3 is now available. This version mainly improves test coverage, and fixes bugs.
+
+Bug fixes:
+
+- Fix message out-of-order issues when forwarding across clusters
+
+  Github PR:
+  `emqx/emqx#3000 <https://github.com/emqx/emqx/pull/3000>`_
+
+emqx-management (plugin)
+------------------------
+
+Enhancements:
+
+- REST API supports IPv6
+
+  Github PR:
+  `emqx/emqx-management#135 <https://github.com/emqx/emqx-management/pull/135>`_
+
+Bug fixes:
+
+- Fix the issue that encoded URI isn't handled correctly
+
+  Github PR:
+  `emqx/emqx-management#137 <https://github.com/emqx/emqx-management/pull/137>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Support for IPv6 access to Dashbaord
+
+  Github PR:
+  `emqx/emqx-dashboard#162 <https://github.com/emqx/emqx-dashboard/pull/162>`_
+
+emqx-delayed-publish (plugin)
+-----------------------------
+
+Bug fixes:
+
+- Fix the issue that the plugin can only start one in cluster
+
+  Github PR:
+  `emqx/emqx-delay-publish#50 <https://github.com/emqx/emqx-delay-publish/pull/50>`_
+
+- Fix the issue that delayed messages are published disorderly, thanks contribution of `soldag <https://github.com/soldag>`_
+
+  Github PR:
+  `emqx/emqx-delay-publish#49 <https://github.com/emqx/emqx-delay-publish/pull/49>`_
+
+  Github Issue:
+  `emqx/emqx-delay-publish#15 <https://github.com/emqx/emqx-delay-publish/issues/15>`_
+
 .. _release_3.2.4:
 
 -------------
