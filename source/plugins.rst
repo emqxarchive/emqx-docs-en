@@ -1108,23 +1108,29 @@ etc/plugins/emqx_lwm2m.conf:
     ## Actively observe all objects after the device goes online
     #lwm2m.auto_observe = off
 
+    # The topic mountpoint
+    # Placeholders supported:
+    #    '%e': Endpoint Name
+    #    '%a': IP Address
+    lwm2m.mountpoint = lwm2m/%e/
+
     ## the subscribed topic from EMQ X after client register succeeded
     ## Placeholder:
     ##    '%e': Endpoint Name
     ##    '%a': IP Address
-    lwm2m.topics.command = lwm2m/%e/dn/#
+    lwm2m.topics.command = dn/#
 
     ## client response message to EMQ X topic
-    lwm2m.topics.response = lwm2m/%e/up/resp
+    lwm2m.topics.response = up/resp
 
     ## client notify message to EMQ X topic
-    lwm2m.topics.notify = lwm2m/%e/up/notify
+    lwm2m.topics.notify = up/notify
 
     ## client register message to EMQ X topic
-    lwm2m.topics.register = lwm2m/%e/up/resp
+    lwm2m.topics.register = up/resp
 
     # client update message to EMQ X topic
-    lwm2m.topics.update = lwm2m/%e/up/resp
+    lwm2m.topics.update = up/resp
 
     # xml file location defined by object
     lwm2m.xml_dir =  etc/lwm2m_xml

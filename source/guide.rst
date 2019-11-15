@@ -156,7 +156,7 @@ The authentication plugins provided by EMQ X include:
 | `emqx_auth_mongo`_         | MongoDB authentication plugin                 |
 +----------------------------+-----------------------------------------------+
 
-For the configuration and usage of each authentication plug-in, please refer to authentication section of the `Plugins <https://developer.emqx.io/docs/emq/v3/cn/plugins.html>`_.
+For the configuration and usage of each authentication plug-in, please refer to authentication section of the `Plugins <https://docs.emqx.io/broker/v3/en/plugins.html>`_.
 
 
 .. note:: Multiple auth plug-ins can be started at the same time. The plug-in that starts first checks first.

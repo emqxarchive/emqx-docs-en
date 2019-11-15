@@ -5,6 +5,309 @@
 Changes
 =======
 
+.. _release_3.2.5:
+
+-------------
+Version 3.2.5
+-------------
+
+*Release Date: 2019-11-15*
+
+EMQ X 3.2.5 is now available. This version focuses on bug fixes.
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Bug fixes:
+
+- Support rule SQL: FOREACH/DO/INCASE
+
+  Github Commit:
+  `emqx/emqx-rule-engine#a962e3 <https://github.com/emqx/emqx-rule-engine/commit/a962e364cfde9a7f9bbde3d4d6613625b8d00ce7>`_
+
+- Support rule SQL: CASE/WHEN
+
+  Github Commit:
+  `emqx/emqx-rule-engine#40e68e <https://github.com/emqx/emqx-rule-engine/commit/40e68e9607198613cc93d001488d40b2bfb4f23e>`_
+
+- Support comparing atom to binary in WHERE SQL clause
+
+  Github Commit:
+  `emqx/emqx-rule-engine#b240cc <https://github.com/emqx/emqx-rule-engine/commit/b240cc0434815bafb5cfcd366692257336d26e8c>`_
+
+- Fix column validation failure in select and foreach
+
+  Github Commit:
+  `emqx/emqx-rule-engine#6a1267 <https://github.com/emqx/emqx-rule-engine/commit/6a1267cb1530d00972899ecb3abb7a3220e28175>`_
+
+- Fix race-conditions when re-build rules
+
+  Github Commit:
+  `emqx/emqx-rule-engine#af8967 <https://github.com/emqx/emqx-rule-engine/commit/af8967793d4f554134955c620d9e31b8c3876445>`_
+
+- Fix incorrect publish message by adding default flags in republish action
+
+  Github Commit:
+  `emqx/emqx-rule-engine#60e45c <https://github.com/emqx/emqx-rule-engine/commit/60e45c28596a6cb42437043fbba5509502a3cf41>`_
+
+minirest (plugin)
+-----------------
+
+Bug fixes:
+
+- Fix missing error data in log
+
+  Github PR:
+  `emqx/minirest#20 <https://github.com/emqx/minirest/pull/20>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Bug fixes:
+
+- Fix bad match
+
+  Github Commit:
+  `emqx/emqx-web-hook#3dd041 <https://github.com/emqx/emqx-web-hook/commit/3dd041afaf39eabe71ab473648d57f4b55735224>`_
+
+.. _release_4.0-beta.3:
+
+-------------------
+Version 4.0-beta.3
+-------------------
+
+*Release Date: 2019-11-01*
+
+EMQ X 4.0-beta.3 is now available. This version mainly improves test coverage, and fixes bugs.
+
+Bug fixes:
+
+- Fix message out-of-order issues when forwarding across clusters
+
+  Github PR:
+  `emqx/emqx#3000 <https://github.com/emqx/emqx/pull/3000>`_
+
+emqx-management (plugin)
+------------------------
+
+Enhancements:
+
+- REST API supports IPv6
+
+  Github PR:
+  `emqx/emqx-management#135 <https://github.com/emqx/emqx-management/pull/135>`_
+
+Bug fixes:
+
+- Fix the issue that encoded URI isn't handled correctly
+
+  Github PR:
+  `emqx/emqx-management#137 <https://github.com/emqx/emqx-management/pull/137>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Support for IPv6 access to Dashbaord
+
+  Github PR:
+  `emqx/emqx-dashboard#162 <https://github.com/emqx/emqx-dashboard/pull/162>`_
+
+emqx-delayed-publish (plugin)
+-----------------------------
+
+Bug fixes:
+
+- Fix the issue that the plugin can only start one in cluster
+
+  Github PR:
+  `emqx/emqx-delay-publish#50 <https://github.com/emqx/emqx-delay-publish/pull/50>`_
+
+- Fix the issue that delayed messages are published disorderly, thanks contribution of `soldag <https://github.com/soldag>`_
+
+  Github PR:
+  `emqx/emqx-delay-publish#49 <https://github.com/emqx/emqx-delay-publish/pull/49>`_
+
+  Github Issue:
+  `emqx/emqx-delay-publish#15 <https://github.com/emqx/emqx-delay-publish/issues/15>`_
+
+.. _release_3.2.4:
+
+-------------
+Version 3.2.4
+-------------
+
+*Release Date: 2019-10-28*
+
+EMQ X 3.2.4 is now available. This version mainly adds IPv6 support for Dashbaord and REST APIs, and fixes some bugs.
+
+Bug fixes:
+
+- Fix the issue that 'max_subscriptions' don't working
+
+  Github PR:
+  `emqx/emqx#2922 <https://github.com/emqx/emqx/pull/2922>`_
+
+  Github Issue:
+  `emqx/emqx#2908 <https://github.com/emqx/emqx/issues/2908>`_
+
+emqx-auth-mysql (plugin)
+------------------------
+
+Bug fixes:
+
+- Gets the value corresponding to placeholders more securely
+
+  Github PR:
+  `emqx/emqx-auth-mysql#180 <https://github.com/emqx/emqx-auth-mysql/pull/180>`_
+
+  Github Issue:
+  `emqx/emqx#2937 <https://github.com/emqx/emqx/issues/2937>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Enhancements:
+
+- Support for IPv6 access to Dashbaord
+
+  Github PR:
+  `emqx/emqx-dashboard#161 <https://github.com/emqx/emqx-dashboard/pull/161>`_
+
+emqx-management (plugin)
+------------------------
+
+Enhancements:
+
+- REST API supports IPv6
+
+  Github PR:
+  `emqx/emqx-management#134 <https://github.com/emqx/emqx-management/pull/134>`_
+
+emqx-delay-publish (plugin)
+---------------------------
+
+Bug fixes:
+
+- Fix the issue that delayed messages are published disorderly, thanks contribution of `soldag <https://github.com/soldag>`_
+
+  Github PR:
+  `emqx/emqx-delay-publish#49 <https://github.com/emqx/emqx-delay-publish/pull/49>`_
+
+  Github Issue:
+  `emqx/emqx-delay-publish#15 <https://github.com/emqx/emqx-delay-publish/issues/15>`_
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Enhancements:
+
+- Improved the SQL syntax for decoding the payload of JSON format
+
+  Github Repository:
+  `emqx/emqx-rule-engine <https://github.com/emqx/emqx-rule-engine>`_
+
+.. _release_4.0-beta.2:
+
+------------------
+Version 4.0-beta.2
+------------------
+
+*Release Date: 2019-10-14*
+
+EMQ X 4.0-beta.2 is now available. This version focuses on bug fixes and continues to optimize the internal module design.
+
+Bug fixes:
+
+- Fix the issue that failure of SSL handshake could cause crash
+
+  Github PR:
+  `emqx/emqx#2963 <https://github.com/emqx/emqx/pull/2963>`_
+
+- Check topic level for PUBLISH packet
+
+  Github PR:
+  `emqx/emqx#2964 <https://github.com/emqx/emqx/pull/2964>`_
+
+emqtt (plugin)
+--------------
+
+Enhancements:
+
+- Implement the command line interface
+
+  Github PR:
+  `emqx/emqtt#91 <https://github.com/emqx/emqtt/pull/91>`_
+
+emqx-sn (plugin)
+----------------
+
+Bug fixes:
+
+- Upgrade the MQTT-SN plugin to version 4.0
+
+  Github PR:
+  `emqx/emqx-sn#145 <https://github.com/emqx/emqx-sn/pull/145>`_
+
+emqx-coap (plugin)
+------------------
+
+Bug fixes:
+
+- Upgrade the CoAP plugin to version 4.0
+
+  Github Commit:
+  `emqx/emqx-coap#c7c175 <https://github.com/emqx/emqx-coap/commit/c7c17540c1248dcdd402b41323c23a211e8292fc>`_,
+  `emqx/emqx-coap#9b8ede <https://github.com/emqx/emqx-coap/commit/9b8ede093cfc3b7211663520e496c579c11611f6>`_
+
+.. _release_4.0-beta.1:
+
+------------------
+Version 4.0-beta.1
+------------------
+
+*Release Date: 2019-09-30*
+
+EMQ X 4.0-beta.1 is now available. We redesigned the internal modules to increase throughtput dramatically. 
+
+.. _release_3.2.3:
+
+--------------
+Version 3.2.3
+--------------
+
+*Release Date: 2019-09-16*
+
+EMQ X 3.2.3 is now available, and this version focuses on bug fixes.
+
+Bug fixes:
+
+- Fix the issue that the alarm of CPU usage triggered abnormally when emqx container is running
+
+  GitHub Commit:
+  `emqx/emqx#9cdaa7 <https://github.com/emqx/emqx/commit/9cdaa71a66c44d6bfd7606f8e64bc6670f619cdf>`_
+
+- Fix the issue that the mechanism of message expiration doesn't take effect
+
+  Github Commit:
+  `emqx/emqx#31671f <https://github.com/emqx/emqx/commit/31671f5ee5516e04ca6c648679f030b790c84fd9>`_
+
+- Fix the issue thar placeholder like '%c' in mountpoint doesn't take effect
+
+  Github Commit:
+  `emqx/emqx#58ba22 <https://github.com/emqx/emqx/commit/58ba22dfc79ce81ac74fffae60a624d2238585ca>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+Bug fixes:
+
+- Fix the issue that the function of SSL is unavailable
+
+  Github Commit:
+  `emqx/emqx-dashboard#272a42 <https://github.com/emqx/emqx-dashboard/commit/272a42b5ac7b28f52e5e71fae540e47278fac9d5>`_
+
 .. _release_3.2.2:
 
 --------------
@@ -4416,7 +4719,7 @@ All the plugins' config files will be copied to emqttd/etc/plugins/ folder when 
 EMQ 2.0 Documentation
 ---------------------
 
-https://developer.emqx.io/docs/emq/v2/en/index.html
+https://docs.emqx.io/broker/v2/en/index.html
 
 .. _release_1.1.3:
 
@@ -4647,7 +4950,7 @@ Do not expire the retained messages from $SYS/# topics (#500)
 Documentation
 --------------
 
-https://developer.emqx.io/docs/emq/v2/en/index.html
+https://docs.emqx.io/broker/v2/en/index.html
 
 http://docs.emqtt.com/
 

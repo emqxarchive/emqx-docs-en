@@ -48,7 +48,7 @@ It is recommended that only keep your cluster in a sub-network behind a firewall
 How do I config the ACL?
 ----------------------------
 
-Follow this doc: `emqx_guide#acl <https://developer.emqx.io/docs/emq/v2/en/guide.html#acl>`_
+Follow this doc: `emqx_guide#acl <https://docs.emqx.io/broker/v2/en/guide.html#acl>`_
 
 Start with the simplest one using etc/acl.conf::
 
