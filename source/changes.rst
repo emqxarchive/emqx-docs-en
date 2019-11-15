@@ -5,6 +5,71 @@
 Changes
 =======
 
+.. _release_3.2.5:
+
+-------------
+Version 3.2.5
+-------------
+
+*Release Date: 2019-11-15*
+
+EMQ X 3.2.5 is now available. This version focuses on bug fixes.
+
+emqx-rule-engine (plugin)
+-------------------------
+
+Bug fixes:
+
+- Support rule SQL: FOREACH/DO/INCASE
+
+  Github Commit:
+  `emqx/emqx-rule-engine#a962e3 <https://github.com/emqx/emqx-rule-engine/commit/a962e364cfde9a7f9bbde3d4d6613625b8d00ce7>`_
+
+- Support rule SQL: CASE/WHEN
+
+  Github Commit:
+  `emqx/emqx-rule-engine#40e68e <https://github.com/emqx/emqx-rule-engine/commit/40e68e9607198613cc93d001488d40b2bfb4f23e>`_
+
+- Support comparing atom to binary in WHERE SQL clause
+
+  Github Commit:
+  `emqx/emqx-rule-engine#b240cc <https://github.com/emqx/emqx-rule-engine/commit/b240cc0434815bafb5cfcd366692257336d26e8c>`_
+
+- Fix column validation failure in select and foreach
+
+  Github Commit:
+  `emqx/emqx-rule-engine#6a1267 <https://github.com/emqx/emqx-rule-engine/commit/6a1267cb1530d00972899ecb3abb7a3220e28175>`_
+
+- Fix race-conditions when re-build rules
+
+  Github Commit:
+  `emqx/emqx-rule-engine#af8967 <https://github.com/emqx/emqx-rule-engine/commit/af8967793d4f554134955c620d9e31b8c3876445>`_
+
+- Fix incorrect publish message by adding default flags in republish action
+
+  Github Commit:
+  `emqx/emqx-rule-engine#60e45c <https://github.com/emqx/emqx-rule-engine/commit/60e45c28596a6cb42437043fbba5509502a3cf41>`_
+
+minirest (plugin)
+-----------------
+
+Bug fixes:
+
+- Fix missing error data in log
+
+  Github PR:
+  `emqx/minirest#20 <https://github.com/emqx/minirest/pull/20>`_
+
+emqx-web-hook (plugin)
+----------------------
+
+Bug fixes:
+
+- Fix bad match
+
+  Github Commit:
+  `emqx/emqx-web-hook#3dd041 <https://github.com/emqx/emqx-web-hook/commit/3dd041afaf39eabe71ab473648d57f4b55735224>`_
+
 .. _release_4.0-beta.3:
 
 -------------------
