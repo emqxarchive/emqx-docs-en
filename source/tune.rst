@@ -78,12 +78,13 @@ The TIME-WAIT Buckets Pool, Recycling and Reuse::
     # general Internet or using NAT (Network Address Translation).
     # Since some NAT gateways pass through IP timestamp values, one
     # IP can appear to have non-increasing timestamps.
-    # net.ipv4.tcp_tw_recycle = 1
-    # net.ipv4.tcp_tw_reuse = 1
+    #
+    # sysctl -w net.ipv4.tcp_tw_recycle=1
+    # sysctl -w net.ipv4.tcp_tw_reuse=1
 
 Timeout for FIN-WAIT-2 sockets::
 
-    sysctl -w net.ipv4.tcp_fin_timeout = 15
+    sysctl -w net.ipv4.tcp_fin_timeout=15
 
 ----------------
 Erlang VM Tuning
@@ -99,9 +100,9 @@ Tuning and optimize the Erlang VM in emqx/etc/emqx.conf file:
     ## Sets the maximum number of simultaneously existing ports for this system
     node.max_ports = 1048576
 
---------------
+-----------------
 The EMQ X Broker
---------------
+-----------------
 
 Tune the acceptor pool, max_clients limit and sockopts for TCP listener in emqx/etc/emqx.conf:
 
@@ -110,7 +111,7 @@ Tune the acceptor pool, max_clients limit and sockopts for TCP listener in emqx/
     ## TCP Listener
     listener.tcp.external = 0.0.0.0:1883
     listener.tcp.external.acceptors = 64
-    listener.tcp.external.max_clients = 1000000
+    listener.tcp.external.max_connections = 1024000
 
 --------------
 Client Machine

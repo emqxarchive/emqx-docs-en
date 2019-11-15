@@ -5,514 +5,833 @@
 Installation
 ============
 
-The *EMQ X* broker is cross-platform, which could be deployed on Linux, FreeBSD, Mac, Windows and even Raspberry Pi.
+The *EMQ X* broker is cross-platform, it can be deployed on Linux, FreeBSD, Mac and Windows.
 
 .. NOTE::
 
-    Linux, FreeBSD Recommended.
+    It is recommended to deploy EMQ X on Linux for production environment.
 
 .. _install_download:
 
------------------
-Download Packages
------------------
+*EMQ X* Package Download
+-------------------------
 
-Download binary packages from: https://www.emqx.io/downloads/broker
+Each version of the EMQ X broker will release packages of CentOS, Ubuntu, Debian, openSUSE, FreeBSD, macOS, Windows platform and Docker images.
 
-The following OS types are supported:
+Download address: https://www.emqx.io/downloads
 
-+-------------+
-| CentOS6.8   |
-+-------------+
-| CentOS7     |
-+-------------+
-| Debian7     |
-+-------------+
-| Debian8     |
-+-------------+
-| Debian9     |
-+-------------+
-| Ubuntu12.04 |
-+-------------+
-| Ubuntu14.04 |
-+-------------+
-| Ubuntu16.04 |
-+-------------+
-| Ubuntu18.04 |
-+-------------+
-| Mac OS X    |
-+-------------+
-| Windows7    |
-+-------------+
-| Windows10   |
-+-------------+
-| Docker      |
-+-------------+
+.. _emqx.io: https://www.emqx.io/downloads/broker?osType=Linux
+.. _github: https://github.com/emqx/emqx/releases
 
-The package name consists of platform, version and release time.
+CentOS
+------
 
-For example: emqx-centos64-v3.0.zip
++ CentOS6.X
++ CentOS7.X
 
-.. _install_on_linux:
+Install via Repository
+>>>>>>>>>>>>>>>>>>>>>>>
 
--------------------
-Installing on Linux
--------------------
+1.  Install the required dependencies
 
-Select Linux group from https://www.emqx.io/downloads/broker, download CentOS zip package, and then unzip:
+    .. code-block:: console
+
+        $ sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+2.  Set up a stable repository, taking the CentOS7 as an example.
+
+    .. code-block:: console
+
+        $ sudo yum-config-manager --add-repo https://repos.emqx.io/emqx-ce/redhat/centos/7/emqx-ce.repo
+
+3.  Install the latest version of EMQ X
+
+    .. code-block:: console
+
+        $ sudo yum install emqx
+
+    .. NOTE::If prompted to accept the GPG key, please verify that the key's fingerprint matches fc84 1ba6 3775 5ca8 487b 1e3c c0b4 0946 3e64 0d53 and accept the fingerprint if it matches.
+
+
+4.  Install a specific version of EMQ X
+
+    1.  Query available version
+
+        .. code-block:: console
+
+            $ yum list emqx --showduplicates | sort -r
+
+            emqx.x86_64                     3.1.0-1.el7                        emqx-stable
+            emqx.x86_64                     3.0.1-1.el7                        emqx-stable
+            emqx.x86_64                     3.0.0-1.el7                        emqx-stable
+
+    2.  Install a specific version based on the version string in the second column, such as 3.1.0
+
+        .. code-block:: console
+
+            $ sudo yum install emqx-3.1.0
+
+5.  Start EMQ X
+
+    +   Directly start
+
+        .. code-block:: console
+
+                $ emqx start
+                emqx 3.1.0 is started successfully!
+
+                $ emqx_ctl status
+                Node 'emqx@127.0.0.1' is started
+                emqx v3.1.0 is running
+
+    +   systemctl start
+
+        .. code-block:: console
+
+                $ sudo systemctl start emqx
+
+    +   service start
+
+        .. code-block:: console
+
+                $ sudo service emqx start
+
+Install via rpm
+>>>>>>>>>>>>>>>>
+
+1.  Select the CentOS version via emqx.io or github and download the rpm package for the EMQ X version to be installed.
+
+2.  Install EMQ X
+
+    .. code-block:: console
+
+           $ sudo rpm -ivh emqx-centos7-v3.1.0.x86_64.rpm
+
+3.  Start EMQ X
+
+    +   Directly start
+
+        .. code-block:: console
+
+                $ emqx start
+                emqx 3.1.0 is started successfully!
+
+                $ emqx_ctl status
+                Node 'emqx@127.0.0.1' is started
+                emqx v3.1.0 is running
+
+    +   systemctl start
+
+        .. code-block:: console
+
+                $ sudo systemctl start emqx
+
+    +   service start
+
+        .. code-block:: console
+
+                $ sudo service emqx start
+
+Install via zip Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1. Select the CentOS version via emqx.io or github and download the zip package for the EMQ X version to be installed.
+
+2.  Unzip package
+
+    .. code-block:: console
+
+       $ unzip emqx-centos7-v3.1.0.zip
+
+3.  Start EMQ X
+
+    .. code-block:: console
+
+        $ ./bin/emqx start
+        emqx 3.1.0 is started successfully!
+
+        $ ./bin/emqx_ctl status
+        Node 'emqx@127.0.0.1' is started
+        emqx v3.1.0 is running
+
+Ubuntu
+------
+
++ Bionic 18.04 (LTS)
++ Xenial 16.04 (LTS)
++ Trusty 14.04 (LTS)
++ Precise 12.04 (LTS)
+
+Install via Repository
+>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Install the required dependency
+
+    .. code-block:: console
+
+        $ sudo apt update && sudo apt install -y \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            gnupg-agent \
+            software-properties-common
+
+2.  Add the GPG key for EMQ X
+
+    .. code-block:: console
+
+        $ curl -fsSL https://repos.emqx.io/gpg.pub | sudo apt-key add -
+
+    Validate key
+
+    .. code-block:: console
+
+        $ sudo apt-key fingerprint 3E640D53
+
+        pub   rsa2048 2019-04-10 [SC]
+            FC84 1BA6 3775 5CA8 487B  1E3C C0B4 0946 3E64 0D53
+        uid           [ unknown] emqx team <support@emqx.io>
+
+3.  Use the following command to set up the stable repository. If unstable repo is also needed, add the word 'unstable' after 'stable' in the following command.
+
+    .. code-block:: console
+
+        $ sudo add-apt-repository \
+            "deb [arch=amd64] https://repos.emqx.io/emqx-ce/deb/ubuntu/ \
+            $(lsb_release -cs) \
+            stable"
+
+    .. NOTE:: The lsb_release -cs subcommand returns the name of the Ubuntu distribution, such as xenial. Sometimes, in a distribution like Linux Mint, you might need to change $(lsb_release -cs) to the parent Ubuntu distribution. For example, if you are using Linux Mint Tessa, you can use bionic. EMQ X does not provide any guarantees for untested and unsupported Ubuntu distribution.
+
+4.  Update apt package index
+
+    .. code-block:: console
+
+        $ sudo apt update
+
+5.  Install the latest version of EMQ X
+
+    .. code-block:: console
+
+        $ sudo apt install emqx
+
+    .. NOTE:: In the case where multiple EMQ X repositories are enabled, and the apt install and apt update commands is not specified with a version number, the latest version of EMQ X is installed. This could be a problem for users with stability needs.
+
+6.  Install a specific version of EMQ X
+
+    1.  Query available version
+
+        .. code-block:: console
+
+            $ sudo apt-cache madison emqx
+
+            emqx |      3.1.0 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
+            emqx |      3.0.1 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
+            emqx |      3.0.0 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
+
+
+    2.  Install a specific version using the version string from the second column, such as 3.1.0
+
+        .. code-block:: console
+
+            $ sudo apt install emqx=3.1.0
+
+7.  Start EMQ X
+
+    +   Directly start
+
+        .. code-block:: console
+
+                $ emqx start
+                emqx 3.1.0 is started successfully!
+
+                $ emqx_ctl status
+                Node 'emqx@127.0.0.1' is started
+                emqx v3.1.0 is running
+
+    +   systemctl start
+
+        .. code-block:: console
+
+                $ sudo systemctl start emqx
+
+    +   service start
+
+        .. code-block:: console
+
+                $ sudo service emqx start
+
+Install via deb Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Select the Ubuntu version via emqx.io or github and download the deb package for the EMQ X version to be installed.
+
+2.  Install EMQ X
+
+    .. code-block:: console
+
+           $ sudo dpkg -i emqx-ubuntu18.04-v3.1.0_amd64.deb
+
+3.  Start EMQ X
+
+    +   Directly start
+
+        .. code-block:: console
+
+                $ emqx start
+                emqx 3.1.0 is started successfully!
+
+                $ emqx_ctl status
+                Node 'emqx@127.0.0.1' is started
+                emqx v3.1.0 is running
+
+    +   systemctl start
+
+        .. code-block:: console
+
+                $ sudo systemctl start emqx
+
+    +   service start
+
+        .. code-block:: console
+
+                $ sudo service emqx start
+
+Install via zip Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Select the Ubuntu version via emqx.io or github and download the zip package for the EMQ X version to be installed.
+
+2.  Unzip the package
+
+    .. code-block:: console
+
+       $ unzip emqx-ubuntu18.04-v3.1.0.zip
+
+3.  Start EMQ X
+
+    .. code-block:: console
+
+        $ ./bin/emqx start
+        emqx 3.1.0 is started successfully!
+
+        $ ./bin/emqx_ctl status
+        Node 'emqx@127.0.0.1' is started
+        emqx v3.1.0 is running
+
+Debian
+-------
+
++ Stretch (Debian 9)
++ Jessie (Debian 8)
+
+Install via Repository
+>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Install the required dependency
+
+    .. code-block:: console
+
+        $ sudo apt update && sudo apt install -y \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            gnupg-agent \
+            software-properties-common
+
+2.  Add the GPG key for EMQ X
+
+    .. code-block:: console
+
+        $ curl -fsSL https://repos.emqx.io/gpg.pub | sudo apt-key add -
+
+    Validate the key
+
+    .. code-block:: console
+
+        $ sudo apt-key fingerprint 3E640D53
+
+        pub   rsa2048 2019-04-10 [SC]
+            FC84 1BA6 3775 5CA8 487B  1E3C C0B4 0946 3E64 0D53
+        uid           [ unknown] emqx team <support@emqx.io>
+
+3.  Use the following command to set up the stable repository. If unstable repo is also needed, add the word 'unstable' after 'stable' in the following command.
+
+    .. code-block:: console
+
+        $ sudo add-apt-repository \
+            "deb [arch=amd64] https://repos.emqx.io/emqx-ce/deb/debian/ \
+            $(lsb_release -cs) \
+            stable"
+
+    .. NOTE:: The lsb_release -cs subcommand returns the name of the Debian distribution, such as helium. Sometimes, in a distribution like BunsenLabs Linux, you might need to change $(lsb_release -cs) to the parent Debian distribution. For example, if you are using BunsenLabs Linux Helium, you can use stretch. EMQ X does not provide any guarantees for untested and unsupported Debian distribution.
+
+4.  Update apt package index
+
+    .. code-block:: console
+
+        $ sudo apt update
+
+5.  Install the latest version of EMQ X
+
+    .. code-block:: console
+
+        $ sudo apt install emqx
+
+    .. NOTE:: In the case where multiple EMQ X repositories are enabled, and the apt install and apt update commands is not specified with a version number, the latest version of EMQ X is installed. This is a problem for users with stability needs.
+
+6.  Install a specific version of EMQ X
+
+    1.  Query available version
+
+        .. code-block:: console
+
+            $ sudo apt-cache madison emqx
+
+            emqx |      3.1.0 | https://repos.emqx.io/emqx-ce/deb/debian stretch/stable amd64 Packages
+            emqx |      3.0.1 | https://repos.emqx.io/emqx-ce/deb/debian stretch/stable amd64 Packages
+            emqx |      3.0.0 | https://repos.emqx.io/emqx-ce/deb/debian stretch/stable amd64 Packages
+
+
+    2.  Install a specific version using the version string from the second column, such as 3.1.0
+
+        .. code-block:: console
+
+            $ sudo apt install emqx=3.1.0
+
+7.  Start EMQ X
+
+    +   Directly start
+
+        .. code-block:: console
+
+                $ emqx start
+                emqx 3.1.0 is started successfully!
+
+                $ emqx_ctl status
+                Node 'emqx@127.0.0.1' is started
+                emqx v3.1.0 is running
+
+    +   systemctl start
+
+        .. code-block:: console
+
+                $ sudo systemctl start emqx
+
+    +   service start
+
+        .. code-block:: console
+
+                $ sudo service emqx start
+
+Install via deb Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Select the Debian version via emqx.io or github and download the deb package for the EMQ X version to be installed.
+
+2.  Install EMQ X
+
+    .. code-block:: console
+
+           $ sudo dpkg -i emqx-debian9-v3.1.0_amd64.deb
+
+3.  Start EMQ X
+
+    +   Directly start
+
+        .. code-block:: console
+
+                $ emqx start
+                emqx 3.1.0 is started successfully!
+
+                $ emqx_ctl status
+                Node 'emqx@127.0.0.1' is started
+                emqx v3.1.0 is running
+
+    +   systemctl start
+
+        .. code-block:: console
+
+                $ sudo systemctl start emqx
+
+    +   service start
+
+        .. code-block:: console
+
+                $ sudo service emqx start
+
+Install via zip Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Select the Debian version via emqx.io or github and download the zip package for the EMQ X version to be installed.
+
+2.  Unzip the package
+
+    .. code-block:: console
+
+       $ unzip emqx-debian9-v3.1.0.zip
+
+3.  Start EMQ X
+
+    .. code-block:: console
+
+        $ ./bin/emqx start
+        emqx 3.1.0 is started successfully!
+
+        $ ./bin/emqx_ctl status
+        Node 'emqx@127.0.0.1' is started
+        emqx v3.1.0 is running
+
+macOS
+------
+
+.. _Homebrew: https://brew.sh/
+
+Install via Homebrew
+>>>>>>>>>>>>>>>>>>>>>
+
+1.  Add tap of EMQ X
+
+    .. code-block:: console
+
+        $ brew tap emqx/emqx
+
+2.  Install EMQ X
+
+    .. code-block:: console
+
+        $ brew install emqx
+
+3.  Start EMQ X
+
+    .. code-block:: console
+
+        $ emqx start
+        emqx 3.1.0 is started successfully!
+
+        $ emqx_ctl status
+        Node 'emqx@127.0.0.1' is started
+        emqx v3.1.0 is running
+
+Install via zip Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Select the EMQ X version via emqx.io or github and download the zip package to install.
+
+2.  Unzip the package
+
+    .. code-block:: console
+
+       $ unzip emqx-macos-v3.1.0.zip
+
+3.  Start EMQ X
+
+    .. code-block:: console
+
+        $ ./bin/emqx start
+        emqx 3.1.0 is started successfully!
+
+        $ ./bin/emqx_ctl status
+        Node 'emqx@127.0.0.1' is started
+        emqx v3.1.0 is running
+
+Windows
+--------
+
+1.  Select the Windows version via emqx.io or github and download the .zip package to install.
+
+2.  Unzip the package
+
+3.  Open the Windows command line window, change the directory to the program directory, and start EMQ X.
+
+    .. code-block:: console
+
+        cd emqx/bin
+        emqx start
+
+openSUSE
+---------
+
++ openSUSE leap
+
+Install via Repository
+>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Download the GPG public key and import it.
+
+    .. code-block:: console
+
+        $ curl -L -o /tmp/gpg.pub https://repos.emqx.io/gpg.pub
+        $ sudo rpmkeys --import /tmp/gpg.pub
+
+2.  Add repository address
+
+    .. code-block:: console
+
+        $ sudo zypper ar -f -c https://repos.emqx.io/emqx-ce/redhat/opensuse/leap/stable emqx
+
+3.  Install the latest version of EMQ X
+
+    .. code-block:: console
+
+        $ sudo zypper in emqx
+
+4.  Install a specific version of EMQ X
+
+    1. Query available version
+
+        .. code-block:: console
+
+            $ sudo zypper pa emqx
+
+            Loading repository data...
+            Reading installed packages...
+            S | Repository | Name | Version  | Arch
+            --+------------+------+----------+-------
+              | emqx       | emqx | 3.1.0-1  | x86_64
+              | emqx       | emqx | 3.0.1-1  | x86_64
+              | emqx       | emqx | 3.0.0-1  | x86_64
+
+    2.  Use Version column to install a specific version, such as 3.1.0
+
+        .. code-block:: console
+
+            $ sudo zypper in emqx-3.1.0
+
+5.  Start EMQ X
+
+    +   Directly start
+
+        .. code-block:: console
+
+                $ emqx start
+                emqx 3.1.0 is started successfully!
+
+                $ emqx_ctl status
+                Node 'emqx@127.0.0.1' is started
+                emqx v3.1.0 is running
+
+    +   systemctl start
+
+        .. code-block:: console
+
+                $ sudo systemctl start emqx
+
+    +   service start
+
+        .. code-block:: console
+
+                $ sudo service emqx start
+
+Install via rpm Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Select openSUSE via emqx.io or github and download the rpm package for the EMQ X version to be installed.
+
+2.  Install EMQ X and change the path below to the path where you downloaded the EMQ X package.
+
+    .. code-block:: console
+
+           $ sudo rpm -ivh emqx-opensuse-v3.1.0.x86_64.rpm
+
+3.  Start EMQ X
+
+    +   Directly start
+
+        .. code-block:: console
+
+                $ emqx start
+                emqx 3.1.0 is started successfully!
+
+                $ emqx_ctl status
+                Node 'emqx@127.0.0.1' is started
+                emqx v3.1.0 is running
+
+    +   systemctl start
+
+        .. code-block:: console
+
+                $ sudo systemctl start emqx
+
+    +   service start
+
+        .. code-block:: console
+
+                $ sudo service emqx start
+
+Install via zip Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Select openSUSE via emqx.io or github and download the zip package for the EMQ X version to be installed.
+
+
+2.  Unzip the package
+
+    .. code-block:: console
+
+       $ unzip emqx-opensuse-v3.1.0.zip
+
+3.  Start EMQ X
+
+    .. code-block:: console
+
+        $ ./bin/emqx start
+        emqx 3.1.0 is started successfully!
+
+        $ ./bin/emqx_ctl status
+        Node 'emqx@127.0.0.1' is started
+        emqx v3.1.0 is running
+
+FreeBSD
+--------
+
++ FreeBSD 12
+
+Install via zip Package
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Select FreeBSD via emqx.io or github and download the zip package for the EMQ X version to be installed.
+
+2.  Unzip the package
+
+    .. code-block:: console
+
+       $ unzip emqx-freebsd12-v3.1.0.zip
+
+3.  Start EMQ X
+
+    .. code-block:: console
+
+        $ ./bin/emqx start
+        emqx 3.1.0 is started successfully!
+
+        $ ./bin/emqx_ctl status
+        Node 'emqx@127.0.0.1' is started
+        emqx v3.1.0 is running
+
+Docker
+-------
+
+.. _Docker Hub: https://hub.docker.com/r/emqx/emqx
+.. _EMQ X Docker: https://github.com/emqx/emqx-docker
+
+1.  Get docker image
+
+    +   Through `Docker Hub`_
+
+        .. code-block:: console
+
+            $ docker pull emqx/emqx:v3.1.0
+
+    +    Download the docker image via emqx.io or github manually and load it manually
+
+        .. code-block:: console
+
+            $ wget -O emqx-docker.zip https://www.emqx.io/downloads/v3/latest/emqx-docker.zip
+            $ unzip emqx-docker.zip
+            $ docker load < emqx-docker-v3.1.0
+
+2.  Start the docker container
+
+    .. code-block:: console
+
+        $ docker run -d --name emqx31 -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:v3.1.0
+
+For more information about EMQ X Docker, please check `Docker Hub`_ or `EMQ X Docker`_.
+
+Source Code Compilation and Installation
+-----------------------------------------
+
+Environmental requirements
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+EMQ X broker is developed on the Erlang/OTP platform. The project is maintained and managed on GitHub. The source code compilation relies on the Erlang environment and the git client.
+
+.. NOTE:: EMQ X relies on the Erlang R21.2+ version
+
+Erlang Install: http://www.erlang.org/
+
+Git client: http://www.git-scm.com/
+
+Compile and Install EMQ X
+>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+1.  Get the source code
+
+    .. code-block:: bash
+
+        $ git clone -b v3.2.0 https://github.com/emqx/emqx-rel.git
+
+2.  Set environment variables
+
+    .. code-block:: bash
+
+        $ export EMQX_DEPS_DEFAULT_VSN=v3.2.0
+
+3.  Compile
+
+
+    .. code-block:: bash
+
+        $ cd emqx-rel && make
+
+4.  Start EMQ X
+
+    .. code-block:: bash
+
+        $ cd emqx-rel/_rel/emqx
+        $ ./bin/emqx start
+        emqx v3.2.0 is started successfully!
+
+        $ ./bin/emqx_ctl status
+        Node 'emqx@127.0.0.1' is started
+        emqx 3.2.0 is running
+
+Windows source code compilation and installation
+-------------------------------------------------
+
+Erlang install: http://www.erlang.org/
+
+scoop install: http://scoop.sh/
+
+After the scoop is installed, the Git, Make and erlang can be installed using the scoop package management tool.
 
 .. code-block:: bash
 
-    unzip emqx-centos7-v3.0.zip
+        scoop install git make curl erlang
 
-Start the broker in console mode:
+After the environment is ready, the code can be compiled.
 
-.. code-block:: bash
-
-    cd emqx && ./bin/emqx console
-
-If the broker is started successfully, console will print:
+rebar3 install:
 
 .. code-block:: bash
 
-    starting emqx on node 'emqx@127.0.0.1'
-    emqx ctl is starting...[done]
-    emqx trace is starting...[done]
-    emqx pubsub is starting...[done]
-    emqx stats is starting...[done]
-    emqx metrics is starting...[done]
-    emqx retainer is starting...[done]
-    emqx pooler is starting...[done]
-    emqx client manager is starting...[done]
-    emqx session manager is starting...[done]
-    emqx session supervisor is starting...[done]
-    emqx broker is starting...[done]
-    emqx alarm is starting...[done]
-    emqx mod supervisor is starting...[done]
-    emqx bridge supervisor is starting...[done]
-    emqx access control is starting...[done]
-    emqx system monitor is starting...[done]
-    http listen on 0.0.0.0:18083 with 4 acceptors.
-    mqtt listen on 0.0.0.0:1883 with 16 acceptors.
-    mqtts listen on 0.0.0.0:8883 with 4 acceptors.
-    http listen on 0.0.0.0:8083 with 4 acceptors.
-    Erlang MQTT Broker 3.0 is running now
-    Eshell V6.4  (abort with ^G)
-    (emqx@127.0.0.1)1>
+        git clone https://github.com/erlang/rebar3.git
 
-CTRL+C to close the console and stop the broker.
+        cd rebar3
 
-Start the broker in daemon mode:
+        bootstrap
+
+After rebar3 is built successfully, add rebar3 path into the environment path of windows
 
 .. code-block:: bash
 
-    ./bin/emqx start
+        git clone -b -b v3.2.0 https://github.com/emqx/emqx-rel.git
 
-Check the running status of the broker:
+        cd emqx-relx && make
 
-.. code-block:: bash
+        cd _rel/emqx && ./bin/emqx start
 
-    $ ./bin/emqx_ctl status
-    Node 'emqx@127.0.0.1' is started
-    emqx 3.0 is running
-
-Or check the status by URL::
-
-    http://localhost:8080/status
-
-Stop the broker::
-
-    ./bin/emqx stop
-
-.. _install_via_rpm:
-
----------------
-Install via RPM
----------------
-
-Select Linux group from https://www.emqx.io/downloads/broker, and download the RPM packages.
-
-+-------------+
-| CentOS6.8   |
-+-------------+
-| CentOS7     |
-+-------------+
-
-Install the package:
-
-.. code-block:: console
-
-    rpm -ivh emqx-centos7-v3.0-el7.centos.x86_64.rpm
-
-.. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
-
-.. code-block:: console
-
-    yum install lksctp-tools
-
-Configuration, Data and Log Files:
-
-+---------------------------+-------------------------------------------+
-| /etc/emqx/emqx.conf       | Configuration file for the EMQ X Broker   |
-+---------------------------+-------------------------------------------+
-| /etc/emqx/plugins/\*.conf | Configuration files for the EMQ X Plugins |
-+---------------------------+-------------------------------------------+
-| /var/lib/emqx/            | Data files                                |
-+---------------------------+-------------------------------------------+
-| /var/log/emqx             | Log files                                 |
-+---------------------------+-------------------------------------------+
-
-Start/Stop the broker:
-
-.. code-block:: console
-
-    systemctl start|stop|restart emqx.service
-
-.. _install_via_deb:
-
----------------
-Install via DEB
----------------
-
-Select Linux group from https://www.emqx.io/downloads/broker, and download the DEB packages.
-
-+-------------+
-| Ubuntu12.04 |
-+-------------+
-| Ubuntu14.04 |
-+-------------+
-| Ubuntu16.04 |
-+-------------+
-| Ubuntu18.04 |
-+-------------+
-| Debian7     |
-+-------------+
-| Debian8     |
-+-------------+
-| Debian9     |
-+-------------+
-
-Install the package:
-
-.. code-block:: console
-
-    sudo dpkg -i emqx-ubuntu12.04-v3.0_amd64.deb
-
-.. NOTE:: Erlang/OTP R19 depends on lksctp-tools library
-
-.. code-block:: console
-
-    apt-get install lksctp-tools
-
-Configuration, Data and Log Files:
-
-+------------------------------+-------------------------------------------+
-| /etc/emqx/emqx.conf          | Configuration file for the EMQ X Broker   |
-+------------------------------+-------------------------------------------+
-| /etc/emqx/plugins/\*.conf    | Configuration files for the EMQ X Plugins |
-+------------------------------+-------------------------------------------+
-| /var/lib/emqx/               | Data files                                |
-+------------------------------+-------------------------------------------+
-| /var/log/emqx                | Log files                                 |
-+------------------------------+-------------------------------------------+
-
-Start/Stop the broker:
-
-.. code-block:: console
-
-    service emqx start|stop|restart
-
-.. _install_on_mac:
-
-----------------------
-Installing on Mac OS X
-----------------------
-
-We could install the broker on Mac OS X to develop and debug MQTT applications.
-
-Select OSX group from https://www.emqx.io/downloads/broker, and download Mac package.
-
-Configure log level in `etc/emqx.conf`, all MQTT messages recevied/sent will be printed on console:
+Star the compiled EMQ X on the console:
 
 .. code-block:: bash
 
-    ## Console log. Enum: off, file, console, both
-    log.console = both
+        cd _rel/emqx/bin
+        emqx console
 
-    ## Console log level. Enum: debug, info, notice, warning, error, critical, alert, emergency
-    log.console.level = debug
-
-    ## Console log file
-    log.console.file = log/console.log
-
-The install and boot process on Mac are same to Linux.
-
-.. _install_on_windows:
-
----------------------
-Installing on Windows
----------------------
-
-Select Windows group from https://www.emqx.io/downloads/broker, and download the package.
-
-Unzip the package to install folder. Open the command line window and 'cd' to the folder.
-
-Start the broker in console mode::
-
-    bin\emqx console
-
-If the broker started successfully, a Erlang console window will popup.
-
-Close the console window and stop the emqx broker. Prepare to register emqx as window service.
-
-.. WARNING:: EMQ X-3.0 cannot be registered as a windows service.
-
-Install emqx serivce::
-
-    bin\emqx install
-
-Start emqx serivce::
-
-    bin\emqx start
-
-Stop emqx serivce::
-
-    bin\emqx stop
-
-Uninstall emqx service::
-
-    bin\emqx uninstall
-
-.. _install_via_docker_image:
-
-------------------------
-Install via Docker Image
-------------------------
-
-Select Docker group from https://www.emqx.io/downloads/broker, and download *EMQ X* 3.0 Docker Image.
-
-unzip emqx-docker image::
-
-    unzip emqx-docker-v3.0.zip
-
-Load Docker Image::
-
-    docker load < emqx-docker-v3.0
-
-Run the Container::
-
-    docker run -tid --name emq30 -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 8080:8080 -p 18083:18083 emqx-docker-v3.0
-
-Stop the broker::
-
-    docker stop emq30
-
-Start the broker::
-
-    docker start emq30
-
-Enter the running container::
-
-    docker exec -it emq30 /bin/sh
-
-.. _build_from_source:
-
-----------------------
-Installing From Source
-----------------------
-
-The *EMQ X* broker 3.0 requires Erlang/OTP R21+ and git client to build:
-
-Install Erlang: http://www.erlang.org/
-
-Install Git Client: http://www.git-scm.com/
-
-Could use apt-get on Ubuntu, yum on CentOS/RedHat and brew on Mac to install Erlang and Git.
-
-When all dependencies are ready, clone the emqx project from github.com and build:
+Register windows service:
 
 .. code-block:: bash
 
-    git clone https://github.com/emqx/emqx-rel.git
-
-    cd emqx-rel && make
-
-    cd _rel/emqx && ./bin/emqx console
-
-The binary package output in folder::
-
-    _rel/emqx
-
-----------------
-Build on Windows
-----------------
-
-Install Erlang: http://www.erlang.org/
-
-Install MSYS2: http://www.msys2.org/
-
-Use pacman of MSYS2 to install git and make:
-
-.. code-block:: bash
-
-    pacman -S git make
-
-Clone and build the `emqx-rel`_ project:
-
-.. code-block:: bash
-
-    git clone -b windows https://github.com/emqx/emqx-rel.git
-
-    cd emqx-rel && make
-
-Start the EMQ X in console mode:
-
-.. code-block:: bash
-
-    cd _rel/emqx && ./bin/emqx console
-
-.. _tcp_ports:
-
---------------
-TCP Ports Used
---------------
-
-+-----------+-----------------------------------+
-| 1883      | MQTT Port                         |
-+-----------+-----------------------------------+
-| 8883      | MQTT/SSL Port                     |
-+-----------+-----------------------------------+
-| 8083      | MQTT/WebSocket Port               |
-+-----------+-----------------------------------+
-| 8084      | MQTT/WebSocket/SSL Port           |
-+-----------+-----------------------------------+
-| 8080      | HTTP Management API Port          |
-+-----------+-----------------------------------+
-| 18083     | Web Dashboard Port                |
-+-----------+-----------------------------------+
-
-The TCP ports used can be configured in etc/emqx.config:
-
-.. code-block:: properties
-
-    ## TCP Listener: 1883, 127.0.0.1:1883, ::1:1883
-    listener.tcp.external = 0.0.0.0:1883
-
-    ## SSL Listener: 8883, 127.0.0.1:8883, ::1:8883
-    listener.ssl.external = 8883
-
-    ## External MQTT/WebSocket Listener
-    listener.ws.external = 8083
-
-    ## HTTP Management API Listener
-    listener.api.mgmt = 127.0.0.1:8080
-
-The 18083 port is used by Web Dashboard of the broker. Default login: admin, Password: public
-
-.. _quick_setup:
-
------------
-Quick Setup
------------
-
-Two main configuration files of the *EMQ X* broker:
-
-+-----------------------+-----------------------------------+
-| etc/emqx.conf         | EMQ X Broker Config               |
-+-----------------------+-----------------------------------+
-| etc/plugins/\*.conf   | EMQ X Plugins' Config             |
-+-----------------------+-----------------------------------+
-
-Two important parameters in etc/emqx.conf:
-
-+--------------------+-------------------------------------------------------------------------+
-| node.process_limit | Max number of Erlang proccesses. A MQTT client consumes two proccesses. |
-|                    | The value should be larger than max_clients * 2                         |
-+--------------------+-------------------------------------------------------------------------+
-| node.max_ports     | Max number of Erlang Ports. A MQTT client consumes one port.            |
-|                    | The value should be larger than max_clients.                            |
-+--------------------+-------------------------------------------------------------------------+
-
-.. NOTE::
-
-    node.process_limit > maximum number of allowed concurrent clients * 2
-    node.max_ports > maximum number of allowed concurrent clients
-
-The maximum number of allowed MQTT clients:
-
-.. code-block:: properties
-
-    listener.tcp.external = 0.0.0.0:1883
-
-    listener.tcp.external.acceptors = 8
-
-    listener.tcp.external.max_clients = 1024
-
-.. _init_d_emqttd:
-
--------------------
-/etc/init.d/emqx
--------------------
-
-.. code-block:: bash
-
-    #!/bin/sh
-    #
-    # emqx       Startup script for emqx.
-    #
-    # chkconfig: 2345 90 10
-    # description: emqx is mqtt broker.
-
-    # source function library
-    . /etc/rc.d/init.d/functions
-
-    # export HOME=/root
-
-    start() {
-        echo "starting emqx..."
-        cd /opt/emqx && ./bin/emqx start
-    }
-
-    stop() {
-        echo "stopping emqx..."
-        cd /opt/emqx && ./bin/emqx stop
-    }
-
-    restart() {
-        stop
-        start
-    }
-
-    case "$1" in
-        start)
-            start
-            ;;
-        stop)
-            stop
-            ;;
-        restart)
-            restart
-            ;;
-        *)
-            echo $"Usage: $0 {start|stop}"
-            RETVAL=2
-    esac
-
-
-chkconfig::
-
-    chmod +x /etc/init.d/emqx
-    chkconfig --add emqx
-    chkconfig --list
-
-boot test::
-
-    service emqx start
-
-.. NOTE::
-
-    ## erlexec: HOME must be set
-    uncomment '# export HOME=/root' if "HOME must be set" error.
-
-.. _emq_dashboard:       https://github.com/emqx/emqx-dashboard
-.. _emq-relx:            https://github.com/emqx/emqx-rel
+       cd _build/emqx/rel/emqx
+       emqx install

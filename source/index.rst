@@ -3,17 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-===============================
-*EMQ X* - MQTT Messaging Broker
-===============================
+=====================================================
+*EMQ X Broker* - High Performance MQTT Message Broker
+=====================================================
 
-*EMQ X* is a distributed, massively scalable, highly extensible MQTT message broker written in Erlang/OTP.
+*EMQ X Broker* R3.2 is a distributed, massively scalable, highly extensible MQTT message broker written in Erlang/OTP.
 
-*EMQ X* is fully open source and licensed under the Apache Version 2.0. *EMQ X* implements both MQTT V3.1/V3.1.1 and V5.0 protocol specifications, and supports MQTT-SN, CoAP, WebSocket and STOMP at the same time.
+EMQ X Broker is previously known as emqtt, since R3.1, the name is officially changed to EMQ X Broker.
 
-*EMQ X* provides a scalable, reliable, enterprise-grade MQTT message Hub for IoT, M2M, Smart Hardware and Mobile Messaging Applications. Sensors, Mobiles, Web Browsers and Application Servers could be connected by *EMQ X* brokers with asynchronous PUB/SUB MQTT messages.
+*EMQ X Broker* supports MQTT V3.1/V3.1.1 and V5.0 protocol standards. With the plugins, it can support MQTT-SN, WebSocket, CoAP, LwM2M, Stomp and other proprietary	protocols based on TCP/UDP.
 
-The 1.0 release of the *EMQ X* broker has scaled to 1.3 million concurrent MQTT connections on a 12 Core, 32G CentOS server.
+*EMQ X* works as single broker node or cluster. It provides scalable, reliable, MQTT message interconnection for IoT, IoV, M2M, Smart Hardware and Mobile Messaging Applications.
+
+.. NOTE:: MQTT-SN and CoAP plugins are released in 2.0-RC.1, LwM2M and LoRaWan are released in 3.0.
 
 Please visit `emqx.io`_ for more service. Follow us on Twitter: `@emqtt`_
 
@@ -22,48 +24,44 @@ Please visit `emqx.io`_ for more service. Follow us on Twitter: `@emqtt`_
 
 .. image:: ./_static/images/emqtt.png
 
-+---------------+-----------------------------------------+
-| Homepage:     | https://www.emqx.io                         |
-+---------------+-----------------------------------------+
-| Downloads:    | https://www.emqx.io/downloads               |
-+---------------+-----------------------------------------+
-| GitHub:       | https://github.com/emqx                |
-+---------------+-----------------------------------------+
-| Twitter:      | @emqx                                  |
-+---------------+-----------------------------------------+
-| Forum:        | https://groups.google.com/d/forum/emqx |
-+---------------+-----------------------------------------+
-| Mailing List: | emqx@googlegroups.com                  |
-+---------------+-----------------------------------------+
-| Contact:      | contact <contact@emqx.io>               |
-+---------------+-----------------------------------------+
-
-Contents:
+Index of *EMQ X Broker* R3.2 Document
 
 .. toctree::
    :maxdepth: 2
 
    getstarted
-   deploy
    install
-   config
-   cluster
-   bridge
    guide
-   advanced
-   design
-   commands
+   config
    plugins
+   commands
    rest
+   design
+   cluster
+   deploy
    tune
    changes
-   mqtt
-   mqtt-sn
-   lwm2m
+   upgrade
+   protocol
 
--------
-License
--------
+*EMQ X*  Support and Contact:
 
-Apache License Version 2.0
++------------+-------------------------------------+
+| Homepage:  | https://www.emqx.io                 |
++------------+-------------------------------------+
+| Project:   | https://github.com/emqx/emqx        |
++------------+-------------------------------------+
+| Wechat:    | emqttd                              |
++------------+-------------------------------------+
+| weibo:     | http://weibo.com/emqtt              |
++------------+-------------------------------------+
+| Twitter:   | @emqtt                              |
++------------+-------------------------------------+
+| Company:   | Hangzhou EMQ Technologies Co., Ltd. |
++------------+-------------------------------------+
+| contact:   | hong@emqx.io <hong@emqx.io>         |
++------------+-------------------------------------+
 
+.. image:: ./_static/images/weixin.jpg
+
+.. _emqx.io: https://www.emqx.io
