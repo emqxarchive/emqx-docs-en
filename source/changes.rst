@@ -13,6 +13,8 @@ Changes
 
 *Release Date: : 2019-11-18*
 
+EMQ X 4.0-beta.4 is now available. This version focuses on feature improvements and bug fixes.
+
 emqx (major)
 ------------
 
