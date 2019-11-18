@@ -5,6 +5,76 @@
 Changes
 =======
 
+.. _release_4.0-beta.4:
+
+---------------
+4.0-beta.4 版本
+---------------
+
+*Release Date: : 2019-11-18*
+
+emqx (major)
+------------
+
+Enhancements:
+
+- Any Client that detects flapping will be banned
+
+  Github PR:
+  `emqx/emqx#3033 <https://github.com/emqx/emqx/pull/3033>`_
+
+- Improve the ``emqx_vm`` module and update test cases
+
+  Github PR:
+  `emqx/emqx#3034 <https://github.com/emqx/emqx/pull/3034>`_
+
+emqx-management (plugin)
+------------------------
+
+Enhancements:
+
+- Update banned API
+
+  Github PR:
+  `emqx/emqx-management#141 <https://github.com/emqx/emqx-management/pull/141>`_
+
+Bug fixes:
+
+- Fix some bad return values
+
+  Github PR:
+  `emqx/emqx-management#142 <https://github.com/emqx/emqx-management/pull/142>`_
+
+minirest (plugin)
+-----------------
+
+Bug fixes:
+
+- Add error handling and log
+
+  Github PR:
+  `emqx/minirest#20 <https://github.com/emqx/minirest/pull/20>`_
+
+esockd (dependency)
+-------------------
+
+Enhancements:
+
+- Adjust some interfaces and add test cases
+
+  Github PR:
+  `emqx/esockd#124 <https://github.com/emqx/esockd/pull/124>`_
+
+ekka (dependency)
+-------------------
+
+Enhancements:
+
+- Adjust some interfaces and add test cases
+
+  Github PR:
+  `emqx/ekka#67 <https://github.com/emqx/ekka/pull/67>`_
+
 .. _release_3.2.5:
 
 -------------
