@@ -5,13 +5,38 @@
 Changes
 =======
 
+.. _release_3.2.6:
+
+--------------
+Version 3.2.6
+--------------
+
+*Release Date: 2019-11-23*
+
+EMQ X 3.2.6 is now available. This version focuses on feature improvements and bug fixes.
+
+emqx (major)
+------------
+
+Bug fixes:
+
+- Fix the issue that messages maybe disordered when forwarding messages to remote nodes via ``gen_rpc``
+
+  Github PR:
+  `emqx/emqx#3049 <https://github.com/emqx/emqx/pull/3049>`_
+
+- Fix ``emqx`` crash caused by the crash of auth plugin
+
+  Github PR:
+  `emqx/emqx#3048 <https://github.com/emqx/emqx/pull/3048>`_
+
 .. _release_4.0-beta.4:
 
----------------
-4.0-beta.4 版本
----------------
+-------------------
+Version 4.0-beta.4
+-------------------
 
-*Release Date: : 2019-11-18*
+*Release Date: 2019-11-18*
 
 EMQ X 4.0-beta.4 is now available. This version focuses on feature improvements and bug fixes.
 
