@@ -191,7 +191,6 @@ HAProxy serves as a LB for *EMQ X* cluster and terminates the SSL connections:
         timeout check 5000
         server emqx1 192.168.0.2:1883 check inter 10000 fall 2 rise 5 weight 1
         server emqx2 192.168.0.3:1883 check inter 10000 fall 2 rise 5 weight 1
-        source 0.0.0.0 usesrc clientip
 
 NGINX Plus -> EMQ X Cluster
 ---------------------------
