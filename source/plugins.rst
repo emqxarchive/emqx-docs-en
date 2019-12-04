@@ -186,14 +186,22 @@ ClientID authentication plugin
 
 `emqx_auth_clientid`_ currently only supports connection authentication, it authenticates the client through ``clientid`` and ``password``. When the password is stored, it can be encrypted according the configuration.
 
-.. important:: From EMQ release X 3.1 on, only the REST API/CLI clientid is manageable by REST API/CLI only, adding clientid in the configuration file is no longer supported.
-
 ClientID Authentication Configuration
 ::::::::::::::::::::::::::::::::::::::
 
 etc/plugins/emqx_auth_clientid.conf:
 
 .. code:: properties
+
+    ## Default usernames Examples
+    ##auth.client.1.clientid = id
+    ##auth.client.1.password = passwd
+    ##auth.client.2.clientid = dev:devid
+    ##auth.client.2.password = passwd2
+    ##auth.client.3.clientid = app:appid
+    ##auth.client.3.password = passwd3
+    ##auth.client.4.clientid = client~!@#$%^&*()_+
+    ##auth.client.4.password = passwd~!@#$%^&*()_+
 
     ## Password encryption method
     ## Enumeration value: plain | md5 | sha | sha256
@@ -204,14 +212,20 @@ Username Authentication Plugin
 
 `emqx_auth_username`_ currently only supports connection authentication, it authenticates the client through ``username`` and ``password``. When the password is stored, it can be encrypted according the configuration.
 
-.. important:: From EMQ release X 3.1 on, only the REST API/CLI username is manageable by REST API/CLI only, adding username in the configuration file is no longer supported.
-
 Username Authentication Configuration
 ::::::::::::::::::::::::::::::::::::::
 
 etc/plugins/emqx_auth_username.conf:
 
 .. code:: properties
+
+    ## Default usernames Examples:
+    ##auth.user.1.username = admin
+    ##auth.user.1.password = public
+    ##auth.user.2.username = feng@emqtt.io
+    ##auth.user.2.password = public
+    ##auth.user.3.username = name~!@#$%^&*()_+
+    ##auth.user.3.password = pwsswd~!@#$%^&*()_+
 
     ## Password encryption method
     ## Enumeration value: plain | md5 | sha | sha256

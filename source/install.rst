@@ -96,6 +96,14 @@ Install via Repository
 
                 $ sudo service emqx start
 
+6.  Configuration file path
+
+    + Configuration file path: ``/etc/emqx``
+
+    + Log file path: ``/var/log/emqx``
+
+    + Data file path: ``/var/lib/emqx`
+
 Install via rpm
 >>>>>>>>>>>>>>>>
 
@@ -131,6 +139,14 @@ Install via rpm
         .. code-block:: console
 
                 $ sudo service emqx start
+
+4.  Configuration file path
+
+    + Configuration file path: ``/etc/emqx``
+
+    + Log file path: ``/var/log/emqx``
+
+    + Data file path: ``/var/lib/emqx`
 
 Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
@@ -261,6 +277,14 @@ Install via Repository
 
                 $ sudo service emqx start
 
+8.  Configuration file path
+
+    + Configuration file path: ``/etc/emqx``
+
+    + Log file path: ``/var/log/emqx``
+
+    + Data file path: ``/var/lib/emqx`
+
 Install via deb Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -296,6 +320,14 @@ Install via deb Package
         .. code-block:: console
 
                 $ sudo service emqx start
+
+4.  Configuration file path
+
+    + Configuration file path: ``/etc/emqx``
+
+    + Log file path: ``/var/log/emqx``
+
+    + Data file path: ``/var/lib/emqx`
 
 Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
@@ -424,6 +456,14 @@ Install via Repository
 
                 $ sudo service emqx start
 
+8.  Configuration file path
+
+    + Configuration file path: ``/etc/emqx``
+
+    + Log file path: ``/var/log/emqx``
+
+    + Data file path: ``/var/lib/emqx`
+
 Install via deb Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -459,6 +499,14 @@ Install via deb Package
         .. code-block:: console
 
                 $ sudo service emqx start
+
+4.  Configuration file path
+
+    + Configuration file path: ``/etc/emqx``
+
+    + Log file path: ``/var/log/emqx``
+
+    + Data file path: ``/var/lib/emqx`
 
 Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
@@ -623,6 +671,14 @@ Install via Repository
 
                 $ sudo service emqx start
 
+6.  Configuration file path
+
+    + Configuration file path: ``/etc/emqx``
+
+    + Log file path: ``/var/log/emqx``
+
+    + Data file path: ``/var/lib/emqx`
+
 Install via rpm Package
 >>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -658,6 +714,14 @@ Install via rpm Package
         .. code-block:: console
 
                 $ sudo service emqx start
+
+4.  Configuration file path
+
+    + Configuration file path: ``/etc/emqx``
+
+    + Log file path: ``/var/log/emqx``
+
+    + Data file path: ``/var/lib/emqx`
 
 Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>

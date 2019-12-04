@@ -5,6 +5,36 @@
 Changes
 =======
 
+.. _release_3.2.7:
+
+--------------
+Version 3.2.7
+--------------
+
+*Release Date: 2019-12-03*
+
+EMQ X 3.2.7 is now available. This version resupports to configure the default ``username`` and ``clientid`` through the configuration file.
+
+emqx-auth-username (plugin)
+----------------------------
+
+Enhancements:
+
+- Resupport to configure the default ``username`` through the configuration file
+
+  Github PR:
+  `emqx/emqx-auth-username#127 <https://github.com/emqx/emqx-auth-username/pull/127>`_
+
+emqx-auth-clientid (plugin)
+----------------------------
+
+Enhancements:
+
+- Resupport to configure the default ``clientid`` through the configuration file
+
+  Github PR:
+  `emqx/emqx-auth-clientid#123 <https://github.com/emqx/emqx-auth-clientid/pull/123>`_
+
 .. _release_3.2.6:
 
 --------------
