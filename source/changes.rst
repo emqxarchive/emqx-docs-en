@@ -5,6 +5,58 @@
 Changes
 =======
 
+.. _release_4.0-rc.1:
+
+-----------------
+Version 4.0-rc.1
+-----------------
+
+*Release Date: 2019-12-07*
+
+EMQ X 4.0-rc.1 is now available. This release mainly optimizes the internal modules and the process of handling MQTT control packets.
+
+emqx
+----
+
+Enhancements:
+
+- 优化 MQTT 报文优化逻辑
+
+  Github PR:
+  `emqx/emqx#3079 <https://github.com/emqx/emqx/pull/3079>`_,
+  `emqx/emqx#3082 <https://github.com/emqx/emqx/pull/3082>`_,
+  `emqx/emqx#3083 <https://github.com/emqx/emqx/pull/3083>`_
+
+emqx-auth-username (plugin)
+----------------------------
+
+Enhancements:
+
+- Resupport to configure the default ``username`` through the configuration file
+
+  Github PR:
+  `emqx/emqx-auth-username#126 <https://github.com/emqx/emqx-auth-username/pull/126>`_
+
+emqx-auth-clientid (plugin)
+---------------------------
+
+Enhancements:
+
+- Resupport to configure the default ``clientid`` through the configuration file
+
+  Github PR:
+  `emqx/emqx-auth-clientid#122 <https://github.com/emqx/emqx-auth-clientid/pull/122>`_
+
+emqx-management (plugin)
+-------------------------
+
+Enhancements:
+
+- The default listening port for the HTTP API server is changed from 8080 to 8081
+
+  Github PR:
+  `emqx/emqx-management#144 <https://github.com/emqx/emqx-management/pull/144>`_
+
 .. _release_3.2.7:
 
 --------------
