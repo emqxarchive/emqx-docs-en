@@ -20,7 +20,7 @@ emqx
 
 Enhancements:
 
-- 优化 MQTT 报文优化逻辑
+- Optimize the process of handling MQTT control packets
 
   Github PR:
   `emqx/emqx#3079 <https://github.com/emqx/emqx/pull/3079>`_,
