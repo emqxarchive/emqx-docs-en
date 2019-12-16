@@ -5,6 +5,69 @@
 Changes
 =======
 
+.. _release_4.0-rc.2:
+
+----------------
+Version 4.0-rc.2
+----------------
+
+*Release Date: 2019-12-16*
+
+EMQ X 4.0-rc.2 is now available and includes the changes below:
+
+emqx
+----
+
+**Made the following changes:**
+
+- Add test cases for more modules and improve test coverage of existing test cases
+
+  Github PR:
+  `emqx/emqx#3091 <https://github.com/emqx/emqx/pull/3091>`_,
+  `emqx/emqx#3095 <https://github.com/emqx/emqx/pull/3095>`_,
+  `emqx/emqx#3096 <https://github.com/emqx/emqx/pull/3096>`_,
+  `emqx/emqx#3100 <https://github.com/emqx/emqx/pull/3100>`_,
+  `emqx/emqx#3106 <https://github.com/emqx/emqx/pull/3106>`_,
+  `emqx/emqx#3107 <https://github.com/emqx/emqx/pull/3107>`_
+
+- Get the timestamp uniformly by ``erlang:system_time``
+
+  Github PR:
+  `emqx/emqx#3088 <https://github.com/emqx/emqx/pull/3088>`_,
+  `emqx/emqx#3089 <https://github.com/emqx/emqx/pull/3089>`_
+
+- Remove ``sessions.persistent.count`` and ``sessions.persistent.max`` stats
+
+  Github PR:
+  `emqx/emqx#3111 <https://github.com/emqx/emqx/pull/3111>`_
+
+- WebSocket supports session mechanisms
+
+  Github PR:
+  `emqx/emqx#3106 <https://github.com/emqx/emqx/pull/3106>`_,
+  `emqx/cowboy#1 <https://github.com/emqx/cowboy/pull/1>`_,
+  `emqx/cowboy#3 <https://github.com/emqx/cowboy/pull/3>`_
+
+emqx-retainer (plugin)
+----------------------
+
+**Addressed the following issues:**
+
+- EMQ X cannot reply SUBACK to the client in a timely manner when there are a large number of retained messages
+
+  Github PR:
+  `emqx/emqx-retainer#126 <https://github.com/emqx/emqx-retainer/pull/126>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+**Made the following changes:**
+
+- Add IP field to client list, no need to enter details to view.
+
+  Github PR:
+  `emqx/emqx-dashboard#172 <https://github.com/emqx/emqx-dashboard/pull/172>`_
+
 .. _release_4.0-rc.1:
 
 -----------------
