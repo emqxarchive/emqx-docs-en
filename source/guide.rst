@@ -286,99 +286,105 @@ EMQ X 3.0 officially introduced MQTT bridge, so that EMQ X can bridge any MQTT b
 
 EMQ X MQTT bridging principle: Create an MQTT client on the EMQ X broker, and connect this MQTT client to the remote MQTT broker. Therefore, in the MQTT bridge configuration, following fields may be set for the EMQ X to connect to the remote broker as an mqtt client::
 
-    ## Bridge Address: Use node name for rpc bridging, use host:port for mqtt connection
-    bridge.mqtt.aws.address = 192.168.1.2:1883
+    ## Bridge address: node name for local bridge, host:port for remote
+    ## Example: emqx@127.0.0.1,  127.0.0.1:1883
+    bridge.mqtt.aws.address = 127.0.0.1:1883
 
     ## Bridged Protocol Version
     ## Enumeration value: mqttv3 | mqttv4 | mqttv5
     bridge.mqtt.aws.proto_ver = mqttv4
 
-    ## mqtt client's client_id
-    bridge.mqtt.aws.client_id = bridge_emq
+    ## Start type of the bridge
+    ## Enumeration value: manual | auto
+    bridge.mqtt.aws.start_type = manual
 
-    ## mqtt client's clean_start field
-    ## Note: Some MQTT Brokers need to set the clean_start value as `true`
-    bridge.mqtt.aws.clean_start = true
+    ## Whether to enable bridge mode for mqtt bridge
+    ## This option is prepared for the mqtt broker which does not
+    ## support bridge_mode such as the mqtt-plugin of the rabbitmq
+    bridge.mqtt.aws.bridge_mode = true
 
-    ##  mqtt client's username field
+    ## The ClientId of a remote bridge
+    bridge.mqtt.aws.clientid = bridge_aws
+
+    ## The username for a remote bridge
     bridge.mqtt.aws.username = user
 
-    ## mqtt client's password field
+    ## The password for a remote bridge
     bridge.mqtt.aws.password = passwd
 
-    ## Whether the mqtt client uses ssl to connect to a remote serve or not
+    ## Topics that need to be forward to AWS IoTHUB
+    bridge.mqtt.aws.forwards = topic1/#,topic2/#
+
+    ## Forward messages to the mountpoint of an AWS IoTHUB
+    bridge.mqtt.aws.forward_mountpoint = bridge/aws/${node}/
+
+    ## Need to subscribe to AWS topics
+    ## bridge.mqtt.aws.subscription.1.topic = cmd/topic1
+
+    ## Need to subscribe to AWS topics QoS
+    ## bridge.mqtt.aws.subscription.1.qos = 1
+
+    ## A mountpoint that receives messages from AWS IoTHUB
+    ## bridge.mqtt.aws.receive_mountpoint = receive/aws/
+
+
+    ## Bribge to remote server via SSL
     bridge.mqtt.aws.ssl = off
 
-    ## CA Certificate of Client SSL Connection (PEM format)
+    ## PEM-encoded CA certificates of the bridge
     bridge.mqtt.aws.cacertfile = etc/certs/cacert.pem
 
-    ## SSL certificate of Client SSL connection
+    ## Client SSL Certfile of the bridge
     bridge.mqtt.aws.certfile = etc/certs/client-cert.pem
 
-    ## Key file of Client SSL connection
+    ## Client SSL Keyfile of the bridge
+    ##
+    ## Value: File
     bridge.mqtt.aws.keyfile = etc/certs/client-key.pem
 
-    ## SSL encryption
+    ## SSL Ciphers used by the bridge
     bridge.mqtt.aws.ciphers = ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384
 
-    ## TTLS PSK password
-    ## Note 'listener.ssl.external.ciphers' and 'listener.ssl.external.psk_ciphers' cannot be configured at the same time
-    ##
+    ## Ciphers for TLS PSK.
+    ## Note that 'bridge.${BridgeName}.ciphers' and 'bridge.${BridgeName}.psk_ciphers' cannot
+    ## be configured at the same time.
     ## See 'https://tools.ietf.org/html/rfc4279#section-2'.
-    ## bridge.mqtt.aws.psk_ciphers = PSK-AES128-CBC-SHA,PSK-AES256-CBC-SHA,PSK-3DES-EDE-CBC-SHA,PSK-RC4-SHA
+    bridge.mqtt.aws.psk_ciphers = PSK-AES128-CBC-SHA,PSK-AES256-CBC-SHA,PSK-3DES-EDE-CBC-SHA,PSK-RC4-SHA
 
-    ## Client's heartbeat interval
+    ## Ping interval of a down bridge
     bridge.mqtt.aws.keepalive = 60s
 
-    ## Supported TLS version
+    ## TLS versions used by the bridge
     bridge.mqtt.aws.tls_versions = tlsv1.2,tlsv1.1,tlsv1
 
-    ## Forwarding topics of the message
-    bridge.mqtt.aws.forwards = sensor1/#,sensor2/#
-
-    ## Bridged mountpoint
-    bridge.mqtt.aws.mountpoint = bridge/emqx2/${node}/
-
-    ## Subscription topic for bridging
-    bridge.mqtt.aws.subscription.1.topic = cmd/topic1
-
-    ## Subscription qos for bridging
-    bridge.mqtt.aws.subscription.1.qos = 1
-
-    ## Subscription topic for bridging
-    bridge.mqtt.aws.subscription.2.topic = cmd/topic2
-
-    ## Subscription qos for bridging
-    bridge.mqtt.aws.subscription.2.qos = 1
-
-    ## Bridging reconnection interval
-    ## Default: 30s
+    ## Bridge reconnect time
     bridge.mqtt.aws.reconnect_interval = 30s
 
-    ## QoS1 message retransmission interval
+    ## Retry interval for bridge QoS1 message delivering
     bridge.mqtt.aws.retry_interval = 20s
 
-    ## Inflight Size.
-    bridge.mqtt.aws.max_inflight_batches = 32
+    ## Publish messages in batches, only RPC Bridge supports
+    bridge.mqtt.aws.batch_size = 32
+
+    ## Inflight size
+    bridge.mqtt.aws.max_inflight_size = 32
 
 EMQ X Bridge Cache Configuration
 --------------------------------
 
 The bridge of EMQ X has a message caching mechanism. The caching mechanism is applicable to both RPC bridging and MQTT bridging. When the bridge is disconnected (such as when the network connection is unstable), the messages with a topic specified in ``forwards`` can be cached to the local message queue. Until the bridge is restored, these messages are re-forwarded to the remote node. The configuration of the cache queue is as follows::
 
-    ## emqx_bridge internal number of messages used for batch
-    bridge.mqtt.aws.queue.batch_count_limit = 32
+    ## Base directory for replayq to store messages on disk
+    ## If this config entry is missing or set to undefined, replayq works in a mem-only manner.
+    bridge.mqtt.aws.queue.replayq_dir = etc/emqx_aws_bridge/
 
-    ##  emqx_bridge internal number of message bytes used for batch
-    bridge.mqtt.aws.queue.batch_bytes_limit = 1000MB
-
-    ## The path for placing replayq queue. If the item is not specified in the configuration, then replayq will run in `mem-only` mode and messages will not be cached on disk.
-    bridge.mqtt.aws.queue.replayq_dir = data/emqx_emqx2_bridge/
-
-    ## Replayq data segment size
+    ## Replayq segment size
     bridge.mqtt.aws.queue.replayq_seg_bytes = 10MB
 
-``bridge.emqx2.queue.replayq_dir`` is a configuration parameter for specifying the path of the bridge storage queue.
+    ## Replayq max total size
+    bridge.mqtt.aws.queue.max_total_size = 5GB
+
+``bridge.mqtt.aws.queue.replayq_dir`` is a configuration parameter for specifying the path of the bridge storage queue.
 
 ``bridge.mqtt.aws.queue.replayq_seg_bytes`` is used to specify the size of the largest single file of the message queue that is cached on disk. If the message queue size exceeds the specified value, a new file is created to store the message queue.
 
@@ -405,27 +411,27 @@ List all bridge states
 .. code-block:: bash
 
     $ ./bin/emqx_ctl bridges list
-    name: emqx     status: Stopped
+    name: aws     status: Stopped
 
 Start the specified bridge
 
 .. code-block:: bash
 
-    $ ./bin/emqx_ctl bridges start emqx
+    $ ./bin/emqx_ctl bridges start aws
     Start bridge successfully.
 
 Stop the specified bridge
 
 .. code-block:: bash
 
-    $ ./bin/emqx_ctl bridges stop emqx
+    $ ./bin/emqx_ctl bridges stop aws
     Stop bridge successfully.
 
 List the forwarding topics for the specified bridge
 
 .. code-block:: bash
 
-    $ ./bin/emqx_ctl bridges forwards emqx
+    $ ./bin/emqx_ctl bridges forwards aws
     topic:   topic1/#
     topic:   topic2/#
 
@@ -433,21 +439,21 @@ Add a forwarding topic for the specified bridge
 
 .. code-block:: bash
 
-    $ ./bin/emqx_ctl bridges add-forwards emqx topic3/#
+    $ ./bin/emqx_ctl bridges add-forwards aws topic3/#
     Add-forward topic successfully.
 
 Delete the forwarding topic for the specified bridge
 
 .. code-block:: bash
 
-    $ ./bin/emqx_ctl bridges del-forwards emqx topic3/#
+    $ ./bin/emqx_ctl bridges del-forwards aws topic3/#
     Del-forward topic successfully.
 
 List subscriptions for the specified bridge
 
 .. code-block:: bash
 
-    $ ./bin/emqx_ctl bridges subscriptions emqx
+    $ ./bin/emqx_ctl bridges subscriptions aws
     topic: cmd/topic1, qos: 1
     topic: cmd/topic2, qos: 1
 
@@ -455,14 +461,14 @@ Add a subscription topic for the specified bridge
 
 .. code-block:: bash
 
-    $ ./bin/emqx_ctl bridges add-subscription emqx cmd/topic3 1
+    $ ./bin/emqx_ctl bridges add-subscription aws cmd/topic3 1
     Add-subscription topic successfully.
 
 Delete the subscription topic for the specified bridge
 
 .. code-block:: bash
 
-    $ ./bin/emqx_ctl bridges del-subscription emqx cmd/topic3
+    $ ./bin/emqx_ctl bridges del-subscription aws cmd/topic3
     Del-subscription topic successfully.
 
 Note: In case of creating multiple bridges, it is convenient to replicate all configuration items of the first bridge, and modify the bridge name and other configuration items if necessary.
