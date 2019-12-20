@@ -293,8 +293,8 @@ EMQ X MQTT bridging principle: Create an MQTT client on the EMQ X broker, and co
     ## Enumeration value: mqttv3 | mqttv4 | mqttv5
     bridge.mqtt.aws.proto_ver = mqttv4
 
-    ## mqtt client's client_id
-    bridge.mqtt.aws.client_id = bridge_emq
+    ## mqtt client's clientid
+    bridge.mqtt.aws.clientid = bridge_emq
 
     ## mqtt client's clean_start field
     ## Note: Some MQTT Brokers need to set the clean_start value as `true`
@@ -481,14 +481,14 @@ Web servers such as PHP/Java/Python/NodeJS or Ruby on Rails can publish MQTT mes
 .. code:: bash
 
     curl -v --basic -u user:passwd -H "Content-Type: application/json" -d \
-    '{"qos":1, "retain": false, "topic":"world", "payload":"test" , "client_id": "C_1492145414740"}' \-k http://localhost:8080/api/v3/mqtt/publish
+    '{"qos":1, "retain": false, "topic":"world", "payload":"test" , "clientid": "C_1492145414740"}' \-k http://localhost:8080/api/v3/mqtt/publish
 
 HTTP interface parameters:
 
 +----------+----------------------+
 | parameter| description          |
 +==========+======================+
-| client_id| MQTT client ID       |
+| clientid | MQTT client ID       |
 +----------+----------------------+
 | qos      | QoS: 0 | 1 | 2       |
 +----------+----------------------+
