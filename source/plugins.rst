@@ -963,8 +963,8 @@ etc/plugins/emqx_bridge_mqtt.conf
     ## Enumeration value: mqttv3 | mqttv4 | mqttv5
     bridge.mqtt.aws.proto_ver = mqttv4
 
-    ## mqtt client's client_id
-    bridge.mqtt.aws.client_id = bridge_emq
+    ## mqtt client's clientid
+    bridge.mqtt.aws.clientid = bridge_emq
 
     ## mqtt client's clean_start field
     ## Note: Some MQTT Brokers need to set the clean_start value as `true`
@@ -1284,7 +1284,7 @@ A demo of authentication module - emqx_auth_demo.erl
 
     init(Opts) -> {ok, Opts}.
 
-    check(_Credentials = #{client_id := ClientId, username := Username, password := Password}, _State) ->
+    check(_Credentials = #{clientid := ClientId, username := Username, password := Password}, _State) ->
         io:format("Auth Demo: clientId=~p, username=~p, password=~p~n", [ClientId, Username, Password]),
         ok.
 
