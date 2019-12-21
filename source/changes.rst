@@ -13,7 +13,7 @@ Version 4.0-rc.3
 
 *Release Date: 2019-12-21*
 
-EMQ X 4.0-rc.3 is now released, including following change:
+EMQ X 4.0-rc.3 is now released, including following changes:
 
 emqx
 ----
