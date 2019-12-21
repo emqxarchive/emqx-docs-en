@@ -5,6 +5,143 @@
 Changes
 =======
 
+.. _release_4.0-rc.3:
+
+-----------------
+Version 4.0-rc.3
+-----------------
+
+*Release Date: 2019-12-21*
+
+EMQ X 4.0-rc.3 is now released, including following change:
+
+emqx
+----
+
+**Made the following changes:**
+
+- Added more counters; Deleted counters: ``channel.gc``, ``messages.qos2.expired``, ``messages.qos2.dropped``, ``auth.mqtt.anonymous``, etc.
+
+  Github PR:
+  `emqx/emqx#3128 <https://github.com/emqx/emqx/pull/3128>`_
+
+- Support configuring line numbers of the log messages
+
+  Github PR:
+  `emqx/emqx#3117 <https://github.com/emqx/emqx/pull/3117>`_
+
+- Add more test cases for emqx_connection
+
+  Github PR:
+  `emqx/emqx#3116 <https://github.com/emqx/emqx/pull/3116>`_
+
+- Fix MQTT/WS message published unordered
+
+  Github PR:
+  `emqx/emqx#3115 <https://github.com/emqx/emqx/pull/3115>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+**Made the following changes:**
+
+- Improved the SQL editor:
+
+  Github PR:
+  `emqx/emqx-dashboard#176 <https://github.com/emqx/emqx-dashboard/pull/176>`_,
+  `emqx/emqx-dashboard#177 <https://github.com/emqx/emqx-dashboard/pull/177>`_
+
+- Improved the overview page
+
+  Github PR:
+  `emqx/emqx-dashboard#179 <https://github.com/emqx/emqx-dashboard/pull/179>`_
+
+emqx-management (plugin)
+------------------------
+
+**Made the following changes:**
+
+- Support return the real topic of shared subscription
+
+  Github PR:
+  `emqx/emqx-management#151 <https://github.com/emqx/emqx-management/pull/151>`_
+
+**Addressed the following issues:**
+
+- Fix the issue that cannot get multiple routes for a topic
+
+  Github PR:
+  `emqx/emqx-management#150 <https://github.com/emqx/emqx-management/pull/150>`_
+
+emqx-coap (plugin)
+-------------------
+
+**Addressed the following issues:**
+
+- Fix the issue that cannot start emqx after stopping the plugin
+
+  Github PR:
+  `emqx/emqx-coap#151 <https://github.com/emqx/emqx-coap/pull/151>`_
+
+emqx-delayed-publish (plugin)
+-----------------------------
+
+**Made the following changes:**
+
+- Added new counters ``messages.delayed``
+
+  Github PR:
+  `emqx/emqx-delayed-publish#55 <https://github.com/emqx/emqx-delayed-publish/pull/55>`_
+
+emqx-statsd (plugin)
+---------------------
+
+**Made the following changes:**
+
+- Adapt to emqx changes
+
+  Github PR:
+  `emqx/emqx-statsd#43 <https://github.com/emqx/emqx-statsd/pull/43>`_
+
+emqx-bridge-mqtt (plugin)
+--------------------------
+
+**Addressed the following issues:**
+
+- Fixed timer unit for keep-alive
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#43 <https://github.com/emqx/emqx-bridge-mqtt/pull/43>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+**Made the following changes:**
+
+- Support new placeholder '%p' for getting the listening port that client connected
+
+  Github PR:
+  `emqx/emqx-auth-http#167 <https://github.com/emqx/emqx-auth-http/pull/167>`_
+
+All of Authentication Plugins
+-----------------------------
+
+**Made the following changes:**
+
+- Rename the counters for auth success/failure to prefixed by ``client.auth.``; Rename the counters for auth success/failure to prefixed by ``client.acl.``
+
+  Github PR:
+
+  `emqx/emqx-auth-username#132 <https://github.com/emqx/emqx-auth-username/pull/132>`_,
+  `emqx/emqx-auth-clientid#127 <https://github.com/emqx/emqx-auth-clientid/pull/127>`_,
+  `emqx/emqx-auth-http#168 <https://github.com/emqx/emqx-auth-http/pull/168>`_,
+  `emqx/emqx-auth-jwt#107 <https://github.com/emqx/emqx-auth-jwt/pull/107>`_,
+  `emqx/emqx-auth-ldap#96 <https://github.com/emqx/emqx-auth-ldap/pull/96>`_,
+  `emqx/emqx-auth-mongo#197 <https://github.com/emqx/emqx-auth-mongo/pull/197>`_,
+  `emqx/emqx-auth-mysql#193 <https://github.com/emqx/emqx-auth-mysql/pull/193>`_,
+  `emqx/emqx-auth-pgsql#174 <https://github.com/emqx/emqx-auth-pgsql/pull/174>`_,
+  `emqx/emqx-auth-redis#144 <https://github.com/emqx/emqx-auth-redis/pull/144>`_
+
 .. _release_4.0-rc.2:
 
 ----------------
