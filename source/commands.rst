@@ -248,6 +248,8 @@ Or remove emqx2 from the cluster on emqx1 node::
 
     $ cd emqx1 && ./bin/emqx_ctl cluster force-leave emqx2@127.0.0.1
 
+.. note:: Not supports a node of A cluster join to B cluster. Because it will introduce inconsistent problem between these clusters
+
 ----
 acl
 ----
