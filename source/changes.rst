@@ -128,7 +128,7 @@ All of Authentication Plugins
 
 **Made the following changes:**
 
-- Rename the counters for auth success/failure to prefixed by ``client.auth.``; Rename the counters for auth success/failure to prefixed by ``client.acl.``
+- Rename the counters for auth success/failure to prefixed by ``client.auth.``; Rename the counters for ACL checking success/failure to prefixed by ``client.acl.``
 
   Github PR:
 
