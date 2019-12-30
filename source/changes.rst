@@ -5,6 +5,74 @@
 Changes
 =======
 
+.. _release_4.0-rc.4:
+
+-----------------
+Version 4.0-rc.4
+-----------------
+
+*Release Date: 2019-12-31*
+
+EMQ X 4.0-rc.4 is now released, including following changes:
+
+emqx
+----
+
+**Made the following changes:**
+
+- Add more hooks
+
+  Github PR:
+  `emqx/emqx#3138 <https://github.com/emqx/emqx/pull/3138>`_
+
+- Add more metrics
+
+  Github PR:
+  `emqx/emqx#3139 <https://github.com/emqx/emqx/pull/3139>`_,
+  `emqx/emqx#3141 <https://github.com/emqx/emqx/pull/3141>`_
+
+**Addressed the following issues:**
+
+- Fixed an issue that timeout messages from timers might fail to match
+
+  Github PR:
+  `emqx/emqx#3145 <https://github.com/emqx/emqx/pull/3145>`_
+
+emqx-bridge-mqtt
+----------------
+
+**Addressed the following issues:**
+
+- Fix issue with keepalive configuration item using wrong unit
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#43 <https://github.com/emqx/emqx-bridge-mqtt/pull/43>`_
+
+emqx-management
+---------------
+
+**Made the following changes:**
+
+- Support to configure the default AppID and AppSecret
+
+  Github PR:
+  `emqx/emqx-management#153 <https://github.com/emqx/emqx-management/pull/153>`_
+
+- The HTTP API for publishing message now supports base64 encoded payload
+
+  Github PR:
+  `emqx/emqx-management#154 <https://github.com/emqx/emqx-management/pull/154>`_
+
+emqx-auth-http
+--------------
+
+**Made the following changes:**
+
+- Support defining http request headers in profile
+
+  Github PR:
+  `emqx/emqx-auth-http#170 <https://github.com/emqx/emqx-auth-http/pull/170>`_
+
 .. _release_4.0-rc.3:
 
 -----------------
