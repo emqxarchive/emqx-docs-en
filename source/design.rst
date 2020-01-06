@@ -175,30 +175,46 @@ Hooks Design
 
 The *EMQ* broker implements a simple but powerful hooks mechanism to help users develop plugin. The broker would run the hooks when a client is connected/disconnected, a topic is subscribed/unsubscribed or a MQTT message is published/delivered/acked.
 
-Hooks defined by the *EMQ* 3.0 broker:
+Hooks defined by broker:
 
 +------------------------+--------------------------------------------------------------+
 | Hook                   | Description                                                  |
 +========================+==============================================================+
+| client.connect         | Run when broker is handling to connect packet                |
++------------------------+--------------------------------------------------------------+
+| client.connack         | Run when broker is responding to client connecting result    |
++------------------------+--------------------------------------------------------------+
 | client.authenticate    | Run when client is trying to connect to the broker           |
 +------------------------+--------------------------------------------------------------+
 | client.check_acl       | Run when client is trying to publish or subscribe to a topic |
 +------------------------+--------------------------------------------------------------+
 | client.connected       | Run when client connected to the broker successfully         |
 +------------------------+--------------------------------------------------------------+
-| client.subscribe       | Run before client subscribes topics                          |
+| client.subscribe       | Run when client subscribes topics                          |
 +------------------------+--------------------------------------------------------------+
 | client.unsubscribe     | Run when client unsubscribes topics                          |
 +------------------------+--------------------------------------------------------------+
-| session.subscribed     | Run After client(session) subscribed a topic                 |
+| session.created        | Run after session created                                    |
 +------------------------+--------------------------------------------------------------+
-| session.unsubscribed   | Run After client(session) unsubscribed a topic               |
+| session.subscribed     | Run after client(session) subscribed a topic                 |
 +------------------------+--------------------------------------------------------------+
-| message.publish        | Run when a MQTT message is published                         |
+| session.unsubscribed   | Run after client(session) unsubscribed a topic               |
 +------------------------+--------------------------------------------------------------+
-| message.deliver        | Run when a MQTT message is delivering to target client       |
+| session.resumed        | Run after session resumed                                    |
 +------------------------+--------------------------------------------------------------+
-| message.acked          | Run when a MQTT message is acked                             |
+| session.discarded      | Run after session discarded                                  |
++------------------------+--------------------------------------------------------------+
+| session.takeovered     | Run after session takeovered by other node                   |
++------------------------+--------------------------------------------------------------+
+| session.terminated     | Run after session terminated                                 |
++------------------------+--------------------------------------------------------------+
+| message.publish        | Run when a message is published                              |
++------------------------+--------------------------------------------------------------+
+| message.delivered      | Run when a message is delivering to target client            |
++------------------------+--------------------------------------------------------------+
+| message.acked          | Run when a message is acked                                  |
++------------------------+--------------------------------------------------------------+
+| message.dropped        | Run when a message dropped                                   |
 +------------------------+--------------------------------------------------------------+
 | client.disconnected    | Run when client disconnected from broker                     |
 +------------------------+--------------------------------------------------------------+
@@ -271,29 +287,29 @@ The `emqx_plugin_template`_ project provides the examples for hook usage:
 
     -export([load/1, unload/0]).
 
-    -export([on_message_publish/2, on_message_deliver/3, on_message_acked/3]).
+    -export([on_message_publish/2, on_message_delivered/3, on_message_acked/3]).
 
     load(Env) ->
         emqx:hook('message.publish', fun ?MODULE:on_message_publish/2, [Env]),
-        emqx:hook('message.deliver', fun ?MODULE:on_message_deliver/3, [Env]),
+        emqx:hook('message.delivered', fun ?MODULE:on_message_delivered/3, [Env]),
         emqx:hook('message.acked', fun ?MODULE:on_message_acked/3, [Env]).
 
     on_message_publish(Message, _Env) ->
         io:format("publish ~s~n", [emqx_message:format(Message)]),
         {ok, Message}.
 
-    on_message_deliver(Credentials, Message, _Env) ->
-        io:format("delivered to client ~s: ~s~n", [Credentials, emqx_message:format(Message)]),
+    on_message_delivered(ClientInfo, Message, _Env) ->
+        io:format("deliver to client ~s: ~s~n", [ClientInfo, emqx_message:format(Message)]),
         {ok, Message}.
 
-    on_message_acked(Credentials, Message, _Env) ->
-        io:format("client ~s acked: ~s~n", [Credentials, emqx_message:format(Message)]),
+    on_message_acked(ClientInfo, Message, _Env) ->
+        io:format("client ~s acked: ~s~n", [ClientInfo, emqx_message:format(Message)]),
         {ok, Message}.
 
     unload() ->
         emqx:unhook('message.publish', fun ?MODULE:on_message_publish/2),
         emqx:unhook('message.acked', fun ?MODULE:on_message_acked/3),
-        emqx:unhook('message.deliver', fun ?MODULE:on_message_deliver/3).
+        emqx:unhook('message.delivered', fun ?MODULE:on_message_delivered/3).
 
 .. _design_auth_acl:
 
@@ -310,42 +326,41 @@ To register a callback function to ``client.authenticate``:
 
 .. code-block:: erlang
 
-    emqx:hook('client.authenticate', fun ?MODULE:on_client_authenticate/1, []).
+    Env = some_input_params,
+    emqx:hook('client.authenticate', fun ?MODULE:on_client_authenticate/3, [Env]).
 
-The callbacks must have an argument that receives the ``Credentials``, and returns an updated Credentials:
-
-.. code-block:: erlang
-
-    on_client_authenticate(Credentials = #{password := Password}) ->
-        {ok, Credentials#{result => success}}.
-
-The ``Credentials`` is a map that contains AUTH related info:
+The callbacks must have three arguments that receives the ``ClientInfo``, ``AuthResult``, ``Env`` and returns an updated ``AuthResult``:
 
 .. code-block:: erlang
 
-    #{
-      client_id => ClientId,     %% The client id
-      username  => Username,     %% The username
-      peername  => Peername,     %% The peer IP Address and Port
-      password  => Password,     %% The password (Optional)
-      result    => Result        %% The authentication result, must be set to ``success`` if OK,
-                                 %% or ``bad_username_or_password`` or ``not_authorized`` if failed.
-    }
+    on_client_authenticate(ClientInfo = #{password := Password}, AuthResult, Env) ->
+        {ok, AuthResult#{result => success}}.
+
+The ``ClientInfo`` is a map that contains a client all infos. You can these defination at ``emqx_types.erl`` module.
+The ``AuthResult`` is a map that contains:
+
+.. code-block:: erlang
+
+    #{is_superuser => IsSuperUser,  %% Bool; Indicates whether it is a superuser
+      result => Result,             %% Enum; 'success' means connections are allowed
+      anonymous => Anonymous        %% Bool; Indicates whether it is a anonymous user
+     }
 
 Write ACL Hook Callbacks
 ------------------------
 
-To register a callback function to ``client.authenticate``:
+To register a callback function to ``client.check_acl``:
 
 .. code-block:: erlang
 
-    emqx:hook('client.check_acl', fun ?MODULE:on_client_check_acl/4, []).
+    Env = some_input_params,
+    emqx:hook('client.check_acl', fun ?MODULE:on_client_check_acl/5, [Env]).
 
-The callbacks must have arguments that receives the ``Credentials``, ``AccessType``, ``Topic``, ``ACLResult``, and then returns a new ACLResult:
+The callbacks must have arguments that receives the ``ClientInfo``, ``AccessType``, ``Topic``, ``ACLResult``, ``Env``,  and then returns a new ACLResult:
 
 .. code-block:: erlang
 
-    on_client_check_acl(#{client_id := ClientId}, AccessType, Topic, ACLResult) ->
+    on_client_check_acl(#{client_id := ClientId}, AccessType, Topic, ACLResult, Env) ->
         {ok, allow}.
 
 AccessType can be one of ``publish`` and ``subscribe``. Topic is the MQTT topic. The ACLResult is either ``allow`` or ``deny``.

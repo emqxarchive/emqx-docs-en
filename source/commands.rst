@@ -113,21 +113,70 @@ Query statistics of MQTT Connections, Sessions, Topics, Subscriptions and Routes
 
     $ ./bin/emqx_ctl broker stats
 
-    actions.failure               : 0
+    actions.count                 : 5
+    actions.max                   : 5
+    channels.count                : 0
+    channels.max                  : 0
+    connections.count             : 0
+    connections.max               : 0
+    resources.count               : 0
+    resources.max                 : 0
+    retained.count                : 3
+    retained.max                  : 3
+    routes.count                  : 0
+    routes.max                    : 0
+    rules.count                   : 0
+    rules.max                     : 0
+    sessions.count                : 0
+    sessions.max                  : 0
+    suboptions.count              : 0
+    suboptions.max                : 0
+    subscribers.count             : 0
+    subscribers.max               : 0
+    subscriptions.count           : 0
+    subscriptions.max             : 0
+    subscriptions.shared.count    : 0
+    subscriptions.shared.max      : 0
+    topics.count                  : 0
+    topics.max                    : 0
+
+broker metrics
+--------------
+
+Query metrics of Bytes, MQTT Packets and Messages(sent/received)::
+
+    $ ./bin/emqx_ctl broker metrics
+
     actions.success               : 0
-    auth.mqtt.anonymous           : 2
-    bytes.received                : 666
-    bytes.sent                    : 640
-    channel.gc                    : 0
+    bytes.received                : 0
+    bytes.sent                    : 0
+    client.auth.anonymous         : 0
+    client.authenticate           : 0
+    client.check_acl              : 0
+    client.connack                : 0
+    client.connect                : 0
+    client.connected              : 0
+    client.disconnected           : 0
+    client.subscribe              : 0
+    client.unsubscribe            : 0
+    delivery.dropped              : 0
+    delivery.dropped.expired      : 0
+    delivery.dropped.no_local     : 0
+    delivery.dropped.qos0_msg     : 0
+    delivery.dropped.queue_full   : 0
+    delivery.dropped.too_large    : 0
+    messages.acked                : 0
+    messages.delayed              : 0
+    messages.delivered            : 0
     messages.dropped              : 0
-    messages.expired              : 0
+    messages.dropped.expired      : 0
+    messages.dropped.no_subscriber: 0
     messages.forward              : 0
+    messages.publish              : 0
     messages.qos0.received        : 0
     messages.qos0.sent            : 0
     messages.qos1.received        : 0
     messages.qos1.sent            : 0
-    messages.qos2.dropped         : 0
-    messages.qos2.expired         : 0
     messages.qos2.received        : 0
     messages.qos2.sent            : 0
     messages.received             : 0
@@ -137,12 +186,13 @@ Query statistics of MQTT Connections, Sessions, Topics, Subscriptions and Routes
     packets.auth.sent             : 0
     packets.connack.auth_error    : 0
     packets.connack.error         : 0
-    packets.connack.sent          : 2
-    packets.connect.received      : 2
+    packets.connack.sent          : 0
+    packets.connect.received      : 0
     packets.disconnect.received   : 0
     packets.disconnect.sent       : 0
     packets.pingreq.received      : 0
-    packets.pingresp.sent         : 316
+    packets.pingresp.sent         : 0
+    packets.puback.inuse          : 0
     packets.puback.missed         : 0
     packets.puback.received       : 0
     packets.puback.sent           : 0
@@ -151,6 +201,7 @@ Query statistics of MQTT Connections, Sessions, Topics, Subscriptions and Routes
     packets.pubcomp.received      : 0
     packets.pubcomp.sent          : 0
     packets.publish.auth_error    : 0
+    packets.publish.dropped       : 0
     packets.publish.error         : 0
     packets.publish.received      : 0
     packets.publish.sent          : 0
@@ -161,8 +212,8 @@ Query statistics of MQTT Connections, Sessions, Topics, Subscriptions and Routes
     packets.pubrel.missed         : 0
     packets.pubrel.received       : 0
     packets.pubrel.sent           : 0
-    packets.received              : 2
-    packets.sent                  : 318
+    packets.received              : 0
+    packets.sent                  : 0
     packets.suback.sent           : 0
     packets.subscribe.auth_error  : 0
     packets.subscribe.error       : 0
@@ -171,57 +222,11 @@ Query statistics of MQTT Connections, Sessions, Topics, Subscriptions and Routes
     packets.unsubscribe.error     : 0
     packets.unsubscribe.received  : 0
     rules.matched                 : 0
-
-broker metrics
---------------
-
-Query metrics of Bytes, MQTT Packets and Messages(sent/received)::
-
-    $ ./bin/emqx_ctl broker metrics
-
-    bytes/received          : 0
-    bytes/sent              : 0
-    messages/dropped        : 0
-    messages/expired        : 0
-    messages/forward        : 0
-    messages/qos0/received  : 0
-    messages/qos0/sent      : 0
-    messages/qos1/received  : 0
-    messages/qos1/sent      : 0
-    messages/qos2/dropped   : 0
-    messages/qos2/expired   : 0
-    messages/qos2/received  : 0
-    messages/qos2/sent      : 0
-    messages/received       : 0
-    messages/retained       : 3
-    messages/sent           : 0
-    packets/auth            : 0
-    packets/connack         : 0
-    packets/connect         : 0
-    packets/disconnect/recei: 0
-    packets/disconnect/sent : 0
-    packets/pingreq         : 0
-    packets/pingresp        : 0
-    packets/puback/missed   : 0
-    packets/puback/received : 0
-    packets/puback/sent     : 0
-    packets/pubcomp/missed  : 0
-    packets/pubcomp/received: 0
-    packets/pubcomp/sent    : 0
-    packets/publish/received: 0
-    packets/publish/sent    : 0
-    packets/pubrec/missed   : 0
-    packets/pubrec/received : 0
-    packets/pubrec/sent     : 0
-    packets/pubrel/missed   : 0
-    packets/pubrel/received : 0
-    packets/pubrel/sent     : 0
-    packets/received        : 0
-    packets/sent            : 0
-    packets/suback          : 0
-    packets/subscribe       : 0
-    packets/unsuback        : 0
-    packets/unsubscribe     : 0
+    session.created               : 0
+    session.discarded             : 0
+    session.resumed               : 0
+    session.takeovered            : 0
+    session.terminated            : 0
 
 -------
 cluster
