@@ -1259,8 +1259,8 @@ Plugin Development Template
 
 When developers need to customize a plugin, they can view this plugin's code and structure to deliver a standard EMQ X plugin faster. The plugin is actually a normal ``Erlang Application`` with the configuration file: ``etc/${PluginName}.config``.
 
-EMQ X R3.2 Plugin Development
------------------------------
+EMQ X Plugin Development
+-------------------------
 
 Create a Plugin Project
 ::::::::::::::::::::::::

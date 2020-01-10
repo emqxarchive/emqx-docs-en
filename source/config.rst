@@ -10,7 +10,7 @@ The main configuration files of the *EMQ X* broker are under 'etc/' folder:
 +----------------------+-----------------------------------+
 | File                 | Description                       |
 +----------------------+-----------------------------------+
-| etc/emqx.conf        | *EMQ X* 3.0 Configuration File    |
+| etc/emqx.conf        | *EMQ X* Configuration File        |
 +----------------------+-----------------------------------+
 | etc/acl.conf         | The default ACL File              |
 +----------------------+-----------------------------------+
@@ -144,7 +144,7 @@ Cluster Autoclean:
 EMQ X Autodiscovery Strategy
 ----------------------------
 
-*EMQ X* 3.0 supports node discovery and autocluster with various strategies:
+*EMQ X* supports node discovery and autocluster with various strategies:
 
 +------------+---------------------------------+
 | Strategy   | Description                     |

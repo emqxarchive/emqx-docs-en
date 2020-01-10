@@ -32,7 +32,7 @@ The default TCP ports used by the EMQ X message server include:
 +-----------+-----------------------------------+
 | 8083      | MQTT/WebSocket port               |
 +-----------+-----------------------------------+
-| 8080      | HTTP API port                     |
+| 8081      | HTTP API port                     |
 +-----------+-----------------------------------+
 | 18083     | Dashboard Management Console Port |
 +-----------+-----------------------------------+
@@ -282,7 +282,7 @@ Limitations of RPC bridging:
 EMQ X Node MQTT Bridge Configuration
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-EMQ X 3.0 officially introduced MQTT bridge, so that EMQ X can bridge any MQTT broker. Because of the characteristics of the MQTT protocol, EMQ X can subscribe to the remote mqtt broker's topic through MQTT bridge, and then synchronize the remote MQTT broker's message to the local.
+EMQ X officially introduced MQTT bridge, so that EMQ X can bridge any MQTT broker. Because of the characteristics of the MQTT protocol, EMQ X can subscribe to the remote mqtt broker's topic through MQTT bridge, and then synchronize the remote MQTT broker's message to the local.
 
 EMQ X MQTT bridging principle: Create an MQTT client on the EMQ X broker, and connect this MQTT client to the remote MQTT broker. Therefore, in the MQTT bridge configuration, following fields may be set for the EMQ X to connect to the remote broker as an mqtt client::
 
@@ -474,14 +474,14 @@ HTTP Publish API
 
 The EMQ X message server provides an HTTP publish interface through which an application server or web server can publish MQTT messages::
 
-    HTTP POST http://host:8080/api/v3/mqtt/publish
+    HTTP POST http://host:8081/api/v3/mqtt/publish
 
 Web servers such as PHP/Java/Python/NodeJS or Ruby on Rails can publish MQTT messages via HTTP POST requests:
 
 .. code:: bash
 
     curl -v --basic -u user:passwd -H "Content-Type: application/json" -d \
-    '{"qos":1, "retain": false, "topic":"world", "payload":"test" , "clientid": "C_1492145414740"}' \-k http://localhost:8080/api/v3/mqtt/publish
+    '{"qos":1, "retain": false, "topic":"world", "payload":"test" , "clientid": "C_1492145414740"}' \-k http://localhost:8081/api/v3/mqtt/publish
 
 HTTP interface parameters:
 
@@ -632,10 +632,6 @@ Session statistics
 | sessions/count              | Total number of current sessions            |
 +-----------------------------+---------------------------------------------+
 | sessions/max                | maximum number of sessions                  |
-+-----------------------------+---------------------------------------------+
-| sessions/persistent/count   | Total number of persistent sessions         |
-+-----------------------------+---------------------------------------------+
-| sessions/persistent/max     | maximum number of persistent sessions       |
 +-----------------------------+---------------------------------------------+
 
 Subscription statistics
