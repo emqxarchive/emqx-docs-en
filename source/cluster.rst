@@ -228,7 +228,7 @@ Or remove emqx@s2.emqx.io node from the cluster on emqx@s1.emqx.io::
 Node Discovery and Autocluster
 ------------------------------
 
-*EMQ X* 3.0 supports node discovery and autocluster with various strategies:
+*EMQ X* supports node discovery and autocluster with various strategies:
 
 +------------+---------------------------------+
 | Strategy   | Description                     |

@@ -61,15 +61,15 @@ Install via Repository
 
             $ yum list emqx --showduplicates | sort -r
 
-            emqx.x86_64                     3.1.0-1.el7                        emqx-stable
+            emqx.x86_64                     4.0.0-1.el7                        emqx-stable
             emqx.x86_64                     3.0.1-1.el7                        emqx-stable
             emqx.x86_64                     3.0.0-1.el7                        emqx-stable
 
-    2.  Install a specific version based on the version string in the second column, such as 3.1.0
+    2.  Install a specific version based on the version string in the second column, such as 4.0.0
 
         .. code-block:: console
 
-            $ sudo yum install emqx-3.1.0
+            $ sudo yum install emqx-4.0.0
 
 5.  Start EMQ X
 
@@ -78,11 +78,11 @@ Install via Repository
         .. code-block:: console
 
                 $ emqx start
-                emqx 3.1.0 is started successfully!
+                emqx 4.0.0 is started successfully!
 
                 $ emqx_ctl status
                 Node 'emqx@127.0.0.1' is started
-                emqx v3.1.0 is running
+                emqx v4.0.0 is running
 
     +   systemctl start
 
@@ -113,7 +113,7 @@ Install via rpm
 
     .. code-block:: console
 
-           $ sudo rpm -ivh emqx-centos7-v3.1.0.x86_64.rpm
+           $ sudo rpm -ivh emqx-centos7-v4.0.0.x86_64.rpm
 
 3.  Start EMQ X
 
@@ -122,11 +122,11 @@ Install via rpm
         .. code-block:: console
 
                 $ emqx start
-                emqx 3.1.0 is started successfully!
+                emqx 4.0.0 is started successfully!
 
                 $ emqx_ctl status
                 Node 'emqx@127.0.0.1' is started
-                emqx v3.1.0 is running
+                emqx v4.0.0 is running
 
     +   systemctl start
 
@@ -157,18 +157,18 @@ Install via zip Package
 
     .. code-block:: console
 
-       $ unzip emqx-centos7-v3.1.0.zip
+       $ unzip emqx-centos7-v4.0.0.zip
 
 3.  Start EMQ X
 
     .. code-block:: console
 
         $ ./bin/emqx start
-        emqx 3.1.0 is started successfully!
+        emqx 4.0.0 is started successfully!
 
         $ ./bin/emqx_ctl status
         Node 'emqx@127.0.0.1' is started
-        emqx v3.1.0 is running
+        emqx v4.0.0 is running
 
 Ubuntu
 ------
@@ -241,16 +241,16 @@ Install via Repository
 
             $ sudo apt-cache madison emqx
 
-            emqx |      3.1.0 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
+            emqx |      4.0.0 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
             emqx |      3.0.1 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
             emqx |      3.0.0 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
 
 
-    2.  Install a specific version using the version string from the second column, such as 3.1.0
+    2.  Install a specific version using the version string from the second column, such as 4.0.0
 
         .. code-block:: console
 
-            $ sudo apt install emqx=3.1.0
+            $ sudo apt install emqx=4.0.0
 
 7.  Start EMQ X
 
@@ -259,11 +259,11 @@ Install via Repository
         .. code-block:: console
 
                 $ emqx start
-                emqx 3.1.0 is started successfully!
+                emqx 4.0.0 is started successfully!
 
                 $ emqx_ctl status
                 Node 'emqx@127.0.0.1' is started
-                emqx v3.1.0 is running
+                emqx v4.0.0 is running
 
     +   systemctl start
 
@@ -294,7 +294,7 @@ Install via deb Package
 
     .. code-block:: console
 
-           $ sudo dpkg -i emqx-ubuntu18.04-v3.1.0_amd64.deb
+           $ sudo dpkg -i emqx-ubuntu18.04-v4.0.0_amd64.deb
 
 3.  Start EMQ X
 
@@ -303,11 +303,11 @@ Install via deb Package
         .. code-block:: console
 
                 $ emqx start
-                emqx 3.1.0 is started successfully!
+                emqx 4.0.0 is started successfully!
 
                 $ emqx_ctl status
                 Node 'emqx@127.0.0.1' is started
-                emqx v3.1.0 is running
+                emqx v4.0.0 is running
 
     +   systemctl start
 
@@ -338,18 +338,18 @@ Install via zip Package
 
     .. code-block:: console
 
-       $ unzip emqx-ubuntu18.04-v3.1.0.zip
+       $ unzip emqx-ubuntu18.04-v4.0.0.zip
 
 3.  Start EMQ X
 
     .. code-block:: console
 
         $ ./bin/emqx start
-        emqx 3.1.0 is started successfully!
+        emqx 4.0.0 is started successfully!
 
         $ ./bin/emqx_ctl status
         Node 'emqx@127.0.0.1' is started
-        emqx v3.1.0 is running
+        emqx v4.0.0 is running
 
 Debian
 -------
@@ -420,16 +420,16 @@ Install via Repository
 
             $ sudo apt-cache madison emqx
 
-            emqx |      3.1.0 | https://repos.emqx.io/emqx-ce/deb/debian stretch/stable amd64 Packages
+            emqx |      4.0.0 | https://repos.emqx.io/emqx-ce/deb/debian stretch/stable amd64 Packages
             emqx |      3.0.1 | https://repos.emqx.io/emqx-ce/deb/debian stretch/stable amd64 Packages
             emqx |      3.0.0 | https://repos.emqx.io/emqx-ce/deb/debian stretch/stable amd64 Packages
 
 
-    2.  Install a specific version using the version string from the second column, such as 3.1.0
+    2.  Install a specific version using the version string from the second column, such as 4.0.0
 
         .. code-block:: console
 
-            $ sudo apt install emqx=3.1.0
+            $ sudo apt install emqx=4.0.0
 
 7.  Start EMQ X
 
@@ -438,11 +438,11 @@ Install via Repository
         .. code-block:: console
 
                 $ emqx start
-                emqx 3.1.0 is started successfully!
+                emqx 4.0.0 is started successfully!
 
                 $ emqx_ctl status
                 Node 'emqx@127.0.0.1' is started
-                emqx v3.1.0 is running
+                emqx v4.0.0 is running
 
     +   systemctl start
 
@@ -473,7 +473,7 @@ Install via deb Package
 
     .. code-block:: console
 
-           $ sudo dpkg -i emqx-debian9-v3.1.0_amd64.deb
+           $ sudo dpkg -i emqx-debian9-v4.0.0_amd64.deb
 
 3.  Start EMQ X
 
@@ -482,11 +482,11 @@ Install via deb Package
         .. code-block:: console
 
                 $ emqx start
-                emqx 3.1.0 is started successfully!
+                emqx 4.0.0 is started successfully!
 
                 $ emqx_ctl status
                 Node 'emqx@127.0.0.1' is started
-                emqx v3.1.0 is running
+                emqx v4.0.0 is running
 
     +   systemctl start
 
@@ -517,18 +517,18 @@ Install via zip Package
 
     .. code-block:: console
 
-       $ unzip emqx-debian9-v3.1.0.zip
+       $ unzip emqx-debian9-v4.0.0.zip
 
 3.  Start EMQ X
 
     .. code-block:: console
 
         $ ./bin/emqx start
-        emqx 3.1.0 is started successfully!
+        emqx 4.0.0 is started successfully!
 
         $ ./bin/emqx_ctl status
         Node 'emqx@127.0.0.1' is started
-        emqx v3.1.0 is running
+        emqx v4.0.0 is running
 
 macOS
 ------
@@ -555,11 +555,11 @@ Install via Homebrew
     .. code-block:: console
 
         $ emqx start
-        emqx 3.1.0 is started successfully!
+        emqx 4.0.0 is started successfully!
 
         $ emqx_ctl status
         Node 'emqx@127.0.0.1' is started
-        emqx v3.1.0 is running
+        emqx v4.0.0 is running
 
 Install via zip Package
 >>>>>>>>>>>>>>>>>>>>>>>>
@@ -570,18 +570,18 @@ Install via zip Package
 
     .. code-block:: console
 
-       $ unzip emqx-macos-v3.1.0.zip
+       $ unzip emqx-macos-v4.0.0.zip
 
 3.  Start EMQ X
 
     .. code-block:: console
 
         $ ./bin/emqx start
-        emqx 3.1.0 is started successfully!
+        emqx 4.0.0 is started successfully!
 
         $ ./bin/emqx_ctl status
         Node 'emqx@127.0.0.1' is started
-        emqx v3.1.0 is running
+        emqx v4.0.0 is running
 
 Windows
 --------
@@ -636,15 +636,15 @@ Install via Repository
             Reading installed packages...
             S | Repository | Name | Version  | Arch
             --+------------+------+----------+-------
-              | emqx       | emqx | 3.1.0-1  | x86_64
+              | emqx       | emqx | 4.0.0-1  | x86_64
               | emqx       | emqx | 3.0.1-1  | x86_64
               | emqx       | emqx | 3.0.0-1  | x86_64
 
-    2.  Use Version column to install a specific version, such as 3.1.0
+    2.  Use Version column to install a specific version, such as 4.0.0
 
         .. code-block:: console
 
-            $ sudo zypper in emqx-3.1.0
+            $ sudo zypper in emqx-4.0.0
 
 5.  Start EMQ X
 
@@ -653,11 +653,11 @@ Install via Repository
         .. code-block:: console
 
                 $ emqx start
-                emqx 3.1.0 is started successfully!
+                emqx 4.0.0 is started successfully!
 
                 $ emqx_ctl status
                 Node 'emqx@127.0.0.1' is started
-                emqx v3.1.0 is running
+                emqx v4.0.0 is running
 
     +   systemctl start
 
@@ -688,7 +688,7 @@ Install via rpm Package
 
     .. code-block:: console
 
-           $ sudo rpm -ivh emqx-opensuse-v3.1.0.x86_64.rpm
+           $ sudo rpm -ivh emqx-opensuse-v4.0.0.x86_64.rpm
 
 3.  Start EMQ X
 
@@ -697,11 +697,11 @@ Install via rpm Package
         .. code-block:: console
 
                 $ emqx start
-                emqx 3.1.0 is started successfully!
+                emqx 4.0.0 is started successfully!
 
                 $ emqx_ctl status
                 Node 'emqx@127.0.0.1' is started
-                emqx v3.1.0 is running
+                emqx v4.0.0 is running
 
     +   systemctl start
 
@@ -733,18 +733,18 @@ Install via zip Package
 
     .. code-block:: console
 
-       $ unzip emqx-opensuse-v3.1.0.zip
+       $ unzip emqx-opensuse-v4.0.0.zip
 
 3.  Start EMQ X
 
     .. code-block:: console
 
         $ ./bin/emqx start
-        emqx 3.1.0 is started successfully!
+        emqx 4.0.0 is started successfully!
 
         $ ./bin/emqx_ctl status
         Node 'emqx@127.0.0.1' is started
-        emqx v3.1.0 is running
+        emqx v4.0.0 is running
 
 FreeBSD
 --------
@@ -760,18 +760,18 @@ Install via zip Package
 
     .. code-block:: console
 
-       $ unzip emqx-freebsd12-v3.1.0.zip
+       $ unzip emqx-freebsd12-v4.0.0.zip
 
 3.  Start EMQ X
 
     .. code-block:: console
 
         $ ./bin/emqx start
-        emqx 3.1.0 is started successfully!
+        emqx 4.0.0 is started successfully!
 
         $ ./bin/emqx_ctl status
         Node 'emqx@127.0.0.1' is started
-        emqx v3.1.0 is running
+        emqx v4.0.0 is running
 
 Docker
 -------
@@ -785,7 +785,7 @@ Docker
 
         .. code-block:: console
 
-            $ docker pull emqx/emqx:v3.1.0
+            $ docker pull emqx/emqx:v4.0.0
 
     +    Download the docker image via emqx.io or github manually and load it manually
 
@@ -793,13 +793,13 @@ Docker
 
             $ wget -O emqx-docker.zip https://www.emqx.io/downloads/v3/latest/emqx-docker.zip
             $ unzip emqx-docker.zip
-            $ docker load < emqx-docker-v3.1.0
+            $ docker load < emqx-docker-v4.0.0
 
 2.  Start the docker container
 
     .. code-block:: console
 
-        $ docker run -d --name emqx31 -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:v3.1.0
+        $ docker run -d --name emqx31 -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:v4.0.0
 
 For more information about EMQ X Docker, please check `Docker Hub`_ or `EMQ X Docker`_.
 
