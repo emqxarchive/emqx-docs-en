@@ -5,6 +5,395 @@
 Changes
 =======
 
+.. _release_4.0.0:
+
+--------------
+Version 4.0.0
+--------------
+
+*Release Date: 2019-01-10*
+
+EMQ X 4.0.0 is now released. In this version we significantly improved the throughput performance by refactoring the session and channel, improved the extensibility by adding more hooks and counters, redesigned rule engine SQL that filter messages/events mainly by topics, and also lots of improvements in edge.
+
+General
+>>>>>>>
+
+**Made the following changes:**
+
+- Greatly improve message throughput performance, and reduce CPU and memory usage.
+
+- Optimize handling of MQTT 5.0 packets
+
+- Rule engine supports new SQL
+
+- Modify metrics naming and add more metrics
+
+- Modify parameters of hooks and add more hooks
+
+- emqtt provides command line interfaces to publish and subscribe
+
+**Fixed the following issues:**
+
+- Fix the issue that failure of SSL handshake could cause crash
+
+- Fix the issue that ``max_subscriptions`` don't working
+
+- Fix message out-of-order issues when forwarding across clusters
+
+- Fix the issue that REST API and CLI cannot get multiple routes for a topic
+
+REST API
+>>>>>>>>
+
+**Made the following changes:**
+
+- Support IPv6
+
+- The default listening port for the HTTP API server is changed from 8080 to 8081
+
+- Remove all REST API related with sessions
+
+- ``connections`` APIs change to ``clients`` APIs，the new APIs support features in sessions
+
+- Support return the real topic of shared subscription in querying subscriptions API
+
+- Support to configure the default AppID and AppSecret
+
+- The HTTP API for publishing message now supports base64 encoded payload
+
+**Fixed the following issues:**
+
+- Fix the issue that encoded URI isn't handled correctly
+
+Authentication
+>>>>>>>>>>>>>>
+
+**Made the following changes:**
+
+- HTTP authentication plugin supports users to defining HTTP request headers in profile
+
+- Clientid and username authentication plugin Resupport to configure the default clientid and username in profile
+
+.. _release_4.0-rc.4:
+
+-----------------
+Version 4.0-rc.4
+-----------------
+
+*Release Date: 2019-12-31*
+
+EMQ X 4.0-rc.4 is now released, including following changes:
+
+emqx
+----
+
+**Made the following changes:**
+
+- Add more hooks
+
+  Github PR:
+  `emqx/emqx#3138 <https://github.com/emqx/emqx/pull/3138>`_
+
+- Add more metrics
+
+  Github PR:
+  `emqx/emqx#3139 <https://github.com/emqx/emqx/pull/3139>`_,
+  `emqx/emqx#3141 <https://github.com/emqx/emqx/pull/3141>`_
+
+**Fixed the following issues:**
+
+- Fixed an issue that timeout messages from timers might fail to match
+
+  Github PR:
+  `emqx/emqx#3145 <https://github.com/emqx/emqx/pull/3145>`_
+
+emqx-bridge-mqtt
+----------------
+
+**Fixed the following issues:**
+
+- Fix issue with keepalive configuration item using wrong unit
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#43 <https://github.com/emqx/emqx-bridge-mqtt/pull/43>`_
+
+emqx-management
+---------------
+
+**Made the following changes:**
+
+- Support to configure the default AppID and AppSecret
+
+  Github PR:
+  `emqx/emqx-management#153 <https://github.com/emqx/emqx-management/pull/153>`_
+
+- The HTTP API for publishing message now supports base64 encoded payload
+
+  Github PR:
+  `emqx/emqx-management#154 <https://github.com/emqx/emqx-management/pull/154>`_
+
+emqx-auth-http
+--------------
+
+**Made the following changes:**
+
+- Support defining http request headers in profile
+
+  Github PR:
+  `emqx/emqx-auth-http#170 <https://github.com/emqx/emqx-auth-http/pull/170>`_
+
+.. _release_4.0-rc.3:
+
+-----------------
+Version 4.0-rc.3
+-----------------
+
+*Release Date: 2019-12-21*
+
+EMQ X 4.0-rc.3 is now released, including following changes:
+
+emqx
+----
+
+**Made the following changes:**
+
+- Added more counters; Deleted counters: ``channel.gc``, ``messages.qos2.expired``, ``messages.qos2.dropped``, ``auth.mqtt.anonymous``, etc.
+
+  Github PR:
+  `emqx/emqx#3128 <https://github.com/emqx/emqx/pull/3128>`_
+
+- Support configuring line numbers of the log messages
+
+  Github PR:
+  `emqx/emqx#3117 <https://github.com/emqx/emqx/pull/3117>`_
+
+- Add more test cases for emqx_connection
+
+  Github PR:
+  `emqx/emqx#3116 <https://github.com/emqx/emqx/pull/3116>`_
+
+- Fix MQTT/WS message published unordered
+
+  Github PR:
+  `emqx/emqx#3115 <https://github.com/emqx/emqx/pull/3115>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+**Made the following changes:**
+
+- Improved the SQL editor:
+
+  Github PR:
+  `emqx/emqx-dashboard#176 <https://github.com/emqx/emqx-dashboard/pull/176>`_,
+  `emqx/emqx-dashboard#177 <https://github.com/emqx/emqx-dashboard/pull/177>`_
+
+- Improved the overview page
+
+  Github PR:
+  `emqx/emqx-dashboard#179 <https://github.com/emqx/emqx-dashboard/pull/179>`_
+
+emqx-management (plugin)
+------------------------
+
+**Made the following changes:**
+
+- Support return the real topic of shared subscription
+
+  Github PR:
+  `emqx/emqx-management#151 <https://github.com/emqx/emqx-management/pull/151>`_
+
+**Fixed the following issues:**
+
+- Fix the issue that cannot get multiple routes for a topic
+
+  Github PR:
+  `emqx/emqx-management#150 <https://github.com/emqx/emqx-management/pull/150>`_
+
+emqx-coap (plugin)
+-------------------
+
+**Fixed the following issues:**
+
+- Fix the issue that cannot start emqx after stopping the plugin
+
+  Github PR:
+  `emqx/emqx-coap#151 <https://github.com/emqx/emqx-coap/pull/151>`_
+
+emqx-delayed-publish (plugin)
+-----------------------------
+
+**Made the following changes:**
+
+- Added new counters ``messages.delayed``
+
+  Github PR:
+  `emqx/emqx-delayed-publish#55 <https://github.com/emqx/emqx-delayed-publish/pull/55>`_
+
+emqx-statsd (plugin)
+---------------------
+
+**Made the following changes:**
+
+- Adapt to emqx changes
+
+  Github PR:
+  `emqx/emqx-statsd#43 <https://github.com/emqx/emqx-statsd/pull/43>`_
+
+emqx-bridge-mqtt (plugin)
+--------------------------
+
+**Fixed the following issues:**
+
+- Fixed timer unit for keep-alive
+
+  Github PR:
+  `emqx/emqx-bridge-mqtt#43 <https://github.com/emqx/emqx-bridge-mqtt/pull/43>`_
+
+emqx-auth-http (plugin)
+-----------------------
+
+**Made the following changes:**
+
+- Support new placeholder '%p' for getting the listening port that client connected
+
+  Github PR:
+  `emqx/emqx-auth-http#167 <https://github.com/emqx/emqx-auth-http/pull/167>`_
+
+All of Authentication Plugins
+-----------------------------
+
+**Made the following changes:**
+
+- Rename the counters for auth success/failure to prefixed by ``client.auth.``; Rename the counters for ACL checking success/failure to prefixed by ``client.acl.``
+
+  Github PR:
+
+  `emqx/emqx-auth-username#132 <https://github.com/emqx/emqx-auth-username/pull/132>`_,
+  `emqx/emqx-auth-clientid#127 <https://github.com/emqx/emqx-auth-clientid/pull/127>`_,
+  `emqx/emqx-auth-http#168 <https://github.com/emqx/emqx-auth-http/pull/168>`_,
+  `emqx/emqx-auth-jwt#107 <https://github.com/emqx/emqx-auth-jwt/pull/107>`_,
+  `emqx/emqx-auth-ldap#96 <https://github.com/emqx/emqx-auth-ldap/pull/96>`_,
+  `emqx/emqx-auth-mongo#197 <https://github.com/emqx/emqx-auth-mongo/pull/197>`_,
+  `emqx/emqx-auth-mysql#193 <https://github.com/emqx/emqx-auth-mysql/pull/193>`_,
+  `emqx/emqx-auth-pgsql#174 <https://github.com/emqx/emqx-auth-pgsql/pull/174>`_,
+  `emqx/emqx-auth-redis#144 <https://github.com/emqx/emqx-auth-redis/pull/144>`_
+
+.. _release_4.0-rc.2:
+
+----------------
+Version 4.0-rc.2
+----------------
+
+*Release Date: 2019-12-16*
+
+EMQ X 4.0-rc.2 is now available and includes the changes below:
+
+emqx
+----
+
+**Made the following changes:**
+
+- Add test cases for more modules and improve test coverage of existing test cases
+
+  Github PR:
+  `emqx/emqx#3091 <https://github.com/emqx/emqx/pull/3091>`_,
+  `emqx/emqx#3095 <https://github.com/emqx/emqx/pull/3095>`_,
+  `emqx/emqx#3096 <https://github.com/emqx/emqx/pull/3096>`_,
+  `emqx/emqx#3100 <https://github.com/emqx/emqx/pull/3100>`_,
+  `emqx/emqx#3106 <https://github.com/emqx/emqx/pull/3106>`_,
+  `emqx/emqx#3107 <https://github.com/emqx/emqx/pull/3107>`_
+
+- Get the timestamp uniformly by ``erlang:system_time``
+
+  Github PR:
+  `emqx/emqx#3088 <https://github.com/emqx/emqx/pull/3088>`_,
+  `emqx/emqx#3089 <https://github.com/emqx/emqx/pull/3089>`_
+
+- Remove ``sessions.persistent.count`` and ``sessions.persistent.max`` stats
+
+  Github PR:
+  `emqx/emqx#3111 <https://github.com/emqx/emqx/pull/3111>`_
+
+- WebSocket supports session mechanisms
+
+  Github PR:
+  `emqx/emqx#3106 <https://github.com/emqx/emqx/pull/3106>`_,
+  `emqx/cowboy#1 <https://github.com/emqx/cowboy/pull/1>`_,
+  `emqx/cowboy#3 <https://github.com/emqx/cowboy/pull/3>`_
+
+emqx-retainer (plugin)
+----------------------
+
+**Fixed the following issues:**
+
+- EMQ X cannot reply SUBACK to the client in a timely manner when there are a large number of retained messages
+
+  Github PR:
+  `emqx/emqx-retainer#126 <https://github.com/emqx/emqx-retainer/pull/126>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+**Made the following changes:**
+
+- Add IP field to client list, no need to enter details to view.
+
+  Github PR:
+  `emqx/emqx-dashboard#172 <https://github.com/emqx/emqx-dashboard/pull/172>`_
+
+.. _release_4.0-rc.1:
+
+-----------------
+Version 4.0-rc.1
+-----------------
+
+*Release Date: 2019-12-07*
+
+EMQ X 4.0-rc.1 is now available. This release mainly optimizes the internal modules and the process of handling MQTT control packets.
+
+emqx
+----
+
+Enhancements:
+
+- Optimize the process of handling MQTT control packets
+
+  Github PR:
+  `emqx/emqx#3079 <https://github.com/emqx/emqx/pull/3079>`_,
+  `emqx/emqx#3082 <https://github.com/emqx/emqx/pull/3082>`_,
+  `emqx/emqx#3083 <https://github.com/emqx/emqx/pull/3083>`_
+
+emqx-auth-username (plugin)
+----------------------------
+
+Enhancements:
+
+- Resupport to configure the default ``username`` through the configuration file
+
+  Github PR:
+  `emqx/emqx-auth-username#126 <https://github.com/emqx/emqx-auth-username/pull/126>`_
+
+emqx-auth-clientid (plugin)
+---------------------------
+
+Enhancements:
+
+- Resupport to configure the default ``clientid`` through the configuration file
+
+  Github PR:
+  `emqx/emqx-auth-clientid#122 <https://github.com/emqx/emqx-auth-clientid/pull/122>`_
+
+emqx-management (plugin)
+-------------------------
+
+Enhancements:
+
+- The default listening port for the HTTP API server is changed from 8080 to 8081
+
+  Github PR:
+  `emqx/emqx-management#144 <https://github.com/emqx/emqx-management/pull/144>`_
+
 .. _release_3.2.7:
 
 --------------
