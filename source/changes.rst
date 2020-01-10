@@ -5,6 +5,75 @@
 Changes
 =======
 
+.. _release_4.0.0:
+
+--------------
+Version 4.0.0
+--------------
+
+*Release Date: 2019-01-10*
+
+EMQ X 4.0.0 is now released, including following changes:
+
+General
+>>>>>>>
+
+**Made the following changes:**
+
+- Optimize internal code, reduce CPU and memory usage, and greatly improve performance
+
+- Optimize handling of MQTT packets
+
+- Rule engine supports new SQL
+
+- Modify metrics naming and add more metrics
+
+- Modify parameters of hooks and add more hooks
+
+- emqtt provides command line interfaces to publish and subscribe
+
+**Addressed the following issues:**
+
+- Fix the issue that failure of SSL handshake could cause crash
+
+- Fix the issue that ``max_subscriptions`` don't working
+
+- Fix message out-of-order issues when forwarding across clusters
+
+- Fix the issue that REST API and CLI cannot get multiple routes for a topic
+
+REST API
+>>>>>>>>
+
+**Made the following changes:**
+
+- Support IPv6
+
+- The default listening port for the HTTP API server is changed from 8080 to 8081
+
+- Remove all REST API related with sessions
+
+- ``connections`` APIs change to ``clients`` APIs，the new APIs support features in sessions
+
+- Support return the real topic of shared subscription in querying subscriptions API
+
+- Support to configure the default AppID and AppSecret
+
+- The HTTP API for publishing message now supports base64 encoded payload
+
+**Addressed the following issues:**
+
+- Fix the issue that encoded URI isn't handled correctly
+
+Authentication
+>>>>>>>>>>>>>>
+
+**Made the following changes:**
+
+- HTTP authentication plugin supports users to defining HTTP request headers in profile
+
+- Clientid and username authentication plugin Resupport to configure the default clientid and username in profile
+
 .. _release_4.0-rc.4:
 
 -----------------
