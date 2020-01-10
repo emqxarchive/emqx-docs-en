@@ -5,6 +5,75 @@
 Changes
 =======
 
+.. _release_4.0.0:
+
+--------------
+Version 4.0.0
+--------------
+
+*Release Date: 2019-01-10*
+
+EMQ X 4.0.0 is now released. In this version we significantly improved the throughput performance by refactoring the session and channel, improved the extensibility by adding more hooks and counters, redesigned rule engine SQL that filter messages/events mainly by topics, and also lots of improvements in edge.
+
+General
+>>>>>>>
+
+**Made the following changes:**
+
+- Greatly improve message throughput performance, and reduce CPU and memory usage.
+
+- Optimize handling of MQTT 5.0 packets
+
+- Rule engine supports new SQL
+
+- Modify metrics naming and add more metrics
+
+- Modify parameters of hooks and add more hooks
+
+- emqtt provides command line interfaces to publish and subscribe
+
+**Fixed the following issues:**
+
+- Fix the issue that failure of SSL handshake could cause crash
+
+- Fix the issue that ``max_subscriptions`` don't working
+
+- Fix message out-of-order issues when forwarding across clusters
+
+- Fix the issue that REST API and CLI cannot get multiple routes for a topic
+
+REST API
+>>>>>>>>
+
+**Made the following changes:**
+
+- Support IPv6
+
+- The default listening port for the HTTP API server is changed from 8080 to 8081
+
+- Remove all REST API related with sessions
+
+- ``connections`` APIs change to ``clients`` APIs，the new APIs support features in sessions
+
+- Support return the real topic of shared subscription in querying subscriptions API
+
+- Support to configure the default AppID and AppSecret
+
+- The HTTP API for publishing message now supports base64 encoded payload
+
+**Fixed the following issues:**
+
+- Fix the issue that encoded URI isn't handled correctly
+
+Authentication
+>>>>>>>>>>>>>>
+
+**Made the following changes:**
+
+- HTTP authentication plugin supports users to defining HTTP request headers in profile
+
+- Clientid and username authentication plugin Resupport to configure the default clientid and username in profile
+
 .. _release_4.0-rc.4:
 
 -----------------
@@ -31,7 +100,7 @@ emqx
   `emqx/emqx#3139 <https://github.com/emqx/emqx/pull/3139>`_,
   `emqx/emqx#3141 <https://github.com/emqx/emqx/pull/3141>`_
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fixed an issue that timeout messages from timers might fail to match
 
@@ -41,7 +110,7 @@ emqx
 emqx-bridge-mqtt
 ----------------
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fix issue with keepalive configuration item using wrong unit
 
@@ -134,7 +203,7 @@ emqx-management (plugin)
   Github PR:
   `emqx/emqx-management#151 <https://github.com/emqx/emqx-management/pull/151>`_
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fix the issue that cannot get multiple routes for a topic
 
@@ -144,7 +213,7 @@ emqx-management (plugin)
 emqx-coap (plugin)
 -------------------
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fix the issue that cannot start emqx after stopping the plugin
 
@@ -174,7 +243,7 @@ emqx-statsd (plugin)
 emqx-bridge-mqtt (plugin)
 --------------------------
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fixed timer unit for keep-alive
 
@@ -256,7 +325,7 @@ emqx
 emqx-retainer (plugin)
 ----------------------
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - EMQ X cannot reply SUBACK to the client in a timely manner when there are a large number of retained messages
 
