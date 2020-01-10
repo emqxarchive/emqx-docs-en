@@ -13,7 +13,7 @@ Version 4.0.0
 
 *Release Date: 2019-01-10*
 
-EMQ X 4.0.0 is now released, including following changes:
+EMQ X 4.0.0 is now released. In this version we significantly improved the throughput performance by refactoring the session and channel, improved the extensibility by adding more hooks and counters, redesigned rule engine SQL, and also lots of improvements in edge.
 
 General
 >>>>>>>
