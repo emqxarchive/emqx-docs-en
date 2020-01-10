@@ -32,7 +32,7 @@ General
 
 - emqtt provides command line interfaces to publish and subscribe
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fix the issue that failure of SSL handshake could cause crash
 
@@ -61,7 +61,7 @@ REST API
 
 - The HTTP API for publishing message now supports base64 encoded payload
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fix the issue that encoded URI isn't handled correctly
 
@@ -100,7 +100,7 @@ emqx
   `emqx/emqx#3139 <https://github.com/emqx/emqx/pull/3139>`_,
   `emqx/emqx#3141 <https://github.com/emqx/emqx/pull/3141>`_
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fixed an issue that timeout messages from timers might fail to match
 
@@ -110,7 +110,7 @@ emqx
 emqx-bridge-mqtt
 ----------------
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fix issue with keepalive configuration item using wrong unit
 
@@ -203,7 +203,7 @@ emqx-management (plugin)
   Github PR:
   `emqx/emqx-management#151 <https://github.com/emqx/emqx-management/pull/151>`_
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fix the issue that cannot get multiple routes for a topic
 
@@ -213,7 +213,7 @@ emqx-management (plugin)
 emqx-coap (plugin)
 -------------------
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fix the issue that cannot start emqx after stopping the plugin
 
@@ -243,7 +243,7 @@ emqx-statsd (plugin)
 emqx-bridge-mqtt (plugin)
 --------------------------
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - Fixed timer unit for keep-alive
 
@@ -325,7 +325,7 @@ emqx
 emqx-retainer (plugin)
 ----------------------
 
-**Addressed the following issues:**
+**Fixed the following issues:**
 
 - EMQ X cannot reply SUBACK to the client in a timely manner when there are a large number of retained messages
 
