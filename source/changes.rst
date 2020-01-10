@@ -20,9 +20,9 @@ General
 
 **Made the following changes:**
 
-- Optimize internal code, reduce CPU and memory usage, and greatly improve performance
+- Greatly improve message throughput performance, and reduce CPU and memory usage.
 
-- Optimize handling of MQTT packets
+- Optimize handling of MQTT 5.0 packets
 
 - Rule engine supports new SQL
 
