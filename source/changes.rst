@@ -18,7 +18,7 @@ EMQ X 4.0.1 is released now. This version mainly focuses on bug fixes and perfor
 emqx
 ----
 
-**Made the following changes:**
+**Enhancements:**
 
 - `force_shutdown_policy` defaults to disable
 
@@ -42,7 +42,7 @@ emqx
   `emqx/emqx#3195 <https://github.com/emqx/emqx/pull/3195>`_,
   `emqx/emqx#3197 <https://github.com/emqx/emqx/pull/3197>`_
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fix the issue that the feature of ban is abnormal due to using the wrong unit
 
@@ -62,7 +62,7 @@ emqx
 emqx-rule-engine
 ----------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Provide more arrays functions of SQL
 
@@ -77,7 +77,7 @@ emqx-rule-engine
 emqx-web-hook
 -------------
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fix crash due to parameter mismatch
 
@@ -97,7 +97,7 @@ EMQ X 4.0.0 is now released. In this version we significantly improved the throu
 General
 >>>>>>>
 
-**Made the following changes:**
+**Enhancements:**
 
 - Greatly improve message throughput performance, and reduce CPU and memory usage.
 
@@ -111,7 +111,7 @@ General
 
 - emqtt provides command line interfaces to publish and subscribe
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fix the issue that failure of SSL handshake could cause crash
 
@@ -124,7 +124,7 @@ General
 REST API
 >>>>>>>>
 
-**Made the following changes:**
+**Enhancements:**
 
 - Support IPv6
 
@@ -140,14 +140,14 @@ REST API
 
 - The HTTP API for publishing message now supports base64 encoded payload
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fix the issue that encoded URI isn't handled correctly
 
 Authentication
 >>>>>>>>>>>>>>
 
-**Made the following changes:**
+**Enhancements:**
 
 - HTTP authentication plugin supports users to defining HTTP request headers in profile
 
@@ -166,7 +166,7 @@ EMQ X 4.0-rc.4 is now released, including following changes:
 emqx
 ----
 
-**Made the following changes:**
+**Enhancements:**
 
 - Add more hooks
 
@@ -179,7 +179,7 @@ emqx
   `emqx/emqx#3139 <https://github.com/emqx/emqx/pull/3139>`_,
   `emqx/emqx#3141 <https://github.com/emqx/emqx/pull/3141>`_
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fixed an issue that timeout messages from timers might fail to match
 
@@ -189,7 +189,7 @@ emqx
 emqx-bridge-mqtt
 ----------------
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fix issue with keepalive configuration item using wrong unit
 
@@ -199,7 +199,7 @@ emqx-bridge-mqtt
 emqx-management
 ---------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Support to configure the default AppID and AppSecret
 
@@ -214,7 +214,7 @@ emqx-management
 emqx-auth-http
 --------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Support defining http request headers in profile
 
@@ -234,7 +234,7 @@ EMQ X 4.0-rc.3 is now released, including following changes:
 emqx
 ----
 
-**Made the following changes:**
+**Enhancements:**
 
 - Added more counters; Deleted counters: ``channel.gc``, ``messages.qos2.expired``, ``messages.qos2.dropped``, ``auth.mqtt.anonymous``, etc.
 
@@ -259,7 +259,7 @@ emqx
 emqx-dashboard (plugin)
 -----------------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Improved the SQL editor:
 
@@ -275,14 +275,14 @@ emqx-dashboard (plugin)
 emqx-management (plugin)
 ------------------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Support return the real topic of shared subscription
 
   Github PR:
   `emqx/emqx-management#151 <https://github.com/emqx/emqx-management/pull/151>`_
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fix the issue that cannot get multiple routes for a topic
 
@@ -292,7 +292,7 @@ emqx-management (plugin)
 emqx-coap (plugin)
 -------------------
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fix the issue that cannot start emqx after stopping the plugin
 
@@ -302,7 +302,7 @@ emqx-coap (plugin)
 emqx-delayed-publish (plugin)
 -----------------------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Added new counters ``messages.delayed``
 
@@ -312,7 +312,7 @@ emqx-delayed-publish (plugin)
 emqx-statsd (plugin)
 ---------------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Adapt to emqx changes
 
@@ -322,7 +322,7 @@ emqx-statsd (plugin)
 emqx-bridge-mqtt (plugin)
 --------------------------
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - Fixed timer unit for keep-alive
 
@@ -332,7 +332,7 @@ emqx-bridge-mqtt (plugin)
 emqx-auth-http (plugin)
 -----------------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Support new placeholder '%p' for getting the listening port that client connected
 
@@ -342,7 +342,7 @@ emqx-auth-http (plugin)
 All of Authentication Plugins
 -----------------------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Rename the counters for auth success/failure to prefixed by ``client.auth.``; Rename the counters for ACL checking success/failure to prefixed by ``client.acl.``
 
@@ -371,7 +371,7 @@ EMQ X 4.0-rc.2 is now available and includes the changes below:
 emqx
 ----
 
-**Made the following changes:**
+**Enhancements:**
 
 - Add test cases for more modules and improve test coverage of existing test cases
 
@@ -404,7 +404,7 @@ emqx
 emqx-retainer (plugin)
 ----------------------
 
-**Fixed the following issues:**
+**Bug fixes:**
 
 - EMQ X cannot reply SUBACK to the client in a timely manner when there are a large number of retained messages
 
@@ -414,7 +414,7 @@ emqx-retainer (plugin)
 emqx-dashboard (plugin)
 -----------------------
 
-**Made the following changes:**
+**Enhancements:**
 
 - Add IP field to client list, no need to enter details to view.
 
