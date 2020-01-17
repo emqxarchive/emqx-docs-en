@@ -5,6 +5,85 @@
 Changes
 =======
 
+.. _release_4.0.1:
+
+-------------
+Version 4.0.1
+-------------
+
+*Release Date: 2019-01-17*
+
+EMQ X 4.0.1 is released now. This version mainly focuses on bug fixes and performance optimizes.
+
+emqx
+----
+
+**Made the following changes:**
+
+- `force_shutdown_policy` defaults to disable
+
+  Github PR:
+  `emqx/emqx#3184 <https://github.com/emqx/emqx/pull/3184>`_
+
+- Support timed global GC and provide configuration items
+
+  Github PR:
+  `emqx/emqx#3190 <https://github.com/emqx/emqx/pull/3190>`_
+
+- Tune the default value of ``force_gc_policy``
+
+  Github PR:
+  `emqx/emqx#3192 <https://github.com/emqx/emqx/pull/3192>`_,
+  `emqx/emqx#3201 <https://github.com/emqx/emqx/pull/3201>`_
+
+- Tune and optimize the Erlang VM
+
+  Github PR:
+  `emqx/emqx#3195 <https://github.com/emqx/emqx/pull/3195>`_,
+  `emqx/emqx#3197 <https://github.com/emqx/emqx/pull/3197>`_
+
+**Fixed the following issues:**
+
+- Fix the issue that the feature of ban is abnormal due to using the wrong unit
+
+  Github PR:
+  `emqx/emqx#3188 <https://github.com/emqx/emqx/pull/3188>`_
+
+- Fix the handling of ``Retain As Publish`` and keep the value of ``Retain`` in bridge mode
+
+  Github PR:
+  `emqx/emqx#3189 <https://github.com/emqx/emqx/pull/3189>`_
+
+- Fix the issue of unable to use multiple websocket listening ports
+
+  Github PR:
+  `emqx/emqx#3196 <https://github.com/emqx/emqx/pull/3196>`_
+
+emqx-rule-engine
+----------------
+
+**Made the following changes:**
+
+- Provide more arrays functions of SQL
+
+  Github PR:
+  `emqx/emqx-rule-engine#136 <https://github.com/emqx/emqx-rule-engine/pull/136>`_
+
+- Reduce performance impact when no rules are configured
+
+  Github PR:
+  `emqx/emqx-rule-engine#138 <https://github.com/emqx/emqx-rule-engine/pull/138>`_
+
+emqx-web-hook
+-------------
+
+**Fixed the following issues:**
+
+- Fix crash due to parameter mismatch
+
+  Github PR:
+  `emqx/emqx-web-hook#167 <https://github.com/emqx/emqx-web-hook/pull/167>`_
+
 .. _release_4.0.0:
 
 --------------
