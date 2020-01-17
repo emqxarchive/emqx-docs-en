@@ -824,13 +824,13 @@ Compile and Install EMQ X
 
     .. code-block:: bash
 
-        $ git clone -b v3.2.0 https://github.com/emqx/emqx-rel.git
+        $ git clone -b v4.0.0 https://github.com/emqx/emqx-rel.git
 
 2.  Set environment variables
 
     .. code-block:: bash
 
-        $ export EMQX_DEPS_DEFAULT_VSN=v3.2.0
+        $ export EMQX_DEPS_DEFAULT_VSN=v4.0.0
 
 3.  Compile
 
@@ -845,11 +845,11 @@ Compile and Install EMQ X
 
         $ cd emqx-rel/_rel/emqx
         $ ./bin/emqx start
-        emqx v3.2.0 is started successfully!
+        emqx v4.0.0 is started successfully!
 
         $ ./bin/emqx_ctl status
         Node 'emqx@127.0.0.1' is started
-        emqx 3.2.0 is running
+        emqx 4.0.0 is running
 
 Windows source code compilation and installation
 -------------------------------------------------
@@ -880,7 +880,7 @@ After rebar3 is built successfully, add rebar3 path into the environment path of
 
 .. code-block:: bash
 
-        git clone -b -b v3.2.0 https://github.com/emqx/emqx-rel.git
+        git clone -b -b v4.0.0 https://github.com/emqx/emqx-rel.git
 
         cd emqx-relx && make
 

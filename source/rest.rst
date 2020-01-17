@@ -13,7 +13,7 @@ Base URL
 
 All REST APIs in the documentation have the following base URL::
 
-    http(s)://host:8081/api/v3/
+    http(s)://host:8081/api/v4/
 
 --------------------
 Basic Authentication
@@ -23,7 +23,7 @@ The HTTP requests to the REST API are protected with HTTP Basic authentication. 
 
 .. code-block:: bash
 
-    curl -v --basic -u <appid>:<appsecret> -k http://localhost:8081/api/v3/brokers
+    curl -v --basic -u <appid>:<appsecret> -k http://localhost:8081/api/v4/brokers
 
 ----------
 API's Info
@@ -34,11 +34,11 @@ List all API describe
 
 Definition::
 
-    GET api/v3/
+    GET api/v4/
 
 Example Request::
 
-    GET api/v3/
+    GET api/v4/
 
 Response:
 
@@ -552,11 +552,11 @@ List all Cluster
 
 Definition::
 
-    GET api/v3/brokers/
+    GET api/v4/brokers/
 
 Example Request::
 
-    GET api/v3/brokers/
+    GET api/v4/brokers/
 
 Response:
 
@@ -584,11 +584,11 @@ Retrieve Info of a Node
 
 Definition::
 
-    GET api/v3/brokers/${node}
+    GET api/v4/brokers/${node}
 
 Example Request::
 
-    GET api/v3/brokers/emqx@127.0.0.1
+    GET api/v4/brokers/emqx@127.0.0.1
 
 Response:
 
@@ -611,11 +611,11 @@ List Statistics of All Nodes in the Cluster
 
 Definition::
 
-    GET api/v3/nodes/
+    GET api/v4/nodes/
 
 Example Request::
 
-    GET api/v3/nodes/
+    GET api/v4/nodes/
 
 Response:
 
@@ -649,11 +649,11 @@ Retrieve Statistics of a Specific Node
 
 Definition::
 
-    GET api/v3/nodes/${node}
+    GET api/v4/nodes/${node}
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1
+    GET api/v4/nodes/emqx@127.0.0.1
 
 Response:
 
@@ -688,11 +688,11 @@ List all Clients in the Cluster
 
 Definition::
 
-    GET api/v3/clients
+    GET api/v4/clients
 
 Example Request::
 
-    GET api/v3/clients?_page=1&_limit=10000
+    GET api/v4/clients?_page=1&_limit=10000
 
 Response:
 
@@ -751,11 +751,11 @@ List all Clients on a Node
 
 Definition::
 
-    GET api/v3/nodes/${node}/clients
+    GET api/v4/nodes/${node}/clients
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/clients?_page=1&_limit=10000
+    GET api/v4/nodes/emqx@127.0.0.1/clients?_page=1&_limit=10000
 
 Response:
 
@@ -814,11 +814,11 @@ Retrieve a Client in the Cluster
 
 Definition::
 
-    GET api/v3/clients/${clientid}
+    GET api/v4/clients/${clientid}
 
 Example Request::
 
-    GET api/v3/clients/mosquitto_mqtt
+    GET api/v4/clients/mosquitto_mqtt
 
 Response:
 
@@ -872,11 +872,11 @@ Retrieve a Client on a Node
 
 Definition::
 
-    GET api/v3/nodes/${node}/clients/${clientid}
+    GET api/v4/nodes/${node}/clients/${clientid}
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/clients/mosquitto_mqtt
+    GET api/v4/nodes/emqx@127.0.0.1/clients/mosquitto_mqtt
 
 Response:
 
@@ -930,11 +930,11 @@ Retrieve a Client by Username in the Cluster
 
 Definition::
 
-    GET api/v3/clients/username/${username}
+    GET api/v4/clients/username/${username}
 
 Example Request::
 
-    GET api/v3/clients/username/test
+    GET api/v4/clients/username/test
 
 Response:
 
@@ -988,11 +988,11 @@ Retrieve a Client by Username on a Node
 
 Definition::
 
-    GET api/v3/nodes/${nodes}/clients/username/${username}
+    GET api/v4/nodes/${nodes}/clients/username/${username}
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/clients/username/test
+    GET api/v4/nodes/emqx@127.0.0.1/clients/username/test
 
 Response:
 
@@ -1046,11 +1046,11 @@ Kick-out a Specified Client in Cluster
 
 Definition::
 
-    DELETE api/v3/clients/${clientid}
+    DELETE api/v4/clients/${clientid}
 
 Example Request::
 
-    DELETE api/v3/clients/mosquitto_mqtt
+    DELETE api/v4/clients/mosquitto_mqtt
 
 Response:
 
@@ -1065,11 +1065,11 @@ Get the ACL cache of specified Client
 
 Definition::
 
-    GET api/v3/clients/${clientid}/acl_cache
+    GET api/v4/clients/${clientid}/acl_cache
 
 Example Request::
 
-    GET api/v3/clients/mosquitto_mqtt/acl_cache
+    GET api/v4/clients/mosquitto_mqtt/acl_cache
 
 Response:
 
@@ -1092,11 +1092,11 @@ Clear the ACL cache of specified Client
 
 Definition::
 
-    DELETE api/v3/clients/${clientid}/acl_cache
+    DELETE api/v4/clients/${clientid}/acl_cache
 
 Example Request::
 
-    DELETE api/v3/clients/mosquitto_mqtt/acl_cache
+    DELETE api/v4/clients/mosquitto_mqtt/acl_cache
 
 Response:
 
@@ -1115,11 +1115,11 @@ List all Subscriptions in the Cluster
 
 Definition::
 
-    GET api/v3/subscriptions
+    GET api/v4/subscriptions
 
 Example Request::
 
-    GET api/v3/subscriptions?_page=1&_limit=10000
+    GET api/v4/subscriptions?_page=1&_limit=10000
 
 
 Response:
@@ -1154,11 +1154,11 @@ List Subscriptions of a Connection in the Cluster
 
 Definition::
 
-    GET api/v3/subscriptions/${clientid}
+    GET api/v4/subscriptions/${clientid}
 
 Example Request::
 
-    GET api/v3/subscriptions/mosquitto_mqtt
+    GET api/v4/subscriptions/mosquitto_mqtt
 
 Response:
 
@@ -1181,11 +1181,11 @@ List all Subscriptions of a Node
 
 Definition::
 
-    GET api/v3/nodes/${node}/subscriptions
+    GET api/v4/nodes/${node}/subscriptions
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/subscriptions?_page=1&_limit=10000
+    GET api/v4/nodes/emqx@127.0.0.1/subscriptions?_page=1&_limit=10000
 
 Response:
 
@@ -1219,11 +1219,11 @@ List Subscriptions of a Client on a node
 
 Definition::
 
-    GET api/v3/nodes/${node}/subscriptions/${clientid}
+    GET api/v4/nodes/${node}/subscriptions/${clientid}
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/subscriptions/mosquitto_mqtt
+    GET api/v4/nodes/emqx@127.0.0.1/subscriptions/mosquitto_mqtt
 
 Response:
 
@@ -1250,11 +1250,11 @@ List all Routes in the Cluster
 
 Definition::
 
-    GET api/v3/routes
+    GET api/v4/routes
 
 Example Request::
 
-    GET api/v3/routes
+    GET api/v4/routes
 
 Response:
 
@@ -1284,11 +1284,11 @@ Retrieve a Route of Topic in the Cluster
 
 Definition::
 
-    GET api/v3/routes/${topic}
+    GET api/v4/routes/${topic}
 
 Example Request::
 
-    GET api/v3/routes/t
+    GET api/v4/routes/t
 
 Response:
 
@@ -1313,7 +1313,7 @@ Publish Message
 
 Definition::
 
-    POST api/v3/mqtt/publish
+    POST api/v4/mqtt/publish
 
 Request JSON Parameter:
 
@@ -1329,7 +1329,7 @@ Request JSON Parameter:
 
 Example Request::
 
-    POST api/v3/mqtt/publish
+    POST api/v4/mqtt/publish
 
 Response:
 
@@ -1345,7 +1345,7 @@ Create a Subscription
 
 Definition::
 
-    POST api/v3/mqtt/subscribe
+    POST api/v4/mqtt/subscribe
 
 Request JSON Parameter:
 
@@ -1359,7 +1359,7 @@ Request JSON Parameter:
 
 Example Request::
 
-    POST api/v3/mqtt/subscribe
+    POST api/v4/mqtt/subscribe
 
 Response:
 
@@ -1374,7 +1374,7 @@ Unsubscribe Topic
 
 Definition::
 
-    POST api/v3/mqtt/unsubscribe
+    POST api/v4/mqtt/unsubscribe
 
 Request JSON Parameter:
 
@@ -1387,7 +1387,7 @@ Request JSON Parameter:
 
 Example Request::
 
-    POST api/v3/mqtt/unsubscribe
+    POST api/v4/mqtt/unsubscribe
 
 Response:
 
@@ -1406,11 +1406,11 @@ List all Plugins of Cluster
 
 Definition::
 
-    GET api/v3/plugins
+    GET api/v4/plugins
 
 Example Request::
 
-    GET api/v3/plugins
+    GET api/v4/plugins
 
 Response:
 
@@ -1607,11 +1607,11 @@ List all Plugins of a Node
 
 Definition::
 
-    GET api/v3/nodes/${node}/plugins
+    GET api/v4/nodes/${node}/plugins
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/plugins
+    GET api/v4/nodes/emqx@127.0.0.1/plugins
 
 Response:
 
@@ -1803,11 +1803,11 @@ Start a Plugin
 
 Definition::
 
-    PUT api/v3/nodes/${node}/plugins/${plugin}/load
+    PUT api/v4/nodes/${node}/plugins/${plugin}/load
 
 Example Request::
 
-    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_auth_clientid/load
+    PUT api/v4/nodes/emqx@127.0.0.1/plugins/emqx_auth_clientid/load
 
 Response:
 
@@ -1823,11 +1823,11 @@ Stop a Plugin
 
 Definition::
 
-    PUT api/v3/nodes/${node}/plugins/${plugin}/unload
+    PUT api/v4/nodes/${node}/plugins/${plugin}/unload
 
 Example Request::
 
-    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_auth_clientid/unload
+    PUT api/v4/nodes/emqx@127.0.0.1/plugins/emqx_auth_clientid/unload
 
 Response:
 
@@ -1842,11 +1842,11 @@ Restart a Plugin
 
 Definition::
 
-    PUT api/v3/nodes/${node}/plugins/${plugin}/reload
+    PUT api/v4/nodes/${node}/plugins/${plugin}/reload
 
 Example Request::
 
-    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_auth_clientid/reload
+    PUT api/v4/nodes/emqx@127.0.0.1/plugins/emqx_auth_clientid/reload
 
 Response:
 
@@ -1865,11 +1865,11 @@ List all Listeners of Cluster
 
 Definition::
 
-    GET api/v3/listeners
+    GET api/v4/listeners
 
 Example Request::
 
-    GET api/v3/listeners
+    GET api/v4/listeners
 
 Response:
 
@@ -1950,11 +1950,11 @@ list all Listeners of a Node
 
 Definition::
 
-    GET api/v3/nodes/${node}/listeners
+    GET api/v4/nodes/${node}/listeners
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/listeners
+    GET api/v4/nodes/emqx@127.0.0.1/listeners
 
 Response:
 
@@ -2034,11 +2034,11 @@ Get Statistics in the Cluster
 
 Definition::
 
-    GET api/v3/metrics
+    GET api/v4/metrics
 
 Example Request::
 
-    GET api/v3/metrics
+    GET api/v4/metrics
 
 Response:
 
@@ -2121,11 +2121,11 @@ Get Statistics of a specified Node
 
 Definition::
 
-    GET api/v3/nodes/${node}/metrics
+    GET api/v4/nodes/${node}/metrics
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/metrics
+    GET api/v4/nodes/emqx@127.0.0.1/metrics
 
 Response:
 
@@ -2207,11 +2207,11 @@ Get Statistics of connected session of Cluster
 
 Definition::
 
-    GET api/v3/stats
+    GET api/v4/stats
 
 Example Request::
 
-    GET api/v3/stats
+    GET api/v4/stats
 
 Response:
 
@@ -2259,11 +2259,11 @@ Get Statistics of connected session on specified node
 
 Definition::
 
-    GET api/v3/nodes/${node}/stats
+    GET api/v4/nodes/${node}/stats
 
 Example Request::
 
-    GET api/v3/nodes/emqx@127.0.0.1/stats
+    GET api/v4/nodes/emqx@127.0.0.1/stats
 
 Response:
 
@@ -2310,11 +2310,11 @@ Get Current Alarms of Cluster
 
 Definition::
 
-    GET api/v3/alarms/present
+    GET api/v4/alarms/present
 
 Example Request::
 
-    GET api/v3/alarms/present
+    GET api/v4/alarms/present
 
 Response:
 
@@ -2335,11 +2335,11 @@ Get Current Alarms of Specified Node
 
 Definition::
 
-    GET api/v3/alarms/present/${node}
+    GET api/v4/alarms/present/${node}
 
 Example Request::
 
-    GET api/v3/alarms/present/emqx@127.0.0.1
+    GET api/v4/alarms/present/emqx@127.0.0.1
 
 Response:
 
@@ -2355,11 +2355,11 @@ Get Alarms History of Cluster
 
 Definition::
 
-    GET api/v3/alarms/history
+    GET api/v4/alarms/history
 
 Example Request::
 
-    GET api/v3/alarms/history
+    GET api/v4/alarms/history
 
 Response:
 
@@ -2386,11 +2386,11 @@ Get Alarms History of Specified Node
 
 Definition::
 
-    GET api/v3/alarms/present/${node}
+    GET api/v4/alarms/present/${node}
 
 Example Request::
 
-    GET api/v3/alarms/present/emqx@127.0.0.1
+    GET api/v4/alarms/present/emqx@127.0.0.1
 
 Response:
 
@@ -2416,11 +2416,11 @@ List all Ban Records in the Cluster
 
 Definition::
 
-    GET api/v3/banned
+    GET api/v4/banned
 
 Example Request::
 
-    GET api/v3/banned?_page=1&_limit=10000
+    GET api/v4/banned?_page=1&_limit=10000
 
 Response:
 
@@ -2450,7 +2450,7 @@ Create a Ban Record
 
 Definition::
 
-    POST api/v3/banned
+    POST api/v4/banned
 
 Request JSON Parameter:
 
@@ -2465,7 +2465,7 @@ Request JSON Parameter:
 
 Example Request::
 
-    POST api/v3/banned
+    POST api/v4/banned
 
 Response:
 
@@ -2486,11 +2486,11 @@ Delete a Ban Record
 
 Definition::
 
-    DELETE api/v3/banned/${as}/${who}
+    DELETE api/v4/banned/${as}/${who}
 
 Example Request::
 
-    DELETE api/v3/banned/clientid/mqttjs_ab9069449e
+    DELETE api/v4/banned/clientid/mqttjs_ab9069449e
 
 Response:
 
@@ -2509,7 +2509,7 @@ When the HTTP status code is 5xx, the response returns the error message
 
 Example Request::
 
-    PUT api/v3/nodes/emqx@127.0.0.1/plugins/emqx_recon/load
+    PUT api/v4/nodes/emqx@127.0.0.1/plugins/emqx_recon/load
 
 Response:
 
@@ -2550,7 +2550,7 @@ Create Rule
 
 Definition::
 
-  POST api/v3/rules
+  POST api/v4/rules
 
 Parameters:
 
@@ -2616,11 +2616,11 @@ Query Rule
 
 Definition::
 
-  GET api/v3/rules/:id
+  GET api/v4/rules/:id
 
 Request Example::
 
-  GET api/v3/rules/test-rule:1556263150688255821
+  GET api/v4/rules/test-rule:1556263150688255821
 
 Response Example:
 
@@ -2650,7 +2650,7 @@ List Rules
 
 Definition::
 
-  GET api/v3/rules
+  GET api/v4/rules
 
 Response Example:
 
@@ -2681,11 +2681,11 @@ Delete a Rule
 
 Definition::
 
-  DELETE api/v3/rules/:id
+  DELETE api/v4/rules/:id
 
 Request Example::
 
-  DELETE api/v3/rules/test-rule:1556263150688255821
+  DELETE api/v4/rules/test-rule:1556263150688255821
 
 Response Example:
 
@@ -2701,11 +2701,11 @@ List Actions
 
 Definition::
 
-  GET api/v3/actions?for=${hook_type}
+  GET api/v4/actions?for=${hook_type}
 
 Request Example::
 
-  GET api/v3/actions
+  GET api/v4/actions
 
 Response Example:
 
@@ -2774,7 +2774,7 @@ Response Example:
   }
 
 Request Example::
-  GET 'api/v3/actions?for=client.connected'
+  GET 'api/v4/actions?for=client.connected'
 
 Response Example:
 
@@ -2797,11 +2797,11 @@ Query Actions
 
 Definition::
 
-  GET api/v3/actions/:action_name
+  GET api/v4/actions/:action_name
 
 Request Example::
 
-  GET 'api/v3/actions/built_in:inspect_action'
+  GET 'api/v4/actions/built_in:inspect_action'
 
 Response Example:
 
@@ -2824,7 +2824,7 @@ List Resource Types
 
 Definition::
 
-  GET api/v3/resource_types
+  GET api/v4/resource_types
 
 Response Example:
 
@@ -2858,11 +2858,11 @@ Query Resource Types
 
 Definition::
 
-  GET api/v3/resource_types/:type
+  GET api/v4/resource_types/:type
 
 Request Example::
 
-  GET api/v3/resource_types/built_in
+  GET api/v4/resource_types/built_in
 
 Response Example:
 
@@ -2884,11 +2884,11 @@ Query Resources by Resource Type
 
 Definition::
 
-  GET api/v3/resource_types/:type/resources
+  GET api/v4/resource_types/:type/resources
 
 Request Example::
 
-  GET api/v3/resource_types/built_in/resources
+  GET api/v4/resource_types/built_in/resources
 
 Response Example:
 
@@ -2913,10 +2913,10 @@ Query Actions by Resource Type
 
 Definition::
 
-  GET api/v3/resource_types/:type/actions
+  GET api/v4/resource_types/:type/actions
 
 Request Example::
-  GET api/v3/resource_types/built_in/actions
+  GET api/v4/resource_types/built_in/actions
 
 Response Example:
 
@@ -2954,7 +2954,7 @@ Create Resource
 
 Definition::
 
-  POST api/v3/resources
+  POST api/v4/resources
 
 Parameters:
 
@@ -3003,7 +3003,7 @@ List Resources
 
 Definition::
 
-  GET api/v3/resources
+  GET api/v4/resources
 
 Response Example:
 
@@ -3038,11 +3038,11 @@ Query Resource
 
 Definition::
 
-  GET api/v3/resources/:resource_id
+  GET api/v4/resources/:resource_id
 
 Request Example::
 
-  GET 'api/v3/resources/built_in:test-resource'
+  GET 'api/v4/resources/built_in:test-resource'
 
 Response Example:
 
@@ -3067,11 +3067,11 @@ Delete Resources
 
 Definition::
 
-  DELETE api/v3/resources/:resource_id
+  DELETE api/v4/resources/:resource_id
 
 Request Example::
 
-  DELETE 'api/v3/resources/built_in:test-resource'
+  DELETE 'api/v4/resources/built_in:test-resource'
 
 Response Example:
 
