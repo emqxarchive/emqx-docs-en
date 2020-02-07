@@ -69,7 +69,7 @@ cowboy (dependency)
 
 **Bug fixes:**
 
-- Fix the issue that will message will not be sent in some cases
+- Fix the issue that will message will not be sent in some cases when using Websocket connection
 
   Github Issue:
   `emqx/emqx#3221 <https://github.com/emqx/emqx/issues/3221>`_
