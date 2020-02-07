@@ -64,6 +64,19 @@ emqx-auth-redis (plugin)
   Github PR:
   `emqx/emqx-auth-redis#151 <https://github.com/emqx/emqx-auth-redis/pull/151>`_
 
+cowboy (dependency)
+-------------------
+
+**Bug fixes:**
+
+- Fix the issue that will message will not be sent in some cases
+
+  Github Issue:
+  `emqx/emqx#3221 <https://github.com/emqx/emqx/issues/3221>`_
+
+  Github Commit:
+  `emqx/cowboy#3b6bda <https://github.com/emqx/cowboy/commit/3b6bdaf4f2e3c5b793a0c3cada2c3b74c3d5e885>`_
+
 .. _release_4.0.1:
 
 -------------
