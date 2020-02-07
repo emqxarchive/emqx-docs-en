@@ -5,6 +5,65 @@
 Changes
 =======
 
+.. _release_4.0.2:
+
+-------------
+Version 4.0.2
+-------------
+
+*Release Date: 2019-02-07*
+
+EMQ X 4.0.2 is released now. This version mainly focuses on bug fixes and performance optimizes.
+
+emqx
+----
+
+**Enhancements:**
+
+- Enhance performance of json encode/decode
+
+  Github PR:
+  `emqx/emqx#3213 <https://github.com/emqx/emqx/pull/3213>`_,
+  `emqx/emqx#3230 <https://github.com/emqx/emqx/pull/3230>`_,
+  `emqx/emqx#3235 <https://github.com/emqx/emqx/pull/3235>`_
+
+- Compress the generated object code
+
+  Github PR:
+  `emqx/emqx#3214 <https://github.com/emqx/emqx/pull/3214>`_
+
+**Bug fixes:**
+
+- Fix the issue that DISCONNECT packet will not be sent in some cases
+
+  Github PR:
+  `emqx/emqx#3208 <https://github.com/emqx/emqx/pull/3208>`_
+
+- Fix the issue that the connection will be closed when broker received the same Packet ID
+
+  Github PR:
+  `emqx/emqx#3233 <https://github.com/emqx/emqx/pull/3233>`_
+
+emqx-stomp (plugin)
+-------------------
+
+**Bug fixes:**
+
+- Fix the issue that the maximum number of connections doesn't take effect
+
+  Github PR:
+  `emqx/emqx-stomp#93 <https://github.com/emqx/emqx-stomp/pull/93>`_
+
+emqx-auth-redis (plugin)
+------------------------
+
+**Bug fixes:**
+
+- Fix the issue that internal module start failed
+
+  Github PR:
+  `emqx/emqx-auth-redis#151 <https://github.com/emqx/emqx-auth-redis/pull/151>`_
+
 .. _release_4.0.1:
 
 -------------
