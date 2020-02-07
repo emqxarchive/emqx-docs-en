@@ -15,7 +15,7 @@ After downloading the package, it can be installed or unzipped directly to start
 
 .. code-block:: bash
 
-    unzip emqx-macosx-v3.2.0.zip && cd emqx
+    unzip emqx-macosx-v4.0.0.zip && cd emqx
 
     # Start emqx
     ./bin/emqx start
@@ -156,7 +156,7 @@ The authentication plugins provided by EMQ X include:
 | `emqx_auth_mongo`_         | MongoDB authentication plugin                 |
 +----------------------------+-----------------------------------------------+
 
-For the configuration and usage of each authentication plug-in, please refer to authentication section of the `Plugins <https://docs.emqx.io/broker/v3/en/plugins.html>`_.
+For the configuration and usage of each authentication plug-in, please refer to authentication section of the `Plugins <https://docs.emqx.io/broker/v4/en/plugins.html>`_.
 
 
 .. note:: Multiple auth plug-ins can be started at the same time. The plug-in that starts first checks first.
@@ -474,14 +474,14 @@ HTTP Publish API
 
 The EMQ X message server provides an HTTP publish interface through which an application server or web server can publish MQTT messages::
 
-    HTTP POST http://host:8081/api/v3/mqtt/publish
+    HTTP POST http://host:8081/api/v4/mqtt/publish
 
 Web servers such as PHP/Java/Python/NodeJS or Ruby on Rails can publish MQTT messages via HTTP POST requests:
 
 .. code:: bash
 
     curl -v --basic -u user:passwd -H "Content-Type: application/json" -d \
-    '{"qos":1, "retain": false, "topic":"world", "payload":"test" , "clientid": "C_1492145414740"}' \-k http://localhost:8081/api/v3/mqtt/publish
+    '{"qos":1, "retain": false, "topic":"world", "payload":"test" , "clientid": "C_1492145414740"}' \-k http://localhost:8081/api/v4/mqtt/publish
 
 HTTP interface parameters:
 
