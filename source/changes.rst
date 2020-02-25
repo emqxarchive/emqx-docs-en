@@ -5,6 +5,58 @@
 Changes
 =======
 
+.. _release_4.0.3:
+
+-------------
+Version 4.0.3
+-------------
+
+*Release Date: 2019-02-21*
+
+EMQ X 4.0.3 is released now. This version mainly focuses on bug fixes.
+
+emqx
+----
+
+**Enhancements:**
+
+- Add an option to allow client bypass auth plugins
+
+  Github PR:
+  `emqx/emqx#3253 <https://github.com/emqx/emqx/pull/3253>`_
+
+**Bug fixes:**
+
+- Fix the issue of printing unnecessary error logs under some competitive conditions
+
+  Github PR:
+  `emqx/emqx#3246 <https://github.com/emqx/emqx/pull/3253>`_
+
+emqx-management (plugin)
+------------------------
+
+**Bug fixes:**
+
+- Remove fields and functions that are no longer in use and fix wrong field values
+
+  Github PR:
+  `emqx/emqx-management#176 <https://github.com/emqx/emqx-management/pull/176>`_
+
+- Fix the issue that the client list cannot be returned correctly in the cluster
+
+  Github PR:
+  `emqx/emqx-management#173 <https://github.com/emqx/emqx-management/pull/173>`_
+
+- Fix HTTPS Listening Options
+
+  Github PR:
+  `emqx/emqx-management#172 <https://github.com/emqx/emqx-management/pull/172>`_
+
+- Fix the return format of the application list
+
+  Github PR:
+  `emqx/emqx-management#169 <https://github.com/emqx/emqx-management/pull/169>`_
+
 .. _release_4.0.2:
 
 -------------
