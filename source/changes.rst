@@ -5,6 +5,73 @@
 Changes
 =======
 
+.. _release_4.0.4:
+
+--------------
+Version 4.0.4
+--------------
+
+*Release Date: 2019-03-06*
+
+EMQ X 4.0.4 is released now. This version mainly focuses on bug fixes.
+
+emqx
+----
+
+**Bug fixes:**
+
+- Fix the issue that the ``acl_deny_action`` configuration item does not working
+
+  Github issue:
+  `emqx/emqx#3266 <https://github.com/emqx/emqx/issues/3266>`_
+
+  Github PR:
+  `emqx/emqx#3286 <https://github.com/emqx/emqx/pull/3286>`_
+
+- Fix wrong type of ``mountpoint`` configuration item
+
+  Github issue:
+  `emqx/emqx#3271 <https://github.com/emqx/emqx/issues/3271>`_
+
+  Github PR:
+  `emqx/emqx#3272 <https://github.com/emqx/emqx/pull/3272>`_
+
+- Fix the issue that the ``peer_cert_as_username`` configuration item does not working
+
+  Github issue:
+  `emqx/emqx#3281 <https://github.com/emqx/emqx/issues/3281>`_
+
+  Github PR:
+  `emqx/emqx#3291 <https://github.com/emqx/emqx/pull/3291>`_
+
+- Fix the issue that the error log is still printed after the connection is closed normally
+
+  Github PR:
+  `emqx/emqx#3290 <https://github.com/emqx/emqx/pull/3290>`_
+
+emqx-dashboard (plugin)
+-----------------------
+
+**Bug fixes:**
+
+- Fix blank issue in Dashboard node drop-down list
+
+  Github issue:
+  `emqx/emqx#3278 <https://github.com/emqx/emqx/issues/3278>`_
+
+  Github PR:
+  `emqx/emqx-dashboard#206 <https://github.com/emqx/emqx-dashboard/pull/206>`_
+
+emqx-retainer (plugin)
+----------------------
+
+**Bug fixes:**
+
+- The behavior after the maximum number of retained messages has been stored is corrected by the inability to store any retained messages to retained messages that can replace existing topics
+
+  Github PR:
+  `emqx/emqx-retainer#136 <https://github.com/emqx/emqx-retainer/pull/136>`_
+
 .. _release_4.0.3:
 
 -------------
