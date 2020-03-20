@@ -15,16 +15,13 @@ category:
 ref: undefined
 ---
 
-# EMQ X 消息服务器简介
+# Introduction to EMQ X Broker
 
-*EMQ X* (Erlang/Enterprise/Elastic MQTT Broker) 是基于 Erlang/OTP
-平台开发的开源物联网 MQTT 消息服务器。Erlang/OTP
-是出色的软实时 (Soft-Realtime)、低延时 (Low-Latency)、分布式 (Distributed)
-的语言平台。MQTT 是轻量的 (Lightweight)、发布订阅模式 (PubSub) 的物联网消息协议。
+*EMQ X* (Erlang/Enterprise/Elastic MQTT Broker) is an open source IoT MQTT message broker based on the Erlang/OTP platform. Erlang/OTP is an excellent Soft-Realtime, Low-Latency and Distributed development platform. MQTT is a lightweight message exchange protocol using publish-subscribe pattern.
 
-*EMQ X* 面向海量的 ** 移动 / 物联网 / 车载 ** 等终端接入，并实现在海量物理网设备间快速低延时的消息路由:
+*EMQ X* is designed for massive clients access and realizes fast and low-latency message routing between massive physical network devices:
 
-1.  稳定承载大规模的 MQTT 客户端连接，单服务器节点支持百万连接。
-2.  分布式节点集群，快速低延时的消息路由，单集群支持千万规模的路由。
-3.  消息服务器内扩展，支持定制多种认证方式、高效存储消息到后端数据库。
-4.  完整物联网协议支持，MQTT、MQTT-SN、CoAP、LwM2M、私有 TCP/UDP 协议支持。
+1.  Stable to host large-scale MQTT client connections, and a single-server node supports millions of connections.
+2.  Distributed cluster, fast and low-latency message routing, and single-cluster supports tens of thousands of routes.
+3.  Extensible, support customized plugins, such as authentication and other functions.
+4.  Comprehensive IoT protocol support, including MQTT, MQTT-SN, CoAP, LwM2M, and other TCP/UDP based proprietary protocol.
