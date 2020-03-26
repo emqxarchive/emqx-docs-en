@@ -15,87 +15,84 @@ category:
 ref: undefined
 ---
 
-# 内置 ACL
+# Built-in ACL
 
-内置 ACL 通过文件设置规则，使用上足够简单轻量，适用于规则数量可预测、无变动需求或变动较小的项目。
+The built-in ACL sets rules through files, which is simple and lightweight to use. It is suitable for projects with predictable number of rules, no change or small change requirements.
 
-ACL 规则文件：
+ACL rules file:
 
 ```bash
 etc/acl.conf
 ```
 
 {% hint style="info" %}
-内置 ACL 优先级最低，可以被 ACL 插件覆盖，如需禁用全部注释即可。规则文件更改后需重启 EMQ X Broker 以应用生效。
+The built-in ACL has the lowest priority and can be overridden by the ACL plugin. If you want to disable it, you can comment all the rules. After the rules file is changed, EMQ X Broker needs to be restarted to make them taking effect.
+
 {% endhint %}
 
 
-## 定义 ACL
+## Define ACL
 
-内置 ACL 是优先级最低规则表，在所有的 ACL 检查完成后，如果仍然未命中则检查默认的 ACL 规则。
+The built-in ACL is the lowest priority rule table. If it is not hit after all the ACL checks are completed, the default ACL rule is checked.
 
-该规则文件以 Erlang 语法的格式进行描述：
+The rules file is described in Erlang syntax:
 
 ```erlang
-%% 允许 "dashboard" 用户 订阅 "$SYS/#" 主题
+%% Allow "dashboard" users to subscribe to "$ SYS / #" topics
 {allow, {user, "dashboard"}, subscribe, ["$SYS/#"]}.
 
-%% 允许 IP 地址为 "127.0.0.1" 的用户 发布/订阅 "#SYS/#"，"#" 主题
+%% Allow users with IP address "127.0.0.1" to publish/subscribe to topics "# SYS/#", "#"
 {allow, {ipaddr, "127.0.0.1"}, pubsub, ["$SYS/#", "#"]}.
 
-%% 拒绝 "所有用户" 订阅 "$SYS/#" "#" 主题
+%% Deny "All Users" subscribe to "$ SYS/#" "#" Topics
 {deny, all, subscribe, ["$SYS/#", {eq, "#"}]}.
 
-%% 允许其它任意的发布订阅操作
+%% Allow any other publish/subscribe operation
 {allow, all}.
 ```
 
-1. 第一条规则允许客户端发布订阅所有主题
-2. 第二条规则禁止全部客户端订阅 `$SYS/#` 与 `#` 主题
-3. 第三条规则允许 ip 地址为 `127.0.0.1` 的客户端发布/订阅 `$SYS/#` 与 `#` 主题，为第二条开了特例
-4. 第四条规则允许用户名为 `dashboard` 的客户端订阅 `$SYS/#` 主题，为第二条开了特例
+1. The first rule allows clients to publish and subscribe to all topics
+2. The second rule prohibits all clients from subscribing to the topics `$ SYS / #` and `#`
+3. The third rule allows clients with IP address `127.0.0.1` to publish / subscribe to the topics ` $ SYS / # `and ` # `, which makes a special case for the second rule
+4. The fourth rule allows clients with the username `dashboard` to subscribe to the topic ` $ SYS / # `, which makes a special case for the second rule
 
-可知，默认的 ACL 主要是为了限制客户端对系统主题 `$SYS/#` 和全通配主题 `#` 的权限。
+It can be seen that the default ACL is mainly to restrict the client's permissions on the system topic `$SYS/#` and the all wildcard topic `#`.
 
 
-## acl.conf 编写规则
+## acl.conf Writing rules
 
-`acl.conf` 文件中的规则按书写顺序从上往下匹配。
+The rules in the `acl.conf` file are matched from top to bottom in writing order.
 
-`acl.conf` 的语法规则包含在顶部的注释中，熟悉 Erlang 语法的可直接阅读文件顶部的注释。或参考以下的释义：
+The syntax rules of `acl.conf` are included in the comments at the top. Those familiar with Erlang syntax can read the comments at the top of the file directly or refer to the following descriptions:
 
-- 以 `%%` 表示行注释。
-- 每条规则由四元组组成，以 `.` 结束。
-- 元组第一位：表示规则命中成功后，执行权限控制操作，可取值为：
-    * `allow`：表示 `允许`
-    * `deny`： 表示 `拒绝`
+- Line comments are expressed as `%%`.
+- Each rule consists of four tuples and ends with `.`.
+- The first position of the tuple indicates that after the rule is successfully hit, the permission control operation is performed. The possible values are:
+    * `allow`
+    * `deny`
+- The second position of the tuple indicates the user to which the rule takes effect. The format that can be used is:
+    * `{user, "dashboard"}`：The rule only takes effect for users whose Username  is dashboard
+    * `{clientid, "dashboard"}`：The rule only takes effect for users whose ClientId is dashboard
+    * `{ipaddr, "127.0.0.1"}`：The rule only takes effect for users whose Source Address is "127.0.0.1"
+    * `all`：The rule takes effect for all users
+- The third position of the tuple indicates the operation controlled by the rule with the possible value:
+    * `publish`：The rule applies to PUBLISH operations
+    * `subscribe`：The rule applies to SUBSCRIBE operations
+    * `pubsub`：The rule applies to both PUBLISH and SUBSCRIBE operations
+- The fourth position of the tuple means the list of topics restricted by the rule. The content is given in the form of an array. For example:
+    * `"$SYS/#"`：a **Topic Filter** which means that the rule can hit topics that match `$ SYS / #`; for example, it can hit "$SYS/#" and "$SYS/a/b/c"
+    * `{eq, "#"}`：It indicates full equivalence of characters. The rule can only hit strings with the topic `#`. It cannot hit `/a/b/c`, etc.
+- In addition, there are two special rules:
+    - `{allow, all}`：Allow all operations
+    - `{deny, all}`：Deny all operations
 
-- 元组第二位：表示规则所生效的用户，可使用的格式为：
-    * `{user, "dashboard"}`：表明规则仅对 *用户名 (Username)* 为 "dashboard" 的用户生效
-    * `{clientid, "dashboard"}`：表明规则仅对 *客户端标识 (ClientId)* 为 "dashboard" 的用户生效
-    * `{ipaddr, "127.0.0.1"}`：表明规则仅对 *源地址* 为 "127.0.0.1" 的用户生效
-    * `all`：表明规则对所有的用户都生效
-
-- 元组第三位：表示规则所控制的操作，可取值为：
-    * `publish`：表明规则应用在 PUBLISH 操作上
-    * `subscribe`：表明规则应用在 SUBSCRIBE 操作上
-    * `pubsub`：表明规则对 PUBLISH 和 SUBSCRIBE 操作都有效
-
-- 元组第四位：表示规则所限制的主题列表，内容以数组的格式给出，例如：
-    * `"$SYS/#"`：为一个 **主题过滤器 (Topic Filter)**；表示规则可命中与 `$SYS/#` 匹配的主题；如：可命中 "$SYS/#"，也可命中 "$SYS/a/b/c"
-    * `{eq, "#"}`：表示字符的全等，规则仅可命中主题为 `#` 的字串，不能命中 `/a/b/c` 等
-
-- 除此之外还存在两条特殊的规则：
-    - `{allow, all}`：允许所有操作
-    - `{deny, all}`：拒绝所有操作
-
-在 `acl.conf` 修改完成后，并不会自动加载至 EMQ X Broker 系统。需要手动执行：
+After the `acl.conf` modification is completed, it will not be automatically loaded into the EMQ X Broker system, but needs to be performed manually:
 
 ```bash
 ./bin/emqx_ctl acl reload
 ```
 
-
 {% hint style="info" %}
-acl.conf 中应只包含一些简单而通用的规则，使其成为系统基础的 ACL 原则。如果需要支持复杂、大量的 ACL 内容，你应该在认证插件中去实现它。
+Only a few simple and general rules is contained in acl.conf that make it a system-based ACL principle. If you need to support complex, large amounts of ACL content, you should implement it in an authentication plugin.
+
 {% endhint %}

@@ -15,62 +15,62 @@ category:
 ref: undefined
 ---
 
-# 发布订阅 ACL
+# Publish/Subscribe ACL
 
-**发布订阅 ACL** 指对 **发布 (PUBLISH)/订阅 (SUBSCRIBE)** 操作的 **权限控制**。例如拒绝用户名为 `Anna` 向 `open/elsa/door` 发布消息。
+**Publish/Subscribe ACL** refers to **permission control**  for  **PUBLISH/SUBSCRIBE** operations. For example, the user name with the name `Anna` is prohibited to publish messages to ` open / elsa / door`.
 
-EMQ X 支持通过客户端发布订阅 ACL 进行客户端权限的管理，本章节介绍了 EMQ X 支持的发布订阅 ACL 以及对应插件的配置方法。
-
-
-## ACL 插件
-
-EMQ X 支持使用配置文件、外部主流数据库和自定义 HTTP API 作为 ACL 数据源。
-
-连接数据源、进行访问控制功能是通过插件实现的，使用前需要启用相应的插件。
-
-客户端订阅主题、发布消息时插件通过检查目标主题（Topic）是否在指定数据源允许/禁止列表内来实现对客户端的发布、订阅权限管理。
+EMQ X supports the permission management of client through client publish/subscribe ACLs. This chapter describes the publish/subscribe ACLs supported by EMQ X and the configuration methods of corresponding plugins.
 
 
+## ACL Plugins
 
-**配置文件**
+EMQ x supports the use of configuration files, external mainstream databases, and custom HTTP APIs as ACL data sources.
 
-* [内置 ACL](./acl-file.md)
+The data source connection and access control functions are implemented through plugins, and the corresponding plugins need to be enabled before use.
 
-使用配置文件提供认证数据源，适用于变动较小的 ACL 管理。
+When a client subscribes to a topic or publishes a message, the plugin implements the management of publishing and subscription permissions for the client by checking whether the target topic is in the specified data source list.
 
 
 
-**外部数据库**
+**Configuration file **
+
+* [Built-in ACL](./acl-file.md)
+
+The configuration file is used to provide an authentication data source, which is suitable for ACL management with less changes.
+
+
+
+**External Database**
 
 * [MySQL ACL](./acl-mysql.md)
 * [PostgreSQL ACL](./acl-postgres.md)
 * [Redis ACL](./acl-redis.md)
 * [MongoDB ACL](./acl-mongodb.md)
 
-外部数据库可以存储大量数据、动态管理 ACL，方便与外部设备管理系统集成。
+The external database can store a large amount of data and dynamically manage ACLs to facilitate integration with external device management systems.
 
 
 
-**其他**
+**Else**
 
 * [HTTP ACL](./acl-http.md)
 
-HTTP ACL 能够实现复杂的 ACL 管理。
+HTTP ACL enables complex ACL management.
 
 
 
 {% hint style="info" %} 
 
-ACL 功能包含在认证鉴权插件中，更改插件配置后需要**重启插件**才能生效，
+The ACL function is included in the authentication plugin. After changing the plugin configuration, you need to restart the plugin to take effect.
 
 {% endhint %}
 
 
 
 
-## 规则详解
+## Detailed Rules
 
-ACL 是允许与拒绝条件的集合，EMQ X 中使用以下元素描述 ACL 规则：
+ACL is a collection of allowing and denying conditions. The following elements are used in EMQ X to describe ACL rules:
 
 ```bash
 ## Allow-Deny Who Pub-Sub Topic
@@ -78,12 +78,12 @@ ACL 是允许与拒绝条件的集合，EMQ X 中使用以下元素描述 ACL �
 "允许(Allow) / 拒绝(Deny)"  "谁(Who)"  "订阅(Subscribe) / 发布(Publish)" "主题列表(Topics)"
 ```
 
-同时具有多条 ACL 规则时，EMQ X 将按照规则排序进行合并，以 [ACL 文件](./acl-file.md) 中的默认 ACL 为例，ACL 文件中配置了默认的 ACL 规则，规则从下至上加载：
+When there are multiple ACL rules at the same time, EMQ X will merge them in order according to the rules. Taking the default ACL in [ACL file](./acl-file.md) as an example, it loads the rule from bottom to top:
 
-1. 第一条规则允许客户端发布订阅所有主题
-2. 第二条规则禁止全部客户端订阅 `$SYS/#` 与 `#` 主题
-3. 第三条规则允许 ip 地址为 `127.0.0.1` 的客户端发布/订阅 `$SYS/#` 与 `#` 主题，为第二条开了特例
-4. 第四条规则允许用户名为 `dashboard` 的客户端订阅 `$SYS/#` 主题，为第二条开了特例
+1. The first rule allows clients to publish and subscribe to all topics
+2. The second rule prohibits all clients from subscribing to the topics `$ SYS / #` and `#`
+3. The third rule allows clients with IP address `127.0.0.1` to publish / subscribe to the topics ` $ SYS / # `and ` # `, which makes a special case for the second rule
+4. The fourth rule allows clients with the username `dashboard` to subscribe to the topic ` $ SYS / # `, which makes a special case for the second rule
 
 ```erlang
 {allow, {user, "dashboard"}, subscribe, ["$SYS/#"]}.
@@ -97,31 +97,31 @@ ACL 是允许与拒绝条件的集合，EMQ X 中使用以下元素描述 ACL �
 
 
 
-## 授权结果
+## Authentication results
 
-任何一次 ACL 授权最终都会返回一个结果：
+Any  ACL authentication eventually returns a result:
 
-- 允许：经过检查允许客户端进行操作
-- 禁止：经过检查禁止客户端操作
-- 忽略（ignore）：未查找到 ACL 权限信息，无法显式判断结果是允许还是禁止，交由下一 ACL 插件或默认 ACL 规则来判断
+- Allow: Client operation is allowed after checking
+- Deny: Client operations are denied after inspection
+- Ignore: No ACL permission information was found, and the result could not be explicitly determined as allowed or denied. It will be determined by the next ACL plugin or the default ACL rule.
 
 
 
-## 全局配置
+## Global Configuration
 
-默认配置中 ACL 是开放授权的，即授权结果为**忽略（ignore）**时**允许**客户端通过授权。
+In the default configuration, ACL is open for authentication, which means when the authentication result is **ignore**, the client is allowed to pass the authentication.
 
-通过 `etc/emqx.conf` 中的 ACL 配置可以更改该属性：
+This property can be changed through the ACL configuration in `etc / emqx.conf`:
 
 ```bash
 # etc/emqx.conf
 
-## ACL 未匹配时默认授权
+## Default authentication when ACLs do not match
 ## Value: allow | deny
 acl_nomatch = allow
 ```
 
-配置默认 [ACL 文件](./acl-file.md)，使用文件定义默认 ACL 规则：
+Configure the default  [ACL file](./acl-file.md) and use the file to define the default ACL rule:
 
 ```bash
 # etc/emqx.conf
@@ -129,7 +129,7 @@ acl_nomatch = allow
 acl_file = etc/acl.conf
 ```
 
-配置 ACL 授权结果为**禁止**的响应动作，为 `ignore` 时将断开设备：
+Configure the response action when ACL authentication is  **deny**, the device will be disconnected if it is `ignore`:
 
 ```bash
 # etc/emqx.conf
@@ -139,54 +139,57 @@ acl_deny_action = ignore
 ```
 
 {% hint style="info" %}
-在 MQTT v3.1 和 v3.1.1 协议中，发布操作被拒绝后服务器无任何报文错误返回，这是协议设计的一个缺陷。但在 MQTT v5.0 协议上已经支持应答一个相应的错误报文。
+
+In MQTT v3.1 and v3.1.1 protocols, the server returns without any packet error after the publishing operation is rejected, which is a flaw in the protocol design. However, a corresponding error message has been supported on the MQTT v5.0 protocol.
+
 {% endhint %}
 
 
-## 超级用户（superuser）
+## Superuser
 
-客户端可拥有“超级用户”身份，超级用户拥有最高权限不受 ACL 限制。
+Clients can have a "Superuser" identity, which has the highest permissions without being restricted by ACLs.
 
-1. 认证鉴权插件启用超级用户功能后，发布订阅时 EMQ X 将优先检查客户端超级用户身份
-2. 客户端为超级用户时，通过授权并跳过后续 ACL 检查
+1. After the superuser function is enabled in the authentication plugin, EMQ X will check whether the client  has superuser identity first when publishing the subscription
+
+2. When the client is a super user, the authentication is passed and subsequent ACL checks are skipped
 
 
-## ACL 缓存
+## ACL Cache
 
-ACL 缓存允许客户端在命中某条 ACL 规则后，便将其缓存至内存中，以便下次直接使用，客户端发布、订阅频率较高的情况下开启 ACL 缓存可以提高 ACL 检查性能。
+ACL cache allows the client to cache an ACL rule into memory after hitting it, so that it can be used directly next time. Enabling ACL cache can improve the performance of ACL check when the client publishes and subscribes frequently.
 
-在 `etc/emqx.conf` 可以配置 ACL 缓存大小与缓存时间：
+You can configure the ACL cache size and cache time in `etc / emqx.conf`:
 
 ```bash
 # etc/emqx.conf
 
-## 是否启用
+## Whether to enable
 enable_acl_cache = on
 
-## 单个客户端最大缓存规则数量
+## Maximum number of cache rules per client
 acl_cache_max_size = 32
 
-## 缓存失效时间，超时后缓存将被清除
+## Cache expiry time, cache will be cleared after timeout
 acl_cache_ttl = 1m
 ```
 
 
-### 清除缓存
+### Clear cache
 
-在更新 ACL 规则后，某些客户端由于已经存在缓存，则无法立即生效。若要立即生效，则需手动清除所有的 ACL 缓存：
+After updating the ACL rule, some clients cannot take effect immediately because the cache already exists. You need to manually clear all ACL caches to make them taking effect immediately :
 
-参见 [HTTP API - 清除 ACL 缓存](http-api.md#endpoint-get-acl-cache)
+Refer to [HTTP API - CLear ACL cache](http-api.md#endpoint-get-acl-cache)
 
 
-## ACL 鉴权链
+## ACL Authentication Chain
 
-当同时启用多个 ACL 插件时，EMQ X 将按照插件开启先后顺序进行链式鉴权：
-- 一通过授权，终止链并允许客户端通过验证
-- 一旦授权失败，终止链并禁止客户端通过验证
-- 直到最后一个 ACL 插件仍未通过，根据**默认授权**配置判定
-  - 默认授权为允许时，允许客户端通过验证
-  - 默认授权为禁止时，禁止客户端通过验证
-  
+When multiple ACL plugins are enabled at the same time, EMQ X will perform chain authentication in the order in which the plugins are opened:
+- -Once authentication passed, terminate the chain and allow clients to pass authentication
+- Once authorization fails, terminate the chain and deny clients from passing authentication
+- if keep failing until the last ACL plugin, judge according to the **default authentication** configuration
+  - Allow client to pass authentication when default authentication is *allow*
+  - Deny clients from passing authentication When default authentication is *deny*
+
 
 ![_images/guide_3.png](assets/guide_3.png)
 
@@ -194,7 +197,7 @@ acl_cache_ttl = 1m
 
 {% hint style="info" %} 
 
-同时只启用一个 ACL 插件可以提高客户端 ACL 检查性能。
+Enabling only one ACL plugin at the time can improve client ACL checking performance.
 
 {% endhint %}
 
