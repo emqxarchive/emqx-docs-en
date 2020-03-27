@@ -17,47 +17,46 @@ ref: undefined
 
 # HTTP ACL
 
-HTTP 认证使用外部自建 HTTP 应用认证授权数据源，根据 HTTP API 返回的数据判定授权结果，能够实现复杂的 ACL 校验逻辑。
+An external self-built HTTP application authentication data source is used for HTTP authentication, and the authentication result is judged based on the data returned by the HTTP API, which can implement complex ACL verification logic.
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_http
 ```
 
 {% hint style="info" %} 
-emqx_auth_http 插件同时包含认证功能，可通过注释禁用。
+The emqx_auth_http plugin also includes authentication function, which can be disabled via comments.
 {% endhint %}
 
+To enable HTTP ACL, the following needs to be configured in `etc/plugins/emqx_auth_http.conf`:
 
-要启用 HTTP ACL，需要在 `etc/plugins/emqx_auth_http.conf` 中配置以下内容：
+## ACL Authentication principle
 
-## ACL 授权原理
+EMQ X Broker uses the current client related information as parameters in publish/subscribe events, initiates request permissions to user-defined authentication services, and processes ACL authentication requests through the returned HTTP statusCode .
 
-EMQ X Broker 在设备发布、订阅事件中使用当前客户端相关信息作为参数，向用户自定义的认证服务发起请求权限，通过返回的 HTTP **响应状态码** (HTTP statusCode) 来处理 ACL 授权请求。
+ - Authorization denied: API returns 4xx status code
+ - Authorization succeeded: API returns 200 status code
+ - Authorization ignored: API returns 200 status code with the message body of ignore
 
- - 无权限：API 返回 4xx 状态码
- - 授权成功：API 返回 200 状态码
- - 忽略授权：API 返回 200 状态码且消息体 ignore
+## HTTP Request Information
 
-## HTTP 请求信息
-
-HTTP API 基础请求信息，配置证书、请求头与重试规则。
+Basic request information, configure certificates, request headers, and retry rules of HTTP API.
 
 ```bash
 # etc/plugins/emqx_auth_http.conf
 
-## 启用 HTTPS 所需证书信息
+## Certificate information required to enable HTTPS
 ## auth.http.ssl.cacertfile = etc/certs/ca.pem
 
 ## auth.http.ssl.certfile = etc/certs/client-cert.pem
 
 ## auth.http.ssl.keyfile = etc/certs/client-key.pem
 
-## 请求头设置
+## Request header setup
 ## auth.http.header.Accept = */*
 
-## 重试设置
+## Retry setup
 auth.http.request.retry_times = 3
 
 auth.http.request.retry_interval = 1s
@@ -65,60 +64,60 @@ auth.http.request.retry_interval = 1s
 auth.http.request.retry_backoff = 2.0
 ```
 
-进行发布、订阅认证时，EMQ X Broker 将使用当前客户端信息填充并发起用户配置的 ACL 授权查询请求，查询出该客户端在 HTTP 服务器端的授权数据。
+When performing publish/subscribe authentication, EMQ X Broker will use the current client information and initiate a user-configured ACL authorization query request to query the client's authorization data on the HTTP server.
 
-## superuser 请求
+## superuser Request
 
-首先查询客户端是否为超级用户，客户端为超级用户时将跳过 ACL 查询。
+Check whether the client is a super user at first. If the client is a super user, the ACL query will be skipped.
 
 ```bash
 # etc/plugins/emqx_auth_http.conf
 
-## 请求地址
+## Request address
 auth.http.super_req = http://127.0.0.1:8991/mqtt/superuser
 
-## HTTP 请求方法
+## HTTP request method
 ## Value: post | get | put
 auth.http.super_req.method = post
 
-## 请求参数
+## Request parameter
 auth.http.super_req.params = clientid=%c,username=%u
 ```
 
 
-## ACL 授权查询请求
+## ACL authorization query request
 
 ```bash
 # etc/plugins/emqx_auth_http.conf
 
-## 请求地址
+## Request address
 auth.http.acl_req = http://127.0.0.1:8991/mqtt/acl
 
-## HTTP 请求方法
+## HTTP request method
 ## Value: post | get | put
 auth.http.acl_req.method = get
 
-## 请求参数
+## Request parameter
 auth.http.acl_req.params = access=%A,username=%u,clientid=%c,ipaddr=%a,topic=%t,mountpoint=%m
 
 ```
 
-## 请求说明
+## Request description
 
-HTTP 请求方法为 GET 时，请求参数将以 URL 查询字符串的形式传递；POST、PUT 请求则将请求参数以普通表单形式提交（content-type 为 x-www-form-urlencoded）。
+When the HTTP request method is GET, the request parameters will be passed in the form of a URL query string; POST and PUT requests will submit the request parameters in the form of a common form (content-type is x-www-form-urlencoded).
 
-你可以在认证请求中使用以下占位符，请求时 EMQ X Broker 将自动填充为客户端信息：
+You can use the following placeholders in the authentication request, and EMQ X Broker will be automatically populated with client information when requested:
 
-- %u：用户名
-- %c：Client ID
-- %a：客户端 IP 地址
-- %r：客户端接入协议
-- %P：明文密码
-- %p：客户端端口
-- %C：TLS 证书公用名（证书的域名或子域名），仅当 TLS 连接时有效
-- %d：TLS 证书 subject，仅当 TLS 连接时有效
-
+- %u:User name
+- %c:Client ID
+- %a:Client IP address
+- %r:Client Access Protocol
+- %P:Clear text password
+- %p:Client Port
+- %C:TLS certificate common name (the domain name or subdomain name of the certificate), valid only for TLS connections
+- %d:TLS certificate subject, valid only for TLS connections
 
 {% hint style="danger" %} 
-推荐使用 POST 与 PUT 方法，使用 GET 方法时明文密码可能会随 URL 被记录到传输过程中的服务器日志中。
+The POST and PUT methods are recommended. When using the GET method, the clear text password may be recorded with the URL in the server log during transmission.
+
 {% endhint %}
