@@ -17,35 +17,35 @@ ref: undefined
 
 # MongoDB ACL
 
-MongoDB ACL 使用外部 MongoDB 数据库存储 ACL 规则，可以存储大量数据、动态管理 ACL，方便与外部设备管理系统集成
+For MongoDB ACL, an external MongoDB database is used to store ACL rules, which can store a large amount of data and dynamically manage ACLs for easy integration with external device management systems
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_mongo
 ```
 
 {% hint style="info" %} 
-emqx_auth_mongo 插件同时包含认证功能，可通过注释禁用。
+The emqx_auth_mongo plugin also includes authentication, which can be disabled via comments
 {% endhint %}
 
 
-## MongoDB 连接信息
+## MongoDB connection information
 
-MongoDB 基础连接信息，需要保证集群内所有节点均能访问。
+MongoDB basic connection information needs to ensure that all nodes in the cluster can be accessed.
 
 ```bash
 # etc/plugins/emqx_auth_mongo.conf
 
-## MongoDB 架构类型
+## MongoDB Architecture type
 ##
 ## Value: single | unknown | sharded | rs
 auth.mongo.type = single
 
-## rs 模式需要设置 rs name
+## rs mode needs to set rs name
 ## auth.mongo.rs_set_name =
 
-## 服务器列表，集群模式下使用逗号分隔每个服务器
+## Server list, separated by comma in cluster mode
 ## Examples: 127.0.0.1:27017,127.0.0.2:27017...
 auth.mongo.server = 127.0.0.1:27017
 
@@ -61,7 +61,7 @@ auth.mongo.database = mqtt
 
 auth.mongo.query_timeout = 5s
 
-## SSL 选项
+## SSL option
 # auth.mongo.ssl = false
 
 ## auth.mongo.ssl_opts.keyfile =
@@ -80,7 +80,7 @@ auth.mongo.query_timeout = 5s
 ## Value: master | slave_ok
 ## auth.mongo.r_mode =
 
-## MongoDB 拓扑配置，一般情况下用不到，详见 MongoDB 官网文档
+## MongoDB topology configuration, generally not used, see MongoDB website documentation for details
 auth.mongo.topology.pool_size = 1
 auth.mongo.topology.max_overflow = 0
 ## auth.mongo.topology.overflow_ttl = 1000
@@ -95,11 +95,11 @@ auth.mongo.topology.max_overflow = 0
 ```
 
 
-## 默认数据结构
+## Default data structure
 
-MongoDB 认证默认配置下需要确保数据库中有如下集合：
+In the default configuration of MongoDB authentication, you need to ensure that the following collections are included in the database:
 
-### 认证/超级集合
+### Authentication / Super Collection
 
 ```sql
 {
@@ -111,7 +111,7 @@ MongoDB 认证默认配置下需要确保数据库中有如下集合：
 }
 ```
 
-示例数据：
+Sample data:
 
 ```bash
 use mqtt
@@ -124,7 +124,7 @@ db.mqtt_user.insert({
 })
 ```
 
-### ACL 规则集合
+### ACL rule collection
 
 ```json
 {
@@ -136,30 +136,32 @@ db.mqtt_user.insert({
 }
 ```
 
-MongoDB ACL 一条规则中定义了发布、订阅和发布/订阅的信息，在规则中的都是**允许**列表。
+MongoDB ACL rule defines the publish, subscribe, and publish/subscribe information, and  all **allow** lists are included in the rule.
 
-规则字段说明：
+Rule field description:
 
-- username：连接客户端的用户名
-- clientid：连接客户端的 Client ID
-- publish：允许发布的主题数值，支持通配符
-- subscribe：允许订阅的主题数值，支持通配符
-- pubsub：允许发布订阅的主题数值，支持通配符
+- username: the user name of the connected client
+- clientid: the Client ID of the connected client
+- publish: the number of topics allowed to be published, supports wildcards
+- subscribe: the number of topics allowed to be subscribed to, supports wildcards
+- pubsub: the number of topics allowed to be published  and subscribed to, supports wildcards
 
 {% hint style="info" %} 
-主题可以使用通配符，并且可以在主题中加入占位符来匹配客户端信息，例如 `t/%c` 则在匹配时主题将会替换为当前客户端的 Client ID
-  - %u：用户名
+Wildcards can be used for topic, and placeholders can be added to the topic to match client information. For example,  the topic will be replaced with the client ID of the current client when matching `t/%c`.
+
+  - %u：user name
   - %c：Client ID
 {% endhint %} 
 
 
-默认配置下示例数据：
+Sample data in the default configuration:
 
 ```bash
 use mqtt
 
-## 所有用户不可以订阅、发布系统主题
-## 允许客户端订阅包含自身 Client ID 的 /smarthome/${clientid}/temperature 主题
+## All users cannot subscribe and publish system topics
+## Clients are allowed to subscribe to the topic of /smarthome/${clientid}/temperature with their own Client ID
+
 db.mqtt_acl.insert({
   username: "$all",
   clientid: "$all",
@@ -168,31 +170,31 @@ db.mqtt_acl.insert({
 })
 ```
 
-启用 MongoDB ACL 后并以用户名 emqx 成功连接后，客户端应当数据具有相应的主题权限。
+After enabling MongoDB ACL and successfully connecting with the username emqx, the client should have the appropriate topic permissions for the data.
 
 
-## 超级用户查询（super_query）
+## super_query
 
-进行 ACL 鉴权时，EMQ X Broker 将使用当前客户端信息填充并执行用户配置的超级用户查询，查询客户端是否为超级用户。客户端为超级用户时将跳过 ACL 查询。
+When performing ACL authentication, EMQ X Broker will use the current client information to execute a user-configured superuser query to query whether the client is a superuser. ACL queries are skipped when the client is a superuser.
 
 ```bash
 # etc/plugins/emqx_auth_mongo.conf
 
-## 启用超级用户
+## Enable superuser
 auth.mongo.super_query = on
 
-## 超级查询使用集合
+##collections for super queries 
 auth.mongo.super_query.collection = mqtt_user
 
-## 超级用户使用字段
+##Field for super user
 auth.mongo.super_query.super_field = is_superuser
 
-## 超级用户查询选择器，多个条件使用逗号分隔
+## Superuser query selector, commas can be used to seperate multiple conditions
 #auth.mongo.super_query.selector = username=%u, clientid=$all
 auth.mongo.super_query.selector = username=%u
 ```
 
-同一个**选择器**的多个条件时实际查询中使用 MongoDB `and` 查询：
+MongoDB `and` query is used in the actual query under multiple conditions of the same **selector**:
 
 ```bash
 db.mqtt_user.find({ 
@@ -201,24 +203,23 @@ db.mqtt_user.find({
 })
 ```
 
-你可以在查询条件中使用以下占位符，执行时 EMQ X Broker 将自动填充为客户端信息：
+You can use the following placeholders in your query conditions, and EMQ X Broker will automatically populate with client information when executed:
 
-- %u：用户名
+- %u：user name
 - %c：Client ID
 
-你可以根据业务需要调整超级用户查询，如添加多个查询条件、使用数据库预处理函数，以实现更多业务相关的功能。但是任何情况下超级用户查询需要满足以下条件：
+You can adjust the super user query according to business to achieve more business-related functions, such as adding multiple query conditions and using database preprocessing functions. However, in any case, the superuser query needs to meet the following conditions:
 
-1. 查询结果中必须包含 is_superuser 字段，is_superuser 应该显式的为 true
-
+1. The query result must include the is_superuser field, which should be explicitly true
 
 {% hint style="info" %} 
-如果不需要超级用户功能，注释并禁用该选项能有效提高效率
+If superuser functionality is not needed, it can be more efficient when commenting and disabling this option 
 {% endhint %}
 
 
-## ACL 查询（acl_query）
+## acl_query
 
-进行 ACL 鉴权时，EMQ X Broker 将使用当前客户端信息填充并执行用户配置的超级用户查询，如果没有启用超级用户查询或客户端不是超级用户，则使用 ACL 查询 查询出该客户端在数据库中的 ACL 规则。
+When performing ACL authentication, EMQ X Broker will use the current client information to execute the user-configured superuser query. If superuser query is not enabled or the client is not a superuser, ACL query will be used to find out the ACL rules of client in the database.
 
 ```bash
 # etc/plugins/emqx_auth_mongo.conf
@@ -227,16 +228,16 @@ auth.mongo.acl_query = on
 
 auth.mongo.acl_query.collection = mqtt_acl
 
-## 查询选择器，多个条件时使用逗号分隔
+## Query selector, commas can be used to seperate multiple conditions
 ## auth.mongo.acl_query.selector = username=%u,clientid=%c
 auth.mongo.acl_query.selector = username=%u
 
-## 使用多个查询选择器
+## Using multiple query selectors
 ## auth.mongo.acl_query.selector.1 = username=$all
 ## auth.mongo.acl_query.selector.2 = username=%u
 ```
 
-同一个选择器的多个**条件**时实际查询中使用 MongoDB `and` 查询：
+MongoDB `and` query is used in the actual query under multiple **conditions**  of the same selector:
 
 ```bash
 db.mqtt_acl.find({ 
@@ -245,7 +246,7 @@ db.mqtt_acl.find({
 })
 ```
 
-多个**选择器**时实际查询中使用 MongoDB `or` 查询：
+MongoDB `or` query is used in actual query under multiple **selectors**:
 
 ```bash
 db.mqtt_acl.find({
@@ -261,13 +262,12 @@ db.mqtt_acl.find({
 ```
 
 
-你可以在 ACL 查询中使用以下占位符，执行时 EMQ X Broker 将自动填充为客户端信息：
+You can use the following placeholders in ACL queries, and EMQ X Broker will automatically populate with client information when executed:
 
-- %u：用户名
+- %u：username
 - %c：Client ID
 
-
 {% hint style="danger" %} 
-MongoDB ACL 规则需严格使用上述数据结构。
-MongoDB ACL 中添加的所有规则都是 允许 规则，可以搭配 `etc/emqx.conf` 中 `acl_nomatch = deny` 使用。
+MongoDB ACL rules need to use the above data structures strictly.
+All rules added in MongoDB ACL are **allow** rules, which can be used with `acl_nomatch=deny` in` etc/emqx.conf`.
 {% endhint %}
