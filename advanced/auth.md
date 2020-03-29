@@ -15,83 +15,77 @@ category:
 ref: undefined
 ---
 
-# 认证 {#authentication}
+Authentication is an important part of most applications. MQTT protocol supports username/password authentication. Enabling authentication can effectively prevent illegal client connections.
 
+Authentication in EMQ X Broker means that when a client connects to EMQ X Broker, the server configuration  is used to controls the client's permission to connect to the server.
 
-身份认证是大多数应用的重要组成部分，MQTT 协议支持用户名密码认证，启用身份认证能有效阻止非法客户端的连接。
+EMQ X Broker's authentication support includes two levels:
 
-EMQ X Broker 中的认证指的是当一个客户端连接到 EMQ X Broker 的时候，通过服务器端的配置来控制客户端连接服务器的权限。
+- The MQTT protocol specifies the user name and password in the CONNECT packet by itself. EMQ X Broker supports multiple forms of authentication based on Username, ClientID, HTTP, JWT, LDAP, and various databases such as MongoDB, MySQL, PostgreSQL, Redis through plugins.
+- At the transport layer, TLS guarantees client-to-server authentication using client certificates and ensures that the server verifies the server certificate to the client. PSK-based TLS/DTLS authentication is also supported.
 
-EMQ X Broker 的认证支持包括两个层面：
+This authentication methods supported by EMQ X and the configuration methods of the corresponding plugins are introduced in this article.
 
-- MQTT 协议本身在 CONNECT 报文中指定用户名和密码，EMQ X Broker 以插件形式支持基于 Username、ClientID、HTTP、JWT、LDAP 及各类数据库如 MongoDB、MySQL、PostgreSQL、Redis 等多种形式的认证。
+## Authentication method
 
-- 在传输层上，TLS 可以保证使用客户端证书的客户端到服务器的身份验证，并确保服务器向客户端验证服务器证书。也支持基于 PSK 的 TLS/DTLS 认证。
+EMQ X supports the use of built-in data sources (files, built-in databases), JWT, external mainstream databases, and custom HTTP APIs as authentication data sources.
 
-本章节介绍了 EMQ X 支持的认证方式以及对应插件的配置方法。
+The data source connection and authentication logic are implemented through plugins. Each plugin corresponds to an authentication method, and the corresponding plugin needs to be enabled before use.
 
-## 认证方式
+When the client connects, the plugin implements the identity authentication of the client by checking whether its username/clientid and password are consistent with the information of the specified data source.
 
-EMQ X 支持使用内置数据源（文件、内置数据库）、JWT、外部主流数据库和自定义 HTTP API 作为身份认证数据源。
+Authentication methods supported by EMQ X:
 
-连接数据源、进行认证逻辑通过插件实现的，每个插件对应一种认证方式，使用前需要启用相应的插件。
+**Built-in data source**
 
-客户端连接时插件通过检查其 username/clientid 和 password 是否与指定数据源的信息一致来实现对客户端的身份认证。
+* [Username authentication](./auth-username.md)
+* [Cliend ID authentication](./auth-clientid.md)
 
-EMQ X 支持的认证方式：
-
-
-**内置数据源**
-
-* [Username 认证](./auth-username.md)
-* [Cliend ID 认证](./auth-clientid.md)
-
-使用配置文件与 EMQ X 内置数据库提供认证数据源，通过 HTTP API 进行管理，足够简单轻量。
+The configuration file and the built-in database of EMQ X are used to provide an authenticated data source, which is managed through the HTTP API and is simple and lightweight.
 
 
 
-**外部数据库**
+**External Database**
 
-* [LDAP 认证](./auth-ldap.md)
-* [MySQL 认证](./auth-mysql.md)
-* [PostgreSQL 认证](./auth-postgresql.md)
-* [Redis 认证](./auth-redis.md)
-* [MongoDB 认证](./auth-mongodb.md)
+* [LDAP authentication](./auth-ldap.md)
+* [MySQL authentication](./auth-mysql.md)
+* [PostgreSQL authentication](./auth-postgresql.md)
+* [Redis authentication](./auth-redis.md)
+* [MongoDB authentication](./auth-mongodb.md)
 
-外部数据库可以存储大量数据，同时方便与外部设备管理系统集成。
+The external database can store a large amount of data, while facilitating integration with external device management systems.
 
 
 
-**其他**
+Others
 
-* [HTTP 认证](./auth-http.md)
-* [JWT 认证](./auth-jwt.md)
+* [HTTP authentication](./auth-http.md)
+* [JWT authentication](./auth-jwt.md)
 
-JWT 认证可以批量签发认证信息，HTTP 认证能够实现复杂的认证鉴权逻辑。
+JWT authentication can issue authentication information in batches, and HTTP authentication can implement complex authentication logic.
 
 
 
 {% hint style="info" %} 
 
-更改插件配置后需要重启插件才能生效，部分认证鉴权插件包含 [ACL 功能](./acl.md)。
+After changing the plugin configuration, you need to restart the plugin to take effect. Some authentication plugins include [ACL function](./acl.md).
 
 {% endhint %}
 
 
-## 认证结果
+## Authentication results
 
-任何一种认证方式最终都会返回一个结果：
+Any authentication method will eventually return a result:
 
-- 认证成功：经过比对客户端认证成功
-- 认证失败：经过比对客户端认证失败，数据源中密码与当前密码不一致
-- 忽略认证（ignore）：当前认证方式中未查找到认证数据，无法显式判断结果是成功还是失败，交由认证链下一认证方式或匿名认证来判断
+- Authentication succeeded: the client authentication succeeded after comparison
+- Authentication failed: the client authentication fails after comparison, which is because the password in the data source does not match the current password
+- Ignore: The authentication data is not found with the current authentication method, and the result cannot be determined explicitly. The next method of authentication chain or anonymous authentication is used to determine the result.
 
+## Anonymous Authentication
 
-## 匿名认证
+Anonymous authentication is enabled in the EMQ X default configuration and any client can access EMQ X. When the authentication plug-in is not enabled or the authentication plug-in does not explicitly allow/deny(ignore) the connection request, EMQ X will decide whether to allow the client to connect based on whether the anonymous authentication is enabled.
 
-EMQ  X 默认配置中启用了匿名认证，任何客户端都能接入 EMQ X。没有启用认证插件或认证插件没有显式允许/拒绝（ignore）连接请求时，EMQ X 将根据匿名认证启用情况决定是否允许客户端连接。
-
-配置匿名认证开关：
+Configure the anonymous authentication:
 
 ```bash
 # etc/emqx.conf
@@ -102,31 +96,31 @@ allow_anonymous = true
 
 {% hint style="danger" %} 
 
-生产环境中请禁用匿名认证。
+Disable anonymous authentication in production environments.
 
 {% endhint %}
 
 
-## 密码加盐规则与哈希方法
+## Password salting rules and hash methods
 
-EMQ X 多数认证插件中可以启用哈希方法，数据源中仅保存密码密文，保证数据安全。
+The hash method can be enabled in most EMQ X authentication plugins. Only the password cipher text is saved in the data source to ensure data security.
 
-启用哈希方法时，用户可以为每个客户端都指定一个 salt（盐）并配置加盐规则，数据库中存储的密码是按照加盐规则与哈希方法处理后的密文。
+When the hash method is enabled, the user can specify a salt for each client and configure a salting rule. The password stored in the database is the cipher text processed according to the salting rule and hash method.
 
-以 MySQL 认证为例：
+Taking MySQL authentication as an example：
 
-**加盐规则与哈希方法配置：**
+**Salting rules and hash method configuration:**
 
 ```bash
 # etc/plugins/emqx_auth_mysql.conf
 
-## 不加盐，仅做哈希处理
+## only hash is used without salt
 auth.mysql.password_hash = sha256
 
-## salt 前缀：使用 sha256 加密 salt + 密码 拼接的字符串
+## salt prefix: use sha256 to encrypt salt + password
 auth.mysql.password_hash = salt,sha256
 
-## salt 后缀：使用 sha256 加密 密码 + salt 拼接的字符串
+## salt suffix: encrypted password using sha256 + salt
 auth.mysql.password_hash = sha256,salt
 
 ## pbkdf2 with macfun iterations dklen
@@ -135,37 +129,36 @@ auth.mysql.password_hash = sha256,salt
 ```
 <!-- TODO 翻译最后一句 -->
 
-### 如何生成认证信息
+### How to generate authentication information
 
-1. 为每个客户端分用户名、Client ID、密码以及 salt（盐）等信息
-2. 使用与 MySQL 认证相同加盐规则与哈希方法处理客户端信息得到密文
-3. 将客户端信息写入数据库，客户端的密码应当为密文信息
+1. Assign user name, Client ID, password, and salt for each client
+2. Use the same salting rules and hash method as MySQL authentication to process client information to get cipher text
+3. Write the client information to the database. The client password should be cipher text information.
 
-### EMQ X 身份认证流程
+### EMQ X authentication process
 
-1. 根据配置的认证 SQL 结合客户端传入的信息，查询出密码（密文）和 salt（盐）等认证数据，没有查询结果时，认证将终止并返回 ignore 结果
-2. 根据配置的加盐规则与哈希方法计算得到密文，没有启用哈希方法则跳过此步
-3. 将数据库中存储的密文与当前客户端计算的到的密文进行比对，比对成功则认证通过，否则认证失败
+1. The authentication data such as password (ciphertext) and salt are queried according to the configured authentication SQL combined with the information passed in by the client. If there is no query result, the authentication will terminate and the ignore result will be returned
+2. The cipher text is calculated according to the configured salting rule and hash method. If no hash method is enabled,  this step is skipped.
+3. Compare the cipher text stored in the database with the cipher text calculated by the current client. If the comparison is successful, the authentication succeeds. Otherwise, the authentication fails.
 
-MySQL 认证功能逻辑图：
+MySQL authentication function logic diagram:
 
 ![image-20200217154254202](assets/image-20200217154254202.png)
 
-
 {% hint style="info" %} 
-写入数据的加盐规则、哈希方法与对应插件的配置一致时认证才能正常进行。更改哈希方法会造成现有认证数据失效。
+The authentication can be performed normally when the salting rules and hash method of the written data are consistent with the configuration of the corresponding plugin. It will invalidate existing authentication data when changing the hashing method.
 {% endhint %}
 
 
 
-## 认证链
+## Authentication chain
 
-当同时启用多个认证方式时，EMQ X 将按照插件开启先后顺序进行链式认证：
-- 一旦认证成功，终止认证链并允许客户端接入
-- 一旦认证失败，终止认证链并禁止客户端接入
-- 直到最后一个认证方式仍未通过，根据**匿名认证**配置判定
-  - 匿名认证开启时，允许客户端接入
-  - 匿名认证关闭时，禁止客户端接入
+When multiple authentication methods are enabled at the same time, EMQ X will perform chain authentication in the order in which the plugins are opened:
+- Once authentication succeeds, terminate the authentication chain and allow clients to access
+- Once authentication fails, terminate the authentication chain and prohibit client access
+- If Failing to pass until the last authentication method,  it is determined according to  **anonymous authentication** configuration
+  - Allow client access when anonymous authentication is enabled
+  - Deny client access when anonymous authentication is disabled
 
 
 
@@ -175,20 +168,20 @@ MySQL 认证功能逻辑图：
 
 {% hint style="info" %} 
 
-同时只启用一个认证插件可以提高客户端身份认证效率。
+It can improve client authentication efficiency when enabling only one authentication plugin at the same time
 
 {% endhint %}
 
 
-## TLS 认证 {#auth-tls}
+## TLS authentication{#auth-tls}
 
-MQTT TLS 的默认端口是 8883：
+The default port for MQTT TLS is 8883:
 
 ```bash
 listener.ssl.external = 8883
 ```
 
-配置证书和 CA：
+Configure certificates and CAs:
 
 ```bash
 listener.ssl.external.keyfile = etc/certs/key.pem
@@ -196,17 +189,17 @@ listener.ssl.external.certfile = etc/certs/cert.pem
 listener.ssl.external.cacertfile = etc/certs/cacert.pem
 ```
 
-注意，默认的 `etc/certs` 目录下面的 `key.pem`、`cert.pem` 和 `cacert.pem` 是 EMQ X Broker 生成的自签名证书，所以在使用支持 TLS 的客户端测试的时候，需要将上面的 CA 证书 `etc/certs/cacert.pem` 配置到客户端。
+Note that the `key.pem`,` cert.pem` and `cacert.pem` under the default directory of ` etc / certs` are self-signed certificates generated by EMQ X Broker. Therefore, when testing with a client that supports TLS, you need to configure the above CA certificate `etc / certs / cacert.pem` to the client.
 
-服务端支持的 cipher 列表需要显式指定，默认的列表与 Mozilla 的服务端 cipher 列表一致：
+The cipher list supported by the server needs to be specified explicitly. The default list is consistent with Mozilla's server cipher list:
 
 ```bash
 listener.ssl.external.ciphers = ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA384,ECDHE-ECDSA-AES256-SHA384,ECDHE-RSA-AES256-SHA384,ECDHE-ECDSA-DES-CBC3-SHA,ECDH-ECDSA-AES256-GCM-SHA384,ECDH-RSA-AES256-GCM-SHA384,ECDH-ECDSA-AES256-SHA384,ECDH-RSA-AES256-SHA384,DHE-DSS-AES256-GCM-SHA384,DHE-DSS-AES256-SHA256,AES256-GCM-SHA384,AES256-SHA256,ECDHE-ECDSA-AES128-GCM-SHA256,ECDHE-RSA-AES128-GCM-SHA256,ECDHE-ECDSA-AES128-SHA256,ECDHE-RSA-AES128-SHA256,ECDH-ECDSA-AES128-GCM-SHA256,ECDH-RSA-AES128-GCM-SHA256,ECDH-ECDSA-AES128-SHA256,ECDH-RSA-AES128-SHA256,DHE-DSS-AES128-GCM-SHA256,DHE-DSS-AES128-SHA256,AES128-GCM-SHA256,AES128-SHA256,ECDHE-ECDSA-AES256-SHA,ECDHE-RSA-AES256-SHA,DHE-DSS-AES256-SHA,ECDH-ECDSA-AES256-SHA,ECDH-RSA-AES256-SHA,AES256-SHA,ECDHE-ECDSA-AES128-SHA,ECDHE-RSA-AES128-SHA,DHE-DSS-AES128-SHA,ECDH-ECDSA-AES128-SHA,ECDH-RSA-AES128-SHA,AES128-SHA
 ```
 
-## PSK 认证 {#auth-tls-psk}
+## PSK authentication {#auth-tls-psk}
 
-如果希望使用 PSK 认证，需要将 [TLS 认证](#auth-tls) 中的 `listener.ssl.external.ciphers` 注释掉，然后配置 `listener.ssl.external.psk_ciphers`：
+If you want to use PSK authentication, you need to comment out `listener.ssl.external.ciphers` in [TLS Authentication](#auth-tls), and then configure` listener.ssl.external.psk_ciphers`:
 
 ```bash
 #listener.ssl.external.ciphers = ECDHE-ECDSA-AES256-GCM-SHA384,...
@@ -214,13 +207,13 @@ listener.ssl.external.psk_ciphers = PSK-AES128-CBC-SHA,PSK-AES256-CBC-SHA,PSK-3D
 
 ```
 
-然后启用 emqx_psk_file 插件：
+Then enable the emqx_psk_file plugin:
 
 ```bash
 $ emqx_ctl plugins load emqx_psk_file
 ```
 
-PSK 的配置文件为 `etc/psk.txt`，使用冒号`:` 分隔 PSK ID 和 PSK：
+The configuration file for PSK is `etc / psk.txt`. A colon`: ` is used to separate the PSK ID and PSK:
 
 ```bash
 client1:1234
