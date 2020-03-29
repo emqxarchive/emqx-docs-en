@@ -17,31 +17,30 @@ ref: undefined
 
 # Redis ACL
 
+An external Redis database is used to store ACL rules for Redis ACL, which can store a large amount of data and dynamically manage ACLs for easy integration with external device management systems.
 
-Redis ACL 使用外部 Redis 数据库存储 ACL 规则，可以存储大量数据、动态管理 ACL，方便与外部设备管理系统集成
-
-插件：
+Plugin:
 
 ```bash
 emqx_auth_redis
 ```
 
 {% hint style="info" %} 
-emqx_auth_redis 插件同时包含认证功能，可通过注释禁用。
+The emqx_auth_mysql plugin also includes authentication feature, which can be disabled via comments.
 {% endhint %}
 
 
-## Redis 连接信息
+## Redis connection information
 
-Redis 基础连接信息，需要保证集群内所有节点均能访问。
+Redis basic connection information needs to be accessible to all nodes in the cluster.
 
 ```bash
 # etc/plugins/emqx_auth_redis.conf
 
-## 服务器地址
+## Server address
 auth.redis.server = 127.0.0.1:6379
 
-## 连接池大小
+## Connection pool size
 auth.redis.pool = 8
 
 auth.redis.database = 0
@@ -50,11 +49,11 @@ auth.redis.password =
 ```
 
 
-## 默认数据结构
+## Default data structure
 
-Redis 认证插件默认配置下使用哈希表存储认证数据，使用 `mqtt_user:` 作为 Redis 键前缀，数据结构如下：
+Under the default configuration of the Redis  authentication plugin, a hash table is used to store authentication data, and `mqtt_user:` is used as the Redis key prefix. The data structure is as follows:
 
-### 认证/超级用户
+### Authentication / Superuser
 
 ```bash
 redis> hgetall mqtt_user:emqx
@@ -62,49 +61,50 @@ redis> hgetall mqtt_user:emqx
   salt wivwiv
 ```
 
-默认配置下示例数据如下：
+Under the default configuration, Sample data is as follows:
 
 ```bash
 HMSET mqtt_user:emqx password public salt wivwiv
 ```
 
-### ACL 规则数据
+### ACL rule table
 
 ```bash
-## 格式
+## Format
 HSET mqtt_acl:[username clientid] [topic] [access]
 
-## 结构
+## Structure
 redis> hgetall mqtt_acl:emqx
   testtopic/1 1
 ```
 
-Redis ACL 一条规则中定义了发布、订阅或发布/订阅的信息，在规则中的都是**允许**列表。
+A rule of Redis ACL defines publish, subscribe, or publish/subscribe information. All lists in the rule are **allow** lists.
 
-规则字段说明：
+Rule field description:
 
-- ipaddr：设置 IP 地址
-- username：连接客户端的用户名，此处的值如果设置为 `$all`  表示该规则适用于所有的用户
-- clientid：连接客户端的 Client ID
-- access：允许的操作：订阅（1），发布（2），订阅发布都可以（3）
-- topic：控制的主题，可以使用通配符，并且可以在主题中加入占位符来匹配客户端信息，例如 `t/%c` 则在匹配时主题将会替换为当前客户端的 Client ID
-  - %u：用户名
+- ipaddr: Set IP address
+- username: User name for connecting to the client. If the value is set to `$ all`, the rule applies to all users.
+- clientid: Client ID of the connected client
+- access: Allowed operations: subscribe (1), publish (2), both subscribe and publish (3)
+- topic: Topics to be controlled, which can use wildcards, and placeholders can be added to the topic to match client information. For example, the topic will be replaced with the client ID of the current client when matching `t/%c`
+  - %u：Username
   - %c：Client ID
   
-默认配置下示例数据：
+
+Under the default configuration, Sample data is as follows:
 
 ```bash
 HSET mqtt_acl:emqx # 1
 HSET mqtt_acl:testtopic/2 2
 ```
 
-启用 Redis ACL 后并以用户名 emqx 成功连接后，客户端应当数据具有相应的主题权限。
+After enabling Redis ACL and successfully connecting with the username emqx, the client should have permissions on the topics it wants to subscribe/publish.
 
 
 
-## 超级用户查询命令（super cmd）
+## Super user query command（super cmd）
 
-进行 ACL 鉴权时，EMQ X Broker 将使用当前客户端信息填充并执行用户配置的超级用户查询命令，查询客户端是否为超级用户。客户端为超级用户时将跳过 ACL 查询命令。
+When performing ACL authentication, EMQ X Broker will use the current client information to execute the user-configured superuser query command to query whether the client is a superuser. ACL query command is skipped when the client is superuser.
 
 ```bash
 # etc/plugins/emqx_auth_redis.conf
@@ -112,27 +112,25 @@ HSET mqtt_acl:testtopic/2 2
 auth.redis.super_cmd = HGET mqtt_user:%u is_superuser
 ```
 
-你可以在命令中使用以下占位符，执行时 EMQ X Broker 将自动填充为客户端信息：
+You can use the following placeholders in query command and EMQ X Broker will automatically populate with client information when executed:
 
-- %u：用户名
+- %u：Username
 - %c：Client ID
-- %C：TLS 证书公用名（证书的域名或子域名），仅当 TLS 连接时有效
-- %d：TLS 证书 subject，仅当 TLS 连接时有效
+- %C：TLS certificate common name (the domain name or subdomain name of the certificate), valid only for TLS connections
+- %d：TLS certificate subject, valid only for TLS connections
 
+You can adjust the super user query command according to business to achieve more business-related functions, such as adding multiple query conditions and using database preprocessing functions. However, in any case, the superuser query command needs to meet the following conditions:
 
-你可以根据业务需要调整超级用户查询命令，如添加多个查询条件、使用数据库预处理函数，以实现更多业务相关的功能。但是任何情况下超级用户查询命令需要满足以下条件：
-
-1. 查询结果中第一个数据必须为 is_superuser 数据
-
+1. The first data in the query results must be the is_superuser data
 
 {% hint style="info" %} 
-如果不需要超级用户功能，注释并禁用该选项能有效提高效率
+If superuser functionality is not needed, it can be more efficient when commenting and disabling this option .
 {% endhint %}
 
 
-## ACL 查询命令（acl cmd）
+## ACL query command（acl cmd）
 
-进行 ACL 鉴权时，EMQ X Broker 将使用当前客户端信息填充并执行用户配置的超级用户 SQL，如果没有启用超级用户 SQL 或客户端不是超级用户，则使用 ACL 查询命令查询出该客户端在数据库中的 ACL 规则。
+When performing ACL authentication, EMQ X Broker will use the current client information to populate and execute the user-configured superuser SQL. If superuser SQL is not enabled or the client is not a superuser, ACL SQL is used to query the client's ACL rules in the database.
 
 ```bash
 # etc/plugins/emqx_auth_redis.conf
@@ -140,17 +138,14 @@ auth.redis.super_cmd = HGET mqtt_user:%u is_superuser
 auth.redis.acl_cmd = HGETALL mqtt_acl:%u
 ```
 
-你可以在 ACL 查询命令中使用以下占位符，执行时 EMQ X Broker 将自动填充为客户端信息：
+You can use the following placeholders in ACL SQL and EMQ X Broker will automatically populate with client information when executed:
 
-- %u：用户名
+- %u：Username
 - %c：Client ID
 
-你可以根据业务需要调整 ACL 查询命令，但是任何情况下 ACL 查询命令需要满足以下条件：
+You can adjust the ACL query command according to business requirement. However, in any case, the ACL query command  needs to meet the following conditions:
 
-1. 哈希中使用 topic 作为键，access 作为值
-
+1. Topic is used as key and access is used as value in hash
 
 {% hint style="danger" %} 
-Redis ACL 规则需严格使用上述数据结构。
-Redis ACL 中添加的所有规则都是 允许 规则，可以搭配 `etc/emqx.conf` 中 `acl_nomatch = deny` 使用。
-{% endhint %}
+The above data structures   need to be used strictly for Redis ACL rules.All rules added in Redis ACL are `allow` rules, which can be used with `acl_nomatch = deny` in` etc / emqx.conf`. {% endhint %}

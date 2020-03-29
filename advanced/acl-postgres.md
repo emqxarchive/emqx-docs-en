@@ -163,8 +163,6 @@ If superuser functionality is not needed, it can be more efficient when commenti
 
 ## ACL SQL（acl_query）
 
-进行 ACL 鉴权时，EMQ X Broker 将使用当前客户端信息填充并执行用户配置的超级用户 SQL，如果没有启用超级用户 SQL 或客户端不是超级用户，则使用 ACL SQL 查询出该客户端在数据库中的 ACL 规则。
-
 When performing ACL authentication, EMQ X Broker will use the current client information to populate and execute the user-configured superuser SQL. If superuser SQL is not enabled or the client is not a superuser, ACL SQL is used to query the client's ACL rules in the database.
 
 ```bash
