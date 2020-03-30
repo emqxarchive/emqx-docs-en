@@ -15,44 +15,46 @@ category:
 ref: undefined
 ---
 
-# JWT 认证
+# JWT Authentication
 
-[JWT](https://jwt.io/) 认证基于 Token 的鉴权机制，不依赖服务端保留客户端的认证信息或者会话信息，在持有密钥的情况下可以批量签发认证信息，是最简便的认证方式。
+[JWT](https://jwt.io/) is a Token-based authentication mechanism. It does not rely on the server to retain client authentication information or session information. It can issue authentication information in batches while holding keys, which is an easiest authentication method.
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_jwt
 ```
 
-## 认证原理
+## Authentication principle
 
-客户端使用 Token 作为用户名或密码（取决于插件配置），发起连接时 EMQ X Broker 使用配置中的密钥、证书进行解密，如果能成功解密则认证成功，否则认证失败。
+The client uses Token as the user name or password (depending on the plugin configuration). When initiating the connection, EMQ X Broker uses the key and certificate in the configuration to decrypt. If it can be successfully decrypted, the authentication successes, otherwise the authentication fails.
 
-默认配置下启用 JWT 认证后，你可以通过任意用户名，以下密码进行连接：
+After JWT authentication is enabled by default, you can connect with the following password and any username:
 
 ```bash
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImF1dGhvciI6IndpdndpdiIsInNpdGUiOiJodHRwczovL3dpdndpdi5jb20ifSwiZXhwIjoxNTgyMjU1MzYwNjQyMDAwMCwiaWF0IjoxNTgyMjU1MzYwfQ.FdyAx2fYahm6h3g47m88ttyINzptzKy_speimyUcma4
 ```
 
 
-## 配置项
+## Configuration item
 
 要启用 JWT 认证，需要在 `etc/plugins/emqx_auth_jwt.conf` 中配置以下内容：
+
+To enable JWT authentication, the following needs to be configured in  `etc/plugins/emqx_auth_jwt.conf`:
 
 ```bash
 # etc/plugins/emqx_auth_jwt.conf
 
-## 密钥
+## Key
 auth.jwt.secret = emqxsecret
 
-## 客户端携带 Token 的方式
+## The way the client carries the token
 ## Value: username | password
 auth.jwt.from = password
 
 
-## 高级选项
-## 公钥文件，证书作为签发密钥时使用
+## Advanced options
+## Public key file, certificate is used when signing the key
 auth.jwt.pubkey = etc/certs/jwt_public_key.pem
 
 ## Value: on | off
@@ -68,6 +70,7 @@ auth.jwt.verify_claims = off
 <!-- TODO: verify_claims 的作用 -->
 
 {% hint style="danger" %} 
-JWT 本身包含了认证信息，一旦泄露，任何人都可以获得该令牌的所有权限，使用 JWT 时建议启用 TLS 加密传输。
-JWT 使用过程中无法在过期前废止某个 Token，请妥善设置有效时长并保管好密钥等加密信息。
+JWT contains authentication information by itself. Once leaked, anyone can get all the permissions of the token. It is recommended to enable TLS encrypted transmission when using JWT.
+
+During the use of JWT, a token cannot be invalidated before it expires. Please properly set the validity time and keep the encryption information well.
 {% endhint %}
