@@ -15,13 +15,13 @@ category:
 ref: undefined
 ---
 
-# Client ID 认证
+# Client ID Authentication
 
-Client ID 认证使用配置文件预设客户端Client ID 与密码，支持通过 HTTP API 管理认证数据。
+Client ID authentication uses a configuration file to preset the client Client ID and password, and supports authentication data management through the HTTP API.
 
-Client ID 认证不依赖外部数据源，使用上足够简单轻量。
+Client ID authentication does not rely on external data sources, which is simple and lightweight to use.
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_clientid
@@ -29,9 +29,9 @@ emqx_auth_clientid
 
 
 
-## 哈希方法
+## Hash method
 
-Client ID 认证默认使用 sha256 进行密码哈希加密，可在 `etc/plugins/emqx_auth_clientid.conf` 中更改：
+Client ID authentication uses sha256 for password hash encryption by default, which can be changed in `etc/plugins/emqx_auth_clientid.conf`:
 
 ```bash
 # etc/plugins/emqx_auth_clientid.conf
@@ -40,43 +40,43 @@ Client ID 认证默认使用 sha256 进行密码哈希加密，可在 `etc/plugi
 auth.client.password_hash = sha256
 ```
 
-配置[哈希方法](./auth.md#加盐规则与哈希方法)后，新增的预设认证数据与通过 HTTP API 添加的认证数据将以哈希密文存储在 EMQ X Broker 内置数据库中。
+After configuring the [hash method](./auth.md#加盐规则与哈希方法), the new preset authentication data and authentication data added through the HTTP API will be stored in the built-in database of EMQ X Broker in hash cipher text.
 
 
 
-## 预设认证数据
+## Preset authentication data
 
-可以通过配置文件预设认证数据，编辑配置文件：`etc/plugins/emqx_auth_clientid.conf`
+The configuration file can be used to preset the authentication data and can be edit in:`etc/plugins/emqx_auth_clientid.conf`
 
 ```bash
 # etc/plugins/emqx_auth_clientid.conf
 
-## 第一组认证数据
+## The first group of authentication data
 auth.client.1.clientid = admin_client
 auth.client.1.password = public
 
-## 第二组认证数据
+## The second group of authentication data
 auth.clientid.2.clientid = wivwiv_client
 auth.clientid.2.password = public
 ```
 
-插件启动时将读取预设认证数据并加载到 EMQ X Broker 内置数据库中，节点上的认证数据会在此阶段同步至集群中。
+When the plugin is started, the preset authentication data is read and loaded into the built-in database of EMQ X Broker, and the authentication data on the nodes will be synchronized to the cluster at this stage.
 
 <!-- TODO 补充加载规则 -->
 
 {% hint style="danger" %} 
 
-预设认证数据在配置文件中使用了明文密码，出于安全性与可维护性考虑应当避免使用该功能。
+The preset authentication data uses a clear text password in the configuration file, which should be avoided for security and maintainability considerations.
 
 {% endhint %}
 
 
 
-## 使用 HTTP API 管理认证数据
+## Manage authentication data with HTTP API
 
-#### 添加认证数据
+#### Add authentication data
 
-API 定义：
+API definition:
 
 ```bash
 # Request
@@ -92,13 +92,13 @@ POST api/v4/auth_clientid
 }
 ```
 
-使用 POST 请求添加 clientid 为 `emqx_c` password 为 `emqx_p` 的认证信息，返回信息中 `code = 0` 即为成功。
+The POST request is used to add authentication information with clientid of `emqx_c` and password of ` emqx_p`, and  it will succeed if `code = 0` is returned.
 
 
 
-#### 查看已经添加的认证数据
+#### Check the added authentication data
 
-API 定义：
+API definition:
 
 ```bash
 # Request
@@ -113,11 +113,11 @@ GET api/v4/auth_clientid
 
 
 
-#### 更改指定 Client ID 的密码
+#### Change the password of the specified Client ID
 
-指定 Client ID，传递新密码进行更改，再次连接时需要使用新密码进行连接：
+After specifying the Client ID and passing the new password to change it, it need to use the new password when connecting again:
 
-API 定义：
+API definition:
 
 ```bash
 # Request
@@ -134,11 +134,11 @@ PUT api/v4/auth_clientid/${clientid}
 
 
 
-#### 查看指定 Client ID 信息
+#### Check the specified Client ID information
 
-指定 Client ID，查看相关 Client ID、密码信息，注意此处返回的密码是使用配置文件指定哈希方式加密后的密码：
+Specify the Client ID and check the related Client ID and password information. Note that the password returned here is the password encrypted using the hash method specified by the configuration file:
 
-API 定义：
+API definition:
 
 ```bash
 # Request
@@ -157,11 +157,11 @@ GET api/v4/auth_clientid/${clientid}
 
 
 
-#### 删除认证数据
+#### Delete authentication data
 
-删除指定 Client ID：
+Delete the specified Client ID:
 
-API 定义：
+API definition:
 
 ```bash
 # Request
