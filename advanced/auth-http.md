@@ -15,47 +15,47 @@ category:
 ref: undefined
 ---
 
-# HTTP 认证
+# HTTP Authentication
 
-HTTP 认证使用外部自建 HTTP 应用认证数据源，根据 HTTP API 返回的数据判定认证结果，能够实现复杂的认证鉴权逻辑。
+HTTP authentication uses an external self-built HTTP application authentication data source, and determines the authentication result based on the data returned by the HTTP API, which can implement complex authentication logic.
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_http
 ```
 
 {% hint style="info" %} 
-emqx_auth_http 插件同时包含 ACL 功能，可通过注释禁用。
+The emqx_auth_http plugin also includes ACL feature, which can be disabled via comments.
 {% endhint %}
 
 
-## 认证原理
+## Authentication principle
 
-EMQ X Broker 在设备连接事件中使用当前客户端相关信息作为参数，向用户自定义的认证服务发起请求查询权限，通过返回的 HTTP **响应状态码** (HTTP statusCode) 来处理认证请求。
+EMQ X Broker uses the current client related information as a parameter in the device connection event, initiates a request query permission to the user-defined authentication service, and processes the authentication request through the returned HTTP **statusCode**.
 
- - 认证失败：API 返回 4xx 状态码
- - 认证成功：API 返回 200 状态码
- - 忽略认证：API 返回 200 状态码且消息体 ignore
+ - Authentication failed: API returns status code of 4xx
+ - Authentication succeeded: API returns status code of 200
+ - Authentication ignored : API returns status code of 200 with message body of ignore
 
-## HTTP 请求信息
+## HTTP request information
 
-HTTP API 基础请求信息，配置证书、请求头与重试规则。
+HTTP API basic request information, configure certificates, request headers, and retry rules.
 
 ```bash
 # etc/plugins/emqx_auth_http.conf
 
-## 启用 HTTPS 所需证书信息
+## Certificate information required to enable HTTPS
 ## auth.http.ssl.cacertfile = etc/certs/ca.pem
 
 ## auth.http.ssl.certfile = etc/certs/client-cert.pem
 
 ## auth.http.ssl.keyfile = etc/certs/client-key.pem
 
-## 请求头设置
+## Request header setup
 ## auth.http.header.Accept = */*
 
-## 重试设置
+## Retry setup
 auth.http.request.retry_times = 3
 
 auth.http.request.retry_interval = 1s
@@ -64,43 +64,43 @@ auth.http.request.retry_backoff = 2.0
 ```
 
 
-## 加盐规则与哈希方法
+## Salting rules and hash methods
 
-HTTP 在请求中传递明文密码，加盐规则与哈希方法取决于 HTTP 应用。
+HTTP passes a clear text password in the request. The salting rules and hash method depend on the HTTP application.
 
 
-## 认证请求
+## Authentication request
 
-进行身份认证时，EMQ X Broker 将使用当前客户端信息填充并发起用户配置的认证查询请求，查询出该客户端在 HTTP 服务器端的认证数据。
+During authentication, EMQ X Broker will use the current client information to populate and initiate a user-configured authentication query request to query the client's authentication data on the HTTP server.
 
 ```bash
 # etc/plugins/emqx_auth_http.conf
 
-## 请求地址
+## Request address
 auth.http.auth_req = http://127.0.0.1:8991/mqtt/auth
 
-## HTTP 请求方法
+## HTTP request method
 ## Value: post | get | put
 auth.http.auth_req.method = post
 
-## 请求参数
+## Request parameter
 auth.http.auth_req.params = clientid=%c,username=%u,password=%P
 ```
 
-HTTP 请求方法为 GET 时，请求参数将以 URL 查询字符串的形式传递；POST、PUT 请求则将请求参数以普通表单形式提交（content-type 为 x-www-form-urlencoded）。
+When the HTTP request method is GET, the request parameters will be passed in the form of a URL query string; Under POST and PUT requests, it will submit the request parameters in the form of a common form (content-type is x-www-form-urlencoded).
 
-你可以在认证请求中使用以下占位符，请求时 EMQ X Broker 将自动填充为客户端信息：
+You can use the following placeholders in the authentication request, and EMQ X Broker will be automatically populated with client information when requested:
 
-- %u：用户名
+- %u：Username
 - %c：Client ID
-- %a：客户端 IP 地址
-- %r：客户端接入协议
-- %P：明文密码
-- %p：客户端端口
-- %C：TLS 证书公用名（证书的域名或子域名），仅当 TLS 连接时有效
-- %d：TLS 证书 subject，仅当 TLS 连接时有效
+- %a：Client IP address
+- %r：Client Access Protocol
+- %P：Clear text password
+- %p：Client port
+- %C：TLS certificate common name (the domain name or subdomain name of the certificate), valid only for TLS connections
+- %d：TLS certificate subject, valid only for TLS connections
 
 {% hint style="danger" %} 
-推荐使用 POST 与 PUT 方法，使用 GET 方法时明文密码可能会随 URL 被记录到传输过程中的服务器日志中。
+The POST and PUT methods are recommended. When using the GET method, the clear text password may be recorded with the URL in the server log during transmission.
 {% endhint %}
 
