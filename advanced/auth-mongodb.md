@@ -15,40 +15,40 @@ category:
 ref: undefined
 ---
 
-# MongoDB 认证
+# MongoDB Authentication
 
-MongoDB 认证使用外部 MongoDB 数据库作为认证数据源，可以存储大量数据，同时方便与外部设备管理系统集成。
+MongoDB authentication uses an external MongoDB database as the authentication data source, which can store a large amount of data and facilitate integration with external device management systems.
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_mongo
 ```
 
 {% hint style="info" %} 
-emqx_auth_mongo 插件同时包含 ACL 功能，可通过注释禁用。
+The emqx_auth_mongo plugin also includes ACL feature, which can be disabled via comments
 {% endhint %}
 
 
 
-要启用 MongoDB 认证，需要在 `etc/plugins/emqx_auth_mongo.conf` 中配置以下内容：
+To enable MongoDB authentication, you need to configure the following in `etc/plugins/emqx_auth_mongo.conf` :
 
-## MongoDB 连接信息
+## MongoDB Connection information
 
-MongoDB 基础连接信息，需要保证集群内所有节点均能访问。
+For MongoDB basic connection information, it needs to ensure that all nodes in the cluster can access.
 
 ```bash
 # etc/plugins/emqx_auth_mongo.conf
 
-## MongoDB 架构类型
+## MongoDB Architecture type
 ##
 ## Value: single | unknown | sharded | rs
 auth.mongo.type = single
 
-## rs 模式需要设置 rs name
+##rs mode needs to set rs name
 ## auth.mongo.rs_set_name =
 
-## 服务器列表，集群模式下使用逗号分隔每个服务器
+## Server list, which is separated by comma in cluster mode
 ## Examples: 127.0.0.1:27017,127.0.0.2:27017...
 auth.mongo.server = 127.0.0.1:27017
 
@@ -64,7 +64,7 @@ auth.mongo.database = mqtt
 
 auth.mongo.query_timeout = 5s
 
-## SSL 选项
+## SSL option
 # auth.mongo.ssl = false
 
 ## auth.mongo.ssl_opts.keyfile =
@@ -83,7 +83,7 @@ auth.mongo.query_timeout = 5s
 ## Value: master | slave_ok
 ## auth.mongo.r_mode =
 
-## MongoDB 拓扑配置，一般情况下用不到，详见 MongoDB 官网文档
+## MongoDB topology configuration, which is not used generally. See MongoDB official ##website documentation
 auth.mongo.topology.pool_size = 1
 auth.mongo.topology.max_overflow = 0
 ## auth.mongo.topology.overflow_ttl = 1000
@@ -99,9 +99,9 @@ auth.mongo.topology.max_overflow = 0
 ```
 
 
-## 默认数据结构
+## Default data structure
 
-MongoDB 认证默认配置下需要确保数据库中有如下集合：
+In the default configuration of MongoDB authentication, you need to ensure that the database has the following collections:
 
 ```json
 {
@@ -113,7 +113,7 @@ MongoDB 认证默认配置下需要确保数据库中有如下集合：
 }
 ```
 
-默认配置下示例数据如下：
+The sample data in the default configuration is as follows:
 
 ```bash
 use mqtt
@@ -126,18 +126,17 @@ db.mqtt_user.insert({
 })
 ```
 
-启用 MongoDB 认证后，你可以通过用户名： emqx，密码：public 连接。
-
+After MongoDB authentication is enabled, you can connect with username: emqx, password: public.
 
 {% hint style="info" %} 
-这是默认配置使用的集合结构，熟悉该插件的使用后你可以使用任何满足条件的集合进行认证。
+This is the collection structure used by default configuration. After being familiar with the use of the plugin, you can use any collection that meets the conditions for authentication.
 {% endhint %}
 
 
 
-## 加盐规则与哈希方法
+## Salting rules and hash methods
 
-MongoDB 认证支持配置[加盐规则与哈希方法](./auth.md#加盐规则与哈希方法)：
+MongoDB authentication support to configure [Salting rules and hash methods](./auth.md#加盐规则与哈希方法)：
 
 ```bash
 # etc/plugins/emqx_auth_mongo.conf
@@ -146,34 +145,33 @@ auth.mongo.password_hash = sha256
 ```
 
 
-## 认证查询（auth_selector）
+## auth_selector
 
-进行身份认证时，EMQ X Broker 将使用当前客户端信息填充并执行用户配置的认证 SQL，查询出该客户端在数据库中的认证数据。
+During authentication, EMQ X Broker will use the current client information to populate and execute the user-configured authentication SQL to query the client's authentication data in the database.
 
-MongoDB 支持配置集合名称、密码字段、selector 命令
+MongoDB supported configuration collection name, password field, and selector command
 
 ```bash
 # etc/plugins/emqx_auth_mongo.conf
 
 auth.mongo.auth_query.collection = mqtt_user
 
-## 如果启用了加盐处理，此处需配置为 password,salt
+## If salting is enabled, it needs to be configured as password,salt
 ## Value:  password | password,salt
 auth.mongo.auth_query.password_field = password
 
 auth.mongo.auth_query.selector = username=%u
 ```
 
-你可以在认证查询（selector）中使用以下占位符，执行时 EMQ X Broker 将自动填充为客户端信息：
+You can use the following placeholders in the selector, and EMQ X Broker will be automatically populated with client information when executed:
 
-- %u：用户名
+- %u：Username
 - %c：Client ID
-- %C：TLS 证书公用名（证书的域名或子域名），仅当 TLS 连接时有效
-- %d：TLS 证书 subject，仅当 TLS 连接时有效
+- %C：TLS certificate common name (the domain name or subdomain name of the certificate), valid only for TLS connections
+- %d：TLS certificate subject, valid only for TLS connections
 
+You can adjust the authentication query according to business to achieve more business-related functions, such as adding multiple query conditions and using database preprocessing functions. However, in any case, the authentication query must meet the following conditions:
 
-你可以根据业务需要调整认证查询，如添加多个查询条件、使用数据库预处理函数，以实现更多业务相关的功能。但是任何情况下认证查询需要满足以下条件：
-
-1. 查询结果中必须包含 password 字段，EMQ X Broker 使用该字段与客户端密码比对
-2. 如果启用了加盐配置，查询结果中必须包含 salt 字段，EMQ X Broker 使用该字段作为 salt（盐）值
-3. MongoDB 使用 findOne 查询命令，确保你期望的查询结果能够出现在第一条数据中
+1. The query result must include the password field, which is used by EMQ X Broker to compare with the client password
+2. If the salting configuration is enabled, the query result must include the salt field, which is used by EMQ X Broker as the salt value
+3. MongoDB uses the findOne query command to ensure that the query results you expect are shown in the first data
