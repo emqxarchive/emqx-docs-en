@@ -15,13 +15,13 @@ category:
 ref: undefined
 ---
 
-# Username 认证
+# Username Authentication
 
-Username 认证使用配置文件预设客户端用户名与密码，支持通过 HTTP API 管理认证数据。
+Username authentication uses a configuration file to preset client user names and passwords, and supports authentication data management via HTTP API.
 
-Username 认证不依赖外部数据源，使用上足够简单轻量。
+Username authentication does not rely on external data sources, and is simple and lightweight to use.
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_username
@@ -29,9 +29,9 @@ emqx_auth_username
 
 
 
-## 哈希方法
+## Hash method
 
-Username 认证默认使用 sha256 进行密码哈希加密，可在 `etc/plugins/emqx_auth_username.conf` 中更改：
+For username authentication, sha256 is used for password hash encryption by default, which can be changed in `etc/plugins/emqx_auth_username.conf`:
 
 ```bash
 # etc/plugins/emqx_auth_username.conf
@@ -40,42 +40,42 @@ Username 认证默认使用 sha256 进行密码哈希加密，可在 `etc/plugin
 auth.user.password_hash = sha256
 ```
 
-配置[哈希方法](./auth.md#加盐规则与哈希方法)后，新增的预设认证数据与通过 HTTP API 添加的认证数据将以哈希密文存储在 EMQ X Broker 内置数据库中。
+After configuring the [hash method](./auth.md#加盐规则与哈希方法), the new preset authentication data and authentication data added through the HTTP API will be stored in the EMQ X Broker built-in database in hash cipher text. 
 
 
-## 预设认证数据
+## Preset authentication data
 
-可以通过配置文件预设认证数据，编辑配置文件：`etc/plugins/emqx_auth_username.conf`
+You can preset authentication data through configuration files and edit configuration files：`etc/plugins/emqx_auth_username.conf`
 
 ```bash
 # etc/plugins/emqx_auth_username.conf
 
-## 第一组认证数据
+## The first set of authentication data
 auth.user.1.username = admin
 auth.user.1.password = public
 
-## 第二组认证数据
+## The second set of authentication data
 auth.user.2.username = wivwiv
 auth.user.2.password = public
 ```
 
-插件启动时将读取预设认证数据并加载到 EMQ X Broker 内置数据库中，节点上的认证数据会在此阶段同步至集群中。
+When the plugin is started, the preset authentication data is read and loaded into the EMQ X Broker built-in database, and the authentication data on the nodes will be synchronized to the cluster at this stage.
 
 <!-- TODO 补充加载规则 -->
 
 {% hint style="danger" %} 
 
-预设认证数据在配置文件中使用了明文密码，出于安全性与可维护性考虑应当避免使用该功能。
+The preset authentication data uses a clear text password in the configuration file. This function should be disabled for security and maintainability considerations.
 
 {% endhint %}
 
 
 
-## 使用 HTTP API 管理认证数据
+## Manage authentication data using HTTP API
 
-#### 添加认证数据
+#### Add authentication data
 
-API 定义：
+API definition:
 
 ```bash
 # Request
@@ -91,13 +91,13 @@ POST api/v4/auth_username
 }
 ```
 
-使用 POST 请求添加 username 为 `emqx_u` password 为 `emqx_p` 的认证信息，返回信息中 `code = 0` 即为成功。
+A POST request is used to add authentication information with username of `emqx_u` and password of ` emqx_p`, and it will succeed if  `code = 0` is returned.
 
 
 
-#### 查看已经添加的认证数据
+#### Check the added authentication data
 
-API 定义：
+API definition:
 
 ```bash
 # Request
@@ -112,11 +112,11 @@ GET api/v4/auth_username
 
 
 
-#### 更改指定用户名的密码
+#### Change the password of the specified user name
 
-指定用户名，传递新密码进行更改，再次连接时需要使用新密码进行连接：
+After specifying the user name and passing the new password to change it, it needs to use the new password when connecting again:
 
-API 定义：
+API definition:
 
 ```bash
 # Request
@@ -133,11 +133,11 @@ PUT api/v4/auth_username/${username}
 
 
 
-#### 查看指定用户名信息
+#### Check the specified username information
 
-指定用户名，查看相关用户名、密码信息，注意此处返回的密码是使用配置文件指定哈希方式加密后的密码：
+Specify the user name and check the related user name and password information. Note that the password returned here is the password encrypted with the hash method specified by the configuration file:
 
-API 定义：
+API definition:
 
 ```bash
 # Request
@@ -156,11 +156,11 @@ GET api/v4/auth_username/${username}
 
 
 
-#### 删除认证数据
+#### Delete authentication data
 
-删除指定认证数据：
+Delete the specified authentication data:
 
-API 定义：
+API definition:
 
 ```bash
 # Request

@@ -15,35 +15,35 @@ category:
 ref: undefined
 ---
 
-# PostgreSQL 认证
+# PostgreSQL Authentication
 
-PostgreSQL 认证使用外部 PostgreSQL 数据库作为认证数据源，可以存储大量数据，同时方便与外部设备管理系统集成。
+PostgreSQL authentication uses an external PostgreSQL database as the authentication data source, which can store a large amount of data and facilitate integration with external device management systems.
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_pgsql
 ```
 
 {% hint style="info" %} 
-emqx_auth_pgsql 插件同时包含 ACL 功能，可通过注释禁用。
+The emqx_auth_pgsql also includes ACL feature, which can be disabled via comments
 {% endhint %}
 
 
 
-要启用 PostgreSQL 认证，需要在 `etc/plugins/emqx_auth_pgsql.conf` 中配置以下内容：
+To enable PostgreSQL authentication, you need to configure the following in `etc/plugins/emqx_auth_pgsql.conf` 
 
-## PostgreSQL 连接信息
+## PostgreSQL connection information
 
-PostgreSQL 基础连接信息，需要保证集群内所有节点均能访问。
+For PostgreSQL basic connection information, it needs to ensure that all nodes in the cluster can access.
 
 ```bash
 # etc/plugins/emqx_auth_pgsql.conf
 
-## 服务器地址
+## Server address
 auth.pgsql.server = 127.0.0.1:5432
 
-## 连接池大小
+## Connection pool size
 auth.pgsql.pool = 8
 
 auth.pgsql.username = root
@@ -54,7 +54,7 @@ auth.pgsql.database = mqtt
 
 auth.pgsql.encoding = utf8
 
-## TLS 配置
+## TLS configuration
 ## auth.pgsql.ssl = false
 ## auth.pgsql.ssl_opts.keyfile =
 ## auth.pgsql.ssl_opts.certfile =
@@ -62,9 +62,9 @@ auth.pgsql.encoding = utf8
 
 
 
-## 默认表结构
+## Default table structure
 
-PostgreSQL 认证默认配置下需要确保数据库中有下表：
+In the default configuration of PostgreSQL authentication, you need to ensure that the following table is in the database:
 
 ```sql
 CREATE TABLE mqtt_user (
@@ -78,7 +78,7 @@ CREATE TABLE mqtt_user (
 
 
 
-默认配置下示例数据如下：
+The sample data in the default configuration is as follows:
 
 ```sql
 INSERT INTO mqtt_user (username, password, salt, is_superuser)
@@ -86,19 +86,19 @@ VALUES
 	('emqx', 'efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7', NULL, false);
 ```
 
-启用 PostgreSQL 认证后，你可以通过用户名： emqx，密码：public 连接。
+After PostgreSQL authentication is enabled, you can connect with username: emqx, password: public.
 
 
 
 {% hint style="info" %} 
-这是默认配置使用的表结构，熟悉该插件的使用后你可以使用任何满足条件的数据表进行认证。
+This is the table structure used by default configuration. After being familiar with the use of the plugin, you can use any data table that meets the conditions for authentication
 {% endhint %}
 
 
 
-## 加盐规则与哈希方法
+## Salting rules and hash methods
 
-PostgreSQL 认证支持配置[加盐规则与哈希方法](./auth.md#加盐规则与哈希方法)：
+PostgreSQL authentication support to configure [Salting rules and hash methods](./auth.md#加盐规则与哈希方法)：
 
 ```bash
 # etc/plugins/emqx_auth_pgsql.conf
@@ -108,9 +108,9 @@ auth.pgsql.password_hash = sha256
 
 
 
-## 认证 SQL（auth_query）
+## auth_query
 
-进行身份认证时，EMQ X Broker 将使用当前客户端信息填充并执行用户配置的认证 SQL，查询出该客户端在数据库中的认证数据。
+During authentication, EMQ X Broker will use the current client information to populate and execute the user-configured authentication SQL to query the client's authentication data in the database.
 
 ```bash
 # etc/plugins/emqx_auth_pgsql.conf
@@ -120,22 +120,22 @@ auth.pgsql.auth_query = select password from mqtt_user where username = '%u' lim
 
 
 
-你可以在认证 SQL 中使用以下占位符，执行时 EMQ X Broker 将自动填充为客户端信息：
+You can use the following placeholders in the SQL authentication, and EMQ X Broker will be automatically populated with client information when executed:
 
-- %u：用户名
+- %u：Username
 - %c：Client ID
-- %C：TLS 证书公用名（证书的域名或子域名），仅当 TLS 连接时有效
-- %d：TLS 证书 subject，仅当 TLS 连接时有效
+- %C：TLS certificate common name (the domain name or subdomain name of the certificate), valid only for TLS connections
+- %d：TLS certificate subject, valid only for TLS connections
 
 
 
-你可以根据业务需要调整认证 SQL，如添加多个查询条件、使用数据库预处理函数，以实现更多业务相关的功能。但是任何情况下认证 SQL 需要满足以下条件：
+You can adjust the authentication SQL according to business to achieve more business-related functions, such as adding multiple query conditions and using database preprocessing functions. However, in any case, the authentication  must meet the following conditions:
 
-1. 查询结果中必须包含 password 字段，EMQ X Broker 使用该字段与客户端密码比对
-2. 如果启用了加盐配置，查询结果中必须包含 salt 字段，EMQ X Broker 使用该字段作为 salt（盐）值
-3. 查询结果只能有一条，多条结果时只取第一条作为有效数据
+1. The query result must include the password field, which is used by EMQ X Broker to compare with the client password
+2. If the salting configuration is enabled, the query result must include the salt field, which is used by EMQ X Broker as the salt value
+3. There can only be one query result. When there are multiple results, only the first one is taken as valid data.
 
 {% hint style="info" %} 
-可以在 SQL 中使用 AS 语法为字段重命名指定 password，或者将 salt 值设为固定值。
+You can use AS syntax in SQL to specify passwords for field renaming, or set the salt value to a fixed value.
 {% endhint %}
 

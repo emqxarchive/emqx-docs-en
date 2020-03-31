@@ -15,23 +15,22 @@ category:
 ref: undefined
 ---
 
-# 消息桥接 {#emqx-bridge}
+# Message bridging{#emqx-bridge}
 
-EMQ X Broker 支持两种桥接方式:
+EMQ X Broker supports two bridging methods:
 
-- RPC 桥接: 使用 Erlang RPC 协议的桥接方式，只能在 EMQ X Broker 间使用
+- -RPC bridging: A bridge method that uses Erlang RPC protocol, only available between EMQ X Broker
+- MQTT Bridging: A bridge method that uses the MQTT protocol as a client to connect to a remote broker, and can bridge to other MQTT brokers and EMQ X Broker
 
-- MQTT 桥接: 使用 MQTT 协议、作为客户端连接到远程 Broker 的桥接方式，可桥接到其他 MQTT Broker 以及 EMQ X Broker
-
-其概念如下图所示:
+The concept is shown in the following figure:
 
 ![image](../assets/bridge.png)
 
-发布者可通过桥接将消息发布到远程的 Broker:
+Publishers can publish messages to remote brokers via bridging:
 
 ![image](../assets/bridges_3.png)
 
-EMQ X Broker 根据不同的 name 来区分不同的 bridge。可在 `etc/plugins/emqx_bridge_mqtt.conf` 中添加 Bridge:
+EMQ X Broker distinguishes different bridges based on different names. Bridge can be added in `etc/plugins/emqx_bridge_mqtt.conf` :
 
 ```bash
 bridge.mqtt.aws.address = 211.182.34.1:1883
@@ -39,13 +38,13 @@ bridge.mqtt.aws.address = 211.182.34.1:1883
 bridge.mqtt.huawei.address = 54.33.120.8:1883
 ```
 
-该项配置声明了两个 bridge，一个名为 `aws`，另一个名为 `huawei`，并分别指向响应的服务地址，使用 MQTT 方式桥接。
+This configuration declares two bridges with the name of `aws` and ` huawei`, which respectively point to the responding service address using MQTT bridging method.
 
-如果该配置的值是另一个 EMQ X Broker 的节点名，则使用 RPC 方式桥接:
+If the value of this configuration is the node name of another EMQ X Broker, the RPC bridging method is used:
 ```bash
 bridge.mqtt.emqx2.address = emqx2@57.122.76.34
 ```
-使用桥接功能需要启动 `emqx_bridge_mqtt` 插件:
+To use the bridge function, you need to enable the emqx_bridge_mqtt plugin:
 
 ```bash
 $ emqx_ctl plugins load emqx_bridge_mqtt
@@ -53,100 +52,99 @@ $ emqx_ctl plugins load emqx_bridge_mqtt
 ok
 ```
 
-## RPC 桥接的优缺点 {#rpc-bridge-pros-cons}
+## Advantages and disadvantages of RPC bridging{#rpc-bridge-pros-cons}
 
-RPC 桥接的优点在于其不涉及 MQTT 协议编解码，效率高于 MQTT 桥接。
+The advantage of RPC bridging is that it does not involve the MQTT protocol codec and is more efficient than MQTT bridging.
 
-RPC 桥接的缺点:
+The disadvantage of RPC bridging
 
-- RPC 桥接只能将两个 EMQ X Broker 桥接在一起（版本须相同），无法桥接 EMQ X Broker 到其他的 MQTT Broker 上
+- RPC bridging can only bridge two EMQ X Brokers together (the version must be the same), and cannot bridge EMQ X Broker to other MQTT Brokers
+- RPC bridging can only forward local messages to remote bridge nodes, and cannot synchronize messages from remote bridge nodes to local nodes
 
-- RPC 桥接只能将本地的消息转发到远程桥接节点上，无法将远程桥接节点的消息同步到本地节点上
+## RPC bridging example {#rpc-bridge-example}
 
-## RPC 桥接举例 {#rpc-bridge-example}
+Suppose there are two emqx nodes:
 
-假设有两个 emqx 节点:
-
-| 名称  |        节点          | MQTT 端口 |
+| Name |        Node        | MQTT Port |
 | ----- | ------------------- | --------- |
 | emqx1 | <emqx1@192.168.1.1> | 1883      |
 | emqx2 | <emqx2@192.168.1.2> | 1883      |
 
-现在我们要将 `emqx1` 桥接到 `emqx2`。首先需要在 `emqx1` 的 `etc/plugins/emqx_bridge_mqtt.conf` 配置文件里添加 Bridge 配置并指向`emqx2`:
+Now, we are going to bridge `emqx1` to ` emqx2`. First we need to add the Bridge configuration in the  configuration file `etc/plugins/emqx_bridge_mqtt.conf`  of emqx1 and point to emqx2:
 
 ```bash
 bridge.mqtt.emqx2.address = emqx2@192.168.1.2
 ```
 
-接下来定义 `forwards` 规则，这样本节点上发到 `sensor1/#`、`sensor2/#` 上的消息都会被转发到 `emqx2`:
+Next, we will define the `forwards` rule, so that messages sent by this node to ` sensor1 / # `and` sensor2 / # ` will be forwarded to ` emqx2`:
 
 ```bash
 bridge.mqtt.emqx2.forwards = sensor1/#,sensor2/#
 ```
 
-如果想要在消息转发前给 `emqx2` 之前，给主题加上特定前缀，可以设置挂载点:
+If you want to add specific prefix to the topics before forwarding the message to `emqx2` , you can set the mount point:
 
 ```bash
 bridge.mqtt.emqx2.mountpoint = bridge/emqx2/${node}/
 ```
 
-挂载点利于 `emqx2` 区分桥接消息和本地消息。例如，以上配置中，原主题为 `sensor1/hello` 的消息，转发到 `emqx2` 后主题会变为 `bridge/emqx2/emqx1@192.168.1.1/sensor1/hello`。
+The mount point is good for `emqx2` to distinguish between bridged messages and local messages. For example, in the above configuration, the message with the original topic of `sensor1/hello` that will change into  `bridge/emqx2/emqx1@192.168.1.1/sensor1/hello` after being forwarded to ` emqx2`. 
 
-## MQTT 桥接举例 {#mqtt-bridge-example}
+## MQTT bridging example  {#mqtt-bridge-example}
 
-MQTT 桥接是让 EMQ X Broker 作为 MQTT 客户端连接到远程的 MQTT Broker。
+For MQTT bridging, it makes EMQ X Broker connect as a MQTT client to a remote MQTT broker.
 
-首先需要配置 MQTT 客户端参数:
+First you need to configure the MQTT client parameters:
 
-远程 Broker 地址:
+Remote Broker Address:
 
 ```bash
 bridge.mqtt.aws.address = 211.182.34.1:1883
 ```
 
-MQTT 协议版本，可以为 `mqttv3`、`mqttv4` 或 `mqttv5` 其中之一:
+MQTT protocol version, which can be one of  `mqttv3`, ` mqttv4`  or  `mqttv5`:
 
 ```bash
 bridge.mqtt.aws.proto_ver = mqttv4
 ```
 
-MQTT 客户端的 clientid:
+The clientid of the MQTT client:
 
 ```bash
 bridge.mqtt.aws.clientid = bridge_emq
 ```
 
-MQTT 客户端的 username 字段:
+The username field of the MQTT client:
 
 ```bash
 bridge.mqtt.aws.username = user
 ```
 
-MQTT 客户端的 password 字段:
+The password field of the MQTT client:
 
 ```bash
 bridge.mqtt.aws.password = passwd
 ```
 
-Keepalive 设置:
+Keepalive configuration:
 
 ```bash
 bridge.mqtt.aws.keepalive = 60s
 ```
 
-然后是客户端的 clean_start 字段，有些 IoT Hub 要求 clean_start（或 clean_session) 字段必须为 `true`:
+The client's clean_start field. Some IoT Hubs require that the clean_start (or clean_session) field must be `true`:
 
 ```bash
 bridge.mqtt.aws.clean_start = true
 ```
 
-可设置桥接断线重连间隔:
+The reconnection interval can be set:
 
 ```bash
 bridge.mqtt.aws.reconnect_interval = 30s
 ```
 
-如需使用 TLS 连接，可以设置 `bridge.mqtt.aws.ssl = on` 并设置 TLS 证书:
+If TLS connection is used, you can set `bridge.mqtt.aws.ssl = on` and set the TLS certificate:
 
 ```bash
 bridge.mqtt.aws.ssl = off
@@ -157,49 +155,49 @@ bridge.mqtt.aws.ciphers = ECDHE-ECDSA-AES256-GCM-SHA384,ECDHE-RSA-AES256-GCM-SHA
 bridge.mqtt.aws.tls_versions = tlsv1.2,tlsv1.1,tlsv1
 ```
 
-接下来定义 `forwards` 规则，这样本节点上发到 `sensor1/#`、`sensor2/#` 上的消息都会被转发到远程 Broker:
+Next, we define the `forwards` rule, so that messages sent by this node to ` sensor1/# `and ` sensor2/# `will be forwarded to the remote broker:
 
 ```bash
 bridge.mqtt.aws.forwards = sensor1/#,sensor2/#
 ```
 
-还可指定 QoS1 与 QoS2 消息的重传间隔以及批量发送报文数:
+You can also specify the retry interval for QoS1 and QoS2 messages and the number of packet sent in bulk:
 
 ```bash
 bridge.mqtt.aws.retry_interval = 20s
 bridge.mqtt.aws.max_inflight_batches = 32
 ```
 
-如果想要在消息转发前给 `aws` 之前，给主题加上特定前缀，可以设置挂载点，详见 [RPC 桥接举例](#rpc-bridge-example) 章节:
+If you want to add a specific prefix to the topic forwarding the message to `aws` , you can set the mount point. For details, see the  [RPC Bridge Example](#rpc-bridge-example) section:
 
 ```bash
 bridge.mqtt.aws.mountpoint = bridge/aws/${node}/
 ```
 
-如果想让本地 Broker "拉取" 远程 Broker 的消息，可以向远程 Broker 订阅某些主题:
+If you want your local broker to "pull" messages from remote brokers, you can subscribe to certain topics from remote brokers:
 
 ```bash
 bridge.mqtt.aws.subscription.1.topic = cmd/topic1
 bridge.mqtt.aws.subscription.1.qos = 1
 ```
 
-### EMQ X Broker 桥接缓存配置 {#emqx-bridge-cache}
+### EMQ X Broker's bridge cache configuration {#emqx-bridge-cache}
 
-EMQ X Broker 的 Bridge 拥有消息缓存机制，当 Bridge 连接断开时会将 forwards 主题的消息缓存，等到桥接恢复时，再把消息重新转发到远程节点上。缓存机制同时适用于 RPC 桥接和 MQTT 桥接。
+EMQ X Broker's Bridge has a message cache mechanism. When the Bridge is disconnected, the message of the forwards topic is cached. When the bridge is restored, the message is re-forwarded to the remote node. The caching mechanism applies to both RPC and MQTT bridges.
 
-设置缓存队列总大小:
+Set the total cache queue size:
 
 ```bash
 bridge.mqtt.aws.queue.max_total_size = 5GB
 ```
 
-将消息缓存到磁盘的某个路径（如不设置，则仅缓存到内存）:
+Cache messages to a certain path to the disk (Only cache to memory if not set):
 
 ```bash
 bridge.mqtt.emqx2.queue.replayq_dir = data/emqx_emqx2_bridge/
 ```
 
-设置单个缓存文件的大小，如超过则会创建新的文件来存储消息队列:
+Set the size of a single cache file. If it exceeds, a new file will be created to store the message queue:
 
 ```bash
 bridge.mqtt.emqx2.queue.replayq_seg_bytes = 10MB
