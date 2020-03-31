@@ -15,28 +15,28 @@ category:
 ref: undefined
 ---
 
-# LDAP 认证
+# LDAP Authentication
 
 <!-- TODO: 为测试通过，从新宇 auth 文档中取 -->
 
-LDAP 认证使用外部 LDAP 服务器作为认证数据源，可以存储大量数据，同时方便与外部设备管理系统集成。
+LDAP authentication uses an external LDAP server as the authentication data source, which can store a large amount of data and facilitate integration with external device management systems.
 
-插件：
+Plugin:
 
 ```bash
 emqx_auth_ldap
 ```
 
 {% hint style="info" %} 
-emqx_auth_ldap 插件同时包含 ACL 功能，可通过注释禁用。
-目前版本仅支持 OpenLDAP，不支持 Microsoft Active Directory。
+The emqx_auth_ldap plugin also includes ACL feature, which can be disabled via comments.
+The current version only supports openldap and does not support Microsoft active directory.
 {% endhint %}
 
 
 
-## LDAP 配置
+## LDAP Configuration
 
-要启用 LDAP 认证，需要在 `etc/plugins/emqx_auth_ldap.conf` 中配置以下内容：
+To enable LDAP authentication, you need to configure the following in `etc/plugins/emqx_auth_ldap.conf`:
 
 ```bash
 # etc/plugins/emqx_auth_ldap.conf
@@ -47,28 +47,28 @@ auth.ldap.port = 389
 
 auth.ldap.pool = 8
 
-## ldap 的绑定专有名称(DN)
+## ldap's Binding Distinguished Name (DN)
 auth.ldap.bind_dn = cn=root,dc=emqx,dc=io
 
-## 	ldap 的绑定密码
+## 	ldap's Binding password
 auth.ldap.bind_password = public
 
-## ldap 的查询超时时间
+## ldap's query timeout
 auth.ldap.timeout = 30s
 
-## ldap 的设备专有名
+## ldap's device distinguished name
 auth.ldap.device_dn = ou=device,dc=emqx,dc=io
 
-## ldap 的匹配对象类
+## ldap's matching object class
 auth.ldap.match_objectclass = mqttUser
 
-## ldap 的用户名属性类型
+## ldap's username attribute type
 auth.ldap.username.attributetype = uid
 
-## 	ldap 的密码属性类型
+## 	ldap's password attribute type
 auth.ldap.password.attributetype = userPassword
 
-## TLS 配置项
+## TLS Configuration item
 ## auth.ldap.ssl.certfile = etc/certs/cert.pem
 ## auth.ldap.ssl.keyfile = etc/certs/key.pem
 ## auth.ldap.ssl.cacertfile = etc/certs/cacert.pem
@@ -79,7 +79,7 @@ auth.ldap.password.attributetype = userPassword
 
 ## LDAP Schema 
 
-需要在 LDAP schema 目录配置数据模型，默认配置下数据模型如下：
+The data model needs to be configured in the LDAP schema directory. By default, the data model is as follows:
 
 **/etc/openldap/schema/emqx.schema**
 
@@ -122,7 +122,7 @@ AUXILIARY
 MAY ( userPassword $ userPKCS12 $ pwdAttribute $ pwdLockout ) )
 ```
 
-编辑 ldap 的配置文件 slapd.conf 引用 Schema：
+The configuration file slapd.conf was edited with reference of Schema:
 
 **/etc/openldap/slapd.conf**
 

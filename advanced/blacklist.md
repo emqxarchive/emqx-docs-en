@@ -15,24 +15,24 @@ category:
 ref: undefined
 ---
 
-# 黑名单
+# Blacklist
 
-EMQ X Broker 为用户提供了黑名单功能，用户可以通过相关的 HTTP API 将指定客户端加入黑名单以拒绝该客户端访问，除了客户端标识符以外，还支持直接封禁用户名甚至 IP 地址。
+EMQ X Broker provides users with a blacklist function. Users can add specified clients to the blacklist through the relevant HTTP API to deny access of the client. In addition to the client identifier, it also supports direct ban of user names and even IP addresses.
 
-相关 HTTP API 的具体使用方法，请参见 [HTTP API - 黑名单](http-api.md#endpoint-banned)。
+For specific usage of the HTTP API, see  [HTTP API - blacklist](http-api.md#endpoint-banned) for reference.
 
 {% hint style="info" %}
-黑名单只适用于少量客户端封禁需求，如果有大量客户端需要认证管理，请使用 [认证](./auth.md) 功能。
+The blacklist is only applicable to a small number of client bans. If there are a large number of clients requiring authentication management, please use the [authentication](./auth.md)  function.。
 {% endhint %}
 
-在黑名单功能的基础上，EMQ X Broker 支持自动封禁那些被检测到短时间内频繁登录的客户端，并且在一段时间内拒绝这些客户端的登录，以避免此类客户端过多占用服务器资源而影响其他客户端的正常使用。
+Based on the blacklist function, EMQ X Broker supports automatic banning of clients that are frequently logged in for a short period of time, and rejects these clients for a period of time to prevent such clients from occupying server resources so that  the normal use of other clients is affected.
 
-需要注意的是，自动封禁功能只封禁客户端标识符，并不封禁用户名和 IP 地址，即该机器只要更换客户端标识符就能够继续登录。
+It should be noted that the automatic ban function only bans the client identifier, not the user name and IP address. That is to say, the machine can continue to log in as long as the client identifier is changed.
 
-此功能强制开启并无法关闭，但用户可以在 `emqx.conf` 配置文件中调整触发阈值和封禁时长等配置：
+This function is forcibly enabled and cannot be disabled, but users can adjust configurations such as the trigger threshold and ban time in the `emqx.conf` configuration file:
 
 ```bash
 flapping_detect_policy = 30, 1m, 5m
 ```
 
-此配置项的值以 `,` 分隔，依次表示客户端离线次数，检测的时间范围以及封禁时长，因此上述默认配置即表示如果客户端在 1 分钟内离线次数达到 30 次，那么该客户端使用的客户端标识符将被封禁 5 分钟。当然你也可以使用其他诸如秒、小时在内的时间单位，关于这部分内容，请参见 [配置说明](../using-emqx/config.md#)。
+The value of this configuration item is separated by `,`, which in turn indicate the number of times that the client is offline, the detection time range, and the ban time. Therefore, the above default configuration means that if the client goes offline 30 times in 1 minute, the client's 'identifier will be banned for 5 minutes. Of course, you can also use other time units such as seconds and hours. For this part, please refer to [Configuration Instructions](../using-emqx/config.md#).
