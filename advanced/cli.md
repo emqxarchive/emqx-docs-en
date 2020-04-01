@@ -15,13 +15,13 @@ category:
 ref: undefined
 ---
 
-# 命令行接口
+# Command line interface
 
-EMQ X Broker 提供了 `./bin/emqx_ctl` 的管理命令行，用于用户对 EMQ X Broker 进行管理、配置、查询。
+EMQ X Broker provides the management command line of `./bin/emqx_ctl` for users to manage, configure and query EMQ X Broker.
 
-## status 命令
+## status command
 
-查询 EMQ X Broker 运行状态:
+Query the running status of EMQ X Broker:
 
 ```bash
 $ ./bin/emqx_ctl status
@@ -29,21 +29,21 @@ Node 'emqx@127.0.0.1' is started
 emqx v4.0.0 is running
 ```
 
-## mgmt 命令
+## mgmt command
 
-mgmt 命令查询应用程序。
+The mgmt command can query the application.
 
-| 命令                             | 描述                         |
+| Command                      | Description               |
 | -------------------------------- | ---------------------------- |
-| `mgmt list                       ` | 列出应用程序列表             |
-| `mgmt insert <AppId> <Name>   `| 添加允许访问 HTTP API 的应用程序     |
-| `mgmt update <AppId> <status>` | 更新允许访问 HTTP API 的应用程序     |
-| `mgmt lookup <AppId>         ` | 获取允许访问 HTTP API 的应用程序详情 |
-| `mgmt delete <AppId>           ` | 删除允许访问 HTTP API 的应用程序     |
+| `mgmt list                       ` | List application |
+| `mgmt insert <AppId> <Name>   `| Add an application that can access to the HTTP API |
+| `mgmt update <AppId> <status>` | Update applications that can access to the HTTP API |
+| `mgmt lookup <AppId>         ` | Get application details that can access to the HTTP API |
+| `mgmt delete <AppId>           ` | Remove applications that can access to the HTTP API |
 
 ### mgmt list
 
-列出应用程序列表:
+List application
 
 ```bash
 $ ./bin/emqx_ctl mgmt list
@@ -52,7 +52,7 @@ app_id: 901abdba8eb8c, secret: MjgzMzQ5MjM1MzUzMTc4MjgyMjE3NzU4ODcwMDg0NjQ4OTG, 
 
 ### mgmt insert <AppId> <Name>
 
-添加 HTTP API 的应用程序:
+Add the HTTP API application:
 
 ```bash
 $ ./bin/emqx_ctl mgmt insert dbcb6e023370b world
@@ -61,7 +61,7 @@ AppSecret: MjgzMzQ5MjYyMTY3ODk4MjA5NzMwODExODMxMDM1NDk0NDA
 
 ### mgmt update <AppId> <status>
 
-更新 HTTP API 的应用程序:
+Update the HTTP API application:
 
 ```bash
 $ ./bin/emqx_ctl mgmt update dbcb6e023370b stop
@@ -70,7 +70,7 @@ update successfully.
 
 ### mgmt lookup <AppId>
 
-获取 HTTP API 的应用程序详情:
+Get application details of the HTTP API:
 
 ```bash
 $ ./bin/emqx_ctl mgmt lookup dbcb6e023370b
@@ -84,24 +84,24 @@ expired: undefined
 
 ### mgmt delete <AppId>
 
-删除 HTTP API 的应用程序:
+Remove the HTTP API application:
 
 ```bash
 $ ./bin/emqx_ctl mgmt delete dbcb6e023370b
 ok
 ```
 
-## broker 命令
+## broker command
 
-broker 命令查询服务器基本信息，启动时间，统计数据与性能数据。
+The broker command queries basic server information, startup time, statistics data and performance data.
 
-| 命令           | 描述                                                         |
+| Command     | Description                                               |
 | -------------- | ------------------------------------------------------------ |
-| `broker` | 查询 EMQ X Broker 描述、版本、启动时间                    |
-| `broker stats` | 查询连接 (Connection)、会话 (Session)、主题 (Topic)、订阅 (Subscription)、路由 (Route) 统计信息 |
-| `broker metrics` | 查询 MQTT 报文 (Packet)、消息 (Message) 收发统计             |
+| `broker` | Query EMQ X Broker description, version, start time |
+| `broker stats` | Statistics of Connection, Session, Topic, Subscription, Route |
+| `broker metrics` | Query MQTT Packet and Message Statistics |
 
-查询 EMQ X Broker 基本信息，包括版本、启动时间等:
+Query basic information of EMQ X Broker, including version, startup time, etc .:
 
 ```bash
 $ ./bin/emqx_ctl broker
@@ -113,7 +113,7 @@ datetime  : 2020-02-21 09:39:58
 
 ### broker stats
 
-查询服务器客户端连接 (Connections)、主题 (Topics)、订阅 (Subscriptions)、路由 (Routes) 统计:
+Query statistics of connections, topics, subscriptions, routes between server and client :
 
 ```bash
 $ ./bin/emqx_ctl broker stats
@@ -147,7 +147,7 @@ topics.max                    : 0
 
 ### broker metrics
 
-查询服务器流量 (Bytes)、MQTT 报文 (Packets)、消息 (Messages) 收发统计:
+Query server traffic (Bytes), MQTT Packets, messages sending and receiving statistics:
 
 ```bash
 $ ./bin/emqx_ctl broker metrics
@@ -233,34 +233,34 @@ session.takeovered            : 0
 session.terminated            : 0
 ```
 
-## cluster 命令
+## cluster command
 
-cluster 命令可以管理由多个 EMQ X Broker 节点（进程）组成的集群:
+The cluster command is used to manage a cluster of multiple EMQ X Broker nodes (processes):
 
-| 命令                         | 描述           |
-| ---------------------------- | -------------- |
-| `cluster join <Node>        `| 加入集群       |
-| `cluster leave              `| 离开集群       |
-| `cluster force-leave <Node> `| 从集群删除节点 |
-| `cluster status             `| 查询集群状态   |
+| Command                       | Description                   |
+| ----------------------------- | ----------------------------- |
+| `cluster join <Node>        ` | Join the cluster              |
+| `cluster leave                | Leave the cluster             |
+| `cluster force-leave <Node> ` | Remove nodes from the cluster |
+| `cluster status             ` | Query cluster status          |
 
-示例:
+Example:
 
-为更好地展示 cluster 命令，我们先在本机启动两个节点并组成集群，为避免端口冲突，我们对 emqx2 节点的监听端口做出了调整，例如 MQTT/TCP 监听端口由默认的 1883 改为了 2883，详情请参见 [配置说明](using-emqx/config.md) 与 [配置项](configuration/index.md)。
+To demonstrate the cluster command in a better way, we first start two nodes on the local machine and create a cluster. To avoid port conflicts, we have adjusted the listening port of the emqx2 node. For example, the MQTT/TCP listening port was changed from the default 1883 to 2883. Please refer to [Configuration Instructions](using-emqx/config.md) and  [Configuration Items](configuration/index.md) for details.
 
-启动 emqx1 :
+Start emqx1 :
 
 ```bash
 $ cd emqx1 && ./bin/emqx start
 ```
 
-启动 emqx2 :
+Start emqx2 :
 
 ```bash
 $ cd emqx2 && ./bin/emqx start
 ```
 
-使用 `cluster join <Node>` 将两个节点组成集群：
+Use `cluster join <Node>` to combine two nodes into one cluster:
 
 ```bash
 $ cd emqx2 && ./bin/emqx_ctl cluster join emqx1@127.0.0.1
@@ -269,69 +269,69 @@ Join the cluster successfully.
 Cluster status: [{running_nodes,['emqx1@127.0.0.1','emqx2@127.0.0.1']}]
 ```
 
-任意节点目录下查询集群状态:
+Query the cluster status in any node directory:
 
 ```bash
 $ ./bin/emqx_ctl cluster status
 Cluster status: [{running_nodes,['emqx2@127.0.0.1','emqx1@127.0.0.1']}]
 ```
 
-集群消息路由测试:
-MQTT 命令行工具使用由 EMQ X 团队开发的 [emqtt](https://github.com/emqx/emqtt/releases) 客户端。
+Cluster message routing test:
+The MQTT command line tool uses the  [emqtt](https://github.com/emqx/emqtt/releases) client developed by the EMQ X team.
 
 ```bash
-# emqx1 节点（1883 端口）订阅主题 x
+# emqx1 node (port 1883) subscribed topic x
 $ ./bin/emqtt sub -t x -q 1 -p 1883
 Client emqtt-a7de8fffbe2fbeb2fadb sent CONNECT
 Client emqtt-a7de8fffbe2fbeb2fadb subscribed to x
 
-# 向 emqx2 节点（2883 端口 ）发布消息
+# Published message to emqx2 node (port 2883)
 $ ./bin/emqtt pub -t x -q 1 -p 2883 --payload hello
 Client emqtt-0898fa447676e17479a5 sent CONNECT
 Client emqtt-0898fa447676e17479a5 sent PUBLISH (Q1, R0, D0, Topic=x, Payload=...(5 bytes))
 Client emqtt-0898fa447676e17479a5 sent DISCONNECT
 
-# emqx1 节点（1883 端口）收到消息
+# received a message by emqx1 node (port 1883) 
 $ ./bin/emqtt sub -t x -q 1 -p 1883
 hello
 ```
 
-emqx2 节点离开集群:
+emqx2 nodes leave the cluster:
 
 ```bash
 $ cd emqx2 && ./bin/emqx_ctl cluster leave
 ```
 
-强制 emqx2 节点离开集群，需要在集群下的目标节点以外的节点上进行操作:
+emqx2 node is forced to leave the cluster, and you need to perform operations on nodes other than the target node under the cluster:
 
 ```bash
 $ cd emqx1 && ./bin/emqx_ctl cluster force-leave emqx2@127.0.0.1
 ```
 
-注意，EMQ X Broker 不支持一个已经在一个集群中的节点加入另外一个集群，因为这会导致两个集群数据不一致，但支持加入过集群的节点在离开该集群后加入另一个集群。
+It is Noted that EMQ X Broker does not support joining a node that is already in a cluster to another cluster. That is because this will cause the data of the two clusters to be inconsistent. However, it supports nodes that have joined the cluster to join another cluster after leaving the cluster.
 
-## acl 命令
+## acl command
 
-重新加载 acl 规则:
+Reload acl rule:
 
 ```bash
 $ ./bin/emqx_ctl acl reload
 ok
 ```
 
-## clients 命令
+## clients command
 
-clients 命令查询连接的 MQTT 客户端。
+The clients command can query the connected MQTT clients.
 
-| 命令                      | 描述                     |
+| Command                | Description           |
 | ------------------------- | ------------------------ |
-| `clients list           ` | 列出所有客户端连接       |
-| `clients show <ClientId>` | 查询指定 ClientId 的客户端 |
-| `clients kick <ClientId>` | 踢除指定 ClientId 的客户端，连接与会话将一并终结。 |
+| `clients list           ` | List all client connections |
+| `clients show <ClientId>` | Query the client with the specified ClientId |
+| `clients kick <ClientId>` | Kick out the client with the specified ClientId, and the connection and session will be terminated together. |
 
 ### clients list
 
-列出所有客户端连接:
+List all client connections:
 
 ```bash
 $ ./bin/emqx_ctl clients list
@@ -340,29 +340,29 @@ Client (mosqsub/44011-airlee.lo, username=test2, peername=127.0.0.1:64961, clean
     ...
 ```
 
-返回 Client 对象的属性:
+Return the properties of the Client object:
 
-| Name | 描述 |
+| Name | Description |
 | ------------------------- | ------------------------- |
-| username                  | 用户名                       |
-| peername                  | 客户端 IP 与端口                |
+| username                  | Username                |
+| peername                  | Client IP and port |
 | clean\_start              | MQTT Clean Start          |
 | keepalive                 | MQTT KeepAlive            |
-| session\_expiry\_interval | 会话过期间隔                    |
-| subscriptions             | 当前订阅数量                    |
-| inflight                  | 当前正在下发的 QoS 1 和 QoS 2 的消息总数     |
-| awaiting\_rel             | 等待客户端发送 PUBREL 的 QoS2 消息数 |
-| delivered\_msgs           | EMQ X Broker 向此客户端转发的消息数量 (包含重传)  |
-| enqueued\_msgs            | 消息队列当前长度                  |
-| dropped\_msgs             | 消息队列达到最大长度后丢弃的消息数量        |
-| connected                 | 是否在线                      |
-| created\_at               | 会话创建时间戳                |
-| connected\_at             | 客户端连接时间戳                |
-| disconnected_at | 客户端断开连接时间戳（仅当断开连接还保留会话时才会出现） |
+| session\_expiry\_interval | Session expiration interval |
+| subscriptions             | Current subscriptions |
+| inflight                  | Total number of QoS 1 and QoS 2 messages currently being issued |
+| awaiting\_rel             | Number of QoS2 messages waiting for the client to send PUBREL |
+| delivered\_msgs           | Number of messages forwarded by EMQ X Broker to this client (including retransmissions) |
+| enqueued\_msgs            | Current length of message queue |
+| dropped\_msgs             | Number of messages dropped after the message queue reached the maximum length |
+| connected                 | Whether online      |
+| created\_at               | Session creation timestamp |
+| connected\_at             | Client connection timestamp |
+| disconnected_at | Client disconnection timestamp (appears only if the disconnection also retains the session) |
 
 ### clients show <ClientId>
 
-查询指定 ClientId 的客户端:
+Query the client with the specified ClientId:
 
 ```bash
 $ ./bin/emqx_ctl clients show "mosqsub/43832-airlee.lo"
@@ -371,27 +371,27 @@ Client (mosqsub/43832-airlee.lo, username=test1, peername=127.0.0.1:62747, clean
 
 ### clients kick <ClientId>
 
-踢除指定 ClientId 的客户端:
+Kick out the client with the specified ClientId:
 
 ```bash
 $ ./bin/emqx_ctl clients kick "clientid"
 ok
 ```
 
-## routes 命令
+## routes command
 
-routes 命令用于查询路由信息。
+The routes command is used to query routing information.
 
-EMQ X Broker 中路由是指主题与节点的映射关系，用于在多个节点之间路由消息。
+In EMQ X Broker, route refers to the mapping of topics to nodes, which is used to route messages between multiple nodes.
 
-| 命令                  | 描述                |
+| Command            | Description      |
 | --------------------- | ------------------- |
-| `routes list        ` | 列出所有路由        |
-| `routes show <Topic>` | 查询指定 Topic 的路由 |
+| `routes list        ` | List all routes |
+| `routes show <Topic>` | Query the route of the specified topic |
 
 ### routes list
 
-列出所有路由:
+List all routes:
 
 ```bash
 $ ./bin/emqx_ctl routes list
@@ -401,27 +401,27 @@ t/+/x -> emqx2@127.0.0.1,emqx@127.0.0.1
 
 ### routes show <Topic>
 
-查询指定 Topic d的路由:
+Query the route with the specified topic:
 
 ```bash
 $ ./bin/emqx_ctl routes show t/+/x
 t/+/x -> emqx2@127.0.0.1,emqx@127.0.0.1
 ```
 
-## subscriptions 命令
+## subscriptions command
 
-subscriptions 命令查询消息服务器的订阅 (Subscription) 表。
+The subscriptions command queries the subscription table of the message server.
 
-| 命令                                         | 描述                     |
+| Command                                   | Description           |
 | -------------------------------------------- | ------------------------ |
-| `subscriptions list                        ` | 列出所有订阅             |
-| `subscriptions show <ClientId>             ` | 查询指定 ClientId 客户端的订阅 |
-| `subscriptions add <ClientId> <Topic> <QoS>` | 手动添加静态订阅         |
-| `subscriptions del <ClientId> <Topic>      ` | 手动删除静态订阅         |
+| `subscriptions list                        ` | List all subscriptions |
+| `subscriptions show <ClientId>             ` | Query the subscription of the specified ClientId client |
+| `subscriptions add <ClientId> <Topic> <QoS>` | Add static subscriptions manually |
+| `subscriptions del <ClientId> <Topic>      ` | Delete static subscriptions manually |
 
 ### subscriptions list
 
-列出所有订阅:
+List all subscriptions:
 
 ```bash
 $ ./bin/emqx_ctl subscriptions list
@@ -431,7 +431,7 @@ mosqsub/90475-airlee.lo -> t/+/x:2
 
 ### subscriptions show <ClientId>
 
-查询某个 Client 的订阅:
+Query certain client's subscription:
 
 ```bash
 $ ./bin/emqx_ctl subscriptions show 'mosqsub/90475-airlee.lo'
@@ -440,7 +440,7 @@ mosqsub/90475-airlee.lo -> t/+/x:2
 
 ### subscriptions add <ClientId> <Topic> <QoS>
 
-手动添加订阅关系:
+Add subscription relationship manually:
 
 ```bash
 $ ./bin/emqx_ctl subscriptions add 'mosqsub/90475-airlee.lo' '/world' 1
@@ -449,29 +449,29 @@ ok
 
 ### subscriptions del <ClientId> <Topic>
 
-手动删除订阅关系:
+Delete subscription relationship manually:
 
 ```bash
 $ ./bin/emqx_ctl subscriptions del 'mosqsub/90475-airlee.lo' '/world'
 ok
 ```
 
-## plugins 命令
+## plugins command
 
-plugins 命令用于加载、卸载、查询插件应用。EMQ X Broker 通过插件扩展认证、定制功能，插件配置位于 `etc/plugins/` 目录下。
+The plugins command is used to load, unload, and query plugin applications. EMQ X Broker extends authentication and customization through plugins. The plugin configuration is located in the directory of `etc/plugins/` .
 
-| 命令 | 描述 |
+| Command | Description |
 | ------------------------- | -------------- |
-| `plugins list            `| 列出全部插件 (Plugin) |
-| `plugins load <Plugin>   `| 加载插件 (Plugin)   |
-| `plugins unload <Plugin> `| 卸载插件 (Plugin)   |
-| `plugins reload <Plugin> `| 重载插件 (Plugin)   |
+| `plugins list            `| List all plugins |
+| `plugins load <Plugin>   `| Load plugins |
+| `plugins unload <Plugin> `| Unload plugins |
+| `plugins reload <Plugin> `| Reload plugins |
 
- 当配置文件发生更改，如果需要配置立即生效，你可以执行 `emqx_ctl reload <Plugin\> 命令，即使插件在配置修改时并未处于运行状态，你也应当使用此命令而不是 `emqx_ctl load <Plugin\>，因为 `emqx_ctl load <Plugin\> 不会编译新的配置文件。
+When the configuration file changesand it needs to take effect immediately, you can execute the `emqx_ctl reload <Plugin \>` command, even if the plugin is not running when the configuration is modified. You should use this command instead of `emqx_ctl load <Plugin\>` . Because `emqx_ctl load <Plugin \>` does not compile the new configuration file.
 
 ### plugins list
 
-列出全部插件:
+List all plugins:
 
 ```bash
 $ ./bin/emqx_ctl plugins list
@@ -503,17 +503,17 @@ Plugin (emqx_stomp, version=v4.0.0, description=EMQ X Stomp Protocol Plugin, act
 Plugin (emqx_web_hook, version=v4.0.0, description=EMQ X Webhook Plugin, active=false)
 ```
 
-插件属性:
+Plugin properties:
 
-| Name        | 描述       |
-| ----------- | ---------- |
-| version     | 插件版本   |
-| description | 插件描述   |
-| active      | 是否已加载 |
+| Name        | Description        |
+| ----------- | ------------------ |
+| version     | Plugin version     |
+| description | Plugin description |
+| active      | Whether loaded     |
 
 ### plugins load <Plugin>
 
-加载插件:
+Load plugin:
 
 ```bash
 $ ./bin/emqx_ctl plugins load emqx_lua_hook
@@ -522,7 +522,7 @@ Plugin emqx_lua_hook loaded successfully.
 
 ### plugins unload <Plugin>
 
-卸载插件:
+Unload plugin:
 
 ```bash
 $ ./bin/emqx_ctl plugins unload emqx_lua_hook
@@ -531,30 +531,30 @@ Plugin emqx_lua_hook unloaded successfully.
 
 ### plugins reload <Plugin>
 
-重载插件:
+Reload plugin:
 
 ```bash
 $ ./bin/emqx_ctl plugins reload emqx_lua_hook
 Plugin emqx_lua_hook reloaded successfully.
 ```
 
-## vm 命令
+## vm command
 
-vm 命令用于查询 Erlang 虚拟机负载、内存、进程、IO 信息。
+The vm command is used to query information of Erlang virtual machine load, memory, process, and IO.
 
-| 命令        | 描述                    |
-| ----------- | ----------------------- |
-| `vm        `| 等同于 vm all           |
-| `vm all    `| 查询 VM 全部信息        |
-| `vm load   `| 查询 VM 负载            |
-| `vm memory `| 查询 VM 内存            |
-| `vm process`| 查询 VM Erlang 进程数量 |
-| `vm io     `| 查询 VM io 最大文件句柄 |
-| `vm ports  `| 查询 VM 的端口          |
+| Command      | Description                             |
+| ------------ | --------------------------------------- |
+| `vm        ` | Equivalent to vm all                    |
+| `vm all    ` | Query all VM information                |
+| `vm load   ` | Query VM load                           |
+| `vm memory ` | Query VM memory                         |
+| `vm process` | Query the number of VM Erlang processes |
+| `vm io     ` | Query maximum file handle of VM io      |
+| `vm ports  ` | Query the port of a VM                  |
 
 ### vm all
 
-查询 VM 全部信息，包括负载、内存、Erlang 进程数量等:
+Query all VM information, including load, memory, number of Erlang processes, etc .:
 
 ```bash
 $ ./bin/emqx_ctl vm all
@@ -580,7 +580,7 @@ ports/limit             : 1048576
 
 ### vm load
 
-查询 VM 负载:
+Query VM load:
 
 ```bash
 $ ./bin/emqx_ctl vm load
@@ -591,7 +591,7 @@ cpu/load15              : 2.36
 
 ### vm memory
 
-查询 VM 内存:
+Query VM memory:
 
 ```bash
 $ ./bin/emqx_ctl vm memory
@@ -608,7 +608,7 @@ memory/ets              : 1082848
 
 ### vm process
 
-查询 Erlang 进程数量及其限制:
+Query the number of Erlang processes and their limits:
 
 ```bash
 $ ./bin/emqx_ctl vm process
@@ -618,7 +618,7 @@ process/count           : 314
 
 ### vm io
 
-查询文件描述符数量及其限制:
+Query the number of file descriptors and their limits:
 
 ```bash
 $ ./bin/emqx_ctl vm io
@@ -628,7 +628,7 @@ io/active_fds           : 0
 
 ### vm ports
 
-查询端口占用数量及其限制:
+Query the number of occupied ports and their limits:
 
 ```bash
 $ ./bin/emqx_ctl vm ports
@@ -636,27 +636,27 @@ ports/count           : 18
 ports/limit           : 1048576
 ```
 
-## mnesia 命令
+## mnesia command
 
-查询 mnesia 数据库系统状态。
+Query the mnesia database system status.
 
-## log 命令
+## log command
 
-log 命令用于设置日志等级。访问 [Documentation of logger](http://erlang.org/doc/apps/kernel/logger_chapter.html) 以获取详细信息
+The log command is used to set the log level. Visit [Documentation of logger](http://erlang.org/doc/apps/kernel/logger_chapter.html) for more information in detail. 
 
-| 命令                                          | 描述                                   |
-| -------------------------------------------- | -------------------------------------- |
-| `log set-level <Level>                     ` | 设置主日志等级和所有 Handlers 日志等级 |
-| `log primary-level                         ` | 查看主日志等级                         |
-| `log primary-lelvel <Level>                ` | 设置主日志等级                         |
-| `log handlers list                         ` | 查看当前安装的所有 Hanlders            |
-| `log handlers set-level <HandlerId> <Level>` | 设置指定 Hanlder 的日志等级            |
+| Command                                      | Description                                           |
+| -------------------------------------------- | ----------------------------------------------------- |
+| `log set-level <Level>                     ` | Set the primary log level and all Handlers log levels |
+| `log primary-level                         ` | Check the primary log level                           |
+| `log primary-lelvel <Level>                ` | Set the primary log level                             |
+| `log handlers list                         ` | View all Hanlders currently installed                 |
+| `log handlers set-level <HandlerId> <Level>` | Set the log level with the specified Hanlder          |
 
-日志的等级由低到高分别为：`debug | info | notice | warning | error | critical | alert | emergency`，日志等级越低，系统输出的日志数量越多，消耗的系统资源越大。为提高系统运行性能，默认的主日志等级是 error。
+The levels of the logs from low to high are: `debug | info | notice | warning | error | critical | alert | emergency`. The lower the log level, the more logs the system outputs, and the more system resources it consumes. To improve system performance, the default primary log level is error.
 
 ### log set-level <Level>
 
-设置主日志等级和所有 Handlers 日志等级:
+Set the primary log level and all Handlers log levels
 
 ```bash
 $ ./bin/emqx_ctl log set-level debug
@@ -665,7 +665,7 @@ debug
 
 ### log primary-level
 
-查看主日志等级:
+View the primary log level:
 
 ```bash
 $ ./bin/emqx_ctl log primary-level
@@ -674,7 +674,7 @@ debug
 
 ### log primary-level <Level>
 
-设置主日志等级:
+Set the primary log level:
 
 ```bash
 $ ./bin/emqx_ctl log primary-level info
@@ -683,7 +683,7 @@ info
 
 ### log handlers list
 
-查看当前安装的所有 Hanlders:
+View all Hanlders currently installed:
 
 ```bash
 $ ./bin/emqx_ctl log handlers list
@@ -694,28 +694,28 @@ LogHandler (id=default, level=debug, destination=console)
 
 ### log handlers set-level <HandlerId> <Level>
 
-设置指定 Hanlder 的日志等级:
+Set the log level with the specified Hanlder:
 
 ```bash
 $ ./bin/emqx_ctl log handlers set-level emqx_logger_handler error
 error
 ```
 
-## trace 命令
+## trace command
 
-trace 命令用于追踪某个 Client 或 Topic，打印日志信息到文件，详情请查看 [日志与追踪](using-emqx/log.md)。
+The trace command is used to trace a client or topic, and print log information to a file. For details, see [Log and Trace](using-emqx/log.md).
 
-| 命令                                              | 描述                                       |
-| ------------------------------------------------ | ------------------------------------------ |
-| `trace list                                    ` | 列出所有开启的追踪                         |
-| `trace start client <ClientId> <File> [<Level>]` | 开启 Client 追踪，存储指定等级的日志到文件 |
-| `trace stop client <ClientId>                  ` | 关闭 Client 追踪                           |
-| `trace start topic <Topic> <File> [<Level>]    ` | 开启 Topic 追踪，存储指定等级的日志到文件  |
-| `trace stop topic <Topic>                      ` | 关闭 Topic 追踪                            |
+| Command                                          | Description                                                  |
+| ------------------------------------------------ | ------------------------------------------------------------ |
+| `trace list                                    ` | List all started traces                                      |
+| `trace start client <ClientId> <File> [<Level>]` | Start client trace and store logs of specified level to a file |
+| `trace stop client <ClientId>                  ` | Stop Client trace                                            |
+| `trace start topic <Topic> <File> [<Level>]    ` | Start Topic trace and store logs of specified level to a file |
+| `trace stop topic <Topic>                      ` | Stop Topic trace                                             |
 
 ### trace start client <ClientId> <File> [ <Level> ]
 
-开启 Client 追踪:
+Start client trace:
 
 ```bash
 $ ./bin/emqx_ctl log primary-level debug
@@ -730,7 +730,7 @@ trace clientid clientid2 successfully
 
 ### trace stop client <ClientId>
 
-关闭 Client 追踪:
+Stop client trace:
 
 ```bash
 $ ./bin/emqx_ctl trace stop client clientid
@@ -739,7 +739,7 @@ stop tracing clientid clientid successfully
 
 ### trace start topic <Topic> <File> [ <Level> ]
 
-开启 Topic 追踪:
+Start Topic trace:
 
 ```bash
 $ ./bin/emqx_ctl log primary-level debug
@@ -754,7 +754,7 @@ trace topic topic2 successfully
 
 ### trace stop topic <Topic>
 
-关闭 Topic 追踪:
+Stop Topic trace:
 
 ```bash
 $ ./bin/emqx_ctl trace topic topic off
@@ -763,7 +763,7 @@ stop tracing topic topic successfully
 
 ### trace list
 
-列出所有开启的追踪:
+List all started traces:
 
 ```bash
 $ ./bin/emqx_ctl trace list
@@ -773,16 +773,16 @@ Trace (topic=topic2, level=error, destination="log/topic2_trace.log")
 
 ## listeners
 
-listeners 命令用于查询开启的 TCP 服务监听器。
+The listeners command is used to query the active TCP service listeners.
 
-| 命令                            | 描述                      |
-| ------------------------------- | ------------------------- |
-| `listeners                     `| 查询开启的 TCP 服务监听器 |
-| `listeners stop <Proto> <Port> `| 停止监听端口，支持 `mqtt:ssl`，`mqtt:tcp`，`http:dashboard`，`http:management`，`mqtt:ws`，`mqtt:wss` 协议   |
+| Command                          | Description                                                  |
+| -------------------------------- | ------------------------------------------------------------ |
+| `listeners                     ` | Query active TCP Service Listeners                           |
+| `listeners stop <Proto> <Port> ` | Stop listener port, support `mqtt: ssl`,` mqtt: tcp`, `http: dashboard`,` http: management`, `mqtt: ws`,` mqtt: wss` protocol |
 
 ### listeners list
 
-查询开启的 TCP 服务监听器:
+Query the active TCP service listeners
 
 ```bash
 $ ./bin/emqx_ctl listeners
@@ -823,29 +823,29 @@ listener on mqtt:wss:8084
     shutdown_count  : []
 ```
 
-listener 参数说明:
+listener parameter description:
 
-| Name            | 描述                |
+| Name            | Description |
 | --------------- | ------------------- |
-| acceptors       | TCP Acceptor 池     |
-| max\_conns      | 最大允许连接数      |
-| current\_conns  | 当前连接数          |
-| shutdown\_count | 连接关闭原因统计 |
+| acceptors       | TCP Acceptor pool  |
+| max\_conns      | Maximum allowed connections |
+| current\_conns  | Current connections |
+| shutdown\_count | Statistics of connection shutdown reasons |
 
 ### listeners stop <Proto> <Port>
 
-停止监听端口:
+Stop listener port:
 
 ```bash
 $ ./bin/emqx_ctl listeners stop mqtt:tcp 0.0.0.0:1883
 Stop mqtt:tcp listener on 0.0.0.0:1883 successfully.
 ```
 
-## recon 命令
+## recon command
 
-EMQ X Broker 的 recon 命令基于 Erlang Recon 库实现，用于帮助 DevOps 人员诊断生产节点中的问题，普通用户无需关心。使用 recon 命令会耗费一定的性能，请谨慎使用。
+The recon command of EMQ X Broker is based on the Erlang Recon library, which is used to help DevOps staff to diagnose problems in the production node, and ordinary users do not need to care. The recon command will consume some performance, so, please use it with caution.
 
-| 命令                    | 描述                                                         |
+| Command              | Description                                               |
 | ----------------------- | ------------------------------------------------------------ |
 | `recon memory            `| [recon\_alloc:memory/2](http://ferd.github.io/recon/recon_alloc.html#memory-2) |
 | `recon allocated         `| [recon\_alloc:memory (allocated\_types, current/max)](http://ferd.github.io/recon/recon_alloc.html#memory-2) |
@@ -854,20 +854,20 @@ EMQ X Broker 的 recon 命令基于 Erlang Recon 库实现，用于帮助 DevOps
 | `recon remote_load Mod  `| [recon:remote\_load (Mod)](http://ferd.github.io/recon/recon.html#remote_load-1) |
 | `recon proc_count Attr N `| [recon:proc_count(Attr, N)](http://ferd.github.io/recon/recon.html#proc_count-2) |
 
-访问 [Documentation for recon](http://ferd.github.io/recon/) 以获取详细信息。
+Visit [Documentation for recon](http://ferd.github.io/recon/) for more information.
 
-## retainer 命令
+## retainer command
 
-| 命令                     | 描述                         |
+| Command               | Description               |
 | ------------------------ | ---------------------------- |
-| `retainer info         ` | 显示保留消息的数量           |
-| `retainer topics       ` | 显示当前存储的保留消息的所有主题       |
-| `retainer clean        ` | 清除所有保留的消息           |
-| `retainer clean <Topic>` | 清除指定的主题下的保留的消息 |
+| `retainer info         ` | Show the number of retained messages |
+| `retainer topics       ` | Display all topics of currently stored retained messages |
+| `retainer clean        ` | Clean all retained messages |
+| `retainer clean <Topic>` | Clean retained messages with the specified topic |
 
 ### retainer info
 
-显示保留消息的数量:
+Show the number of retained messages:
 
 ```bash
 $ ./bin/emqx_ctl retainer info
@@ -876,7 +876,7 @@ retained/total: 3
 
 ### retainer topics
 
-显示当前存储的保留消息的所有主题:
+Show all topics of currently stored retained messages:
 
 ```bash
 $ ./bin/emqx_ctl retainer topics
@@ -887,7 +887,7 @@ $SYS/brokers
 
 ### retainer clean
 
-清除所有保留的消息:
+Clear all retained messages:
 
 ```bash
 $ ./bin/emqx_ctl retainer clean
@@ -896,26 +896,26 @@ Cleaned 3 retained messages
 
 ### retainer clean <Topic>
 
-清除指定的主题下的保留的消息:
+Clear the retained messages with the specified topic:
 
 ```bash
 $ ./bin/emqx_ctl retainer clean topic
 Cleaned 1 retained messages
 ```
 
-## admins 命令
+## admins command
 
-用于创建、删除管理员账号，重置管理员密码。
+It is used to create and delete administrator's accounts and reset the administrator's password.
 
-| 命令                                       | 描述            |
-| ----------------------------------------- | --------------- |
-| `admins add <Username> <Password> <Tags> `| 创建 admin 账号 |
-| `admins passwd <Username> <Password>     `| 重置 admin 密码 |
-| `admins del <Username>                   `| 删除 admin 账号 |
+| Command                                    | Description          |
+| ------------------------------------------ | -------------------- |
+| `admins add <Username> <Password> <Tags> ` | Create admin account |
+| `admins passwd <Username> <Password>     ` | Reset admin password |
+| `admins del <Username>                   ` | Delete admin account |
 
 ### admins add <Username> <Password> <Tags>
 
-创建 admin 账户:
+Create admin account:
 
 ```bash
 $ ./bin/emqx_ctl admins add root public test
@@ -924,7 +924,7 @@ ok
 
 ### admins passwd <Username> <Password>
 
-重置 admin 账户密码:
+Reset admin password:
 
 ```bash
 $ ./bin/emqx_ctl admins passwd root private
@@ -933,18 +933,18 @@ ok
 
 ### admins del <Username>
 
-删除 admin 账户:
+Delete admin account:
 
 ```bash
 $ ./bin/emqx_ctl admins del root
 ok
 ```
 
-## 规则引擎(rule engine) 命令
+## Rule engine command
 
-### rules 命令
+### rules command
 
-| 命令                                          | 描述            |
+| Command                                    | Description  |
 | --------------------------------------------- | --------------- |
 | `rules list`                                  | List all rules |
 | `rules show <RuleId>`                         | Show a rule    |
@@ -953,86 +953,84 @@ ok
 
 #### rules create
 
-创建一个新的规则。参数:
+Create a new rule with the following parameter:
 
-- *`<sql>`*: 规则 SQL
-- *`<actions>`*: JSON 格式的动作列表
-- *`-d <descr>`*: 可选，规则描述信息
+- *`<sql>`*: rule SQL
+- *`<actions>`*: Action list in JSON format
+- *`-d <descr>`*: Optional, rule description
 
-使用举例:
+Example
 
-    ## 创建一个测试规则，简单打印所有发送到 't/a' 主题的消息内容
+    ## Create a test rule to simply print the content of all messages sent to the 't / a' topic
     $ ./bin/emqx_ctl rules create \
       'select * from "t/a"' \
       '[{"name":"inspect", "params": {"a": 1}}]' \
       -d 'Rule for debug'
-
+    
     Rule rule:9a6a725d created
 
-上例创建了一个 ID 为 `rule:9a6a725d` 的规则，动作列表里只有一个动作：动作名为 inspect，动作的参数是
-`{"a": 1}`。
+The above example creates a rule with the ID `rule:9a6a725d`. There is only one action in the action list with the name inspect, and the action parameters are `{" a ": 1}`.
 
 #### rules list
 
-列出当前所有的规则:
+List all current rules:
 
     $ ./bin/emqx_ctl rules list
-
+    
     rule(id='rule:9a6a725d', for='['t/a']', rawsql='select * from "t/a"', actions=[{"metrics":...,"name":"inspect","params":...}], metrics=..., enabled='true', description='Rule for debug')
 
 #### rules show
 
-查询规则:
+Query rules:
 
-    ## 查询 RuleID 为 'rule:9a6a725d' 的规则
+    ## Query rule with RuleID 'rule:9a6a725d'
     $ ./bin/emqx_ctl rules show 'rule:9a6a725d'
-
+    
     rule(id='rule:9a6a725d', for='['t/a']', rawsql='select * from "t/a"', actions=[{"metrics":...,"name":"inspect","params":...}], metrics=..., enabled='true', description='Rule for debug')
 
 #### rules delete
 
-删除规则:
+Delete rule:
 
-    ## 删除 RuleID 为 'rule:9a6a725d' 的规则
+    ## Delete rule with RuleID 'rule:9a6a725d'
     $ ./bin/emqx_ctl rules delete 'rule:9a6a725d'
-
+    
     ok
 
-### rule-actions 命令
+### rule-actions command
 
-| 命令                           | 描述            |
+| Command                     | Description  |
 | ------------------------------ | --------------- |
 | `rule-actions list`            | List actions |
 | `rule-actions show <ActionId>` | Show a rule action |
 
-
 {% hint type="primary" %}
-动作可以由 EMQ X Broker 内置(称为系统内置动作)，或者由 EMQ X Broker 插件编写，但不能通过 CLI/API 添加或删除。
+Actions can be built-in by EMQ X Broker (called system built-in actions) or be written by EMQ X Broker plugins, but cannot be added or removed through the CLI/API.
 {% endhint %}
 
 #### rule-actions show
 
-查询动作:
+Query action:
 
-    ## 查询名为 'inspect' 的动作
+    ## Query action named 'inspect'
     $ ./bin/emqx_ctl rule-actions show 'inspect'
-
+    
     action(name='inspect', app='emqx_rule_engine', types=[], title ='Inspect (debug)', description='Inspect the details of action params for debug purpose')
 
 #### rule-actions list
 
-列出符合条件的动作:
+List eligible actions:
 
-    ## 列出当前所有的动作
+    ## List all current actions
     $ ./bin/emqx_ctl rule-actions list
-
+    
     action(name='data_to_rabbit', app='emqx_bridge_rabbit', types=[bridge_rabbit], title ='Data bridge to RabbitMQ', description='Store Data to Kafka')
     action(name='data_to_timescaledb', app='emqx_backend_pgsql', types=[timescaledb], title ='Data to TimescaleDB', description='Store data to TimescaleDB')
     ...
 
-### resources 命令
+### resources command
 
-| 命令                                                          | 描述            |
+| Command                                                    | Description  |
 | ------------------------------------------------------------ | --------------- |
 | `resources create <type> [-c [<config>]] [-d [<descr>]]`     | Create a resource |
 | `resources list [-t <ResourceType>]`                         | List resources    |
@@ -1041,11 +1039,11 @@ ok
 
 #### resources create
 
-创建一个新的资源，参数:
+Create a new resource with the following parameters:
 
-- type: 资源类型
-- \-c config: JSON 格式的配置
-- \-d descr: 可选，资源的描述
+- type: resource type
+- \-c config: Configuration in JSON format
+- \-d descr: Optional, description of the resource
 
     $ ./bin/emqx_ctl resources create 'web_hook' -c '{"url": "http://host-name/chats"}' -d 'forward msgs to host-name/chats'
 
@@ -1053,84 +1051,84 @@ ok
 
 #### resources list
 
-列出当前所有的资源:
+List all current resources:
 
     $ ./bin/emqx_ctl resources list
-
+    
     resource(id='resource:a7a38187', type='web_hook', config=#{<<"url">> => <<"http://host-name/chats">>}, status=#{is_alive => false}, description='forward msgs to host-name/chats')
 
-列出当前某个类型的资源:
+List resources of a certain type:
 
     $ ./bin/emqx_ctl resources list --type='web_hook'
-
+    
     resource(id='resource:a7a38187', type='web_hook', config=#{<<"url">> => <<"http://host-name/chats">>}, status=#{is_alive => false}, description='forward msgs to host-name/chats')
 
 #### resources show
 
-查询资源:
+Query resource:
 
     $ ./bin/emqx_ctl resources show 'resource:a7a38187'
-
+    
     resource(id='resource:a7a38187', type='web_hook', config=#{<<"url">> => <<"http://host-name/chats">>}, status=#{is_alive => false}, description='forward msgs to host-name/chats')
 
 #### resources delete
 
-删除资源:
+Delete resource:
 
     $ ./bin/emqx_ctl resources delete 'resource:a7a38187'
-
+    
     ok
 
-### resource-types 命令
+### resource-types command
 
-| 命令                          | 描述            |
+| Command                    | Description  |
 | ---------------------------- | --------------- |
 | resource-types list          | List all resource-types |
 | resource-types show `<Type>` | Show a resource-type    |
 
 {% hint type="primary" %}
-资源类型可以由 EMQ X Broker 内置(称为系统内置资源类型)，或者由 EMQ X Broker 插件编写，但不能通过 CLI/API 添加或删除。
+Resource type can be built-in by EMQ X Broker (called system built-in resource type) or be written by EMQ X Broker plugins, but cannot be added or removed through the CLI/API
 {% endhint %}
 
 #### resource-types list
 
-列出当前所有的资源类型:
+List all current resource types:
 
     ./bin/emqx_ctl resource-types list
-
+    
     resource_type(name='backend_mongo_rs', provider='emqx_backend_mongo', title ='MongoDB Replica Set Mode', description='MongoDB Replica Set Mode')
     resource_type(name='backend_cassa', provider='emqx_backend_cassa', title ='Cassandra', description='Cassandra Database')
     ...
 
 #### resource-types show
 
-查询资源类型:
+Query resource type:
 
     $ ./bin/emqx_ctl resource-types show backend_mysql
-
+    
     resource_type(name='backend_mysql', provider='emqx_backend_mysql', title ='MySQL', description='MySQL Database')
 
-## 与规则引擎相关的状态、统计指标和告警
+## Status, statistical indicators and alerts related to the rules engine
 
-### 规则状态和统计指标
+### Rule status and statistical indicators
 
 ![image](../assets/rule_metrics.png)
 
-- 已命中: 规则命中(规则 SQL 匹配成功)的次数，
-- 命中速度: 规则命中的速度(次/秒)
-- 最大命中速度: 规则命中速度的峰值(次/秒)
-- 5分钟平均速度: 5分钟内规则的平均命中速度(次/秒)
+- Hits: number of rule hits (match succeed for rule SQL),
+- Hit Speed: Speed of rule hits (times/second)
+- Maximum hit speed: Peak value of hit speed (times/second)
+- 5 minute average speed: Average hit speed in 5 minutes (times/second)
 
-### 动作状态和统计指标 {#action-metrics}
+### Action status and statistical indicators{#action-metrics}
 
 ![image](../assets/action_metrics.png)
 
-- 成功: 动作执行成功次数
-- 失败: 动作执行失败次数
+- Success: Number of successful actions
+- Failure: Number of failed actions
 
-### 资源状态和告警 {#resource-metrics}
+### Resource status and alerts{#resource-metrics}
 
 ![image](../assets/resource_status.png)
 
-- 可用: 资源可用
-- 不可用: 资源不可用(比如数据库连接断开)
+- Available: Resources available
+- Unavailable: resources unavailable (e.g. database connection shutdown)
