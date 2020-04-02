@@ -12,27 +12,27 @@ description:
 # 分类
 category: 
 # 引用
-ref: undefined
+ref: undefinedD延迟发布
 ---
 
 # 延迟发布
 
-EMQ X Broker 的延迟发布功能可以实现按照用户配置的时间间隔延迟发布 PUBLISH 报文的功能。当客户端使用特殊主题前缀 `$delayed/{DelayInteval}` 发布消息到 EMQ X Broker 时，将触发延迟发布功能。
+The delay-publish function of EMQ X Broker can implement the function of delaying the PUBLISH packet publishing according to the time interval configured by the user. When a client publishes a message to EMQ X Broker with the special topic prefix  `$delayed/{DelayInteval}` , the delay-publish function is triggered.
 
-延迟发布主题的具体格式如下：
+The specific format of the delay-publish topic is as follows:
 
 ```bash
 $delayed/{DelayInterval}/{TopicName}
 ```
 
-- `$delayed`: 使用 `$delay` 作为主题前缀的消息都将被视为需要延迟发布的消息。延迟间隔由下一主题层级中的内容决定。
-- `{DelayInterval}`: 指定该 MQTT 消息延迟发布的时间间隔，单位是秒，允许的最大间隔是 4294967 秒。如果 `{DelayInterval}` 无法被解析为一个整型数字，EMQ X Broker 将丢弃该消息，客户端不会收到任何信息。
-- `{TopicName}`: MQTT 消息的主题名称。
+- `$delayed`: Messages prefixed with `$delay` will be treated as messages that need to be delayed. The delay interval is determined by the content of the next topic level.
+- `{DelayInterval}`: Specify the time interval for delaying the publish of this MQTT message with the unit of second. The maximum allowed interval is 4294967 seconds. If `{DelayInterval}` cannot be parsed as an integer number, EMQ X Broker will discard the message and the client will not receive any information.
+- `{TopicName}`: The topic name of the MQTT message.
 
-例如:
+E.g:
 
-- `$delayed/15/x/y`: 15 秒后将 MQTT 消息发布到主题 `x/y`。
-- `$delayed/60/a/b`: 1 分钟后将 MQTT 消息发布到 `a/b`。
-- `$delayed/3600/$SYS/topic`: 1 小时后将 MQTT 消息发布到 `$SYS/topic`。
+- `$delayed/15/x/y`: Publish MQTT message to the topic `x/y` after 15 seconds
+- `$delayed/60/a/b`: Publish MQTT message to the topic `a/b` after 1 minute
+- `$delayed/3600/$SYS/topic`: Publish MQTT message to the topic  `$SYS/topic` after 1 hour
 
-此功能由 `emqx-delay-publish` 插件提供，该插件默认关闭，你需要开启插件后才能使用此功能，开启插件的方法请参见 [插件](./plugins.md)。如果你需要长期使用此功能，那么建议你将插件设置为默认启动，请参见 [目录结构](using-emqx/directory.md)。
+This feature is provided by the `emqx-delay-publish` plugin, which is disabled by default. You need to enable the plugin to use this feature. For the method of enabling the plugin, please refer to [Plugins](./plugins.md). If you need to use this feature for a long time, then it is recommended that you set the plugin to start by default, see  [directory structure](using-emqx/directory.md) for more information.
