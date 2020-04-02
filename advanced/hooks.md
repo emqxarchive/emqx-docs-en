@@ -17,28 +17,28 @@ ref: undefined
 
 # 钩子
 
-## 定义
+## Definition
 
-**钩子(Hooks)** 是 EMQ X Broker 提供的一种机制，它通过拦截模块间的函数调用、消息传递、事件传递来修改或扩展系统功能。
+**Hooks** are a mechanism provided by EMQ X Broker, which modifies or extends system functions by intercepting function calls, message passing, and event passing between modules.
 
-简单来讲，该机制目的在于增强软件系统的扩展性、方便与其他三方系统的集成、或者改变其系统原有的默认行为。如：
+In simple terms, the purpose of this mechanism is to enhance the scalability of the software system, facilitate integration with the three-party systems, or change the original default behavior of its system. Such as:
 
 ![Hooks-In-System](assets/hooks_in_system.png)
 
-当系统中不存在 **钩子 (Hooks)** 机制时，整个事件处理流程 *从 事件 (Event) 的输入，到 处理 (Handler)，再到完成后的返回 结果 (Result)* 对于系统外部而讲，都是不可见、且无法修改的。
+When the **Hooks** mechanism does not exist in the system, the entire event processing flow (from the input of the event, to the handler and the result) is invisible and cannot be modified for the external system .
 
-而在这个过程中加入一个可挂载函数的点 (HookPoint)，允许外部插件挂载多个回调函数，形成一个调用链。达到对内部事件处理过程的扩展和修改。
+In the process, if a HookPoint where a function can be mounted is added, it will allow external plugins to mount multiple callback functions to form a call chain. Then, the internal event processing  can be extended and modified .
 
-系统中常用到的认证插件则是按照该逻辑进行实现的。以最简单的 [emqx_auth_username](https://github.com/emqx/emqx-auth-username) 为例：
+The authentication plugin commonly used in the system is implemented according to this logic. Take the simplest  plugin of [emqx_auth_username](https://github.com/emqx/emqx-auth-username) as an example:
 
-在只开启 `emqx_auth_username` 认证插件，且关闭匿名用户登录时。按照上图对事件的处理逻辑可知，此时认证模块的逻辑为：
+When only the `emqx_auth_username` authentication plugin is enabled and anonymous authentication is disabled, according to the processing logic of the event according in the figure above, the logic of the authentication module at this time is:
 
-1. 收到用户认证请求 (Authenticate)
-2. 读取 *是否允许匿名登录* 参数，得到 **拒绝登录**
-3. 执行 *认证事件的钩子*，即回调到 `emqx_auth_username` 插件中，假设其认为此次登录合法，得到 **允许登录**
-4. 返回 **认证成功**，成功接入系统
+1. Receive user authentication request (Authenticate)
+2. Read the parameter of *Whether to allow anonymous login*  and get ***deny*** result
+3. Execute the hook of the authentication event , that is, call back to the `emqx_auth_username` plugin, assume this authentication is valid, and get **allow** result
+4. Return **Authentication succeeded**, and successfully access the system
 
-即，如下图所示：
+It is shown in the following figure:
 
 ```
                      EMQ X Core          Hooks & Plugins     
@@ -51,144 +51,142 @@ ref: undefined
                 +-----------------+--------------------------+
 ```
 
-因此，在 EMQ X Broker 中，**钩子 (Hooks)** 这种机制极大地方便了系统的扩展。我们不需要修改 [emqx](https://github.com/emqx/emqx) 核心代码，仅需要在特定的位置埋下 **挂载点 (HookPoint)** ，便能允许外部插件扩展 EMQ X Broker 的各种行为。
+Therefore, in EMQ X Broker, the mechanism of **Hooks** greatly facilitates the extension of the system. We don't need to modify the  [emqx](https://github.com/emqx/emqx) core code, but only need to bury the **HookPoint** in a specific location to allow external plugins to extend EMQ X Broker with various behaviors.
 
-对于实现者来说仅需要关注：
+For implementers, it only needs to pay attention to:
 
-1. **挂载点 (HookPoint)** 的位置：包括其作用、执行的时机、和如何挂载和取消挂载。
-2. **回调函数** 的实现：包括回调函数的入参个数、作用、数据结构等，及返回值代表的含义。
-3. 了解回调函数在 **链** 上执行的机制：包括回调函数执行的顺序，及如何提前终止链的执行。
+1. The location of **HookPoint**: Including its role, timing of execution, and how to mount and cancel mount.
+2. Implementation of **callback function**: including the number of input parameters, role, data structure of the callback function, and the meaning of the returned value.
+3. Understand the mechanism of callback function execution on the **chain**: including the order in which callback functions are executed, and how to terminate the execution of the chain in advance.
 
-如果你是在开发扩展插件中使用钩子，你应该能 **完全地明白这三点，且尽量不要在钩子内部使用阻塞函数，这会影响系统的吞吐**。
+If you used hooks in the development of extension plugin, you should be able to fully understand these three above points, **and try not to use blocking functions inside the hooks, which will affect system throughput.**
 
 
-## 回调链
+## Callback Functions Chain
 
-单个 **挂载点** 上可能会存在多个插件都需要关心该事件并执行相应操作，所以每个 **挂载点** 上都可能会存在多个回调函数。
+There may be multiple plugins on a single **HookPoint** that need to care about the event and perform the corresponding operation, so there may be multiple callback functions on each **HookPoint**.
 
-我们称这种由多个回调函数顺序执行所构成的链为 **回调链 (Callback Functions Chain)**。
+We call this chain composed of multiple callback functions executed sequentially **Callback Functions Chain**.
 
-**回调链** 目前按照 [职责链(Chain-of-Responsibility)](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern) 的理念进行实现。为了满足钩子的功能和使用的灵活性，它必须具有以下属性：
+ **Callback Functions Chain** is Currently implemented according to the concept of [Chain-of-Responsibility](https://en.wikipedia.org/wiki/Chain-of-responsibility_pattern). In order to satisfy the functionality and flexibility of the hook, it must have the following attributes:
 
-- **回调链** 上的回调函数必须按某种先后顺序执行。
-- **回调链** 一定会存在一个输入、和输出 (在通知类事件输出则是非必须的，例如 “某客户端已成功登陆”)。
-- **回调链** 具有传递性，意思是指，链会将输入给链的入参输入给第一个回调函数，第一个回调函数的返回值会传递给第二个回调函数，直到最后一个函数，最后一个函数的返回值则为整个链的返回值。
-- **回调链** 需要允许其上面的函数 *提前终止链* 和 *忽略本次操作*。
-    
-    - **提前终止**：本函数执行完成后，直接终止链的执行。忽略链上后续所有的回调函数。例如：某认证插件认为，此类客户端允许登录后便不需要再检查其他认证插件，所以需要提前终止。
-    - **忽略本次操作**：不修改链上的处理结果，直接透传给下一个回调函数。例如：存在多个认证插件的情况下，某认证插件认为，此类客户端不属于其认证范围，所以我不需要修改认证结果，应当忽略本次操作，直接将前一个函数的返回值传递给链上的下一个函数。
+- The callback functions on the **Callback Functions Chain** must be executed in certain order.
+- There must be an input and output for the **Callback Functions Chain** (output is not necessary in notification events, such as "a client has successfully logged in").
+- **Callback Functions Chain** is transitive, meaning that the chain will input the input parameters of the chain to the first callback function, and the returned value of the first callback function will be passed to the second callback function until the last function, whose returned value is the returned value of the entire chain.
+- **Callback Functions Chain** needs to allow the functions with it to *terminate the chain in advance* and *ignore this operation.*
+  - **Termination in advance:** After the execution of this function is completed, the execution of the chain is directly terminated. All subsequent callback functions on the chain are ignored. For example, an authentication plugin believes that such clients do not need to check other authentication plug-ins after they are allowed to log in, so they need to be terminated in advance.
+    - **Ignore this operation:** Do not modify the processing result on the chain, and pass it directly to the next callback function. For example, when there are multiple authentication plug-ins, an authentication plug-in believes that such clients do not belong to its authentication scope, and it does not need to modify the authentication results. This operation should be ignored and the returned value of the previous function should be passed directly to the next function on the chain.
 
-由此，我们可以得到一个链的设计简图：
+Therefore, we can get a design sketch of the chain:
 
 ![Callback Functions Chain Design](assets/chain_of_responsiblity.png)
 
-该图的含义是指：
-1. 链的入参为只读的 `Args` 与用于链上的函数修改的参数 `Acc`
-2. 链无论以何种方式终止执行，其返回值均为新的 `Acc` 
-3. 图中链上一共注册了三个回调函数；分别为 `Fun1` `Fun2` `Fun3` 并按所表示的顺序执行
-4. 回调函数执行顺序，由一个优先级确定，同一优先级的按挂载的先后顺序执行
-5. 回调函数通过返回：
-    - `ok`：忽略本次操作，以只读的 `Args` 和上个函数返回的 `Acc` 继续链的执行
-    - `{ok, NewAcc}`：执行了某些操作，修改了 Acc 内容，以只读的 `Args` 和新的 `NewAcc` 继续链的执行
-6. 回调函数也可通过返回：
-    - `stop`：表示终止链的传递，立即返回上个函数的结果 `Acc`
-    - `{stop, NewAcc}`：表示终止链的传递，立即返回本次修改的结果 `NewAcc`
+The meaning of the figure is:
+1. The input parameters of the chain are read-only `Args` and the parameter ` Acc` for function modification on the chain
+2. Regardless of how the execution of chain is terminated, its return value is the new `Acc`
+3. A total of three callback functions are registered on the chain in the figure,`Fun1` `Fun2` `Fun3` , which are executed in the order indicated
+4. The callback function execution order is determined by the priority, and the same priority is executed in the order of mounting
+5. The callback function returns with:
+    - `ok`: ignore this operation, continue the chain execution with read-only ` Args` and `Acc` returned by the previous function
+    - `{ok, NewAcc}`: performe some operations, modify Acc content, continue chain execution with read-only `Args` and new ` NewAcc`  
+6. The callback function also returns with:
+    - `stop`: Stop the transfer of the chain and immediately return the result of ` Acc` from the previous function
+    - `{stop, NewAcc}`: it means to stop the transfer of the chain and immediately return the result of `NewAcc` from this modification 
 
-以上为回调链的主要设计理念，它规范了钩子上的回调函数的执行逻辑。
+The above is the main design concept of the callback function chain, which regulates the execution logic of the callback function on the hook.
 
-接下来 [挂载点](#hookpoint)，[回调函数](#callback) 两节中，对于钩子的所有操作都是依赖于 [emqx](https://github.com/emqx/emqx) 提供的 Erlang 代码级的 API。他们是整个钩子逻辑实现的基础。如需寻求：
+In the following two sections of [HookPoint](#hookpoint) and [callback function](#callback), all operations on hooks depend on  Erlang code-level API provided by [emqx](https://github.com/emqx/emqx). They are the basis for the entire hook logic implementation. 
 
-- 钩子和 HTTP 服务器的应用，参见： [WebHook](webhook.md)
-- 钩子与其他语言的应用，参见： [Multipe-Language-Support](multiple-language-support.md)
-    - 目前仅支持 Lua，参见：[emqx_lua_hook](multiple-language-support.md#lua)
+- For hooks and HTTP server applications, Refer to: [WebHook](webhook.md)
+- For hooks and other language applications, Refer to: [Multipe-Language-Support](multiple-language-support.md)
+    - Only Lua is currently supported, Refer to: [emqx_lua_hook](multiple-language-support.md#lua)
 
 
-## 挂载点 {#hookpoint}
+## HookPoint{#hookpoint}
 
-EMQ X Broker 以一个客户端在其生命周期内的关键活动为基础，预置了大量的 **挂载点 (HookPoint)**。目前系统中预置的挂载点有：
+EMQ X Broker is based on a client's key activities during its life cycle, and presets a large number of **HookPoints**. The preset mount points in the system are:
 
-| 名称                 | 说明         | 执行时机                                              |
-| -------------------- | ------------ | ----------------------------------------------------- |
-| client.connect       | 处理连接报文 | 服务端收到客户端的连接报文时                          |
-| client.connack       | 下发连接应答 | 服务端准备下发连接应答报文时                          |
-| client.connected     | 成功接入     | 客户端认证完成并成功接入系统后                        |
-| client.disconnected  | 连接断开     | 客户端连接层在准备关闭时                              |
-| client.authenticate  | 连接认证     | 执行完 `client.connect` 后                            |
-| client.check_acl     | ACL 鉴权     | 执行 `发布/订阅` 操作前                               |
-| client.subscribe     | 订阅主题     | 收到订阅报文后，执行 `client.check_acl` 鉴权前        |
-| client.unsubscribe   | 取消订阅     | 收到取消订阅报文后                                    |
-| session.created      | 会话创建     | `client.connected` 执行完成，且创建新的会话后         |
-| session.subscribed   | 会话订阅主题 | 完成订阅操作后                                        |
-| session.unsubscribed | 会话取消订阅 | 完成取消订阅操作后                                    |
-| session.resumed      | 会话恢复     | `client.connected` 执行完成，且成功恢复旧的会话信息后 |
-| session.discarded    | 会话被移除   | 会话由于被**移除**而终止后                            |
-| session.takeovered   | 会话被接管   | 会话由于被**接管**而终止后                            |
-| session.terminated   | 会话终止     | 会话由于其他原因被终止后                              |
-| message.publish      | 消息发布     | 服务端在发布（路由）消息前                            |
-| message.delivered    | 消息投递     | 消息准备投递到客户端前                                |
-| message.acked        | 消息回执     | 服务端在收到客户端发回的消息 ACK 后                   |
-| message.dropped      | 消息丢弃     | 发布出的消息被丢弃后                                  |
+| Name                 | Description                 | Execution Timing                                             |
+| -------------------- | --------------------------- | ------------------------------------------------------------ |
+| client.connect       | Process connection packet   | When the server receives the connection packet from the client |
+| client.connack       | Issue connection response   | When the server is ready to issue a connection response message |
+| client.connected     | Connection succeed          | After client authentication is completed and successfully connected to the system |
+| client.disconnected  | Disconnect                  | Connection layer of client is ready to close                 |
+| client.authenticate  | Connection authentication   | After `client.connect` is executed                           |
+| client.check_acl     | ACL authentication          | Before publish/subscribe`  operation is executed             |
+| client.subscribe     | Subscribe to topic          | After receiving the subscription message, and before executing `client.check_acl` |
+| client.unsubscribe   | Unsubscribe                 | After receiving the unsubscribe packet                       |
+| session.created      | Session creation            | When a `client.connected` is completed and a new session is created |
+| session.subscribed   | Session subscription topics | After the subscription operation is completed                |
+| session.unsubscribed | Session unsubscription      | After the unsubscription operation is completed              |
+| session.resumed      | Session resume              | when `client.connected` is executed and the old session information is successfully resumed |
+| session.discarded    | Session discarded           | After the session was terminated due to discarding           |
+| session.takeovered   | Session takeovered          | After the session was terminated due to takeovering          |
+| session.terminated   | Session terminated          | After the session was terminated due to other reason         |
+| message.publish      | Message published           | Before the server publishes (routes) the message             |
+| message.delivered    | Message delivered           | Before the message is ready to be delivered to the client    |
+| message.acked        | Message acked               | After the message ACK is received from the client            |
+| message.dropped      | Message dropped             | After the published messages are discarded                   |
 
 
 {% hint style="info" %}
-- **会话被移除** 是指：当客户端以 `清除会话` 的方式登入时，如果服务端中已存在该客户端的会话，那么旧的会话就会被丢弃。
-
-- **会话被接管** 是指：当客户端以 `保留会话` 的方式登入时，如果服务端中已存在该客户端的会话，那么旧的会话就会被新的连接所接管。
+- **The session is discarded:** When the client logs in with the method of  `clean session`, if the client's session already exists on the server, the old session will be discarded.
+- **The Session is taken over:** When the client logs in with the method of `Reserved Session`, if the client's session already exists on the server, the old session will be taken over by the new connection
 {% endhint %}
 
-### 挂载与取消挂载
+### Hook and unhook
 
-EMQ X Broker 提供了 API 进行钩子的挂载与取消挂载的操作。
+EMQ X Broker provides an API for the operation of hooking and unhooking.
 
-**挂载**：
+**Hook:**
 
 ```erlang
-%% Name: 钩子的名称（挂载点）如：'client.authenticate'
-%% {Module, Function, Args}: 回调函数的模块、方法、和附加参数
-%% Priority：优先级，整数; 不提供则默认为 0
+%% Name: name of hook(hook point), such as 'client.authenticate'
+%% {Module, Function, Args}: Modules, methods, and additional parameters for callback functions
+%% Priority：integar, 0 by default
 emqx:hook(Name, {Module, Function, Args}, Priority).
 ```
 
-挂载完成后，回调函数会按优先级从大到小执行，同一优先级按挂载的先后顺序执行。所有官方插件挂载的钩子优先级都为 `0`。
+After the hook is completed, the callback functions will be executed in the order of priority, or the order of hook for the same priority. All official plugin mount hooks have a priority of `0`.
 
-**取消挂载**：
+**Unhook**：
 
 ```erlang
-%% Name: 钩子的名称（挂载点）如：'client.authenticate'
-%% {Module, Function}: 回调函数的模块、方法
+%% Name:name of hook(hook point), such as'client.authenticate'
+%% {Module, Function}: Modules and methods for callback functions
 emqx:unhook(Name, {Module, Function}).
 ```
 
 
-## 回调函数 {#callback}
+## Callback function{#callback}
 
-回调函数的入参及返回值要求，见下表：
+The input parameters and returned value of the callback function are shown in the following table:
 
-(参数数据结构参见：[emqx_types.erl](https://github.com/emqx/emqx/blob/master/src/emqx_types.erl))
+(For parameter data structure, see:[emqx_types.erl](https://github.com/emqx/emqx/blob/master/src/emqx_types.erl))
 
 
-| 名称                 | 入参                                                         | 返回                |
+| Name              | input parameter                                          | Returned value    |
 | -------------------- | ------------------------------------------------------------ | ------------------- |
-| client.connect       | `ConnInfo`：客户端连接层参数<br>`Props`：MQTT v5.0  连接报文的 Properties 属性 | 新的 `Props`        |
-| client.connack       | `ConnInfo`：客户端连接层参数 <br>`Rc`：返回码<br>`Props`: MQTT v5.0  连接应答报文的 Properties 属性 | 新的 `Props`        |
-| client.connected     | `ClientInfo`:  客户端信息参数<br>`ConnInfo`： 客户端连接层参数 | -                   |
-| client.disconnected  | `ClientInfo`：客户端信息参数<br>`ConnInfo`：客户端连接层参数<br>`ReasonCode`：错误码 | -                   |
-| client.authenticate  | `ClientInfo`：客户端信息参数<br>`AuthResult`：认证结果       | 新的 `AuthResult`   |
-| client.check_acl     | `ClientInfo`：客户端信息参数<br>`Topic`：发布/订阅的主题<br>`PubSub`:  发布或订阅<br>`ACLResult`：鉴权结果 | 新的 `ACLResult`    |
-| client.subscribe     | `ClientInfo`：客户端信息参数<br/>`Props`：MQTT v5.0 订阅报文的 Properties 参数<br>`TopicFilters`：需订阅的主题列表 | 新的 `TopicFilters` |
-| client.unsubscribe   | `ClientInfo`：客户端信息参数<br/>`Props`：MQTT v5.0 取消订阅报文的 Properties 参数<br/>`TopicFilters`：需取消订阅的主题列表 | 新的 `TopicFilters` |
-| session.created      | `ClientInfo`：客户端信息参数<br/>`SessInfo`：会话信息        | -                   |
-| session.subscribed   | `ClientInfo`：客户端信息参数<br/>`Topic`：订阅的主题<br>`SubOpts`：订阅操作的配置选项 | -                   |
-| session.unsubscribed | `ClientInfo`：客户端信息参数<br/>`Topic`：取消订阅的主题<br/>`SubOpts`：取消订阅操作的配置选项 | -                   |
-| session.resumed      | `ClientInfo`：客户端信息参数<br/>`SessInfo`：会话信息        | -                   |
-| session.discarded    | `ClientInfo`：客户端信息参数<br/>`SessInfo`：会话信息        | -                   |
-| session.takeovered   | `ClientInfo`：客户端信息参数<br/>`SessInfo`：会话信息        |                     |
-| session.terminated   | `ClientInfo`：客户端信息参数<br/>`Reason`：终止原因 <br>`SessInfo`：会话信息 | -   |
-| message.publish      | `Message`：消息对象                                          | 新的 `Message`      |
-| message.delivered    | `ClientInfo`：客户端信息参数<br/>`Message`：消息对象         | 新的 `Message`      |
-| message.acked        | `ClientInfo`：客户端信息参数<br/>`Message`：消息对象         | -                   |
-| message.dropped      | `Message`：消息对象<br>`By`：被谁丢弃<br>`Reason`：丢弃原因  | -                   |
+| client.connect       | `ConnInfo`：Client connection layer parameters<br>`Props`：Properties of MQTT v5.0 connection packets | New `Props`      |
+| client.connack       | `ConnInfo`：Client connection layer parameters <br>`Rc`：returned code<br>`Props`: Properties of MQTT v5.0 connection response packets | New `Props`     |
+| client.connected     | `ClientInfo`:  Client information parameters<br>`ConnInfo`： Client connection layer parameters | -                   |
+| client.disconnected  | `ClientInfo`：Client information parameters<br>`ConnInfo`：Client connection layer parameters<br>`ReasonCode`：Reason code | -                   |
+| client.authenticate  | `ClientInfo`：Client information parameters<br>`AuthResult`：Authentication results | New `AuthResult` |
+| client.check_acl     | `ClientInfo`：Client information parameters<br>`Topic`：Publish/subscribe topic<br>`PubSub`:  Publish/subscribe<br>`ACLResult`：Authentication result | New `ACLResult` |
+| client.subscribe     | `ClientInfo`：Client information parameters<br/>`Props`：Properties parameters of MQTT v5.0 subscription messages<br>`TopicFilters`：List of topics of subscription | New `TopicFilters` |
+| client.unsubscribe   | `ClientInfo`：Client information parameters<br/>`Props`：Properties parameters of MQTT v5.0 unsubscription messages<br/>`TopicFilters`：List of topics of unsubscription | New `TopicFilters` |
+| session.created      | `ClientInfo`：Client information parameters<br/>`SessInfo`：Session information | -                   |
+| session.subscribed   | `ClientInfo`：Client information parameters<br/>`Topic`：subscribed topic<br>`SubOpts`：Configuration options for subscribe operations | -                   |
+| session.unsubscribed | `ClientInfo`：Client information parameters<br/>`Topic`：unsubscribed topic<br/>`SubOpts`：Configuration options for unsubscribe operations | -                   |
+| session.resumed      | `ClientInfo`：Client information parameters数<br/>`SessInfo`：Session information | -                   |
+| session.discarded    | `ClientInfo`：Client information parameters<br/>`SessInfo`：Session information | -                   |
+| session.takeovered   | `ClientInfo`：Client information parameters<br/>`SessInfo`：Session information |                     |
+| session.terminated   | `ClientInfo`：Client information parameters<br/>`Reason`：Termination reason <br>`SessInfo`：Session information | -   |
+| message.publish      | `Message`：Message object                            | New `Message`   |
+| message.delivered    | `ClientInfo`：Client information parameters<br/>`Message`：Message object | New `Message`   |
+| message.acked        | `ClientInfo`：Client information parameters<br/>`Message`：Message object | -                   |
+| message.dropped      | `Message`：Message object<br>`By`：Dropped by<br>`Reason`：Drop reason | -                   |
 
 
-具体对于这些钩子的应用，参见：[emqx_plugin_template](https://github.com/emqx/emqx-plugin-template)
+For the application of these hooks, see:[emqx_plugin_template](https://github.com/emqx/emqx-plugin-template)
 
