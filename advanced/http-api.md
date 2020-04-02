@@ -1,54 +1,54 @@
 # HTTP API {#http-api}
 
-EMQ X Broker 提供了 HTTP API 以实现与外部系统的集成，例如查询客户端信息、发布消息和创建规则等。
+EMQ X Broker provides HTTP APIs for integration with external systems, such as querying client information, publishing messages, and creating rules.
 
-EMQ X Broker 的 HTTP API 服务默认监听 8081 端口，可通过 `etc/plugins/emqx_management.conf` 配置文件修改监听端口，或启用 HTTPS 监听。[EMQ X Broker 4.0.0](https://github.com/emqx/emqx/releases/tag/v4.0.0) 以后的所有 API 调用均以 `api/v4` 开头。
+EMQ X Broker's HTTP API service listens on port 8081 by default. You can modify the listening port through the configuration file of  `etc/plugins/emqx_management.conf`, or enable HTTPS listening. All API calls start with `api/v4` after [EMQ X Broker 4.0.0](https://github.com/emqx/emqx/releases/tag/v4.0.0).
 
-## 接口安全 {#http-api-security}
+## Interface security {#http-api-security}
 
-EMQ X Broker 的 HTTP API 使用 [Basic 认证](https://en.wikipedia.org/wiki/Basic_access_authentication) 方式，`id` 和 `password` 须分别填写 AppID 和 AppSecret。
-默认的 AppID 和 AppSecret 是：`amdin/public`。你可以在 Dashboard 的左侧菜单栏里，选择 "管理" -> "应用" 来修改和添加 AppID/AppSecret。
+EMQ X Broker's HTTP API uses the method of [Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication). The `id` and ` password` must be filled with AppID and AppSecret respectively.
+The default AppID and AppSecret are: `amdin/public`. You can modify and add AppID / AppSecret in the left menu bar of Dashboard by selecting "Manage"-> "Apps".
 
-## 响应码 {#codes}
+## Response code {#codes}
 
-### HTTP 状态码 (status codes)
+### HTTP status codes
 
-EMQ X Broker 接口在调用成功时总是返回 200 OK，响应内容则以 JSON 格式返回。
+The EMQ X Broker interface always returns 200 OK when the call is successful, and the response content is returned in JSON format.
 
-可能的状态码如下：
+The possible status codes are as follows:
 
 | Status Code | Description |
 | ---- | ----------------------- |
-| 200  | 成功，返回的 JSON 数据将提供更多信息 |
-| 400  | 客户端请求无效，例如请求体或参数错误 |
-| 401  | 客户端未通过服务端认证，使用无效的身份验证凭据可能会发生 |
-| 404  | 找不到请求的路径或者请求的对象不存在 |
-| 500  | 服务端处理请求时发生内部错误 |
+| 200  | Succeed, and the returned JSON data will provide more information |
+| 400  | Invalid client request, such as wrong request body or parameters |
+| 401  | Client authentication failed , maybe because of invalid authentication credentials |
+| 404  | The requested path cannot be found or the requested object does not exist |
+| 500  | An internal error occurred while the server was processing the request |
 
-### 返回码 (result codes)
+### result codes
 
-EMQ X Broker 接口的响应消息体为 JSON 格式，其中总是包含返回码 `code`。
+The response message body of the EMQ X Broker interface is in JSON format, which always contains the returned `code`.
 
-可能的返回码如下：
+The possible returned codes are as follows:
 
 | Return Code | Description |
 | ---- | ----------------------- |
-| 0    | 成功 |
-| 101  | RPC 错误 |
-| 102  | 未知错误 |
-| 103  | 用户名或密码错误 |
-| 104  | 空用户名或密码 |
-| 105  | 用户不存在 |
-| 106  | 管理员账户不可删除 |
-| 107  | 关键请求参数缺失 |
-| 108  | 请求参数错误 |
-| 109  | 请求参数不是合法 JSON 格式 |
-| 110  | 插件已开启 |
-| 111  | 插件已关闭 |
-| 112  | 客户端不在线 |
-| 113  | 用户已存在 |
-| 114  | 旧密码错误  |
-| 115  | 不合法的主题 |
+| 0    | Succeed |
+| 101  | RPC error |
+| 102  | unknown mistake |
+| 103  | wrong user name or password |
+| 104  | Empty username or password |
+| 105  | User does not exist |
+| 106  | Administrator account cannot be deleted |
+| 107  | Missing key request parameters |
+| 108  | Request parameter error |
+| 109  | Request parameters are not in legal JSON format |
+| 110  | Plug-in is enabled |
+| 111  | Plugin is closed |
+| 112  | Client is offline |
+| 113  | User already exists |
+| 114  | Old password is wrong |
+| 115  | Illegal subject |
 
 ## API Endpoints {#http-endpoints}
 
@@ -56,20 +56,20 @@ EMQ X Broker 接口的响应消息体为 JSON 格式，其中总是包含返回�
 
 #### GET /api/v4 {#endpoint-get-api-v4}
 
-返回 EMQ X Broker 支持的所有 Endpoints。
+Return all Endpoints supported by EMQ X Broker.
 
-**Parameters:** 无
+**Parameters:** None
 
 **Success Response Body (JSON):**
 
 |       Name       | Type |  Description   |
 | ---------------- | --------- | -------------- |
 | code             | Integer   | 0              |
-| data             | Array     | Endpoints 列表 |
+| data             | Array     | Endpoints list |
 | - data[0].path   | String    | Endpoint       |
-| - data[0].name   | String    | Endpoint 名    |
+| - data[0].name   | String    | Endpoint name |
 | - data[0].method | String    | HTTP Method    |
-| - data[0].descr  | String    | 描述           |
+| - data[0].descr  | String    | Description |
 
 **Examples:**
 
@@ -79,35 +79,35 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4"
 {"data":[{"path":"/auth_clientid","name":"list_clientid","method":"GET","descr":"List available clientid in the cluster"}, ...],"code":0}
 ```
 
-### Broker 基本信息 {#endpoint-brokers}
+### Broker Basic Information {#endpoint-brokers}
 
 #### GET /api/v4/brokers/{node} {#endpoint-get-brokers}
 
-返回集群下所有节点的基本信息。
+Return basic information of all nodes in the cluster.
 
 **Path Parameters:**
 
 | Name | Type | Required | Description |
 | ---- | --------- | ------------| ----------- |
-| node | String    | False       | 节点名字，如 "emqx@127.0.0.1。<br/>不指定时返回所有节点的信息 |
+| node | String    | False       | Node name, such as "emqx@127.0.0.1. <br/> If not specified, returns all node information |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Object/Array of Objects | node 参数存在时返回指定节点信息，<br/>不存在时返回所有节点的信息|
-| data.datetime    | String    | 当前时间，格式为 "YYYY-MM-DD HH:mm:ss"                       |
-| data.node        | String    | 节点名称                                                     |
-| data.node_status | String    | 节点状态                                                     |
-| data.otp_release | String    | EMQ X Broker 使用的 Erlang/OTP 版本                          |
-| data.sysdescr    | String    | 软件描述                                                     |
-| data.uptime      | String    | EMQ X Broker 运行时间，格式为 "H hours, m minutes, s seconds" |
-| data.version     | String    | EMQ X Broker 版本                                           |
+| data | Object/Array of Objects | Returns the information of the specified node when the parameter exists, <br/>otherwise, returns the information of all nodes |
+| data.datetime    | String    | Current time, in the format of "YYYY-MM-DD HH: mm: ss" |
+| data.node        | String    | Node name                                             |
+| data.node_status | String    | Node status                                           |
+| data.otp_release | String    | Erlang/OTP version used by EMQ X Broker |
+| data.sysdescr    | String    | Software description                                 |
+| data.uptime      | String    | EMQ X Broker runtime, in the format of "H hours, m minutes, s seconds" |
+| data.version     | String    | EMQ X Broker version                                     |
 
 **Examples:**
 
-获取所有节点的基本信息：
+Get the basic information of all nodes:
 
 ```bash
 $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/brokers"
@@ -115,7 +115,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/brokers"
 {"data":[{"version":"develop","uptime":"4 hours, 21 minutes, 19 seconds","sysdescr":"EMQ X Broker","otp_release":"R21/10.3.5","node_status":"Running","node":"emqx@127.0.0.1","datetime":"2020-02-19 15:27:24"}],"code":0}
 ```
 
-获取节点 emqx@127.0.0.1 的基本信息：
+Get the basic information of node emqx@127.0.0.1 :
 
 ```bash
 $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/brokers/emqx@127.0.0.1"
@@ -123,42 +123,42 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/brokers/e
 {"data":{"version":"develop","uptime":"1 minutes, 51 seconds","sysdescr":"EMQ X Broker","otp_release":"R21/10.3.5","node_status":"Running","node":"emqx@127.0.0.1","datetime":"2020-02-20 14:11:31"},"code":0}
 ```
 
-### 节点 {#endpoint-nodes}
+### Node{#endpoint-nodes}
 
 #### GET /api/v4/nodes/{node} {#endpoint-get-nodes}
 
-返回节点的状态。
+Return the status of the node.
 
 **Path Parameters:**
 
 | Name | Type | Required | Description |
 | ---- | --------- | ------------| ----------- |
-| node | String    | False       | 节点名字，如 "emqx@127.0.0.1。<br/>不指定时返回所有节点的信息 |
+| node | String    | False       | Node name, such as "emqx@127.0.0.1。<br/>If not specified, returns all node information |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Object/Array of Objects | node 参数存在时返回指定节点信息，<br/>不存在时以 Array 形式返回所有节点的信息|
-| data.connections       | Integer   | 当前接入此节点的客户端数量          |
-| data.load1             | String    | 1 分钟内的 CPU 平均负载             |
-| data.load5             | String    | 5 分钟内的 CPU 平均负载             |
-| data.load15            | String    | 15 分钟内的 CPU 平均负载            |
-| data.max_fds           | Integer   | 操作系统的最大文件描述符限制        |
-| data.memory_total      | String    | VM 已分配的系统内存                 |
-| data.memory_used       | String    | VM 已占用的内存大小                 |
-| data.node              | String    | 节点名称                            |
-| data.node_status       | String    | 节点状态                            |
-| data.otp_release       | String    | EMQ X Broker 使用的 Erlang/OTP 版本 |
-| data.process_available | Integer   | 可用的进程数量                      |
-| data.process_used      | Integer   | 已占用的进程数量                    |
-| data.uptime            | String    | EMQ X Broker 运行时间               |
-| data.version           | String    | EMQ X Broker 版本                   |
+| data | Object/Array of Objects | Returns node information when node parameter exists,<br/>otherwise, returns information about all nodes in an Array |
+| data.connections       | Integer   | Number of clients currently connected to this node |
+| data.load1             | String    | CPU average load in 1 minute |
+| data.load5             | String    | CPU average load in 5 minute |
+| data.load15            | String    | CPU average load in 15 minute |
+| data.max_fds           | Integer   | Maximum file descriptor limit for the operating system |
+| data.memory_total      | String    | VM allocated system memory |
+| data.memory_used       | String    | VM occupied system memory |
+| data.node              | String    | Node name                    |
+| data.node_status       | String    | Node status                  |
+| data.otp_release       | String    | Erlang/OTP version used by EMQ X Broker |
+| data.process_available | Integer   | Number of available processes |
+| data.process_used      | Integer   | Number of used processes |
+| data.uptime            | String    | EMQ X Broker runtime         |
+| data.version           | String    | EMQ X Broker version             |
 
 **Examples:**
 
-获取所有节点的状态：
+Get the status of all nodes:
 
 ```bash
 $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes"
@@ -166,7 +166,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes"
 {"data":[{"version":"develop","uptime":"7 seconds","process_used":315,"process_available":2097152,"otp_release":"R21/10.3.5","node_status":"Running","node":"emqx@127.0.0.1","memory_used":"96.75M","memory_total":"118.27M","max_fds":10240,"load5":"2.60","load15":"2.65","load1":"2.31","connections":0}],"code":0}
 ```
 
-获取指定节点的状态：
+Get the status of the specified node:
 
 ```bash
 $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emqx@127.0.0.1"
@@ -174,65 +174,65 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 {"data":{"version":"develop","uptime":"2 minutes, 21 seconds","process_used":310,"process_available":2097152,"otp_release":"R21/10.3.5","node_status":"Running","node":"emqx@127.0.0.1","memory_used":101379168,"memory_total":123342848,"max_fds":10240,"load5":"2.50","load15":"2.61","load1":"1.99","connections":0},"code":0}
 ```
 
-### 客户端 {#endpoint-clients}
+### Client {#endpoint-clients}
 
 #### GET /api/v4/clients {#endpoint-get-clients}
 
-返回集群下所有客户端的信息，支持分页。
+Returns the information of all clients under the cluster, and supports paging.
 
 **Query String Parameters:**
 
 | Name   | Type | Required | Default | Description |
 | ------ | --------- | -------- | ------- |  ---- |
-| _page  | Integer   | False | 1       | 页码 |
-| _limit | Integer   | False | 10000   | 每页显示的数据条数，未指定时由 `emqx-management` 插件的配置项 `max_row_limit` 决定 |
+| _page  | Integer   | False | 1       | Page |
+| _limit | Integer   | False | 10000   | The number of data displayed per page. If not specified, it is determined by the configuration item `max_row_limit` of the` emqx-management` plugin |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 所有客户端的信息|
-| data[0].node              | String    | 客户端所连接的节点名称 |
-| data[0].clientid          | String    | 客户端标识符 |
-| data[0].username          | String    | 客户端连接时使用的用户名 |
-| data[0].proto_name        | String    | 端点提供的功能介绍 |
-| data[0].proto_ver         | Integer   | 客户端使用的协议版本 |
-| data[0].ip_address        | String    | 客户端的网络 IP 地址 |
-| data[0].port              | Integer   | 客户端源端口 |
-| data[0].is_bridge         | Boolean   | 指示客户端是否通过桥接方式连接 |
-| data[0].connected_at      | String    | 客户端连接时间，格式为 "YYYY-MM-DD HH:mm:ss" |
-| data[0].disconnected_at   | String    | 客户端离线时间，格式为 "YYYY-MM-DD HH:mm:ss"，<br/>此字段仅在 `connected` 为 `false` 时有效并被返回 |
-| data[0].connected         | Boolean   | 客户端是否处于连接状态 |
-| data[0].zone              | String    | 指示客户端使用的配置组 |
-| data[0].keepalive         | Integer   | 保持连接时间，单位：秒 |
-| data[0].clean_start       | Boolean   | 指示客户端是否使用了全新的会话 |
-| data[0].expiry_interval   | Integer   | 会话过期间隔，单位：秒 |
-| data[0].created_at        | String    | 会话创建时间，格式为 "YYYY-MM-DD HH:mm:ss" |
-| data[0].subscriptions_cnt | Integer   | 此客户端已建立的订阅数量 |
-| data[0].max_subscriptions | Integer   | 此客户端允许建立的最大订阅数量 |
-| data[0].inflight          | Integer   | 飞行队列当前长度 |
-| data[0].max_inflight      | Integer   | 飞行队列最大长度 |
-| data[0].mqueue_len        | Integer   | 消息队列当前长度 |
-| data[0].max_mqueue        | Integer   | 消息队列最大长度 |
-| data[0].mqueue_dropped    | Integer   | 消息队列因超出长度而丢弃的消息数量 |
-| data[0].awaiting_rel      | Integer   | 未确认的 PUBREC 报文数量 |
-| data[0].max_awaiting_rel  | Integer   | 允许存在未确认的 PUBREC 报文的最大数量 |
-| data[0].recv_oct          | Integer   | EMQ X Broker（下同）接收的字节数量 |
-| data[0].recv_cnt          | Integer   | 接收的 TCP 报文数量 |
-| data[0].recv_pkt          | Integer   | 接收的 MQTT 报文数量 |
-| data[0].recv_msg          | Integer   | 接收的 PUBLISH 报文数量 |
-| data[0].send_oct          | Integer   | 发送的字节数量 |
-| data[0].send_cnt          | Integer   | 发送的 TCP 报文数量 |
-| data[0].send_pkt          | Integer   | 发送的 MQTT 报文数量 |
-| data[0].send_msg          | Integer   | 发送的 PUBLISH 报文数量 |
-| data[0].mailbox_len       | Integer   | 进程邮箱大小 |
-| data[0].heap_size         | Integer   | 进程堆栈大小，单位：字节 |
+| data | Array of Objects | Information for all clients |
+| data[0].node              | String    | Name of the node to which the client is connected |
+| data[0].clientid          | String    | Client identifier |
+| data[0].username          | String    | User name of client when connecting |
+| data[0].proto_name        | String    | Features provided by the client |
+| data[0].proto_ver         | Integer   | Protocol version used by the client |
+| data[0].ip_address        | String    | Client's network IP address |
+| data[0].port              | Integer   | Client source port |
+| data[0].is_bridge         | Boolean   | Indicates whether the client is connected via bridge |
+| data[0].connected_at      | String    | Client connection time, in the format of "YYYY-MM-DD HH:mm:ss" |
+| data[0].disconnected_at   | String    | Client offline time, in the formatof "YYYY-MM-DD HH:mm:ss"，<br/>This field is only valid and returned when `connected` is` false` |
+| data[0].connected         | Boolean   | Whether the client is connected |
+| data[0].zone              | String    | Indicate the configuration group used by the client |
+| data[0].keepalive         | Integer   | keepalive time, with the unit of second |
+| data[0].clean_start       | Boolean   | Indicate whether the client is using a brand new session |
+| data[0].expiry_interval   | Integer   | Session expiration interval, with the unit of second |
+| data[0].created_at        | String    | Session creation time, in the format "YYYY-MM-DD HH:mm:ss" |
+| data[0].subscriptions_cnt | Integer   | Number of subscriptions established by this client |
+| data[0].max_subscriptions | Integer   | Maximum number of subscriptions allowed by this client |
+| data[0].inflight          | Integer   | Current length of inflight |
+| data[0].max_inflight      | Integer   | Maximum length of inflight |
+| data[0].mqueue_len        | Integer   | Current length of message queue |
+| data[0].max_mqueue        | Integer   | Maximum length of message queue |
+| data[0].mqueue_dropped    | Integer   | Number of messages dropped by the message queue due to exceeding the length |
+| data[0].awaiting_rel      | Integer   | Number of awaiting PUBREC packet |
+| data[0].max_awaiting_rel  | Integer   | Maximum allowed number of awaiting PUBREC packet |
+| data[0].recv_oct          | Integer   | Number of bytes received by EMQ X Broker (the same below) |
+| data[0].recv_cnt          | Integer   | Number of TCP packets received |
+| data[0].recv_pkt          | Integer   | Number of MQTT packets received |
+| data[0].recv_msg          | Integer   | Number of PUBLISH packets received |
+| data[0].send_oct          | Integer   | Number of bytes sent |
+| data[0].send_cnt          | Integer   | Number of TCP packets sent |
+| data[0].send_pkt          | Integer   | Number of MQTT packets sent |
+| data[0].send_msg          | Integer   | Number of PUBLISH packets sent |
+| data[0].mailbox_len       | Integer   | Process mailbox size |
+| data[0].heap_size         | Integer   | Process heap size with the unit of byte |
 | data[0].reductions        | Integer   | Erlang reduction |
-| meta       | Object    | 分页信息 |
-| meta.page  | Integer   | 页码                 |
-| meta.limit | Integer   | 每页显示的数据条数 |
-| meta.count | Integer   | 数据总条数         |
+| meta       | Object    | Paging information |
+| meta.page  | Integer   | Page number      |
+| meta.limit | Integer   | Number of data displayed per page |
+| meta.count | Integer   | Total number of data |
 
 **Examples:**
 
@@ -244,7 +244,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients?_
 
 #### GET /api/v4/clients/{clientid} {#endpoint-get-a-client}
 
-返回指定客户端的信息
+Returns information for the specified client
 
 **Path Parameters:**
 
@@ -257,11 +257,11 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients?_
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 客户端的信息，详细请参见<br/>[GET /api/v4/clients](#endpoint-get-clients)|
+| data | Array of Objects | Client information, for details, see<br/>[GET /api/v4/clients](#endpoint-get-clients) |
 
 **Examples:**
 
-查询指定客户端
+Query the specified client
 
 ```bash
 $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients/example"
@@ -271,7 +271,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients/e
 
 #### DELETE /api/v4/clients/{clientid} {#endpoint-delete-a-client}
 
-踢除指定客户端。注意踢除客户端操作会将连接与会话一并终结。
+Kick out the specified client. Note that this operation will terminate the connection with the session.
 
 **Path Parameters:**
 
@@ -287,7 +287,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients/e
 
 **Examples:**
 
-踢除指定客户端
+Kick out the specified client
 
 ```bash
 $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/clients/example"
@@ -297,21 +297,21 @@ $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/client
 
 #### GET /api/v4/nodes/{node}/clients {#endpoint-nodes-clients}
 
-类似 [GET /api/v4/clients](#endpoint-get-clients)，返回指定节点下所有客户端的信息，支持分页。
+similar with [GET /api/v4/clients](#endpoint-get-clients), Returns information about all clients under the specified node, and supports paging.
 
 **Query String Parameters:**
 
 | Name   | Type | Required | Default | Description |
 | ------ | --------- | -------- | ------- |  ---- |
-| _page  | Integer   | False | 1       | 页码 |
-| _limit | Integer   | False | 10000   | 每页显示的数据条数，未指定时由 `emqx-management` 插件的配置项 `max_row_limit` 决定 |
+| _page  | Integer   | False | 1       | page number |
+| _limit | Integer   | False | 10000   | The number of data displayed per page, if not specified, it is determined by the configuration item `max_row_limit` of the ` emqx-management` plugin |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 所有客户端的信息，详情请参看 [GET /api/v4/clients](#endpoint-get-clients) |
+| data | Array of Objects | Information about all clients, see  [GET /api/v4/clients](#endpoint-get-clients) for details |
 
 **Examples:**
 
@@ -323,7 +323,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 
 #### GET /api/v4/nodes/{node}/clients/{clientid} {#endpoint-nodes-get-a-client}
 
-类似 [GET /api/v4/clients/{clientid}](#endpoint-get-a-client)，返回指定节点下指定客户端的信息。
+Similar with [GET /api/v4/clients/{clientid}](#endpoint-get-a-client)，return information about the specified client under the specified node.
 
 **Path Parameters:**
 
@@ -336,7 +336,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Object | 客户端的信息，详细请参见<br/>[GET /api/v4/clients](#endpoint-get-clients)|
+| data | Object | Information about all clients, for details, see<br/>[GET /api/v4/clients](#endpoint-get-clients) |
 
 **Examples:**
 
@@ -348,7 +348,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 
 #### DELETE /api/v4/nodes/{node}/clients/{clientid} {#endpoint-nodes-delete-a-client}
 
-类似 [DELETE /api/v4/clients/{clientid}](#endpoint-delete-a-client)，踢除指定节点下的指定客户端。
+Similar with [DELETE /api/v4/clients/{clientid}](#endpoint-delete-a-client)，kick out the specified client under the specified node.
 
 **Path Parameters:**
 
@@ -372,7 +372,7 @@ $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/nodes/
 
 #### GET /api/v4/clients/username/{username} {#endpoint-get-clients-by-username}
 
-通过 Username 查询客户端的信息。由于可能存在多个客户端使用相同的用户名的情况，所以可能同时返回多个客户端信息。
+Query client information by Username. Since there may be multiple clients using the same user name, multiple client information may be returned at the same time.
 
 **Path Parameters:**
 
@@ -385,7 +385,7 @@ $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/nodes/
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 客户端的信息，详细请参见<br/>[GET /api/v4/clients](#endpoint-get-clients)|
+| data | Array of Objects | Information about clients, for details, see<br/>[GET /api/v4/clients](#endpoint-get-clients) |
 
 **Examples:**
 
@@ -397,7 +397,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients/u
 
 #### GET /api/v4/nodes/{node}/clients/username/{username} {#endpoint-nodes-get-clients-by-username}
 
-类似 [GET /api/v4/clients/username/{username}](#endpoint-get-clients-by-username)，在指定节点下，通过 Username 查询指定客户端的信息。
+Similar with [GET /api/v4/clients/username/{username}](#endpoint-get-clients-by-username), query the information of the specified client through Username under the specified node.
 
 **Path Parameters:**
 
@@ -410,7 +410,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients/u
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 客户端的信息，详细请参见<br/>[GET /api/v4/clients](#endpoint-get-clients)|
+| data | Array of Objects | Information about clients, for details, see<br/>[GET /api/v4/clients](#endpoint-get-clients) |
 
 **Examples:**
 
@@ -422,7 +422,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 
 #### GET /api/v4/clients/{clientid}/acl_cache {#endpoint-get-acl-cache}
 
-查询指定客户端的 ACL 缓存。
+Query the ACL cache of the specified client.
 
 **Path Parameters:**
 
@@ -435,15 +435,15 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | ACL 详情|
-| data[0].access       | String    | 发布/订阅        |
-| data[0].topic        | String    | MQTT 主题        |
-| data[0].result       | String    | 允许/拒绝        |
-| data[0].updated_time | Integer   | ACL 缓存建立时间 |
+| data | Array of Objects | ACL Details |
+| data[0].access       | String    | Publish/Scribe |
+| data[0].topic        | String    | MQTT Topic    |
+| data[0].result       | String    | Allow/Deny |
+| data[0].updated_time | Integer   | ACL Cache settling time |
 
 **Examples:**
 
-查询 ACL 缓存
+Querying the ACL cache
 
 ```bash
 $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients/example/acl_cache"
@@ -453,7 +453,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients/e
 
 #### DELETE /api/v4/clients/{clientid}/acl_cache {#endpoint-delete-acl-cache}
 
-清除指定客户端的 ACL 缓存。
+Delete the ACL cache of the specified client。
 
 **Path Parameters:**
 
@@ -469,7 +469,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients/e
 
 **Examples:**
 
-清除 ACL 缓存
+Delete the ACL cache
 
 ```bash
 $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/clients/example/acl_cache"
@@ -477,30 +477,30 @@ $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/client
 {"code":0}
 ```
 
-### 订阅信息 {#endpoint-subscriptions}
+### Subscription Information{#endpoint-subscriptions}
 
 #### GET /api/v4/subscriptions {#endpoint-get-subscriptions}
 
-返回集群下所有订阅信息，支持分页机制。
+Returns all subscription information under the cluster, and supports paging mechanism
 
 **Query String Parameters:**
 
 | Name   | Type | Required | Default | Description |
 | ------ | --------- | -------- | ------- |  ---- |
-| _page  | Integer   | False | 1       | 页码 |
-| _limit | Integer   | False | 10000   | 每页显示的数据条数，未指定时由 `emqx-management` 插件的配置项 `max_row_limit` 决定 |
+| _page  | Integer   | False | 1       | Page number |
+| _limit | Integer   | False | 10000   | The number of data displayed per page, if not specified, it is determined by the configuration item `max_row_limit` of the ` emqx-management` plugin |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 所有订阅信息|
-| data[0].node     | String    | 节点名称     |
-| data[0].clientid | String    | 客户端标识符 |
-| data[0].topic    | String    | 订阅主题     |
-| data[0].qos      | Integer   | QoS 等级     |
-| meta | Object    | 同 `/api/v4/clients` |
+| data | Array of Objects | All subscription information |
+| data[0].node     | String    | Node name |
+| data[0].clientid | String    | Client identifier |
+| data[0].topic    | String    | Subscribe to topic |
+| data[0].qos      | Integer   | QoS level |
+| meta | Object    | same as `/api/v4/clients` |
 
 **Examples:**
 
@@ -512,7 +512,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/subscript
 
 #### GET /api/v4/subscriptions/{clientid} {#endpoint-get-subscriptions-by-clientid}
 
-返回集群下指定客户端的订阅信息。
+Return the subscription information of the specified client in the cluster.
 
 **Path Parameters:**
 
@@ -525,11 +525,11 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/subscript
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Object | 所有订阅信息|
-| data.node     | String    | 节点名称     |
-| data.clientid | String    | 客户端标识符 |
-| data.topic    | String    | 订阅主题     |
-| data.qos      | Integer   | QoS 等级     |
+| data | Object | All subscription information |
+| data.node     | String    | Node name |
+| data.clientid | String    | Client identifier |
+| data.topic    | String    | Subscribe to topic |
+| data.qos      | Integer   | QoS level |
 
 **Examples:**
 
@@ -541,26 +541,26 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/subscript
 
 #### GET /api/v4/nodes/{node}/subscriptions {#endpoint-nodes-get-subscriptions}
 
-类似 [GET /api/v4/subscriptions](#endpoint-get-subscriptions)，返回指定节点下的所有订阅信息，支持分页机制。
+Similar with [GET /api/v4/subscriptions](#endpoint-get-subscriptions)，returns all subscription information under the specified node, and supports paging mechanism.
 
 **Query String Parameters:**
 
 | Name   | Type | Required | Default | Description |
 | ------ | --------- | -------- | ------- |  ---- |
-| _page  | Integer   | False | 1       | 页码 |
-| _limit | Integer   | False | 10000   | 每页显示的数据条数，未指定时由 `emqx-management` 插件的配置项 `max_row_limit` 决定 |
+| _page  | Integer   | False | 1       | Page number |
+| _limit | Integer   | False | 10000   | The number of data displayed per page, if not specified, it is determined by the configuration item `max_row_limit` of the ` emqx-management` plugin |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 所有订阅信息|
-| data[0].node     | String    | 节点名称     |
-| data[0].clientid | String    | 客户端标识符 |
-| data[0].topic    | String    | 订阅主题     |
-| data[0].qos      | Integer   | QoS 等级     |
-| meta | Object    | 同 `/api/v4/clients` |
+| data | Array of Objects | All subscription information |
+| data[0].node     | String    | Node name |
+| data[0].clientid | String    | Client identifier |
+| data[0].topic    | String    | Subscribe to topic |
+| data[0].qos      | Integer   | QoS level |
+| meta | Object    | Same as `/api/v4/clients` |
 
 **Examples:**
 
@@ -572,7 +572,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 
 #### GET /api/v4/nodes/{node}/subscriptions/{clientid} {#endpoint-nodes-get-subscriptions-by-clientid}
 
-类似 [GET /api/v4/subscriptions/{clientid}](#endpoint-get-subscriptions-by-clientid)，在指定节点下，查询某 clientid 的所有订阅信息，支持分页机制。
+Similar with [GET /api/v4/subscriptions/{clientid}](#endpoint-get-subscriptions-by-clientid), query all subscription information of a clientid under the specified node, and support paging mechanism.
 
 **Path Parameters:**
 
@@ -585,11 +585,11 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Object | 所有订阅信息|
-| data.node     | String    | 节点名称     |
-| data.clientid | String    | 客户端标识符 |
-| data.topic    | String    | 订阅主题     |
-| data.qos      | Integer   | QoS 等级     |
+| data | Object | All subscription information |
+| data.node     | String    | Node name |
+| data.clientid | String    | Client identifier |
+| data.topic    | String    | Subscribe to topic |
+| data.qos      | Integer   | QoS level |
 
 **Examples:**
 
@@ -599,7 +599,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 {"data":[{"topic":"a/+/c","qos":0,"node":"emqx@127.0.0.1","clientid":"sample"}],"code":0}
 ```
 
-### 路由 {#endpoint-routes}
+### Routes {#endpoint-routes}
 
 #### GET /api/v4/routes {#endpoint-get-routes}
 
@@ -645,9 +645,9 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/routes"
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Object | 所有路由信息|
-| data.topic | String    | MQTT 主题   |
-| data.node  | String    | 节点名称    |
+| data | Object | All routes information |
+| data.topic | String    | MQTT Topic |
+| data.node  | String    | Node name |
 
 **Examples:**
 
@@ -657,23 +657,23 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/routes/a%
 {"data":[{"topic":"a/b/c","node":"emqx@127.0.0.1"}],"code":0}
 ```
 
-### 消息发布 {#endpoint-publish}
+### Publish message {#endpoint-publish}
 
 #### POST /api/v4/mqtt/publish {#endpoint-do-publish}
 
-发布 MQTT 消息。
+Publish MQTT message。
 
 **Parameters (json):**
 
 | Name     | Type | Required | Default | Description |
 | -------- | --------- | -------- | ------- | --------- |
-| topic    | String    | Optional |         | 主题，与 `topics` 至少指定其中之一 |
-| topics   | String    | Optional |         | 以 `,` 分割的多个主题，使用此字段能够同时发布消息到多个主题 |
-| clientid | String    | Required |         | 客户端标识符 |
-| payload  | String    | Required |         | 消息正文 |
-| encoding | String    | Optional | plain   | 消息正文使用的编码方式，目前仅支持 `plain` 与 `base64` 两种 |
-| qos      | Integer   | Optional | 0       | QoS 等级 |
-| retain   | Boolean   | Optional | false   | 是否为保留消息 |
+| topic    | String    | Optional |         | For topic and topics, with at least one of them specified |
+| topics   | String    | Optional |         | Multiple topics separated by `,`. This field is used to publish messages to multiple topics at the same time |
+| clientid | String    | Required |         | Client identifier |
+| payload  | String    | Required |         | Message body |
+| encoding | String    | Optional | plain   | The encoding used in the message body. Currently only plain and base64 are supported. |
+| qos      | Integer   | Optional | 0       | QoS level |
+| retain   | Boolean   | Optional | false   | Whether it is a retained message |
 
 **Success Response Body (JSON):**
 
@@ -689,20 +689,20 @@ $ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/pub
 {"code":0}
 ```
 
-### 主题订阅 {#endpoint-subscribe}
+### Subscribe to topic {#endpoint-subscribe}
 
 #### POST /api/v4/mqtt/subscribe {#endpoint-do-subscribe}
 
-订阅 MQTT 主题。
+Subscribe to MQTT topic
 
 **Parameters (json):**
 
 | Name     | Type | Required | Default | Description |
 | -------- | --------- | -------- | ------- | ------------ |
-| topic    | String    | Optional |         | 主题，与 `topics` 至少指定其中之一 |
-| topics   | String    | Optional |         | 以 `,` 分割的多个主题，使用此字段能够同时订阅多个主题 |
-| clientid | String    | Required |         | 客户端标识符 |
-| qos      | Integer   | Optional | 0       | QoS 等级 |
+| topic    | String    | Optional |         | For topic and topics, with at least one of them specified |
+| topics   | String    | Optional |         | Multiple topics separated by `,`. This field is used to subscribe to multiple topics at the same time |
+| clientid | String    | Required |         | Client identifier |
+| qos      | Integer   | Optional | 0       | QoS level |
 
 **Success Response Body (JSON):**
 
@@ -712,7 +712,7 @@ $ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/pub
 
 **Examples:**
 
-同时订阅 `a`, `b`, `c` 三个主题
+Subscribe to the three topics of `a`, `b`, `c` at the same time
 
 ```bash
 $ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/subscribe" -d '{"topics":"a,b,c","qos":1,"clientid":"example"}'
@@ -722,14 +722,14 @@ $ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/sub
 
 #### POST /api/v4/mqtt/unsubscribe {#endpoint-do-unsubscribe}
 
-取消订阅。
+Unsubscribe.
 
 **Parameters (json):**
 
 | Name     | Type | Required | Default | Description  |
 | -------- | --------- | -------- | ------- | ------------ |
-| topic    | String    | Required |         | 主题         |
-| clientid | String    | Required |         | 客户端标识符 |
+| topic    | String    | Required |         | Topic    |
+| clientid | String    | Required |         | Client identifier |
 
 **Success Response Body (JSON):**
 
@@ -739,7 +739,7 @@ $ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/sub
 
 **Examples:**
 
-取消订阅 `a` 主题
+Unsubscribe from a topic
 
 ```bash
 $ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/unsubscribe" -d '{"topic":"a","qos":1,"clientid":"example"}'
@@ -747,27 +747,27 @@ $ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/uns
 {"code":0}
 ```
 
-### 插件 {#endpoint-plugins}
+### plugins{#endpoint-plugins}
 
 #### GET /api/v4/plugins {#endpoint-get-plugins}
 
-返回集群下的所有插件信息。
+Returns information of all plugins in the cluster.
 
-**Path Parameters:** 无
+**Path Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 所有路由信息|
-| data[0].node    | String    | 节点名称 |
-| data[0].plugins | Array     | 插件信息，由对象组成的数组，见下文 |
-| data[0].plugins.name        | String    | 插件名称 |
-| data[0].plugins.version     | String    | 插件版本 |
-| data[0].plugins.description | String    | 插件描述 |
-| data[0].plugins.active      | Boolean   | 插件是否启动 |
-| data[0].plugins.type        | String    | 插件类型，目前有<br/>`auth`、`bridge`、`feature`、`protocol` 四种类型 |
+| data | Array of Objects | All routes information |
+| data[0].node    | String    | Node name |
+| data[0].plugins | Array     | Plugin information, an array of objects, see below |
+| data[0].plugins.name        | String    | Plugin name |
+| data[0].plugins.version     | String    | Plugin version |
+| data[0].plugins.description | String    | Plugin description |
+| data[0].plugins.active      | Boolean   | Whether the plugin is active |
+| data[0].plugins.type        | String    | Plug-in type, currently includes<br/>`auth`、`bridge`、`feature`、`protocol` |
 
 **Examples:**
 
@@ -779,21 +779,21 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/plugins"
 
 #### GET /api/v4/nodes/{node}/plugins {#endpoint-nodes-get-plugins}
 
-类似 [GET /api/v4/plugins](#endpoint-get-plugins)，返回指定节点下的插件信息。
+Similar with [GET /api/v4/plugins](#endpoint-get-plugins), return the plugin information under the specified node
 
-**Path Parameters:** 无
+**Path Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 所有路由信息|
-| data[0].name        | String    | 插件名称 |
-| data[0].version     | String    | 插件版本 |
-| data[0].description | String    | 插件描述 |
-| data[0].active      | Boolean   | 插件是否启动 |
-| data[0].type        | String    | 插件类型，目前有<br/>`auth`、`bridge`、`feature`、`protocol` 四种类型 |
+| data | Array of Objects | All routes information |
+| data[0].name        | String    | Plugin name |
+| data[0].version     | String    | Plugin version |
+| data[0].description | String    | Plugin description |
+| data[0].active      | Boolean   | Whether the plugin is active |
+| data[0].type        | String    | Plug-n type, currently include<br/>`auth`、`bridge`、`feature`、`protocol` |
 
 **Examples:**
 
@@ -805,9 +805,9 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 
 #### PUT /api/v4/nodes/{node}/plugins/{plugin}/load {#endpoint-nodes-load-plugin}
 
-加载指定节点下的指定插件。
+Load the specified plugin under the specified node.
 
-**Parameters:** 无
+**Parameters:** None
 
 **Success Response Body (JSON):**
 
@@ -825,9 +825,9 @@ $ curl -i --basic -u admin:public -X PUT "http://localhost:8081/api/v4/nodes/emq
 
 #### PUT /api/v4/nodes/{node}/plugins/{plugin}/unload {#endpoint-nodes-unload-plugin}
 
-卸载指定节点下的指定插件。
+Unload the specified plugin under the specified node.
 
-**Parameters:** 无
+**Parameters:** None
 
 **Success Response Body (JSON):**
 
@@ -845,9 +845,9 @@ $ curl -i --basic -u admin:public -X PUT "http://localhost:8081/api/v4/nodes/emq
 
 #### PUT /api/v4/nodes/{node}/plugins/{plugin}/reload {#endpoint-nodes-reload-plugin}
 
-重新加载指定节点下的指定插件。
+Reloads the specified plugin under the specified node.
 
-**Parameters:** 无
+**Parameters:** None
 
 **Success Response Body (JSON):**
 
@@ -863,11 +863,11 @@ $ curl -i --basic -u admin:public -X PUT "http://localhost:8081/api/v4/nodes/emq
 {"code":0}
 ```
 
-### 监听器 {#endpoint-listeners}
+### listeners {#endpoint-listeners}
 
 #### GET /api/v4/listeners {#endpoint-get-listeners}
 
-返回集群下的所有监听器信息。
+Returns information about all listeners in the cluster.
 
 **Path Parameters:** 无
 
@@ -876,24 +876,24 @@ $ curl -i --basic -u admin:public -X PUT "http://localhost:8081/api/v4/nodes/emq
 | Name | Type | Description                                |
 | ---- | --------- | ------------------------------------------ |
 | code | Integer   | 0 |
-| data | Array of Objects | 各节点的监听器列表 |
-| data[0].node      | String    | 节点名称 |
-| data[0].listeners | Array of Objects   | 监听器列表 |
-| data[0].listeners[0].acceptors      | Integer   | Acceptor 进程数量 |
-| data[0].listeners[0].listen_on      | String    | 监听端口 |
-| data[0].listeners[0].protocol       | String    | 插件描述 |
-| data[0].listeners[0].current_conns  | Integer   | 插件是否启动 |
-| data[0].listeners[0].max_conns      | Integer   | 允许建立的最大连接数量 |
-| data[0].listeners[0].shutdown_count | Array of Objects | 连接关闭原因及计数 |
+| data | Array of Objects | List of listeners for each node |
+| data[0].node      | String    | Node name |
+| data[0].listeners | Array of Objects   | Listener list |
+| data[0].listeners[0].acceptors      | Integer   | Number of Acceptor process |
+| data[0].listeners[0].listen_on      | String    | Listening port |
+| data[0].listeners[0].protocol       | String    | Plugin description |
+| data[0].listeners[0].current_conns  | Integer   | Whether plugin is enabled |
+| data[0].listeners[0].max_conns      | Integer   | Maximum number of allowed connections |
+| data[0].listeners[0].shutdown_count | Array of Objects | Reasons and counts for connection shutdown |
 
-*常见 shutdown_count*
+Normal shutdown_count*
 
 | Name       | Type | Description                                                  |
 | ---------- | --------- | ------------------------------------------------------------ |
-| normal     | Integer   | 正常关闭的连接数量，仅在计数大于 0 时返回                    |
-| kicked     | Integer   | 被手动踢除的连接数量，仅在计数大于 0 时返回                  |
-| discarded  | Integer   | 由于 `Clean Session` 或 `Clean Start` 为 `true` 而被丢弃的连接数量 |
-| takeovered | Integer   | 由于 `Clean Session` 或 `Clean Start` 为 `false` 而被接管的连接数量 |
+| normal     | Integer   | Number of normally closed connections, only returned when the count is greater than 0 |
+| kicked     | Integer   | Number of manually dropped connections, only returned if the count is greater than 0 |
+| discarded  | Integer   | Number of connections dropped because `Clean Session` or `Clean Start` is `true` |
+| takeovered | Integer   | Number of connections takeovered because `Clean Session` or `Clean Start` is `false` |
 
 **Examples:**
 
@@ -905,22 +905,20 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/listeners
 
 #### GET /api/v4/nodes/{node}/listeners {#endpoint-nodes-get-listeners}
 
-类似 [GET /api/v4/listeners](#endpoint-get-listeners)，返回指定节点的监听器信息。
-
-**Path Parameters:** 无
+Similar with [GET /api/v4/listeners](#endpoint-get-listeners), returns the listener information for the specified node.
 
 **Success **Response Body (JSON):**
 
 | Name | Type | Description                                |
 | ---- | --------- | ------------------------------------------ |
 | code | Integer   | 0 |
-| data | Array of Objects | 各节点的监听器列表 |
-| data[0].acceptors      | Integer   | Acceptor 进程数量 |
-| data[0].listen_on      | String    | 监听端口 |
-| data[0].protocol       | String    | 插件描述 |
-| data[0].current_conns  | Integer   | 插件是否启动 |
-| data[0].max_conns      | Integer   | 允许建立的最大连接数量 |
-| data[0].shutdown_count | Array of Objects | 连接关闭原因及计数 |
+| data | Array of Objects | List of listeners for each node |
+| data[0].acceptors      | Integer   | Number of Acceptor process |
+| data[0].listen_on      | String    | Listening port |
+| data[0].protocol       | String    | Plugin description |
+| data[0].current_conns  | Integer   | Whether the plugin is enabled |
+| data[0].max_conns      | Integer   | Maximum number of allowed connections |
+| data[0].shutdown_count | Array of Objects | Reasons and counts for connection shutdown |
 
 **Examples:**
 
@@ -930,109 +928,109 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 {"data":[{"shutdown_count":[],"protocol":"mqtt:ssl","max_conns":102400,"listen_on":"8883","current_conns":0,"acceptors":16},{"shutdown_count":[],"protocol":"mqtt:tcp","max_conns":1024000,"listen_on":"0.0.0.0:1883","current_conns":13,"acceptors":8},{"shutdown_count":[],"protocol":"mqtt:tcp","max_conns":1024000,"listen_on":"127.0.0.1:11883","current_conns":0,"acceptors":4},{"shutdown_count":[],"protocol":"http:dashboard","max_conns":512,"listen_on":"18083","current_conns":0,"acceptors":4},{"shutdown_count":[],"protocol":"http:management","max_conns":512,"listen_on":"8081","current_conns":1,"acceptors":2},{"shutdown_count":[],"protocol":"https:dashboard","max_conns":512,"listen_on":"18084","current_conns":0,"acceptors":2},{"shutdown_count":[],"protocol":"mqtt:ws:8083","max_conns":102400,"listen_on":"8083","current_conns":1,"acceptors":4},{"shutdown_count":[],"protocol":"mqtt:wss:8084","max_conns":16,"listen_on":"8084","current_conns":0,"acceptors":4}],"code":0}
 ```
 
-### 统计指标 {#endpoint-metrics}
+### Metrics {#endpoint-metrics}
 
 #### GET /api/v4/metrics {#endpoint-get-metrics}
 
-返回集群下所有统计指标数据。
+Returns all statistical  metrics under the cluster
 
-**Path Parameters:** 无
+**Path Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description   |
 | ---- | --------- | ------------- |
 | code | Integer   | 0 |
-| data | Array of Objects | 各节点上的统计指标列表 |
-| data[0].node    | String    | 节点名称 |
-| data[0].metrics | Object     | 监控指标数据，详见下面的 metrics：|
+| data | Array of Objects | List of statistical metrics on each node |
+| data[0].node    | String    | Node name |
+| data[0].metrics | Object     | Monitoring metrics data, see metrics below |
 
 **metrics：**
 
 | Name | Type | Description |
 | ----------------| --------- | -------------------- |
-| actions.failure                 | Integer   | 规则引擎 action 成功失败次数 |
-| actions.success                 | Integer   | 规则引擎 action 执行失败次数 |
-| bytes.received                  | Integer   | EMQ X Broker 接收的字节数 |
-| bytes.sent                      | Integer   | EMQ X Broker 在此连接上发送的字节数 |
-| client.authenticate             | Integer   | 客户端认证次数 |
-| client.auth.anonymous           | Integer   | 匿名登录的客户端数量 |
-| client.connect                  | Integer   | 客户端连接次数 |
-| client.connack                  | Integer   | 发送 CONNACK 报文的次数 |
-| client.connected                | Integer   | 客户端成功连接次数 |
-| client.disconnected             | Integer   | 客户端断开连接次数 |
-| client.check_acl                | Integer   | ACL 规则检查次数 |
-| client.subscribe                | Integer   | 客户端订阅次数 |
-| client.unsubscribe              | Integer   | 客户端取消订阅次数 |
-| delivery.dropped.too_large      | Integer   | 发送时由于长度超过限制而被丢弃的消息数量 |
-| delivery.dropped.queue_full     | Integer   | 发送时由于消息队列满而被丢弃的 QoS 不为 0 的消息数量 |
-| delivery.dropped.qos0_msg       | Integer   | 发送时由于消息队列满而被丢弃的 QoS 为 0 的消息数量 |
-| delivery.dropped.expired        | Integer   | 发送时由于消息过期而被丢弃的消息数量 |
-| delivery.dropped.no_local       | Integer   | 发送时由于 `No Local` 订阅选项而被丢弃的消息数量 |
-| delivery.dropped                | Integer   | 发送时丢弃的消息总数 |
-| messages.delayed                | Integer   | EMQ X Broker 存储的延迟发布的消息数量 |
-| messages.delivered              | Integer   | EMQ X Broker 内部转发到订阅进程的消息数量 |
-| messages.dropped                | Integer   | EMQ X Broker 内部转发到订阅进程前丢弃的消息总数 |
-| messages.dropped.expired        | Integer   | 接收时由于消息过期而被丢弃的消息数量 |
-| messages.dropped.no_subscribers | Integer   | 由于没有订阅者而被丢弃的消息数量 |
-| messages.forward                | Integer   | 向其他节点转发的消息数量 |
-| messages.publish                | Integer   | 除系统消息外发布的消息数量 |
-| messages.qos0.received          | Integer   | 接收来自客户端的 QoS 0 消息数量 |
-| messages.qos2.received          | Integer   | 接收来自客户端的 QoS 1 消息数量 |
-| messages.qos1.received          | Integer   | 接收来自客户端的 QoS 2 消息数量 |
-| messages.qos0.sent              | Integer   | 发送给客户端的 QoS 0 消息数量 |
-| messages.qos1.sent              | Integer   | 发送给客户端的 QoS 1 消息数量 |
-| messages.qos2.sent              | Integer   | 发送给客户端的 QoS 2 消息数量 |
-| messages.received               | Integer   | 接收来自客户端的消息数量，等于 `messages.qos0.received`，`messages.qos1.received` 与 `messages.qos2.received` 之和 |
-| messages.sent                   | Integer   | 发送给客户端的消息数量，等于 `messages.qos0.sent`，`messages.qos1.sent` 与 `messages.qos2.sent` 之和 |
-| messages.retained               | Integer   | EMQ X Broker 存储的保留消息数量 |
-| messages.acked                  | Integer   | 接收的 PUBACK 和 PUBREC 报文数量 |
-| packets.received                | Integer   | 接收的报文数量 |
-| packets.sent                    | Integer   | 发送的报文数量 |
-| packets.connect.received        | Integer   | 接收的 CONNECT 报文数量 |
-| packets.connack.auth_error      | Integer   | 接收的认证失败的 CONNECT 报文数量 |
-| packets.connack.error           | Integer   | 接收的未成功连接的 CONNECT 报文数量 |
-| packets.connack.sent            | Integer   | 发送的 CONNACK 报文数量 |
-| packets.publish.received        | Integer   | 接收的 PUBLISH 报文数量 |
-| packets.publish.sent            | Integer   | 发送的 PUBLISH 报文数量 |
-| packets.publish.inuse           | Integer   | 接收的报文标识符已被占用的 PUBLISH 报文数量 |
-| packets.publish.auth_error      | Integer   | 接收的未通过 ACL 检查的 PUBLISH 报文数量 |
-| packets.publish.error           | Integer   | 接收的无法被发布的 PUBLISH 报文数量 |
-| packets.publish.dropped         | Integer   | 超出接收限制而被丢弃的消息数量 |
-| packets.puback.received         | Integer   | 接收的 PUBACK 报文数量 |
-| packets.puback.sent             | Integer   | 发送的 PUBACK 报文数量 |
-| packets.puback.inuse            | Integer   | 接收的报文标识符已被占用的 PUBACK 报文数量 |
-| packets.puback.missed           | Integer   | 接收的未知报文标识符 PUBACK 报文数量 |
-| packets.pubrec.received         | Integer   | 接收的 PUBREC 报文数量 |
-| packets.pubrec.sent             | Integer   | 发送的 PUBREC 报文数量 |
-| packets.pubrec.inuse            | Integer   | 接收的报文标识符已被占用的 PUBREC 报文数量 |
-| packets.pubrec.missed           | Integer   | 接收的未知报文标识符 PUBREC 报文数量 |
-| packets.pubrel.received         | Integer   | 接收的 PUBREL 报文数量 |
-| packets.pubrel.sent             | Integer   | 发送的 PUBREL 报文数量 |
-| packets.pubrel.missed           | Integer   | 接收的未知报文标识符 PUBREL 报文数量 |
-| packets.pubcomp.received        | Integer   | 接收的 PUBCOMP 报文数量 |
-| packets.pubcomp.sent            | Integer   | 发送的 PUBCOMP 报文数量 |
-| packets.pubcomp.inuse           | Integer   | 接收的报文标识符已被占用的 PUBCOMP 报文数量 |
-| packets.pubcomp.missed          | Integer   | 发送的 PUBCOMP 报文数量 |
-| packets.subscribe.received      | Integer   | 接收的 SUBSCRIBE 报文数量 |
-| packets.subscribe.error         | Integer   | 接收的订阅失败的 SUBSCRIBE 报文数量 |
-| packets.subscribe.auth_error    | Integer   | 接收的未通过 ACL 检查的 SUBACK 报文数量 |
-| packets.suback.sent             | Integer   | 发送的 SUBACK 报文数量 |
-| packets.unsubscribe.received    | Integer   | 接收的 UNSUBSCRIBE 报文数量 |
-| packets.unsubscribe.error       | Integer   | 接收的取消订阅失败的 UNSUBSCRIBE 报文数量 |
-| packets.unsuback.sent           | Integer   | 发送的 UNSUBACK 报文数量 |
-| packets.pingreq.received        | Integer   | 接收的 PINGREQ 报文数量 |
-| packets.pingresp.sent           | Integer   | 发送的 PUBRESP 报文数量 |
-| packets.disconnect.received     | Integer   | 接收的 DISCONNECT 报文数量 |
-| packets.disconnect.sent         | Integer   | 发送的 DISCONNECT 报文数量 |
-| packets.auth.received           | Integer   | 接收的 AUTH 报文数量 |
-| packets.auth.sent               | Integer   | 发送的 AUTH 报文数量 |
-| rules.matched                   | Integer   | 规则的匹配次数 |
-| session.created                 | Integer   | 创建的会话数量 |
-| session.discarded               | Integer   | 由于 `Clean Session` 或 `Clean Start` 为 `true` 而被丢弃的会话数量 |
-| session.resumed                 | Integer   | 由于 `Clean Session` 或 `Clean Start` 为 `false` 而恢复的会话数量 |
-| session.takeovered              | Integer   | 由于 `Clean Session` 或 `Clean Start` 为 `false` 而被接管的会话数量 |
-| session.terminated              | Integer   | 终结的会话数量 |
+| actions.failure                 | Integer   | Number of failure executions of the rule engine action |
+| actions.success                 | Integer   | Number of successful executions of the rule engine action |
+| bytes.received                  | Integer   | Number of bytes received by EMQ X Broker |
+| bytes.sent                      | Integer   | Number of bytes sent by EMQ X Broker on this connection |
+| client.authenticate             | Integer   | Number of client authentications |
+| client.auth.anonymous           | Integer   | Number of clients who log in anonymously |
+| client.connect                  | Integer   | Number of client connections |
+| client.connack                  | Integer   | Number of CONNACK packet sent |
+| client.connected                | Integer   | Number of successful client connections |
+| client.disconnected             | Integer   | Number of client disconnects |
+| client.check_acl                | Integer   | Number of ACL rule checks |
+| client.subscribe                | Integer   | Number of client subscriptions |
+| client.unsubscribe              | Integer   | Number of client unsubscriptions |
+| delivery.dropped.too_large      | Integer   | The number of messages that were dropped because the length exceeded the limit when sending |
+| delivery.dropped.queue_full     | Integer   | Number of messages with a non-zero QoS that were dropped because the message queue was full when sending |
+| delivery.dropped.qos0_msg       | Integer   | Number of messages with QoS 0 that were dropped because the message queue was full when sending |
+| delivery.dropped.expired        | Integer   | Number of messages dropped due to message expiration on sending |
+| delivery.dropped.no_local       | Integer   | Number of messages that were dropped due to the No Local subscription option when sending |
+| delivery.dropped                | Integer   | Total number of discarded messages when sending |
+| messages.delayed                | Integer   | Number of delay- published messages stored by EMQ X Broker |
+| messages.delivered              | Integer   | Number of messages forwarded to the subscription process internally by EMQ X Broker |
+| messages.dropped                | Integer   | Total number of messages dropped by EMQ X Broker before forwarding to the subscription process |
+| messages.dropped.expired        | Integer   | Number of messages dropped due to message expiration when receiving |
+| messages.dropped.no_subscribers | Integer   | Number of messages dropped due to no subscribers |
+| messages.forward                | Integer   | Number of messages forwarded to other nodes |
+| messages.publish                | Integer   | Number of messages published in addition to system messages |
+| messages.qos0.received          | Integer   | Number of QoS 0 messages received from clients |
+| messages.qos2.received          | Integer   | Number of QoS 1 messages received from clients |
+| messages.qos1.received          | Integer   | Number of QoS 2 messages received from clients |
+| messages.qos0.sent              | Integer   | Number of QoS 0 messages sent to clients |
+| messages.qos1.sent              | Integer   | Number of QoS 1 messages sent to clients |
+| messages.qos2.sent              | Integer   | Number of QoS 2 messages sent to clients |
+| messages.received               | Integer   | Number of messages received from the client, equal to the sum of `messages.qos0.received`，`messages.qos1.received` and `messages.qos2.received` |
+| messages.sent                   | Integer   | Number of messages sent to the client, equal to the sum of `messages.qos0.sent`，`messages.qos1.sent` and `messages.qos2.sent` |
+| messages.retained               | Integer   | Number of retained messages stored by EMQ X Broker |
+| messages.acked                  | Integer   | Number of received PUBACK and PUBREC packet |
+| packets.received                | Integer   | Number of received packet |
+| packets.sent                    | Integer   | Number of sent packet |
+| packets.connect.received        | Integer   | Number of received CONNECT packet |
+| packets.connack.auth_error      | Integer   | Number of received CONNECT packet with failed authentication |
+| packets.connack.error           | Integer   | Number of received CONNECT packet with unsuccessful connections |
+| packets.connack.sent            | Integer   | Number of sent CONNACK packet |
+| packets.publish.received        | Integer   | Number of received PUBLISH packet |
+| packets.publish.sent            | Integer   | Number of sent PUBLISH packet |
+| packets.publish.inuse           | Integer   | Number of received PUBLISH packet with occupied identifiers |
+| packets.publish.auth_error      | Integer   | Number of received PUBLISH packets with failed the ACL check |
+| packets.publish.error           | Integer   | Number of received PUBLISH packet that cannot be published |
+| packets.publish.dropped         | Integer   | Number of messages discarded due to the receiving limit |
+| packets.puback.received         | Integer   | Number of received PUBACK packet |
+| packets.puback.sent             | Integer   | Number of sent PUBACK packet |
+| packets.puback.inuse            | Integer   | Number of received PUBACK packet with occupied identifiers |
+| packets.puback.missed           | Integer   | Number of received packet with identifiers. |
+| packets.pubrec.received         | Integer   | Number of received PUBREC packet |
+| packets.pubrec.sent             | Integer   | Number of sent PUBREC packet |
+| packets.pubrec.inuse            | Integer   | Number of received PUBREC packet with occupied identifiers |
+| packets.pubrec.missed           | Integer   | Number of received PUBREC packet with unknown identifiers |
+| packets.pubrel.received         | Integer   | Number of received PUBREL packet |
+| packets.pubrel.sent             | Integer   | Number of sent PUBREL packet |
+| packets.pubrel.missed           | Integer   | Number of received PUBREC packet with unknown identifiers |
+| packets.pubcomp.received        | Integer   | Number of received PUBCOMP packet |
+| packets.pubcomp.sent            | Integer   | Number of sent PUBCOMP packet |
+| packets.pubcomp.inuse           | Integer   | Number of received PUBCOMP packet with occupied identifiers |
+| packets.pubcomp.missed          | Integer   | Number of missed PUBCOMP packet |
+| packets.subscribe.received      | Integer   | Number of received SUBSCRIBE packet |
+| packets.subscribe.error         | Integer   | Number of received SUBSCRIBE packet with failed subscriptions |
+| packets.subscribe.auth_error    | Integer   | Number of received SUBACK packet with failed ACL check |
+| packets.suback.sent             | Integer   | Number of sent SUBACK packet |
+| packets.unsubscribe.received    | Integer   | Number of received UNSUBSCRIBE packet |
+| packets.unsubscribe.error       | Integer   | Number of received UNSUBSCRIBE packet with failed unsubscriptions |
+| packets.unsuback.sent           | Integer   | Number of sent UNSUBACK packet |
+| packets.pingreq.received        | Integer   | Number of received PINGREQ packet |
+| packets.pingresp.sent           | Integer   | Number of sent PUBRESP packet |
+| packets.disconnect.received     | Integer   | Number of received DISCONNECT packet |
+| packets.disconnect.sent         | Integer   | Number of sent DISCONNECT packet |
+| packets.auth.received           | Integer   | Number of received AUTH packet |
+| packets.auth.sent               | Integer   | Number of sent AUTH packet |
+| rules.matched                   | Integer   | Number of rule matched |
+| session.created                 | Integer   | Number of sessions created |
+| session.discarded               | Integer   | Number of sessions dropped because `Clean Session` or `Clean Start` is `true` |
+| session.resumed                 | Integer   | Number of sessions resumed because `Clean Session` or `Clean Start` is false |
+| session.takeovered              | Integer   | Number of sessions takeovered because `Clean Session` or `Clean Start` is false |
+| session.terminated              | Integer   | Number of terminated sessions |
 
 **Examples:**
 
@@ -1044,16 +1042,16 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/metrics"
 
 #### GET /api/v4/nodes/{node}/metrics {#endpoint-nodes-get-metrics}
 
-类似 [GET /api/v4/metrics](#endpoint-get-metrics)，返回指定节点下所有监控指标数据。
+Similar with [GET /api/v4/metrics](#endpoint-get-metrics), returns all monitoring indicator data under the specified node.
 
-**Path Parameters:** 无
+**Path Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description   |
 | ---- | --------- | ------------- |
 | code | Integer   | 0 |
-| data | Objects | 各节点上的统计指标列表，详见 [GET /api/v4/metrics](#endpoint-get-metrics) |
+| data | Objects | List of statistical metrics on each node, see [GET /api/v4/metrics](#endpoint-get-metrics) for details |
 
 **Examples:**
 
@@ -1063,47 +1061,47 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 {"data":{"bytes.received":0,"client.connected":0,"packets.pingreq.received":0,"messages.delayed":0,"rules.matched":0,"actions.failure":0,"packets.puback.sent":0,"packets.pingresp.sent":0,"packets.publish.auth_error":0,"client.check_acl":0,"delivery.dropped.queue_full":0,"actions.success":0,"packets.publish.error":0,"packets.pubcomp.received":0,"bytes.sent":0,"packets.pubrec.inuse":0,"packets.pubrec.missed":0,"packets.pubrel.sent":0,"delivery.dropped.too_large":0,"packets.pubcomp.missed":0,"packets.subscribe.error":0,"packets.suback.sent":0,"messages.qos2.sent":0,"messages.qos1.sent":0,"packets.pubrel.missed":0,"messages.publish":0,"messages.forward":0,"packets.auth.received":0,"delivery.dropped":0,"packets.sent":0,"packets.puback.inuse":0,"delivery.dropped.qos0_msg":0,"packets.publish.dropped":0,"packets.disconnect.sent":0,"packets.auth.sent":0,"packets.unsubscribe.received":0,"session.takeovered":0,"messages.delivered":0,"client.auth.anonymous":0,"packets.connack.error":0,"packets.connack.sent":0,"packets.subscribe.auth_error":0,"packets.unsuback.sent":0,"packets.pubcomp.sent":0,"packets.publish.sent":0,"client.connack":0,"packets.publish.received":0,"client.subscribe":0,"session.created":0,"delivery.dropped.expired":0,"client.unsubscribe":0,"packets.received":0,"packets.pubrel.received":0,"packets.unsubscribe.error":0,"messages.qos0.sent":0,"packets.connack.auth_error":0,"session.resumed":0,"delivery.dropped.no_local":0,"packets.puback.missed":0,"packets.pubcomp.inuse":0,"packets.pubrec.sent":0,"messages.dropped.expired":0,"messages.dropped.no_subscribers":0,"session.discarded":0,"messages.sent":0,"messages.received":0,"packets.puback.received":0,"messages.qos0.received":0,"messages.acked":0,"client.connect":0,"packets.disconnect.received":0,"client.disconnected":0,"messages.retained":3,"session.terminated":0,"packets.publish.inuse":0,"packets.pubrec.received":0,"messages.qos2.received":0,"messages.dropped":0,"packets.connect.received":0,"client.authenticate":0,"packets.subscribe.received":0,"messages.qos1.received":0},"code":0}
 ```
 
-### 状态 {#endpoint-stats}
+### Status {#endpoint-stats}
 
 #### GET /api/v4/stats {#endpoint-get-stats}
 
-返回集群下所有状态数据。
+Return all status data in the cluster.
 
-**Path Parameters:** 无
+**Path Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description   |
 | ---- | --------- | ------------- |
 | code | Integer   | 0 |
-| data | Array of Objects | 各节点上的状态数据列表 |
-| data[0].node  | String    | 节点名称 |
-| data[0].stats | Array     | 状态数据，详见下面的 *stats* |
+| data | Array of Objects | List of status data on each node |
+| data[0].node  | String    | Node name |
+| data[0].stats | Array     | Status data, see  *stats* below |
 
 **stats：**
 
 | Name                       | Type | Description                |
 | -------------------------- | --------- | -------------------------- |
-| connections.count          | Integer   | 当前连接数量               |
-| connections.max            | Integer   | 连接数量的历史最大值       |
-| channels.count             | Integer   | 即 `sessions.count`        |
-| channels.max               | Integer   | 即 `session.max`           |
-| sessions.count             | Integer   | 当前会话数量               |
-| sessions.max               | Integer   | 会话数量的历史最大值       |
-| topics.count               | Integer   | 当前主题数量               |
-| topics.max                 | Integer   | 主题数量的历史最大值       |
-| suboptions.count           | Integer   | 即 `subscriptions.count`   |
-| suboptions.max             | Integer   | 即 `subscriptions.max`     |
-| subscribers.count          | Integer   | 当前订阅者数量             |
-| subscribers.max            | Integer   | 订阅者数量的历史最大值     |
-| subscriptions.count        | Integer   | 当前订阅数量，包含共享订阅 |
-| subscriptions.max          | Integer   | 订阅数量的历史最大值       |
-| subscriptions.shared.count | Integer   | 当前共享订阅数量           |
-| subscriptions.shared.max   | Integer   | 共享订阅数量的历史最大值   |
-| routes.count               | Integer   | 当前路由数量               |
-| routes.max                 | Integer   | 路由数量的历史最大值       |
-| retained.count             | Integer   | 当前保留消息数量           |
-| retained.max               | Integer   | 保留消息的历史最大值       |
+| connections.count          | Integer   | Number of current connections |
+| connections.max            | Integer   | Historical maximum number of connections |
+| channels.count             | Integer   | `sessions.count`        |
+| channels.max               | Integer   | `session.max`           |
+| sessions.count             | Integer   | Number of current sessions |
+| sessions.max               | Integer   | Historical maximum number of sessions |
+| topics.count               | Integer   | Number of current topics |
+| topics.max                 | Integer   | Historical maximum number of topics |
+| suboptions.count           | Integer   | `subscriptions.count`   |
+| suboptions.max             | Integer   | `subscriptions.max`                                          |
+| subscribers.count          | Integer   | Number of current subscribers |
+| subscribers.max            | Integer   | Historical maximum number of subscribers |
+| subscriptions.count        | Integer   | Number of current subscriptions, including shared subscriptions |
+| subscriptions.max          | Integer   | Historical maximum number of subscriptions |
+| subscriptions.shared.count | Integer   | Number of current shared subscriptions |
+| subscriptions.shared.max   | Integer   | Historical maximum number of shared subscriptions |
+| routes.count               | Integer   | Number of current routes |
+| routes.max                 | Integer   | Historical maximum number of routes |
+| retained.count             | Integer   | Number of currently retained messages |
+| retained.max               | Integer   | Historical maximum number of retained messages |
 
 **Examples:**
 
@@ -1115,16 +1113,16 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/stats"
 
 #### GET /api/v4/nodes/{node}/stats {#endpoint-nodes-get-stats}
 
-类似 [GET /api/v4/stats](#endpoint-get-stats)，返回指定节点上的有状态数据。
+Similar with [GET /api/v4/stats](#endpoint-get-stats), returns status data on the specified node.
 
-**Path Parameters:** 无
+**Path Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description   |
 | ---- | --------- | ------------- |
 | code | Integer   | 0 |
-| data | Array of Objects | 各节点上的状态数据列表，详见 [GET /api/v4/stats](#endpoint-get-stats) |
+| data | Array of Objects | List of status data on each node, see [GET /api/v4/stats](#endpoint-get-stats) for details |
 
 **Examples:**
 
@@ -1134,24 +1132,24 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 {"data":{"topics.max":0,"topics.count":0,"subscriptions.shared.max":0,"subscriptions.shared.count":0,"subscriptions.max":0,"subscriptions.count":0,"subscribers.max":0,"subscribers.count":0,"suboptions.max":0,"suboptions.count":0,"sessions.max":0,"sessions.count":0,"rules.max":0,"rules.count":0,"routes.max":0,"routes.count":0,"retained.max":3,"retained.count":3,"resources.max":0,"resources.count":0,"connections.max":0,"connections.count":0,"channels.max":0,"channels.count":0,"actions.max":5,"actions.count":5},"code":0}
 ```
 
-### 告警 {#endpoint-alarms}
+### Alarm {#endpoint-alarms}
 
 #### GET /api/v4/alarms/present {#endpoint-get-alarms-present}
 
-返回集群下当前告警信息。
+Return the current alarm information in the cluster.
 
-**Path Parameters:** 无
+**Path Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description   |
 | ---- | --------- | ------------- |
 | code | Integer   | 0 |
-| data | Array of Objects | 各节点上的告警列表 |
-| data[0].node   | String    | 节点名称                           |
-| data[0].alarms | Array of Objects | 当前告警列表 |
-| data[0].alarms[0].id   | String    | 告警标识符     |
-| data[0].alarms[0].desc | String    | 告警的详细描述 |
+| data | Array of Objects | Alarm list on each node |
+| data[0].node   | String    | Node name                   |
+| data[0].alarms | Array of Objects | Current alarm list |
+| data[0].alarms[0].id   | String    | Alarm identifier |
+| data[0].alarms[0].desc | String    | Detailed description of the alarm |
 
 **Examples:**
 
@@ -1163,7 +1161,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/alarms/pr
 
 #### GET /api/v4/alarms/present/{node} {#endpoint-nodes-get-alarms-present}
 
-返回指定节点下当前告警信息。接口参数和返回请参看 [GET /api/v4/stats](#endpoint-get-alarms-present)。
+Returns the current alarm information under the specified node. For interface parameters and returns, see [GET /api/v4/stats](#endpoint-get-alarms-present)。
 
 **Examples:**
 
@@ -1175,21 +1173,21 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/alarms/pr
 
 #### GET /api/v4/alarms/history {#endpoint-get-alarms-history}
 
-返回集群下历史告警信息。
+Returns historical alarm information under the cluster.
 
-**Path Parameters:** 无
+**Path Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description   |
 | ---- | --------- | ------------- |
 | code | Integer   | 0 |
-| data | Array of Objects | 各节点上的告警列表 |
-| data[0].node   | String    | 节点名称 |
-| data[0].alarms | Array of Objects | 当前告警列表 |
-| data[0].alarms[0].id       | String    | 告警标识符 |
-| data[0].alarms[0].desc     | String    | 告警的详细描述 |
-| data[0].alarms[0].clear_at | String    | 告警清除时间，格式为 "YYYY-MM-DD HH:mm:ss" |
+| data | Array of Objects | Alarm list on each node |
+| data[0].node   | String    | Node name |
+| data[0].alarms | Array of Objects | List of current alarms |
+| data[0].alarms[0].id       | String    | Alarm identifier |
+| data[0].alarms[0].desc     | String    | Detailed description of the alarm |
+| data[0].alarms[0].clear_at | String    | Alarm clear time, with the format  "YYYY-MM-DD HH:mm:ss" |
 
 **Examples:**
 
@@ -1201,7 +1199,7 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/alarms/hi
 
 #### GET /api/v4/alarms/history/{node} {#endpoint-nodes-get-alarms-history}
 
-返回指定节点下历史告警信息。接口参数和返回请参看 [GET /api/v4/alarms/history](#endpoint-get-alarms-history)。
+Returns historical alarm information under the specified node. For interface parameters and returns, see [GET /api/v4/alarms/history](#endpoint-get-alarms-history)。
 
 **Examples:**
 
@@ -1211,27 +1209,27 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/alarms/hi
 {"data":[{"id":"cpu_high_watermark","desc":"93.27055293970582","clear_at":"2020-02-21 13:50:10"}],"code":0}
 ```
 
-### 黑名单 {#endpoint-banned}
+### Blacklist {#endpoint-banned}
 
 #### GET /api/v4/banned {#endpoint-get-banned}
 
-获取黑名单
+Get the blacklist
 
 **Query String Parameters:**
 
-  同 `/api/v4/clients`。
+  Same as `/api/v4/clients`。
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description                                                  |
 | ---- | --------- | ------------------------------------------------------------ |
 | code | Integer   | 0                   |
-| data | Array     | 由对象构成的数组，对象中的字段与 *POST* 方法中的 Request Body 相同 |
-| meta | Object    | 同 `/api/v4/clients`                                         |
+| data | Array     | An array of objects with the same fields as the Request Body in the *POST* method |
+| meta | Object    | Same as `/api/v4/clients`                                   |
 
 **Examples:**
 
-获取黑名单列表:
+Get blacklist:
 
 ```bash
 $ curl -i --basic -u admin:public -vX GET "http://localhost:8081/api/v4/banned"
@@ -1241,28 +1239,28 @@ $ curl -i --basic -u admin:public -vX GET "http://localhost:8081/api/v4/banned"
 
 #### POST /api/v4/banned {#endpoint-add-banned}
 
-将对象添加至黑名单
+Add object to blacklist
 
 **Parameters (json):**
 
 | Name  | Type | Required | Default | Description                                                  |
 | ----- | --------- | -------- | ----------| -------------------------------- |
-| who   | String    | Required |    | 添加至黑名单的对象，可以是客户端标识符、用户名和 IP 地址 |
-| as    | String    | Required |      | 用于区分黑名单对象类型，可以是 `clientid`，`username`，`peerhost` |
-| by    | String    | Optional | user | 指示该对象被谁添加至黑名单 |
-| at    | Integer   | Optional | 当前系统时间          | 添加至黑名单的时间，单位：秒 |
-| until | Integer   | Optional | 当前系统时间 + 5 分钟 | 何时从黑名单中解除，单位：秒 |
+| who   | String    | Required |    | Objects added to the blacklist, which can be client identifiers, usernames, and IP addresses |
+| as    | String    | Required |      | Used to distinguish the types of blacklist objects, which can be `clientid`，`username`，`peerhost` |
+| by    | String    | Optional | user | Indicate which object was added to the blacklist |
+| at    | Integer   | Optional | Current system time | Time added to blacklist, unit: second |
+| until | Integer   | Optional | Current system time+ 5 minutes | When to remove from blacklist, unit: second |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description                                |
 | ---- | --------- | ------------------------------------------ |
 | code | Integer   | 0 |
-| data | Object    | 与传入的 Request Body 相同                 |
+| data | Object    | Same as incoming Request Body |
 
 **Examples:**
 
-将 client 添加到黑名单:
+Add client to blacklist:
 
 ```bash
 $ curl -i --basic -u admin:public -vX POST "http://localhost:8081/api/v4/banned" -d '{"who":"example","as":"clientid"}'
@@ -1272,20 +1270,20 @@ $ curl -i --basic -u admin:public -vX POST "http://localhost:8081/api/v4/banned"
 
 #### DELETE /api/v4/banned/{as}/{who} {#endpoint-delete-banned}
 
-将对象从黑名单中删除
+Delete object from blacklist
 
-**Parameters:** 无
+**Parameters:** None
 
 **Success Response Body (JSON):**
 
 | Name    | Type | Description                                  |
 | ------- | --------- | -------------------------------------------- |
 | code    | Integer   | 0   |
-| message | String    | 仅在发生错误时返回，用于提供更详细的错误信息 |
+| message | String    | Return only when an error occurs to provide more detailed error information |
 
 **Examples:**
 
-将 client 从黑名单中移除:
+Delete client from blacklist
 
 ```bash
 $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/banned/clientid/example"
@@ -1293,73 +1291,73 @@ $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/banned
 {"code":0}
 ```
 
-### 规则 {#endpoint-rules}
+### Rule{#endpoint-rules}
 
-查询规则引擎的动作
+Query rule engine actions
 
 #### GET /api/v4/rules/{rule_id} {#endpoint-get-rules}
 
-获取某个规则的详情，包括规则的 SQL、Topics 列表、动作列表等。还会返回当前规则和动作的统计指标的值。
+Get the details of a rule, including the rule's SQL, Topics list, action list, etc. It also returns the value of the statistical index for the current rule and action.
 
 **Path Parameters:**
 
 | Name    | Type | Required | Description                                                  |
 | ------- | --------- | ----------- | ------------------------------------------------------------ |
-| rule_id | String    | False       | 可选，Rule ID。如不指定 rule_id 则<br />以数组形式返回所有已创建的规则 |
+| rule_id | String    | False       | Optional, Rule ID. If rule_id is not specified then <br /> returns all created rules in an array |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Object | 规则对象    |
+| data | Object | Rule object |
 | - data.id              | String      | Rule ID                                          |
-| - data.rawsql          | String      | SQL 语句，与请求中的 rawsql 一致                 |
-| - data.for             | String      | Topic 列表，表示哪些 topic 可以匹配到此规则      |
-| - data.metrics         | Array       | 统计指标，具体可参看 Dashboard 上的 Rule Metrics |
-| - data.description     | String      | 规则的描述信息，与请求中的 description 一致      |
-| - data.actions         | Array       | 动作列表                                         |
+| - data.rawsql          | String      | SQL statement, consistent with rawsql in the request |
+| - data.for             | String      | Topic list, indicates which topics can be matched by this rule |
+| - data.metrics         | Array       | Metrics, see Rule Metrics on Dashboard for details |
+| - data.description     | String      | The description of the rule, consistent with the description in the request |
+| - data.actions         | Array       | Action list                               |
 | - data.actions[0].id | String      | Action ID                                        |
-| - data.actions[0].params | Object | 动作参数，与请求中的 actions.params 一致         |
-| - data.actions[0].name | String      | 动作名字，与请求中的 actions.name 一致           |
-| - data.actions[0].metrics | Array       | 统计指标，具体可参看 Dashboard 上的 Rule Metrics |
+| - data.actions[0].params | Object | Action parameters, consistent with actions.params in the request |
+| - data.actions[0].name | String      | Action name, consistent with actions.name in the request |
+| - data.actions[0].metrics | Array       | Metrics, see Rule Metrics on Dashboard for details |
 
 #### POST /api/v4/rules {#endpoint-add-rules}
 
-创建规则，返回规则 ID。
+Create a rule and return the rule ID.
 
 **Parameters (json):**
 
 | Name                 | Type | Required | Description |
 | -------------------- | --------- | ----------- | ---------------- |
-| rawsql               | String    | True        | 规则的 SQL 语句 |
-| actions              | Array     | True        | 动作列表 |
-| - actions[0].name   | String    | True        | 动作名称 |
-| - actions[0].params | Object    | True        | 动作参数。参数以 key-value 形式表示。<br />详情可参看添加规则的示例 |
-| description          | String    | False       | 可选，规则描述 |
+| rawsql               | String    | True        | SQL statements of rules |
+| actions              | Array     | True        | Action list |
+| - actions[0].name   | String    | True        | Action name |
+| - actions[0].params | Object    | True        | Action parameters, that is expressed in key-value form. <br /> For details, please refer to the example of adding rules |
+| description          | String    | False       | Optional, rule description |
 
 **Success Response Body (JSON):**
 
 | Name                       | Type | Description                                      |
 | -------------------------- | --------- | ------------------------------------------------ |
 | code                       | Integer   | 0                                                |
-| data                       | Object    | 创建成功的规则对象，包含 Rule ID                 |
+| data                       | Object    | Successfully created rule object with Rule ID |
 | - data.id                  | String    | Rule ID                                          |
-| - data.rawsql              | String    | SQL 语句，与请求中的 rawsql 一致                 |
-| - data.for                 | String    | Topic 列表，表示哪些 topic 可以匹配到此规则      |
-| - data.metrics             | Array     | 统计指标，具体可参看 Dashboard 上的 Rule Metrics |
-| - data.description         | String    | 规则的描述信息，与请求中的 description 一致      |
-| - data.actions             | Array     | 动作列表，每个动作是一个 Object                  |
+| - data.rawsql              | String    | SQL statement, consistent with rawsql in the request |
+| - data.for                 | String    | Topic list, indicates which topics can be matched by this rule |
+| - data.metrics             | Array     | Metrics, see Rule Metrics on Dashboard for details |
+| - data.description         | String    | The description of the rule, consistent with the description in the request |
+| - data.actions             | Array     | Action list, and each action is an Object |
 | - data.actions[0].id      | String    | Action ID                                        |
-| - data.actions[0].params  | Object    | 动作参数，与请求中的 actions.params 一致         |
-| - data.actions[0].name    | String    | 动作名字，与请求中的 actions.name 一致           |
-| - data.actions[0].metrics | Array     | 统计指标，具体可参看 Dashboard 上的 Rule Metrics |
+| - data.actions[0].params  | Object    | Action parameters, consistent with actions.params in the request |
+| - data.actions[0].name    | String    | Action name, consistent with actions.name in the request |
+| - data.actions[0].metrics | Array     | Metrics, see Rule Metrics on Dashboard for details |
 
 #### DELETE /api/v4/rules/{rule_id} {#endpoint-delete-rules}
 
-删除规则。
+Delete the rule
 
-**Parameters:** 无
+**Parameters:** None
 
 **Success Response Body (JSON):**
 
@@ -1369,7 +1367,7 @@ $ curl -i --basic -u admin:public -X DELETE "http://localhost:8081/api/v4/banned
 
 **Examples:**
 
-添加一个规则，对于所有匹配到主题 "t/a" 的消息，打印其规则运行参数。
+Add a rule to print the rule running parameters for all messages matching the topic "t/a".
 
 ```bash
 $ curl -XPOST -d '{
@@ -1386,7 +1384,7 @@ $ curl -XPOST -d '{
 {"data":{"rawsql":"select * from \"t/a\"","metrics":[{"speed_max":0,"speed_last5m":0.0,"speed":0.0,"node":"emqx@127.0.0.1","matched":0}],"id":"rule:7fdb2c9e","for":["t/a"],"enabled":true,"description":"test-rule","actions":[{"params":{"a":1},"name":"inspect","metrics":[{"success":0,"node":"emqx@127.0.0.1","failed":0}],"id":"inspect_1582434715354188116"}]},"code":0}
 ```
 
-使用规则 ID 获取刚才创建的规则详情:
+Use the rule ID to get the details of the rule just created:
 
 ```bash
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/rules/rule:7fdb2c9e'
@@ -1394,7 +1392,7 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/rules/rule:7fdb2c9e
 {"data":{"rawsql":"select * from \"t/a\"","metrics":[{"speed_max":0,"speed_last5m":0.0,"speed":0.0,"node":"emqx@127.0.0.1","matched":0}],"id":"rule:7fdb2c9e","for":["t/a"],"enabled":true,"description":"test-rule","actions":[{"params":{"a":1},"name":"inspect","metrics":[{"success":0,"node":"emqx@127.0.0.1","failed":0}],"id":"inspect_1582434715354188116"}]},"code":0}
 ```
 
-获取所有的规则，注意返回值里的 data 是个规则对象的数组:
+Get all the rules. Note that the data in the returned value is an array of rule objects::
 
 ```bash
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/rules'
@@ -1402,7 +1400,7 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/rules'
 {"data":[{"rawsql":"select * from \"t/a\"","metrics":[{"speed_max":0,"speed_last5m":0.0,"speed":0.0,"node":"emqx@127.0.0.1","matched":0}],"id":"rule:7fdb2c9e","for":["t/a"],"enabled":true,"description":"test-rule","actions":[{"params":{"a":1},"name":"inspect","metrics":[{"success":0,"node":"emqx@127.0.0.1","failed":0}],"id":"inspect_1582434715354188116"}]}],"code":0}
 ```
 
-删除规则:
+Delete the rule:
 
 ```bash
 $ curl -XDELETE --basic -u admin:public 'http://localhost:8081/api/v4/rules/rule:7fdb2c9e'
@@ -1410,35 +1408,35 @@ $ curl -XDELETE --basic -u admin:public 'http://localhost:8081/api/v4/rules/rule
 {"code":0}
 ```
 
-### 动作 {#endpoint-actions}
+### Actions {#endpoint-actions}
 
-查询规则引擎的动作。注意动作只能由 emqx 提供，不能添加。
+Query the actions of the rule engine. Note that actions can only be provided by emqx and cannot be added.
 
 #### GET api/v4/actions/{action_name} {#endpoint-get-actions}
 
-获取某个动作的详情，包括动作名字、参数列表等。
+Get the details of an action, including the action name, parameter list, etc.
 
 **Path Parameters:**
 
 | Name        | Type | Required | Description |
 | ----------- | --------- | ----------- | ----------------------------- |
-| action_name | String    | False       | 可选，动作名。如不指定 action_name 则<br />以数组形式返回当前支持的所有动作。 |
+| action_name | String    | False       | Optional, the action name. If you do not specify action_name then <br /> return all currently supported actions  in an array. |
 
 **Success Response Body (JSON):**
 
 | Name               | Type | Description                                                  |
 | ------------------ | --------- | ------------------------------------------------------------ |
 | code               | Integer   | 0                                                            |
-| data               | Object    | 规则对象                                                     |
-| - data.types       | String    | 指示当前动作从属于那些资源类型                               |
-| - data.title       | Object    | 动作的简述，中英文。                                         |
-| - data.params      | Object    | 动作的参数列表。参数以 key-value 形式表示。<br />详情可参看后面的示例 |
-| - data.description | Object    | 动作的描述信息，中英文。                                     |
-| - data.app         | String    | 动作的提供者                                                 |
+| data               | Object    | Rule object                                          |
+| - data.types       | String    | Indicate which resource types the current action belongs to |
+| - data.title       | Object    | A brief description of the action, in both English and Chinese. |
+| - data.params      | Object    | A list of parameters for the action that are expressed in key-value form. <br /> For details, please refer to the following examples |
+| - data.description | Object    | A brief description of the action, in both English and Chinese. |
+| - data.app         | String    | Action Provider                                  |
 
 **Examples:**
 
-查询 inspect 动作的详情：
+Query the details of the inspect action:
 
 ```bash
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/actions/inspect'
@@ -1446,7 +1444,7 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/actions/inspect'
 {"data":{"types":[],"title":{"zh":"检查 (调试)","en":"Inspect (debug)"},"params":{},"name":"inspect","for":"$any","description":{"zh":"检查动作参数 (用以调试)","en":"Inspect the details of action params for debug purpose"},"app":"emqx_rule_engine"},"code":0}
 ```
 
-查询当前所有的动作：
+Query all current actions:
 
 ```bash
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/actions'
@@ -1454,34 +1452,34 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/actions'
 {"data":[{"types":[],"title":{"zh":"空动作 (调试)","en":"Do Nothing (debug)"},"params":{},"name":"do_nothing","for":"$any","description":{"zh":"此动作什么都不做，并且不会失败 (用以调试)","en":"This action does nothing and never fails. It's for debug purpose"},"app":"emqx_rule_engine"}, ...],"code":0}
 ```
 
-### 资源类型 {#endpoint-resource-types}
+### Resource Type {#endpoint-resource-types}
 
-查询规则引擎的资源类型。注意资源类型只能由 emqx 提供，不能添加。
+Query the rule engine's resource type. Note that resource types can only be provided by emqx and cannot be added
 
 #### GET api/v4/resource_types/{resource_type_name} {#endpoint-get-resource-types}
 
-获取某个动作的详情，包括动作名字、参数列表等。
+Get the details of an action, including the action name, parameter list, etc.
 
 **Path Parameters:**
 
 | Name               | Type | Required | Description                                                  |
 | ------------------ | --------- | ----------- | -------------------------- |
-| resource_type_name | String    | False       | 可选，资源类型名。如不指定 resource_type_name 则<br />以数组形式返回当前支持的所有资源类型。 |
+| resource_type_name | String    | False       | Optional, the resource type name. If not specified then <br /> returns all the currently supported resource types in an array. |
 
 **Success Response Body (JSON):**
 
 | Name               | Type | Description                                                  |
 | ------------------ | --------- | ------------------------------------------------------------ |
 | code               | Integer   | 0                                                            |
-| data               | Object    | 规则对象                                                     |
-| - data.title       | Object    | 资源类型的简述，中英文。                                     |
-| - data.params      | Object    | 资源类型的参数列表。参数以 key-value 形式表示。<br />详情可参看后面的示例 |
-| - data.description | Object    | 资源类型的描述信息，中英文。                                 |
-| - data.provider    | String    | 资源类型的提供者                                             |
+| data               | Object    | Rule object                                          |
+| - data.title       | Object    | A brief description of resource types, in both English and Chinese. |
+| - data.params      | Object    | A list of parameters for the resource type expressed in key-value form. <br /> For details, please refer to the following examples |
+| - data.description | Object    | A brief description of resource types, in both English and Chinese. |
+| - data.provider    | String    | Provider of resource type                    |
 
 **Examples:**
 
-查询 web_hook 资源类型的详细信息：
+Query details for the web_hook resource type:
 
 ```bash
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resource_types/web_hook'
@@ -1489,7 +1487,7 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resource_types/web_
 {"data":{"title":{"zh":"WebHook","en":"WebHook"},"provider":"emqx_web_hook","params":{"url":{"type":"string","title":{"zh":"请求 URL","en":"Request URL"},"required":true,"format":"url","description":{"zh":"请求 URL","en":"Request URL"}},"method":{"type":"string","title":{"zh":"请求方法","en":"Request Method"},"enum":["PUT","POST"],"description":{"zh":"请求方法","en":"Request Method"},"default":"POST"},"headers":{"type":"object","title":{"zh":"请求头","en":"Request Header"},"schema":{},"description":{"zh":"请求头","en":"Request Header"},"default":{}}},"name":"web_hook","description":{"zh":"WebHook","en":"WebHook"}},"code":0}
 ```
 
-查询当前所有的资源类型：
+Query all current resource types:
 
 ```bash
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resource_types'
@@ -1497,60 +1495,60 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resource_types'
 {"data":[{"title":{"zh":"WebHook","en":"WebHook"},"provider":"emqx_web_hook","params":{"url":{"type":"string","title":{"zh":"请求 URL","en":"Request URL"},"required":true,"format":"url","description":{"zh":"请求 URL","en":"Request URL"}},"method":{"type":"string","title":{"zh":"请求方法","en":"Request Method"},"enum":["PUT","POST"],"description":{"zh":"请求方法","en":"Request Method"},"default":"POST"},"headers":{"type":"object","title":{"zh":"请求头","en":"Request Header"},"schema":{},"description":{"zh":"请求头","en":"Request Header"},"default":{}}},"name":"web_hook","description":{"zh":"WebHook","en":"WebHook"}}, ...],"code":0}
 ```
 
-### 资源 {#endpoint-resources}
+### Resource {#endpoint-resources}
 
-管理规则引擎的资源。资源是资源类型的实例，用于维护数据库连接等相关资源。
+Manage the resources of the rules engine. A resource is an instance of a resource type and is used to maintain related resources such as database connections.
 
 #### GET api/v4/resources/{resource_id} {#endpoint-get-resources}
 
-获取指定的资源的详细信息。
+Gets the details of the specified resource.
 
 **Path Parameters:**
 
 | Name        | Type | Required | Description                                                  |
 | ----------- | --------- | ----------- | ------------------------------------------------------------ |
-| resource_id | String    | False       | 可选，资源类型 ID。如不指定 resource_id 则<br />以数组形式返回当前所有的资源。 |
+| resource_id | String    | False       | Optional, the resource ID. If not specified then <br /> returns all the currently supported resource in an array. |
 
 **Success Response Body (JSON):**
 
 | Name               | Type | Description                                                  |
 | ------------------ | --------- | ------------------------------------------------------------ |
 | code               | Integer   | 0                                                            |
-| data               | Object    | 规则对象                                                     |
-| - data.id          | String    | 资源 ID                                                      |
-| - data.type        | String    | 资源所从属的资源类型的名字。                                 |
-| - data.config      | Object    | 资源的配置。参数以 key-value 形式表示。<br />详情可参看后面的示例 |
-| - data.status      | Array     | 资源的状态信息。详情请参看 Dashboard 上资源的状态。          |
-| - data.description | Object    | 资源的描述信息，中英文。                                     |
+| data               | Object    | Rule object                                           |
+| - data.id          | String    | Rule ID                                                |
+| - data.type        | String    | The name of the resource type to which the resource belongs |
+| - data.config      | Object    | Configuration of resources, and parameters are expressed in key-value form. <br /> For details, please refer to the following examples |
+| - data.status      | Array     | Status information for the resource. See the status of resources on the Dashboard for details. |
+| - data.description | Object    | A description of the resource, in both English and Chinese. |
 
 #### POST /api/v4/resources {#endpoint-add-resources}
 
-创建规则，返回资源 ID。
+Create a rule and return the resource ID.
 
 **Parameters (json):**
 
 | Name        | Type | Required | Description |
 | ----------- | --------- | ----------- | --- |
-| type        | String    | True        | 资源类型名。指定要使用哪个资源类型创建资源。               |
-| config      | Object    | True        | 资源参数。要跟对应的资源类型的 params 里指定的格式相一致。 |
-| description | String    | False       | 可选，资源描述                                             |
+| type        | String    | True        | Resource type name that specify which resource type to use to create the resource。 |
+| config      | Object    | True        | Resource parameters that should conform to the format specified in the params of the corresponding resource type. |
+| description | String    | False       | Optional, resource description               |
 
 **Success Response Body (JSON):**
 
 | Name               | Type | Description                                                  |
 | ------------------ | --------- | ------------------------------------------------------------ |
 | code               | Integer   | 0                                                            |
-| data               | Object    | 规则对象                                                     |
-| - data.id          | String    | 资源 ID                                                      |
-| - data.type        | String    | 资源所从属的资源类型的名字。                                 |
-| - data.config      | Object    | 资源的配置。参数以 key-value 形式表示。<br />详情可参看后面的示例 |
-| - data.description | Object    | 资源的描述信息，中英文。                                     |
+| data               | Object    | Rule object                                           |
+| - data.id          | String    | Resource ID                                               |
+| - data.type        | String    | The name of the resource type to which the resource belongs |
+| - data.config      | Object    | Configuration of resources, and parameters are expressed in key-value form. <br /> For details, please refer to the following examples |
+| - data.description | Object    | A description of the resource, in both English and Chinese.。 |
 
 #### DELETE /api/v4/resources/{resource_id} {#endpoint-delete-resources}
 
-删除资源。
+Delete the resource
 
-**Parameters:** 无
+**Parameters:** None
 
 **Success Response Body (JSON):**
 
@@ -1560,7 +1558,7 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resource_types'
 
 **Examples:**
 
-创建一个 webhook 资源，webserver 的 URL 为 http://127.0.0.1:9910 ：
+Create a webhook resource with the URL of the webserver http://127.0.0.1:9910 ：
 
 ```bash
 $ curl -XPOST -d '{
@@ -1576,7 +1574,7 @@ $ curl -XPOST -d '{
 {"data":{"type":"web_hook","id":"resource:b12d3e44","description":"web hook resource-1","config":{"url":"http://127.0.0.1:9910","method":"POST","headers":{"token":"axfw34y235wrq234t4ersgw4t"}}},"code":0}
 ```
 
-使用资源 ID 查询刚创建的资源：
+Query the resource you just created using the resource ID:
 
 ```bash
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resources/resource:b12d3e44'
@@ -1584,7 +1582,7 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resources/resource:
 {"data":{"type":"web_hook","status":[{"node":"emqx@127.0.0.1","is_alive":false}],"id":"resource:b12d3e44","description":"web hook resource-1","config":{"url":"http://127.0.0.1:9910","method":"POST","headers":{"token":"axfw34y235wrq234t4ersgw4t"}}},"code":0}
 ```
 
-查询当前已创建的所有的资源：
+Query all resources that was currently created:
 
 ```bash
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resources'
@@ -1592,7 +1590,7 @@ $ curl --basic -u admin:public 'http://localhost:8081/api/v4/resources'
 {"data":[{"type":"web_hook","id":"resource:b12d3e44","description":"web hook resource-1","config":{"url":"http://127.0.0.1:9910","method":"POST","headers":{"token":"axfw34y235wrq234t4ersgw4t"}}}],"code":0}
 ```
 
-删除资源:
+Delete the resources:
 
 ```bash
 $ curl -XDELETE --basic -u admin:public 'http://localhost:8081/api/v4/resources/resource:b12d3e44'
