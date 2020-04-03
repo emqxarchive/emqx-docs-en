@@ -15,35 +15,35 @@ category:
 ref: undefined
 ---
 
-# 飞行窗口和消息队列
+# Inflight window and message queue
 
-## 简介
+## Introduction
 
-为了提高消息吞吐效率和减少网络波动带来的影响，EMQ X Broker 允许多个未确认的 QoS 1 和 QoS 2 报文同时存在于网路链路上。这些已发送但未确认的报文将被存放在 Inflight Window 中直至完成确认。
+To improve message throughput efficiency and reduce the impact of network fluctuations, EMQ X Broker allows multiple unacknowledged QoS 1 and QoS 2 packets to exist on the network link at the same time. These sent but unconfirmed packets will be stored in the Inflight Window until acknowledgment is complete.
 
-当网络链路中同时存在的报文超出限制，即 Inflight Window 到达长度限制（见 `max_inflight`）时，EMQ X Broker 将不再发送后续的报文，而是将这些报文存储在 Message Queue 中。一旦 Inflight Window 中有报文完成确认，Message Queue 中的报文就会以先入先出的顺序被发送，同时存储到 Inflight Window 中。
+When the number of concurrently existing packets in the network exceeds the limit, that is, the length limit of Inflight Window is reached(see `max_inflight`), EMQ X Broker will no longer send subsequent messages, but will store these packets in the Message Queue. Once a message is acknowledged in the Inflight Window, the message in the Message Queue will be sent in first-in, first-out order and stored in the Inflight Window.
 
-当客户端离线时，Message Queue 还会被用来存储 QoS 0 消息，这些消息将在客户端下次上线时被发送。这功能默认开启，当然你也可以手动关闭，见 `mqueue_store_qos0`。
+When the client is offline, Message Queue is also used to store QoS 0 messages, which will be sent for the next time when the client is online. This feature is enabled by default, but you can also disable it manually. You can see `mqueue_store_qos0` for details.
 
-需要注意的是，如果 Message Queue 也到达了长度限制，后续的报文将依然缓存到 Message Queue，但相应的 Message Queue 中最先缓存的消息将被丢弃。如果队列中存在 QoS 0 消息，那么将优先丢弃 QoS 0 消息。因此，根据你的实际情况配置一个合适的 Message Queue 长度限制（见 `max_mqueue_len`）是非常重要的。
+It should be noted that if the length limit of Message Queue is also reached, subsequent packets will still be buffered to the Message Queue, but the first buffered message in the corresponding message queue will be discarded. If there are QoS 0 messages in the queue, the QoS 0 messages will be discarded first. Therefore, it is very important to configure a suitable Message Queue length limit (see `max_mqueue_len`) according to your actual situation.
 
-## 飞行队列与 Receive Maximum
+## Inflight Queue and Receive Maximum
 
-MQTT v5.0 协议为 CONNECT 报文新增了一个 `Receive Maximum` 的属性，官方对它的解释是：
+The MQTT v5.0 protocol adds a `Receive Maximum`  attribute to CONNECT packets, and the official explanation for it is:
 
-客户端使用此值限制客户端愿意同时处理的 QoS 为 1 和 QoS 为 2 的发布消息最大数量。没有机制可以限制服务端试图发送的 QoS 为 0 的发布消息 。
+The client uses this value to limit the maximum number of published messages with a QoS of1 and a QoS of 2 that the client is willing to process simultaneously. There is no mechanism to limit the published messages with a QoS of 0 that the server is trying to send.
 
-也就是说，服务端可以在等待确认时使用不同的报文标识符向客户端发送后续的 PUBLISH 报文，直到未被确认的报文数量到达 `Receive Maximum` 限制。
+That is, the server can send subsequent PUBLISH packets to the client with different message identifiers while waiting for acknowledgment, until the number of unacknowledged messages reaches the `Receive Maximum` limit.
 
-不难看出，`Receive Maximum` 其实与 EMQ X Broker 中的 Inflight Window 机制如出一辙，只是在 MQTT v5.0 协议发布前，EMQ X 就已经对接入的 MQTT 客户端提供了这一功能。现在，使用 MQTT v5.0 协议的客户端将按照 `Receive Maximum` 的规范来设置 Inflight Window 的最大长度，而更低版本 MQTT 协议的客户端则依然按照配置来设置。
+It is not difficult to see that `Receive Maximum` is actually the same as the Inflight Window mechanism in EMQ X Broker. However, EMQ X already provided this function to the accessed MQTT client before the MQTT v5.0 protocol was released. Now, the clients using the MQTT v5.0 protocol will set the maximum length of the Inflight Window according to the specification of the Receive Maximum, while clients with earlier versions of the MQTT protocol will still set it according to the configuration.
 
-## 配置项
+## Configuration items
 
-| 配置项            | 类型    | 可取值            | 默认值                                     | 说明                                                   |
-| ----------------- | ------- | ----------------- | ------------------------------------------ | ------------------------------------------------------ |
-| max_inflight      | integer | >= 0              | 32 *(external)*,<br /> 128 *(internal)*    | Inflight Window 长度限制，0 即无限制                    |
-| max_mqueue_len    | integer | >= 0              | 1000 *(external)*,<br />10000 *(internal)* | Message Queue 长度限制，0 即无限制                     |
-| mqueue_store_qos0 | enum    | `true`, `false`   | true                                       | 客户端离线时 EMQ X Broker 是否存储 QoS 0 消息至 Message Queue |
+| Configuration items | Type    | Optional value  | Default value                              | Description                                                  |
+| ------------------- | ------- | --------------- | ------------------------------------------ | ------------------------------------------------------------ |
+| max_inflight        | integer | >= 0            | 32 *(external)*,<br /> 128 *(internal)*    | Inflight Window length limit, 0 means no limit               |
+| max_mqueue_len      | integer | >= 0            | 1000 *(external)*,<br />10000 *(internal)* | Message Queue length limit, 0 means no limit                 |
+| mqueue_store_qos0   | enum    | `true`, `false` | true                                       | Whether the EMQ X Broker store QoS 0 messages to the Message Queue when the client is offline |
 
 
 

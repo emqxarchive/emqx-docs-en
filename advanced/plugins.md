@@ -15,62 +15,62 @@ category:
 ref: undefined
 ---
 
-# 插件
+# Plugins
 
-EMQ X Broker 发行包中，包含了大量的官方插件，提供了一些基础的、或各类扩展的功能。
+The EMQ X Broker distribution contains a large number of official plug-ins, which provide some basic or various extended functions.
 
-它们依赖于 [emqx](https://github.com/emqx/emqx) 的代码 API 或者 [钩子](hooks.md) 进行实现其特殊的功能。
+They rely on the code API of  [emqx](https://github.com/emqx/emqx) or[hooks](hooks.md) for their special functions.
 
-然后通过打包编译工具 [emqx-rel](https://github.com/emqx/emqx-rel) 将其与 [emqx](https:://github.com/emqx/emqx) 核心项目一起编译并打包至一个可运行的软件包中。
-
-
-## 插件列表
-
-目前 EMQ X Broker 发行包提供的插件包括：
-
-| 插件                                                                 | 配置文件                              | 说明                      |
-| -------------------------------------------------------------------- | ------------------------------------- | ------------------------- |
-| [emqx_dashboard](https://github.com/emqx/emqx-dashboard)             | etc/plugins/emqx_dashbord.conf        | Web 控制台插件 (默认加载) |
-| [emqx_management](https://github.com/emqx/emqx-management)           | etc/plugins/emqx_management.conf      | HTTP API 与 CLI 管理插件  |
-| [emqx_auth_clientid](https://github.com/emqx/emqx-auth-clientid)     | etc/plugins/emqx_auth_clientid.conf   | ClientId 认证插件         |
-| [emqx_auth_username](https://github.com/emqx/emqx-auth-username)     | etc/plugins/emqx_auth_username.conf   | 用户名、密码认证插件      |
-| [emqx_auth_jwt](https://github.com/emqx/emqx-auth-jwt)               | etc/plugins/emqx_auth_jwt.conf        | JWT 认证 / 访问控制       |
-| [emqx_auth_ldap](https://github.com/emqx/emqx-auth-ldap)             | etc/plugins/emqx_auth_ldap.conf       | LDAP 认证 / 访问控制      |
-| [emqx_auth_http](https://github.com/emqx/emqx-auth-http)             | etc/plugins/emqx_auth_http.conf       | HTTP 认证 / 访问控制      |
-| [emqx_auth_mongo](https://github.com/emqx/emqx-auth-mongo)           | etc/plugins/emqx_auth_mongo.conf      | MongoDB 认证 / 访问控制   |
-| [emqx_auth_mysql](https://github.com/emqx/emqx-auth-mysql)           | etc/plugins/emqx_auth_mysql.conf      | MySQL 认证 / 访问控制     |
-| [emqx_auth_pgsql](https://github.com/emqx/emqx-auth-pgsql)           | etc/plugins/emqx_auth_pgsql.conf      | PostgreSQL 认证 / 访问控制|
-| [emqx_auth_redis](https://github.com/emqx/emqx-auth-redis)           | etc/plugins/emqx_auth_redis.conf      | Redis 认证 / 访问控制     |
-| [emqx_psk_file](https://github.com/emqx/emqx-psk-file)               | etc/plugins/emqx_psk_file.conf        | PSK 支持                  |
-| [emqx_web_hook](https://github.com/emqx/emqx-web-hook)               | etc/plugins/emqx_web_hook.conf        | Web Hook 插件             |
-| [emqx_lua_hook](https://github.com/emqx/emqx-lua-hook)               | etc/plugins/emqx_lua_hook.conf        | Lua Hook 插件             |
-| [emqx_retainer](https://github.com/emqx/emqx-retainer)               | etc/plugins/emqx_retainer.conf        | Retain 消息存储模块       |
-| [emqx_rule_engine](https://github.com/emqx/emqx-rule-engine)         | etc/plugins/emqx_rule_engine.conf     | 规则引擎                  |
-| [emqx_bridge_mqtt](https://github.com/emqx/emqx-bridge-mqtt)         | etc/plugins/emqx_bridge_mqtt.conf     | MQTT 消息桥接插件         |
-| [emqx_delayed_publish](https://github.com/emqx/emqx-delayed-publish) | etc/plugins/emqx_delayed_publish.conf | 客户端延时发布消息支持    |
-| [emqx_coap](https://github.com/emqx/emqx-coap)                       | etc/plugins/emqx_coap.conf            | CoAP 协议支持             |
-| [emqx_lwm2m](https://github.com/emqx/emqx-lwm2m)                     | etc/plugins/emqx_lwm2m.conf           | LwM2M 协议支持            |
-| [emqx_sn](https://github.com/emqx/emqx-sn)                           | etc/plugins/emqx_sn.conf              | MQTT-SN 协议支持          |
-| [emqx_stomp](https://github.com/emqx/emqx-stomp)                     | etc/plugins/emqx_stomp.conf           | Stomp 协议支持            |
-| [emqx_recon](https://github.com/emqx/emqx-recon)                     | etc/plugins/emqx_recon.conf           | Recon 性能调试            |
-| [emqx_reloader](https://github.com/emqx/emqx-reloader)               | etc/plugins/emqx_reloader.conf        | 代码热加载插件            |
-| [emqx_plugin_template](https://github.com/emqx/emqx-plugin-template) | etc/plugins/emqx_plugin_template.conf | 插件开发模版              |
-
-## 启停插件
-
-目前启动插件有以下四种方式：
-
-1.  默认加载
-2.  命令行启停插件
-3.  使用 Dashboard 启停插件
-4.  调用管理 API 启停插件
+You can compile it with the [emqx](https:://github.com/emqx/emqx) core project and package it into a working package through the package compilation tool [emqx-rel](https://github.com/emqx/emqx-rel).
 
 
-**开启默认加载**
+## List of plugins
 
-如需在 EMQ X Broker 启动时就默认启动某插件，则直接在 `data/loaded_plugins` 添加需要启动的插件名称。
+ The official plug-ins provided by EMQ X include: 
 
-例如，目前 EMQ X Broker 自动加载的插件有：
+| Plugin                                                       | Configuration file                    | Description                        |
+| ------------------------------------------------------------ | ------------------------------------- | ---------------------------------- |
+| [emqx_dashboard](https://github.com/emqx/emqx-dashboard)     | etc/plugins/emqx_dashbord.conf        | Web dashboard Plugin (Default)     |
+| [emqx_management](https://github.com/emqx/emqx-management)   | etc/plugins/emqx_management.conf      | HTTP API and CLI Management Plugin |
+| [emqx_auth_clientid](https://github.com/emqx/emqx-auth-clientid) | etc/plugins/emqx_auth_clientid.conf   | ClientId Auth Plugin               |
+| [emqx_auth_username](https://github.com/emqx/emqx-auth-username) | etc/plugins/emqx_auth_username.conf   | Username/Password Auth Plugin      |
+| [emqx_auth_jwt](https://github.com/emqx/emqx-auth-jwt)       | etc/plugins/emqx_auth_jwt.conf        | JWT Auth/access control            |
+| [emqx_auth_ldap](https://github.com/emqx/emqx-auth-ldap)     | etc/plugins/emqx_auth_ldap.conf       | LDAP Auth/access control           |
+| [emqx_auth_http](https://github.com/emqx/emqx-auth-http)     | etc/plugins/emqx_auth_http.conf       | HTTP Auth/access control           |
+| [emqx_auth_mongo](https://github.com/emqx/emqx-auth-mongo)   | etc/plugins/emqx_auth_mongo.conf      | MongoDB Auth/access control        |
+| [emqx_auth_mysql](https://github.com/emqx/emqx-auth-mysql)   | etc/plugins/emqx_auth_mysql.conf      | MySQL Auth/access control          |
+| [emqx_auth_pgsql](https://github.com/emqx/emqx-auth-pgsql)   | etc/plugins/emqx_auth_pgsql.conf      | PostgreSQL Auth/access control     |
+| [emqx_auth_redis](https://github.com/emqx/emqx-auth-redis)   | etc/plugins/emqx_auth_redis.conf      | Redis Auth/access control          |
+| [emqx_psk_file](https://github.com/emqx/emqx-psk-file)       | etc/plugins/emqx_psk_file.conf        | PSK support                        |
+| [emqx_web_hook](https://github.com/emqx/emqx-web-hook)       | etc/plugins/emqx_web_hook.conf        | Web Hook Plugin                    |
+| [emqx_lua_hook](https://github.com/emqx/emqx-lua-hook)       | etc/plugins/emqx_lua_hook.conf        | Lua Hook Plugin                    |
+| [emqx_retainer](https://github.com/emqx/emqx-retainer)       | etc/plugins/emqx_retainer.conf        | Retain Message storage module      |
+| [emqx_rule_engine](https://github.com/emqx/emqx-rule-engine) | etc/plugins/emqx_rule_engine.conf     | Rule engine                        |
+| [emqx_bridge_mqtt](https://github.com/emqx/emqx-bridge-mqtt) | etc/plugins/emqx_bridge_mqtt.conf     | MQTT Message Bridge Plugin         |
+| [emqx_delayed_publish](https://github.com/emqx/emqx-delayed-publish) | etc/plugins/emqx_delayed_publish.conf | Delayed publish support            |
+| [emqx_coap](https://github.com/emqx/emqx-coap)               | etc/plugins/emqx_coap.conf            | CoAP protocol support              |
+| [emqx_lwm2m](https://github.com/emqx/emqx-lwm2m)             | etc/plugins/emqx_lwm2m.conf           | LwM2M protocol support             |
+| [emqx_sn](https://github.com/emqx/emqx-sn)                   | etc/plugins/emqx_sn.conf              | MQTT-SN protocol support           |
+| [emqx_stomp](https://github.com/emqx/emqx-stomp)             | etc/plugins/emqx_stomp.conf           | Stomp protocol support             |
+| [emqx_recon](https://github.com/emqx/emqx-recon)             | etc/plugins/emqx_recon.conf           | Recon performance debugging        |
+| [emqx_reloader](https://github.com/emqx/emqx-reloader)       | etc/plugins/emqx_reloader.conf        | Hot load plugin                    |
+| [emqx_plugin_template](https://github.com/emqx/emqx-plugin-template) | etc/plugins/emqx_plugin_template.conf | plugin develop template            |
+
+## Start and stop plugin
+
+ There are four ways to load plugins: 
+
+1.  Default loading
+2.  Start and stop plugin on command line
+3.  Start and stop plugin on Dashboard
+4.  Start and stop plugin by calling management API
+
+
+ **Default loading** 
+
+ If a plugin needs to start with the broker, add this plugin in `data/loaded_plugins`.  
+
+ For example, the plugins that are loaded by default are: 
 
 ```erlang
 {emqx_management, true}.
@@ -82,32 +82,32 @@ EMQ X Broker 发行包中，包含了大量的官方插件，提供了一些基�
 ```
 
 
-**命令行启停插件**
+ **Start and stop plugin on command line** 
 
-在 EMQ X Broker 运行过程中，可通过 [CLI - Load/Unload Plugin](cli.md#load_plugin) 的方式查看、和启停某插件。
+When the EMQ X is running, plugins can be checked, loaded/unloaded by [CLI - Load/Unload Plugin](cli.md#load_plugin): 
 
-**使用 Dashboard 启停插件**
+ **Start and stop plugin on Dashboard** 
 
-若开启了 Dashbord 的插件，可以直接通过访问 `http://localhost:18083/plugins` 中的插件管理页面启停插件。
+If Dashboard plugin is started (by default), the plugins can be start or stopped by visiting the managing page that can be found under `http://localhost:18083/plugins`. 
 
-**使用管理 API 启停插件**
+**Start and stop plugins using management API**
 
-在 EMQ X Broker 运行过程中，可通过 [管理监控 API - Load Plugin](#http-api.md#load_plugin) 的方式查看、和启停某插件。
-
-
-## 插件开发
-
-### 创建插件项目
-
-参考 [emqx_plugin_template](https://github.com/emqx/emqx-plugin-template) 插件模版创建新的插件项目。
-
-备注：在 `\<plugin name>_app.erl` 文件中必须加上标签 `-emqx_plugin(?MODULE).` 以表明这是一个 EMQ X Broker 的插件。
+When EMQ X Broker is running, you can view, start and stop a plugin through [Managing and Monitoring API - Load Plugin](#http-api.md#load_plugin).
 
 
-### 创建 认证/访问控制 模块
+## Plugin development
+
+### Create plugin project
+
+Refer to the [emqx_plugin_template](https://github.com/emqx/emqx-plugin-template) plugin template to create a new plugin project.
+
+Note: The tag of` -emqx_plugin (? MODULE)`should be added to `\<plugin name>_app.erl` file to indicate that this is an EMQ X Broker plugin.
 
 
-接入认证示例代码 - `emqx_auth_demo.erl`：
+### Create Authentication / Access Control Module
+
+
+Authentication/Access sample code - `emqx_auth_demo.erl`：
 
 ```erlang
 -module(emqx_auth_demo).
@@ -127,7 +127,7 @@ description() -> "Auth Demo Module".
 ```
 
 
-访问控制示例代码 - `emqx_acl_demo.erl`：
+Access control sample code - `emqx_acl_demo.erl`：
 
 ```erlang
 -module(emqx_acl_demo).
@@ -155,7 +155,7 @@ description() -> "ACL Demo Module".
 ```
 
 
-挂载认证、访问控制钩子示例代码 - `emqx_plugin_template_app.erl`：
+Example code for mounting authentication and access control hooks - `emqx_plugin_template_app.erl`：
 
 ```erlang
 ok = emqx:hook('client.authenticate', fun emqx_auth_demo:check/2, []),
@@ -163,11 +163,11 @@ ok = emqx:hook('client.check_acl', fun emqx_acl_demo:check_acl/5, []).
 ```
 
 
-### 挂载钩子
+### Load hook
 
-在扩展插件中，可通过挂载 [钩子](hooks.md) 来处理客户端上下线、主题订阅、消息收发等事件。
+During the plugin extension, you can load [hooks](hooks.md) to handle events such as client online and offline, topic subscription, and message sending and receiving.
 
-钩子挂载示例代码 - `emqx_plugin_template.erl`：
+Hook load sample code - `emqx_plugin_template.erl`：
 
 ```erlang
 load(Env) ->
@@ -193,9 +193,9 @@ load(Env) ->
 ```
 
 
-### 注册 CLI 命令
+### Register CLI commands
 
-处理命令行命令示例代码 - `emqx_cli_demo.erl`：
+Processing command line sample code - `emqx_cli_demo.erl`：
 
 ```erlang
 -module(emqx_cli_demo).
@@ -209,24 +209,23 @@ cmd(_) ->
     emqx_cli:usage ([{"cmd arg1 arg2", "cmd demo"}]).
 ```
 
-注册命令行示例代码 - `emqx_plugin_template_app.erl`：
+Register command line sample code - `emqx_plugin_template_app.erl`：
 
 ```erlang
 ok = emqx_ctl:register_command(cmd, {emqx_cli_demo, cmd}, []),
 ```
 
-插件加载后，使用`./bin/emqx_ctl` 验证新增的命令行：
+After the plugin is loaded, use `./bin/emqx_ctl`  to verify the new command line:
 
 ```bash
 ./bin/emqx_ctl cmd arg1 arg2
 ```
 
-### 插件配置文件
+### Plugin configuration file
 
-插件自带配置文件放置在 `etc/${plugin_name}.conf|config`。 EMQ X Broker 支持两种插件配置格式：
+Plug-in configuration files are placed in  `etc/${plugin_name}.conf|config`. EMQ X Broker supports two plugin configuration formats:
 
-1. Erlang 原生配置文件格式 - `${plugin_name}.config`：
-   
+1. Erlang native configuration file format-`${plugin_name}.config`:
 ```erlang
 [
     {plugin_name, [
@@ -234,25 +233,25 @@ ok = emqx_ctl:register_command(cmd, {emqx_cli_demo, cmd}, []),
     ]}
 ].
 ```
-   
-2. sysctl 的 `k = v` 通用格式 - `${plugin_name}.conf`：
+
+2. Common format of `k = v`   for sysctl-`${plugin_name}.conf`:
 
 ```erlang
 plugin_name.key = value
 ```
 
-注：`k = v` 格式配置需要插件开发者创建 `priv/plugin_name.schema` 映射文件。
+Note: `k = v` format configuration requires the plugin developer to create `priv/plugin_name.schema` mapping file.
 
 
-### 编译和发布插件
+### Compile and publish the plugin
 
-clone emqx-rel 项目：
+clone emqx-rel project:
 
 ```bash
 git clone https://github.com/emqx/emqx-rel.git
 ```
 
-rebar.config 添加依赖：
+Add dependency for rebar.config :
 
 ```erlang
 {deps,
@@ -263,7 +262,7 @@ rebar.config 添加依赖：
 }
 ```
 
-rebar.config 中 relx 段落添加：
+Add the relx paragraph in rebar.config:
 
 ```erlang
 {relx,
