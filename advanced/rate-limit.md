@@ -15,62 +15,66 @@ category:
 ref: undefined
 ---
 
-# 速率限制 {#rate-limit}
+# Rate limit{#rate-limit}
 
-EMQ X Broker 提供对接入速度、消息速度的限制：当客户端连接请求速度超过指定限制的时候，暂停新连接的建立；当消息接收速度超过指定限制的时候，暂停接收消息。
+EMQ X Broker specifies the limit on access speed and message speed. When the client's connection request speed exceeds the specified limit, the establishment of a new connection is suspended; when the message reception speed exceeds the specified limit, the reception of messages is suspended.
 
-速率限制是一种 *backpressure* 方案，从入口处避免了系统过载，保证了系统的稳定和可预测的吞吐。速率限制可在 `etc/emqx.conf` 中配置：
+Rate limit is a *backpressure* scheme that avoids system overload from the entrance and guarantees system stability and predictable throughput. The rate limit can be configured in `etc/emqx.conf` :
 
-|               配置项                |      类型       | 默认值 |                 描述                 |
-| ----------------------------------- | --------------- | ------ | ------------------------------------ |
-| listener.tcp.external.max_conn_rate | Number          | 1000   | 本节点上允许的最大连接速率 (conn/s)  |
-| zone.external.publish_limit         | Number,Duration | 无限制 | 单连接上允许的最大发布速率 (msg/s)   |
-| listener.tcp.external.rate_limit | Size,Duration   | 无限制 | 单连接上允许的最大报文速率 (bytes/s) |
+| Configuration item                  | Type            | Default value | Description                                                  |
+| ----------------------------------- | --------------- | ------------- | ------------------------------------------------------------ |
+| listener.tcp.external.max_conn_rate | Number          | 1000          | The maximum allowable connection rate on this node (conn/s)  |
+| zone.external.publish_limit         | Number,Duration | No limit      | Maximum allowable publish rate on a single connection (msg/s) |
+| listener.tcp.external.rate_limit    | Size,Duration   | No limit      | Maximum allowable packet rate on a single connection (bytes/s) |
 
-- **max_conn_rate** 是单个 emqx 节点上连接建立的速度限制。`1000` 代表秒最多允许 1000 个客户端接入。
-- **publish_limit** 是单个连接上接收 PUBLISH 报文的速率限制。`100,10s` 代表每个连接上允许收到的最大 PUBLISH 消息速率是每 10 秒 100 个。
-- **rate_limit** 是单个连接上接收 TCP数据包的速率限制。`100KB,10s` 代表每个连接上允许收到的最大 TCP 报文速率是每 10 秒 100KB。
+- **max_conn_rate** is the rate limit for connection establishment on a single emqx node. `1000` means that 1000 clients can access at most.
+- **publish_limit** is the rate limit for receiving PUBLISH packets on a single connection. `100,10s` means that the maximum PUBLISH message rate allowed on each connection is 100 every 10 seconds.
+- **rate_limit** is the rate limit for receiving TCP packets on a single connection. `100KB,10s` means that the maximum TCP packet rate allowed on each connection is 100KB every 10 seconds.
 
-`publish_limit` 和 `rate_limit` 提供的都是针对单个连接的限制，EMQ X Broker 目前没有提供全局的消息速率限制。
+`publish_limit` and `rate_limit` both provide limits for a single connection. EMQ X Broker currently does not provide a global message rate limit.
 
-## 速率限制原理 {#rate-limit-explanation}
+## Rate limit explanation {#rate-limit-explanation}
 
-EMQ X Broker 使⽤[令牌桶 (Token Bucket)](https://en.wikipedia.org/wiki/Token_bucket) 算法来对所有的 Rate Limit 来做控制。 令牌桶算法 的逻辑如下图:
+EMQ X Broker uses the [Token Bucket](https://en.wikipedia.org/wiki/Token_bucket) algorithm to control all Rate Limits. The logic of the token bucket algorithm is as follows:
 
 ![image-20190604103907875](../assets/token-bucket.jpg)
 
-- 存在一个可容纳令牌(Token) 的最大值 burst 的桶(Bucket)，最大值 burst 简记为 b 。
-- 存在一个 rate 为每秒向桶添加令牌的速率，简记为 r 。当桶满时则不不再向桶中加⼊入令牌。
-- 每当有 1 个(或 N 个)请求抵达时，则从桶中拿出 1 个 (或 N 个) 令牌。如果令牌不不够则阻塞，等待令牌的⽣生成。
+- There is a bucket that can hold the maximum burst of the token. The maximum burst is abbreviated as b.
+- There is a rate for adding tokens to the bucket per second, abbreviated as r. When the bucket is full, no tokens are added to the bucket.
+- Whenever 1 (or N) request arrives, take 1 (or N) token from the bucket. If the token is not enough, it will be blocked and wait for the token to be generated.
 
-由此可知该算法中:
+It can be seen from this algorithm:
 
-- 长期来看，所限制的请求速率的平均值等于 rate 的值。
+- In the long run, the average value of the limited request rate is equal to the value of rate.
 
-- 记实际请求达到速度为 M，且 M > r，那么，实际运⾏中能达到的最大(峰值)速率为 M = b + r，证明：
+- When the actual request reaching speed is M, and M> r, then the maximum (peak) rate that can be achieved in actual operation is M = b + r.
 
-  容易想到，最大速率 M 为：能在1个单位时间内消耗完满状态令牌桶的速度。而桶中令牌的消耗速度为 M - r，故可知：b / (M - r) = 1，得 M = b + r
+  It is easy to think that the maximum rate M is the speed that can consume the full state token bucket in 1 unit of time. The consumption rate of token bucket is M-r, so we can see that: b / (M-r) = 1, and we get M = b + r
+  
+- 容易想到，最大速率 M 为：能在1个单位时间内消耗完满状态令牌桶的速度。而桶中令牌的消耗速度为 M - r，故可知：b / (M - r) = 1，得 M = b + r
 
-### 令牌桶算法在 EMQ X Broker 中的应用{#rate-limit-explanation-in-emqx}
+  
 
-当使用如下配置做报文速率限制的时候：
+### Application of Token Bucket Algorithm in EMQ X Broker{#rate-limit-explanation-in-emqx}
+
+When the following configuration is used for packet rate limiting:
 
 ```
 listener.tcp.external.rate_limit = 100KB,10s
 ```
 
-EMQ X Broker 将使用两个值初始化每个连接的 rate-limit 处理器：
+EMQ X Broker will initialize the rate-limit processor of each connection with two values:
 
 - rate = 100 KB / 10s = 10240 B/s
 - burst = 100 KB = 102400 B
 
-根据 [消息速率限制原理](#rate-limit-explanation) 中的算法，可知：
+According to the algorithm in [Message Rate Limitation Explanation](#rate-limit-explanation), it is known:
 
-- 长期来看允许的平均速率限制为 10240 B/s
-- 允许的峰值速率为 102400 + 10240 = 112640 B/s
+- In the long run, the allowable average rate is limited to 10240 B/s
+- The allowable peak rate is 102400 + 10240 = 112640 B/s
 
-为提高系统吞吐，EMQ X Broker 的接入模块不会一条一条的从 socket 读取报文，而是每次从 socket 读取 N 条报文。rate-limit 检查的时机就是在收到这 N 条报文之后，准备继续收取下个 N 条报文之前。故实际的限制速率不会如算法一样精准。EMQ X Broker 只提供了一个大概的速率限制。`N` 的值可以在 `etc/emqx.conf` 中配置：
+To improve system throughput, the access module of EMQ X Broker does not read packets from the socket one by one, but reads N packets from the socket each time. The timing of the rate-limit check is after receiving these N messages and before preparing to continue to receive the next N messages. Therefore, the actual rate limit will not be as accurate as the algorithm. EMQ X Broker only provides a rough rate limit. The value of `N` can be configured in  `etc/emqx.conf` :
 
-|             配置项             |  类型  | 默认值 |               描述               |
-| ------------------------------ | ------ | ------ | -------------------------------- |
-| listener.tcp.external.active_n | Number | 100    | emqx 每次从 TCP 栈读取多少条消息 |
+| Configuration item             | Type   | Default value | Description                                                  |
+| ------------------------------ | ------ | ------------- | ------------------------------------------------------------ |
+| listener.tcp.external.active_n | Number | 100           | how many messages are read from the TCP stack by emqx at a time |
