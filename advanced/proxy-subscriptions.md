@@ -15,39 +15,39 @@ category:
 ref: undefined
 ---
 
-# 代理订阅
+# Proxy subscriptions
 
-EMQ X Broker 的代理订阅功能使得客户端在连接建立时，不需要发送额外的 SUBSCRIBE 报文，便能自动建立用户预设的订阅关系。
+The proxy subscription function of EMQ X Broker allows the client to automatically establish the user's preset subscription relationship without sending additional SUBSCRIBE packets when the connection is established.
 
 {% hint style="info" %}
-你可以使用管理监控 API 对处于连接状态的设备进行订阅、取消订阅操作，参见 [主题订阅](./http-api.md#endpoint-subscribe) [取消订阅](./http-api.md#endpoint-do-unsubscribe)
+You can use the Http API to subscribe and unsubscribe to connected devices, see [topic subscription](./http-api.md#endpoint-subscribe) and  [topic unscription](./http-api.md#endpoint-do-unsubscribe)
 {% endhint %}
 
 
-## 内置代理订阅
+## Built-in proxy subscription
 
-通过内置代理订阅模块可以通过配置文件指定代理订阅规则实现代理订阅，适用于有规律可循的静态的代理订阅需求。
+Through the built-in proxy subscription module, you can specify proxy subscription rules through the configuration file to achieve proxy subscription, which is suitable for regular and static proxy subscription requirements.
 
-### 开启代理订阅功能
+### Enable proxy subscription function
 
-代理订阅功能默认关闭，开启此功能需要修改 `etc/emqx.conf` 文件中的 `module.subscription` 配置项。默认 `off` 表示关闭，如需开启请修改为 `on`。
+The proxy subscription function is disabled by default. To enable this function, you need to modify the `module.subscription` configuration item in the `etc/emqx.conf` file. The default `off` means disabled. If you want to enable it, please change it to ` on`.
 
 ```bash
 module.subscription = off
 ```
 
-### 配置代理订阅规则
+### Configure proxy subscription rules
 
-当然，仅仅开启并不意味代理订阅已经工作，你还需要配置相应的规则，EMQ X Broker 的代理订阅规则支持用户自行配置，用户可以自行添加多条代理订阅规则，每条代理订阅规则都需要指定 Topic 和 QoS，规则的数量没有限制，代理订阅规则的格式如下：
+Of course, just enabling does not mean that the proxy subscription has already worked. You need to configure the corresponding rules. The proxy subscription rules of EMQ X Broker support users to configure by themselves. The user can add multiple proxy subscription rules and each rule should specify the Topic and QoS. There is no limit for the number of rules. The format of proxy subscription rules is as follows:
 
 ```bash
 module.subscription.<number>.topic = <topic>
 module.subscription.<number>.qos = <qos>
 ```
 
-在配置代理订阅的主题时，EMQ X Broker 提供了 `%c` 和 `%u` 两个占位符供用户使用，EMQ X Broker 会在执行代理订阅时将配置中的 `%c` 和 `%u` 分别替换为客户端的 `Client ID` 和 `Username`，需要注意的是，`%c` 和 `%u` 必须占用一整个主题层级。
+When configuring the topic of proxy subscription, EMQ X Broker provides two placeholders of  `%c` and `%u` for users to use, and EMQ X Broker will replace the `%c` and `%u` in the configuration with the client's `Client ID` and `Username` respectively when performing proxy subscription. It should be noted that `%c` and `%u` must occupy an entire topic level.
 
-例如，在 `etc/emqx.conf` 文件中添加以下代理订阅规则：
+For example, the following proxy subscription rules are added in the  `etc/emqx.conf`  file:
 
 ```bash
 module.subscription.1.topic = client/%c
@@ -57,10 +57,10 @@ module.subscription.2.topic = user/%u
 module.subscription.2.qos = 2
 ```
 
-当一个客户端连接 EMQ X Broker 的时候，假设客户端的 `Client ID` 为 `testclient`，`Username` 为 `tester`，根据上文的配置规则，代理订阅功能会主动帮客户端订阅 QoS 为 1 的 `client/testclient` 和 QoS 为 2 的 `user/tester` 这两个主题。
+When a client connects to EMQ X Broker, if the client's `Client ID` is ` testclient` and `Username` is ` tester`, according to the configuration rules above, the proxy subscription function will actively help the client subscribe to the topics of `client/testclient`(QoS is 1) and `user/tester`( QoS is 2)
 
 
-## 动态代理订阅
+## Dynamic proxy subscription
 
-EMQ X Enterprise 版本中支持动态代理订阅，通过外部数据库设置主题列表在设备连接时读取列表实现代理订阅。
+The EMQ X Enterprise version supports dynamic proxy subscription. The external database is used to set the topic list and the list is read when the device is connected to realize the proxy subscription.
 
