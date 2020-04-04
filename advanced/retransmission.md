@@ -15,52 +15,50 @@ category:
 ref: undefined
 ---
 
-# 消息重传
+# Message retransmission
 
-消息重传 (Message Retransmission) 是属于 MQTT 协议标准规范的一部分。
+Message retransmission is part of the MQTT protocol standard specification.
 
-协议中规定了作为通信的双方 **服务端** 和 **客户端** 对于自己发送到对端的 PUBLISH 消息都应满足其 **服务质量 (Quality of Service levels)** 的要求。如：
+The protocol stipulates that the PUBLISH packets sent to the peer by the **server** and **client** as communication parties must meet their **Quality of Service levels** requirements , such as:
 
-- QoS 1：表示 **消息至少送达一次 (At least once delivery)**；即发送端会一直重发该消息，除非收到了对端对该消息的确认。意思是在 MQTT 协议的上层（即业务的应用层）相同的 QoS 1 消息可能会收到多次。
+- QoS 1: it means that **the message is delivered at least once;** that is, the sender will always resend the message unless it receives confirmation from the peer. This means that the same QoS 1 message may be received multiple times in the upper layer(the application layer of the service) of the MQTT protocol.
+- QoS 2: it means **the message is delivered exactly once;** that is, the message will only be received once at the upper layer.
 
-- QoS 2：表示 **消息只送达一次 (Exactly once delivery)**；即该消息在上层仅会接收到一次。
+Although PUBLISH packets of QoS 1 and QoS 2 will be resent at the MQTT protocol stack layer, you must remember:
 
-虽然，QoS 1 和 QoS 2 的 PUBLISH 报文在 MQTT 协议栈这一层都会发生重传，但请你谨记的是：
+- After retransmission of QoS 1 messages happens, these retransmitted PUBLISH packets will also be received at the upper layer of the MQTT protocol stack.
+- No matter how QoS 2 message is retransmitted, only one PUBLISH packet will be received in the upper layer of the MQTT protocol stack,
 
-- QoS 1 消息发生重传后，在 MQTT 协议栈上层，也会收到这些重发的 PUBLISH 消息。
-- QoS 2 消息无论如何重传，最终在 MQTT 协议栈上层，都只会收到一条 PUBLISH 消息
+## Basic configuration
 
-## 基础配置
+There are two scenarios that will cause the message to be resent:
 
-有两种场景会导致消息重发：
+1. After the PUBLISH packet is sent to the peer, and no response is received within the specified time, the packet is resent.
+2. While maintaining the session, after the client reconnects, EMQ X Broker will automatically resend the *unanswered message* to ensure the correct QoS process.
 
-1. PUBLISH 报文发送给对端后，规定时间内未收到应答。则重发这个报文。
-2. 在保持会话的情况下，客户端重连后；EMQ X Broker 会自动重发  *未应答的消息*，以确保 QoS 流程的正确。
+It can be configured in `etc/emqx.conf`:
 
-在 `etc/emqx.conf` 中可配置：
-
-| 配置项         | 类型      | 可取值 | 默认值  | 说明           |
+| Configuration item | Type   | Optional value | Default value | Description |
 | -------------- | --------- | ------ | ------- | -------------- |
-| retry_interval | duration  | -      | 30s     | 等待一个超时间隔，如果没收到应答则重传消息 |
+| retry_interval | duration  | -      | 30s     | Wait for a timeout interval and retransmit the message if no response is received |
 
+Generally speaking, you only need to care about the above content.
 
-一般来说，你只需要关心以上内容就足够了。
+For more details on how EMQ X Broker handles the retransmission of the MQTT protocol, see the following of this article.
 
-如需了解更多 EMQ X Broker 在处理 MQTT 协议的重传的细节见以下内容。
+## Protocol specification and design
 
-## 协议规范与设计
+### Retransmitted objects
 
-### 重传的对象
+First, before understanding the retransmission mechanism design of EMQ X Broker, we need to ensure that you have understood the transmission process of QoS 1 and QoS 2 in the protocol, otherwise please refer to[MQTTv3.1.1 - QoS 1: At least once delivery](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718101) and [MQTTv3.1.1 - QoS 2: Exactly once delivery](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718102)
 
-首先，在了解 EMQ X Broker 对于重传机制的设计前，我们需要先确保你已经了解协议中 QoS 1 和 QoS 2 的传输过程，否则请参见 [MQTTv3.1.1 - QoS 1: At least once delivery](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718101) 和 [MQTTv3.1.1 - QoS 2: Exactly once delivery](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718102)。
-
-此处，仅作一个简单的回顾，用来说明不同 QoS 下重传的对象有哪些。
+Only a brief review is made to illustrate what are the retransmitted objects under different QoS.
 
 #### QoS 1
 
-QoS 1 要求消息至少送达一次；所以消息在 MQTT 协议层中，可能会不断的重传，直到发送端收到了该消息的确认报文。
+QoS 1 requires the message to be delivered at least once; therefore, the message may be continuously retransmitted in the MQTT protocol layer until the sender receives the confirmation message of the message.
 
-其流程示意图如下：
+The schematic diagram of the process is as follows:
 
 ```
                PUBLISH
@@ -69,15 +67,14 @@ QoS 1 要求消息至少送达一次；所以消息在 MQTT 协议层中，可�
 #2 Sender  <---------------  Receiver
 ```
 
-- 涉及到 2 个报文；共 2 次发送动作，发送端和接收端各 1 次；这 2 个报文都持有相同的 PacketId。
-- 行尾标记为 * 号的，表示发送方在等待确认报文超时后，可能会主动发起重传。
+- Two packets are involved; there are two sending actions totally, one at the sender and one at the receiver; both packets hold the same PacketId.
+- If the end of the line is marked with an *, it means that the sender may initiate a retransmission if the waiting for the confirmation message is time out.
 
-
-可见 **QoS 1 消息只需要对 PUBLISH 报文进行重发**
+It can be seen that **QoS 1 messages only need to retransmit PUBLISH messages** 
 
 #### QoS 2
 
-QoS 2 要求消息只送达一次；所以在实现它时，需要更复杂的流程。其流程示意图如下：
+QoS 2 requires the message to be delivered only once; so when it is implemented, a more complicated process is required. The schematic diagram of the process is as follows:
 
 ```
                PUBLISH
@@ -90,40 +87,39 @@ QoS 2 要求消息只送达一次；所以在实现它时，需要更复杂的�
 #4 Sender  <---------------  Receiver
 ```
 
-- 涉及到 4 个报文；共 4 次发送动作，发送端和接收端各 2 次；这 4 个报文都持有相同的 PacketId。
-- 行尾标记为 * 号的，表示发送方在等待确认报文超时后，可能会主动发起重传。
+- 4 packets are involved; there are 4 sending actions totally, 2 times for each of the sender and receiver; these 4 packets all hold the same PacketId.
+- If the end of the line is marked with an *, it means that the sender may initiate a retransmission if the waiting for the confirmation message is time out.
 
-可见 **QoS 2 消息需要对 PUBLISH 和 PUBREL 报文进行重发**
+It can be seen that **QoS 2 messages only need to retransmit PUBLISH packet and PUBREL packet** 
 
-综上：
+In summary:
 
-- **重传动作** 都是由于 **发送端** 报文发送后，在 **规定时间** 内未收到其期待的返回而触发的。
+- **Retransmission action** is triggered under the condition that the expected return is not received within **specified time** after sending the message, and not receiving.
+- **Retransmission object** only contains the following three types:
+    * QoS 1 PUBLISH packet
+    * QoS 2 PUBLISH packet
+    * QoS 2 PUBREL packet
 
-- **重传对象** 仅包含以下三种：
-    * QoS 1 的 PUBLISH 报文
-    * QoS 2 的 PUBLISH 报文
-    * QoS 2 的 PUBREL 报文
-
-当 EMQ X Broker 作为 PUBLISH 消息的接收端时，它不需要重发操作
-
-
-### 飞行窗口与最大接收值
-
-其概念的定义和解释参见 [飞行窗口与消息队列](inflight-window-and-message-queue.md#)
-
-引入这两个概念的作用是为了理解：
-
-1. EMQ X Broker 作为发送端时，再次重发的消息，必然是已存储在飞行窗口中的消息
-2. EMQ X Broker 作为接收端时，发送端重发的消息时：
-    - 如 QoS 1，EMQ X Broker 则直接回复 PUBACK 进行应答；
-    - 如 QoS 2，EMQ X Broker 则会释放，存储在 *最大接收消息* 队列中的 PUBLISH 或者 PUBREL 报文。
+When EMQ X Broker acts as the receiver of PUBLISH messages, it does not require the retransmission operation.
 
 
-### 消息顺序
+### Inflight window and maximum receiving value
 
-当然，以上的概念仅需要了解即可，你最需要关心的是，**消息在被重复发送后，消息顺序出现的变化，尤其是 QoS 1 类的消息**。例如：
+For the definition and explanation of this concept, please refer to [Inflight Window and Message Queue](inflight-window-and-message-queue.md#)
 
-假设，当前飞行窗口设置为 2 时，EMQ X Broker 计划向客户端的某主题投递 4 条 QoS 1 的消息。并假设客户端程序、或网络在中间出现过问题，那么整个发送流程会变成：
+The purpose of introducing these two concepts is to understand:
+
+1. When EMQ X Broker is used as the sender, the retransmitted message must be the message stored in the inflight window.
+2. When EMQ X Broker is used as the receiver, and the sender retransmits the message:
+    - For QoS 1, EMQ X Broker directly reply PUBACK as response;
+    - For QoS 2, EMQ X Broker will release the stored PUBLISH or PUBREL packet in the *maximum received message* queue.
+
+
+### Message sequence
+
+Of course, the above concepts only need to be understood. What you need to care about most is the change in message order after **messages are retransmitted, especially for QoS type 1 messages**. E.g:
+
+Suppose that when the current inflight window is set to 2, EMQ X Broker plans to deliver 4 QoS 1 messages to a certain topic on the client. Assume that the client program or the network has experienced problems in the middle of the process, then the entire sending process will become:
 
 ```
 #1  [4,3,2,1 || ]   ----->   []
@@ -134,32 +130,33 @@ QoS 2 要求消息只送达一次；所以在实现它时，需要更复杂的�
 #6  [ || ]          ----->   [1, 2, 3, 2, 3, 4]
 ```
 
-流程共 6 个步骤；左边表示 EMQ X Broker 的 消息队列 和 飞行窗口，以 `||` 分割；右侧表示客户端收到的消息顺序，其中每步表示：
+There are 6 steps in the process; the left indicates the message queue and inflight window of EMQ X Broker,  which is separated by `||`; the right indicates the sequence of messages received by the client, where each step indicates:
 
-1. Broker 将 4 条消息放入消息队列中。
-2. Broker 依次发送 `1` `2`，并将其放入 **飞行窗口** 中；客户端仅应答消息 `1`；且此时由于客户端发送流出现了问题，无法发送后续应答报文。
-3. Broker 收到消息 `1` 的应答；从飞行窗口移除消息 `1`；并将 `3` 发送出去；继续等待 `2` `3` 的应答；
-4. Broker 等待应答超时，重发了报文 `2` `3`；客户端收到重发的报文 `2` `3` 并正常应答。
-5. Broker 从飞行窗口移除了消息 `2` `3`，并发送报文 `4`；客户端收到了报文 4 并回复应答。
-6. 至此，所有报文处理完成。客户端收到的报文顺序为 `[1, 2, 3, 2, 3, 4]`，并也依次上报给 MQTT 协议栈的上层。
+1. Broker puts 4 messages into the message queue.
+2. Broker sequentially sends `1` `2` and puts it in the **inflight window**; the client only responds to the message `1`; and at this time due to a problem with the client's sending stream, subsequent responses cannot be sen.
+3. Broker receives the reply of the message `1`; removes the message` 1` from the inflight window; and sends out `3`; continues to wait for the reply of ` 2` `3`;
+4. When the waiting for the response is time out, broker retransmitted the message  `2` `3`; the client received the retransmitted message `2` `3` and responded normally.
+5. Broker removed the message  `2` `3` from the inflight window and sent the message `4`; the client received the message 4 and responded with a reply.
+6. At this point, all message processing is complete. The sequence of messages received by the client is `[1, 2, 3, 2, 3, 4]`, and it is reported to the upper layer of the MQTT protocol stack in turn.
 
-虽然，存在重复的报文消息。但这是完全符合协议的规范的，每个报文第一次出现的位置都是有序的，并且重复收到的报文 `2` `3` 的报文中，会携带一个标识位，表明其为重发报文。
+Although there are duplicate messages, this is in full compliance with the specifications of the protocol. The first appearance of each message is in order, and the message  `2` `3` repeatedly received will carry an identification bit, indicating that it is a retransmission message.
 
-MQTT 协议和 EMQ X Broker 将这个主题认为是 `有序的主题 (Ordered Topic)` 参见: [MQTTv3.1.1 - Message ordering](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718105)。
+The MQTT protocol and EMQ X Broker regard this topic as an `Ordered Topic`. See: [MQTTv3.1.1 - Message ordering](http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html#_Toc398718105).
 
-它确保 **相同的主题和 QoS 下，消息是按顺序投递和应答的**。
+It ensures that under the same topic and QoS, messages are delivered and answered in order.
 
-此外，如果用户期望所有主题下的 QoS 1 与 QoS 2 消息都严格有序，那么需要设置飞行窗口的最大长度为 1，但代价是会降低该客户端的吞吐。
+In addition, if the user expects that QoS 1 and QoS 2 messages under all topics are strictly ordered, the maximum length of the flight window needs to be set to 1, but it will reduce the client's throughput.
 
 
-### 相关配置
+### Related configuration
 
-此节列举了上述机制中，用到的所有配置。它们都包含在 `etc/emqx.conf` 中：
+This section lists all the configurations used in the above mechanism. They are all included in `etc/emqx.conf`:
 
-| 配置项             | 类型     | 可取值            | 默认值 | 说明                                                    |
+| Configuration | Type  | Optional value | Default value | Description                                          |
 | ----------------- | -------- | --------------- | ------ | ------------------------------------------------------- |
-| mqueue_store_qos0 | bool     | `true`, `false` | true   | 是否将 QoS 0 消息存入消息队列中                          |
-| max_mqueue_len    | integer  | >= 0            | 1000   | 消息队列长度                                            |
-| max_inflight      | integer  | >= 0            | 0      | 飞行窗口大小；默认 `0` 即无限制                         |
-| max_awaiting_rel  | integer  | >= 0            | 0      | 最大接收；默认 `0` 即无限制                             |
-| await_rel_timeout | durtaion | >  0            | 300s   | `最大接收` 中消息等待释放的最大超时时间；超过则直接丢弃 |
+| mqueue_store_qos0 | bool     | `true`, `false` | true   | Whether to store QoS 0 messages in the message queue |
+| max_mqueue_len    | integer  | >= 0            | 1000   | Message queue length                        |
+| max_inflight      | integer  | >= 0            | 0      | Inflight window size; default `0` means no limit |
+| max_awaiting_rel  | integer  | >= 0            | 0      | Maximum reception; default `0` means no limit |
+| await_rel_timeout | durtaion | >  0            | 300s   | The maximum value of timeout in `Max Receive` to wait for release; if they are exceeded, the messages are discarded directly |
+

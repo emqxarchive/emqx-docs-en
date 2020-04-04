@@ -15,391 +15,390 @@ category:
 ref: undefined
 ---
 
-# 规则引擎
+# Rule Engine
 
-
-EMQ X Broker Rule Engine (以下简称规则引擎) 用于配置 EMQ X Broker 消息流与设备事件的处理、响应规则。规则引擎不仅提供了清晰、灵活的 "配置式" 的业务集成方案，简化了业务开发流程，提升用户易用性，降低业务系统与 EMQ X Broker 的耦合度；也为 EMQ X Broker 的私有功能定制提供了一个更优秀的基础架构。
+EMQ X Broker Rule Engine (Hereinafter referred to as rule engine) is used to configure EMQ X Broker message flow and device event processing and response rules. The rule engine not only provides a clear and flexible "configuration-style" business integration solution, simplifies the business development process, improves ease of use for user, and reduces the coupling between the business system and EMQ X Broker, but also provides a better infrastructure for the private function customization of EMQ x broker.
 
 ![image-20190506171815028](../assets/image-20190506171815028.jpg)
 
-EMQ X Broker 在 **消息发布或事件触发** 时将触发规则引擎，满足触发条件的规则将执行各自的 SQL 语句筛选并处理消息和事件的上下文信息。
+EMQ X Broker will trigger the rule engine when **publishing message or triggering  event**, and the rules that meet the triggering conditions will execute their own SQL statements to filter and process the context information of messages and events.
 
 {% hint style="info" %}
-适用版本: **EMQ X Broker v3.1.0+**
+Applicable version:**EMQ X Broker v3.1.0+**
 
-兼容提示: EMQ X Broker v4.0 对规则引擎 SQL 语法做出较大调整，v3.x 升级用户请参照 [迁移指南](./rule_engine.md# 迁移指南) 进行适配。
+Compatibility Tip: EMQ X Broker v4.0 makes major adjustments to the SQL syntax of the rule engine. For v3.x upgrade users, please refer to  [Migration Guide](./rule_engine.md# 迁移指南) for compatibility.
 {% endhint %}
 
-### 消息发布
+### Publish message
 
-规则引擎借助响应动作可将特定主题的消息处理结果存储到数据库，发送到 HTTP Server，转发到消息队列 Kafka 或 RabbitMQ，重新发布到新的主题甚至是另一个 Broker 集群中，每个规则可以配置多个响应动作。
+The rule engine can store the message processing results of a specific topic to the database with the response action, send it to the HTTP server, forward it to the message queue of Kafka or RabbitMQ, and republish to a new topic or even another Broker cluster. Each rule can be configured with multiple response actions.
 
-选择发布到 t/# 主题的消息，并筛选出全部字段：
+Select the message published to the t/# topic and filter out all fields:
 
 ```sql
 SELECT * FROM "t/#"
 ```
 
-选择发布到 t/a 主题的消息，并从 JSON 格式的消息内容中筛选出 "x" 字段：
+Select the message posted to the t/a topic, and filter out the "x" field from the message content in JSON format:
 
 ```sql
 SELECT payload.x as x FROM "t/a"
 ```
 
-### 事件触发
+### Event trigger
 
-规则引擎使用 **$events/** 开头的虚拟主题（**事件主题**）处理 EMQ X Broker 内置事件，内置事件提供更精细的消息控制和客户端动作处理能力，可用在 QoS 1 QoS 2 的消息抵达记录、设备上下线记录等业务中。
+The rule engine uses a virtual topic beginning with **$events/** to process EMQ X Broker built-in events. The built-in events provide finer message control and client action processing capabilities, which can be used in the business of QoS 1 QoS 2 messages arrival recording, device online and offline recording.
 
-选择客户端连接事件，筛选 Username 为 'emqx' 的设备并获取连接信息：
+Select the client connection event, filter the device whose Username is `emqx` and obtain the connection information:
 
 ```sql
 SELECT clientid, connected_at FROM "$events/client_connected" WHERE username = 'emqx'
 ```
 
-规则引擎数据和 SQL 语句格式，[事件主题](#event-topics) 列表详细教程参见 [SQL 手册](#rule-sql)。
+For rule engine data, SQL statement format and [event topic](#event-topics) list, please refer to[SQL manual](#rule-sql) for detailed tutorials.
 
-## 最小规则
+## Minimum rule
 
-规则描述了 **数据从哪里来**、**如何筛选并处理数据**、**处理结果到哪里去** 三个配置，即一条可用的规则包含三个要素：
+The rule describes the three configurations of **where data comes from ,  how to filter and process data, and where to processed results goes**, which means an available rule contains three elements:
 
-- 触发事件：规则通过事件触发，触发时事件给规则注入事件的上下文信息（数据源），通过 SQL 的 FROM 子句指定事件类型；
-- 处理规则（SQL）：使用 SELECT 子句 和 WHERE 子句以及内置处理函数， 从上下文信息中过滤和处理数据；
-- 响应动作：如果有处理结果输出，规则将执行相应的动作，如持久化到数据库、重新发布处理后的消息、转发消息到消息队列等。一条规则可以配置多个响应动作。
+- Triggered event: The rule is triggered by an event. When triggered, the event inputs the context information (data source) of the event into the rule, and the event type is specified through the FROM clause of SQL;
+- Processing rules (SQL): Use SELECT clause and WHERE clause and built-in processing functions to filter and process data from context information;
+- Response action: If there is a processing result output, the rule will perform the corresponding action, such as persisting to the database, republishing the processed message, forwarding the message to the message queue, etc. A rule can configure multiple response actions.
 
-如图所示是一条简单的规则，该条规则用于处理 **消息发布** 时的数据，将全部主题消息的 `msg` 字段，消息 `topic` 、`qos` 筛选出来，发送到 Web Server 与 /uplink 主题：
+The following figure is a simple rule, which is used to process the data at the time of **message publishing**, filter out the `msg` field,  messages `topic`, ` qos` of all topic messages, and send them to the Web Server and /uplink topics:
 
 ![image-20190604103907875](../assets/image-20190604103907875.png)
 
-## 规则引擎典型应用场景举例
+## Examples of typical application scenarios for rule engine
 
-- 动作监听：智慧家庭智能门锁开发中，门锁会因为网络、电源故障、人为破坏等原因离线导致功能异常，使用规则引擎配置监听离线事件向应用服务推送该故障信息，可以在接入层实现第一时间的故障检测的能力；
-- 数据筛选：车辆网的卡车车队管理，车辆传感器采集并上报了大量运行数据，应用平台仅关注车速大于 40 km/h 时的数据，此场景下可以使用规则引擎对消息进行条件过滤，向业务消息队列写入满足条件的数据；
-- 消息路由：智能计费应用中，终端设备通过不同主题区分业务类型，可通过配置规则引擎将计费业务的消息接入计费消息队列并在消息抵达设备端后发送确认通知到业务系统，非计费信息接入其他消息队列，实现业务消息路由配置；
-- 消息编解码：其他公共协议 / 私有 TCP 协议接入、工控行业等应用场景下，可以通过规则引擎的本地处理函数（可在 EMQ X Broker 上定制开发）做二进制 / 特殊格式消息体的编解码工作；亦可通过规则引擎的消息路由将相关消息流向外部计算资源如函数计算进行处理（可由用户自行开发处理逻辑），将消息转为业务易于处理的 JSON 格式，简化项目集成难度、提升应用快速开发交付能力。
+- Action listening: In the development of intelligent door lock for smart home, the function of the door lock will be abnormal because of offline resulting by the network or power failure, man-made damage and other reasons. Through using rule engine configuration to monitor offline events, it can push the fault information to the application service and realize the ability of first time fault detection in the access layer.
+- Data filtering: Truck fleet management of vehicle network. Vehicle sensors collect and report a large amount of operational data. The application platform only focuses on data with a vehicle speed greater than 40 km/h. In this scenario, the rule engine can be used to conditionally filter messages to the service, and data that satisfies the condition can be written to the business message queue .
+- Message routing: In the intelligent billing application, the terminal device distinguishes the service type by different topics. The message of billing service can be connected to the billing message queue by configuring the rule engine, and the non-billing information can be connected to other message queues to realize the routing configuration of business messages.
+- Message encoding and decoding: In the application scenarios such as public protocol/proprietary TCP protocol access and industrial control, the encoding and decoding of binary/special format message body can be done through the local processing function of the rule engine (which can be customized and developed on EMQ X). Relevant messages can also be routed through the rule engine to external computing resources such as function computing for processing (processing logic can be developed by users), and the messages can be converted into JSON format that is easy for business processing, which simplifies the difficulty of project integration and improves the ability of rapid development and delivery of applications.
 
-## 迁移指南
+## Migration Guide
 
-4.0 版本中规则引擎 SQL 语法更加易用，3.x 版本中所有事件 **FROM** 子句后面均需要指定事件名称，4.0 以后我们引入 **事件主题** 概念，默认情况下 **消息发布** 事件不再需要指定事件名称：
+In version 4.0, the SQL syntax of the rule engine is easier to use. In version 3. X, the event name needs to be specified after the **FROM** clause. After 4.0 version, we introduce the concept of **event topic** . By default, the **message publish** event no longer needs to be specified. 
 
 ```sql
-## 3.x 版本
-## 需要指定事件名称进行处理
+## 3.x 
+## Event name needs to be specified for processing
 SELECT * FROM "message.publish" WHERE topic ~= 't/#'
 
 
-## 4.0 及以后版本
-## 默认处理 message.publish 事件，FROM 后面直接填写 MQTT 主题
-## 上述 SQL 语句等价于:
+## 4.0 and later
+## The message.publish event is processed by default, and MQTT topics are filtered directly after FROM
+## The above SQL is equivalent to:
 SELECT * FROM 't/#'
 
-## 其他事件，FROM 后面填写事件主题
+## Other events are filtered by event topics
 SELECT * FROM "$events/message_acked" where topic ~= 't/#'
 SELECT * FROM "$events/client_connected"
 ```
 
 {% hint style="info" %}
-Dashboard 中提供了旧版 SQL 语法转换功能可以完成 SQL 升级迁移。
+The old version of SQL syntax conversion function is provided in Dashboard to complete SQL upgrade and migration. 
 {% endhint %}
 
-## 规则引擎组成
+## Rule engine composition
 
-使用 EMQ X Broker 的规则引擎可以灵活地处理消息和事件。使用规则引擎可以方便地实现诸如将消息转换成指定格式，然后存入数据库表，或者发送到消息队列等。
+EMQ X Broker's rule engine can be used to flexibly process messages and events. By using the rule engine, it can easily achieve such function as converting the message into a specified format, and then stored in a database table, or sent to the message queue.
 
-与 EMQ X Broker 规则引擎相关的概念包括: 规则(rule)、动作(action)、资源(resource) 和 资源类型(resource-type)。
+The concepts related to the EMQ X Broker rule engine include: rules, actions, resources, and resource-types.
 
-规则、动作、资源的关系:
+The relationship between rules, actions and resources:
 
-        规则: {
-            SQL 语句,
-            动作列表: [
+        Rule: {
+            SQL statement
+            Action list: [
                 {
-                    动作1,
-                    动作参数,
-                    绑定资源: {
-                        资源配置
+                    action 1,
+                    Action parameters,
+                    Bind resources: {
+                        Resource configuration
                     }
                 },
                 {
-                    动作2,
-                    动作参数,
-                    绑定资源: {
-                        资源配置
+                    action 2,
+                    Action parameters,
+                    Bind resources:  {
+                        Resource configuration
                     }
                 }
             ]
         }
 
-- 规则 (Rule): 规则由 SQL 语句和动作列表组成。
-  SQL 语句用于筛选或转换消息中的数据。
-  动作是 SQL 语句匹配通过之后，所执行的任务。动作列表包含一个或多个动作及其参数。
-- 动作 (Action): 动作定义了一个针对数据的操作。
-  动作可以绑定资源，也可以不绑定。例如，“inspect” 动作不需要绑定资源，它只是简单打印数据内容和动作参数。而 “data_to_webserver” 动作需要绑定一个 web_hook 类型的资源，此资源中配置了 URL。
-- 资源 (Resource): 资源是通过资源类型为模板实例化出来的对象，保存了与资源相关的配置(比如数据库连接地址和端口、用户名和密码等)。
-- 资源类型 (Resource Type): 资源类型是资源的静态定义，描述了此类型资源需要的配置项。
+- Rule: Rule consists of SQL statements and action list.
+  SQL statements are used to filter or transform data in messages.
+  The action is the task performed after the SQL statement is matched. The action list contains one or more actions and their parameters.
+- Action: Action defines an operation for data.
+  Actions can be bound to resources or unbound. For example, the "inspect" action does not require binding resources, which simply prints the data content and action parameters. The "data_to_webserver" action needs to bind a web_hook type resource, and a URL is configured in this resource.
+- Resource: A resource is an object instantiated through a resource type as a template, and saves the configuration related to the resource (such as database connection address and port, user name and password, etc.).
+- Resource Type: Resource type is a static definition of a resource and describes the configuration items required for this type of resource.
 
 {% hint type="primary" %}
-动作和资源类型是由 emqx 或插件的代码提供的，不能通过 API 和 CLI 动态创建。
+Actions and resource types are provided by emqx or plugin code and cannot be created dynamically through API and CLI.
 {% endhint %}
 
-## SQL 语句 {#rule-sql}
+## SQL statement {#rule-sql}
 
-### SQL 语法 {#rule-sql-syntax}
+### SQL syntax{#rule-sql-syntax}
 
-SQL 语句用于从原始数据中，根据条件筛选出字段，并进行预处理和转换，基本格式为::
+The SQL statement is used to filter out fields from the original data according to the conditions, and perform preprocessing and conversion. The basic format is:
 
     SELECT <字段名> FROM <主题> [WHERE <条件>]
 
-FROM、SELECT 和 WHERE 子句:
+FROM, SELECT, and WHERE clauses:
 
-- ``FROM`` 子句将规则挂载到某个主题上
-- ``SELECT`` 子句用于选择输出结果中的字段
-- ``WHERE`` 子句用于根据条件筛选消息
+- The `` FROM`` clause mounts rules to a topic
+- The `` SELECT`` clause is used to select fields in the output
+- The `` WHERE`` clause is used to filter messages based on conditions
 
-### 事件和事件主题 {#event-topics}
+### Events and event topics {#event-topics}
 
-规则引擎的 SQL 语句既可以处理消息(消息发布)，也可以处理事件(客户端上下线、客户端订阅等)。对于消息，FROM 子句后面直接跟主题名；对于事件，FROM 子句后面跟事件主题。
+The SQL statements of the rule engine can handle both messages (message publishing) and events (client online and offline, client subscription, etc.). For messages, the FROM clause is directly followed by the topic name; for events, the FROM clause is followed by the event topic.
 
-事件消息的主题以 `"$events/"` 开头，比如 `"$events/client_connected",` `"$events/session_subscribed"。`
-如果想让 emqx 将事件消息发布出来，可以在 ``emqx_rule_engine.conf`` 文件中配置。
+The topic of the event message starts with `"$events/"`, such as `"$events/client_connected",` `"$events/session_subscribed".
+If you want emqx to publish the event message, you can configure it in the ``emqx_rule_engine.conf`` file.
 
-所有支持的事件及其可用字段详见: [规则事件](#rule-sql-events)。
+For all supported events and available fields, please see  [rule event](#rule-sql-events).
 
-### SQL 语句示例: {#rule-sql-examples}
+### SQL statement example: {#rule-sql-examples}
 
-- 从 topic 为 "t/a" 的消息中提取所有字段::
+-  Extract all fields from the messages with a topic of "t/a": 
 
     SELECT * FROM "t/a"
 
-- 从 topic 为 "t/a" 或 "t/b" 的消息中提取所有字段::
+-  Extract all fields from the messages with a topic of "t/a" or "t/b": 
 
     SELECT * FROM "t/a","t/b"
 
-- 从 topic 能够匹配到 't/#' 的消息中提取所有字段。
+-  Extract all fields from the message with a topic that can match 't/#'. 
 
     SELECT * FROM "t/#"
 
-- 从 topic 能够匹配到 't/#' 的消息中提取 qos, username 和 clientid 字段::
+-  Extract the qos, username, and clientid fields from the message with a topic that can match 't/#' :
 
     SELECT qos, username, clientid FROM "t/#"
 
-- 从任意 topic 的消息中提取 username 字段，并且筛选条件为 username = 'Steven'::
+-  Extract the username field from any topic message with the filter criteria of username = 'Steven':
 
     SELECT username FROM "#" WHERE username='Steven'
 
-- 从任意 topic 的 JSON 消息体(payload) 中提取 x 字段，并创建别名 x 以便在 WHERE 子句中使用。WHERE 子句限定条件为 x = 1。下面这个 SQL 语句可以匹配到消息体 {"x": 1}, 但不能匹配到消息体 {"x": 2}:
+- Extract the x field from the payload of message with any topic and create the alias x for use in the WHERE clause. The WHERE clause is restricted as x = 1. Note that the payload must be in JSON format. Example: This SQL statement can match the payload `{"x": 1}`, but can not match to the payload `{"x": 2}`:
 
   SELECT payload as p FROM "#" WHERE p.x = 1
 
-- 类似于上面的 SQL 语句，但嵌套地提取消息体中的数据，下面的 SQL 语句可以匹配到 JSON 消息体 {"x": {"y": 1}}:
+- Similar to the SQL statement above, but nested extract the data in the payload, this SQL statement can match the payload{"x": {"y": 1}}`:
 
   SELECT payload as a FROM "#" WHERE a.x.y = 1
 
-- 在 clientid = 'c1' 尝试连接时，提取其来源 IP 地址和端口号::
+-  Try to connect when clientid = 'c1', extract its source IP address and port number:
 
     SELECT peername as ip_port FROM "$events/client_connected" WHERE clientid = 'c1'
 
-- 筛选所有订阅 't/#' 主题且订阅级别为 QoS1 的 clientid::
+- Filter all clientids that subscribe to the 't / #' topic and have a subscription level of QoS1 :
 
     SELECT clientid FROM "$events/session_subscribed" WHERE topic = 't/#' and qos = 1
 
-- 筛选所有订阅主题能匹配到 't/#' 且订阅级别为 QoS1 的 clientid。注意与上例不同的是，这里用的是主题匹配操作符 **'=~'**，所以会匹配订阅 't' 或 't/+/a' 的订阅事件::
+- Filter all clientids that subscribe to the 't/#' topic and subscription level is QoS1. Note that the strict equality operator '=~' is used here, so it does not match subscription requests with the topic 't' or 't/+/a' :
 
     SELECT clientid FROM "$events/session_subscribed" WHERE topic =~ 't/#' and qos = 1
 
 {% hint type="primary" %}
-- FROM 子句后面的主题需要用双引号 ``""`` 引起来。
-- WHERE 子句后面接筛选条件，如果使用到字符串需要用单引号 ``''`` 引起来。
-- FROM 子句里如有多个主题，需要用逗号 ``","`` 分隔。例如 SELECT * FROM "t/1", "t/2" 。
-- 可以使用使用 ``"."`` 符号对 payload 进行嵌套选择。
-{% endhint %}
+- Topic after the FROM clause need to be enclosed in double quotes `` "" ``.
+- The WHERE clause is followed by the filter condition. If a string is used, it needs to be enclosed in single quotes `` '' ``.
+- If there are multiple topics in the FROM clause, they need to be separated by commas `` "," ``. For example, SELECT * FROM "t / 1", "t / 2".
+- You can use the `` "." `` Symbol to nest select payloads
+- {% endhint %}
 
-### FROM 子句可用的事件主题 {#rule-sql-syntax}
+### Event topic available for FROM clause{#rule-sql-syntax}
 
-| 事件主题名                    | 释义     |
-| ----------------------------- | :------- |
-| $events/message\_delivered    | 消息投递 |
-| $events/message\_acked        | 消息确认 |
-| $events/message\_dropped      | 消息丢弃 |
-| $events/client\_connected     | 连接完成 |
-| $events/client\_disconnected  | 连接断开 |
-| $events/session\_subscribed   | 订阅     |
-| $events/session\_unsubscribed | 取消订阅 |
+| Event topic name              | Explanation          |
+| ----------------------------- | :------------------- |
+| $events/message\_delivered    | message delivery     |
+| $events/message\_acked        | message acknowledged |
+| $events/message\_dropped      | Message dropped      |
+| $events/client\_connected     | Connection complete  |
+| $events/client\_disconnected  | Disconnect           |
+| $events/session\_subscribed   | Subscribe            |
+| $events/session\_unsubscribed | Unsubcribe           |
 
-### SELECT 和 WHERE 子句可用的字段 {#rule-sql-columns}
+### Available fields in SELECT and WHERE clauses {#rule-sql-columns}
 
-SELECT 和 WHERE 子句可用的字段与事件的类型相关。其中 ``clientid``, ``username`` 和 ``event`` 是通用字段，每种事件类型都有。
+The fields available in the SELECT and WHERE clauses are related to the type of event. Among them, `` clientid``, `` username`` and `` event`` are common fields that is contained by each type of event.
 
-#### 普通主题 (消息发布)
+#### Message Publish
 
-| event     | 事件类型，固定为 "message.publish"    |
-| :-------- | :------------------------------------ |
-| id        | MQTT 消息 ID                          |
-| clientid  | Client ID                             |
-| username  | 用户名                                |
-| payload   | MQTT 消息体                           |
-| peerhost  | 客户端的 IPAddress                    |
-| topic     | MQTT 主题                             |
-| qos       | MQTT 消息的 QoS                       |
-| flags     | MQTT 消息的 Flags                     |
-| headers   | MQTT 消息内部与流程处理相关的额外数据 |
-| timestamp | 时间戳 (ms)                           |
-| node      | 事件触发所在节点                      |
+| event     | Event type, fixed at "message.publish"                    |
+| :-------- | :-------------------------------------------------------- |
+| id        | MQTT message ID                                           |
+| clientid  | Client ID                                                 |
+| username  | username                                                  |
+| payload   | MQTT payload                                              |
+| peerhost  | client IPAddress                                          |
+| topic     | MQTT topic                                                |
+| qos       | Enumeration of message QoS 0,1,2                          |
+| flags     | flags                                                     |
+| headers   | Additional data related to proces within the MQTT message |
+| timestamp | timestamp (ms)                                            |
+| node      | Node name of the trigger event                            |
 
-#### $events/message\_delivered (消息投递)
+#### $events/message\_delivered 
 
-| event          | 事件类型，固定为 "message.delivered" |
-| -------------- | ------------------------------------ |
-| id             | MQTT 消息 ID                         |
-| from\_clientid | 消息来源 Client ID                   |
-| from\_username | 消息来源用户名                       |
-| clientid       | 消息目的 Client ID                   |
-| username       | 消息目的用户名                       |
-| payload        | MQTT 消息体                          |
-| peerhost       | 客户端的 IPAddress                   |
-| topic          | MQTT 主题                            |
-| qos            | MQTT 消息的 QoS                      |
-| flags          | MQTT 消息的 Flags                    |
-| timestamp      | 时间戳 (ms)                          |
-| node           | 事件触发所在节点                     |
+| event          | Event type, fixed at "message.delivered" |
+| -------------- | ---------------------------------------- |
+| id             | MQTT message ID                          |
+| from\_clientid | from_clientid                            |
+| from\_username | from\_username                           |
+| clientid       | clientid                                 |
+| username       | Current MQTT username                    |
+| payload        | MQTT payload                             |
+| peerhost       | client IPAddress                         |
+| topic          | MQTT topic                               |
+| qos            | Enumeration of message QoS 0,1,2         |
+| flags          | flags                                    |
+| timestamp      | Timestamp(millisecond)                   |
+| node           | Node name of the trigger event           |
 
-#### $events/message_acked (消息确认)
-| event          | 事件类型，固定为 "message.acked" |
-| :------------- | :------------------------------- |
-| id             | MQTT 消息 ID                     |
-| from\_clientid | 消息来源 Client ID               |
-| from\_username | 消息来源用户名                   |
-| clientid       | 消息目的 Client ID               |
-| username       | 消息目的用户名                   |
-| payload        | MQTT 消息体                      |
-| peerhost       | 客户端的 IPAddress               |
-| topic          | MQTT 主题                        |
-| qos            | MQTT 消息的 QoS                  |
-| flags          | MQTT 消息的 Flags                |
-| timestamp      | 时间戳 (ms)                      |
-| node           | 事件触发所在节点                 |
+#### $events/message_acked 
+| event          | Event type, fixed at "message.acked" |
+| :------------- | :----------------------------------- |
+| id             | MQTT message id                      |
+| from\_clientid | from_clientid                        |
+| from\_username | from\_username                       |
+| clientid       | clientid                             |
+| username       | Current MQTT username                |
+| payload        | MQTT payload                         |
+| peerhost       | client IPAddress                     |
+| topic          | MQTT topic                           |
+| qos            | Enumeration of message QoS 0,1,2     |
+| flags          | flags                                |
+| timestamp      | Timestamp(millisecond)               |
+| node           | Node name of the trigger event       |
 
-#### $events/message_dropped (消息丢弃)
+#### $events/message_dropped
 
-| event     | 事件类型，固定为 "message.dropped" |
-| :-------- | :--------------------------------- |
-| id        | MQTT 消息 ID                       |
-| reason    | 消息丢弃原因                       |
-| clientid  | 消息目的 Client ID                 |
-| username  | 消息目的用户名                     |
-| payload   | MQTT 消息体                        |
-| peerhost  | 客户端的 IPAddress                 |
-| topic     | MQTT 主题                          |
-| qos       | MQTT 消息的 QoS                    |
-| flags     | MQTT 消息的 Flags                  |
-| timestamp | 时间戳 (ms)                        |
-| node      | 事件触发所在节点                   |
+| event     | Event type, fixed at "message.dropped" |
+| :-------- | :------------------------------------- |
+| id        | MQTT message id                        |
+| reason    | reason                                 |
+| clientid  | clientid                               |
+| username  | Current MQTT username                  |
+| payload   | MQTT payload                           |
+| peerhost  | Client IPAddress                       |
+| topic     | MQTT topic                             |
+| qos       | Enumeration of message QoS 0,1,2       |
+| flags     | flags                                  |
+| timestamp | Timestamp(millisecond)                 |
+| node      | Node name of the trigger event         |
 
-#### $events/client_connected (终端连接成功)
-| event            | 事件类型，固定为 "client.connected" |
-| ---------------- | :---------------------------------- |
-| clientid         | 消息目的 Client ID                  |
-| username         | 消息目的用户名                      |
-| mountpoint       | 主题挂载点(主题前缀)                |
-| peername         | 终端的 IPAddress 和 Port            |
-| sockname         | emqx 监听的 IPAddress 和 Port       |
-| proto\_name      | 协议名字                            |
-| proto\_ver       | 协议版本                            |
-| keepalive        | MQTT 保活间隔                       |
-| clean\_start     | MQTT clean\_start                   |
-| expiry\_interval | MQTT Session 过期时间               |
-| is\_bridge       | 是否为 MQTT bridge 连接             |
-| connected\_at    | 终端连接完成时间 (s)                |
-| timestamp        | 时间戳 (ms)                         |
-| node             | 事件触发所在节点                    |
+#### $events/client_connected
+| event            | Event type, fixed at "client.connected" |
+| ---------------- | :-------------------------------------- |
+| clientid         | clientid                                |
+| username         | Current MQTT username                   |
+| mountpoint       | Mountpoint for bridging messages        |
+| peername         | IPAddress and Port of terminal          |
+| sockname         | IPAddress and Port listened by emqx     |
+| proto\_name      | protocol name                           |
+| proto\_ver       | protocol version                        |
+| keepalive        | MQTT keepalive interval                 |
+| clean\_start     | MQTT clean\_start                       |
+| expiry\_interval | MQTT Session Expiration time            |
+| is\_bridge       | whether it is MQTT bridge connection    |
+| connected\_at    | Terminal connection completion time (s) |
+| timestamp        | Timestamp(millisecond)                  |
+| node             | Node name of the trigger event          |
 
-#### $events/client_disconnected (终端连接断开)
+#### $events/client_disconnected 
 
-| event            | 事件类型，固定为 "client.disconnected" |
-| ---------------- | :------------------------------------- |
-| reason           | 终端连接断开原因                       |
-| clientid         | 消息目的 Client ID                     |
-| username         | 消息目的用户名                         |
-| peername         | 终端的 IPAddress 和 Port               |
-| sockname         | emqx 监听的 IPAddress 和 Port          |
-| disconnected\_at | 终端连接断开时间 (s)                   |
-| timestamp        | 时间戳 (ms)                            |
-| node             | 事件触发所在节点                       |
+| event            | Event type, fixed at "client.disconnected" |
+| ---------------- | :----------------------------------------- |
+| reason           | Reason for disconnection of terminal       |
+| clientid         | client ID                                  |
+| username         | Current MQTT username                      |
+| peername         | IPAddress and Port of terminal             |
+| sockname         | IPAddress and Port listened by emqx        |
+| disconnected\_at | Terminal disconnection completion time (s) |
+| timestamp        | Timestamp(millisecond)                     |
+| node             | Node name of the trigger event             |
 
-#### $events/session_subscribed (终端订阅成功)
-| event     | 事件类型，固定为 "session.subscribed" |
-| --------- | ------------------------------------- |
-| clientid  | 消息目的 Client ID                    |
-| username  | 消息目的用户名                        |
-| peerhost  | 客户端的 IPAddress                    |
-| topic     | MQTT 主题                             |
-| qos       | MQTT 消息的 QoS                       |
-| timestamp | 时间戳 (ms)                           |
-| node      | 事件触发所在节点                      |
+#### $events/session_subscribed
+| event     | Event type, fixed at "session.subscribed" |
+| --------- | ----------------------------------------- |
+| clientid  | Client ID                                 |
+| username  | Current MQTT username                     |
+| peerhost  | client IPAddress                          |
+| topic     | MQTT topic                                |
+| qos       | Enumeration of message QoS 0,1,2          |
+| timestamp | Timestamp(millisecond)                    |
+| node      | Node name of the trigger event            |
 
-#### $events/session_unsubscribed (取消终端订阅成功)
+#### $events/session_unsubscribed 
 
-| event     | 事件类型，固定为 "session.unsubscribed" |
-| :-------- | :-------------------------------------- |
-| clientid  | 消息目的 Client ID                      |
-| username  | 消息目的用户名                          |
-| peerhost  | 客户端的 IPAddress                      |
-| topic     | MQTT 主题                               |
-| qos       | MQTT 消息的 QoS                         |
-| timestamp | 时间戳 (ms)                             |
-| node      | 事件触发所在节点                        |
+| event     | Event type, fixed at "session.unsubscribed" |
+| :-------- | :------------------------------------------ |
+| clientid  | Client ID                                   |
+| username  | Current MQTT username                       |
+| peerhost  | client IPAddress                            |
+| topic     | MQTT topic                                  |
+| qos       | Enumeration of message QoS 0,1,2            |
+| timestamp | Timestamp(millisecond)                      |
+| node      | Node name of the trigger event              |
 
-### SQL 关键字和符号 {#rule-sql-marks}
+### SQL Keywords and symbols{#rule-sql-marks}
 
-#### SELECT - FROM - WHERE 语句 {#rule-sql-reserved-keywords}
+#### SELECT - FROM - WHERE clause{#rule-sql-reserved-keywords}
 
-SELECT 语句用于决定最终的输出结果里的字段。比如:
+The SELECT statement is used to determine the fields in the final output. such as:
 
-下面 SQL 的输出结果中将只有两个字段 "a" 和 "b":
+The following SQL output will have only two fields of "a" and "b":
 
 ```
 SELECT a, b FROM "t/#"
 ```
 
-WHERE 语句用于对本事件中可用字段，或 SELECT 语句中定义的字段进行条件过滤。比如:
+The WHERE statement is used to conditionally filter the fields available in this event or the fields defined in the SELECT statement. such as:
 
 ```
-# 选取 username 为 'abc' 的终端发来的消息，输出结果为所有可用字段:
+# Select the message from the terminal whose username is 'abc', and the output will be all available fields:
 
 SELECT * FROM "#" WHERE username = 'abc'
 
-## 选取 clientid 为 'abc' 的终端发来的消息，输出结果将只有 cid 一个字段。
-## 注意 cid 变量是在 SELECT 语句中定义的，故可在 WHERE 语句中使用:
+## Select the message sent from the terminal whose clientid is 'abc', and the output will have only one field of cid.
+## Note that the cid variable is defined in the SELECT statement, so it can be used in the WHERE statement:
 
 SELECT clientid as cid FROM "#" WHERE cid = 'abc'
 
-## 选取 username 为 'abc' 的终端发来的消息，输出结果将只有 cid 一个字段。
-## 注意虽然 SELECT 语句中只选取了 cid 一个字段，所有消息发布事件中的可用字段 (比如 clientid, username 等) 仍然可以在 WHERE 语句中使用:
+## Select the message sent from the terminal whose username is 'abc', and the output will have only one field of cid.
+## Note that although only one field of cid is selected in the SELECT statement, all available fields in the message publishing event (such as clientid, username, etc.) can still be used in the WHERE statement:
 
 SELECT clientid as cid FROM "#" WHERE username = 'abc'
 
-## 但下面这个 SQL 语句就不能工作了，因为变量 xyz 既不是消息发布事件中的可用字段，又没有在 SELECT 语句中定义:
+## But the following SQL statement will not work, because the variable xyz is neither an available field in the message publishing event nor defined in the SELECT statement:
 
 SELECT clientid as cid FROM "#" WHERE xyz = 'abc'
 ```
 
-FROM 语句用于选择事件来源。如果是消息发布则填写消息的主题，如果是事件则填写对应的事件主题。
+The FROM statement is used to select the source of the event. If the message is published, fill in the topic of the message, if it is an event, fill in the corresponding event topic.
 
-#### 运算符号 {#rule-sql-marks}
+#### Operational symbol {#rule-sql-marks}
 
-| 函数名 | 函数作用                                                     | 返回值     |      |
-| ------ | ------------------------------------------------------------ | ---------- | ---- |
-| `+`    | 加法                                                         | 加和       |      |
-| `-`    | 减法                                                         | 差值       |      |
-| `*`    | 乘法                                                         | 乘积       |      |
-| `/`    | 除法                                                         | 商值       |      |
-| `div`  | 整数除法                                                     | 整数商值   |      |
-| `mod`  | 取模                                                         | 模         |      |
-| `=`    | 比较两者是否完全相等。可用于比较变量和主题                   | true/false |      |
-| `=~`   | 比较主题(topic)是否能够匹配到主题过滤器(topic filter)。只能用于主题匹配 | true/false |      |
+| Function | Purpose                                                      | Returned value   |      |
+| -------- | ------------------------------------------------------------ | ---------------- | ---- |
+| `+`      | addition                                                     | Sum              |      |
+| `-`      | Subtraction                                                  | Difference       |      |
+| `*`      | multiplication                                               | product          |      |
+| `/`      | division                                                     | Quotient         |      |
+| `div`    | Integer division                                             | Integer quotient |      |
+| `mod`    | modulus                                                      | module           |      |
+| `=`      | Compare whether the two are completely equal. It can be used to compare variables and topics | true/false       |      |
+| `=~`     | Compare whether the topic can match the topic filter. It can only be used for topic matching | true/false       |      |
 
-### SQL 语句中可用的函数 {#rule-sql-funcs}
+### Functions available in SQL statements{#rule-sql-funcs}
 
-#### 数学函数
+#### Mathematical functions
 
 <table style="width:99%;">
 <colgroup>
@@ -410,199 +409,199 @@ FROM 语句用于选择事件来源。如果是消息发布则填写消息的主
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>函数名</td>
-<td>函数作用</td>
-<td>参数</td>
-<td>返回值</td>
+<td>function name</td>
+<td>Purpose</td>
+<td>parameter</td>
+<td>Returned value</td>
 </tr>
 <tr class="even">
 <td>abs</td>
-<td>绝对值</td>
+<td>Absolute value</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>绝对值</td>
+<td>absolute value</td>
 </tr>
 <tr class="odd">
 <td>cos</td>
-<td>余弦</td>
+<td>Cosine</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>余弦值</td>
+<td>Cosine value</td>
 </tr>
 <tr class="even">
 <td>cosh</td>
-<td>双曲余弦</td>
+<td>Hyperbolic cosine</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>双曲余弦值</td>
+<td>Hyperbolic cosine value</td>
 </tr>
 <tr class="odd">
 <td>acos</td>
-<td>反余弦</td>
+<td>Inverse cosine</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>反余弦值</td>
+<td>Inverse cosine value</td>
 </tr>
 <tr class="even">
 <td>acosh</td>
-<td>反双曲余弦</td>
+<td>Inverse hyperbolic cosine</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>反双曲余弦值</td>
+<td>Inverse hyperbolic cosine value</td>
 </tr>
 <tr class="odd">
 <td>sin</td>
-<td>正弦</td>
+<td>Sine</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>正弦值</td>
+<td>Sine value</td>
 </tr>
 <tr class="even">
 <td>sinh</td>
-<td>双曲正弦</td>
+<td>Hyperbolic sine</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>双曲正弦值</td>
+<td>Hyperbolic sine value</td>
 </tr>
 <tr class="odd">
 <td>asin</td>
-<td>反正弦</td>
+<td>Arcsine</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>值</td>
+<td>Arcsine value</td>
 </tr>
 <tr class="even">
 <td>asinh</td>
-<td>反双曲正弦</td>
+<td>inverse hyperbolic sine</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>反双曲正弦值</td>
+<td>inverse hyperbolic sine value</td>
 </tr>
 <tr class="odd">
 <td>tan</td>
-<td>正切</td>
+<td>tangent</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>正切值</td>
+<td>tangent value</td>
 </tr>
 <tr class="even">
 <td>tanh</td>
-<td>双曲正切</td>
+<td>Hyperbolic tangent</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>双曲正切值</td>
+<td>Hyperbolic tangent value</td>
 </tr>
 <tr class="odd">
 <td>atan</td>
-<td>反正切</td>
+<td>Arc tangent</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>反正切值</td>
+<td>Arc tangent value</td>
 </tr>
 <tr class="even">
 <td>atanh</td>
-<td>反双曲正切</td>
+<td>Inverse hyperbolic tangent</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>反双曲正切值</td>
+<td>Inverse hyperbolic tangent value</td>
 </tr>
 <tr class="odd">
 <td>ceil</td>
-<td>上取整</td>
+<td>Round up</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>整数值</td>
+<td>Integer value</td>
 </tr>
 <tr class="even">
 <td>floor</td>
-<td>下取整</td>
+<td>Round down</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>整数值</td>
+<td>Integer value</td>
 </tr>
 <tr class="odd">
 <td>round</td>
-<td>四舍五入</td>
+<td>rounding</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>整数值</td>
+<td>Integer value</td>
 </tr>
 <tr class="even">
 <td>exp</td>
-<td>幂运算</td>
+<td>Exponentiation</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>e 的 x 次幂</td>
+<td>X power of e</td>
 </tr>
 <tr class="odd">
 <td>power</td>
-<td>指数运算</td>
+<td>Exponential operation</td>
 <td><ol type="1">
-<li>左操作数 x 2. 右操作数 y</li>
+<li>Left operand x 2. Right operand y</li>
 </ol></td>
-<td>x 的 y 次方</td>
+<td>Y power of X</td>
 </tr>
 <tr class="even">
 <td>sqrt</td>
-<td>平方根运算</td>
+<td>Square root operation</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>平方根</td>
+<td>Square root</td>
 </tr>
 <tr class="odd">
 <td>fmod</td>
-<td>负点数取模函数</td>
+<td>Floating point modulus function</td>
 <td><ol type="1">
-<li>左操作数 2. 右操作数</li>
+<li>left Operand 2.right Operand</li>
 </ol></td>
-<td>模</td>
+<td>module</td>
 </tr>
 <tr class="even">
 <td>log</td>
-<td>以 e 为底对数</td>
+<td>Logarithm to e</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>值</td>
+<td>value</td>
 </tr>
 <tr class="odd">
 <td>log10</td>
-<td>以 10 为底对数</td>
+<td>Logarithm to 10</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>值</td>
+<td>value</td>
 </tr>
 <tr class="even">
 <td>log2</td>
-<td>以 2 为底对数</td>
+<td>Logarithm to 2</td>
 <td><ol type="1">
-<li>被操作数</li>
+<li>Operand</li>
 </ol></td>
-<td>值</td>
+<td>value</td>
 </tr>
 </tbody>
 </table>
 
-#### 数据类型判断函数
+#### Data type judgment function
 
 <table>
 <colgroup>
@@ -613,87 +612,87 @@ FROM 语句用于选择事件来源。如果是消息发布则填写消息的主
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>函数名</td>
-<td>函数作用</td>
-<td>参数</td>
-<td>返回值</td>
+<td>Function name</td>
+<td>Purpose</td>
+<td>parameter</td>
+<td>Returned value</td>
 </tr>
 <tr class="even">
 <td>is_null</td>
-<td>判断变量是否为空值</td>
+<td>Judge if the variable is null</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。如果为空值(undefined) 则返回 true，否则返回 false</td>
+<td>Boolean data.if it is empty (undefined), return true, otherwise return false </td>
 </tr>
 <tr class="odd">
 <td>is_not_null</td>
-<td>判断变量是否不为空值</td>
+<td>Judge if the variable is not null</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。如果为空值(undefined) 则返回 true，否则返回 false</td>
+<td>Boolean data.if it is empty (undefined), return true, otherwise return false</td>
 </tr>
 <tr class="even">
 <td>is_str</td>
-<td>判断变量是否为 String 类型</td>
+<td>Judge whether the variable is String type </td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。</td>
+<td>Boolean data.</td>
 </tr>
 <tr class="odd">
 <td>is_bool</td>
-<td>判断变量是否为 Boolean 类型</td>
+<td>Judge if the variable is Boolean type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。</td>
+<td>Boolean data.</td>
 </tr>
 <tr class="even">
 <td>is_int</td>
-<td>判断变量是否为 Integer 类型</td>
+<td>Judge whether the variable is Integer type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。</td>
+<td>Boolean data.</td>
 </tr>
 <tr class="odd">
 <td>is_float</td>
-<td>判断变量是否为 Float 类型</td>
+<td>Judge whether the variable is Float type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。</td>
+<td>Boolean data.</td>
 </tr>
 <tr class="even">
 <td>is_num</td>
-<td>判断变量是否为数字类型，包括 Integer 和 Float 类型</td>
+<td>Judge whether the variable is a numeric type, including Integer and Float types</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。</td>
+<td>Boolean data.</td>
 </tr>
 <tr class="odd">
 <td>is_map</td>
-<td>判断变量是否为 Map 类型</td>
+<td>Judge whether the variable is Map type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。</td>
+<td>Boolean data.</td>
 </tr>
 <tr class="even">
 <td>is_array</td>
-<td>判断变量是否为 Array 类型</td>
+<td>Judge whether the variable is Array type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。</td>
+<td>Boolean data.</td>
 </tr>
 </tbody>
 </table>
 
-#### 数据类型转换函数
+#### Data type conversion function
 
 <table>
 <colgroup>
@@ -704,63 +703,63 @@ FROM 语句用于选择事件来源。如果是消息发布则填写消息的主
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>函数名</td>
-<td>函数作用</td>
-<td>参数</td>
-<td>返回值</td>
+<td>function name</td>
+<td>purpose</td>
+<td>parameter</td>
+<td>returned value</td>
 </tr>
 <tr class="even">
 <td>str</td>
-<td>将数据转换为 String 类型</td>
+<td>Convert data to String type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>String 类型的数据。无法转换将会导致 SQL 匹配失败</td>
+<td>Data of type String. Failure to convert will cause SQL matching to fail</td>
 </tr>
 <tr class="odd">
 <td>str_utf8</td>
-<td>将数据转换为 UTF-8 String 类型</td>
+<td>Convert data to UTF-8 String type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>UTF-8 String 类型的数据。无法转换将会导致 SQL 匹配失败</td>
+<td>UTF-8 String type data. Failure to convert will cause SQL matching to fail</td>
 </tr>
 <tr class="even">
 <td>bool</td>
-<td>将数据转换为 Boolean 类型</td>
+<td>Convert data to Boolean type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean 类型的数据。无法转换将会导致 SQL 匹配失败</td>
+<td>Boolean data. Failure to convert will cause SQL matching to fail</td>
 </tr>
 <tr class="odd">
 <td>int</td>
-<td>将数据转换为整数类型</td>
+<td>Convert data to integer type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>整数类型的数据。无法转换将会导致 SQL 匹配失败</td>
+<td>Integer type data. Failure to convert will cause SQL matching to fail</td>
 </tr>
 <tr class="even">
 <td>float</td>
-<td>将数据转换为浮点型类型</td>
+<td>Convert data to floating type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>浮点型类型的数据。无法转换将会导致 SQL 匹配失败</td>
+<td>Floating type data. Failure to convert will cause SQL matching to fail</td>
 </tr>
 <tr class="odd">
 <td>map</td>
-<td>将数据转换为 Map 类型</td>
+<td>Convert data to Map type</td>
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Map 类型的数据。无法转换将会导致 SQL 匹配失败</td>
+<td>Map type data. Failure to convert will cause SQL matching to fail</td>
 </tr>
 </tbody>
 </table>
 
-#### 字符串函数
+#### String functions
 
 <table>
 <colgroup>
@@ -771,111 +770,111 @@ FROM 语句用于选择事件来源。如果是消息发布则填写消息的主
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>函数名</td>
-<td>函数作用</td>
-<td>参数</td>
-<td>返回值</td>
+<td>Function name</td>
+<td>Purpose</td>
+<td>parameter</td>
+<td>returned value</td>
 </tr>
 <tr class="even">
 <td>lower</td>
-<td>转为小写</td>
+<td>convert to lowercase</td>
 <td><ol type="1">
-<li>输入字符串</li>
+<li>input string</li>
 </ol></td>
-<td>小写字符串</td>
+<td>Lowercase string</td>
 </tr>
 <tr class="odd">
 <td>upper</td>
-<td>转为大写</td>
+<td>convert to uppercase</td>
 <td><ol type="1">
-<li>输入字符串</li>
+<li>input string</li>
 </ol></td>
-<td>大写字符串</td>
+<td>uppercase string</td>
 </tr>
 <tr class="even">
 <td>trim</td>
-<td>去掉左右空格</td>
+<td>Remove left and right space</td>
 <td><ol type="1">
-<li>输入字符串</li>
+<li>input string</li>
 </ol></td>
-<td>输出字符串</td>
+<td>output string</td>
 </tr>
 <tr class="odd">
 <td>ltrim</td>
-<td>去掉左空格</td>
+<td>Remove the left space</td>
 <td><ol type="1">
-<li>输入字符串</li>
+<li>input string</li>
 </ol></td>
-<td>输出字符串</td>
+<td>output string</td>
 </tr>
 <tr class="even">
 <td>rtrim</td>
-<td>去掉右空格</td>
+<td>Remove the right space</td>
 <td><ol type="1">
-<li>输入字符串</li>
+<li>input string</li>
 </ol></td>
-<td>输出字符串</td>
+<td>output string</td>
 </tr>
 <tr class="odd">
 <td>reverse</td>
-<td>字符串反转</td>
+<td>String inversion</td>
 <td><ol type="1">
-<li>输入字符串</li>
+<li>input string</li>
 </ol></td>
-<td>输出字符串</td>
+<td>output string</td>
 </tr>
 <tr class="even">
 <td>strlen</td>
-<td>字符串长度</td>
+<td>string length</td>
 <td><ol type="1">
-<li>输入字符串</li>
+<li>input string</li>
 </ol></td>
-<td>整数值</td>
+<td>Integer value</td>
 </tr>
 <tr class="odd">
 <td>substr</td>
-<td>取字符的子串</td>
+<td>Take a substring of characters</td>
 <td><ol type="1">
-<li>输入字符串 2. 起始位置. 注意: 下标从 1 开始</li>
+<li>input string 2. Start position. Note: Subscripts start at 1</li>
 </ol></td>
-<td>子串</td>
+<td>substring</td>
 </tr>
 <tr class="even">
-<td>substr</td>
-<td>取字符的子串</td>
+<td>substring</td>
+<td>Take a substring of characters</td>
 <td><ol type="1">
-<li>输入字符串 2. 起始位置 3. 终止位置. 注意: 下标从 1 开始</li>
+<li>input string 2. Start position 3. End position. Note: Subscripts start at 1</li>
 </ol></td>
-<td>子串</td>
+<td>substring</td>
 </tr>
 <tr class="odd">
 <td>split</td>
-<td>字符串分割</td>
+<td>String splitting</td>
 <td><ol type="1">
-<li>输入字符串 2. 分割符子串</li>
+<li>input string 2. split string</li>
 </ol></td>
-<td>分割后的字符串数组</td>
+<td>Split string array</td>
 </tr>
 <tr class="even">
 <td>split</td>
-<td>字符串分割</td>
+<td>String splitting</td>
 <td><ol type="1">
-<li>输入字符串 2. 分割符子串 3. 只查找左边或者右边第一个分隔符, 可选的取值为 'leading' 或者 'trailing'</li>
+<li>input string 2. split string 3. Find the first separator on the left or right, optional value is 'leading' or 'trailing'</li>
 </ol></td>
-<td>分割后的字符串数组</td>
+<td>Split string array</td>
 </tr>
 <tr class="odd">
 <td>split</td>
-<td>字符串分割</td>
+<td>split string</td>
 <td><ol type="1">
-<li>输入字符串 2. 分割符子串 3. 只查找左边或者右边第一个分隔符, 可选的取值为 'leading' 或者 'trailing'</li>
+<li>input string 2. split string 3. Find the first separator on the left or right, optional value is 'leading' or 'trailing'</li>
 </ol></td>
-<td>分割后的字符串数组</td>
+<td>Split string array</td>
 </tr>
 </tbody>
 </table>
 
-#### Map 函数
+#### Map function
 
 <table>
 <colgroup>
@@ -886,39 +885,39 @@ FROM 语句用于选择事件来源。如果是消息发布则填写消息的主
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>函数名</td>
-<td>函数作用</td>
-<td>参数</td>
-<td>返回值</td>
+<td>function name</td>
+<td>purpose</td>
+<td>parameter</td>
+<td>returned value</td>
 </tr>
 <tr class="even">
 <td>map_get</td>
-<td>取 Map 中某个 Key 的值，如果没有则返回空值</td>
+<td>Take the value of a Key in the Map, or return a null value if failed</td>
 <td><ol type="1">
 <li>Key 2. Map</li>
 </ol></td>
-<td>Map 中某个 Key 的值。支持嵌套的 Key，比如 "a.b.c"</td>
+<td>The value of a Key in the Map. Support nested keys, such as "a.b.c"</td>
 </tr>
 <tr class="odd">
 <td>map_get</td>
-<td>取 Map 中某个 Key 的值，如果没有则返回指定默认值</td>
+<td>Take the value of a Key in the Map, if failed, return the specified default value</td>
 <td><ol type="1">
 <li>Key 2. Map 3. Default Value</li>
 </ol></td>
-<td>Map 中某个 Key 的值。支持嵌套的 Key，比如 "a.b.c"</td>
+<td>The value of a Key in the Map. Support nested keys, such as "a.b.c"</td>
 </tr>
 <tr class="even">
 <td>map_put</td>
-<td>向 Map 中插入值</td>
+<td>Insert value into Map</td>
 <td><ol type="1">
 <li>Key 2. Value 3. Map</li>
 </ol></td>
-<td>插入后的 Map。支持嵌套的 Key，比如 "a.b.c"</td>
+<td>The inserted Map. Support nested keys, such as "a.b.c"</td>
 </tr>
 </tbody>
 </table>
 
-#### 数组函数
+#### Array function
 
 <table>
 <colgroup>
@@ -929,71 +928,71 @@ FROM 语句用于选择事件来源。如果是消息发布则填写消息的主
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>函数名</td>
-<td>函数作用</td>
-<td>参数</td>
-<td>返回值</td>
+<td>function name</td>
+<td>purpose</td>
+<td>parameter</td>
+<td>returned value</td>
 </tr>
 <tr class="even">
 <td>nth</td>
-<td>取第 n 个元素，下标从 1 开始</td>
+<td>Take the nth element, and subscripts start at 1</td>
 <td><ol type="1">
-<li>原数组</li>
+<li>Original array</li>
 </ol></td>
-<td>第 n 个元素</td>
+<td>Nth element</td>
 </tr>
 <tr class="odd">
 <td>length</td>
-<td>获取数组的长度</td>
+<td>Get the length of an array</td>
 <td><ol type="1">
-<li>原数组</li>
+<li>Original array</li>
 </ol></td>
-<td>数组长度</td>
+<td>the length of an array</td>
 </tr>
 <tr class="even">
 <td>sublist</td>
-<td>取从第一个元素开始、长度为 len 的子数组。下标从 1 开始</td>
+<td>Take a sub-array of length len starting from the first element. Subscripts start at 1</td>
 <td><ol type="1">
-<li>长度 len 2. 原数组</li>
+<li>length len 2. Original array</li>
 </ol></td>
-<td>子数组</td>
+<td>sub-array</td>
 </tr>
 <tr class="odd">
 <td>sublist</td>
-<td>取从第 n 个元素开始、长度为 len 的子数组。下标从 1 开始</td>
+<td>Take a sub-array of length len starting from the nth element. Subscripts start at 1</td>
 <td><ol type="1">
-<li>起始位置 n 2. 长度 len 3. 原数组</li>
+<li>start position n 2. length len 3. Original array</li>
 </ol></td>
-<td>子数组</td>
+<td>sub-array</td>
 </tr>
 <tr class="even">
 <td>first</td>
-<td>取第 1 个元素。下标从 1 开始</td>
+<td>Take the first element. Subscripts start at 1</td>
 <td><ol type="1">
-<li>原数组</li>
+<li>Original array</li>
 </ol></td>
-<td>第 1 个元素</td>
+<td>1st element</td>
 </tr>
 <tr class="odd">
 <td>last</td>
-<td>取最后一个元素。</td>
+<td>take the last element</td>
 <td><ol type="1">
-<li>原数组</li>
+<li> Original array</li>
 </ol></td>
-<td>最后一个元素</td>
+<td>the last element</td>
 </tr>
 <tr class="even">
 <td>contains</td>
-<td>判断数据是否在数组里面</td>
+<td>Determine whether the data is in the array</td>
 <td><ol type="1">
-<li>数据 2. 原数组</li>
+<li>data 2. Original array</li>
 </ol></td>
-<td>Boolean 值</td>
+<td>Boolean value</td>
 </tr>
 </tbody>
 </table>
 
-#### 哈希函数
+#### Hash function
 
 <table style="width:64%;">
 <colgroup>
@@ -1004,39 +1003,39 @@ FROM 语句用于选择事件来源。如果是消息发布则填写消息的主
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>函数名</td>
-<td>函数作用</td>
-<td>参数</td>
-<td>返回值</td>
+<td>function name</td>
+<td>purpose</td>
+<td>parameter</td>
+<td>returned value</td>
 </tr>
 <tr class="even">
 <td>md5</td>
-<td>求 MD5 值</td>
+<td>evaluate MD5</td>
 <td><ol type="1">
-<li>数据</li>
+<li>data</li>
 </ol></td>
-<td>MD5 值</td>
+<td>MD5 value</td>
 </tr>
 <tr class="odd">
 <td>sha</td>
-<td>求 SHA 值</td>
+<td>evaluate SHA</td>
 <td><ol type="1">
-<li>数据</li>
+<li>data</li>
 </ol></td>
-<td>SHA 值</td>
+<td>SHA value</td>
 </tr>
 <tr class="even">
 <td>sha256</td>
-<td>求 SHA256 值</td>
+<td>evaluate SHA256</td>
 <td><ol type="1">
-<li>数据</li>
+<li>data</li>
 </ol></td>
-<td>SHA256 值</td>
+<td>SHA256 value</td>
 </tr>
 </tbody>
 </table>
 
-#### 编解码函数
+#### Codec function
 
 <table>
 <colgroup>
@@ -1047,90 +1046,90 @@ FROM 语句用于选择事件来源。如果是消息发布则填写消息的主
 </colgroup>
 <tbody>
 <tr class="odd">
-<td>函数名</td>
-<td>函数作用</td>
-<td>参数</td>
-<td>返回值</td>
+<td>function name</td>
+<td>purpose</td>
+<td>parameter</td>
+<td>returned value</td>
 </tr>
 <tr class="even">
 <td>base64_encode</td>
-<td>BASE64 编码</td>
+<td>BASE64 encode</td>
 <td><ol type="1">
-<li>数据</li>
+<li>data</li>
 </ol></td>
-<td>BASE64 字符串</td>
+<td>BASE64 string</td>
 </tr>
 <tr class="odd">
 <td>base64_decode</td>
-<td>BASE64 解码</td>
+<td>BASE64 decode</td>
 <td><ol type="1">
-<li>BASE64 字符串</li>
+<li>BASE64 string</li>
 </ol></td>
-<td>数据</td>
+<td>data</td>
 </tr>
 <tr class="even">
 <td>json_encode</td>
-<td>JSON 编码</td>
+<td>JSON encode</td>
 <td><ol type="1">
-<li>JSON 字符串</li>
+<li>JSON string</li>
 </ol></td>
-<td>内部 Map</td>
+<td>internal Map</td>
 </tr>
 <tr class="odd">
 <td>json_decode</td>
-<td>JSON 解码</td>
+<td>JSON decode</td>
 <td><ol type="1">
-<li>内部 Map</li>
+<li>internal Map</li>
 </ol></td>
-<td>JSON 字符串</td>
+<td>JSON strubg</td>
 </tr>
 <tr class="even">
 <td>schema_encode</td>
-<td>Schema 编码</td>
+<td>Schema encode</td>
 <td><ol type="1">
-<li>Schema ID 2. 内部 Map</li>
+<li>Schema ID 2. internal Map</li>
 </ol></td>
-<td>数据</td>
+<td>data</td>
 </tr>
 <tr class="odd">
 <td>schema_encode</td>
-<td>Schema 编码</td>
+<td>Schema encode</td>
 <td><ol type="1">
-<li>Schema ID 2. 内部 Map 3. Protobuf Message 名</li>
+<li>Schema ID 2. internal Map 3. Protobuf Message name</li>
 </ol></td>
-<td>数据</td>
+<td>data</td>
 </tr>
 <tr class="even">
 <td>schema_decode</td>
-<td>Schema 解码</td>
+<td>Schema decode</td>
 <td><ol type="1">
-<li>Schema ID 2. 数据</li>
+<li>Schema ID 2. data</li>
 </ol></td>
-<td>内部 Map</td>
+<td>internal Map</td>
 </tr>
 <tr class="odd">
 <td>schema_decode</td>
-<td>Schema 解码</td>
+<td>Schema decode</td>
 <td><ol type="1">
-<li>Schema ID 2. 数据 3. Protobuf Message 名</li>
+<li>Schema ID 2. data 3. Protobuf Message name</li>
 </ol></td>
-<td>内部 Map</td>
+<td>internal Map</td>
 </tr>
 </tbody>
 </table>
 
-### 在 Dashboard 中测试 SQL 语句 {#test-rule-sql-funcs}
+### Test SQL statements in Dashboard{#test-rule-sql-funcs}
 
-Dashboard 界面提供了 SQL 语句测试功能，通过给定的 SQL 语句和事件参数，展示 SQL 测试结果。
+The SQL statement test function is provided in the Dashboard interface, and the SQL test results are shown through the given SQL statement and event parameters.
 
-1.  在创建规则界面，输入 **规则SQL**，并启用 **SQL 测试** 开关:
+1.  On the rule creating interface, enter **rule SQL** and enable the **SQL test** switch:
 
     ![image](../assets/sql-test-1@2x.png)
 
-2.  修改模拟事件的字段，或者使用默认的配置，点击 **测试** 按钮:
+2. Modify the field of the simulated event, or use the default configuration, and click the **Test** button:
 
-    ![image](../assets/sql-test-2@2x.png)
+   ![image](../assets/sql-test-2@2x.png)
 
-3.  SQL 处理后的结果将在 **测试输出** 文本框里展示:
+3. The result of SQL processing will be displayed in the **Test Output** text box:
 
-    ![image](../assets/sql-test-3@2x.png)
+   ![image](../assets/sql-test-3@2x.png)
