@@ -17,11 +17,11 @@ ref: undefined
 
 # WebHook
 
-WebHook 是由 [emqx_web_hook](https://github.com/emqx/emqx-web-hook) 插件提供的 **将 EMQ X Broker 中的钩子事件通知到某个 Web 服务** 的功能。
+WebHook is a plugin provided by the [emqx_web_hook](https://github.com/emqx/emqx-web-hook) plugin with the function of notifying a web service of hook events in EMQ X Broker.
 
-WebHook 的内部实现是基于 [钩子](./hooks.md)，但它更靠近顶层一些。它通过在钩子上的挂载回调函数，获取到 EMQ X Broker 中的各种事件，并转发至 emqx_web_hook 中配置的 Web 服务器。
+The internal implementation of WebHook is based on  [hooks](./hooks.md), but it is closer to the top level. It obtains various events in EMQ X Broker through the callback function mounted on the hook, and forwards them to the web server configured in emqx_web_hook.
 
-以 客户端成功接入(client.connected) 事件为例，其事件的传递流程如下：
+Taking the client.connected event as an example, the event delivery process is as follows:
 
 ```bash
     Client      |    EMQ X     |  emqx_web_hook |   HTTP       +------------+
@@ -30,212 +30,211 @@ WebHook 的内部实现是基于 [钩子](./hooks.md)，但它更靠近顶层一
 ```
 
 {% hint style="info" %}
-WebHook 对于事件的处理是单向的，**它仅支持将 EMQ X Broker 中的事件推送给 Web 服务，并不关心 Web 服务的返回**。
-借助 Webhook 可以完成设备在线、上下线记录，订阅与消息存储、消息送达确认等诸多业务。
+WebHook processes events in one-way pattern. It only supports pushing events in EMQ X Broker to Web services, and does not care about the return of Web services.
+With the help of Webhooks, many services such as device going online, online and offline recording, subscription and message storage, and message delivery confirmation can be completed.
+
 {% endhint %}
 
-## 配置项
+## Configuration item
 
-Webhook 的配置文件位于 `etc/plugins/emqx_web_hook.conf`：
+The webhook configuration file is located in: `etc/plugins/emqx_web_hook.conf`：
 
-|  配置项            | 类型   | 可取值 | 默认值 | 说明               |
+| Configuration item | Type | Optional value | Default value | Description     |
 | ------------------ | ------ | ------ | ------ | ------------------ |
-| api.url            | string | -      | http://127.0.0.1:8080 | 事件需要转发的目的服务器地址 |
-| encode_payload     | enum   | `base64`, `base62` | undefined | 对**消息类事件中的 Payload 字段**进行编码，注释或其他则表示不编码 |
+| api.url            | string | -      | http://127.0.0.1:8080 | Address of the destination server to which the event needs to be forwarded |
+| encode_payload     | enum   | `base64`, `base62` | undefined | Encode the Payload field in the message event |
 
 {% hint style="info" %}
-当消息内容是不可见字符（如二进制数据）时，为了能够在 HTTP 协议中传输，使用 encode_payload 是十分有用的。
+When the message content is invisible characters (such as binary data), encode_payload is very useful for transmission in the HTTP protocol.
 {% endhint %}
 
 
-## 触发规则
+## Trigger rule
 
-在 `etc/plugins/emqx_web_hooks.conf` 可配置触发规则，其配置的格式如下：
+Trigger rules can be configured in `etc/plugins/emqx_web_hooks.conf`. The configuration format is as follows:
 
 ```bash
-## 格式示例
+## Format example
 web.hook.rule.<Event>.<Number> = <Rule>
 
-## 示例值
+## Example
 web.hook.rule.message.publish.1 = {"action": "on_message_publish", "topic": "a/b/c"}
 web.hook.rule.message.publish.2 = {"action": "on_message_publish", "topic": "foo/#"}
 ```
 
-### Event 触发事件
+### Trigger event
 
-目前支持以下事件：
+The following events are currently supported:
 
 
-| 名称                 | 说明         | 执行时机                                              |
-| -------------------- | ------------ | ----------------------------------------------------- |
-| client.connect       | 处理连接报文 | 服务端收到客户端的连接报文时                          |
-| client.connack       | 下发连接应答 | 服务端准备下发连接应答报文时                          |
-| client.connected     | 成功接入     | 客户端认证完成并成功接入系统后                        |
-| client.disconnected  | 连接断开     | 客户端连接层在准备关闭时                              |
-| client.subscribe     | 订阅主题     | 收到订阅报文后，执行 `client.check_acl` 鉴权前        |
-| client.unsubscribe   | 取消订阅     | 收到取消订阅报文后                                    |
-| session.subscribed   | 会话订阅主题 | 完成订阅操作后                                        |
-| session.unsubscribed | 会话取消订阅 | 完成取消订阅操作后                                    |
-| message.publish      | 消息发布     | 服务端在发布（路由）消息前                            |
-| message.delivered    | 消息投递     | 消息准备投递到客户端前                                |
-| message.acked        | 消息回执     | 服务端在收到客户端发回的消息 ACK 后                   |
-| message.dropped      | 消息丢弃     | 发布出的消息被丢弃后                                  |
+| Name                 | Description                   | Execution timing                                             |
+| -------------------- | ----------------------------- | ------------------------------------------------------------ |
+| client.connect       | Processing connection packets | When the server receives the client's connection packet      |
+| client.connack       | Issue connection acknowledge  | When the server is ready to send connack packet              |
+| client.connected     | connected                     | After the client authentication is completed and successfully connected to the system |
+| client.disconnected  | disconnected                  | When the client connection layer is about to close           |
+| client.subscribe     | subscribe                     | After receiving the subscription message,and before executing `client.check_acl` authentication |
+| client.unsubscribe   | unsubscribe                   | After receiving the unsubscription message                   |
+| session.subscribed   | Session subscribed            | After completing the subscription operation                  |
+| session.unsubscribed | session unsubscribed          | After completing the unsubscription operation                |
+| message.publish      | message published             | Before the server rpublishes (routes) the message            |
+| message.delivered    | message deliveried            | Before the message is ready to be delivered to the client    |
+| message.acked        | message acknowledged          | After the server received the message ACK from the client    |
+| message.dropped      | message dropped               | After the published message is dropped                       |
 
 ### Number
 
-同一个事件可以配置多个触发规则，配置相同的事件应当依次递增。
+Multiple trigger rules can be configured for the same event, and events with the same configuration should be incremented in sequence.
 
 ### Rule
 
-触发规则，其值为一个 JSON 字符串，其中可用的 Key 有：
+The trigger rule's 'value is a JSON string, and the available Keys are:
 
-- action：字符串，取固定值
-- topic：字符串，表示一个主题过滤器，操作的主题只有与该主题匹配才能触发事件的转发
+- action: string, taking a fixed value
+- topic: a string, indicating a topic filter, the operation topic can only trigger the forwarding of the event if it matches the topic
 
-例如，我们只将与 `a/b/c` 和 `foo/#` 主题匹配的消息转发到 Web 服务器上，其配置应该为：
+For example, we only forward messages matching the topics of `a/b/c` and `foo/#` to the web server, and the configuration should be:
 
 ```bash
 web.hook.rule.message.publish.1 = {"action": "on_message_publish", "topic": "a/b/c"}
 web.hook.rule.message.publish.2 = {"action": "on_message_publish", "topic": "foo/#"}
 ```
 
-这样 Webhook 仅会转发与 `a/b/c` 和 `foo/#` 主题匹配的消息，例如 `foo/bar` 等，而不是转发 `a/b/d` 或 `fo/bar`。
+In this way, Webhook will only forward messages matching the topics of  `a/b/c` and `foo/#`, such as `foo/bar`, etc., instead of forwarding `a/b/d` or `fo/bar`.
 
 
-## Webhook 事件参数
+## Webhook event parameters
 
-事件触发时 Webhook 会按照配置将每个事件组成一个 HTTP 请求发送到 `api.url` 所配置的 Web 服务器上。其请求格式为：
+When the event is triggered, Webhook will group each event into an HTTP request and sent it to the web server configured by api.url according to the configuration. The request format is:
 
 ```bash
-URL: <api.url>      # 来自于配置中的 `api.url` 字段
-Method: POST        # 固定为 POST 方法
+URL: <api.url>      # From the api.url field in the configuration
+Method: POST        # Fixed as POST method
 
-Body: <JSON>        # Body 为 JSON 格式字符串
+Body: <JSON>        # Body is a JSON format string
 ```
 
-对于不同的事件，请求 Body 体内容有所不同，下表列举了各个事件中 Body 的参数列表：
+For different events, the content of the request body is different. The following table lists the parameters of the body in each event:
 
 **client.connect**
 
-| Key        |  类型   | 说明  |
+| Key        |  Type  | Description |
 | ---------- | ------- | ----- |
-| action     | string  | 事件名称<br>固定为："client_connect" |
-| clientid   | string  | 客户端 ClientId |
-| username   | string  | 客户端 Username，不存在时该值为 "undefined" |
-| ipaddress  | string  | 客户端源 IP 地址 |
-| keepalive  | integer | 客户端申请的心跳保活时间 |
-| proto_ver  | integer | 协议版本号 |
+| action     | string  | event name<br>fixed at："client_connect" |
+| clientid   | string | client ClientId                                             |
+| username   | string  | client Username, When not existed, the value is "undefined" |
+| ipaddress  | string  | client source IP address |
+| keepalive  | integer | Heartbeat keepalive time applied by client |
+| proto_ver  | integer | Protocol version number |
 
 
 **client.connack**
 
-| Key        |  类型   | 说明  |
+| Key        | Type    | Description                                                 |
 | ---------- | ------- | ----- |
-| action     | string  | 事件名称<br>固定为："client_connack" |
-| clientid   | string  | 客户端 ClientId |
-| username   | string  | 客户端 Username，不存在时该值为 "undefined" |
-| ipaddress  | string  | 客户端源 IP 地址 |
-| keepalive  | integer | 客户端申请的心跳保活时间 |
-| proto_ver  | integer | 协议版本号 |
-| conn_ack   | string  | "success" 表示成功，其它表示失败的原因 |
+| action     | string  | event name<br/>fixed at: "client_connack" |
+| clientid   | string  | client ClientId |
+| username   | string  | client Username, When not existed, the value is "undefined" |
+| ipaddress  | string  | client source IP address |
+| keepalive  | integer | Heartbeat keepalive time applied by client |
+| proto_ver  | integer | Protocol version number |
+| conn_ack   | string  | "success" means success, other means failure |
 
 
 **client.connected**
 
-| Key         |  类型   | 说明  |
+| Key         | Type    | Description                                                 |
 | ----------- | ------- | ----- |
-| action      | string  | 事件名称<br>固定为："client_connected" |
-| clientid    | string  | 客户端 ClientId |
-| username    | string  | 客户端 Username，不存在时该值为 "undefined" |
-| ipaddress   | string  | 客户端源 IP 地址 |
-| keepalive   | integer | 客户端申请的心跳保活时间 |
-| proto_ver   | integer | 协议版本号 |
-| connected_at| integer | 时间戳(秒) |
+| action      | string  | event name<br>fixed at:"client_connected" |
+| clientid    | string  | client ClientId |
+| username    | string  | client Username, When not existed, the value is "undefined" |
+| ipaddress   | string  | client source IP address |
+| keepalive   | integer | Heartbeat keepalive time applied by client |
+| proto_ver   | integer | Protocol version number |
+| connected_at| integer | Timestamp (second) |
 
 
 **client.disconnected**
 
-| Key         |  类型   | 说明  |
+| Key         | Type   | Description                                                 |
 | ----------- | ------- | ----- |
-| action      | string  | 事件名称<br>固定为："client_disconnected" |
-| clientid    | string  | 客户端 ClientId |
-| username    | string  | 客户端 Username，不存在时该值为 "undefined" |
-| reason      | string  | 错误原因 |
+| action      | string  | event name<br>fixed at: "client_disconnected"               |
+| clientid    | string  | client ClientId |
+| username    | string  | client Username, When not existed, the value is "undefined" |
+| reason      | string  | error reason |
 
 
 **client.subscribe**
 
-| Key         |  类型   | 说明  |
+| Key         | Type   | Description                                                 |
 | ----------- | ------- | ----- |
-| action      | string  | 事件名称<br>固定为："client_subscribe" |
-| clientid    | string  | 客户端 ClientId |
-| username    | string  | 客户端 Username，不存在时该值为 "undefined" |
-| topic       | string  | 将订阅的主题 |
-| opts        | json    | 订阅参数 |
+| action      | string  | event name<br/>fixed at: "client_subscribe" |
+| clientid    | string  | Client ClientId |
+| username    | string  | Client Username, When not existed, the value is "undefined" |
+| topic       | string  | Topics to be subscribed |
+| opts        | json    | Subscription parameters |
 
-opts 包含
+opts includes
 
-| Key  | 类型 | 说明 |
+| Key  | Type | Description                                      |
 | ---- | ---- | ---- |
-| qos  | enum | QoS 等级，可取 `0` `1` `2` |
-
+| qos  | enum | QoS level, and the optional value is `0` `1` `2` |
 
 **client.unsubscribe**
 
-| Key         |  类型   | 说明  |
+| Key         | Type   | Description                                                 |
 | ----------- | ------- | ----- |
-| action      | string  | 事件名称<br>固定为："client_unsubscribe" |
-| clientid    | string  | 客户端 ClientId |
-| username    | string  | 客户端 Username，不存在时该值为 "undefined" |
-| topic       | string  | 取消订阅的主题 |
+| action      | string  | event name<br/>fixed at:"client_unsubscribe" |
+| clientid    | string  | client ClientId |
+| username    | string  | client Username, When not existed, the value is "undefined" |
+| topic       | string  | unsubscribed topic |
 
+**session.subscribed**: same as `client.subscribe`，action is `session_subscribed`
 
-**session.subscribed**：同 `client.subscribe`，action 为 `session_subscribed`
+**session.unsubscribed**: same as `client.unsubscribe`，action is `session_unsubscribe`
 
-**session.unsubscribed**：同 `client.unsubscribe`，action 为 `session_unsubscribe`
-
-**session.terminated**： 同 `client.disconnected`，action 为 `session_terminated`
+**session.terminated**: same as `client.disconnected`，action is `session_terminated`
 
 **message.publish**
 
-| Key            |  类型   | 说明  |
+| Key            | Type    | Description                                                  |
 | -------------- | ------- | ----- |
-| action         | string  | 事件名称<br>固定为："message_publish" |
-| from_client_id | string  | 发布端 ClientId |
-| from_username  | string  | 发布端 Username，不存在时该值为 "undefined" |
-| topic          | string  | 取消订阅的主题 |
-| qos            | enum    | QoS 等级，可取 `0` `1` `2` |
-| retain         | bool    | 是否为 Retain 消息 |
-| payload        | string  | 消息 Payload |
-| ts             | integer | 消息的时间戳(毫秒) |
+| action         | string  | event name<br/>fixed at: "message_publish" |
+| from_client_id | string  | Publisher's ClientId |
+| from_username  | string  | Publisher's Username, When not existed, the value is "undefined" |
+| topic          | string  | Unsubscribed topic |
+| qos            | enum    | QoS level, and the optional value is `0` `1` `2` |
+| retain         | bool    | Whether it is a Retain message |
+| payload        | string  | Message Payload |
+| ts             | integer | Timestamp (second) |
 
 
 **message.delivered**
 
-| Key            |  类型   | 说明  |
+| Key            | Type    | Description                                                  |
 | -------------- | ------- | ----- |
-| action         | string  | 事件名称<br>固定为："message_delivered" |
-| clientid       | string  | 接收端 ClientId |
-| username       | string  | 接收端 Username，不存在时该值为 "undefined" |
-| from_client_id | string  | 发布端 ClientId |
-| from_username  | string  | 发布端 Username，不存在时该值为 "undefined" |
-| topic          | string  | 取消订阅的主题 |
-| qos            | enum    | QoS 等级，可取 `0` `1` `2` |
-| retain         | bool    | 是否为 Retain 消息 |
-| payload        | string  | 消息 Payload |
-| ts             | integer | 消息时间戳(毫秒) |
+| action         | string  | event name<br/>fixed at: "message_delivered" |
+| clientid       | string  | Receiver's ClientId |
+| username       | string  | Receiver's Username, When not existed, the value is "undefined" |
+| from_client_id | string  | Publisher's ClientId |
+| from_username  | string  | Publisher's Username, When not existed, the value is "undefined" |
+| topic          | string  | Unsubscribed topic |
+| qos            | enum    | QoS level, and the optional value is `0` `1` `2` |
+| retain         | bool    | Whether it is a Retain message |
+| payload        | string  | Message Payload |
+| ts             | integer | Timestamp (second) |
 
 
 **message.acked**
 
 | Key            |  类型   | 说明  |
 | -------------- | ------- | ----- |
-| action         | string  | 事件名称<br>固定为："message_acked" |
-| clientid       | string  | 接收端 ClientId |
-| from_client_id | string  | 发布端 ClientId |
-| from_username  | string  | 发布端 Username，不存在时该值为 "undefined" |
-| topic          | string  | 取消订阅的主题 |
-| qos            | enum    | QoS 等级，可取 `0` `1` `2` |
-| retain         | bool    | 是否为 Retain 消息 |
-| payload        | string  | 消息 Payload |
-| ts             | integer | 消息时间戳(毫秒) |
+| action         | string  | event name<br/>fixed at: "message_acked" |
+| clientid       | string  | Receiver's ClientId |
+| from_client_id | string  | Publisher's ClientId |
+| from_username  | string  | Publisher's Username, When not existed, the value is "undefined" |
+| topic          | string  | Unsubscribed topic |
+| qos            | enum    | QoS level, and the optional value is `0` `1` `2` |
+| retain         | bool    | Whether it is a Retain message |
+| payload        | string  | Message Payload |
+| ts             | integer | Timestamp (second) |
