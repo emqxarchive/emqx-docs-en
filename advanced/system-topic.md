@@ -15,11 +15,11 @@ category:
 ref: undefined
 ---
 
-# $SYS 系统主题
+# $SYS system topic
 
-EMQ X Broker 周期性发布自身运行状态、消息统计、客户端上下线事件到以 `$SYS/` 开头系统主题。
+The EMQ X Broker periodically publishes its running status, message statistics, client online and offline events to the system topic starting with `$SYS/`. 
 
-$SYS 主题路径以 `$SYS/brokers/{node}/` 开头。`{node}` 是指产生该 `事件 / 消息` 所在的节点名称，例如:
+ The `$SYS` topic path begins with `$SYS/brokers/{node}/`. `{node}` is the name of the node where the event/message is generated, for example: 
 
 ```bash
 $SYS/brokers/emqx@127.0.0.1/version
@@ -27,39 +27,39 @@ $SYS/brokers/emqx@127.0.0.1/uptime
 ```
 
 
-$SYS 系统消息发布周期配置项：
+ $SYS system message publish interval is configured in `etc/emqx.conf`: 
 
 ```bash
 broker.sys_interval = 1m
 ```
 
 {% hint style="danger" %}
-EMQ X 默认**只允许**本机的 MQTT 客户端订阅 $SYS 主题，请参照 [内置 ACL](./acl-file.md) 修改发布订阅 ACL 规则。
+By default, only MQTT clients on localhost is allowed to subscribe to the $ SYS topic. Please refer to [build-in ACL](./acl-file.md) to modify the ACL rules for publish and subscription.
 
-EMQ X Broker 中 $SYS 主题中绝大部分数据都可以通过其他更耦合性更低的方式获取，设备上下线状态可通过 [Webhook](./webhook.md) 获取，节点与集群状态可通过 [HTTP API - 统计指标](./http-api.md#endpoint-metrics) 获取。
+Most of the data of the $ SYS topic in EMQ X Broker can be obtained through other method with lower Couplings. The device online and offline status can be obtained through [Webhook](./webhook.md)), and the node and cluster status can be obtained through  [HTTP API - Statistics Metrics](./http-api.md#endpoint-metrics).
+
 {% endhint %}
 
+### Cluster status information
 
-## 集群状态信息
-
-| 主题                          | 说明                 |
+| Topic                      | Description       |
 | ----------------------------- | -------------------- |
-| $SYS/brokers                  | 集群节点列表         |
-| $SYS/brokers/\${node}/version  | EMQ X Broker 版本     |
-| $SYS/brokers/\${node}/uptime   | EMQ X Broker 运行时间 |
-| $SYS/brokers/\${node}/datetime | EMQ X Broker 系统时间     |
-| $SYS/brokers/\${node}/sysdescr | EMQ X Broker 描述     |
+| $SYS/brokers                  | cluster node list |
+| $SYS/brokers/\${node}/version  | EMQ X Broker version |
+| $SYS/brokers/\${node}/uptime   | EMQ X Broker startup time |
+| $SYS/brokers/\${node}/datetime | EMQ X Broker time |
+| $SYS/brokers/\${node}/sysdescr | EMQ X Broker description |
 
-## 客户端上下线事件
+### Client Online and Offline Events
 
-`$SYS` 主题前缀: `$SYS/brokers/${node}/clients/`
+`$SYS` topic prefix: `$SYS/brokers/${node}/clients/`
 
-| 主题 (Topic)              | 说明                                     |
+| Topic              | Description                          |
 | ------------------------ | ---------------------------------------- |
-| ${clientid}/connected    | 上线事件。当任意客户端上线时，EMQ X Broker 就会发布该主题的消息 |
-| ${clientid}/disconnected | 下线事件。当任意客户端下线时，EMQ X Broker 就会发布该主题的消息 |
+| ${clientid}/connected    | Online event. This message is published when a client goes online |
+| ${clientid}/disconnected | Offline event. This message is published when a client is offline |
 
-`connected` 事件消息的 Payload 解析成 JSON 格式如下:
+ The Payload of the ‘connected’ event message can be parsed into JSON format: 
 
 ```bash
 {
@@ -78,7 +78,7 @@ EMQ X Broker 中 $SYS 主题中绝大部分数据都可以通过其他更耦合�
 }
 ```
 
-`disconnected` 事件消息的 Payload 解析成 JSON 格式如下:
+ The Payload of the ‘disconnected’ event message can be parsed into JSON format: 
 
 ```bash
 {
@@ -90,125 +90,137 @@ EMQ X Broker 中 $SYS 主题中绝大部分数据都可以通过其他更耦合�
 }
 ```
 
-## 系统统计 (Statistics)
+## Statistics
 
-系统主题前缀: `$SYS/brokers/${node}/stats/`
+System topic prefix : `$SYS/brokers/${node}/stats/`
 
-#### 客户端统计
+#### Client statistics
 
-| 主题 (Topic)       | 说明           |
+| Topic       | Description |
 | ----------------- | -------------- |
-| connections/count | 当前客户端总数 |
-| connections/max   | 客户端数量历史最大值 |
+| connections/count | Total number of current clients |
+| connections/max   | Maximum number of clients |
 
-#### 订阅统计
+#### Subscription statistics
 
-| 主题 (Topic)                | 说明             |
+| Topic                | Description  |
 | -------------------------- | ---------------- |
-| suboptions/count           | 当前订阅选项个数 |
-| suboptions/max             | 订阅选项总数历史最大值 |
-| subscribers/count          | 当前订阅者数量   |
-| subscribers/max            | 订阅者总数历史最大值   |
-| subscriptions/count        | 当前订阅总数     |
-| subscriptions/max          | 订阅数量历史最大值     |
-| subscriptions/shared/count | 当前共享订阅个数 |
-| subscriptions/shared/max   | 当前共享订阅总数 |
+| suboptions/count           | number of current subscription options |
+| suboptions/max             | total number of maximum subscription options |
+| subscribers/count          | number of current subscribers |
+| subscribers/max            | maximum number of subscriptions |
+| subscriptions/count        | total number of current subscription |
+| subscriptions/max          | maximum number of subscriptions |
+| subscriptions/shared/count | total number of current shared subscriptions |
+| subscriptions/shared/max   | maximum number of shared subscriptions |
 
-#### 主题统计
+#### Topic statistics
 
-| 主题 (Topic)  | 说明            |
+| Topic  | Description |
 | ------------ | --------------- |
-| topics/count | 当前 Topic 总数 |
-| topics/max   | Topic 数量历史最大值 |
+| topics/count | total number of current topics |
+| topics/max   | maximum number of topics |
 
-#### 路由统计
+#### Routes statistics
 
-| 主题 (Topic)  | 说明             |
+| Topic  | Description  |
 | ------------ | ---------------- |
-| routes/count | 当前 Routes 总数 |
-| routes/max   | Routes 数量历史最大值 |
+| routes/count | total number of current Routes |
+| routes/max   | maximum number of Routes |
 
-`topics/count` 和 `topics/max` 与 `routes/count` 和 `routes/max` 数值上是相等的。
+ The topics/count and topics/max are numerically equal to routes/count and routes/max.
 
-## 收发流量 / 报文 / 消息统计
+### Throughput (bytes/packets/message) statistics
 
-系统主题 (Topic) 前缀: `$SYS/brokers/${node}/metrics/`
+ System Topic Prefix : `$SYS/brokers/${node}/metrics/`
 
-#### 收发流量统计
+#### sent and received bytes statistics
 
-| 主题 (Topic)    | 说明         |
+| Topic          | Description                |
 | -------------- | ------------ |
-| bytes/received | 累计接收流量 |
-| bytes/sent     | 累计发送流量 |
+| bytes/received | Accumulated received bytes |
+| bytes/sent     | Accumulated sent bytes |
 
-#### MQTT 报文收发统计
+#### sent and received MQTT packets statistics
 
-| 主题 (Topic)                 | 说明                           |
-| --------------------------- | ------------------------------ |
-| packets/received            | 累计接收 MQTT 报文             |
-| packets/sent                | 累计发送 MQTT 报文             |
-| packets/connect             | 累计接收 MQTT CONNECT 报文     |
-| packets/connack             | 累计发送 MQTT CONNACK 报文     |
-| packets/publish/received    | 累计接收 MQTT PUBLISH 报文     |
-| packets/publish/sent        | 累计发送 MQTT PUBLISH 报文     |
-| packets/puback/received     | 累计接收 MQTT PUBACK 报文      |
-| packets/puback/sent         | 累计发送 MQTT PUBACK 报文      |
-| packets/puback/missed       | 累计丢失 MQTT PUBACK 报文      |
-| packets/pubrec/received     | 累计接收 MQTT PUBREC 报文      |
-| packets/pubrec/sent         | 累计发送 MQTT PUBREC 报文      |
-| packets/pubrec/missed       | 累计丢失 MQTT PUBREC 报文      |
-| packets/pubrel/received     | 累计接收 MQTT PUBREL 报文      |
-| packets/pubrel/sent         | 累计发送 MQTT PUBREL 报文      |
-| packets/pubrel/missed       | 累计丢失 MQTT PUBREL 报文      |
-| packets/pubcomp/received    | 累计接收 MQTT PUBCOMP 报文     |
-| packets/pubcomp/sent        | 累计发送 MQTT PUBCOMP 报文     |
-| packets/pubcomp/missed      | 累计丢失 MQTT PUBCOMP 报文     |
-| packets/subscribe           | 累计接收 MQTT SUBSCRIBE 报文   |
-| packets/suback              | 累计发送 MQTT SUBACK 报文      |
-| packets/unsubscribe         | 累计接收 MQTT UNSUBSCRIBE 报文 |
-| packets/unsuback            | 累计发送 MQTT UNSUBACK 报文    |
-| packets/pingreq             | 累计接收 MQTT PINGREQ 报文     |
-| packets/pingresp            | 累计发送 MQTT PINGRESP 报文    |
-| packets/disconnect/received | 累计接收 MQTT DISCONNECT 报文  |
-| packets/disconnect/sent     | 累计接收 MQTT DISCONNECT 报文  |
-| packets/auth                | 累计接收 MQTT AUTH 报文             |
+| Topic                        | Description                                      |
+| ---------------------------- | ------------------------------------------------ |
+| packets/received             | Accumulative received MQTT packets               |
+| packets/sent                 | Accumulative sent MQTT packets                   |
+| packets/connect/received     | Accumulative received packets of CONNECT         |
+| packets/connack/sent         | Accumulative sent packets of CONNACK             |
+| packets/publish/received     | Accumulative received packets of PUBLISH         |
+| packets/publish/sent         | Accumulative sent packets of PUBLISH             |
+| packets/publish/error        | Accumulative handling packets of PUBLISH error   |
+| packets/publish/auth_error   | Accumulative denied packets of PUBLISH           |
+| packets/publish/dropped      | Accumulative dropped packets of PUBLISH          |
+| packets/puback/received      | Accumulative received packets of PUBACK          |
+| packets/puback/sent          | Accumulative sent packets of PUBACK              |
+| packets/puback/inuse         | Accumulative dropped packets of PUBACK           |
+| packets/puback/missed        | Accumulative missed packets of PUBACK            |
+| packets/pubrec/received      | Accumulative received packets of PUBREC          |
+| packets/pubrec/sent          | Accumulative sent packets of PUBREC              |
+| packets/pubrec/inuse         | Accumulative dropped packets of PUBREC           |
+| packets/pubrec/missed        | Accumulative missed packets of PUBREC            |
+| packets/pubrel/received      | Accumulative received packets of PUBREL          |
+| packets/pubrel/sent          | Accumulative sent packets of PUBREL              |
+| packets/pubrel/missed        | Accumulative missed packets of PUBREL            |
+| packets/pubcomp/received     | Accumulative received packets of PUBCOMP         |
+| packets/pubcomp/sent         | Accumulative sent packets of PUBCOMP             |
+| packets/pubcomp/inuse        | Accumulative dropped packets of PUBCOMP          |
+| packets/pubcomp/missed       | Accumulative missed packets of PUBCOMP           |
+| packets/subscribe/received   | Accumulative received packets of SUBSCRIBE       |
+| packets/subscribe/error      | Accumulative handling packets of SUBSCRIBE error |
+| packets/subscribe/auth_error | Accumulative denied packets of SUBSCRIBE         |
+| packets/suback/sent          | Accumulative sent packets of SUBACK              |
+| packets/unsubscribe/received | Accumulative received packets of UNSUBSCRIBE     |
+| packets/unsuback/sent        | Accumulative sent packets of UNSUBACK            |
+| packets/pingreq/received     | Accumulative received packets of PINGREQ         |
+| packets/pingresp/sent        | Accumulative sent packets of PINGRESP            |
+| packets/disconnect/received  | Accumulative received packets of DISCONNECT      |
+| packets/disconnect/sent      | Accumulative sent packets of DISCONNECT          |
+| packets/auth/received        | Accumulative received packets of AUTH            |
+| packets/auth/sent            | Accumulative sent packets of AUTH                |
 
-#### MQTT 消息收发统计
+#### MQTT sent and received messages statistics
 
-| 主题 (Topic)            | 说明               |
-| ---------------------- | ------------------ |
-| messages/received      | 累计接收消息       |
-| messages/sent          | 累计发送消息       |
-| messages/expired       | 累计过期消息       |
-| messages/retained      | Retained 消息总数  |
-| messages/dropped       | 丢弃消息总数       |
-| messages/forward       | 节点转发消息总数   |
-| messages/qos0/received | 累计接收 QoS 0 消息 |
-| messages/qos0/sent     | 累计发送 QoS 0 消息 |
-| messages/qos1/received | 累计接收 QoS 1 消息 |
-| messages/qos1/sent     | 累计发送 QoS 1 消息 |
-| messages/qos2/received | 累计接收 QoS 2 消息 |
-| messages/qos2/sent     | 累计发送 QoS 2 消息 |
-| messages/qos2/expired  | QoS 2 过期消息总数  |
-| messages/qos2/dropped  | QoS 2 丢弃消息总数  |
+| Topic                           | Description                                      |
+| ------------------------------- | ------------------------------------------------ |
+| messages/received               | Accumulative received messages                   |
+| messages/sent                   | Accumulative sent messages                       |
+| messages/qos0/received          | Accumulative received messages of QoS0           |
+| messages/qos0/sent              | Accumulative sent messages of QoS0               |
+| messages/qos1/received          | Accumulative received messages QoS1              |
+| messages/qos1/sent              | Accumulative sent messages QoS1                  |
+| messages/qos2/received          | Accumulative received messages of QoS2           |
+| messages/qos2/sent              | Accumulative sent messages of QoS2               |
+| messages/publish                | Accumulative PUBLISH messages                    |
+| messages/dropped                | Total number of dropped messages                 |
+| messages/dropped/expired        | Total number of dropped messages (Expired)       |
+| messages/dropped/no_subscribers | Total number of dropped messages (No subscriber) |
+| messages/forward                | Total number of messages forwarded by the node   |
+| messages/retained               | Accumulative retained messages                   |
+| messages/delayed                | Accumulative delayed messages                    |
+| messages/delivered              | Accumulative delivered messages                  |
+| messages/acked                  | Accumulative acked messages                      |
 
-## Alarms - 系统告警
+## Alarms - system alarms
 
-系统主题 (Topic) 前缀: `$SYS/brokers/${node}/alarms/`
+System Topic Prefix: `$SYS/brokers/${node}/alarms/`
 
-| 主题 (Topic) | 说明         |
+| Topic | Description           |
 | ----------- | ------------ |
-| alert       | 新产生的告警 |
-| clear       | 被清除的告警 |
+| alert       | newly generated alarm |
+| clear       | cleared alarm |
 
-## Sysmon - 系统监控
+## Sysmon - system monitoring
 
-系统主题 (Topic) 前缀: `$SYS/brokers/${node}/sysmon/`
+System Topic Prefix: `$SYS/brokers/${node}/sysmon/`
 
-| 主题 (Topic)    | 说明              |
+| Topic          | Description                         |
 | -------------- | ----------------- |
-| long_gc        | GC 时间过长警告   |
-| long_schedule  | 调度时间过长警告  |
-| large_heap     | Heap 内存占用警告 |
-| busy_port      | Port 忙警告       |
-| busy_dist_port | Dist Port 忙警告  |
+| long_gc        | GC Overtime alarm |
+| long_schedule  | Alarm for Excessive Scheduling Time |
+| large_heap     | ALarm for Heap Memory Occupancy |
+| busy_port      | Alarm for Port busy |
+| busy_dist_port | Alarm for Dist Port busy |

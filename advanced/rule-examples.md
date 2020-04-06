@@ -1,21 +1,21 @@
-# 创建规则 {#rule-examples}
+# Create rules {#rule-examples}
 
 
-## 使用 Dashboard 创建规则 {#rule-ex-dashboard}
+## Create rules using Dashboard {#rule-ex-dashboard}
 
-### 创建 WebHook 规则 {#rule-ex-dashboard-webhook}
+### Create WebHook rules{#rule-ex-dashboard-webhook}
 
-0. 搭建 Web 服务，这里使用 `nc` 命令做一个简单的Web 服务:
+0.  Setup a Web Service, here we setup a simple web service using the linux tool `nc`: 
 
    ```bash
    $ while true; do echo -e "HTTP/1.1 200 OK\n\n $(date)" | nc -l 127.0.0.1 9901; done;
    ```
 
-1. 创建规则:
+1.  Create a rule: 
 
-   打开 [emqx dashboard](http://127.0.0.1:18083/#/rules)，选择左侧的 “规则” 选项卡。
+   Go to [emqx dashboard](http://127.0.0.1:18083/#/rules), select the “rule” tab on the menu to the left. 
 
-   选择触发事件 “消息发布”，然后填写规则 SQL:
+    Select “message.publish”, then type in the following SQL: 
 
    ```sql
       SELECT
@@ -26,45 +26,45 @@
 
    ![image](../assets/webhook-rulesql-1.png)
 
-2. 关联动作:
+2. Bind an action:
 
-   在 “响应动作” 界面选择 “添加”，然后在 “动作” 下拉框里选择 “发送数据到 Web 服务”。
+    Click on the “+ Add” button under “Action Handler”, and then select “Data to Web Server” in the pop-up dialog window. 
 
   ![image](../assets/webhook-action-1.png)
 
-3. 给动作关联资源:
+3. Bind a resource to the action:
 
-   现在资源下拉框为空，可以点击右上角的 “新建资源” 来创建一个 WebHook 资源:
+   Since the dropdown list “Resource” is empty for now, we create a new resource by clicking on the “New Resource” to the top right: 
 
    ![image](../assets/webhook-action-2.png)
 
-   选择 “WebHook 资源”:
+   then select “WebHook”:
 
    ![image](../assets/webhook-resource-1.png)
 
-4. 填写资源配置:
+4. Configure the resource:
 
-   填写 “请求 URL” 和请求头(可选):
+    Fill in the “Request URL” and “Request Header”(Optional): 
 
    http://127.0.0.1:9901
 
-   点击 “测试连接” 按钮，确保连接测试成功，最后点击 “新建” 按钮:
+    And click on the “Testing Connection” button to make sure the connection can be created successfully, and then click on the “Create” button. 
 
    ![image](../assets/webhook-resource-2.png)
 
-5. 返回响应动作界面，点击 “确认”。
+5. Back to the “Actions” dialog, and then click on the “Confirm” button.
 
    ![image](../assets/webhook-action-3.png)
 
-6. 返回规则创建界面，点击 “新建”。
+6.  Back to the creating rule page, then click on “Create” button. The rule we created will be show in the rule list 
 
    ![image](../assets/webhook-rule-create.png)
 
-   规则已经创建完成，规则列表里展示出了新创建的规则:
+    We have finished, testing the rule by sending an MQTT message to emqx: 
 
    ![image](../assets/webhook-rulelist-1.png)
 
-7. 发一条消息:
+7. send a message
 
       Topic: "t/1"
 
@@ -72,19 +72,18 @@
 
       Payload: "Hello web server"
 
-  然后检查 Web 服务是否收到消息:
+ Then check if the web service receives the message:
 
   ![image](../assets/webhook-result-1.png)
 
-## 通过 CLI 创建简单规则 {#rule-ex-cli}
+## Create Simple Rules using CLI{#rule-ex-cli}
 
-### 创建 Inspect 规则  {#rule-ex-cli-inspect}
+### Create Inspect Rules  {#rule-ex-cli-inspect}
 
-创建一个测试规则，当有消息发送到 't/a' 主题时，打印消息内容以及动作参数细节。
+Create a rule for testing: print the content of the message and all the args of the action, when a MQTT message is sent to topic ‘t/a’. 
 
-- 规则的筛选 SQL 语句为: SELECT \* FROM "message.publish" WHERE topic = 't/a';
-
-- 动作是: "打印动作参数细节"，需要使用内置动作 'inspect'。
+- The filter SQL is: SELECT \* FROM "message.publish" WHERE topic = 't/a';
+- The action is: “print the content of the message and all the args of the action”, the action we need is ‘inspect’.
 
 ```bash
 $ ./bin/emqx_ctl rules create \
@@ -95,18 +94,16 @@ $ ./bin/emqx_ctl rules create \
 Rule rule:803de6db created
 ```
 
-上面的 CLI 命令创建了一个 ID 为 'Rule rule:803de6db' 的规则。
+ The CLI above created a rule with ID=’Rule rule:803de6db’. 
 
-参数中前两个为必选参数:
+ The first two args are mandatory: 
 
-- SQL 语句: SELECT \* FROM "message.publish" WHERE topic = 't/a'
-- 动作列表: \[{"name":"inspect", "params": {"a": 1}}\]。动作列表是用 JSON Array
-  格式表示的。name 字段是动作的名字，params 字段是动作的参数。注意 `inspect` 动作是不需要绑定资源的。
+- SQL: SELECT \* FROM "message.publish" WHERE topic = 't/a'
+- Action List: [{“name”:”inspect”, “params”: {“a”: 1}}]. Action List is of type JSON Array. “name” is the name of the action, “params” is the parameters of the action. Note that the action `inspect` does not need a resource.
 
-最后一个可选参数，是规则的描述: 'Rule for debug'。
+ The last arg is an optional description of the rule: ‘Rule for debug’. 
 
-接下来当发送 "hello" 消息到主题 't/a' 时，上面创建的 "Rule rule:803de6db" 规则匹配成功，然后
-"inspect" 动作被触发，将消息和参数内容打印到 emqx 控制台:
+If a MQTT message “hello” is sent to topic ‘t/a’, the rule “Rule rule:803de6db” will be matched, and then action “inspect” will be triggered, the following info will be printed to the emqx console: 
 
 ```bash
 $ tail -f log/erlang.log.1
@@ -133,31 +130,29 @@ $ tail -f log/erlang.log.1
     Action Init Params: #{<<"a">> => 1}
 ```
 
-- `Selected Data` 列出的是消息经过 SQL 筛选、提取后的字段，由于我们用的是 `select
-  *`，所以这里会列出所有可用的字段。
-- `Envs` 是动作内部可以使用的环境变量。
-- `Action Init Params` 是初始化动作的时候，我们传递给动作的参数。
+- `Selected Data` listed the fields that selected by the SQL. All available fields will be listed here, as we used `select *`.
+- `Envs` is the environment variables that can be used internally in the action.
+- `Action Init Params` is the params we passed to the action.
 
 ### 创建 WebHook 规则  {#rule-ex-cli-webhook}
 
-创建一个规则，将所有发送自 client\_id='Steven' 的消息，转发到地址为 '<http://127.0.0.1:9910>' 的
-Web 服务器:
+Create a rule: Forward all the messages that send from client_id=’Steven’, to the Web Server at ‘[http://127.0.0.1:9910](http://127.0.0.1:9910/)’: 
 
-- 规则的筛选条件为: SELECT username as u, payload FROM "message.publish" where
+- The filter SQL: SELECT username as u, payload FROM "message.publish" where
   u='Steven';
-- 动作是: "转发到地址为 '<http://127.0.0.1:9910>' 的 Web 服务";
-- 资源类型是: web\_hook;
-- 资源是: "到 url='<http://127.0.0.1:9910>' 的 WebHook 资源"。
+- Actions: “Forward to ‘[http://127.0.0.1:9910](http://127.0.0.1:9910/)’”;
+- Resource Type: web_hook;
+- Resource: “The WebHook resource at ‘[http://127.0.0.1:9910](http://127.0.0.1:9910/)’”.
 
-0. 首先我们创建一个简易 Web 服务，这可以使用 `nc` 命令实现:
+0.  Create a simpile Web service using linux tool `nc`: 
 
     ```bash
     $ while true; do echo -e "HTTP/1.1 200 OK\n\n $(date)" | nc -l 127.0.0.1 9910; done;
     ```
 
-1. 使用 WebHook 类型创建一个资源，并配置资源参数 url:
+1.  Create a resource of resource type “WebHook”, and configure the url: 
 
-    1). 列出当前所有可用的资源类型，确保 'web\_hook' 资源类型已存在:
+    1).  List all available resource types, make sure ‘web_hook’ exists: 
 
     ```bash
     $ ./bin/emqx_ctl resource-types list
@@ -166,7 +161,7 @@ Web 服务器:
     ...
     ```
 
-    2). 使用类型 'web\_hook' 创建一个新的资源，并配置 "url"="<http://127.0.0.1:9910>":
+    2).  Create a new resource using resource type ‘web_hook’, configure “url”=”[http://127.0.0.1:9910](http://127.0.0.1:9910/)”: 
 
     ```bash
     $ ./bin/emqx_ctl resources create \
@@ -176,13 +171,11 @@ Web 服务器:
     Resource resource:691c29ba created
     ```
 
-    上面的 CLI 命令创建了一个 ID 为 '<resource:691c29ba>' 的资源，第一个参数是必选参数 -
-    资源类型(web\_hook)。参数表明此资源指向 URL = "<http://127.0.0.1:9910>" 的
-    Web 服务，方法为 POST，并且设置了一个 HTTP Header: "token"。
+    Above CLI created a resource with ID=’resource:691c29ba’, the first arg is mandatory - The resource type (web_hook). HTTP method is POST, and an HTTP Header is set: “token”. 
+    
+2.  Create a rule, and bind action ‘data_to_webserver’ to it: 
 
-2. 然后创建规则，并选择规则的动作为 'data\_to\_webserver':
-
-    1). 列出当前所有可用的动作，确保 'data\_to\_webserver' 动作已存在:
+    1).  List all available actions, make sure ‘data_to_webserver’ exists: 
 
       ```bash
       $ ./bin/emqx_ctl rule-actions list
@@ -191,24 +184,20 @@ Web 服务器:
       ...
       ```
 
-    2). 创建规则，选择 data\_to\_webserver 动作，并通过 "$resource" 参数将
-    <resource:691c29ba> 资源绑定到动作上:
-
-      ```bash
+    2).  Create the rule, bind the action data_to_webserver, and bind resource resource:691c29ba to the action via the arg “$resource”: 
+    
+  ```bash
       $ ./bin/emqx_ctl rules create \
         "SELECT username as u, payload FROM \"message.publish\" where u='Steven'" \
         '[{"name":"data_to_webserver", "params": {"$resource":  "resource:691c29ba"}}]' \
         -d "Forward publish msgs from steven to webserver"
-
-      rule:26d84768
+    
+  rule:26d84768
       ```
-
-    上面的 CLI 命令与第一个例子里创建 Inspect 规则时类似，区别在于这里需要把刚才创建的资源
-    '<resource:691c29ba>' 绑定到 'data\_to\_webserver'
-    动作上。这个绑定通过给动作设置一个特殊的参数
-    '$resource' 完成。'data\_to\_webserver' 动作的作用是将数据发送到指定的 Web 服务器。
-
-3. 现在我们使用 username "Steven" 发送 "hello" 到任意主题，上面创建的规则就会被触发，Web Server 收到消息并回复 200 OK:
+    
+ Above CLI is simlar to the first Inspect rule, with exception that the resource ‘resource:691c29ba’ is bound to ‘data_to_webserver’. The binding is done by a special arg named ‘$resource’. What the action ‘data_to_webserver’ does is sending messages to the specified web server. 
+    
+3. Now let’s send a message “hello” to an arbitrary topic using username “Steven”, this will trigger the rule we created above, and the Web Server will receive an message and return 200 OK: 
 
   ```bash
   $ while true; do echo -e "HTTP/1.1 200 OK\n\n $(date)" | nc -l 127.0.0.1 9910; done;
