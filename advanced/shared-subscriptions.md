@@ -15,9 +15,9 @@ category:
 ref: undefined
 ---
 
-# 共享订阅
+## Shared subscription
 
-共享订阅是在多个订阅者之间实现负载均衡的订阅方式：
+Shared subscription is a subscription method that achieves load balancing among multiple subscribers:
 
 ```bash
                                                    [subscriber1] got msg1
@@ -27,26 +27,25 @@ ref: undefined
                                                    [subscriber3] got msg3
 ```
 
-上图中，共享 3 个 subscriber 用共享订阅的方式订阅了同一个主题 `$share/g/topic`，其中`topic` 是它们订阅的真实主题名，而  `$share/g/` 是共享订阅前缀。EMQ X Broker 支持两种格式的共享订阅前缀：
+In the above picture, three subscribers subscribe to the same topic `$share/g/topic` using a shared subscription method, where ` topic` is the real topic name they subscribed to, and `$share/g/`  is a shared subscription Prefix. EMQ X Broker supports shared subscription prefixes in two formats:
 
-| 示例            | 前缀        | 真实主题名 |
-| --------------- | ----------- | ---------- |
-| $queue/t/1      | $queue/     | t/1        |
-| $shared/abc/t/1 | $shared/abc | t/1        |
+| Example         | Prefix      | Real topic name |
+| --------------- | ----------- | --------------- |
+| $queue/t/1      | $queue/     | t/1             |
+| $shared/abc/t/1 | $shared/abc | t/1             |
 
 
-### 带群组的共享订阅
+### Shared subscription with groups
 
-以 `$share/<group-name>` 为前缀的共享订阅是带群组的共享订阅：
+Shared subscriptions prefixed with `$ share/<group-name>` are shared subscriptions with groups:
 
-group-name 可以为任意字符串，属于同一个群组内部的订阅者将以负载均衡接收消息，但 EMQ X Broker 会向不同群组广播消息。
+group-name can be any string. Subscribers who belong to the same group will receive messages with load balancing, but EMQ X Broker will broadcast messages to different groups.
 
-例如，假设订阅者 s1，s2，s3 属于群组 g1，订阅者 s4，s5 属于群组 g2。那么当 EMQ X Broker 向这个主题发布消息 msg1 的时候：
+For example, suppose that subscribers s1, s2, and s3 belong to group g1, and subscribers s4 and s5 belong to group g2. Then when EMQ X Broker publishes a message msg1 to this topic:
 
-- EMQ X Broker 会向两个群组 g1 和 g2 同时发送 msg1
-
-- s1，s2，s3 中只有一个会收到 msg1
-- s4，s5 中只有一个会收到 msg1
+- EMQ X Broker will send msg1 to both groups g1 and g2
+- Only one of s1, s2, s3 will receive msg1
+- Only one of s4 and s5 will receive msg1
 
 ```bash
                                        [s1]
@@ -60,9 +59,9 @@ group-name 可以为任意字符串，属于同一个群组内部的订阅者将
                                       [s5] got msg1
 ```
 
-### 不带群组的共享订阅
+### Shared subscription without group
 
-以 `$queue/` 为前缀的共享订阅是不带群组的共享订阅。它是 `$share` 订阅的一种特例，相当与所有订阅者都在一个订阅组里面：
+Shared subscriptions prefixed with `$queue/` are shared subscriptions without groups. It is a special case of `$share` subscription, which is quite similar to all subscribers in a subscription group:
 
 ```bash
                                        [s1] got msg1
@@ -72,28 +71,28 @@ group-name 可以为任意字符串，属于同一个群组内部的订阅者将
                                        [s3] got msg3
 ```
 
-### 均衡策略与派发 Ack 配置
+### Balancing strategy and distribution of Ack configuration
 
-EMQ X Broker 的共享订阅支持均衡策略与派发 Ack 配置：
+EMQ X Broker's shared subscription supports balancing strategy and distribution of Ack configuration:
 
 ```bash
 # etc/emqx.conf
 
-# 均衡策略
+# balancing strategy
 broker.shared_subscription_strategy = random
 
-# 适用于 QoS1 QoS2 消息，启用时在其中一个组离线时，将派发给另一个组
+# Applicable to QoS1 QoS2 messages, when enabled, message will be distributed to another group when one group is offline
 broker.shared_dispatch_ack_enabled = false
 ```
 <!-- TODO 待确认 -->
 
-|  均衡策略    |             描述             |
+| Balancing strategy |             Description             |
 | :---------- | :--------------------------- |
-| random      | 在所有订阅者中随机选择       |
-| round_robin | 按照订阅顺序                 |
-| sticky      | 一直发往上次选取的订阅者     |
-| hash        | 按照发布者 ClientID 的哈希值 |
+| random      | Select randomly among all subscribers |
+| round_robin | According to the order of subscription |
+| sticky      | Always sent to the last selected subscriber |
+| hash        | According to the hash value of the publisher ClientID |
 
 {% hint style="info" %}
-无论是单客户端订阅还是共享订阅都要注意客户端性能与消息接收速率，否则会引发消息堆积、客户端崩溃等错误。
+Whether it is a single client subscription or a shared subscription, pay attention to the client performance and message reception rate, otherwise it will cause errors such as message accumulation and client crash.
 {% endhint %}

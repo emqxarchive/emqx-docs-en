@@ -15,7 +15,7 @@ category:
 ref:
 ---
 
-# 相关资料
+# Relevant information
 
 [![GitHub Release](https://img.shields.io/github/release/emqx/emqx?color=brightgreen)](https://github.com/emqx/emqx/releases)
 [![Docker Pulls](https://img.shields.io/docker/pulls/emqx/emqx)](https://hub.docker.com/r/emqx/emqx)
@@ -23,15 +23,15 @@ ref:
 [![Twitter](https://img.shields.io/badge/Twitter-EMQ%20X-1DA1F2?logo=twitter)](https://twitter.com/emqtt)
 
 
-## 官方资源
+## Official resources
 
-  - [EMQ 官方网站](https://www.emqx.io?spm=docs)
-  - [EMQ 官方博客](https://www.emqx.io/cn/blog?spm=docs)
-  - [EMQ X GitHub 仓库](https://github.com/emqx/emqx)
+  - [EMQ Official website](https://www.emqx.io?spm=docs)
+  - [EMQ Official blog](https://www.emqx.io/cn/blog?spm=docs)
+  - [EMQ X GitHub  depositary ](https://github.com/emqx/emqx)
 
-## 社区、讨论、贡献和支持
+## Community, discussion, contribution and support
 
-你可通过以下途径与 EMQ 社区及开发者联系：
+You can contact the EMQ community and developers through the following channels:
 
   - [EMQ X Slack](http://emqx.slack.com)
   - [Twitter](https://twitter.com/emqtt)
@@ -39,24 +39,24 @@ ref:
   - [Medium](https://medium.com/@emqtt)
   - [Reddit](https://www.reddit.com/r/emqx/)
 
-欢迎你将任何 bug、问题和功能请求提交到 [emqx/emqx](https://github.com/emqx/emqx/issues)。
+You are welcome to submit any bugs, issues and feature requests to [emqx/emqx](https://github.com/emqx/emqx/issues)。
 
 
-## 使用 EMQ X Broker 的项目
+## Projects using EMQ X Broker
 
-以下是提交投稿的使用 EMQ X Broker 的开源项目，未提交项目/商业项目不在此列：
+The following are submitted open source projects that use EMQ X Broker. Unsubmitted projects/commercial projects are not listed here:
 
-- [ActorCloud](https://github.com/emqx/ActorCloud) - 开源一站式物联网平台服务
+- [ActorCloud](https://github.com/emqx/ActorCloud) -Open source one-stop IoT platform service
 
-## 中文教程
+## Chinese tutorial
 
-EMQ X Broker 系列教程及 Erlang/IoT 相关博客、视频站点，欢迎留言或 [Issues 投稿](https://github.com/emqx/emqx-docs-cn)。
+For EMQ X Broker series of tutorials and Erlang/IoT related blogs and video sites, please leave a message or [Issues contribution](https://github.com/emqx/emqx-docs-cn).
 
-- 暂无
+- None
 
-## MQTT 规范
+## MQTT specification
 
-你可以通过以下链接了解与查阅 MQTT 协议：
+You can learn about and check the MQTT protocol through the following link:
 
 - [MQTT Version 3.1.1](https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/os/mqtt-v3.1.1-os.html)
 
