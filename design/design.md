@@ -15,172 +15,164 @@ category:
 ref: undefined
 ---
 
-# 架构设计
+# Architecture design
 
-## 前言
+## Foreword
 
-EMQ X Broker 在设计上，首先分离了前端协议 (FrontEnd) 与后端集成 (Backend)，其次分离了消息路由平面 (Flow
-Plane) 与监控管理平面 (Monitor/Control Plane):
+In terms of the design of EMQ X Broker, it firstly separates the FrontEnd and Backend, and secondly separates the  Message Flow Plane and Monitor/Control Plane :
 
 ![image](../assets/design_1.png)
 
-### 100 万连接
+### 1 million connections
 
-多核服务器和现代操作系统内核层面，可以很轻松支持 100 万 TCP 连接，核心问题是应用层面如何处理业务瓶颈。
+With Multi-core servers and modern operating system kernel, it can easily support 1 million TCP connections. The core issue is how to deal with business bottlenecks at the application level.
 
-EMQ X Broker 在业务和应用层面，解决了单节点承载100万连接的各类瓶颈问题。连接测试的操作系统内核、TCP 协议栈、Erlang
-虚拟机参数参见: <http://docs.emqtt.cn/zh_CN/latest/tune.html>。
+EMQ X Broker solves all kinds of bottleneck problems of single node carrying 1 million connections at the business and application level. For the operating system kernel, TCP protocol stack, and Erlang virtual machine parameters of connection testing, see: <http://docs.emqtt.cn/zh_CN/latest/tune.html>
 
-### 全异步架构
+### Fully asynchronous architecture
 
-EMQ X Broker 是基于 Erlang/OTP 平台的全异步的架构：异步 TCP
-连接处理、异步主题 (Topic) 订阅、异步消息发布。只有在资源负载限制部分采用同步设计，比如
-TCP 连接创建和 Mnesia 数据库事务执行。
+EMQ X Broker is a fully asynchronous architecture based on the Erlang/OTP platform: asynchronous TCP connection processing, asynchronous Topic subscription, and asynchronous message publishing. Only for the resource load limitation part, it adopts synchronous design, such as TCP connection creation and Mnesia database transaction execution.
 
-EMQ X 3.0 版本中，一条 MQTT 消息从发布者 (Publisher) 到订阅者 (Subscriber)，在 EMQ X
-Broker 内部异步流过一系列 Erlang 进程 Mailbox:
+In the EMQ X 3.0 version, from the Publisher to the Subscriber, a MQTT message flows   with a series of Erlang processes Mailbox flows asynchronously inside the EMQ XBroker:
 
 ![image](../assets/design_2.png)
 
-### 消息持久化
+### Message persistence
 
-EMQ X 开源产品不支持服务器内部消息持久化，这是一个架构设计选择。首先，EMQ X
-解决的核心问题是连接与路由；其次，我们认为内置持久化是个错误设计。
+EMQ X open source products do not support message persistence within the server, which is an architectural design choice. Firstly, the core problem solved by EMQ X is connection and routing; secondly, we think that built-in persistence is a wrong design.
 
-传统内置消息持久化的 MQ 服务器，比如广泛使用的 JMS 服务器
-ActiveMQ，几乎每个大版本都在重新设计持久化部分。内置消息持久化在设计上有两个问题:
+Traditional MQ servers with built-in message persistence, such as the widely used JMS server ActiveMQ, have redesigned the persistence part in almost every major version. There are two design issues with built-in message persistence:
 
-1.  如何权衡内存与磁盘的使用？消息路由是基于内存的，而消息存储是基于磁盘的。
-2.  多服务器分布集群架构下，如何放置 Queue 如何复制 Queue 的消息？
+1.  How to balance the use of memory and disk? Message routing is based on memory, while message storage is based on disk.
+2. In a multi-server distributed cluster architecture, how to place Queue and how to copy Queue messages?
 
-Kafka 在上述问题上，做出了正确的设计：一个完全基于磁盘分布式 Commit Log 的消息服务器。
+Kafka made a correct design on the above problem, which is a message server based entirely on disk-distributed Commit Log.
 
-EMQ X 在设计上分离消息路由与消息存储职责后，数据复制容灾备份甚至应用集成，可以在数据层面灵活实现。
+After EMQ X separates message routing and message storage responsibilities in the design, the function of data replication, disaster recovery and even application integration can be implemented flexibly at the data level.
 
-EMQ X 企业版产品中，可以通过规则引擎或插件的方式，持久化消息到
-Redis、MongoDB、Cassandra、MySQL、PostgreSQL 等数据库，以及 RabbitMQ、Kafka
-等消息队列。
+In EMQ X Enterprise Edition products, through rule engines or plugins, messages can be persisted to both databases such as Redis, MongoDB, Cassandra, MySQL, PostgreSQL, and message queues such as RabbitMQ, Kafka.
 
-## 系统架构
+## System structure
 
-### 概念模型
+### Conceptual model
 
-EMQ X Broker 概念上更像一台网络路由器 (Router) 或交换机 (Switch)，而不是传统的企业级消息队列 (MQ)。相比网络路由器按
-IP 地址或 MPLS 标签路由报文，EMQ X Broker 按主题树 (Topic Trie) 发布订阅模式在集群节点间路由 MQTT 消息:
+EMQ X Broker is more like a network Router or a Switch in concept, rather than the traditional enterprise-level message queue (MQ). Compared to network routers that route packets by IP address or MPLS label, EMQ X Broker routes MQTT messages between cluster nodes by publish-subscribe model of Topic Trie:
 
 ![image](./../assets/design_3.png)
 
-### 设计原则
+### Design Philosophy
 
-1. EMQ X Broker 核心解决的问题：处理海量的并发 MQTT 连接与路由消息。
-2. 充分利用 Erlang/OTP 平台软实时、低延时、高并发、分布容错的优势。
-3. 连接 (Connection)、会话 (Session)、路由 (Router)、集群 (Cluster) 分层。
-4. 消息路由平面 (Flow Plane) 与控制管理平面 (Control Plane) 分离。
-5. 支持后端数据库或 NoSQL 实现数据持久化、容灾备份与应用集成。
+1. The core problem solved by the EMQ X Broker is to process massive concurrent MQTT connection and routing messages.
+2. Embrace Erlang/OTP, the Soft-Realtime, Low-Latency, Concurrent and Fault-Tolerant Platform.
+3. Layered Design: Connection, Session, PubSub and Router Layers.
+4. Separate the Message Flow Plane and the Control/Management Plane.
+5. Support backend database or NoSQL for data persistence, disaster recovery and application integration.
 
-### 系统分层
+### System Layers
 
-1. 连接层 (Connection Layer)：负责 TCP 连接处理、 MQTT 协议编解码。
-2. 会话层 (Session Layer)：处理 MQTT 协议发布订阅消息交互流程。
-3. 路由层 (Route Layer)：节点内路由派发 MQTT 消息。
-4. 分布层 (Distributed Layer)：分布节点间路由 MQTT 消息。
-5. 认证与访问控制 (ACL)：连接层支持可扩展的认证与访问控制模块。
-6. 钩子 (Hooks) 与插件 (Plugins)：系统每层提供可扩展的钩子，支持插件方式扩展服务器。
+1. Connection Layer: Handle TCP and WebSocket connections, encode/decode MQTT packets.
+2. Session Layer: Process MQTT PUBLISH/SUBSCRIBE Packets received from client, and deliver MQTT messages to client.
+3. Routing(Distributed) Layer: Route MQTT messages among clustered nodes.
+4. Distributed Layer: Distributed MQTT messages routed between distributed nodes.
+2. Authentication and access control (ACL): The connection layer supports extensible authentication and access control modules.
+3. Hooks and Plugins: Each layer of the system provides extensible hooks and supports server expansion with plugin.
 
-## 连接层设计
 
-连接层处理服务端 Socket 连接与 MQTT 协议编解码：
+ 
 
-1. 基于 [eSockd](https://github.com/emqx/esockd) 框架的异步 TCP 服务端
-2. TCP Acceptor 池与异步 TCP Accept
-3. TCP/SSL, WebSocket/SSL 连接支持
-4. 最大并发连接数限制
-5. 基于 IP 地址 (CIDR) 访问控制
-6. 基于 Leaky Bucket 的流控
-7. MQTT 协议编解码
-8. MQTT 协议心跳检测
-9. MQTT 协议报文处理
+## Connection Layer design
 
-## 会话层设计
+The connection layer handles the server-side Socket connection and MQTT protocol codec:
 
-会话层处理 MQTT 协议发布订阅 (Publish/Subscribe) 业务交互流程：
+1. Asynchronous TCP server based on  [eSockd](https://github.com/emqx/esockd)
+2. TCP Acceptor pool and asynchronous TCP Accept
+3. TCP / SSL, WebSocket / SSL connection support
+4. Maximum number of concurrent connections
+5. Access control based on IP address (CIDR)
+6. Flow control based on Leaky Bucket
+7. MQTT protocol codec
+8. MQTT protocol heartbeat detection
+9. MQTT protocol packet processing
 
-1. 缓存 MQTT 客户端的全部订阅 (Subscription)，并终结订阅 QoS
-2. 处理 QoS 0/1/2 消息接收与下发，消息超时重传与离线消息保存
-3. 飞行窗口 (Inflight Window)，下发消息吞吐控制与顺序保证
-4. 保存服务器发送到客户端的，已发送未确认的 QoS 1/2 消息
-5. 缓存客户端发送到服务端，未接收到 PUBREL 的 QoS 2 消息
-6. 客户端离线时，保存持久会话的离线 QoS 1/2 消息
+## Session Layer design
 
-### 报文 ID 与消息 ID
+The session layer handles the MQTT protocol Publish/Subscribe business interaction process:
 
-MQTT 协议定义了一个 16bits 的报文 ID (PacketId)，用于客户端到服务器的报文收发与确认。MQTT
-发布报文 (PUBLISH) 进入 Broker 后，转换为一个消息对象并分配 128bits 消息 ID (MessageId)。
+1. Cache all subscriptions of the MQTT client, and terminate the subscription QoS
+2. Handle QoS 0/1/2 message reception and delivery, message timeout retransmission and offline message saving
+3. Inflight Window, delivering message throughput control and order guarantee
+4. Save the unacknowledged QoS 1/2 message sent by the server to the client
+5. Cache  QoS 2 message that client sends to the server, but does not receive PUBREL
+6. When the client is offline, save the offline QoS 1/2 message of the persistent session
 
-全局唯一时间序列消息 ID 结构:
+### Packet ID and message ID
+
+The MQTT protocol defines a 16-bit PacketId, which is used to send, receive and confirm messages from the client to the server. After MQTT PUBLISH packet arrives at the broker, it is converted into a message object and assigned a 128-bit MessageId.
+
+Global unique time series message ID structure:
 
 ![image](../assets/design_5.png)
 
-1. 64bits 时间戳: erlang:system_time if Erlang \>= R18, otherwise os:timestamp
-2. Erlang 节点 ID: 编码为2字节
-3. Erlang 进程 PID: 编码为4字节
-4. 进程内部序列号: 2字节的进程内部序列号
+1. 64bits timestamp: erlang: system_time if Erlang \> = R18, otherwise os: timestamp
+2. Erlang node ID: encoded as 2 bytes
+3. Erlang process PID: encoded as 4 bytes
+4. Process internal serial number: 2-byte process internal serial number
 
-端到端消息发布订阅 (Pub/Sub) 过程中，发布报文 ID 与报文 QoS 终结在会话层，由唯一 ID 标识的 MQTT 消息对象在节点间路由:
+During the end-to-end message Pub/Sub process, the published message ID and packet QoS are terminated at the session layer, and the MQTT message object identified by the unique ID is routed between the nodes:
 
 ![image](../assets/design_6.png)
 
-## 路由层设计
+## Routing layer  design
 
-路由层维护订阅者 (Subscriber) 与订阅关系表 (Subscription)，并在本节点发布订阅模式派发 (Dispatch) 消息:
+The routing layer maintains the Subscriber and Subscription, and Dispatch message at this node with Pub/Sub model :
 
 ![image](../assets/design_7.png)
 
-消息派发到会话 (Session) 后，由会话负责按不同 QoS 送达消息。
+After the message is dispatched to the session, the session is responsible for delivering the message according to different QoS.
 
-## 分布层设计
+## Distribution layer design
 
-分布层维护全局主题树 (Topic Trie) 与路由表 (Route Table)。主题树由通配主题构成，路由表映射主题到节点:
+The distribution layer maintains a Topic Trie and a Route Table. The Topic Trie is composed of wildcard topics, and the Route Table maps topics to nodes:
 
 ![image](../assets/design_8.png)
 
-分布层通过匹配主题树 (Topic Trie) 和查找路由表 (Route Table)，在集群的节点间转发路由 MQTT 消息:
+The distribution layer forwards routed MQTT messages between nodes in the cluster by matching the Topic Trie and querying Route Table:
 
 ![image](../assets/design_9.png)
 
-## Mnesia/ETS 表设计
+## Mnesia/ETS  table design
 
-| Table                      | Type   | Description   |
-| -------------------------- | ------ | ------------- |
-| emqx_conn                  | ets    | 连接表           |
-| emqx_metrics               | ets    | 统计表           |
-| emqx_session               | ets    | 会话表           |
-| emqx_hooks                 | ets    | 钩子表           |
-| emqx_subscriber            | ets    | 订阅者表          |
-| emqx_subscription          | ets    | 订阅表           |
-| emqx_admin                 | mnesia | Dashboard 用户表 |
-| emqx_retainer              | mnesia | Retained 消息表  |
-| emqx_shared_subscription   | mnesia | 共享订阅表         |
-| emqx_session_registry      | mnesia | 全局会话注册表       |
-| emqx_alarm_history         | mnesia | 告警历史表         |
-| emqx_alarm                 | mnesia | 告警表           |
-| emqx_banned                | mnesia | 禁止登陆表         |
-| emqx_route                 | mnesia | 路由表           |
-| emqx_trie                  | mnesia | Trie 表        |
-| emqx_trie_node             | mnesia | Trie Node 表   |
-| mqtt_app                   | mnesia | App 表         |
+| Table                    | Type   | Description                     |
+| :----------------------- | :----- | :------------------------------ |
+| emqx_conn                | ets    | Connection Table                |
+| emqx_metrics             | ets    | Metrics Table                   |
+| emqx_session             | ets    | Session Table                   |
+| emqx_hooks               | ets    | Hooks Table                     |
+| emqx_subscriber          | ets    | Subscriber Table                |
+| emqx_subscription        | ets    | Subscription Table              |
+| emqx_admin               | mnesia | The Dashboard admin users Table |
+| emqx_retainer            | mnesia | Retained Message Table          |
+| emqx_shared_subscription | mnesia | Shared Subscription Table       |
+| emqx_session_registry    | mnesia | Global Session Registry Table   |
+| emqx_alarm_history       | mnesia | Alarms History                  |
+| emqx_alarm               | mnesia | Alarms                          |
+| emqx_banned              | mnesia | Built-In Banned Table           |
+| emqx_route               | mnesia | Global Route Table              |
+| emqx_trie                | mnesia | Trie Table                      |
+| emqx_trie_node           | mnesia | Trie Node Table                 |
+| mqtt_app                 | mnesia | App table                       |
 
-## Erlang 设计相关
+## Erlang design
 
-1. 使用 Pool, Pool, Pool... 推荐 GProc 库: <https://github.com/uwiger/gproc>
-2. 异步，异步，异步消息...连接层到路由层异步消息，同步请求用于负载保护
-3. 避免进程 Mailbox 累积消息
-4. 消息流经的 Socket 连接、会话进程必须 Hibernate，主动回收 binary 句柄
-5. 多使用 Binary 数据，避免进程间内存复制
-6. 使用 ETS, ETS, ETS... Message Passing vs. ETS
-7. 避免 ETS 表非键值字段 select, match
-8. 避免大量数据 ETS 读写, 每次 ETS 读写会复制内存，可使用 lookup_element, update_counter
-9. 适当开启 ETS 表 {write_concurrency, true}
-10. 保护 Mnesia 数据库事务，尽量减少事务数量，避免事务过载(overload)
-11. 避免对 Mnesia 数据表非索引、或非键值字段 match, select
+1. Use Pool, Pool, Pool ... Recommende GProc library: <https://github.com/uwiger/gproc>
+2. Asynchronous, asynchronous, asynchronous message ... asynchronous message between connection layer and the routing layer, and the synchronous request is used for load protection
+3. Avoid process Mailbox accumulating messages
+4. The Socket connection and session process through which the message flows must be Hibernate, and actively recover the binary handle
+5. Use Binary data more to avoid memory copying between processes
+6. Use ETS, ETS, ETS ... Message Passing vs. ETS
+7. Avoid ETS table non-key value field select, match
+8. Avoid large amounts of data ETS read and write, for each time of ETS read and write, it will copy memory, and you can use lookup_element, update_counter
+9. Properly open the ETS table {write_concurrency, true}
+10. Protect Mnesia database transactions, minimize the number of transactions, and avoid transaction overload 
+11. Avoid match, select for non-index or non-key value field of Mnesia data table 
 

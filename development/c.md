@@ -16,20 +16,20 @@ ref:
 ---
 
 
-# MQTT C 客户端库
+# MQTT C Client library
 
-[Eclipse Paho C](https://www.eclipse.org/paho/clients/c/) 与 [Eclipse Paho Embedded C](https://www.eclipse.org/paho/clients/c/embedded/) 均为 Eclipse Paho 项目下的 C 语言客户端库（MQTT C Client），均为使用 ANSI C 编写的功能齐全的 MQTT 客户端。
+[Eclipse Paho C](https://www.eclipse.org/paho/clients/c/) and [Eclipse Paho Embedded C](https://www.eclipse.org/paho/clients/c/embedded/) are all client libraries in C language (MQTT C Client) under the Eclipse Paho project, and are full-featured MQTT clients written in ANSI C.
 
-Eclipse Paho Embedded C 可以在桌面操作系统上使用，但主要针对 [mbed](http://mbed.org/)，[Arduino](http://www.arduino.cc/)和 [FreeRTOS](http://freertos.org/) 等嵌入式环境。
+Eclipse Paho Embedded C can be used on the desktop operating system, but mainly for embedded environments such as  [mbed](http://mbed.org/), [Arduino](http://www.arduino.cc/) and [FreeRTOS](http://freertos.org/) .
 
-该客户端有同步/异步两种 API ，分别以 MQTTClient 和 MQTTAsync 开头：
+The client has synchronous/asynchronous APIs, which start with MQTTClient and MQTTAsync:
 
-- 同步 API 旨在更简单，更有用，某些调用将阻塞直到操作完成为止，使用编程上更加容易；
-- 异步 API 中只有一个调用块 `API-waitForCompletion` ，通过回调进行结果通知，更适用于非主线程的环境。
+- The synchronous API is designed to be simpler and more useful and some calls will be blocked until the operation is completed, which is easier for programming;
+- There is only one calling block `API-waitForCompletion` in the asynchronous API, which is notified through the callback, and is more suitable for the non-main thread environment.
 
-## Paho C 使用示例
+## Paho C Usage example
 
-MQTT C 语言相关两个客户端库的比较、下载、使用方式等详细说明请移步至项目主页查看，本示例包含 C 语言的 Paho C 连接 EMQ X Broker，并进行消息收发完整代码：
+For detailed descriptions of the comparison, download, and usage of the two MQTT client libraries related to the C language, please move to the project homepage to view. This example contains the complete code of the Paho C  in C language connecting to the EMQ X Broker, sending and receiving messages:
 
 ```c
 #include "stdio.h"
@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
     MQTTClient_create(&client, ADDRESS, CLIENTID,
         MQTTCLIENT_PERSISTENCE_NONE, NULL);
   
-    // MQTT 连接参数
+    // MQTT Connection parameters
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
 
@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
         exit(-1);
     }
   
-    // 发布消息
+    // Publish message
     pubmsg.payload = PAYLOAD;
     pubmsg.payloadlen = strlen(PAYLOAD);
     pubmsg.qos = QOS;
@@ -78,13 +78,13 @@ int main(int argc, char* argv[])
     rc = MQTTClient_waitForCompletion(client, token, TIMEOUT);
     printf("Message with delivery token %d delivered\n", token);
   
-    // 断开连接
+    // Disconnect
     MQTTClient_disconnect(client, 10000);
     MQTTClient_destroy(&client);
     return rc;
 }
 ```
 
-## Paho C MQTT 5.0 支持
+## Paho C MQTT 5.0 support
 
-目前 Paho C 已经完整支持 MQTT 5.0。
+Paho C has fully supported MQTT 5.0 Currently.
