@@ -16,17 +16,19 @@ ref:
 ---
 
 
-# MQTT Erlang 客户端库
+# MQTT Erlang client library
 
-[emqtt](https://github.com/emqx/emqtt) 是开源 MQTT Broker EMQ X 官方提供的客户端库，适用于 Erlang 语言。
 
-Erlang 生态有多个 MQTT Broker 实现，如通过插件支持 MQTT 的 RabbitMQ ，VerenMQ、EMQ X 等。但受限于语言小众性，可用的 MQTT 客户端库几乎没有选择的余地，MQTT 社区收录的 Erlang 客户端库中 [emqtt](https://github.com/emqx/emqtt) 是最佳选择。
 
-emqtt 完全由 Erlang 实现，完成整支持 MQTT v3.1.1 和 MQTT v5.0 协议版本，支持 SSL 单双向认证与 WebSocket 连接。另一款 MQTT 基准测试工具 [emqtt_bench](https://github.com/emqx/emqtt-bench) 就基于该客户端库构建。
+[emqtt](https://github.com/emqx/emqtt) is the official client library provided by the open source MQTT Broker EMQ X, which is suitable for Erlang language.
 
-## emqtt 使用示例
+The Erlang ecosystem has multiple MQTT Broker implementations, such as RabbitMQ, VerenMQ, EMQ X that support MQTT through plugins. However, due to the language minority, there is almost no choice for available MQTT client library. Among the Erlang client libraries included in the MQTT community, [emqtt](https://github.com/emqx/emqtt) is the best choice .
 
-本示例包含 Erlang 的 emqtt 客户端库连接 EMQ X Broker，并进行消息收发完整代码：
+emqtt is completely implemented by Erlang. It supports MQTT v3.1.1 and MQTT v5.0 protocol versions completely, and supports SSL one-way and two-way authentication and WebSocket connection. Another MQTT benchmark test tool [emqtt_bench](https://github.com/emqx/emqtt-bench) is built based on this client library.
+
+## emqtt usage example
+
+This example contains the complete code for Erlang's emqtt client library connecting to EMQ X Broker, sending and receiving messages:
 
 ```erlang
 ClientId = <<"test">>.
@@ -55,6 +57,6 @@ ok = emqtt:disconnect(ConnPid).
 
 
 
-## emqtt MQTT 5.0 支持
+## emqtt MQTT 5.0 support
 
-目前 emqtt 已经完整支持 MQTT 5.0。
+Currently, emqtt has fully supported MQTT 5.0.
