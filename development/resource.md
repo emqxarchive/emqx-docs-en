@@ -15,11 +15,13 @@ category:
 ref:
 ---
 
-# 其他资源
+# Other resources
 
-本页整理提供 EMQ X 客户端库、客户端工具、性能测试工具以及硬件等资源，如果你有相关推荐，欢迎提交到此页。
 
-{% tabs client="MQTT 客户端库", coap="CoAP 客户端库", clientTools="客户端工具", benchmark="性能测试工具", hardware="硬件资源" %}
+
+This page provides resources such as EMQ X client library, client tools, performance testing tools, and hardware. If you have relevant recommendations, please submit them to this page.
+
+{% tabs client="MQTT client library", coap="CoAP client library", clientTools="client tools", benchmark="performance testing tools", hardware="hardware resource" %}
 
 {% content "client" %}
 <div class="development-hardware-warp">
@@ -350,42 +352,42 @@ ref:
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/EMW3088.jpg" />
       <div class="hardware-name">EMW3088</div>
     </a>
-
+    
     <a class="hardware-item" href="http://espressif.com/en/products/hardware/esp8266ex/overviewesp8266ex/overview" target="_blank">
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/ESP8266.png" />
       <div class="hardware-name">ESP8266</div>
     </a>
-
+    
     <a class="hardware-item" href="https://www.marvell.com/microcontrollers/88MW300/302/" target="_blank">
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/88MW300.png" />
       <div class="hardware-name">88MW300</div>
     </a>
-
+    
     <a class="hardware-item" href="http://www.ti.com/product/CC3200" target="_blank">
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/CC3200-1.jpg" />
       <div class="hardware-name">CC3200</div>
     </a>
-
+    
     <a class="hardware-item" href="https://www.ai-thinker.com/product/esp8266" target="_blank">
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/esp12f.png" />
       <div class="hardware-name">ESP12F</div>
     </a>
-
+    
     <a class="hardware-item" href="https://labs.mediatek.com/en/chipset/MT7697" target="_blank">
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/MediaTek-MT7697.jpg" />
       <div class="hardware-name">MT7697</div>
     </a>
-
+    
     <a class="hardware-item" href="http://nodemcu.com/index_en.html" target="_blank">
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/NodeMCU.jpg" />
       <div class="hardware-name">NodeMCU</div>
     </a>
-
+    
     <a class="hardware-item" href="http://wrtnode.cc/newhtml/7/7.html#/" target="_blank">
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/wrtnode7.png" />
       <div class="hardware-name">Wrtnode7</div>
     </a>
-
+    
     <a class="hardware-item" href="https://www.ai-thinker.com/product/esp32" target="_blank">
       <img src="https://docs.emqx.io/static/images/sdk_tools/Hardware_library/ESP32-C003.png" />
       <div class="hardware-name">ESP32</div>
