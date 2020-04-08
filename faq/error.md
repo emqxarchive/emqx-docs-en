@@ -15,21 +15,20 @@ category:
 ref:
 ---
 
-# 常见错误
-### EMQ X 无法连接 MySQL 8.0
+# Common errors
+### EMQ X cannot connect to Mysql8.0
 
-**标签:** [*MySQL*](tags.md#mysql)  [*认证*](tags.md#认证)
+**Tag:** [*MySQL*](tags.md#mysql)  [*authentication*](tags.md#认证)
 
+Different from previous versions, Mysql8.0 uses the `caching_sha2_password` plugin by default for account password configuration. The password plugin is required to change to `mysql_native_password`. 
 
-不同于以往版本，MySQL 8.0 对账号密码配置默认使用`caching_sha2_password`插件，需要将密码插件改成`mysql_native_password`
-
-  + 修改 `mysql.user` 表
+  +  Modify the `mysql.user` table 
 
     ```
-    ## 切换到 mysql 数据库
+    ## Switch to the mysql database
     mysql> use mysql;
 
-    ## 查看 user 表
+    ## View user table
 
     mysql> select user, host, plugin from user;
     +------------------+-----------+-----------------------+
@@ -42,54 +41,54 @@ ref:
     | root             | localhost | caching_sha2_password |
     +------------------+-----------+-----------------------+
 
-    ## 修改密码插件
+    ## Change password plugin
     mysql> ALTER USER 'your_username'@'your_host' IDENTIFIED WITH mysql_native_password BY 'your_password';
     Query OK, 0 rows affected (0.01 sec)
 
-    ## 刷新
+    ## Refresh
     mysql> FLUSH PRIVILEGES;
     Query OK, 0 rows affected (0.00 sec)
     ```
 
-  + 修改 `my.conf`
+  +  Change `my.conf` 
     
-    在 `my.cnf` 配置文件里面的 [mysqld] 下面加一行
+     Add a line below the [mysqld] in the `my.cnf` configuration file. 
     ```
     default_authentication_plugin=mysql_native_password
     ```
 
-  + 重启 MySQL 即可
+  +  Restart Mysql 
 
 
-### OPENSSL 版本不正确
+### OPENSSL version is incorrect
 
-**标签:** [*启动失败*](tags.md#启动失败)
+**Tag:** [*failed to start*](tags.md#启动失败)
 
-#### 现象
+#### phenomenon
 
-执行  `./bin/emqx console` 输出的错误内容包含：
+The error output from executing `./bin/emqx console` includes:
 
 ```bash
 {application_start_failure,kernel,{{shutdown,{failed_to_start_child,kernel_safe_sup,{on_load_function_failed,crypto}}}, ..}
 ```
 
-它表示，EMQ X 依赖的 Erlang/OTP 中的 `crypto` 应用启动失败。
+It indicates that the `crypto` application in Erlang/OTP that EMQ X depends on failed to start.
 
-#### 解决方法
+####  **Solution** 
 
 ##### Linux
 
-进入到 EMQ X 的安装目录（如果使用包管理工具安装 EMQ X，则应该进入与 EMQ X 的 `lib` 目录同级的位置）
+Go to the installation directory of EMQ X (If you use the package management tool to install EMQ X, you should enter the same level as the `lib` directory of EMQ X)
 
 ```bash
-## 安装包安装
+## Install via installation package
 $ cd emqx
 
-## 包管理器安装，例如 yum。则它的 lib 目录应该在 /lib/emqx
+## Package manager installation, such as yum. Then its lib directory should be in /lib/emqx
 $ cd /lib/emqx
 ```
 
-查询 `crypto`依赖的 `.so` 动态库列表及其在内存中的地址：
+Query the list of `.so` dynamic libraries that `crypto` depends on and its address in memory:
 
 ``` bash
 $ ldd lib/crypto-*/priv/lib/crypto.so
@@ -104,45 +103,45 @@ lib/crypto-4.6/priv/lib/crypto.so: /lib64/libcrypto.so.10: version `OPENSSL_1.1.
 
 ```
 
-其中 `OPENSSL_1.1.1' not found`表明指定的 OPENSSL 版本的 `.so` 库未正确安装。
+Among them, `OPENSSL_1.1.1' not found` indicates that the specified `.so` library of OPENSSL version is not installed correctly.
 
-源码编译安装 OPENSSL 1.1.1，并将其 so 文件放置到可以被系统识别的路径：
+Source code compile and install OPENSSL 1.1.1, and place its so file to a path than can be recognized by the system:
 
 ```bash
-## 下在最新版本 1.1.1
+## download the latest version 1.1.1
 $ wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz
 
-## 上传至 ct-test-ha
+## Upload to ct-test-ha
 $ scp openssl-1.1.1c.tar.gz ct-test-ha:~/
 
-## 解压并编译安装
+## Unzip, compile and install
 $ tar zxf   openssl-1.1.1c.tar.gz
 $ cd openssl-1.1.1c
 $ ./config
-$ make test   		# 执行测试；如果输出 PASS 则继续
+$ make test   		# Perform test; continue if PASS is output
 $ make install 
 
-## 确保库的引用
+## Ensure library references
 $ ln -s /usr/local/lib64/libssl.so.1.1 /usr/lib64/libssl.so.1.1
 $ ln -s /usr/local/lib64/libcrypto.so.1.1 /usr/lib64/libcrypto.so.1.1
 ```
 
-完成后，执行在 EMQ X 的 lib 同级目录下执行 `ldd lib/crypto-*/priv/lib/crypto.so` ，检查是否已能正确识别。如果不在有 `not found` 的 `.so` 库，即可正常启动 EMQ X。
+After it is completed, execute `ldd lib/crypto-*/priv/lib/crypto.so` in the same level of lib directory of EMQ X to check whether it can be recognized correctly. If there is no `.so` library with `not found`, you can start EMQ X normally.
 
 
 ##### macOS
 
-进入到 EMQ X 的安装目录：
+Go to the installation directory of EMQ X:
 
 ```bash
-## 安装包安装
+## Install via installation package
 $ cd emqx
 
-## brew 安装
+## brew installation
 $ cd /usr/local/Cellar/emqx/<version>/
 ```
 
-查询 `crypto`依赖的 `.so` 动态库列表：
+Query the list of `.so` dynamic libraries that `crypto` depends on:
 
 ```bash
 $ otool -L lib/crypto-*/priv/lib/crypto.so
@@ -152,18 +151,17 @@ lib/crypto-4.4.2.1/priv/lib/crypto.so:
 	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.200.5)
 ```
 
-检查其显示 OPENSSL 已成功安装至指定的目录：
+Check whether OPENSSL has been successfully installed to the specified directory:
 
 ```bash
 $ ls /usr/local/opt/openssl@1.1/lib/libcrypto.1.1.dylib
 ls: /usr/local/opt/openssl@1.1/lib/libcrypto.1.1.dylib: No such file or directory
 ```
 
-
-若不存在该文件，则需安装与 `otool` 打印出来的对应的 OPENSSL  版本，例如此处显示的为 `openssl@1.1`：
+If the file does not exist, you need to install the corresponding OPENSSL version printed by `otool`. For example,  it is shown here as `openssl @ 1.1`:
 
 ```bash
 $ brew install openssl@1.1
 ```
 
-安装完成后，即可正常启动 EMQ X。
+After the installation is completed, you can start EMQ X normally.
