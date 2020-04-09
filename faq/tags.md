@@ -207,12 +207,12 @@ ref:
 
 ### Debug
 
-- [为什么我做压力测试的时候，连接数目和吞吐量老是上不去，有系统调优指南吗？](use-guide.md#为什么我做压力测试的时候，连接数目和吞吐量老是上不去，有系统调优指南吗？)
-- [EMQ X 安装之后无法启动怎么排查？](use-guide.md#emq-x-安装之后无法启动怎么排查？)
+- [Why does the number of connections and throughput always fail to increase when I do a stress test, is there a system tuning guide?](use-guide.md#为什么我做压力测试的时候，连接数目和吞吐量老是上不去，有系统调优指南吗？)
+- [How to troubleshoot if EMQ X fails to start after installation?](use-guide.md#emq-x-安装之后无法启动怎么排查？)
 
 
 
-### 性能测试
+### Performance Test
 
 - [Why does the number of connections and throughput always fail to increase when I do a stress test, is there a system tuning guide?](use-guide.md#为什么我做压力测试的时候，连接数目和吞吐量老是上不去，有系统调优指南吗？)
 - [What is the scenario of EMQ X's million connection stress test?](deployment.md#emq-x-的百万连接压力测试的场景是什么？)
