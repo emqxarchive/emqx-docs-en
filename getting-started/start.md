@@ -15,23 +15,23 @@ category:
 ref: undefined
 ---
 
-# 启动 EMQ X Broker
+# Start EMQ X Broker
 
-后台启动 EMQ X Broker
+Start EMQ x broker in the background
 
 ```bash
 $ emqx start
 EMQ X Broker v4.0.0 is started successfully!
 ```
 
-systemctl 启动
+systemctl start
 
 ```bash
 $ sudo systemctl start emqx
 EMQ X Broker v4.0.0 is started successfully!
 ```
 
-service 启动
+service start
 
 ```bash
 $ sudo service emqx start
@@ -39,14 +39,15 @@ EMQ X Broker v4.0.0 is started successfully!
 ```
 
 {% hint style="info" %}
-如果你使用的是 EMQ X Enterprise 则需要导入 License 才能使用，导入步骤见下文**启动 EMQ X Enterprise**。
+If you are using EMQ X Enterprise, you need to import a license to use it. For the import steps, see **Start EMQ X Enterprise** below.
 
-通过 ZIP 压缩包安装的 EMQ X Broker 不支持通过 systemctl 和 service 启动。
+EMQ X Broker installed via ZIP archive does not support systemctl and service startup.
+
 {% endhint %}
 
-## 查看 EMQ X Broker 的状态
+## Check the status of EMQ X Broker
 
-EMQ X Broker 正常启动: 
+EMQ X Broker starts normally:
 
 ```bash
 $ emqx_ctl status
@@ -54,28 +55,28 @@ Node 'emqx@127.0.0.1' is started
 emqx 4.0.0 is running
 ```
 
-EMQ X Broker 未能正常启动:
+EMQ X Broker failed to start normally:
 
 ```bash
 $ emqx_ctl status
 Node 'emqx@127.0.0.1' not responding to pings。
 ```
 
-你可以查看 [`logs`](using-emqx/directory.md) 下的日志文件并确认是否属于 [常见错误](faq/error.md#)。
+You can check the log file from [`logs`](using-emqx/directory.md) and confirm whether it belongs to [Common Error](faq/error.md#).
 
 
-## 启动 EMQ X Enterprise
+## Start EMQ X Enterprise
 
-EMQ X Enterprise 需要 License 文件才能正常启动，EMQ X Broker 可以略过这一步。
+EMQ X Enterprise requires a license file to start normally. EMQ X Broker can skip this step.
 
-1. 访问 `https://emqx.io`，在 EMQ X Enterprise 下载页面，点击 **Get FREE Trial License**。
+1. Visit `https: // emqx.io`. On the EMQ X Enterprise download page, click **Get FREE Trial License**.
 
     ![](./static/WX20200210-153301@2x.png)
 
-2. 注册登陆并申请 License 文件试用，下载 License 文件。
+2. Register to log in and apply for a trial license file, then download the license file.
 
     ![](./static/WX20200210-153822@2x.png)
 
-3. 替换默认证书目录下的 License 文件（`etc/emqx.lic`），当然你也可以选择变更证书文件的读取路径，修改 `etc/emqx.conf` 文件中的 `license.file`，并确保 License 文件位于更新后的读取路径且 EMQ X Enterprise 拥有读取权限，然后启动 EMQ X Enterprise。EMQ X Enterprise 的启动方式与 EMQ X Broker 相同，见下文。
+3. Replace the license file (`etc/emqx.lic`) in the default certificate directory. You can also choose to change the read path of the certificate file, modify `license.file` in the `etc/emqx.conf` file, and make sure that the license file is in the updated read path and EMQ X Enterprise has read permission. Then, start EMQ X Enterprise. EMQ X Enterprise is started in the same way as EMQ X Broker, which can be seen below.
 
-4. 如果是正在运行的 EMQ X Enterprise 需要更新 License 文件，那么可以使用 `emqx_ctl license reload [license 文件所在路径]` 命令直接更新 License 文件，无需重启 EMQ X Enterprise。需要注意的是，`emqx_ctl license reload` 命令加载的证书仅在 EMQ X Enterprise 本次运行期间生效，如果需要永久更新 License 证书的路径，依然需要替换旧证书或修改配置文件，请参考上一步。
+2. If the running EMQ X Enterprise needs to update the license file, you can use the `emqx_ctl license reload [path of the license file]` command to directly update the license file without restarting EMQ X Enterprise. It should be noted that the certificate loaded by the `emqx_ctl license reload` command will only take effect during this run of EMQ X Enterprise. If you need to permanently update the license certificate path, you still need to replace the old certificate or modify the configuration file, which can be seen from the previous step.
