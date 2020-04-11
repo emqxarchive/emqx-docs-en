@@ -15,59 +15,55 @@ category:
 ref: undefined
 ---
 
-# 配置说明
+# Configuration instructions
 
-## 简介
+## Introduction
 
-EMQ X Broker 的配置文件通常以 `.conf` 作为后缀名，你可以在 `etc` 目录找到这些配置文件，主要配置文件包括：
+The configuration files of EMQ X Broker usually have the suffix `.conf`. You can find these configuration files in the `etc` directory.
 
-| 配置文件           | 说明                      |
+| File        | Description            |
 | ------------------ | ------------------------- |
-| etc/emqx.conf      | EMQ X Broker 配置文件  |
-| etc/acl.conf       | EMQ X Broker 默认 ACL 规则配置文件 |
-| etc/plugins/*.conf | EMQ X Broker 扩展插件配置文件      |
+| etc/emqx.conf      | EMQ X Broker Configuration File |
+| etc/acl.conf       | EMQ X Broker default ACL File |
+| etc/plugins/*.conf | Configuration Files of Plugins |
 
-需要注意的是，通过不同方式安装的 EMQ X Broker，`etc` 目录所处的路径可能不同，具体请参见 [目录结构](directory.md#)。
+It should be noted that for the EMQ X Broker installed by different methods, the path of the `etc` directory may be different. For details, please refer to [directory structure](directory.md#).
 
-## 语法规则
+## Grammar rules
 
-- 采用类似 sysctl 的 k = v 通用格式
-- 单个配置项的所有信息都在同一行内，换行意味着创建一个新的配置项
-- 键可以通过 `.` 进行分层，支持按树形结构管理配置项
-- 值的类型可以是 `integer`, `fload`, `percent`, `enum`, `ip`, `string`, `atom`, `flag`, `duration` and `bytesize`
-- 任何以＃开头的行均被视为注释
+- Use k = v common format like sysctl
+- All information for a single configuration item is on the same line, and a new line means creating a new configuration item
+- The key can be layered by `.`, support configuration items managed by tree structure
+- Value types can be `integer`, `fload`, `percent`, `enum`, `ip`, `string`, `atom`, `flag`, `duration` and `bytesize`
+- Any line beginning with # is considered as a comment
 
-**示例：**
+**Example:**
 
 ```bash
 mqtt.max_packet_size = 1MB
 ```
 
-## 数据类型
+## Data type
 
 **integer**
 
-整型数据。
-
 **float**
-
-浮点型数据。
 
 **percent**
 
-以 `%` 结尾的百分比数据，最终会被转换为 `float` 类型。
+The percentage data ending in `%` , that will eventually be converted to `float` type.
 
 **enum**
 
-通常我们会在类型为 `enum` 的配置项附近列出它的所有可选值。当然，你也可以查找 [配置项](../configuration/index.md#)。
+Usually we will list all its optional values near the configuration item of type `enum`. Of course, you can also search for  [configuration item](../configuration/index.md#).
 
 **ip**
 
-当你看到某个配置项的数据类型为 `ip` 时，意味着你可以使用 `<IP>:<Port>` 的形式来设置该配置项，例如 `0.0.0.0:1883`。
+When you see that the data type of a configuration item is `ip`, it means that you can set the configuration item in the form of <IP>: <Port>`, for example, `0.0.0.0: 1883`.
 
 **string**
 
-`*.conf` 文件中除注释以外的所有内容都会先被解析成字符串再转换为其他类型，因此没有必要对 `string` 类型的值额外使用双引号对值进行修饰，并且这种方式也不被支持。
+Everything in the `*.conf` file except for comments will be parsed into a string and then converted to other types, so there is no need to use double quotes to modify the value of the `string` type value, and this way is not supported.
 
 *Yes!*
 
@@ -83,15 +79,15 @@ dir = "tmp"
 
 **atom**
 
-`atom` 类型的值最终会转换成 Erlang 的 `atom`，但它在 `*.conf` 文件中的使用方式与 `string` 完全一致。
+A value of type `atom` will eventually be converted into Erlang ’s `atom`, but its using method in the `*.conf` file is exactly the same as `string`.
 
 **flag**
 
-`flag` 用于那些具有两个可能值的变量，`flag` 默认可用值为 `on` 和 `off`，它们将映射为 `true` 和 `false` 以供应用程序使用。如果我们为某个配置项建立了其他的映射关系，我们会在配置文件中注明，你也可以在 [配置项](../configuration/index.md#) 中查找这些信息。
+`flag` is used for variables that have two possible values. The default available values of `flag` are `on` and `off`, which will be mapped to `true` and `false` for application. If we have established other mapping relationships for a configuration item, we will indicate it in the configuration file, and you can also find this information in [configuration item](../configuration/index.md#).
 
 **duration**
 
-`duration` 用于指定那些固定的时间间隔，你可以使用以下时间单位：
+`duration` is used to specify those fixed time intervals, and you can use the following time units:
 
 - f - fortnight
 - w - week
@@ -101,53 +97,53 @@ dir = "tmp"
 - s - second
 - ms - millisecond
 
-你可以任意组合这些时间单位，例如 `1w13ms`，也可以使用浮点数，例如 `0.5d`，这些时间间隔最终将会被转换成我们指定的基准单位。这里有一点需要注意，如果你以毫秒为单位设置了某个配置项，而它的基准单位为秒，那么它将向上舍入至最接近的描述，例如 `1s50ms` = `2s`。因此，我们会列出这一类配置项的基准单位。
+You can arbitrarily combine these time units, such as `1w13ms`, or you can use floating point numbers, such as` 0.5d`, and these time intervals will eventually be converted to the base unit we specify. It should be noted here is that if you set a configuration item in milliseconds and its base unit is seconds, it will round up to the closest description, for example, `1s50ms` =` 2s`. Therefore, we will list the benchmark units for this type of configuration item.
 
 **bytesize**
 
-`bytesize` 支持以更易读的方式来设置报文大小、缓冲区大小等配置，单位可以是 `KB`，`MB` 和 `GB`，你也可以使用小写，例如 `kb`，但不支持大小写混合，例如 `Kb`，它们最终都将被转换为字节数。如果你未指定任何单位，那么它被直接作为字节数使用。
+`bytesize` supports configuration of message size and buffer size in a more readable way, and the unit can be `KB`, `MB` and `GB`. You can also use lower case, for example `kb`, but mixed case, such as `Kb`, is not supported. It will eventually be converted to bytes. If you do not specify any units, then it is used directly as the number of bytes.
 
-## 默认配置
+## Default configuration
 
-在 EMQ X Broker 的配置文件中，你会看到很多被注释掉的配置项，这意味着这些配置项会使用他们的默认值，通常我们会列出这些配置的默认值。
+In the configuration file of EMQ X Broker, you will see a lot of configuration items that are commented out, which means that these configuration items will use their default values. Usually we will list the default values of these configurations.
 
 ## Zone & Listener
 
-EMQ X Broker 提供了非常多的配置项，并支持全局配置和局部配置。例如，EMQ X Broker 提供了匿名访问的功能，即允许客户端不需要用户名与密码就能连接 Broker，通常在用户的生产环境中，此功能被默认关闭，但用户可能又希望在他的内网环境中启用此功能。从 3.0 版本开始，EMQ X Broker 就通过 Zone 与 Listener 为用户提供了这种可能。
+EMQ X Broker provides a lot of configuration items, and supports global configuration and local configuration. For example, EMQ X Broker provides an anonymous login function, which allows clients to connect to the broker without a user name and password. Usually this feature is disabled by default in the user's production environment, but the user may want this feature enabled in the intranet environment. Since version 3.0, EMQ X Broker has provided this possibility to users through Zone and Listener.
 
 ### Listener
 
-Listener 主要用于配置不同协议的监听端口和相关参数，EMQ X Broker 支持配置多个 Listener 以同时监听多个协议或端口，以下是支持的 Listener：
+Listener is mainly used to configure listening ports and related parameters of different protocols. EMQ X Broker supports configuring multiple Listeners to listen to multiple protocols or ports at the same time. The following are the supported Listeners:
 
-| 监听器                     | 说明                                             |
+| Listener             | Description                                  |
 | ------------------------- | ------------------------------------------------------- |
 | TCP Listener              | A listener for MQTT which uses TCP                      |
 | SSL Listener              | A secure listener for MQTT which uses TLS               |
 | Websocket Listener        | A listener for MQTT over WebSockets                     |
 | Secure Websocket Listener | A secure listener for MQTT over secure WebSockets (TLS) |
 
-EMQ X Broker 默认提供 5 个 Listener，它们将占用以下端口：
+EMQ X Broker provides 5 Listeners by default, and they will occupy the following ports:
 
-| 端口   | 说明                                       |
+| Port | Description                             |
 | ----- | ------------------------------------------ |
-| 1883  | MQTT/TCP 协议端口                           |
-| 11883 | MQTT/TCP 协议内部端口，仅用于本机客户端连接 |
-| 8883  | MQTT/SSL 协议端口                           |
-| 8083  | MQTT/WS 协议端口                            |
-| 8084  | MQTT/WSS 协议端口                           |
+| 1883  | MQTT/TCP protocol port              |
+| 11883 | MQTT/TCP Protocol internal port, only used for local client connection |
+| 8883  | MQTT/SSL protocol port              |
+| 8083  | MQTT/WS protocol port               |
+| 8084  | MQTT/WSS protocol port              |
 
-Listener 配置项的命名规则为 `listener.<Protocol>.<Listener Name>.xxx`，`<Protocol>` 即 Listener 使用的协议，目前支持 `tcp`, `ssl`, `ws`, `wss`。`<Listener Name>` 可以随意命名，但建议是全小写的英文单词，`xxx` 则是具体的配置项。不同协议的 Listener 的 `<Listener Name>` 可以重复，`listener.tcp.external` 与 `listener.ssl.external` 是两个不同的 Listener。
+The naming rule of the Listener configuration item is  `listener.<Protocol>.<Listener Name>.xxx`, and ` Protocol> ` is the protocol used by the Listener that currently supports `tcp`, `ssl`,` ws`, `wss` . `<Listener Name>` can be named arbitrarily, but it is recommended to use all lowercase words, and `xxx` is a specific configuration item. The `<Listener Name>` of Listeners with different protocols can be repeated. `Listener.tcp.external` and `listener.ssl.external` are two different Listeners.
 
-由于默认配置的存在，我们能够非常快速地展示如何添加新的 Listener，以 TCP Listener 为例，我们只需要在 `emqx.conf` 中添加以下一条配置即可：
+Due to the existence of the default configuration, we can quickly show how to add a new Listener. Taking TCP Listener as an example, we only need to add the following configuration in `emqx.conf`:
 
 ```bash
 listener.tcp.example = 12345
 ```
 
-当然这种情况我们更建议您复制一份默认 Listener 的配置进行修改。
+Of course, in this case, we recommend that you copy the default Listener configuration for modification.
 
 ### Zone
 
-一个 Zone 定义了一组配置项 (比如最大连接数等)，Listener 可以通过配置项 `listener.<Protocol>.<Listener Name>.zone` 指定使用某个 Zone，以使用该 Zone 下的所有配置。多个 Listener 可以共享同一个 Zone。Zone 的命名规则为 `zone.<Zone Name>.xxx`，`Zone Name` 可以随意命名，但同样建议是全小写的英文单词，`xxx` 是具体的配置项，你可以在 [配置项](../configuration/index.md#) 中查看 Zone 支持的所有配置项。
+A Zone defines a set of configuration items (such as the maximum number of connections), and the Listener can specify the Zone through the configuration item `listener.<Protocol>.<Listener Name>.zone` to use all the configurations under the Zone. Multiple Listeners can share the same Zone. The naming rule of Zone is `zone.<Zone Name>.xxx`. `Zone Name` can be named at will, but it is also recommended to be all lowercase. `xxx` is a specific configuration item, you can find it in [configuration item](../configuration/index.md#) to view all configuration items supported by Zone.
 
-此时，我们的每个配置项都存在三个可用值，分别是全局的值，Zone 里设置的值以及默认值，它们的优先级顺序为：Zone > Global > Default。
+At this time, there are three available values for each of our configuration items, which are the global value, the value set in Zone and the default value, and their priority order is: Zone> Global> Default.

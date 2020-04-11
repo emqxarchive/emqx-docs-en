@@ -15,32 +15,32 @@ category:
 ref: undefined
 ---
 
-# 基本命令
+# Basic commands
 
-EMQ X Broker 提供了 `emqx` 命令行工具，方便用户对 EMQ X Broker 进行启动、关闭、进入控制台等操作。
+EMQ X Broker provides the `emqx` command line tool, which is convenient for users to start, stop, and enter the console of EMQ X Broker.
 
 +   `emqx start`
 
-    后台启动 EMQ X Broker；
+    Start EMQ X Broker；
 
 +   `emqx stop`
 
-    关闭 EMQ X Broker；
+    Stop EMQ X Broker；
 
 +   `emqx restart`
 
-    重启 EMQ X Broker；
+    Restart EMQ X Broker；
 
 +   `emqx console`
 
-    使用控制台启动 EMQ X Broker；
+    Start EMQ X Broker with console；
 
 +   `emqx foreground`
 
-    使用控制台启动 EMQ X Broker，与 `emqx console` 不同，`emqx foreground` 不支持输入 Erlang 命令；
+    Start EMQ X Broker with console. Unlike `emqx console` , `emqx foreground` does not support entering Erlang commands;
 
 +   `emqx ping`
 
     Ping EMQ X Broker。
 
-以上命令为用户常用命令，此外 `emqx` 命令还有一些[其他选项](../advanced/cli.md)为方便开发者使用，普通用户无需关心。
+The above commands are commonly used by users. In addition, the `emqx` command has some [other options](../advanced/cli.md) for the convenience of developers, and ordinary users do not need to care about that.
