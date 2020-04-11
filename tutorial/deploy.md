@@ -15,175 +15,166 @@ category:
 ref: undefined
 ---
 
-# 生产部署
+# Production deployment
 
-在开发时我们通常使用压缩包方式以单节点的形式启动服务，生产运行需要一个更加简单稳定的方式。本页主要从部署架构最佳实践讲解如何部署你的 EMQ X 服务。
+During development, we usually use compressed packages to start services with the form of a single node. However, production operation requires a simpler and more stable way. This page mainly explains how to deploy your EMQ X service from best practices of deployment architecture.
 
 
 
-## 部署架构
+## Deployment architecture
 
-EMQ X 集群可作为物联网接入服务（IoT Hub）部署，目前 EMQ 在青云、阿里云、AWS 等云服务提供商上均提供开箱即用的免费软件镜像，对于特殊硬件平台和系统版本如树莓派、Linux ARM，可使用源码编译安装。
+EMQ X cluster can be deployed as an IoT access service (IoT Hub). Currently, EMQ provides free software images out of the box on cloud service providers such as QingCloud, Aliyun, and AWS. For special hardware platforms and system versions such as Raspberry Pi and Linux ARM, source code compilation and installation can be used.
 
-典型部署架构：
+Typical deployment architecture:
 
 ![](_assets/deploy_1.png)
 
 
 
-### LB (负载均衡)
+## Load Balancer (LB)
 
-LB (负载均衡器) 负责分发设备的 MQTT 连接与消息到 EMQ X 集群，LB 提高 EMQ X 集群可用性、实现负载平衡以及动态扩容。
+The Load Balancer (LB) distributes MQTT connections and traffic from devices across the *EMQ X* clusters. LB enhances the HA of the clusters, balances the loads among the cluster nodes and makes the dynamic expansion possible.
 
-部署架构推荐在 LB 终结 SSL 连接。设备与 LB 之间 TLS 安全连接，LB 与 EMQ X 之间普通 TCP 连接。这种部署模式下 EMQ X 单集群可轻松支持 100 万设备。
+It is recommended that SSL connections are terminated by a LB. The links between devices and the LB are secured by SSL, while the links between the LB and *EMQ X* cluster nodes are plain TCP connections. By this setup, a single *EMQ X* cluster can serve a million devices.
 
-公有云厂商 LB 产品:
+LB products of public cloud providers:
 
-| 云计算厂商                            | 是否支持 TLS 终结 | LB 产品介绍                                              |
-| -------------------------------- | ----------- | ---------------------------------------------------- |
-| [青云](https://qingcloud.com)      | 是           | <https://docs.qingcloud.com/guide/loadbalancer.html> |
-| [AWS](https://aws.amazon.com)    | 是           | <https://aws.amazon.com/cn/elasticloadbalancing/>    |
-| [阿里云](https://www.aliyun.com)    | 否           | <https://www.aliyun.com/product/slb>                 |
-| [UCloud](https://ucloud.cn)      | 未知          | <https://ucloud.cn/site/product/ulb.html>            |
-| [QCloud](https://www.qcloud.com) | 未知          | <https://www.qcloud.com/product/clb>                 |
+| Cloud provider                                               | SSL Termination | LB Product DOC/URL                                   |
+| ------------------------------------------------------------ | --------------- | ---------------------------------------------------- |
+| [[QingCloud](https://qingcloud.com/)](https://qingcloud.com) | Yes             | <https://docs.qingcloud.com/guide/loadbalancer.html> |
+| [AWS](https://aws.amazon.com)                                | Yes             | <https://aws.amazon.com/cn/elasticloadbalancing/>    |
+| [Aliyun](https://www.aliyun.com)                             | No              | <https://www.aliyun.com/product/slb>                 |
+| [UCloud](https://ucloud.cn)                                  | 未知            | <https://ucloud.cn/site/product/ulb.html>            |
+| [QCloud](https://www.qcloud.com)                             | Unknown         | <https://www.qcloud.com/product/clb>                 |
 
-私有部署 LB 服务器:
+ LBs for Private Cloud: 
 
-| 开源 LB                            | 是否支持 TLS 终结 | 方案介绍                                                |
-| ---------------------------------- | ----------------- | ------------------------------------------------------- |
-| [HAProxy](https://www.haproxy.org) | 是                | <https://www.haproxy.com/solutions/load-balancing.html> |
-| [NGINX](https://www.nginx.com)     | 是                | <https://www.nginx.com/solutions/load-balancing/>       |
+| Open-Source LB                     | SSL Termination | DOC/URL                                                 |
+| ---------------------------------- | --------------- | ------------------------------------------------------- |
+| [HAProxy](https://www.haproxy.org) | Yes             | <https://www.haproxy.com/solutions/load-balancing.html> |
+| [NGINX](https://www.nginx.com)     | Yes             | <https://www.nginx.com/solutions/load-balancing/>       |
 
 
 
 {% hint style="info" %}
 
-国内公有云部署推荐青云 (EMQ X 合作伙伴)，国外部署推荐 AWS ，私有部署推荐使用 HAProxy 作为 LB。
+Qingcloud(EMQ X partner) is recommended for domestic public cloud deployments, AWS is recommended for foreign deployments, and HAProxy is recommended for LB for private deployments.
 
 {% endhint %}
 
 
 
-### EMQ X 集群
+### EMQ X Cluster
 
-EMQ X 节点集群部署在 LB 之后，建议部署在 VPC 或私有网络内。公有云厂商青云、AWS、UCloud、QCloud 均支持 VPC 网络。
+*EMQ X* cluster nodes are deployed behind LB. It is suggested that the nodes are deployed on VPCs or on a private network. Cloud provider, such as AWS, Azure or QingCloud, usually provides VPC network.
 
-EMQ X 默认开启的 MQTT 服务 TCP 端口:
+*EMQ X* Provides the MQTT service on following TCP ports by default:
 
-| 端口 | 说明 |
+| Port | Description |
 | ----- | --------------------- |
 | 1883  | MQTT 协议端口             |
-| 8883  | MQTT/SSL 端口           |
-| 8083  | MQTT/WebSocket 端口     |
-| 8084  | MQTT/WebSocket/SSL 端口 |
-| 8081 | 管理 API 端口              |
-| 18083 | Dashboard 端口          |
+| 8883  | MQTT/SSL           |
+| 8083  | MQTT/WebSocket     |
+| 8084  | MQTT/WebSocket/SSL |
+| 8081 | Management API |
+| 18083 | Dashboard          |
 
-防火墙根据使用的 MQTT 接入方式，开启上述端口的访问权限。
+Firewall should make the relevant ports accessible for public according to the MQTT access method. 
 
 
 
-EMQ X 节点集群使用的 TCP 端口:
+TCP ports used by EMQ X node cluster:
 
-| 端口 | 说明 |
+| Port | Description         |
 | ---- | --------- |
-| 4369 | 集群节点发现端口  |
-| 5369 | 集群节点 PRC 通道 |
-| 6369 | 集群节点控制通道  |
+| 4369 | Node discovery port |
+| 5369 | Cluster PRC |
+| 6369 | Cluster channel |
 
-集群节点间如有防护墙，需开启上述 TCP 端口互访权限。
+If deployed between nodes, firewalls should be configured that the above ports are inter-accessible between the nodes. 
 
 
 
-## 青云 (QingCloud) 部署
+## Deploying on QingCloud
 
-1. 创建 VPC 网络。
+1. Create VPC network.
+2. Create a ‘private network’ for *EMQ X* cluster inside the VPC network, e.g. 192.168.0.0/24
+3. Create 2 *EMQ X* hosts inside the private network, like:
 
-2. VPC 网络内创建 EMQ X 集群 ' 私有网络 '，例如: 192.168.0.0/24
-
-3. 私有网络内创建两台 EMQ X 主机，例如:
-  
-| 节点  | IP 地址     |
+| Node  | IP address  |
 | ----- | ----------- |
 | emqx1 | 192.168.0.2 |
 | emqx2 | 192.168.0.3 |
 
 
-4. 安装并集群 EMQ X 主机，具体配置请参考安装集群章节。
-
-5. 创建 LB (负载均衡器) 并指定公网 IP 地址。
-
-6. 在 LB 上创建 MQTT TCP 监听器:
+4. Install and cluster *EMQ X* on these two hosts. Please refer to the sections of cluster installation for details.
+5. Create LB and assign the public IP address.
+6. Create MQTT TCP listener:
 
 ![image](_assets/deploy_2.png)
 
-或创建 SSL 监听器，并终结 SSL 在 LB :
+ Or create SSL listener and terminate the SSL connections on LB: 
 
 ![image](_assets/deploy_3.png)
 
-7. MQTT 客户端连接 LB 公网地址测试。
+7. Connect the MQTT clients to the LB using the public IP address and test the deployment.
 
 
 
-## 亚马逊 (AWS) 部署
+## Deploying on AWS
 
-1. 创建 VPC 网络。
+1. Create VPC network.
+2. Create a ‘private network’ for *EMQ X* cluster inside the VPC network, e.g. 192.168.0.0/24
+3. Create 2 hosts inside the private network, like:
 
-2. VPC 网络内创建 EMQ X 集群 ' 私有网络 '，例如: 192.168.0.0/24
-
-3. 私有网络内创建两台 EMQ X 主机，指定上面创建的 VPC 网络，例如:
-  
-|  节点  |  IP 地址   |
+| Node  | IP address  |
 | ----- | ----------- |
 | emqx1 | 192.168.0.2 |
 | emqx2 | 192.168.0.3 |
 
 
-4. 在安全组中，开放 MQTT 服务的 TCP 端口，比如 1883, 8883。
-
-5. 安装并集群 EMQ X 主机，具体配置请参考安装集群章节。
-
-6. 创建 ELB (Classic 负载均衡器)，指定 VPC 网络，并指定公网 IP 地址。
-
-7. 在 ELB 上创建 MQTT TCP 监听器:
+4. Open the TCP ports for MQTT services (e.g. 1883,8883) on the security group.
+5. Install and cluster *EMQ X* on these two hosts. Please refer to the sections of cluster installation for details.
+6. Create ELB (Classic Load Balancer), assign the VPC network, and assign the public IP address.
+7. Create MQTT TCP listener on the ELB:
 
 ![image](_assets/deploy_4-20200225175403693.png)
 
-或创建 SSL 监听器，并终结 SSL 在 LB :
+ Or create SSL listener and terminate the SSL connections on the ELB: 
 
 ![image](_assets/deploy_5.png)
 
-8. MQTT 客户端连接 LB 公网地址测试。
+8. Connect the MQTT clients to the ELB using the public IP address and test the deployment.
 
 
 
-## 私有网络部署
+## Deploying on private network
 
-### EMQ X 集群直连
+### Direct connection of EMQ X cluster
 
-EMQ X 集群直接挂 DNS 轮询，设备通过域名或者 IP 地址列表访问:
+ *EMQ X* cluster should be DNS-resolvable and the clients access the cluster via domain name or IP list: 
 
-1. 部署 EMQ X 集群
-2. EMQ X 节点防火墙开启外部 MQTT 访问端口，例如 1883, 8883
-3. 设备通过 IP 地址列表或域名访问 EMQ X 集群
+1. Deploy *EMQ X* cluster. Please refer to the sections of ‘Installation’ and ‘*EMQ X* nodes clustering’ for details.
+2. Enable the access to the MQTT ports on the firewall (e.g. 1883, 8883).
+3. Client devices access the *EMQ X* cluster via domain name or IP list.
 
 {% hint style="info" %}
-产品部署不推荐这种部署方式。
+ This kind of deployment is NOT recommended. 
 {% endhint %}
 
-### HAProxy 负载均衡
+### HAProxy LB
 
-HAProxy 作为 LB 部署 EMQ X 集群，并终结 SSL 连接:
+ HAProxy serves as a LB for *EMQ X* cluster and terminates the SSL connections: 
 
-1. 创建 EMQ X 集群节点，例如:
+1. Create *EMQ X* Cluster nodes like following:
 
-| 节点    | IP 地址    |
+| node  | IP          |
 | ----- | ----------- |
 | emqx1 | 192.168.0.2 |
 | emqx2 | 192.168.0.3 |
 
-2. 配置 /etc/haproxy/haproxy.cfg，示例：
-  
+2. Configure /etc/haproxy/haproxy.cfg: 
+
 ```yaml
 listen mqtt-ssl
   bind *:8883 ssl crt /etc/ssl/emqx/emq.pem no-sslv3
@@ -203,19 +194,19 @@ backend emqx_cluster
 
 
 
-### Nginx 负载均衡
+### Nginx LB
 
-Nginx 产品作为 EMQ X 集群 LB，并终结 SSL 连接:
+ NGINX Plus serves as a LB for *EMQ X* cluster and terminates the SSL connections 
 
-1. 创建 EMQ X 节点集群，例如:
+1. Create *EMQ X* cluster nodes like following:
 
-| 节点    | IP 地址     |
+| Node  | IP          |
 | ----- | ----------- |
 | emqx1 | 192.168.0.2 |
 | emqx2 | 192.168.0.3 |
 
-3. 配置 /etc/nginx/nginx.conf，示例:
-  
+3. Configure /etc/nginx/nginx.conf:
+
 ```bash
 stream {
   upstream stream_backend {

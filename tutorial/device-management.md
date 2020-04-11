@@ -15,43 +15,41 @@ category:
 ref: undefined
 ---
 
-# 设备管理
+# Device management
 
-借助 EMQ X [管理监控 API](../advanced/http-api.md) 提供的客户端管理及主题订阅、消息发布管理接口以及认证、ACL、WebHook 等插件，能够快速搭建设备与消息的管理系统，构建联网接入平台。
-
-
-
-## 设备认证
-
-使用 [认证](../advanced/auth.md) 功能，实现设备连接认证。
-
-管理系统可以直接读写外部认证数据库或通过 API 更改 EMQ X 内置认证数据，实现设备连接认证动态管理。
+With the help of client management and topic subscription, message publishing management interface and plug-ins such as authentication, ACL, WebHook provided by EMQ X [Http API](../advanced/http-api.md), we can quickly build a device and message management system to build a network access platform.
 
 
 
-## 在线状态与连接历史管理
+## Device authentication
 
-设备连接、断开时 EMQ X 可以通过 Webhook 插件、[规则引擎](../advanced/rule-engine.md) 向管理系统 HTTP API 发送上下线信息，实现设备在线状态改写、设备连接 / 断开历史记录等功能。
+Use the [authentication](../advanced/auth.md)  function to implement device connection authentication.
 
-使用断开设备 API 可以实现在线设备踢出，会话清除操作。
+The management system can directly read and write external authentication databases or change the internal authentication data of EMQ X through APIs to realize dynamic management of device connection authentication.
 
+## Online status and connection history management
 
-## 发布订阅/ACL
+When the device is connected or disconnected, EMQ X can send the online and offline information to the management system HTTP API through the Webhook plug-in and [rule engine](../advanced/rule-engine.md) to realize the device online status rewriting and device connection/disconnection history recording and other functions.
 
-使用 [发布订阅 ACL](../advanced/acl.md) 功能，实现设备发布订阅权限管理。
-
-管理系统可以直接读写外部认证数据库，实现设备发布订阅权限动态管理。
-
-
-## 代理订阅
-
-管理系统可通过代理订阅功能为在线设备订阅/取消订阅指定主题，在业务 Topic 更改后无需重新重新设定设备程序，有较高的灵活性。
+Use the disconnecting device API to achieve online device kick out and session clean operations.
 
 
-## HTTP 消息发布
+## Publish-Subscribe/ACL
 
-消息发布 API 管理系统可以向任意 Topic 发布消息而无需使用额外的客户端，实现了 HTTP-MQTT 的消息转换。
+Use the  [publish and subscribe ACL](../advanced/acl.md) function to realize the permission management of device publishing and subscription.
 
-HTTP 消息发布解耦了用户与设备、管理系统与设备之间的通信，通过间接通信能够降低系统复杂度并进一步提升安全性。
+The management system can directly read and write external authentication databases to realize dynamic management of device publishing and subscription.
+
+
+## Proxy subscription
+
+The management system can subscribe/unsubscribe specified topics for online devices through the proxy subscription function, and there is no need to reset the device program after the business Topic is changed, which is very flexible.
+
+
+## HTTP message publishing
+
+The message publishing API management system can publish messages to any Topic without using additional clients, and implements HTTP-MQTT message conversion.
+
+HTTP message publishing decouples communication between users and devices, and between management systems and devices. Indirect communication are used to reduce system complexity and further improve security.
 
 

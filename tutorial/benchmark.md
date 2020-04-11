@@ -15,15 +15,15 @@ category:
 ref: undefined
 ---
 
-# 性能测试
+# Performance Test
 
-[emqtt_bench](https://github.com/emqx/emqtt_bench) 是基于 Erlang 编写的，一个简洁强大的 MQTT 协议性能测试工具，如需大规模场景、深度定制化的测试服务推荐使用 EMQ 合作伙伴 [XMeter](https://www.xmeter.net/) 测试服务。
+[emqtt_bench](https://github.com/emqx/emqtt_bench) is a concise and powerful MQTT protocol performance testing tool written with Erlang. If you need  testing services with large-scale scenarios and in-depth customization , the test service provided by EMQ partners [XMeter](https://www.xmeter.net/) is recommended.
 
-## 编译安装
+## Compile and install
 
-`emqtt_bench` 的运行依赖于 Erlang/OTP 21.2  以上版本运行环境，安装过程略过，详情请参考网上各个安装教程。
+The operation of `emqtt_bench` depends on the operating environment of Erlang/OTP 21.2 and above version. The installation process is skipped. For details, please refer to the online installation tutorials.
 
-Erlang 环境安装完成后，下载 `emqtt-bench` 最新代码，并编译：
+After the Erlang environment is installed, download the latest code of `emqtt-bench` and compile it:
 
 ```bash
 git clone https://github.com/emqx/emqtt-bench
@@ -32,67 +32,67 @@ cd emqtt-bench
 make
 ```
 
-编译完成后，当前目录下会生成 一个名为`emqtt_bench` 的可执行脚本。执行以下命令，确认其能正常使用：
+After the compilation, an executable script named `emqtt_bench` will be generated in the current directory. Execute the following command to confirm that it can be used normally:
 
 ```bash
 ./emqtt_bench
 Usage: emqtt_bench pub | sub | conn [--help]
 ```
 
-输出以上内容，则证明 `emqtt_bench` 已正确安装到主机。
+The output of the above content proves that `emqtt_bench` has been correctly installed on the host.
 
 
-## 使用
+## Use
 
-`emqtt_bench` 共三个子命令：
+There are three subcommands of `emqtt_bench`:
 
-1. `pub`：用于创建大量客户端执行发布消息的操作。
-2. `sub`：用于创建大量客户端执行订阅主题，并接受消息的操作。
-3. `conn`：用于创建大量的连接。
-
-
-### 发布
-
-执行 `./emqtt_bench pub --help` 会得到可用的参数输出，此处整理：
-
-| 参数              | 简写 | 可选值          | 默认值     | 说明                                                         |
-| ----------------- | ---- | --------------- | ---------- | ------------------------------------------------------------ |
-| --host            | -h   | -               | localhost  | 要连接的 MQTT 服务器地址                                     |
-| --port            | -p   | -               | 1883       | MQTT 服务端口                                                |
-| --version         | -V   | 3<br>4<br>5     | 5          | 使用的 MQTT 协议版本                                         |
-| --count           | -c   | -               | 200        | 客户端总数                                                   |
-| --startnumber     | -n   | -               | 0          | 客户端数量起始值                                             |
-| --interval        | -i   | -               | 10         | 每间隔多少时间创建一个客户端；单位：毫秒                     |
-| --interval_of_msg | -I   | -               | 1000       | 每间隔多少时间发送一个消息                                   |
-| --username        | -u   | -               | 无；非必选 | 客户端用户名                                                 |
-| --password        | -P   | -               | 无；非必选 | 客户端密码                                                   |
-| --topic           | -t   | -               | 无；必选   | 发布的主题；支持站位符：<br />`%c`：表示 ClientId<br />`%u`：表示 Username<br />`%i`：表示客户端的序列数 |
-| --szie            | -s   | -               | 256        | 消息 Payload 的大小；单位：字节                              |
-| --qos             | -q   | -               | 0          | Qos 等级                                                     |
-| --retain          | -r   | true<br />false | false      | 消息是否设置 Retain 标志                                     |
-| --keepalive       | -k   | -               | 300        | 客户端心跳时间                                               |
-| --clean           | -C   | true<br />false | true       | 是否以清除会话的方式建立连接                                 |
-| --ssl             | -S   | true<br />false | false      | 是否启用 SSL                                                 |
-| --certfile        | -    | -               | 无         | 客户端 SSL 证书                                              |
-| --keyfile         | -    | -               | 无         | 客户端 SSL 秘钥文件                                          |
-| --ws              | -    | true<br />false | false      | 是否以 Websocket 的方式建立连接                              |
-| --ifaddr          | -    | -               | 无         | 指定客户端连接使用的本地网卡                                 |
+1. `pub`: used to create a large number of clients to perform the operation of publishing messages.
+2. `sub`: Used to create a large number of clients to subscribe to topics and receive messages.
+3. `conn`: used to create a large number of connections.
 
 
+### Publish
 
-例如，我们启动 10 个连接，分别每秒向主题 `t` 发送 100 条 Qos0 消息，其中每个消息体的大小为 `16` 字节大小：
+When executing `./emqtt_bench pub --help`, you will get the available parameter output.
+
+| Parameter         | abbreviation | Optional value  | Default value  | Description                                                  |
+| ----------------- | ------------ | --------------- | -------------- | ------------------------------------------------------------ |
+| --host            | -h           | -               | localhost      | Address of the MQTT server to connect                        |
+| --port            | -p           | -               | 1883           | MQTT service port                                            |
+| --version         | -V           | 3<br>4<br>5     | 5              | MQTT protocol version used                                   |
+| --count           | -c           | -               | 200            | Total number of clients                                      |
+| --startnumber     | -n           | -               | 0              | Start number of clients                                      |
+| --interval        | -i           | -               | 10             | Interval to create a client; unit: ms                        |
+| --interval_of_msg | -I           | -               | 1000           | Interval to publish a message                                |
+| --username        | -u           | -               | None; optional | Client username                                              |
+| --password        | -P           | -               | None; optional | Client password                                              |
+| --topic           | -t           | -               | None; required | Published topics; support placeholders:<br />`%c`： ClientId<br />`%u`： Username<br />`%i`：Client's sequence number |
+| --szie            | -s           | -               | 256            | Message Payload size; unit: bytes                            |
+| --qos             | -q           | -               | 0              | Qos level                                                    |
+| --retain          | -r           | true<br />false | false          | Whether the message sets the Retain flag                     |
+| --keepalive       | -k           | -               | 300            | Client keepalive time                                        |
+| --clean           | -C           | true<br />false | true           | Whether to establish a connection by cleaning the session    |
+| --ssl             | -S           | true<br />false | false          | Whether to enable SSL                                        |
+| --certfile        | -            | -               | None           | Client SSL certificate                                       |
+| --keyfile         | -            | -               | None           | Client SSL key file                                          |
+| --ws              | -            | true<br />false | false          | Whether to establish a connection via Websocket              |
+| --ifaddr          | -            | -               | None           | Specifies the local network card used by the client connection |
+
+
+
+For example, we start 10 connections and send 100 Qos0 messages to the topic `t` every second, where the size of each message payload is` 16` bytes:
 
 ```bash
 ./emqtt_bench pub -t t -h emqx-server -s 16 -q 0 -c 10 -I 10
 ```
 
-### 订阅
+### Subscribe
 
-执行 `./emqtt_bench sub --help`可得到该子命令的所有的可用参数。它们的解释已包含在上表中，此处略过。
+Execute `./emqtt_bench sub --help` to get all available parameters of this subcommand. Their explanations have been included in the table above and are omitted here.
 
 
 
-例如，我们启动 500 个连接，每个都以 Qos0 订阅 `t` 主题：
+For example, we start 500 connections, and each subscribes to the `t` topic with Qos0:
 
 ```bash
 ./emqtt_bench sub -t t -h emqx-server -c 500
@@ -100,13 +100,13 @@ Usage: emqtt_bench pub | sub | conn [--help]
 
 
 
-### 连接
+### Connect
 
-执行 `./emqtt_bench conn --help` 可得到该子命令所有可用的参数。它们的解释已包含在上表中，此处略过。
+Execute `./emqtt_bench conn --help` to get all available parameters of this subcommand. Their explanations have been included in the table above and are omitted here.
 
 
 
-例如，我们启动 1000 个连接：
+For example, we start 1000 connections:
 
 ```bash
 ./emqtt_bench conn -h emqx-server -c 1000
@@ -114,11 +114,11 @@ Usage: emqtt_bench pub | sub | conn [--help]
 
 
 
-### SSL 连接
+### SSL connection
 
-`emqtt_bench` 支持建立 SSL 的安全连接，并执行测试。
+`emqtt_bench` supports establishing a secure SSL connection and performing tests.
 
-单向证书，例如：
+One-way certificate:
 
 ```bash
 ./emqtt_bench sub -c 100 -i 10 -t bench/%i -p 8883 -S
@@ -127,36 +127,36 @@ Usage: emqtt_bench pub | sub | conn [--help]
 
 
 
-双向证书，例如：
+Two-way certificate:
 
 ```bash
 ./emqtt_bench sub -c 100 -i 10 -t bench/%i -p 8883 --certfile path/to/client-cert.pem --keyfile path/to/client-key.pem
 ./emqtt_bench pub -c 100 -i 10 -t bench/%i -s 256 -p 8883 --certfile path/to/client-cert.pem --keyfile path/to/client-key.pem
 ```
 
-## 典型压测场景
+## Typical stress test scenario
 
-### 场景说明
+### Scenario description
 
-此处我们以 2 类最典型的场景来验证工具的使用：
+We verify the use of the tool in 2 most typical scenarios:
 
-1. 连接量：使用 `emqtt_bench` 创建百万连接到 EMQ X Broker。
-2. 吞吐量：使用 `emqtt_bench` 在 EMQ X Broker 中创建出 `10W/s 的 Qos0` 消息吞吐量。
+1. Connections: Use `emqtt_bench` to create millions of connections to EMQ X Broker.
+2. Throughput: Use `emqtt_bench` to create `10W / s Qos0` message throughput in EMQ X Broker.
 
-### 机器及部署拓扑图
+### Device and deployment topology
 
-共需准备三台 8C16G 服务器，一台为 EMQX Broker，两台为 客户端压力机。其中：
+A total of three 8C16G servers need to be prepared, one for EMQX Broker and two for client presses:
 
-- **系统**: `CentOS Linux release 7.7.1908 (Core)` 
+- System: `CentOS Linux release 7.7.1908 (Core)` 
 
-- **CPU:**  `Intel Xeon Processor (Skylake)` 主频: `2693.670 MHZ`
+- **CPU:**  `Intel Xeon Processor (Skylake)` Main frequency: `2693.670 MHZ`
 
-- **服务端：** `emqx-centos7-v4.0.2.zip`
+- **Server：** `emqx-centos7-v4.0.2.zip`
 
-- **压力机：**`emqtt-bench v0.3.1`
-  - 每台压力机分别配置 10 张网卡，用于连接测试中建立大量的 MQTT 客户端连接
+- **Press：**`emqtt-bench v0.3.1`
+  - Each press is configured with 10 network cards, which are used to establish a large number of MQTT client connections in the connection test
 
-拓扑结构如下：
+The topology structure is as follows:
 
 ```
 	+-----------------------+
@@ -168,15 +168,15 @@ Usage: emqtt_bench pub | sub | conn [--help]
 ```
 
 
-### 调优
+### Tuning
 
-客户端的压力机和服务端的机器都需要执行系统参数的调优，参见：[系统调优](../tutorial/turn.md)
+Both the client's press and the server's machine need to perform system parameter tuning, refer to [System tuning](../tutorial/turn.md).
 
 
 
-### 连接量测试
+### Connection test
 
-在执行完系统调优后，首先启动服务端：
+After performing system tuning, start the server:
 
 ```bash
 ./bin/emqx start
@@ -184,7 +184,7 @@ Usage: emqtt_bench pub | sub | conn [--help]
 
 
 
-然后在 `bench1` 上的每张网卡上启动 5w 的连接数，共计 50w 的连接：
+Then start 50 thousand connections on each network card on `bench1`, which is a total of 50w connections:
 
 ```bash
 
@@ -202,11 +202,11 @@ Usage: emqtt_bench pub | sub | conn [--help]
 
 
 
-在 `bench2`上也执行同样的操作。
+Perform the same operation on `bench2`.
 
 
 
-在所有连接建立完成后，执行 `./bin/emqx_ctl listeners`，并找到以下的内容， 查看 EMQ X Broker 中连接数的信息：
+After all connections are established, execute `./bin/emqx_ctl listeners` and find the following content to view the information about the number of connections in EMQ X Broker:
 
 ```bash
 listener on mqtt:tcp:0.0.0.0:1883
@@ -218,9 +218,9 @@ listener on mqtt:tcp:0.0.0.0:1883
 
 
 
-### 吞吐测试
+### Throughput test
 
-同样的，首先启动服务端：
+Similarly, first start the server:
 
 ```bash
 ./bin/emqx start
@@ -228,7 +228,7 @@ listener on mqtt:tcp:0.0.0.0:1883
 
 
 
-在 `bench1` 启动 500 个订阅客户端：
+Start 500 subscription clients in `bench1`:
 
 ```bash
 ./emqtt_bench sub -t t -h 192.168.0.99 -c 500
@@ -236,7 +236,7 @@ listener on mqtt:tcp:0.0.0.0:1883
 
 
 
-然后再 `bench2` 上启动 20 个发布端，并且每秒发布 10 条消息：
+Then start 20 publishers on `bench2` and publish 10 messages per second:
 
 ```bash
 ./emqtt_bench pub -t t -h 192.168.0.99 -c 20 -I 100
@@ -244,7 +244,7 @@ listener on mqtt:tcp:0.0.0.0:1883
 
 
 
-然后，回到 `bench1`上的订阅客户端，可看到当前接收消息的速率，类似于：
+Then, go back to the subscribing client on `bench1`, you can see the current rate of receiving messages:
 
 ```bash
 recv(28006): total=2102563, rate=99725(msg/sec)
