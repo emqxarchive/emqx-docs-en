@@ -17,184 +17,186 @@ ref: undefined
 
 # Dashboard
 
-## 简介
+## Introduction
 
-EMQ X Broker 提供了 Dashboard 以方便用户管理设备与监控相关指标。通过 Dashboard，你可以查看服务器基本信息、负载情况和统计数据，可以查看某个客户端的连接状态等信息甚至断开其连接，也可以动态加载和卸载指定插件。除此之外，EMQ X Dashboard 还提供了规则引擎的可视化操作界面，同时集成了一个简易的 MQTT 客户端工具供用户测试使用。
+EMQ X Broker provides Dashboard to facilitate users to manage equipment and monitor related indicators. Through Dashboard, you can view the basic information of the server, load and statistical data, you can view the connection status of a client and even disconnect it, and you can also dynamically load and unload specified plug-ins. In addition, EMQ X Dashboard also provides a visual operation interface of the rule engine, and also integrates a simple MQTT client tool for user testing.
 
-## 启用 Dashboard
+## Start Dashboard
 
-EMQ X Dashboard 功能由 [emqx-dashboard](https://github.com/emqx/emqx-dashboard) 插件实现，该插件默认处于启用状态，它将在 EMQ X Broker 启动时自动加载。如果你希望禁用 Dashboard 功能，你可以将 `data/loaded_plugins`（请参见 [插件](../advanced/plugins.md#)）中的 `{emqx_dashboard, true}` 修改为 `{emqx_dashboard, false}`。
+The EMQ X Dashboard function is implemented by the [emqx-dashboard](https://github.com/emqx/emqx-dashboard) plugin, which is enabled by default, and it will be automatically loaded when the EMQ X Broker starts. If you wish to disable the Dashboard function, you can modify `{emqx_dashboard, true}` in  `data/loaded_plugins` to `{emqx_dashboard, false} `.
 
 ```bash
 {emqx_dashboard, true}.
 ```
 
-## 查看 Dashboard
+## View Dashboard
 
-EMQ X Dashboard 是一个 Web 应用程序，你可以直接通过浏览器来访问它，无需安装任何其他软件。
+EMQ X Dashboard is a web application, and you can access it directly through the browser without installing any other software.
 
-当 EMQ X Broker 成功运行在你的本地计算机上且 EMQ X Dashboard 被默认启用时，你可以访问 http://localhost:18083 来查看你的 Dashboard，默认用户名是 `admin`，密码是 `public`。
+When EMQ X Broker runs successfully on your local computer and EMQ X Dashboard is enabled by default, you can visit http://localhost:18083 to view your Dashboard. The default user name is admin and the password is public .
 
-## 配置 Dashboard
+## Configure Dashboard
 
-您可以在 `etc/plugins/emqx_dashboard.conf` 中查看或修改 EMQ X Dashboard 的配置，注意此处的 `etc` 并非指系统目录，请参见 [目录结构](directory.md#)。
+You can view or modify the configuration of EMQ X Dashboard in  `etc/plugins/emqx_dashboard.conf`. Note that `etc` here does not refer to the system directory, see [directory structure](directory.md#) for details.
 
-EMQ X Dashboard 配置项可以分为**默认用户**与**监听器**两个部分：
+EMQ X Dashboard configuration items can be divided into two parts of default user and listener:
 
-**默认用户**
+**Default User** 
 
-EMQ X Dashboard 可以配置多个用户，但在配置文件中仅支持配置默认用户。
+EMQ X Dashboard can configure multiple users, but only the default user can be configured in the configuration file.
 
-需要注意的是，一旦您通过 Dashboard 修改了默认用户的密码，则默认用户的相关信息将以您在 Dashboard 上的最新改动为准，配置文件中的默认用户配置将被忽略。
+It should be noted that once you change the password of the default user through Dashboard, the relevant information of the default user will be based on your latest changes on the Dashboard, and the default user configuration in the configuration file will be ignored.
 
-**监听器**
+**Listeners**
 
-EMQ X Dashboard 支持 HTTP 和 HTTPS 两种 Listener，但默认只启用了监听端口为 18083 的 HTTP Listener，关于 Listener 的介绍请参见 [配置说明](config.md#)。
+EMQ X Dashboard supports both HTTP and HTTPS Listeners, but only HTTP Listeners with a listening port of 18083 are enabled by default. For the introduction of Listeners, please refer to [Configuration Instructions](config.md#).
 
-关于 Dashboard 的详细配置项说明，请参见 [配置项](../configuration/index.md#)。
+For the detailed configuration item description of Dashboard, please refer to [Configuration Item](../configuration/index.md#).
 
-## Dashboard 界面
+## Dashboard interface
 
 为了使用户在操作和浏览中可以快速地定位和切换当前位置，EMQ X Dashboard 采用了侧边导航的模式，默认情况下 Dashboard 包含以下一级导航项目：  
 
-| 导航项目    | 说明                                              |
-| ----------- | ------------------------------------------------- |
-| MONITORING  | 提供了服务端与客户端监控信息的展示页面            |
-| RULE ENGINE | 提供了规则引擎的可视化操作页面                    |
-| MANAGEMENT  | 提供了扩展插件与应用的管理页面                    |
-| TOOLS       | 提供了 WebSocket 客户端工具以及 HTTP API 速查页面 |
-| ADMIN       | 提供了 Dashboard 用户管理和显示设置等页面         |
+In order to enable users to quickly locate and switch the current position during operation and browsing, EMQ X Dashboard adopts the mode of side navigation. By default, Dashboard includes the following first-level navigation items:
+
+| Navigation  | Description                                                  |
+| ----------- | ------------------------------------------------------------ |
+| MONITORING  | Provide display pages for server and client monitoring information |
+| RULE ENGINE | Provide a visual operation page of the rule engine           |
+| MANAGEMENT  | Provide management pages for extensions of plugins and applications |
+| TOOLS       | Provide WebSocket client tool and HTTP API quick check page  |
+| ADMIN       | Provide Dashboard user management and display settings pages |
 
 ### MONITORING
 
-EMQ X Dashboard 提供了非常丰富的数据监控项目，完整地覆盖了服务端与客户端，这些信息都将在 `MONITORING` 下的页面中被合理地展示给用户。
+EMQ X Dashboard provides a very rich data monitoring project, that completely covers the server and client. All of this information will be reasonably displayed to users on the page under `MONITORING`.
 
 #### Overview
 
-`Overview` 作为 Dashboard 的默认展示页面，提供了 EMQ X Broker 当前节点的详细信息和集群其他节点的关键信息，以帮助用户快速掌握每个节点的状态。
+As the default display page of Dashboard, `Overview` provides detailed information of EMQ X Broker ’s current nodes and key information of other nodes in the cluster to help users quickly get the status of each node.
 
 ![image](../assets/dashboard-overview.png)
 
 #### Clients
 
-`Clients` 页面提供了连接到指定节点的客户端列表，同时支持通过 `Client ID` 直接搜索客户端。除了查看客户端的基本信息，您还可以点击每条记录右侧的 `Kick Out` 按钮踢掉该客户端，注意此操作将断开客户端连接并终结其会话。
+The `Clients` page provides a list of clients connected to the specified node, and also supports direct client search via `Client ID`. In addition to viewing the basic information of the client, you can also click the `Kick Out` button on the right side of each record to kick out the client. Note that this operation will disconnect the client and terminate its session.
 
-`Clients` 页面使用快照的方式来展示客户端列表，因此当客户端状态发生变化时页面并不会自动刷新，需要您手动刷新浏览器来获取最新客户端数据。
+The `Clients` page uses a snapshot to display the client list. Therefore, when the client status changes, the page does not automatically refresh, and you need to manually refresh the browser to get the latest client data.
 
 ![image](../assets/dashboard-clients.png)
 
-如果你无法在客户端列表获取到你需要的信息，你可以单击 `Client ID` 来查看客户端的详细信息。
+If you can not get the information you need in the client list, you can click `Client ID` to view the detailed information of the client.
 
 ![image](../assets/dashboard-clients-basic-info.png)
 
-我们将客户端详情中的各个字段分为了 **连接**，**会话** 和 **指标** 三类，以下为各字段的说明：
+We divided the various fields in the client details into connection, session and metrics. The following is the description of each field:
 
-**连接**
+Connection
 
-| 字段名            | 说明                                                       |
-| ----------------- | ---------------------------------------------------------- |
-| Node              | 客户端连接的节点名称                                       |
-| Client ID         | 客户端标识符                                               |
-| Username          | 客户端连接时使用的用户名，出于安全性考虑，密码将不会被展示 |
-| Protocol          | 客户端使用的协议名称及其版本                               |
-| IP Address        | 客户端的网络 IP 地址，地址可以是 IPv4 或 IPv6              |
-| Port              | 客户端源端口                                               |
-| Is Bridge         | 指示客户端是否通过桥接方式连接                             |
-| Connected At      | 客户端连接时间                                             |
-| Disconnected At   | 客户端离线时间                                             |
-| Connection Status | 客户端连接状态                                             |
-| Zone              | 指示客户端所使用的配置组                                   |
-| Keepalive         | 保持连接时间，单位：秒                                     |
+| Field             | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| Node              | Name of the node to which the client connects                |
+| Client ID         | Client ID                                                    |
+| Username          | The user name used when the client connects, for security reasons, the password will not be displayed |
+| Protocol          | The protocol name and version used by the client             |
+| IP Address        | The client's network IP address, which can be IPv4 or IPv6   |
+| Port              | Client source port                                           |
+| Is Bridge         | Indicate whether the client connects via bridge              |
+| Connected At      | Client connection time                                       |
+| Disconnected At   | Client offline time                                          |
+| Connection Status | Client connection status                                     |
+| Zone              | Indicates the configuration group used by the client         |
+| Keepalive         | Keep-alive time, unit: second                                |
 
-**会话**
+**Session**
 
-| 字段名                             | 说明                                             |
+| Field                         | Description                                   |
 | ---------------------------------- | ------------------------------------------------ |
-| Clean Session                      | 指示客户端是否使用了全新的会话                   |
-| Expiry Interval                    | 会话过期间隔，单位：秒                           |
-| Created At                         | 会话创建时间                                     |
-| Subscriptions Count                | 当前订阅数量                                     |
-| Maximum Subscriptions Count        | 允许建立的最大订阅数量                           |
-| Inflight Window Size                | 当前飞行窗口大小，请参见 [飞行窗口与消息队列](../advanced/inflight-window-and-message-queue.md#) |
-| Maximum Inflight Window Size        | 飞行窗口最大大小                                 |
-| Message Queue Size                 | 当前消息队列大小，请参见 [飞行窗口与消息队列](../advanced/inflight-window-and-message-queue.md#) |
-| Maximum Message Queue Size         | 消息队列最大大小                                 |
-| Uncomfirmed PUBREC Packets         | 未确认的 PUBREC 报文数量                         |
-| Maximum Uncomfirmed PUBREC Packets | 允许存在未确认的 PUBREC 报文的最大数量           |
+| Clean Session                      | Indicates whether the client has used a brand new session |
+| Expiry Interval                    | Session expiration interval, unit: seconds                   |
+| Created At                         | Session creation time                |
+| Subscriptions Count                | Current number of subscriptions      |
+| Maximum Subscriptions Count        | Maximum number of subscriptions allowed |
+| Inflight Window Size                | Current inflight window size, please refer to [InFlight Window and Message Queue](../advanced/inflight-window-and-message-queue.md#) |
+| Maximum Inflight Window Size        | Maximum size of inflight window  |
+| Message Queue Size                 | Current message queue size, please refer to [InFlight Window and Message Queue](../advanced/inflight-window-and-message-queue.md#) |
+| Maximum Message Queue Size         | Maximum size of message queue |
+| Uncomfirmed PUBREC Packets         | Number of unconfirmed PUBREC messages |
+| Maximum Uncomfirmed PUBREC Packets | Maximum number of unconfirmed PUBREC messages allowed |
 
-**指标**
+Metric
 
-| 字段名                             | 说明                                   |
+| Field                         | Description                         |
 | ---------------------------------- | -------------------------------------- |
-| Number of Bytes Received           | EMQ X Broker（下同）接收的字节数量 |
-| Number of TCP Packets Received     | 接收的 TCP 报文数量                    |
-| Number of MQTT Packets Received    | 接收的 MQTT 报文数量                   |
-| Number of PUBLISH Packets Received | 接收的 PUBLISH 报文数量                |
-| Number of Bytes Sent               | 发送的字节数量                         |
-| Number of TCP Packets Sent         | 发送的 TCP 报文数量                    |
-| Number of MQTT Packets Sent        | 发送的 MQTT 报文数量                   |
-| Number of PUBLISH Packets Sent     | 发送的 PUBLISH 报文数量                |
+| Number of Bytes Received           | Number of bytes received by EMQ X Broker (same below) |
+| Number of TCP Packets Received     | Number of TCP Packets Received |
+| Number of MQTT Packets Received    | Number of MQTT Packets Received |
+| Number of PUBLISH Packets Received | Number of PUBLISH Packets Received |
+| Number of Bytes Sent               | Number of Bytes Sent     |
+| Number of TCP Packets Sent         | Number of TCP Packets Sent |
+| Number of MQTT Packets Sent        | Number of MQTT Packets Sent |
+| Number of PUBLISH Packets Sent     | Number of PUBLISH Packets Sent |
 
-在客户端详情的 `Subscriptions` 标签页中，您可以查看当前客户端的订阅信息，以及新建或取消订阅：
+In the `Subscriptions` tab of the client details, you can view the subscription information of the current client, and create or cancel subscriptions:
 
 ![image](../assets/dashboard-clients-subscriptions.png)
 
 #### Subscriptions
 
-`Subscriptions` 页面提供了指定节点下的所有订阅信息，并且支持用户通过 `Client ID` 查询指定客户端的所有订阅。
+The `Subscriptions` page provides all subscription information under the specified node, and supports users to query all subscriptions of the specified client through the `Client ID`.
 
 ![image](../assets/dashboard-subscriptions.png)
 
 ### RULE ENGINE
 
-使用 EMQ X Broker 的规则引擎可以灵活地处理消息和事件，例如将消息转换成指定格式后存入数据库表或者重新发送到消息队列等等。为了方便用户更好地使用规则引擎，EMQ X Dashboard 提供了相应的可视化操作页面，您可以点击 `RULE ENGINE` 导航项目来访问这些页面。
+The rule engine of EMQ X Broker can flexibly process messages and events, such as converting the message into a specified format and storing it in a database table or resending it to the message queue. In order to facilitate users to better use the rules engine, EMQ X Dashboard provides corresponding visual operation pages, and you can click the `RULE ENGINE` navigation item to access these pages.
 
-鉴于规则引擎的相关概念比较复杂， 涉及到的操作可能会占据相当大的篇幅，考虑到您的阅读体验，我们将通过额外的文档来介绍规则引擎，请参见 [规则引擎](../advanced/rule-engine.md#)。
+Due to the complexity of the related concepts of the rule engine, the operations involved may occupy a considerable amount of space. Considering your reading experience, we will introduce the rule engine through additional documents of  [rule-engine](../advanced/rule-engine.md#).
 
 ### MANAGEMENT
 
-目前 EMQ X Dashboard 的 `MANAGEMENT` 导航项目下主要包括扩展插件（请参见 [插件](../advanced/plugins.md#)）的监控管理页面和用于 HTTP API 认证的 AppID 与 AppSerect（请参见 [HTTP API](../advanced/http-api.md#)）的管理页面。
+Currently, the EMQ X Dashboard's `MANAGEMENT` navigation item mainly includes an monitoring management page for extension plug-in  and management page of AppID and AppSerect for HTTP API authentication.
 
 #### Plugins
 
-`Plugins` 页面列举了 EMQ X Broker 能够发现的所有插件，包括 EMQ X 官方插件与您遵循 EMQ X 官方标准自行开发的插件，您可以在此页面查看插件当前的运行状态以及随时启停插件。
+The `Plugins` page lists all the plug-ins that EMQ X Broker can find, including the official plug-ins of EMQ X and the plug-ins that you developed in accordance with the official standards of EMQ X. You can check the current running status of the plug-ins and start and stop the plug-ins at any time on this page.
 
 ![image](../assets/dashboard-plugins.png)
 
-您可以看到，除了 [emqx-dashboard](https://github.com/emqx/emqx-dashboard) 以外，EMQ X Broker 还将默认启动 [emqx-rule-engine](https://github.com/emqx/emqx-rule-engine) 等 4 个插件：
+You can see that in addition to [emqx-dashboard](https://github.com/emqx/emqx-dashboard), EMQ X Broker will also start  other 4 plugins by default:
 
 ![image](../assets/dashboard-running-plugins.png)
 
 #### Applications
 
-`Applications` 页面列举了当前已创建的应用，您可以在此页面进行诸如创建应用、临时禁用或启动某个应用的访问权限等操作。EMQ X Broker 会创建一个 AppID 为 `admin`，AppSecret 为 `publish` 的默认应用方便用户首次访问：
+The `Applications` page lists the currently created applications. You can perform operations such as creating applications, temporarily disabling or starting access permissions for an application on this page. EMQ X Broker will create a default application with AppID of `admin` and AppSecret of `publish` for users to access for the first time:
 
 ![image](../assets/dashboard-applications.png)
 
-您可以点击 `Application` 页面右上角的 `New App` 按钮来创建一个新的应用，其中 AppID 与 AppSecret 是必选项。创建完成后您可以点击 `View` 按钮来查看应用详情，AppSecret 也会在详情中显示。以下是相关字段的说明：
+You can click the `New App` button in the upper right corner of the `Application` page to create a new application, where AppID and AppSecret are required. After the creation is complete, you can click the `View` button to view the application details, and AppSecret will also be displayed in the details. The following is a description of the relevant fields:
 
-| 字段名       | 说明                                                         |
+| Field        | Description                                                  |
 | ------------ | ------------------------------------------------------------ |
-| AppID        | 应用标识符，用于区分不同的应用，因此不可重复，在创建应用时 Dashboard 将自动为你生成一个随机的建议应用标识符 |
-| AppName      | 应用名称，可以重复，但为了方便您自己使用，我们不建议使用重复的应用名称 |
-| AppSecret    | 由 EMQ X Broker 分配的应用密钥，可以在应用详情中查看                |
-| Expired date | 应用的过期时间，默认为永不过期                               |
-| Remark       | 您对应用的描述，方便后期管理                                 |
-| Status       | 应用状态，只有 Allowed 与 Denied 两种，Denied 状态下 EMQ X Broker 将拒绝使用该 AppID 与 App Secret 的 HTTP API 的访问请求 |
+| AppID        | It is used to distinguish different applications, so it is not repeatable. When creating an application, Dashboard will automatically generate a random suggested application ID for you |
+| AppName      | It can be repeated, but for your own convenience, we do not recommend using a duplicate application name |
+| AppSecret    | The application key assigned by EMQ X Broker that can be viewed in the application details |
+| Expired date | The expiration time of the application, the default is to never expire |
+| Remark       | Your description of the application, facilitate later management |
+| Status       | There are only two types of application status: Allowed and Denied. In Denied status, EMQ X Broker will deny the access request of HTTP API using the AppID and App Secret |
 
 ### TOOLS
 
-目前 EMQ X Dashboard 的 `TOOLS` 导航项目下主要包括 WebSocket 客户端工具页面以及 HTTP API 速查页面。
+Currently, the `TOOLS`  navigation item of EMQ X Dashboard mainly includes WebSocket client tool page and HTTP API quick check page.
 
 #### Websocket
 
-`Websocket` 页面为您提供了一个简易但有效的 WebSocket 客户端工具，它包含了连接、订阅和发布功能，同时还能查看自己发送和接收的报文数据，我们期望它可以帮助您快速地完成某些场景或功能的测试验证：
+The `Websocket` page provides you with a simple but effective WebSocket client tool, which includes connection, subscription and publishing functions. At the same time, you can view the message data you send and receive, we hope it can help you quickly complete test verification of certain scenarios or functions:
 
 ![image](../assets/dashboard-websocket.png)
 
 #### HTTP API
 
-`HTTP API` 页面列举了 EMQ X Broker 目前支持的所有 HTTP API 及其说明：
+The `HTTP API` page lists all the HTTP APIs currently supported by EMQ X Broker and their descriptions:
 
 ![image](../assets/dashboard-http-api.png)
 
@@ -202,18 +204,18 @@ EMQ X Dashboard 提供了非常丰富的数据监控项目，完整地覆盖了�
 
 #### Users
 
-您可以在 `Users` 页面查看和管理能够访问和操作 Dashboard 的用户：
+You can view and manage users who can access and operate Dashboard on the `Users` page:
 
 ![image](../assets/dashboard-users.png)
 
 #### Settings
 
-目前 EMQ X Dashboard 仅支持修改主题和语言两种设置：
+Currently, EMQ X Dashboard only supports the modification of the topic and language settings:
 
 ![image](../assets/dashboard-settings.png)
 
 #### Help
 
-如果您在使用 EMQ X Broker 的过程中遇到了任何问题，我们在 `Help` 页面为您提供了 FAQ 等文档的链接。如果我们现有的文档依然无法解决您的问题，您可以前往我们在 Github 的开源社区咨询我们的技术人员。
+If you encounter any problems in using EMQ X Broker, we provide you with links to FAQ and other documents on the `Help` page. If our existing documents still cannot solve your problem, you can go to our open source community on Github to consult our technical staff.
 
 ![image](../assets/dashboard-help.png)
