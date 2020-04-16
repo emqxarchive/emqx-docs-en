@@ -16,7 +16,7 @@ ref: undefined
 ---
 
 
-# Multiple language support
+# Cross language
 
 In the EMQ X Broker distribution, some [plugins](plugins.md) are provided for multiple language support. It allows you to extend the behavior of EMQ X Broker with other programming languages, and the architecture in the system is:
 

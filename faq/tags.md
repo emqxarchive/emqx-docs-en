@@ -17,234 +17,194 @@ ref:
 
 # Tags
 
-### Fail to start
 
-- [OPENSSL version is not correct](error.md#openssl-版本不正确)
+### Enterprise
 
-
-
-### Enterprise version
-
-- [How many products in EMQ X?](index.md#emq-x-有哪些产品？)
-- [What's the major difference between EMQ X enterprise and broker?](enterprise.md#emq-x-企业版（enterprise）和开源版（broker）的主要区别是什么？)
+- [What's the major difference between EMQ X enterprise and broker?](enterprise.md#what's-the-major-difference-between-emq-x-enterprise-and-broker)
+- [Does EMQ X provide consulting service?](enterprise.md#does-emq-x-provide-consulting-service)
 
 
 
-### NB-IoT
+### Update
 
-- [What is the relationship between EMQ X and NB-IoT, LoRAWAN?](index.md#emq-x-与-nb-iot、lorawan-的关系是什么？)
-
-
-
-### LoRAWAN
-
-- [What is the relationship between EMQ X and NB-IoT, LoRAWAN?](index.md#emq-x-与-nb-iot、lorawan-的关系是什么？)
+- [How to update EMQ X license?](use-guide.md#how-to-update-emq-x-license)
 
 
 
-### 多协议
+### Protocol
 
-- [What's WebSocket? When to use Websocket to connect EMQ X?](index.md#什么是-websocket？什么情况下需要通过-websocket-去连接-emq-x-服务器？)
-
-
-
-### License
-
-- [How to update EMQ X license?](use-guide.md#怎样更新-emq-x-license)
+- [Can EMQ X support customized protocols? How to implement?](use-guide.md#can-emq-x-support-customized-protocols-how-to-implement)
 
 
 
-### Extension
+### Extends
 
-- [Does EMQ X support private protocols for expansion? How should it be implemented if supported?](use-guide.md#emq-x-支持私有协议进行扩展吗？如支持应该如何实现？)
-
-
-
-### Resource estimate
-
-- [How does EMQ X estimate the use of resources?](deployment.md#emq-x-如何预估资源的使用？)
+- [Can EMQ X support customized protocols? How to implement?](use-guide.md#can-emq-x-support-customized-protocols-how-to-implement)
 
 
 
-## *Authentication*
+### Resource estimation
 
-- [What's EMQ X authentication and it's use scenario?](index.md#什么是认证鉴权？使用场景是什么？)
+- [How to estimate resource usage of EMQ X?](deployment.md#how-to-estimate-resource-usage-of-emq-x)
+
+
+
+### Auth
+
+- [EMQ X cannot connect to Mysql8.0](error.md#emq-x-cannot-connect-to-mysql8.0)
 
 
 
 ### WebHook
 
-- [Can I capture events of the device going online or offline? How to use it?](use-guide.md#我可以捕获设备上下线的事件吗？该如何使用？)
-- [What is Hook? What is the usage scenario?](index.md#什么是-hook？使用场景是什么？)
+- [Can I capture device online and offline events? How to use it?](use-guide.md#can-i-capture-device-online-and-offline-events-how-to-use-it)
+- [What's Hook? What's the use scenario?](faq.md#what's-hook-what's-the-use-scenario)
 
 
 
-### System topic
+### System Topic
 
-- [Can I capture events of the device going online or offline? How to use it?](use-guide.md#我可以捕获设备上下线的事件吗？该如何使用？)
-- [What is the use of system themes? What are the system topics?](index.md#系统主题有何用处？都有哪些系统主题？)
+- [Can I capture device online and offline events? How to use it?](use-guide.md#can-i-capture-device-online-and-offline-events-how-to-use-it)
+- [What is the usage of system topics? What system topics are available?](faq.md#what-is-the-usage-of-system-topics-what-system-topics-are-available)
 
-### Message queue
 
-- [What is mqueue？How to configure mqueue？](index.md#什么是-mqueue？如何配置-mqueue？)
+
+### Message Queue
+
+- [What's mqueue? How to use mqueue in EMQ X?](faq.md#what's-mqueue-how-to-use-mqueue-in-emq-x)
 
 
 
 ### WebSocket
 
-- [What's WebSocket? When to use Websocket to connect EMQ X?](index.md#什么是-websocket？什么情况下需要通过-websocket-去连接-emq-x-服务器？)
+- [What's WebSocket? When to use Websocket to connect EMQ X?](faq.md#what's-websocket-when-to-use-websocket-to-connect-emq-x)
 
 
 
 ### ACL
 
-- [If I want to limit certain topics to specific clients, how to configure EMQ X?](use-guide.md#我想限定某些主题只为特定的客户端所使用，emq-x-该如何进行配置？)
+- [I want to control topics can be used for specific clients, how to configure it in EMQ X?](use-guide.md#i-want-to-control-topics-can-be-used-for-specific-clients,-how-to-configure-it-in-emq-x)
 
 
 
-### Publish/Subscribe
+### Pub/Sub
 
-- [If I want to limit certain topics to specific clients, how to configure EMQ X?](use-guide.md#我想限定某些主题只为特定的客户端所使用，emq-x-该如何进行配置？)
-
-
-
-### Shared subscription
-
-- [What is a shared subscription? What are the usage scenarios?](index.md#什么是共享订阅？有何使用场景？)
+- [What's shared subscription, and it's use scenario?](faq.md#what's-shared-subscription,-and-it's-use-scenario)
 
 
 
-## *Traffic control*
+### Shared Subscription
 
-- [Can EMQ X support traffic control?](use-guide.md#emq-x-能做流量控制吗？)
-
-
-
-### Offline message
-
-- [What is an offline message?](index.md#什么是离线消息？)
+- [What's shared subscription, and it's use scenario?](faq.md#what's-shared-subscription,-and-it's-use-scenario)
 
 
 
-### Proxy subscription
+### Rate Limit
 
-- [What is a proxy subscription? What is the usage scenario?](index.md#什么是代理订阅？使用场景是什么？)
+- [Can EMQ X support traffic control?](use-guide.md#can-emq-x-support-traffic-control)
+
+
+
+### Retain
+
+- [What is off-line message?](faq.md#what-is-off-line-message)
+
+
+
+### Subscription by Broke
+
+- [What is Subscription by Broker? And its use scenario?](faq.md#what-is-subscription-by-broker-and-its-use-scenario)
 
 
 
 ### Performance
 
-- [How does EMQ X support large-scale concurrency and high availability?](use-guide.md#emq-x-是如何实现支持大规模并发和高可用的？)
-
-
-
-### High concurrency
-
-- [How does EMQ X support large-scale concurrency and high availability?](use-guide.md#emq-x-是如何实现支持大规模并发和高可用的？)
+- [When I was executing stress test, the connection number and throughput are lower than expected. How can I tune the system to make full use of it?](deployment.md#when-i-was-executing-stress-test,-the-connection-number-and-throughput-are-lower-than-expected.-how-can-i-tune-the-system-to-make-full-use-of-it)
+- [My connections number is small, do I still need to deploy multiple nodes in production?](deployment.md#my-connections-number-is-small,-do-i-still-need-to-deploy-multiple-nodes-in-production)
+- [Use of ssl resumption session in EMQ X](use-guide.md#use-of-ssl-resumption-session-in-emq-x)
 
 
 
 ### Persistence
 
-- [Can I forward MQTT messages from EMQ X to other message middleware? Such as RabbitMQ?](use-guide.md#我可以把-mqtt-消息从-emq-x-转发其他消息中间件吗？例如-rabbitmq？)
+- [Can I forward MQTT messages EMQ X to other MQTT broker, like RabbitMQ?](use-guide.md#can-i-forward-mqtt-messages-emq-x-to-other-mqtt-broker,-like-rabbitmq)
 
 
 
-### HTTP API
+### REAT API
 
-- [Can I directly disconnect an MQTT connection on the server side?](use-guide.md#在服务器端能够直接断开一个-mqtt-连接吗？)
+- [Can I disconnect an MQTT connection from EMQ X server?](use-guide.md#can-i-disconnect-an-mqtt-connection-from-emq-x-server)
 
 
 
 ### Dashboard
 
-- [Can I directly disconnect an MQTT connection on the server side?](use-guide.md#在服务器端能够直接断开一个-mqtt-连接吗？)
+- [Can I disconnect an MQTT connection from EMQ X server?](use-guide.md#can-i-disconnect-an-mqtt-connection-from-emq-x-server)
 
 
 
 ### Kafka
 
-- [When Kafka is bridged in the EMQ X Enterprise Edition, and an MQTT message reaches the EMQ X cluster, will it return the MQTT Ack message or write it to Kafka before returning the MQTT Ack message?](use-guide.md#emq-x-企业版中桥接-kafka，一条-mqtt-消息到达-emq-x-集群之后就回-mqtt-ack-报文还是写入-kafka-之后才回-mqtt-ack-报文)
+- [Can EMQ X forward messages to Kafka?](use-guide.md#can-emq-x-forward-messages-to-kafka)
+- [I use Kafka bridge in EMQ X enterprise, when will the MQTT Ack packet sent back to client?  Is the time when message arriving EMQ X or after getting Ack message from Kafka?](use-guide.md#i-use-kafka-bridge-in-emq-x-enterprise,-when-will-the-mqtt-ack-packet-sent-back-to-client--is-the-time-when-message-arriving-emq-x-or-after-getting-ack-message-from-kafka)
 
 
 
 ### Bridge
 
-- [Can MQTT Broker (such as Mosquitto) forward messages to EMQ X?](use-guide.md#mqtt-broker（比如-mosquitto）可以转发消息到-emq-x-吗？)
-
-
-
-### Configuration
-
-- [When Kafka is bridged in the EMQ X Enterprise Edition, and an MQTT message reaches the EMQ X cluster, will it return the MQTT Ack message or write it to Kafka before returning the MQTT Ack message?](use-guide.md#emq-x-企业版中桥接-kafka，一条-mqtt-消息到达-emq-x-集群之后就回-mqtt-ack-报文还是写入-kafka-之后才回-mqtt-ack-报文)
+- [Can other MQTT broker (for example Mosquitto) forward messages to EMQ X?](use-guide.md#can-other-mqtt-broker-(for-example-mosquitto)-forward-messages-to-emq-x)
 
 
 
 ### Cluster
 
-- [Does EMQ X support cluster auto discovery? What clustering methods are supported?](use-guide.md#emq-x-支持集群自动发现吗？有哪些实现方式？)
-- [If My connections are not large, do I need multiple nodes for EMQ X production deployment?](deployment.md#我的连接数目并不大，emq-x-生产环境部署需要多节点吗？)
+- [Does EMQ X support cluster auto discovery? What clustering methods are supported?](use-guide.md#does-emq-x-support-cluster-auto-discovery-what-clustering-methods-are-supported)
 
 
 
 ### RabbitMQ
 
-- [Can I forward MQTT messages from EMQ X to other message middleware? Such as RabbitMQ?](use-guide.md#我可以把-mqtt-消息从-emq-x-转发其他消息中间件吗？例如-rabbitmq？)
+- [Can I forward MQTT messages EMQ X to other MQTT broker, like RabbitMQ?](use-guide.md#can-i-forward-mqtt-messages-emq-x-to-other-mqtt-broker,-like-rabbitmq)
+
+
+
+### Cloud
+
+- [Can I forward messages from EMQ X to MQTT services hosted on public cloud?](use-guide.md#can-i-forward-messages-from-emq-x-to-mqtt-services-hosted-on-public-cloud)
 
 
 
 ### Mosquitto
 
-- [Can MQTT Broker (such as Mosquitto) forward messages to EMQ X?](use-guide.md#mqtt-broker（比如-mosquitto）可以转发消息到-emq-x-吗？)
+- [Can other MQTT broker (for example Mosquitto) forward messages to EMQ X?](use-guide.md#can-other-mqtt-broker-(for-example-mosquitto)-forward-messages-to-emq-x)
 
 
 
 ### Trace
 
-- [If I want to track the publishing and subscribing process of specific messages, what should I do?](use-guide.md#我想跟踪特定消息的发布和订阅过程，应该如何做？)
+- [What should I do if I want trace the subscription and publish of some particular message?](use-guide.md#what-should-i-do-if-i-want-trace-the-subscription-and-publish-of-some-particular-message)
 
 
 
 ### Debug
 
-- [Why does the number of connections and throughput always fail to increase when I do a stress test, is there a system tuning guide?](use-guide.md#为什么我做压力测试的时候，连接数目和吞吐量老是上不去，有系统调优指南吗？)
-- [How to troubleshoot if EMQ X fails to start after installation?](use-guide.md#emq-x-安装之后无法启动怎么排查？)
-
-
-
-### Performance Test
-
-- [Why does the number of connections and throughput always fail to increase when I do a stress test, is there a system tuning guide?](use-guide.md#为什么我做压力测试的时候，连接数目和吞吐量老是上不去，有系统调优指南吗？)
-- [What is the scenario of EMQ X's million connection stress test?](deployment.md#emq-x-的百万连接压力测试的场景是什么？)
+- [When I was executing stress test, the connection number and throughput are lower than expected. How can I tune the system to make full use of it?](deployment.md#when-i-was-executing-stress-test,-the-connection-number-and-throughput-are-lower-than-expected.-how-can-i-tune-the-system-to-make-full-use-of-it)
+- [How to troubleshoot if EMQ X can't start after installation?](use-guide.md#how-to-troubleshoot-if-emq-x-can't-start-after-installation)
 
 
 
 ### TLS
 
-- [Does EMQ X support encrypted connections? What is the recommended deployment plan?](use-guide.md#emq-x-支持加密连接吗？推荐的部署方案是什么？)
-- [Use of ssl resumption session in EMQ X](use-guide.md#emq-x中ssl-resumption-session的使用)
-
-
-
-### Encrypted connection
-
-- [Does EMQ X support encrypted connections? What is the recommended deployment plan?](use-guide.md#emq-x-支持加密连接吗？推荐的部署方案是什么？)
+- [Does EMQ X support encrypted connection? What is the recommended deployment?](use-guide.md#does-emq-x-support-encrypted-connection-what-is-the-recommended-deployment)
 
 
 
 ### MySQL
 
-- [EMQ X cannot connect to MySQL 8.0](error.md#emq-x-无法连接-mysql-8.0)
-
-
-
-### Authentication
-
-- [EMQ X cannot connect to MySQL 8.0](error.md#emq-x-无法连接-mysql-8.0)
+- [EMQ X cannot connect to Mysql8.0](error.md#emq-x-cannot-connect-to-mysql8.0)
 
 
 
 ### Metrics
 
-- [MQTT client disconnect statistics](use-guide.md#mqtt-客户端断开连接统计)
-
+- [MQTT client disconnect statistics](use-guide.md#mqtt-client-disconnect-statistics)

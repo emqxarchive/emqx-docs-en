@@ -17,7 +17,6 @@ ref: undefined
 
 # Configuration
 
-
 ## cluster
 
 ### cluster.name
@@ -804,7 +803,7 @@ Where to output the log. The optional values are:
 
 ##### Description
 
-Global log level. This includes the primary log level and all log handlers. For details, see [log level and log handlers](../using-emqx/log.md#log-level-and-log-handlers).
+Global log level. This includes the primary log level and all log handlers. For details, see [log level and log handlers](../getting-started/log.md#log-level-and-log-handlers).
 
 <br />
 
@@ -4021,7 +4020,7 @@ Specify the data carried in the authentication request. When using the GET metho
 | `%u`   | Username |
 | `%c`   | MQTT Client ID       |
 | `%a`   | Client's network IP address |
-| `%r`   | The protocol used by the client can be:`mqtt`, `mqtt-sn`, `coap`, `lwm2m` 以及 `stomp` |
+| `%r`   | The protocol used by the client can be:`mqtt`, `mqtt-sn`, `coap`, `lwm2m` and `stomp` |
 | `%P`   | Password |
 | `%p`   | Server port for client connection |
 | `%c`   | Common Name in client certificate |
@@ -4101,7 +4100,7 @@ Specify the data carried in the authentication request. When using the GET metho
 | `%u`        | MQTT Client ID                                               |
 | `%c`        | Client identifier                                            |
 | `%a`        | Client network IP address                                    |
-| `%r`        | The protocol used by the client can be: `mqtt`, `mqtt-sn`, `coap`, `lwm2m` 以及 `stomp` |
+| `%r`        | The protocol used by the client can be: `mqtt`, `mqtt-sn`, `coap`, `lwm2m` and `stomp` |
 | `%m`        | Mount point                                                  |
 | `%t`        | Topic                                                        |
 
@@ -4374,7 +4373,7 @@ The password for logging into the LDAP service.
 
 ##### Description
 
-查询操作的超时时间.
+The query timeout.
 
 <br />
 
@@ -5113,7 +5112,7 @@ The SQL select statement used for super user authentication. All table names and
 
 The SQL selection statement used in ACL verification. All table names and field names in this statement can be modified as appropriate. The placeholders supported in the WHERE clause are as follows:
 
-| 占位符 | Description                                                  |
+| Tag | Description                                                  |
 | ------ | ------------------------------------------------------------ |
 | `%a`   | To be replaced with the client IP address                    |
 | `%u`   | To be replaced with the username specified by the MQTT client in the CONNECT packet |
@@ -6760,20 +6759,6 @@ Log files for hot updates of code.
 | enum | `ram`, `disc`, `disc_only` | `ram`   |
 
 ##### Description
-
-保留消息的存储类型，以下选项可用：
-
-`ram`
-
-保留消息仅存储在内存中.
-
-`disc`
-
-保留消息同时存储在内存和磁盘中.
-
-`disc_only`
-
-保留消息仅存储在磁盘中.
 
 Storage type of the message, the following options are available:
 

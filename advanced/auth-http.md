@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# HTTP Authentication
+# HTTP
 
 HTTP authentication uses an external self-built HTTP application authentication data source, and determines the authentication result based on the data returned by the HTTP API, which can implement complex authentication logic.
 

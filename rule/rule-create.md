@@ -134,7 +134,7 @@ $ tail -f log/erlang.log.1
 - `Envs` is the environment variables that can be used internally in the action.
 - `Action Init Params` is the params we passed to the action.
 
-### 创建 WebHook 规则  {#rule-ex-cli-webhook}
+### Create WebHook Rule  {#rule-ex-cli-webhook}
 
 Create a rule: Forward all the messages that send from client_id=’Steven’, to the Web Server at ‘[http://127.0.0.1:9910](http://127.0.0.1:9910/)’: 
 

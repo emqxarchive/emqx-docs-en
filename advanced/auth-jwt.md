@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# JWT Authentication
+# JWT
 
 [JWT](https://jwt.io/) is a Token-based authentication mechanism. It does not rely on the server to retain client authentication information or session information. It can issue authentication information in batches while holding keys, which is an easiest authentication method.
 
@@ -38,7 +38,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImF1dGhvciI6IndpdndpdiIsInNpdGU
 
 ## Configuration item
 
-要启用 JWT 认证，需要在 `etc/plugins/emqx_auth_jwt.conf` 中配置以下内容：
+If you want to use JWT Auth you need open `etc/plugins/emqx_auth_jwt.conf` and edit as：
 
 To enable JWT authentication, the following needs to be configured in  `etc/plugins/emqx_auth_jwt.conf`:
 

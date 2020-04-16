@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# $SYS system topic
+# $SYS - System Topic
 
 The EMQ X Broker periodically publishes its running status, message statistics, client online and offline events to the system topic starting with `$SYS/`. 
 

@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Message bridging{#emqx-bridge}
+# Bridging{#emqx-bridge}
 
 EMQ X Broker supports two bridging methods:
 

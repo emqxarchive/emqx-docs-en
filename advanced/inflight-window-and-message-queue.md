@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Inflight window and message queue
+# Inflight and Queue
 
 ## Introduction
 

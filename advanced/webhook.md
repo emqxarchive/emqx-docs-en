@@ -227,7 +227,7 @@ opts includes
 
 **message.acked**
 
-| Key            |  类型   | 说明  |
+| Key            |  Type   | Description  |
 | -------------- | ------- | ----- |
 | action         | string  | event name<br/>fixed at: "message_acked" |
 | clientid       | string  | Receiver's ClientId |

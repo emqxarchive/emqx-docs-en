@@ -45,19 +45,19 @@
       },
       {
         "title": "目录结构",
-        "file": "using-emqx/directory.md"
+        "file": "getting-started/directory.md"
       },
       {
         "title": "配置说明",
-        "file": "using-emqx/config.md"
+        "file": "getting-started/config.md"
       },
       {
         "title": "日志与追踪",
-        "file": "using-emqx/log.md"
+        "file": "getting-started/log.md"
       },
       {
         "title": "Dashboard 管理界面",
-        "file": "using-emqx/dashboard.md"
+        "file": "getting-started/dashboard.md"
       }
     ]
   },
@@ -87,7 +87,7 @@
       },
       {
         "title": "规则引擎",
-        "file": "advanced/rule-engine.md"
+        "file": "rule/rule-engine.md"
       },
       {
         "title": "分布集群",
