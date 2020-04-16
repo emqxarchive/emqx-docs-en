@@ -4,7 +4,7 @@
 Support and Contact
 ==========
 
-| Documentation: | https://docs.emqx.io/broker/latest/cn/ |
+| Documentation: | https://docs.emqx.io/broker/latest/ |
 | -------------- | :------------------------------------- |
 | Website:       | https://www.emqx.io                    |
 | Project:       | https://github.com/emqx/emqx           |
