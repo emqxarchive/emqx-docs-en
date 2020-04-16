@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Built-in ACL
+# ACL file
 
 The built-in ACL sets rules through files, which is simple and lightweight to use. It is suitable for projects with predictable number of rules, no change or small change requirements.
 

@@ -32,5 +32,5 @@ Thank you for your support of EMQ X Broker. If you need business services, pleas
 
 ## Comparison of open source, enterprise and platform version
 
-![EMQ X 开源版、企业版和专业版的对比](assets/3011583829062_.pic_hd-3829209.jpg)
+![EMQ X Broker VS EMQ X Enterprise](assets/3011583829062_.pic_hd-3829209.jpg)
 

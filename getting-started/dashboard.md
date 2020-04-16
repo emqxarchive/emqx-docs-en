@@ -55,7 +55,6 @@ For the detailed configuration item description of Dashboard, please refer to [C
 
 ## Dashboard interface
 
-为了使用户在操作和浏览中可以快速地定位和切换当前位置，EMQ X Dashboard 采用了侧边导航的模式，默认情况下 Dashboard 包含以下一级导航项目：  
 
 In order to enable users to quickly locate and switch the current position during operation and browsing, EMQ X Dashboard adopts the mode of side navigation. By default, Dashboard includes the following first-level navigation items:
 

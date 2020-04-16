@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# MySQL Authentication
+# MySQL
 
 MySQL authentication uses an external MySQL database as the authentication data source, which can store a large amount of data and facilitate integration with external device management systems.
 
@@ -95,7 +95,7 @@ This is the table structure used by default configuration. After being familiar 
 
 ## Salting rules and hash methods
 
-MySQL authentication support to configure [Salting rules and hash methods](./auth.md#加盐规则与哈希方法)：
+MySQL authentication support to configure [Salting rules and hash methods](./auth.md#password-salting-rules-and-hash-methods)：
 
 ```bash
 # etc/plugins/emqx_auth_mysql.conf

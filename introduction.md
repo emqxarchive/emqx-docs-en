@@ -1,6 +1,6 @@
 ---
 # 标题
-title: EMQ X 消息服务器简介
+title: EMQ X Broker
 # 编写日期
 date: 2020-02-07 17:15:26
 # 作者 Github 名称
@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Introduction to EMQ X Broker
+# EMQ X Broker
 
 *EMQ X* (Erlang/Enterprise/Elastic MQTT Broker) is an open source IoT MQTT message broker based on the Erlang/OTP platform. Erlang/OTP is an excellent Soft-Realtime, Low-Latency and Distributed development platform. MQTT is a lightweight message exchange protocol using publish-subscribe pattern.
 

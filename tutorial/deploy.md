@@ -44,7 +44,7 @@ LB products of public cloud providers:
 | [[QingCloud](https://qingcloud.com/)](https://qingcloud.com) | Yes             | <https://docs.qingcloud.com/guide/loadbalancer.html> |
 | [AWS](https://aws.amazon.com)                                | Yes             | <https://aws.amazon.com/cn/elasticloadbalancing/>    |
 | [Aliyun](https://www.aliyun.com)                             | No              | <https://www.aliyun.com/product/slb>                 |
-| [UCloud](https://ucloud.cn)                                  | 未知            | <https://ucloud.cn/site/product/ulb.html>            |
+| [UCloud](https://ucloud.cn)                                  | Unknown            | <https://ucloud.cn/site/product/ulb.html>            |
 | [QCloud](https://www.qcloud.com)                             | Unknown         | <https://www.qcloud.com/product/clb>                 |
 
  LBs for Private Cloud: 
@@ -72,7 +72,7 @@ Qingcloud(EMQ X partner) is recommended for domestic public cloud deployments, A
 
 | Port | Description |
 | ----- | --------------------- |
-| 1883  | MQTT 协议端口             |
+| 1883  | MQTT             |
 | 8883  | MQTT/SSL           |
 | 8083  | MQTT/WebSocket     |
 | 8084  | MQTT/WebSocket/SSL |

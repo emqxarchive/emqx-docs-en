@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Metrics monitoring
+# Metrics
 
 EMQ X Broker provides users with metrics monitoring functions, allowing users and operation and maintenance personnel to know the current service status based on these metrics. The metrics monitoring function is forcibly enabled. This function has high performance, and users do not need to worry about affecting system performance in high-throughput scenarios.
 

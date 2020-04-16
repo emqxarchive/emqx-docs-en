@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Username Authentication
+# Username
 
 Username authentication uses a configuration file to preset client user names and passwords, and supports authentication data management via HTTP API.
 
@@ -40,7 +40,7 @@ For username authentication, sha256 is used for password hash encryption by defa
 auth.user.password_hash = sha256
 ```
 
-After configuring the [hash method](./auth.md#加盐规则与哈希方法), the new preset authentication data and authentication data added through the HTTP API will be stored in the EMQ X Broker built-in database in hash cipher text. 
+After configuring the [hash method](./auth.md#password-salting-rules-and-hash-methods), the new preset authentication data and authentication data added through the HTTP API will be stored in the EMQ X Broker built-in database in hash cipher text. 
 
 
 ## Preset authentication data

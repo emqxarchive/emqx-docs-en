@@ -16,7 +16,7 @@ ref: undefined
 ---
 
 
-# Prometheus Monitoring alarm
+# Prometheus
 
 EMQ X Broker provides [emqx_statsd](https://github.com/emqx/emqx-statsd) plug-in, which is used to output the monitoring data of the system to the third-party monitoring system.
 

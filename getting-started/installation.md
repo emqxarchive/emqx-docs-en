@@ -1,6 +1,6 @@
 ---
 # 标题
-title: 安装
+title: Installation
 # 编写日期
 date: 2020-02-07 17:15:26
 # 作者 Github 名称
@@ -317,9 +317,9 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 {% content "binary" %}
 ## Binary package installation (Linux)
 
-1.  通过 [emqx.io](https://www.emqx.io/downloads/broker?osType=Linux) 或 [Github](https://github.com/emqx/emqx/releases) 选择系统发行版，然后下载要安装的 EMQ X Broker 版本的二进制包。
+1.  Use [emqx.io](https://www.emqx.io/downloads/broker?osType=Linux) or [Github](https://github.com/emqx/emqx/releases) for download EMQ X Broker packages。
   
-2. 安装 EMQ X Broker，将下面的路径更改为您下载 EMQ X Broker 软件包的路径。
+2. Install EMQ X Broker:
 
     + RPM 包:
 
@@ -333,9 +333,9 @@ curl https://repos.emqx.io/install_emqx.sh | bash
       $ sudo dpkg -i emqx-ubuntu18.04-v4.0.0_amd64.deb
       ```
 
-3. 启动 EMQ X Broker
+3. Start EMQ X Broker
 
-      - 直接启动
+      - quick start
         
         ```
         $ emqx start
@@ -345,47 +345,48 @@ curl https://repos.emqx.io/install_emqx.sh | bash
         emqx v4.0.0 is running
         ```
         
-      - systemctl 启动
+      - systemctl
         
         ```
         $ sudo systemctl start emqx
         ```
         
-      - service 启动
+      - start as service
         
         ```
         $ sudo service emqx start
         ```
 
-4.  停止 EMQ X Broker
+4.  Stop EMQ X Broker
 
     ```
     $ emqx stop
     ok
     ```
 
-5.  卸载 EMQ X Broker
+5.  Uninstall EMQ X Broker
 
-    + DEB 包:
+    + DEB:
 
       ```
       $ dpkg -r emqx
       ```
 
-      或
+      or
 
       ```
       $ dpkg -P emqx
       ```
 
-    + RPM 包:
+    + RPM:
 
       ```
       $ rpm -e emqx
       ```
 
 {% content "zip" %}
-## ZIP 压缩包安装 (Linux、MaxOS、Windows)
+
+## ZIP (Linux、MaxOS、Windows)
 
 1.  Download the zip package of the EMQ X Broker version to be installed from [emqx.io](https://www.emqx.io/downloads/broker?osType=Linux) or [Github](https://github.com/emqx/emqx/releases).
   

@@ -1,6 +1,6 @@
 ---
 # 标题
-title: EMQ X 消息服务器功能列表
+title: Features List
 # 编写日期
 date: 2020-02-07 17:15:26
 # 作者 Github 名称
@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# EMQ X broker function list
+# Features List
 
 - Full MQTT V3.1 / V3.1.1 and V5.0 protocol specification support
   - QoS0, QoS1, QoS2 message support

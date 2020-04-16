@@ -15,43 +15,42 @@ category:
 ref:
 ---
 
-# User Guide
-
+# Use Guide
 ### How to use EMQ X?
 
- EMQ X Broker is free and it can be download at [https://www.emqx.io/downloads#broker](https://www.emqx.io/downloads#enterprise#broker). 
 
- EMQ X Enterprise can be downloaded and evaluated for free. You can download it from https://www.emqx.io/downloads#enterprise, and then apply trial license at https://www.emqx.io/licenses#trial. 
+EMQ X Broker is free and it can be download at [https://www.emqx.io/downloads#broker](https://www.emqx.io/downloads#enterprise#broker).
 
- Also you can use the EMQ X enterprise version through public cloud service. 
+EMQ X Enterprise can be downloaded and evaluated for free.  You can download it from [https://www.emqx.io/downloads#enterprise](https://www.emqx.io/downloads#enterprise), and then apply trial license at [https://www.emqx.io/licenses#trial](https://www.emqx.io/licenses#trial).
 
-- [Aliyun](https://market.aliyun.com/products/56014009/cmjj029979.html?spm=5176.730005.productlist.d_cmjj029979.69013524xism4L&innerSource=search_EMQ)
+Also you can use the EMQ X enterprise version through public cloud service.
 
-- [Qingcloud](https://appcenter.qingcloud.com/search/category/iot)
+- [AWS](https://aws.amazon.com/marketplace/pp/B07N2ZFVLX?qid=1552872864456&)
+
 
 
 
 ### How to update EMQ X license?
 
-**Tag:** [*License*](tags.md#license)
+**Tags:** [*Update*](tags.md#update)
 
- After clicking "Download License", browse to the "license.zip" file that you downloaded. 
 
- Copy the two files(emqx.lic, emqx.key) in the zip file to the EMQX license directory. 
+You need to two steps：
 
-- If your installation package is a zip file, the licenses are under "emqx/etc/";
-- For DEB/RPM package, the licenses are under "/etc/emqx/";
-- For Docker image, the licenses are under "/opt/emqx/etc/".
+1. After clicking "Download License", browse to the "license.zip" file that you downloaded.
 
- After the copy is completed, the license needs to be reloaded from the command line to complete the update： 
+2. Copy the two files(emqx.lic, emqx.key) in the zip file to the EMQX license directory.
+  - If your installation package is a zip file, the licenses are under "emqx/etc/"; 
+  - For DEB/RPM package, the licenses are under "/etc/emqx/";
+  - For Docker image, the licenses are under "/opt/emqx/etc/".
 
-Basic commands:
+After the copy is completed, the license needs to be reloaded from the command line to complete the update：
 
 ```
 emqx_ctl license reload [license file path]
 ```
 
- The update commands for different installation modes 
+The update commands for different installation modes：
 
 ```
 ## zip packages
@@ -66,17 +65,21 @@ docker exec -it emqx-ee emqx_ctl license reload /opt/emqx/etc/emqx.lic
 
 
 
+
 ### Can EMQ X support customized protocols? How to implement?
 
-**Tag:** [*Protocol*](tags.md#多协议)  [*Extend*](tags.md#扩展)
-
-For newly developed private protocols, EMQ X provides a set of TCP protocol access specifications, and the private protocol can be developed and accessed in accordance with the specifications. If the protocol you are using has been finalized or the bottom layer of the protocol is not TCP, it can be converted through the gateway, and then access EMQ X through the MQTT protocol, or you can directly contact EMQ to officially support private protocol adaptation.
+**Tags:** [*Protocol*](tags.md#protocol)  [*Extends*](tags.md#extends)
 
 
+TODO...
 
-### Can I capture device online and offline events? How to use it？
 
-**Tag:** [*WebHook*](tags.md#webhook)  [*System topic*](tags.md#系统主题)
+
+
+### Can I capture device online and offline events? How to use it?
+
+**Tags:** [*WebHook*](tags.md#webhook)  [*System Topic*](tags.md#system-topic)
+
 
 EMQ X supports to capture device online and offline events through below 3 approaches,
 
@@ -96,18 +99,12 @@ EMQ X supports to capture device online and offline events through below 3 appro
 
 ### I want to control topics can be used for specific clients, how to configure it in EMQ X?
 
-**Tag:** [*ACL*](tags.md#acl)  [*Publish/Subscribe*](tags.md#发布订阅)
+**Tags:** [*ACL*](tags.md#acl)  [*Pub/Sub*](tags.md#pub-sub)
 
-EMQ X can constrain clients used topics to realize device access controls. To use this feature, ACL (Access Control List) should be enabled, disable anonymous access and set `acl_nomatch` to 'deny' (For the convenience of debugging, the last 2 options are enabled by default, and please close them). 
 
-```bash
-## etc/emqx.conf
+EMQ X can constrain clients used topics to realize device access controls. To use this feature, ACL (Access Control List) should be enabled, disable anonymous access and set `acl_nomatch` to 'deny' (For the convenience of debugging, the last 2 options are enabled by default, and please close them).
 
-## ACL nomatch
-mqtt.acl_nomatch = allow
-```
-
- ACL can be configured in configuration file, or backend databases. Below is one of sample line for ACL control file, the meaning is user 'dashboard' can subscribe '$SYS/#' topic. ACL configuration in backend databases is similar, refer to EMQ X document [ACL access control](https://docs.emqx.io/tutorial/v3/cn/security/acl.html) for more detailed configurations. 
+ACL can be configured in configuration file, or backend databases. Below is one of sample line for ACL control file, the meaning is user 'dashboard' can subscribe '$SYS/#' topic. ACL configuration in backend databases is similar, refer to EMQ X document for more detailed configurations.
 
 ```
 {allow, {user, "dashboard"}, subscribe, ["$SYS/#"]}.
@@ -115,12 +112,13 @@ mqtt.acl_nomatch = allow
 
 
 
-### Can EMQ X support traffic control？
 
-**Tag:** [*traffic control*](tags.md#流量控制)
+### Can EMQ X support traffic control?
+
+**Tags:** [*Rate Limit*](tags.md#rate-limit)
 
 
-Yes. Currently EMQ X supports to control connection rate and message publish rate. Refer to below for sample configuration. 
+Yes. Currently EMQ X supports to control connection rate and message publish rate. Refer to below for sample configuration.
 
 ```
 ## Value: Number
@@ -135,7 +133,8 @@ listener.tcp.external.rate_limit = 1024,4096
 
 ### How does the EMQ X achieve high concurrency and high availability?
 
-**Tag:** [*performance*](tags.md#性能)  [*high concurrency*](tags.md#高并发)
+**Tags:** [*Performance*](tags.md#performance)
+
 
 High concurrency and availability are design goals of EMQ X. To achieve these goals, several technologies are applied:
 
@@ -150,68 +149,66 @@ EMQ X supports clustering. The EMQ X performance can be scale-out with the incre
 
 
 
-### Can EMQ X store messages to database？
 
-**Tag:** [*persistence*](tags.md#持久化)
+### Can EMQ X store messages to database?
 
-EMQ X Enterprise Edition supports message persistence, and you can save messages to the database. The open source version does not yet supporte. The current databases supported by EMQ X Enterprise Edition message persistence are:
+**Tags:** [*Persistence*](tags.md#persistence)
+
+
+The EMQ X Enterprise edition supports data persistence. Supported databases are:
 
 - Redis
 - MongoDB
 - MySQL
 - PostgreSQL
 - Cassandra
-- AWS DynamoDB
-- TimescaleDB
-- OpenTSDB
-- InfluxDB
-
-For support of data persistence, please refer to [EMQ X Data Persistence Overview](https://docs.emqx.io/tutorial/v3/cn/backend/whats_backend.html).
 
 
 
-### Can I disconnect an MQTT connection from EMQ X server？
 
-**Tag:** [*HTTP API*](tags.md#http-api)  [*Dashboard*](tags.md#dashboard)
+### Can I disconnect an MQTT connection from EMQ X server?
 
-Yes. You can do it by invoking REST API provied by EMQ X, but the implementation is different in EMQ X 2.x and 3.x:
+**Tags:** [*REAT API*](tags.md#reat-api)  [*Dashboard*](tags.md#dashboard)
+
+
+Yes. You can do it by invoking REST API provied by EMQ X, but the implementation is different in EMQ X 2.x and 3.x: 
 
 - EMQ X customized protocol in 2.x versions.
-- Follow the process defined in MQTT 5.0 protocol after version 3.0.
+- Follow the process defined in MQTT 5.0 protocol after version 3.0. 
 
-Refer to below for API invocation:
+Refer to below for API invocation: 
 
 ```html
-HTTP 方法：DELETE 
+HTTP Method: DELETE 
 URL：api/[v2|v3]/clients/{clientid} 
-<!--请注意区分 URL 中第二部分的版本号，请根据使用的版本号来决定 -->
+<!--Please notice the 2nd section in URL, and use the correct version number according to your EMQ X version. -->
 
-返回内容：
+Returned response: 
 {
     "code": 0,
     "result": []
 }
 ```
 
-For HTTP API usage method, refer to [HTTP API](https://docs.emqx.io/broker/v3/cn/rest.html)
 
 
 
-### Can EMQ X forward messages to Kafka？
+### Can EMQ X forward messages to Kafka?
 
-**Tag:** [*Kafka*](tags.md#kafka)  [*bridge*](tags.md#桥接)  [*persistence*](tags.md#持久化)
-
-Yes. The EMQ X Enterprise edition integrates a Kafka bridge, it can bridge data to Kafka. 
-
-For Kafka usage,  refer to [EMQ X bridge data to Kafka](https://docs.emqx.io/tutorial/v3/cn/bridge/bridge_to_kafka.html)
+**Tags:** [*Kafka*](tags.md#kafka)  [*Bridge*](tags.md#bridge)  [*Persistence*](tags.md#persistence)
 
 
-### I use Kafka bridge in EMQ X enterprise, when will the MQTT Ack packet sent back to client? Is the time when message arriving EMQ X or after getting Ack message from Kafka?
-
-**Tag:** [*Kafka*](tags.md#kafka)  [*Configuration*](tags.md#配置)
+The EMQ X Enterprise edition integrates a Kafka bridge, it can bridge data to Kafka.
 
 
- It's up to Kafka bridge configuration, the configuration file is at  `/etc/emqx/plugins/emqx_bridge_kafka.conf`
+
+
+### I use Kafka bridge in EMQ X enterprise, when will the MQTT Ack packet sent back to client?  Is the time when message arriving EMQ X or after getting Ack message from Kafka?
+
+**Tags:** [*Kafka*](tags.md#kafka)
+
+
+It's up to Kafka bridge configuration, the configuration file is at `/etc/emqx/plugins/emqx_bridge_kafka.conf`
 
 ```bash
 ## Pick a partition producer and sync/async.
@@ -223,17 +220,18 @@ bridge.kafka.produce = sync
 
 If the backend Kafka server is not available, then the message will be accumulated in EMQ X broker.
 
-- The message will be cached in memory before EMQ X 2.4.3 version, if the memory is exhausted, then the EMQ X server will be down.
-- The message will be cached in disk after EMQ X 2.4.3 version, message will probably lost if the disk is full.
+- The message will be cached in memory before EMQ X 2.4.3 version, if the memeory is exhausted, then the EMQ X server will be down. 
+- The message will be cached in disk after EMQ X 2.4.3 version, message will probably lost if the disk is full. 
 
 So we suggest you to closely monitor Kafka server, and recover Kafka service as soon as possible when it has any questions.
 
 
 
 
-### EDoes EMQ X support cluster auto discovery? What clustering methods are supported？
+### Does EMQ X support cluster auto discovery? What clustering methods are supported?
 
-**Tag:** [*cluster*](tags.md#集群)
+**Tags:** [*Cluster*](tags.md#cluster)
+
 
 EMQ X supports cluster auto discovery. EMQ X clustering can be done manually or automatically.
 
@@ -246,47 +244,45 @@ Currently supported clustering methods:
 - Auto clustering using ETCD
 - Auto clustering using K8S
 
-Please refer to  [EMQ X 's cluster concept](https://docs.emqx.io/tutorial/v3/cn/cluster/whats_cluster.html) for the cluster concept and how to form a cluster
 
 
 
-### Can I forward MQTT messages EMQ X to other MQTT broker, like RabbitMQ？
+### Can I forward MQTT messages EMQ X to other MQTT broker, like RabbitMQ?
 
-**Tag:** [*RabbitMQ*](tags.md#rabbitmq)  [*bridge*](tags.md#桥接)  [*persistence*](tags.md#持久化)
+**Tags:** [*RabbitMQ*](tags.md#rabbitmq)  [*Bridge*](tags.md#bridge)  [*Persistence*](tags.md#persistence)
 
 
-EMQ X support forward messages to other MQTT broker. Using MQTT bridge, EMQ X can forward messages of interested topics to other broker. 
-
-For EMQ X bridging related usage method, please refer to [EMQ X bridge](https://docs.emqx.io/tutorial/v3/cn/bridge/bridge.html).
+EMQ X support forward messages to other MQTT broker. Using MQTT bridge, EMQ X can forward messages of interested topics to other broker.
 
 
 
 
-### Can I forward messages from EMQ X to MQTT services hosted on public cloud? Such as AWS or Azure's IoT Hub？
+### Can I forward messages from EMQ X to MQTT services hosted on public cloud?
 
-**Tag:** [*bridge*](tags.md#桥接)
+**Tags:** [*Bridge*](tags.md#bridge)  [*Cloud*](tags.md#cloud)
 
-EMQ X can forward messages to standard MQTT Broker, including IoT Hub hosted on public cloud, which is a feature of EMQ X bridge. 
+
+EMQ X can forward messages to IoT Hub hosted on public cloud, this is a feature of EMQ X bridge.
+
 
 
 
 ### Can other MQTT broker (for example Mosquitto) forward messages to EMQ X?
 
-**标签:** [*Mosquitto*](tags.md#mosquitto)  [*bridge*](tags.md#桥接)
+**Tags:** [*Mosquitto*](tags.md#mosquitto)  [*Bridge*](tags.md#bridge)
 
-Mosquitto can forward messages to EMQ X, please refer to [data bridge](../advanced/bridge.md)
 
-{% hint style="info" %}
-> For EMQ X bridging related usage method, please refer to [EMQ X bridge](https://docs.emqx.io/tutorial/v3/cn/bridge/bridge.html).
-{% endhint %}
+EMQ X can receive messages from other broker, but it depends also on the implementation of other brokers, Mosquitto can forward messages to EMQ X, please refer to [TODO](https://www.emqx.io)。
+
+
 
 
 ### What should I do if I want trace the subscription and publish of some particular message?
 
-**Tag:** [*Trace*](tags.md#trace)  [*Debug*](tags.md#调试)
+**Tags:** [*Trace*](tags.md#trace)
 
 
- EMQ X support the tracing of messages from particular client or under particular topic. You can use the command line tool `emqx_ctl` for tracing. The example below shows how to trace messages under 'topic' and save the result in 'trace_topic.log'. For more details, please refer to EMQ X document. 
+EMQ X support the tracing of messages from particular client or under particular topic. You can use the command line tool `emqx_ctl` for tracing. The example below shows how to trace messages under 'topic' and save the result in 'trace_topic.log'. For more details, please refer to EMQ X document.
 
 ```
 ./bin/emqx_ctl trace topic "topic" "trace_topic.log"
@@ -295,32 +291,24 @@ Mosquitto can forward messages to EMQ X, please refer to [data bridge](../advanc
 
 
 
-### Why does the number of connections and throughput always fail to increase when I do a stress test, is there a system tuning guide?
-
-**Tag:** [*Debug*](tags.md#调试)  [*Performance Test*](tags.md#性能测试)
-
-When performing stress test, in addition to selecting hardware with sufficient computing power, we also need to make certain adjustments to the software operating environment. For example, we can modify the operating system's global maximum number of file handles, the allowed number of file handles for the user to open, TCP backlog and buffer, Erlang virtual machine process limit, etc. We can also make some tuning on the client to ensure that the client can have sufficient connection resources.
-
-There are different ways to tune the system under different requirements. There are more detailed instructions for tuning in common scenarios in EMQ X's [Document-Test Tuning](https://developer.emqx.io/docs/broker/v3/cn/tune.html)
-
-
 ### Does EMQ X support encrypted connection? What is the recommended deployment?
 
-**Tag:** [*TLS*](tags.md#tls)  [*Encrypted connection*](tags.md#加密连接)
+**Tags:** [*TLS*](tags.md#tls)
 
 
- EMQ X Support SSL/TLS. In production, we recommend to terminate the TLS connection by Load Balancer. By this way, the connection between device and server(load balancer) use secured connection, and connection between load balancer and EMQ X nodes use general TCP connection. 
+EMQ X Support SSL/TLS. In production, we recommend to terminate the TLS connection by Load Balancer. By this way, the connection between device and server(load balancer) use secured connection, and connection between load balancer and EMQ X nodes use general TCP connection.
 
 
 
-### How to troubleshoot if EMQ X can't start after installation？
 
-**Tag:** [*Debug*](tags.md#调试)
+### How to troubleshoot if EMQ X can't start after installation?
+
+**Tags:** [*Debug*](tags.md#debug)
 
 
- Execute `$ emqx console` to view the output. 
+Execute `$ emqx console` to view the output.
 
-+	`logger`  command is missing 
+- `logger` command is missing
 
   ```
   $ emqx console
@@ -329,22 +317,22 @@ There are different ways to tune the system under different requirements. There 
   /usr/lib/emqx
   /usr/bin/emqx: line 510: logger: command not found
   ```
-  
-   **Solution:** 
-  
-  + `Centos/Redhat`
-  
+
+  **Solution:**
+
+  - `Centos/Redhat`
+
     ```
     $ yum install rsyslog
     ```
-  
-  + `Ubuntu/Debian`
-  
+
+  - `Ubuntu/Debian`
+
     ```
     $ apt-get install bsdutils
     ```
-  
-+	`openssl`  is missing 
+
+- `Missssl` is missing
 
 ```
     $ emqx console
@@ -359,9 +347,9 @@ There are different ways to tune the system under different requirements. There 
     Crash dump is being written to: log/crash.dump...done
 ```
 
- **Solution:** Install openssl above version 1.1.1 
+**Solution:** Install openssl above version 1.1.1
 
-+ `License` is missing
+- `License` file is missing
 
 ```
   $ emqx console
@@ -391,31 +379,42 @@ There are different ways to tune the system under different requirements. There 
   [os_mon] cpu supervisor port (cpu_sup): Erlang has closed
 ```
 
- **Solution:** Go to [emqx.io](https://emqx.io/) to apply for a license or install the open source version of EMQ X Broker 
+  **Solution:** Go to [emqx.io](https://emqx.io) to apply for a license or install the open source version of EMQ X Broker
+
 
 
 
 ### Use of ssl resumption session in EMQ X
 
-**Tag:** [*TLS*](tags.md#tls)
+**Tags:** [*Performance*](tags.md#performance)
 
-Modify the reuse_sessions=on in the emqx.conf configuration and take effect. If the client and the server are successfully connected through SSL, when the client connection is encountered for the second time, the SSL handshake phase is skipped, the connection is directly established to save the connection time and increase the client connection speed. 
+
+Modify the reuse_sessions = on in the emqx.conf configuration and take effect. If the client and the server are successfully connected through SSL, when the client connection is encountered for the second time, the SSL handshake phase is skipped, the connection is directly established to save the connection time and increase the client connection speed.
+
 
 
 
 ### MQTT client disconnect statistics
 
-**Tag:** [*Metrics*](tags.md#指标)
+**Tags:** [*Metrics*](tags.md#metrics)
+
 
 Execute `emqx_ctl listeners` to view the `shutdown_count` statistics under the corresponding port.
 
 Client disconnect link error code list:
 
-- `keepalive_timeout`: MQTT keepalive time out
-- `closed`:  TCP client disconnected (the FIN sent by the client did not receive the MQTT DISCONNECT)
-- `normal`:  MQTT client is normally disconnected
-- `einval`: EMQ X wants to send a message to the client, but the Socket has been disconnected
-- `function_clause`: MQTT packet format error
-- `etimedout`: TCP Send timeout (no TCP ACK response received)
-- `proto_unexpected_c`: Repeatedly received an MQTT connection request when there is already an MQTT connection
-- `idle_timeout`:After the TCP connection is established for 15s, the connect packet has not been received yet.
+- `keepalive_timeout`：MQTT keepalive time out
+
+- `closed`： TCP client disconnected (the FIN sent by the client did not receive the MQTT DISCONNECT)
+
+- `normal`： MQTT client is normally disconnected
+
+- `einval`：EMQ X wants to send a message to the client, but the Socket has been disconnected
+
+- `function_clause`：MQTT packet format error
+
+- `etimedout`：TCP Send timeout (no TCP ACK response received)
+
+- `proto_unexpected_c`：Repeatedly received an MQTT connection request when there is already an MQTT connection
+
+- `idle_timeout`： After the TCP connection is established for 15s, the connect packet has not been received yet.

@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Log and trace {#log-and-trace}
+# Log & Trace {#log-and-trace}
 
 ## Control log output {#log-to}
 
