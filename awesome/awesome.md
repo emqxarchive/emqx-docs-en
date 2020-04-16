@@ -15,7 +15,7 @@ category:
 ref:
 ---
 
-# Relevant information
+# Awsome
 
 [![GitHub Release](https://img.shields.io/github/release/emqx/emqx?color=brightgreen)](https://github.com/emqx/emqx/releases)
 [![Docker Pulls](https://img.shields.io/docker/pulls/emqx/emqx)](https://hub.docker.com/r/emqx/emqx)
@@ -33,7 +33,7 @@ ref:
 
 You can contact the EMQ community and developers through the following channels:
 
-  - [EMQ X Slack](http://emqx.slack.com)
+  - [EMQ X Slack](https://slack-invite.emqx.io)
   - [Twitter](https://twitter.com/emqtt)
   - [Forum](https://groups.google.com/d/forum/emqtt)
   - [Medium](https://medium.com/@emqtt)

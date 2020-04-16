@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Publish/Subscribe ACL
+# Introduction
 
 **Publish/Subscribe ACL** refers to **permission control**  for  **PUBLISH/SUBSCRIBE** operations. For example, the user name with the name `Anna` is prohibited to publish messages to ` open / elsa / door`.
 
@@ -75,7 +75,7 @@ ACL is a collection of allowing and denying conditions. The following elements a
 ```bash
 ## Allow-Deny Who Pub-Sub Topic
 
-"允许(Allow) / 拒绝(Deny)"  "谁(Who)"  "订阅(Subscribe) / 发布(Publish)" "主题列表(Topics)"
+"Allow/Deny"  "Who"  "Subscribe/Publish" "Topics"
 ```
 
 When there are multiple ACL rules at the same time, EMQ X will merge them in order according to the rules. Taking the default ACL in [ACL file](./acl-file.md) as an example, it loads the rule from bottom to top:

@@ -603,24 +603,24 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/nodes/emq
 
 #### GET /api/v4/routes {#endpoint-get-routes}
 
-返回集群下的所有路由信息，支持分页机制。
+List all routes, support pagination.
 
 **Query String Parameters:**
 
 | Name   | Type | Required | Default | Description |
 | ------ | --------- | -------- | ------- |  ---- |
-| _page  | Integer   | False | 1       | 页码 |
-| _limit | Integer   | False | 10000   | 每页显示的数据条数，未指定时由 `emqx-management` 插件的配置项 `max_row_limit` 决定 |
+| _page  | Integer   | False | 1       | page |
+| _limit | Integer   | False | 10000   | Page size,default use `emqx-management`  `max_row_limit` option |
 
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
 | ---- | --------- | ----------- |
 | code | Integer   | 0         |
-| data | Array of Objects | 所有路由信息|
-| data[0].topic | String    | MQTT 主题   |
-| data[0].node  | String    | 节点名称    |
-| meta | Object    | 同 `/api/v4/clients` |
+| data | Array of Objects | routes|
+| data[0].topic | String    | MQTT Topic   |
+| data[0].node  | String    | Node name    |
+| meta | Object    | see `/api/v4/clients` |
 
 **Examples:**
 
@@ -632,13 +632,13 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/routes"
 
 #### GET /api/v4/routes/{topic} {#endpoint-get-routes-by-topic}
 
-返回集群下指定主题的路由信息。
+List all routes of a topic.
 
 **Path Parameters:**
 
 | Name   | Type | Required | Description |
 | ------ | --------- | -------- |  ---- |
-| topic  | Integer   | True | 主题 |
+| topic  | Integer   | True | Topic |
 
 **Success Response Body (JSON):**
 

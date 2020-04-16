@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Architecture design
+# Design
 
 ## Foreword
 

@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# MongoDB Authentication
+# MongoDB
 
 MongoDB authentication uses an external MongoDB database as the authentication data source, which can store a large amount of data and facilitate integration with external device management systems.
 
@@ -136,7 +136,7 @@ This is the collection structure used by default configuration. After being fami
 
 ## Salting rules and hash methods
 
-MongoDB authentication support to configure [Salting rules and hash methods](./auth.md#加盐规则与哈希方法)：
+MongoDB authentication support to configure [Salting rules and hash methods](./auth.md#password-salting-rules-and-hash-methods)：
 
 ```bash
 # etc/plugins/emqx_auth_mongo.conf

@@ -1,6 +1,6 @@
 ---
 # 标题
-title: 基本命令
+title: EMQ X CLI
 # 编写日期
 date: 2020-02-07 17:15:26
 # 作者 Github 名称
@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Basic commands
+# Basic command
 
 EMQ X Broker provides the `emqx` command line tool, which is convenient for users to start, stop, and enter the console of EMQ X Broker.
 

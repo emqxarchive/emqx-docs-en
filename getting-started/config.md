@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Configuration instructions
+# Configuration
 
 ## Introduction
 

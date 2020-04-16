@@ -49,10 +49,8 @@ It can be seen from this algorithm:
 
 - When the actual request reaching speed is M, and M> r, then the maximum (peak) rate that can be achieved in actual operation is M = b + r.
 
-  It is easy to think that the maximum rate M is the speed that can consume the full state token bucket in 1 unit of time. The consumption rate of token bucket is M-r, so we can see that: b / (M-r) = 1, and we get M = b + r
+It is easy to think that the maximum rate M is the speed that can consume the full state token bucket in 1 unit of time. The consumption rate of token bucket is M-r, so we can see that: b / (M-r) = 1, and we get M = b + r
   
-- 容易想到，最大速率 M 为：能在1个单位时间内消耗完满状态令牌桶的速度。而桶中令牌的消耗速度为 M - r，故可知：b / (M - r) = 1，得 M = b + r
-
   
 
 ### Application of Token Bucket Algorithm in EMQ X Broker{#rate-limit-explanation-in-emqx}

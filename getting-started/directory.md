@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Directory Structure
+# Directory
 
 The directory structure of EMQ X Broker obtained by different installation methods will be different:
 
@@ -35,7 +35,7 @@ In the above directories,  `bin`, `etc`, `data` and`log` are commonly used by us
 
 **emqx、emqx.cmd**
 
-The executable file of EMQ X Broker can be found in [Basic Command](using-emqx/command-line.md).
+The executable file of EMQ X Broker can be found in [Basic Command](getting-started/command-line.md).
 
 **emqx_ctl、emqx_ctl.cmd**
 
@@ -89,7 +89,7 @@ You can query the system information of the Mnesia database in EMQ X Broker thro
 
 **emqx.log.***
 
-For the log file generated when EMQ X Broker is running, please check [Log and Trace](using-emqx/log.md).
+For the log file generated when EMQ X Broker is running, please check [Log and Trace](getting-started/log.md).
 
 **crash.dump**
 

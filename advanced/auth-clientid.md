@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Client ID Authentication
+# Client ID
 
 Client ID authentication uses a configuration file to preset the client Client ID and password, and supports authentication data management through the HTTP API.
 
@@ -40,7 +40,7 @@ Client ID authentication uses sha256 for password hash encryption by default, wh
 auth.client.password_hash = sha256
 ```
 
-After configuring the [hash method](./auth.md#加盐规则与哈希方法), the new preset authentication data and authentication data added through the HTTP API will be stored in the built-in database of EMQ X Broker in hash cipher text.
+After configuring the [hash method](./auth.md#password-salting-rules-and-hash-methods), the new preset authentication data and authentication data added through the HTTP API will be stored in the built-in database of EMQ X Broker in hash cipher text.
 
 
 

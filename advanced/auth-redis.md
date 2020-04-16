@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Redis Authentication
+# Redis
 
 Redis authentication uses an external Redis database as the authentication data source, which can store a large amount of data and facilitate integration with external device management systems.
 
@@ -77,7 +77,7 @@ This is the data structure used by default configuration. After being familiar w
 
 ## Salting rules and hash methods
 
-Redis authentication supports the configuration of [salting rules and hash methods](./auth.md#加盐规则与哈希方法), and plaintext passwords are stored without processing by default:
+Redis authentication supports the configuration of [salting rules and hash methods](./auth.md#password-salting-rules-and-hash-methods), and plaintext passwords are stored without processing by default:
 
 ```bash
 # etc/plugins/emqx_auth_redis.conf

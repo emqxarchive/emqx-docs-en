@@ -26,7 +26,7 @@ EMQ X Broker will trigger the rule engine when **publishing message or triggerin
 {% hint style="info" %}
 Applicable version:**EMQ X Broker v3.1.0+**
 
-Compatibility Tip: EMQ X Broker v4.0 makes major adjustments to the SQL syntax of the rule engine. For v3.x upgrade users, please refer to  [Migration Guide](./rule_engine.md# 迁移指南) for compatibility.
+Compatibility Tip: EMQ X Broker v4.0 makes major adjustments to the SQL syntax of the rule engine. For v3.x upgrade users, please refer to  [Migration Guide](./rule-engine.md#migration-guide) for compatibility.
 {% endhint %}
 
 ### Publish message
@@ -146,7 +146,7 @@ Actions and resource types are provided by emqx or plugin code and cannot be cre
 
 The SQL statement is used to filter out fields from the original data according to the conditions, and perform preprocessing and conversion. The basic format is:
 
-    SELECT <字段名> FROM <主题> [WHERE <条件>]
+    SELECT <fields> FROM <topic> [WHERE <any>]
 
 FROM, SELECT, and WHERE clauses:
 

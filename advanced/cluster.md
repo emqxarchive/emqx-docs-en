@@ -15,7 +15,7 @@ category:
 ref: undefined
 ---
 
-# Distributed cluster
+# Cluster
 
 ## Distributed Erlang {#distributed-erlang}
 

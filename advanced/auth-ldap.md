@@ -15,9 +15,7 @@ category:
 ref: undefined
 ---
 
-# LDAP Authentication
-
-<!-- TODO: 为测试通过，从新宇 auth 文档中取 -->
+# LDAP
 
 LDAP authentication uses an external LDAP server as the authentication data source, which can store a large amount of data and facilitate integration with external device management systems.
 
