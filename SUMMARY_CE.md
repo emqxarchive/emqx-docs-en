@@ -75,45 +75,36 @@
 ## Rule Engine
   * [Rule Engine](rule/rule-engine.md)
   * [Create rules](rule/rule-create.md)
+  * [Create Inspect Rules](rule/rule-example.md#create-inspect-rules)
+  * [Creat WebHook Rules](rule/rule-example.md#creat-webhook-rules)
+  * [Create BridgeMQTT Rules](rule/rule-example.md#create-bridgemqtt-rules)
+  * [Create MySQL Rules](rule/rule-example.md#create-mysql-rules)
+  * [Create PostgreSQL Rules](rule/rule-example.md#create-postgresql-rules)
+  * [Create Cassandra Rules](rule/rule-example.md#create-cassandra-rules)
+  * [Create MongoDB Rules](rule/rule-example.md#create-mongodb-rules)
+  * [Create DynamoDB Rules](rule/rule-example.md#create-dynamodb-rules)
+  * [Create Redis Rules](rule/rule-example.md#create-redis-rules)
+  * [Create OpenTSDB Rules](rule/rule-example.md#create-opentsdb-rules)
+  * [Create TimescaleDB Rules](rule/rule-example.md#create-timescaledb-rules)
+  * [Create InfluxDB Rules](rule/rule-example.md#create-influxdb-rules)
+  * [Create Kafka Rules](rule/rule-example.md#create-kafka-rules)
+  * [Create Pulsar Rules](rule/rule-example.md#create-pulsar-rules)
+  * [Create RabbitMQ Rules](rule/rule-example.md#create-rabbitmq-rules)
+  * [Create EMQX Bridge Rules](rule/rule-example.md#create-emqx-bridge-rules)
 
+## 数据存储
+  * [MQTT Message Persistence](backend/backend.md#mqtt-message-persistence)
+  * [Redis Backend](backend/backend.md#redis-backend)
+  * [PostgreSQL Backend](backend/backend.md#postgresql-backend)
+  * [Cassandra Backend](backend/backend.md#cassandra-backend)
+  * [InfluxDB Backend](backend/backend.md#influxdb-backend)
+  * [Timescale Backend](backend/backend.md#timescale-backend)
 
-  <!-- * [空动作 (调试)](rule/rule-example.md)
-  * [发送数据到 Web 服务](rule/rule-example.md#发送数据到-web-服务)
-  * [桥接数据到 MQTT Broker](rule/rule-example.md#桥接数据到-mqtt-broker)
-  * [保存数据到 MySQL](rule/rule-example.md#保存数据到-mysql)
-  * [保存数据到 PostgreSQL](rule/rule-example.md#保存数据到-postgresql)
-  * [保存数据到 Cassandra](rule/rule-example.md#保存数据到-cassandra)
-  * [保存数据到 MongoDB](rule/rule-example.md#保存数据到-mongodb)
-  * [保存数据到 DynamoDB](rule/rule-example.md#保存数据到-dynamodb)
-  * [保存数据到 Redis](rule/rule-example.md#保存数据到-redis)
-  * [保存数据到 OpenTSDB](rule/rule-example.md#保存数据到-opentsdb)
-  * [保存数据到 TimescaleDB](rule/rule-example.md#保存数据到-timescaledb)
-  * [保存数据到 InfluxDB](rule/rule-example.md#保存数据到-influxdb)
-  * [桥接数据到 Kafka](rule/rule-example.md#桥接数据到-kafka)
-  * [桥接数据到 Pulsar](rule/rule-example.md#桥接数据到-pulsar)
-  * [桥接数据到 RocketMQ](rule/rule-example.md#桥接数据到-rocketmq)
-  * [桥接数据到 RabbitMQ](rule/rule-example.md#桥接数据到-rabbitmq)
-  * [桥接数据到 RPC 服务](rule/rule-example.md#桥接数据到-rpc-服务) -->
-
-<!-- ## 数据存储
-  * [数据存储设计](backend/backend.md)
-  * [Redis 数据存储](backend/backend.md#redis-数据存储)
-  * [MySQL 数据存储](backend/backend.md#mysql-数据存储)
-  * [PostgreSQL 数据存储](backend/backend.md#postgresql-数据存储)
-  * [MongoDB 消息存储](backend/backend.md#mongodb-消息存储)
-  * [Cassandra 消息存储](backend/backend.md#cassandra-消息存储)
-  * [DynamoDB 消息存储](backend/backend.md#dynamodb-消息存储)
-  * [InfluxDB 消息存储](backend/backend.md#influxdb-消息存储)
-  * [OpenTSDB 消息存储](backend/backend.md#opentsdb-消息存储)
-  * [Timescale 消息存储](backend/backend.md#timescale-消息存储) -->
-
-<!-- ## 消息桥接
-  * [MQTT 桥接](bridge/bridge.md#mqtt-桥接)
-  * [RPC 桥接](bridge/bridge.md#rpc-桥接)
-  * [Kafka 桥接](bridge/bridge.md#kafka-桥接)
-  * [RabbitMQ 桥接](bridge/bridge.md#rabbitmq-桥接)
-  * [Pulsar 桥接](bridge/bridge.md#pulsar-桥接)
-  * [RocketMQ 桥接](bridge/bridge.md#rocketmq-桥接) -->
+## Bridges
+  * [MQTT Bridge](bridge/bridge.md#mqtt-bridge)
+  * [Kafka Bridge](bridge/bridge.md#kafka-bridge)
+  * [RabbitMQ Bridge](bridge/bridge.md#rabbitmq-bridge)
+  * [Pulsar Bridge](bridge/bridge.md#pulsar-bridge)
 
 ## Tutorial
   * [Device management](tutorial/device-management.md)
@@ -143,10 +134,10 @@
   * [Business services](faq/enterprise.md)
   * [Tags](faq/tags.md)
 
-<!-- 
+
 ## 版本发布
   * [变更日志](changes/changes.md)
-  * [升级指南](changes/upgrade.md) -->
+  * [升级指南](changes/upgrade.md)
 
 ## Resource
   * [Design](design/design.md)

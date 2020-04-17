@@ -45,6 +45,7 @@ EMQ X Broker installed via ZIP archive does not support systemctl and service st
 
 {% endhint %}
 
+
 ## Check the status of EMQ X Broker
 
 EMQ X Broker starts normally:
@@ -64,8 +65,13 @@ Node 'emqx@127.0.0.1' not responding to pings。
 
 You can check the log file from [`logs`](getting-started/directory.md) and confirm whether it belongs to [Common Error](faq/error.md#).
 
+{% emqxce %}
+## 启动 EMQ X Enterprise
+EMQ X Enterprise 需要 License 文件才能正常启动，EMQ X 可以略过这一步。
+{% endemqxce %}
 
-## Start EMQ X Enterprise
+
+## 申请试用 License
 
 EMQ X Enterprise requires a license file to start normally. EMQ X Broker can skip this step.
 
@@ -80,3 +86,8 @@ EMQ X Enterprise requires a license file to start normally. EMQ X Broker can ski
 3. Replace the license file (`etc/emqx.lic`) in the default certificate directory. You can also choose to change the read path of the certificate file, modify `license.file` in the `etc/emqx.conf` file, and make sure that the license file is in the updated read path and EMQ X Enterprise has read permission. Then, start EMQ X Enterprise. EMQ X Enterprise is started in the same way as EMQ X Broker, which can be seen below.
 
 2. If the running EMQ X Enterprise needs to update the license file, you can use the `emqx_ctl license reload [path of the license file]` command to directly update the license file without restarting EMQ X Enterprise. It should be noted that the certificate loaded by the `emqx_ctl license reload` command will only take effect during this run of EMQ X Enterprise. If you need to permanently update the license certificate path, you still need to replace the old certificate or modify the configuration file, which can be seen from the previous step.
+
+
+{% hint style="danger" %}
+`emqx_ctl license reload` 命令加载的证书仅在 EMQ X Enterprise 本次运行期间生效，如果需要永久更新 License 证书的路径，依然需要替换旧证书或修改配置文件。
+{% endhint %}

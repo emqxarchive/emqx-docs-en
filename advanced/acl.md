@@ -24,7 +24,7 @@ EMQ X supports the permission management of client through client publish/subscr
 
 ## ACL Plugins
 
-EMQ x supports the use of configuration files, external mainstream databases, and custom HTTP APIs as ACL data sources.
+EMQ X supports the use of configuration files, external mainstream databases, and custom HTTP APIs as ACL data sources.
 
 The data source connection and access control functions are implemented through plugins, and the corresponding plugins need to be enabled before use.
 
