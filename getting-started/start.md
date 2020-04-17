@@ -17,7 +17,7 @@ ref: undefined
 
 # Start EMQ X
 
-Start EMQ x broker in the background
+Start EMQ X broker in the background
 
 ```bash
 $ emqx start
