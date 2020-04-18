@@ -66,12 +66,12 @@ Node 'emqx@127.0.0.1' not responding to pings。
 You can check the log file from [`logs`](getting-started/directory.md) and confirm whether it belongs to [Common Error](faq/error.md#).
 
 {% emqxce %}
-## 启动 EMQ X Enterprise
-EMQ X Enterprise 需要 License 文件才能正常启动，EMQ X 可以略过这一步。
+## Start EMQ X Enterprise
+EMQ X Enterprise needs a license file to start normally. EMQ X can skip this step.
 {% endemqxce %}
 
 
-## 申请试用 License
+## Request a trial license
 
 EMQ X Enterprise requires a license file to start normally. EMQ X Broker can skip this step.
 
@@ -89,5 +89,5 @@ EMQ X Enterprise requires a license file to start normally. EMQ X Broker can ski
 
 
 {% hint style="danger" %}
-`emqx_ctl license reload` 命令加载的证书仅在 EMQ X Enterprise 本次运行期间生效，如果需要永久更新 License 证书的路径，依然需要替换旧证书或修改配置文件。
+The certificate loaded by the `emqx_ctl license reload` command will only take effect during this runtime of EMQ X Enterprise. If you need to permanently update the path of the License certificate, you still need to replace the old certificate or modify the configuration file.
 {% endhint %}

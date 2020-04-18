@@ -50,49 +50,49 @@ ref: undefined
 - Blacklist support
 - Shared subscription($share/\<group\>/topic)
 - TLS / PSK support
-- 规则引擎
-  - 空动作 (调试)
-  - 消息重新发布
-  - 桥接数据到 MQTT Broker
-  - 检查 (调试)
-  - 发送数据到 Web 服务
+- Rule engine
+  - No action (debug)
+  - Message republish
+  - Bridge data to MQTT Broker
+  - Check (debug)
+  - Send data to web service
 
 <strong class="emqxce">
-以下是 EMQ X Enterprise 特有功能
+The following are the unique features of EMQ X Enterprise
 </strong>
 
-- Scalable RPC 架构: 分离 Erlang 自身的集群通道与 EMQ X 节点间的数据通道
-- 数据持久化
-  - Redis 存储订阅关系、设备在线状态、MQTT 消息、保留消息，发布 SUB/UNSUB 事件
-  - MySQL 存储订阅关系、设备在线状态、MQTT 消息、保留消息
-  - PostgreSQL 存储订阅关系、设备在线状态、MQTT 消息、保留消息
-  - MongoDB 存储订阅关系、设备在线状态、MQTT 消息、保留消息
-  - Cassandra 存储订阅关系、设备在线状态、MQTT 消息、保留消息
-  - DynamoDB 存储订阅关系、设备在线状态、MQTT 消息、保留消息
-  - InfluxDB 存储 MQTT 时序消息
-  - OpenTDSB 存储 MQTT 时序消息
-  - TimescaleDB 存储 MQTT 时序消息
-- 消息桥接
-  - Kafka 桥接：EMQ X 内置 Bridge 直接转发 MQTT 消息、设备上下线事件到 Kafka
-  - RabbitMQ 桥接：EMQ X 内置 Bridge 直接转发 MQTT 消息、设备上下线事件到 RabbitMQ
-  - Pulsar 桥接：EMQ X 内置 Bridge 直接转发 MQTT 消息、设备上下线事件到 Pulsar
-  - RocketMQ 桥接：EMQ X 内置 Bridge 直接转发 MQTT 消息、设备上下线事件到 RocketMQ
-- 规则引擎
-  - 消息编解码
-  - 桥接数据到 Kafka
-  - 桥接数据到 RabbitMQ
-  - 桥接数据到 RocketMQ
-  - 桥接数据到 Pulsar
-  - 保存数据到 PostgreSQL
-  - 保存数据到 MySQL
-  - 保存数据到 OpenTSDB
-  - 保存数据到 Redis
-  - 保存数据到 DynamoDB
-  - 保存数据到 MongoDB
-  - 保存数据到 InfluxDB
-  - 保存数据到 Timescale
-  - 保存数据到 Cassandra
-- Schema Registry：将 EMQ X 的事件、消息 提供了数据编解码能力
+- Scalable RPC architecture: Separate Erlang's own cluster channel from EMQ X nodes data channel
+- Data persistence
+  - Redis stores subscription relationships, device online status, MQTT messages, retained messages, and publishes SUB/UNSUB events
+  - MySQL stores subscription relationships, device online status, MQTT messages and retained messages
+  - PostgreSQL  stores subscription relationships, device online status, MQTT messages and retained messages
+  - MongoDB  stores subscription relationships, device online status, MQTT messages and retained messages
+  - Cassandra  stores subscription relationships, device online status, MQTT messages and retained messages
+  - DynamoDB  stores subscription relationships, device online status, MQTT messages and retained messages
+  - InfluxDB stores MQTT timing messages
+  - OpenTDSB stores MQTT timing messages
+  - TimescaleDB stores MQTT timing messages
+- Message bridge
+  - Kafka bridge: EMQ X built-in Bridge directly forwards MQTT messages and device online and offline events to Kafka
+  - RabbitMQ bridge: EMQ X built-in Bridge directly forwards MQTT messages and device online and offline events to RabbitMQ
+  - Pulsar bridge: EMQ X built-in Bridge directly forwards MQTT messages and device online and offline events to Pulsar
+  - RocketMQ bridge: EMQ X built-in Bridge directly forwards MQTT messages and device online and offline events to RocketMQ
+- Rule engine
+  - Message codec
+  - Bridge data to Kafka
+  - Bridge data to RabbitMQ
+  - Bridge data to RocketMQ
+  - Bridge data to Pulsar
+  - Save data to PostgreSQL
+  - Save data to MySQL
+  - Save data to OpenTSDB
+  - Save data to Redis
+  - Save data to DynamoDB
+  - Save data to MongoDB
+  - Save data to InfluxDB
+  - Save data to Timescale
+  - Save data to Cassandra
+- Schema Registry: provide data encoding and decoding capabilities for EMQ X events and messages
 
 {% emqxce %}
 
@@ -112,59 +112,50 @@ Thank you for your support of EMQ X Broker. If you need business services, pleas
 {% endemqxce %}
 
 {% emqxee %}
-## 功能说明
+## Function Description
 {% endemqxee %}
 
 
 {% emqxce %}
-## 企业版功能
+## Function of enterprise version 
 {% endemqxce %}
 
-### 消息数据存储
+### Message data storage
 
-EMQ X 企业版支持存储订阅关系、MQTT 消息、设备状态到
-Redis、MySQL、PostgreSQL、MongoDB、Cassandra、TimescaleDB、InfluxDB、DynamoDB、OpenTDSB
-数据库:
+EMQ X Enterprise Version supports storing subscription relationships, MQTT messages, device status to Redis, MySQL, PostgreSQL, MongoDB, Cassandra, TimescaleDB, InfluxDB, DynamoDB, OpenTDSB databases:
 
 ![image](assets/overview_4.png)
 
-数据存储相关配置，详见"数据存储"章节。
+For data storage related configuration, please refer to "Data Storage" chapter for details.
 
-### 消息桥接转发
+### Message bridge and forward
 
-EMQ X 企业版支持直接转发 MQTT 消息到 RabbitMQ、Kafka、Pulsar、RocketMQ、MQTT
-Broker，可作为百万级的物联网接入服务器(IoT Hub):
+EMQ X Enterprise version supports directly forwarding MQTT messages to RabbitMQ, Kafka, Pulsar, RocketMQ, MQTTBroker, which can be used as a million-level IoT access server (IoT Hub):
 
 ![image](assets/overview_5.png)
 
-### 规则引擎
+### Rule engine
 
-EMQ X 规则引擎可以灵活地处理消息和事件。
+EMQ X rules engine can flexibly process messages and events.
 
-EMQ X 企业版规则引擎支持消息重新发布；桥接数据到
-Kafka、Pulsar、RocketMQ、RabbitMQ、MQTT Broker；保存数据到
-MySQL、PostgreSQL、Redis、MongoDB、DynamoDB、Cassandra、InfluxDB、OpenTSDB、TimescaleDB；发送数据到
-WebServer:
+EMQ X Enterprise version rules engine supports message re-publishing, bridging data to Kafka, Pulsar, RocketMQ, RabbitMQ, MQTT Broker, saving data to MySQL, PostgreSQL, Redis, MongoDB, DynamoDB, Cassandra, InfluxDB, OpenTSDB, TimescaleDB, and sending data to WebServer :
 
 ![image](assets/overview_6.png)
 
-规则引擎相关配置，详见"规则引擎"章节。
+For the configuration of the rule engine, see the "Rules Engine" chapter for details.
 
-### 编解码
+### Codec
 
 Schema Registry
-目前可支持三种格式的编解码：[Avro](https://avro.apache.org)，[Protobuf](https://developers.google.com/protocol-buffers/)，以及自定义编码。其中
-Avro 和 Protobuf 是依赖 Schema 的数据格式，编码后的数据为二进制，解码后为 Map 格式
-。解码后的数据可直接被规则引擎和其他插件使用。用户自定义的
-(3rd-party) 编解码服务通过 HTTP 或 TCP 回调的方式，进行更加贴近业务需求的编解码。
+Currently, three formats of codec are supported: [Avro](https://avro.apache.org), [Protobuf](https://developers.google.com/protocol-buffers/) and custom encoding. Among them, Avro and Protobuf are data formats that depend on Schema. The encoded data is binary, and the decoded data is map format. The decoded data can be directly used by the rule engine and other plugins. The user-defined (3rd-party) codec service uses HTTP or TCP callback to make it closer to business needs.
 
 ![image](assets/overview_7.png)
 
-编解码相关配置，详见"编解码"章节。
+For codec related configuration, please refer to "Codec" chapter for details.
 
 
 {% emqxce %}
-## EMQ X 不同版本对比
+## Comparison of different versions of EMQ X
 
 ![EMQ X 开源版、企业版和专业版的对比](assets/3441587031341_.pic_hd.jpg)
 

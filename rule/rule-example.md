@@ -15,18 +15,18 @@ category:
 ref: undefined
 ---
 
-# 规则引擎示例
+# Rule engine example
 
 <extoc></extoc>
 
 <div class="emqxce">
 {% hint style="danger" %}
-EMQ X Broker 中仅适用以下操作：
-- 空动作 (调试)
-- 发送数据到 Web 服务
-- 桥接数据到 MQTT Broker
+Only the following operations are applicable in EMQ X Broker:
+- No action (debug)
+- Send data to web service
+- Bridge data to MQTT Broker
 
-其余均是 EMQ X Enterprise 专属功能。
+The rest are exclusive to EMQ X Enterprise.
 {% endhint %}
 </div>
 

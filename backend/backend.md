@@ -19,7 +19,7 @@ ref:
 
 <div class="emqxce">
 {% hint style="danger" %}
-数据存储是 EMQ X Enterprise 专属功能。
+Data storage is an exclusive feature of EMQ X Enterprise.
 {% endhint %}
 </div>
 
@@ -245,11 +245,11 @@ Lookup retained messages with a topic of 'retain':
      1) "id"
 
 >   -     2) "6P9NLcJ65VXBbC22sYb4"
->     
+>    
 >     3)  "from"
 > 
 >   -     4) "test"
->     
+>    
 >     5)  "qos"
 >     6)  "1"
 >     7)  "topic"
@@ -257,7 +257,7 @@ Lookup retained messages with a topic of 'retain':
 >     9)  "retain"
 > 
 >   - 10\) "true"
->     
+>    
 >     11) "payload"
 >     12) "Hello world\!"
 >     13) "ts"
@@ -1784,9 +1784,9 @@ aws dynamodb scan --table-name mqtt_msg --region us-west-2  --endpoint-url http:
 ```
 
 >   - {
->     
+>    
 >       - "Items": \[
->         
+>        
 >           - {  
 >             "arrived": { "N": "1562308553" }, "qos": { "N": "1" },
 >             "sender": { "S": "mqttjs\_231b962d5c" }, "payload": { "S":
@@ -1794,9 +1794,9 @@ aws dynamodb scan --table-name mqtt_msg --region us-west-2  --endpoint-url http:
 >             "msgid": { "S":
 >             "Mjg4MTk1MDYwNTk0NjYwNzYzMTg4MDk3OTQ2MDU2Nzg1OTD" },
 >             "topic": { "S": "test" }
->         
+>        
 >         }
->     
+>    
 >     \], "Count": 1, "ScannedCount": 1, "ConsumedCapacity": null
 > 
 > }
@@ -1809,15 +1809,15 @@ aws dynamodb scan --table-name mqtt_topic_msg_map --region us-west-2  --endpoint
 ```
 
 >   - {
->     
+>    
 >       - "Items": \[
->         
+>        
 >           - {  
 >             "topic": { "S": "test" }, "MsgId": { "SS": \[
 >             "Mjg4MTk1MDYwNTk0NjYwNzYzMTg4MDk3OTQ2MDU2Nzg1OTD" \]}
->         
+>        
 >         }
->     
+>    
 >     \], "Count": 1, "ScannedCount": 1, "ConsumedCapacity": null
 > 
 > }
