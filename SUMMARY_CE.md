@@ -92,7 +92,7 @@
   * [Create RabbitMQ Rules](rule/rule-example.md#create-rabbitmq-rules)
   * [Create EMQX Bridge Rules](rule/rule-example.md#create-emqx-bridge-rules)
 
-## 数据存储
+## Data Storage
   * [MQTT Message Persistence](backend/backend.md#mqtt-message-persistence)
   * [Redis Backend](backend/backend.md#redis-backend)
   * [PostgreSQL Backend](backend/backend.md#postgresql-backend)
@@ -136,8 +136,8 @@
 
 
 ## 版本发布
-  * [变更日志](changes/changes.md)
-  * [升级指南](changes/upgrade.md)
+  * [Change log](changes/changes.md)
+  * [Upgrade guide](changes/upgrade.md)
 
 ## Resource
   * [Design](design/design.md)

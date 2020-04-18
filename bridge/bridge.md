@@ -17,10 +17,7 @@ ref:
 
 # Bridge
 
-EMQ X can bridge and forward messages to Kafka, RabbitMQ or other EMQ X
-nodes. Meanwhile, mosquitto and rsm can be bridged to EMQ X using common
-MQTT
-connection.
+EMQ X can bridge and forward messages to Kafka, RabbitMQ or other EMQ X nodes. Meanwhile, mosquitto and rsm can be bridged to EMQ X using common MQTT connection.
 
 ## List of Bridge Plugins
 
@@ -33,16 +30,16 @@ connection.
 
 <div class="emqxce">
 {% hint style="danger" %}
-EMQ X Broker 中仅适用以下操作：
-- MQTT 桥接
-- RPC 桥接
-其余均是 EMQ X Enterprise 专属功能，推荐使用[规则引擎](../rule/rule-engine.md) 以实现更灵活的桥接功能。
+Only the following functions are applicable in EMQ X Broker：
+- MQTT bridge
+- RPC bridge
+The rest are exclusive to EMQ X Enterprise. It is recommended to use [rule engine] (../rule/rule-engine.md) to realize more flexible bridge function.
 {% endhint %}
 </div>
 
 <div class="emqxee">
 {% hint style="info" %}
-推荐使用[规则引擎](../rule/rule-engine.md) 以实现更灵活的桥接功能。
+It is recommended to use [rule engine] (../rule/rule-engine.md) to realize more flexible bridge function.
 {% endhint %}
 </div>
 

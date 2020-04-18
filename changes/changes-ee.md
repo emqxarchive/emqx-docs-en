@@ -15,34 +15,34 @@ category:
 ref: undefined
 ---
 
-# 版本发布
+# Released version
 
-## 4.0.5 版本
+## 4.0.5 version
 
-*发布日期: 2020-03-17*
+*Release date: 2020-03-17*
 
-EMQ X 4.0.5 现已发布。此版本主要进行了错误修复。
+EMQ X 4.0.5 is now released, which mainly fixed some bugs.
 
 emqx
 ----
 
-**错误修复:**
+**Bugs fixed:**
 
-- 修复 GC 策略
+- Fix GC strategy
 
   Github PR: [emqx/emqx#3317](https://github.com/emqx/emqx/pull/3317)
   
-- 修复了 `Maximum-QoS` 属性的值设置错误的问题
+- Fixed the issue where the value of the `Maximum-QoS` attribute was set incorrectly
 
   Github issue: [emqx/emqx#3304](https://github.com/emqx/emqx/issues/3304), [emqx/emqx#3315](https://github.com/emqx/emqx/issues/3315)
   Github PR: [emqx/emqx#3321](https://github.com/emqx/emqx/pull/3321)
   
-- 修复了 EMQ X 运行在 Docker 环境中时 CPU 占用率每隔 15 秒异常升高的问题
+- Fixed the issue where the CPU usage rate increased abnormally every 15 seconds when EMQ X was running in a Docker environment
 
  Github issue: [emqx/emqx#3274](https://github.com/emqx/emqx/pull/3274)
   Github PR: [emqx/emqx-rel#462](https://github.com/emqx/emqx-rel/pull/462)
-  
-- 修复配置文件中 node.* 配置项不生效的问题
+
+- Fix the issue that the node.* configuration item in the configuration file does not take effect
 
   Github issue: [emqx/emqx#3302](https://github.com/emqx/emqx/pull/3302)
   Github PR: [emqx/emqx-rel#463](https://github.com/emqx/emqx-rel/pull/463)
@@ -50,9 +50,9 @@ emqx
 emqx-rule-engine (plugin)
 ------------------------
 
-**错误修复:**
+**Bugs fixed:**
 
-- 修复规则引擎不支持 Payload 为 utf-8 字符串的问题
+- Fix the issue that the rule engine does not support Payload as UTF-8 string
 
   Github issue: [emqx/emqx#3287](https://github.com/emqx/emqx/issues/3287)
   Github PR: [emqx/emqx#3299](https://github.com/emqx/emqx/pull/3299)
@@ -60,54 +60,54 @@ emqx-rule-engine (plugin)
 emqx-sn (plugin)
 ----------------
 
-**错误修复:**
+**Bugs fixed:**
 
-- 修复 MQTT-SN 订阅丢失的问题
+- Fix the issue of missing MQTT-SN subscription
 
   Github issue: [emqx/emqx#3275](https://github.com/emqx/emqx/issues/3275)
   Github PR: [emqx/emqx-sn#156](https://github.com/emqx/emqx-sn/pull/156)
 
 
-## 4.0.4 版本
+## 4.0.4 Version
 
-*发布日期: 2019-03-06*
+*Release data: 2019-03-06*
 
-EMQ X 4.0.4 现已发布。此版本主要进行了错误修复。
+EMQ X 4.0.4 is now released, which mainly fixed some bugs.
 
 ### emqx
 
-**错误修复:**
+**Bugs fixed:**
 
-  - 修复 `acl_deny_action` 配置项不生效的问题
+  - Fix the issue that the `acl_deny_action` configuration item does not take effect
     
     Github issue:
     [emqx/emqx\#3266](https://github.com/emqx/emqx/issues/3266)
     
     Github PR: [emqx/emqx\#3286](https://github.com/emqx/emqx/pull/3286)
 
-  - 修复 `mountpoint` 配置项的错误类型
+  - Fix wrong type of `mountpoint` configuration item
     
     Github issue:
     [emqx/emqx\#3271](https://github.com/emqx/emqx/issues/3271)
     
     Github PR: [emqx/emqx\#3272](https://github.com/emqx/emqx/pull/3272)
 
-  - 修复 `peer_cert_as_username` 配置项不生效的问题
+  - Fix the issue that the `peer_cert_as_username` configuration item does not take effect
     
     Github issue:
     [emqx/emqx\#3281](https://github.com/emqx/emqx/issues/3281)
     
     Github PR: [emqx/emqx\#3291](https://github.com/emqx/emqx/pull/3291)
 
-  - 修复连接正常关闭后仍打印错误日志的问题
+  - Fix the problem that the error log is still printed even if the connection is closed normally
     
     Github PR: [emqx/emqx\#3290](https://github.com/emqx/emqx/pull/3290)
 
 ### emqx-dashboard (plugin)
 
-**错误修复:**
+**Bugs fixed:**
 
-  - 修复 Dashboard 节点下拉列表中显示空白的问题
+  - Fix the problem that the Dashboard node displays a blank in the drop-down list
     
     Github issue:
     [emqx/emqx\#3278](https://github.com/emqx/emqx/issues/3278)
@@ -117,7 +117,7 @@ EMQ X 4.0.4 现已发布。此版本主要进行了错误修复。
 
 ### emqx-retainer (plugin)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 保留消息达到最大存储数量后的行为由无法存储任何保留消息更正为可以替换已存在主题的保留消息
     
@@ -126,7 +126,7 @@ EMQ X 4.0.4 现已发布。此版本主要进行了错误修复。
 
 ## 4.0.3 版本
 
-*发布日期: 2019-02-21*
+*Release data: 2019-02-21*
 
 EMQ X 4.0.3 现已发布。此版本主要进行了错误修复。
 
@@ -138,7 +138,7 @@ EMQ X 4.0.3 现已发布。此版本主要进行了错误修复。
     
     Github PR: [emqx/emqx\#3253](https://github.com/emqx/emqx/pull/3253)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复某些竞争条件下会打印不必要的错误日志的问题
     
@@ -146,7 +146,7 @@ EMQ X 4.0.3 现已发布。此版本主要进行了错误修复。
 
 ### emqx-management (plugin)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 移除不再使用的字段和函数以及修复字段值异常的问题
     
@@ -170,7 +170,7 @@ EMQ X 4.0.3 现已发布。此版本主要进行了错误修复。
 
 ## 4.0.2 版本
 
-*发布日期: 2019-02-07*
+*Release data: 2019-02-07*
 
 EMQ X 4.0.2 现已发布。此版本主要进行了错误修复和性能优化。
 
@@ -189,7 +189,7 @@ EMQ X 4.0.2 现已发布。此版本主要进行了错误修复和性能优�
     
     Github PR: [emqx/emqx\#3214](https://github.com/emqx/emqx/pull/3214)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复某些情况下没有发送 DISCONNECT 报文的问题
     
@@ -201,7 +201,7 @@ EMQ X 4.0.2 现已发布。此版本主要进行了错误修复和性能优�
 
 ### emqx-stomp (plugin)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复最大连接数限制不生效的问题
     
@@ -210,7 +210,7 @@ EMQ X 4.0.2 现已发布。此版本主要进行了错误修复和性能优�
 
 ### emqx-auth-redis (plugin)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复内部模块启动失败的问题
     
@@ -219,7 +219,7 @@ EMQ X 4.0.2 现已发布。此版本主要进行了错误修复和性能优�
 
 ### cowboy (dependency)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复 Websocket 连接某些情况下不会发送遗嘱消息的问题
     
@@ -228,7 +228,7 @@ EMQ X 4.0.2 现已发布。此版本主要进行了错误修复和性能优�
 
 ## 4.0.1 版本
 
-*发布日期: 2019-01-17*
+*Release data: 2019-01-17*
 
 EMQ X 4.0.1 现已发布。此版本主要进行了错误修复和性能优化。
 
@@ -256,7 +256,7 @@ EMQ X 4.0.1 现已发布。此版本主要进行了错误修复和性能优�
     [emqx/emqx\#3195](https://github.com/emqx/emqx/pull/3195),
     [emqx/emqx\#3197](https://github.com/emqx/emqx/pull/3197)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复使用错误的单位导致黑名单功能异常的问题
     
@@ -290,7 +290,7 @@ EMQ X 4.0.1 现已发布。此版本主要进行了错误修复和性能优�
 
 ### emqx-web-hook
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复参数不匹配导致的崩溃问题
     
@@ -299,7 +299,7 @@ EMQ X 4.0.1 现已发布。此版本主要进行了错误修复和性能优�
 
 ## 4.0.0 版本
 
-*发布日期: 2019-01-10*
+*Release data: 2019-01-10*
 
 EMQ X 4.0.0 正式版现已发布。在这个版本中，我们通过重构 channel 和 session
 显著地改进了吞吐性能，通过添加更多的钩子和统计指标增强了可扩展性，重新设计了规则引擎的
@@ -316,7 +316,7 @@ SQL，并优化 Edge 版本的性能表现。
   - 调整钩子参数并增加更多的钩子
   - emqtt 提供发布与订阅的命令行接口
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复了 SSL 握手失败导致崩溃的问题
   - 修复 `max_subscriptions` 配置不生效的问题
@@ -335,7 +335,7 @@ SQL，并优化 Edge 版本的性能表现。
   - 支持配置默认的 AppID 与 AppSecret
   - 发布消息的 REST API 支持使用 base64 编码的 payload
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复转码后的 URI 没有被正确处理的问题
 
@@ -348,7 +348,7 @@ SQL，并优化 Edge 版本的性能表现。
 
 ## 4.0-rc.4 版本
 
-*发布日期: 2019-12-31*
+*Release data: 2019-12-31*
 
 EMQ X 4.0-rc.4 版本现已发布，其中包括以下更改:
 
@@ -366,7 +366,7 @@ EMQ X 4.0-rc.4 版本现已发布，其中包括以下更改:
     [emqx/emqx\#3139](https://github.com/emqx/emqx/pull/3139),
     [emqx/emqx\#3141](https://github.com/emqx/emqx/pull/3141)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复定时器超时消息可能匹配失败的问题
     
@@ -374,7 +374,7 @@ EMQ X 4.0-rc.4 版本现已发布，其中包括以下更改:
 
 ### emqx-bridge-mqtt
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复 keepalive 配置项使用了错误的单位的问题
     
@@ -406,7 +406,7 @@ EMQ X 4.0-rc.4 版本现已发布，其中包括以下更改:
 
 ## 4.0-rc.3 版本
 
-*发布日期: 2019-12-21*
+*Release data: 2019-12-21*
 
 EMQ X 4.0-rc.3 版本现已发布，其中包括以下更改:
 
@@ -455,7 +455,7 @@ EMQ X 4.0-rc.3 版本现已发布，其中包括以下更改:
     Github PR:
     [emqx/emqx-management\#151](https://github.com/emqx/emqx-management/pull/151)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复无法获取单个主题的多条路由信息的问题
     
@@ -464,7 +464,7 @@ EMQ X 4.0-rc.3 版本现已发布，其中包括以下更改:
 
 ### emqx-coap (plugin)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 修复停止插件后，无法正常启动的问题
     
@@ -527,7 +527,7 @@ EMQ X 4.0-rc.3 版本现已发布，其中包括以下更改:
 
 ## 4.0-rc.2 版本
 
-*发布日期: 2019-12-16*
+*Release data: 2019-12-16*
 
 EMQ X 4.0-rc.2 版本现已发布，其中包括以下更改:
 
@@ -564,7 +564,7 @@ EMQ X 4.0-rc.2 版本现已发布，其中包括以下更改:
 
 ### emqx-retainer (plugin)
 
-**错误修复:**
+**Bugs fixed:**
 
   - 存在大量保留消息时 EMQ X 不能及时向客户端回复 SUBACK
     
@@ -582,7 +582,7 @@ EMQ X 4.0-rc.2 版本现已发布，其中包括以下更改:
 
 ## 4.0-rc.1 版本
 
-*发布日期: 2019-12-07*
+*Release data: 2019-12-07*
 
 EMQ X 4.0-rc.1 版本发布。此版本主要优化了内部模块和 MQTT 报文处理流程。
 
@@ -626,7 +626,7 @@ EMQ X 4.0-rc.1 版本发布。此版本主要优化了内部模块和 MQTT 报�
 
 ## 3.2.7 版本
 
-*发布日期: 2019-12-03*
+*Release data: 2019-12-03*
 
 EMQ X 3.2.7 版本发布。此版本主要重新支持了通过配置文件配置默认的 `username` 和 `clientid`。
 
@@ -650,7 +650,7 @@ EMQ X 3.2.7 版本发布。此版本主要重新支持了通过配置文件配�
 
 ## 3.2.6 版本
 
-*发布日期: 2019-11-23*
+*Release data: 2019-11-23*
 
 EMQ X 3.2.6 版本发布。此版本主要关注功能改进和错误修复。
 
@@ -668,7 +668,7 @@ EMQ X 3.2.6 版本发布。此版本主要关注功能改进和错误修复。
 
 ## 4.0-beta.4 版本
 
-*发布日期: 2019-11-18*
+*Release data: 2019-11-18*
 
 EMQ X 4.0-beta.4 版本发布。此版本主要关注功能改进和错误修复。
 
@@ -728,7 +728,7 @@ EMQ X 4.0-beta.4 版本发布。此版本主要关注功能改进和错误修复
 
 ## 3.2.5 版本
 
-*发布日期: 2019-11-15*
+*Release data: 2019-11-15*
 
 EMQ X 3.2.5 版本发布。此版本主要进行了错误修复。
 
@@ -786,7 +786,7 @@ EMQ X 3.2.5 版本发布。此版本主要进行了错误修复。
 
 ## 4.0-beta.3 版本
 
-*发布日期: 2019-11-01*
+*Release data: 2019-11-01*
 
 EMQ X 4.0-beta.3 版本发布。此版本主要针对错误修复以及测试覆盖率提升。
 
@@ -840,7 +840,7 @@ EMQ X 4.0-beta.3 版本发布。此版本主要针对错误修复以及测试覆
 
 ## 3.2.4 版本
 
-*发布日期: 2019-10-28*
+*Release data: 2019-10-28*
 
 EMQ X 3.2.4 版本发布。此版本主要为 Dashbaord 和 REST API 添加了 IPv6 支持，并修复了一些错误。
 
@@ -906,7 +906,7 @@ EMQ X 3.2.4 版本发布。此版本主要为 Dashbaord 和 REST API 添加了 I
 
 ## 4.0-beta.2 版本
 
-*发布日期: 2019-10-12*
+*Release data: 2019-10-12*
 
 <div id="release_4.0-beta.1">
 
@@ -953,13 +953,13 @@ EMQ X 4.0-beta.2 版本发布。此版本主要针对错误修复以及继续优
 
 ## 4.0-beta.1 版本
 
-*发布日期: 2019-09-30*
+*Release data: 2019-09-30*
 
 EMQ X 4.0-beta.1 版本发布。此版本主要针对内部模块进行重新设计，实现吞吐大幅度提升。
 
 ## 3.2.3 版本
 
-*发布日期: 2019-09-16*
+*Release data: 2019-09-16*
 
 EMQ X 3.2.3 版本改动主要为错误修复。
 
@@ -991,7 +991,7 @@ EMQ X 3.2.3 版本改动主要为错误修复。
 
 ## 3.2.2 版本
 
-*发布日期: 2019-08-03*
+*Release data: 2019-08-03*
 
 EMQ X 3.2.2 版本改动主要为错误修复。
 
@@ -1026,7 +1026,7 @@ EMQ X 3.2.2 版本改动主要为错误修复。
 
 ## 3.2.1 版本
 
-*发布日期: 2019-07-20*
+*Release data: 2019-07-20*
 
 EMQ X 3.2.1 版本改动主要包括错误修复与性能增强。
 
@@ -1106,7 +1106,7 @@ EMQ X 3.2.1 版本改动主要包括错误修复与性能增强。
 
 ## 3.2.0 版本
 
-*发布日期: 2019-07-12*
+*Release data: 2019-07-12*
 
 EMQ X 3.2.0 版本主要优化和改进了规则引擎。
 
@@ -1136,7 +1136,7 @@ EMQ X 3.2.0 版本主要优化和改进了规则引擎。
 
 ## 3.2-rc.3 版本
 
-*发布日期: 2019-07-06*
+*Release data: 2019-07-06*
 
 EMQ X 3.2-rc.3 版本改动主要包括功能增强与错误修复。
 
@@ -1214,7 +1214,7 @@ EMQ X 3.2-rc.3 版本改动主要包括功能增强与错误修复。
 
 ## 3.2-rc.2 版本
 
-*发布日期: 2019-06-29*
+*Release data: 2019-06-29*
 
 EMQ X 3.2-rc.2 版本改动主要包括错误修复。
 
@@ -1283,7 +1283,7 @@ EMQ X 3.2-rc.2 版本改动主要包括错误修复。
 
 ## 3.2-rc.1 版本
 
-*发布日期: 2019-06-22*
+*Release data: 2019-06-22*
 
 EMQ X 3.2-rc.1 版本发布。此版本改动主要包括功能增强与错误修复。
 
@@ -1365,7 +1365,7 @@ Enhancements:
 
 ## 3.2-beta.3 版本
 
-*发布日期: 2019-06-14*
+*Release data: 2019-06-14*
 
 EMQ X 3.2-beta.3 版本发布。此版本改动主要包括增强规则引擎和错误修复。
 
@@ -1408,7 +1408,7 @@ EMQ X 3.2-beta.3 版本发布。此版本改动主要包括增强规则引擎和
 
 ## 3.2-beta.2 版本
 
-*发布日期: 2019-06-06*
+*Release data: 2019-06-06*
 
 EMQ X 3.2-beta.2 版本发布。此版本改动主要包括增强规则引擎和错误修复。
 
@@ -1513,7 +1513,7 @@ EMQ X 3.2-beta.2 版本发布。此版本改动主要包括增强规则引擎和
 
 ## 3.2-beta.1 版本
 
-*发布日期: 2019-05-27*
+*Release data: 2019-05-27*
 
 EMQ X 3.2.beta-1 版本发布。此版本改动主要包括支持 rebar3 构建和增强规则引擎。
 
@@ -1587,7 +1587,7 @@ EMQ X 3.2.beta-1 版本发布。此版本改动主要包括支持 rebar3 构建�
 
 ## 3.1.2 版本
 
-*发布日期: 2019-06-06*
+*Release data: 2019-06-06*
 
 EMQ X 3.1.1 版本发布。此版本改动主要包括错误修复、稳定性增强。
 
@@ -1639,7 +1639,7 @@ Bug fixes:
 
 ## 3.1.1 版本
 
-*发布日期: 2019-05-10*
+*Release data: 2019-05-10*
 
 EMQ X 3.1.1 版本发布。此版本改动主要包括错误修复、稳定性增强。
 
@@ -1681,7 +1681,7 @@ EMQ X 3.1.1 版本发布。此版本改动主要包括错误修复、稳定性�
 
 ## 3.1.0 版本
 
-*发布日期: 2019-04-26*
+*Release data: 2019-04-26*
 
 EMQ X 3.1.0 版本发布。此版本改动主要包括全面支持规则引擎、引入 storm 模块以支持 edge storm、 重构
 flapping 代码。
@@ -1740,7 +1740,7 @@ flapping 代码。
 
 ## 3.1-rc.3 版本
 
-*发布日期: 2019-04-19*
+*Release data: 2019-04-19*
 
 EMQ X 3.1-rc.3 版本发布。此版本改动主要包括规则引擎增强、错误修复。 注意: 从此版本开始，新增 OpenSUSE
 安装包，并且不再提供 Debian 7 安装包。
@@ -1828,7 +1828,7 @@ EMQ X 3.1-rc.3 版本发布。此版本改动主要包括规则引擎增强、�
 
 ## 3.1-rc.2 版本
 
-*发布日期: 2019-04-13*
+*Release data: 2019-04-13*
 
 EMQ X 3.1-rc.2 版本发布。此版本改动主要包括规则引擎增强、错误修复。
 
@@ -1920,7 +1920,7 @@ EMQ X 3.1-rc.2 版本发布。此版本改动主要包括规则引擎增强、�
 
 ## 3.1-rc.1 版本
 
-*发布日期: 2019-04-04*
+*Release data: 2019-04-04*
 
 EMQ X 3.1-rc.1 版本发布。此版本改动主要包括规则引擎增强、错误修复、稳定性增强等。
 
@@ -2008,7 +2008,7 @@ EMQ X 3.1-rc.1 版本发布。此版本改动主要包括规则引擎增强、�
 
 ## 3.1-beta.3 版本
 
-*发布日期: 2019-03-22*
+*Release data: 2019-03-22*
 
 EMQ X 3.1-beta.3 版本发布。此版本改动主要包括引入规则引擎，增强插件发现机制，和修复一些问题等。
 
@@ -2061,7 +2061,7 @@ EMQ X 3.1-beta.3 版本发布。此版本改动主要包括引入规则引擎，
 
 ## 3.1-beta.2 版本
 
-*发布日期: 2019-03-16*
+*Release data: 2019-03-16*
 
 EMQ X 3.1-beta.2 版本发布。此版本改动主要包括重新设计 hooks, 支持 TLS/PSK 和修复 gen\_rpc
 的一些问题等。
@@ -2181,7 +2181,7 @@ EMQ X 3.1-beta.2 版本发布。此版本改动主要包括重新设计 hooks, �
 
 ## 3.1-beta.1 版本
 
-*发布日期: 2019-02-28*
+*Release data: 2019-02-28*
 
 EMQ X 3.1-beta.1 版本发布。此版本主要针对功能改进，包括引入全新的 Bridge，支持消息批量发送，支持 redis 集群等。
 
@@ -2241,7 +2241,7 @@ EMQ X 3.1-beta.1 版本发布。此版本主要针对功能改进，包括引�
 
 ## 3.0.1 版本
 
-*发布日期: 2019-01-25*
+*Release data: 2019-01-25*
 
 EMQ X 3.0.1 版本发布。此版本主要包含功能改进和错误修复。
 
@@ -2332,7 +2332,7 @@ EMQ X 3.0.1 版本发布。此版本主要包含功能改进和错误修复。
 
 ## 3.0.0 版本
 
-*发布日期: 2018-12-22*
+*Release data: 2018-12-22*
 
 EMQ X 3.0.0版本，重新设计了订阅的 ETS 表，通过重构模块和调节 erlang 虚拟机参数提升了 EMQ 性能
 
@@ -2412,7 +2412,7 @@ EMQ X 3.0.0版本，重新设计了订阅的 ETS 表，通过重构模块和调�
 
 ## 3.0-rc.5 版本
 
-*发布日期: 2018-11-30*
+*Release data: 2018-11-30*
 
 EMQ X 3.0-rc.5版本发布，该版本支持 metrics 的批量提交和修复错误:
 
@@ -2489,7 +2489,7 @@ EMQ X 3.0-rc.5版本发布，该版本支持 metrics 的批量提交和修复错
 
 ## 3.0-rc.4 版本
 
-*发布日期: 2018-11-24*
+*Release data: 2018-11-24*
 
 EMQ X 3.0-rc.4版本发布，该版本改进日志功能，部分项目支持 Rebar3 构建:
 
@@ -2600,7 +2600,7 @@ EMQ X 3.0-rc.4版本发布，该版本改进日志功能，部分项目支持 Re
 
 ## 3.0-rc.3 版本
 
-*发布日期: 2018-11-10*
+*Release data: 2018-11-10*
 
 EMQ X 3.0-rc.3版本发布，该版本重构 emqx\_mqueue 代码，支持 MQTT-SN, CoAP 与 STOMP 协议:
 
@@ -2692,7 +2692,7 @@ EMQ X 3.0-rc.3版本发布，该版本重构 emqx\_mqueue 代码，支持 MQTT-S
 
 ## 3.0-rc.2 版本
 
-*发布日期: 2018-10-27*
+*Release data: 2018-10-27*
 
 EMQ X 3.0-rc.2版本发布，该版本改进 Will Message 发布机制，新增支持使用 ssl 证书作为 MQTT 用户名:
 
@@ -2718,7 +2718,7 @@ EMQ X 3.0-rc.2版本发布，该版本改进 Will Message 发布机制，新增�
 
 ## 3.0-rc.1 版本
 
-*发布日期: 2018-10-20*
+*Release data: 2018-10-20*
 
 EMQ X 3.0-rc.1版本发布，该版本新增 request & response 以及 LwM2M 插件，修复 PUBLISH 验证问题:
 
@@ -2767,7 +2767,7 @@ EMQ X 3.0-rc.1版本发布，该版本新增 request & response 以及 LwM2M 插
 
 ## 3.0-Beta.4 版本
 
-*发布日期: 2018-09-29*
+*Release data: 2018-09-29*
 
 EMQ X 3.0-beta.4 版本发布，该版本改进连接 Shutdown 策略，改进共享订阅 sticky 策略，修复 Delayed
 Publish 问题：
@@ -2859,7 +2859,7 @@ Publish 问题：
 
 ## 3.0-Beta.3 版本
 
-*发布日期: 2018-09-22*
+*Release data: 2018-09-22*
 
 EMQ X 3.0-beta.3版本发布，该版本新增共享订阅派发策略功能，改进GC策略、桥接设计:
 
@@ -3007,7 +3007,7 @@ EMQ X 3.0-beta.3版本发布，该版本新增共享订阅派发策略功能，�
 
 ## 3.0-Beta.2 版本
 
-*发布日期: 2018-09-10*
+*Release data: 2018-09-10*
 
 EMQ X 3.0-Beta.2 版本主要包含了对 MQTT 5.0 新特性的改进，以及问题修复。
 
@@ -3099,7 +3099,7 @@ EMQ X 3.0-Beta.2 版本主要包含了对 MQTT 5.0 新特性的改进，以及�
 
 ## 3.0-Beta.1 版本
 
-*发布日期: 2018-09-02* 版本别名: The Promise of Tomorrow
+*Release data: 2018-09-02* 版本别名: The Promise of Tomorrow
 
 3.0-beta.1 版本正式发布。兼容 MQTT-3.1.1 协议的同时， 完整支持 MQTT-5.0 协议。
 此外还增加了很多实用的功能特性，重构了核心组件，提升了系统的伸缩性和扩展能力。
@@ -3229,7 +3229,7 @@ EQMX 3.0 引入了伸缩性较强的 RPC 机制，现在单集群可以支持千
 
 ## 2.3.11 版本
 
-*发布日期: 2018-07-23*
+*Release data: 2018-07-23*
 
 ### Bugfix and Enhancements
 
@@ -3252,7 +3252,7 @@ Support both clientid and username variables in all queries.
 
 ## 2.3.10 版本
 
-*发布日期: 2018-06-27*
+*Release data: 2018-06-27*
 
 ### Bugfix and Enhancements
 
@@ -3264,7 +3264,7 @@ Ignore auth on ignore in body, allows for chaining methods
 
 ## 2.3.9 版本
 
-*发布日期: 2018-05-20*
+*Release data: 2018-05-20*
 
 ### Bugfix and Enhancements
 
@@ -3278,7 +3278,7 @@ Bugfix: proxy protocol - set socket to binary mode (\#78)
 
 ## 2.3.8 版本
 
-*发布日期: 2018-05-11*
+*Release data: 2018-05-11*
 
 ### Bugfix and Enhancements
 
@@ -3295,7 +3295,7 @@ Improve: Support authentication database (authSource) (\#116)
 
 ## 2.3.7 版本
 
-*发布日期: 2018-04-22*
+*Release data: 2018-04-22*
 
 ### Bugfix and Enhancements
 
@@ -3321,7 +3321,7 @@ socket\_closed\_remotely error (emq-auth-http\#70)
 
 ## 2.3.6 版本
 
-*发布日期: 2018-03-25*
+*Release data: 2018-03-25*
 
 ### Bugfix and Enhancements
 
@@ -3336,7 +3336,7 @@ Validate JWT token using a expired field (\#29)
 
 ## 2.3.5 版本
 
-*发布日期: 2018-03-03*
+*Release data: 2018-03-03*
 
 ### Bugfix and Enhancements
 
@@ -3364,7 +3364,7 @@ Remove 'password' param from ACL and superuser requests (\#66)
 
 ## 2.3.4 版本
 
-*发布日期: 2018-01-29*
+*Release data: 2018-01-29*
 
 ### Bugfix and Enhancements
 
@@ -3390,7 +3390,7 @@ Bugfix: Setting the port to ::1:2000 causes error (emq-sn\#66)
 
 ## 2.3.3 版本
 
-*发布日期: 2018-01-08*
+*Release data: 2018-01-08*
 
 ### Bugfix and Enhancements
 
@@ -3422,7 +3422,7 @@ Support ARM Platform (\#12)
 
 ## 2.3.2 版本
 
-*发布日期: 2017-12-26*
+*Release data: 2017-12-26*
 
 ### Bugfix and Enhancements
 
@@ -3476,7 +3476,7 @@ Filter auth\_failure client for disconnected hook. (\#30)
 
 ## 2.3.1 版本
 
-*发布日期: 2017-12-03*
+*Release data: 2017-12-03*
 
 ### Bugfix and Enhancements
 
@@ -3532,7 +3532,7 @@ x-remote-port. (emqtt/mochiweb\#9)
 
 ## 2.3.0 版本 "Passenger's Log"
 
-*发布日期: 2017-11-20*
+*Release data: 2017-11-20*
 
 EMQ 2.3.0 版本正式发布，改进了 PubSub 设计与消息路由性能，更新 EMQ 自带的自签名 SSL 证书，改进 Dashboard
 界面与 API 设计。
@@ -3586,7 +3586,7 @@ Updated the default MongoDB server configuration.
 
 ## 2.3-rc.2 版本
 
-*发布日期: 2017-10-22*
+*Release data: 2017-10-22*
 
 ### Bugfix
 
@@ -3602,7 +3602,7 @@ Compatible with IE,Safari,360 Browsers.
 
 ## 2.3-rc.1 版本
 
-*发布日期: 2017-10-12*
+*Release data: 2017-10-12*
 
 ### Bugfix
 
@@ -3629,7 +3629,7 @@ Supoort both EN and CN languages.
 
 ## 2.3-beta.4 版本
 
-*发布日期: 2017-09-13*
+*Release data: 2017-09-13*
 
 ### Highlights
 
@@ -3665,11 +3665,11 @@ Service not starting on Debian 8 Jessie (emqttd\#1228)
 
 ## 2.3-beta.3 版本
 
-*发布日期: 2017-08-21*
+*Release data: 2017-08-21*
 
 ## 2.3-beta.3 版本
 
-*发布日期: 2017-08-21*
+*Release data: 2017-08-21*
 
 ### Enhancements
 
@@ -3697,7 +3697,7 @@ Add HTTP API for hot configuration.
 
 ## 2.3-beta.2 版本
 
-*发布日期: 2017-08-12*
+*Release data: 2017-08-12*
 
 EMQ R2.3-beta.2 版本发布！该版本新增 HTTP 管理 API，支持配置 Keepalive 检测周期，支持配置参数热更新。
 
@@ -3757,7 +3757,7 @@ Support CoAP PubSub Specification
 
 ## 2.3-beta.1 版本
 
-*发布日期: 2017-07-24*
+*Release data: 2017-07-24*
 
 EMQ R2.3-beta.1版本发布！该版本正式支持集群节点自动发现与集群脑裂自动愈合，支持基于IP
 Multicast、Etcd、Kubernetes等多种策略自动构建集群。
@@ -3824,7 +3824,7 @@ EMQ R2.3 版本兼容Erlang/OTP R20，全部程序包基于Erlang/OTP R20构建�
 
 ## 2.2 正式版 "Nostalgia"
 
-*发布日期: 2017-07-08*
+*Release data: 2017-07-08*
 
 *版本别名: Nostalgia*
 
@@ -3844,7 +3844,7 @@ Bugfix: Topic has been decoded by gen-coap, no conversion needed
 
 ## 2.2-rc.2 版本
 
-*发布日期: 2017-07-03*
+*Release data: 2017-07-03*
 
 <div class="warning">
 
@@ -3871,7 +3871,7 @@ Upgrade esockd and mochiweb libraries to support restarting a listener
 
 ## 2.2-rc.1 版本
 
-*发布日期: 2017-06-14*
+*Release data: 2017-06-14*
 
 ### 问题与改进
 
@@ -3895,7 +3895,7 @@ Support using systemctl to manage emqttd service on CentOS
 
 ## 2.2-beta.3 版本
 
-*发布日期: 2017-05-27*
+*Release data: 2017-05-27*
 
 ### 问题与改进
 
@@ -3927,7 +3927,7 @@ Remove ‘check password===undefined && userName\!== undefined’
 
 ## 2.2-beta.2 版本
 
-*发布日期: 2017-05-20*
+*Release data: 2017-05-20*
 
 ### 问题与改进
 
@@ -3973,7 +3973,7 @@ support Elixir language.
 
 ## 2.2-beta.1 版本
 
-*发布日期: 2017-05-05*
+*Release data: 2017-05-05*
 
 *EMQ* 2.2-beta.1版本正式发布！EMQ2.2 版本发布主要新功能包括:
 
@@ -3987,12 +3987,12 @@ support Elixir language.
     -------
 
 >   - \-- Ex，支持Web Hook、Lua Hook、ernal TCP 1883 --\> | |
->     
+>    
 >     EMQ | -- Internal TCP 2883 --\> Service
 > 
 >   - \-- External SSL 8883--\> | |
->     
->     -----
+>    
+>    -----
 
 EMQ 2.2 版本etc/emq.conf监听器配置方式:
 
@@ -4011,11 +4011,11 @@ EMQ 集群通常部署在负载均衡器(LB)后面，典型架构:
     | L | --TCP 1883--> EMQ
 
 >   - \--SSL 8883--\> | | |
->     
+>    
 >     B | --TCP 1883--\> EMQ  
 >       |
->     
->     -----
+>    
+>    -----
 
 HAProxy、NGINX等常用的负载均衡器(LB)，一般通过Proxy Protocol协议传递TCP连接源地址、源端口给EMQ。
 
@@ -4043,10 +4043,10 @@ EMQ 2.2 版本改进认证链设计，当前认证模块返回ignore(例如用�
 
 >   - Client --\> | Redis认证 | -ignore-\> | HTTP认证 | -ignore-\> | MySQL认证
 >     |
->     
+>    
 >       - \------------- ------------ ------------- | | |  
->         |/ |/ |/
->     
+>           |/ |/ |/
+>    
 >     allow | deny allow | deny allow | deny
 
 ### 支持bcrypt密码Hash
@@ -4065,7 +4065,7 @@ WebSocket页面支持Unsubscribe
 
 ## 2.1.2 版本
 
-*发布日期: 2017-04-21*
+*Release data: 2017-04-21*
 
 Fix emqttd\_ctl sessions list CLI
 
@@ -4078,7 +4078,7 @@ Unload the 'session.created' and 'session.teminated' hooks
 
 ## 2.1.1 版本
 
-*发布日期: 2017-04-14*
+*Release data: 2017-04-14*
 
 Localhost:8083/status returns 404 when AWS LB check the health of EMQ
 (emqttd\#984)
@@ -4093,7 +4093,7 @@ Upgrade emq-coap Plugin (emq-coap\#21)
 
 ## 2.1.0 版本
 
-*发布日期: 2017-04-07*
+*Release data: 2017-04-07*
 
 The stable release of 2.1 version.
 
@@ -4103,7 +4103,7 @@ Filter the empty fields in ACL table (emq-auth-mysql\#39)
 
 ## 2.1.0-rc.2 版本
 
-*发布日期: 2017-03-31*
+*Release data: 2017-03-31*
 
 Support pbkdf2 hash (emq-auth-mongo\#46)
 
@@ -4115,7 +4115,7 @@ SSL options to connect to pgsql (emq-auth-pgsql\#41)
 
 ## 2.1.0-rc.1 版本
 
-*发布日期: 2017-03-24*
+*Release data: 2017-03-24*
 
 EMQ fails to start if run under a different linux user than that which
 first ran it (emqttd\#842)
@@ -4136,7 +4136,7 @@ Change the default storage\_type to 'ram' (emq-retainer\#13)
 
 ## 2.1.0-beta.2 版本
 
-*发布日期: 2017-03-13*
+*Release data: 2017-03-13*
 
 Cannot find AwaitingAck (emqttd\#597)
 
@@ -4156,7 +4156,7 @@ esockd\_connection:upgrade (emqttd\#915)
 
 ## 2.1.0-beta.1 版本
 
-*发布日期: 2017-02-24*
+*Release data: 2017-02-24*
 
 *EMQ* 2.1.0-beta.1版本发布。
 
@@ -4193,7 +4193,7 @@ emq-auth-http\#15: ACL endpoint isnt called
 
 ## 2.1-beta 版本
 
-*发布日期: 2017-02-18*
+*Release data: 2017-02-18*
 
 EMQ v2.1-beta版本正式发布，改进Session/Inflight窗口设计，一个定时器负责全部Inflight
 QoS1/2消息重传，大幅降低高消息吞吐情况下的CPU占用。
@@ -4269,7 +4269,7 @@ Session页面增加DeliverMsg、EnqueueMsg指标。
 
 ## 2.0.7 版本
 
-*发布日期: 2017-01-20*
+*Release data: 2017-01-20*
 
 The Last Maintenance Release for EMQ 2.0, and support to build RPM/DEB
 Packages.
@@ -4294,7 +4294,7 @@ emqttd\#856: Support variables in etc/emq.conf: {{ runner\_etc\_dir }},
 
 ## 2.0.6 版本
 
-*发布日期: 2017-01-08*
+*Release data: 2017-01-08*
 
 Upgrade the [esockd](https://github.com/emqtt/esockd) library to v4.1.1
 
@@ -4306,7 +4306,7 @@ emq-auth-mongo\#31: Mongodb ACL Cannot work?
 
 ## 2.0.5 版本
 
-*发布日期: 2016-12-24*
+*Release data: 2016-12-24*
 
 emq-auth-http\#9: Disable ACL support
 
@@ -4316,7 +4316,7 @@ emq-auth-mongo\#30: {datatype, flag}
 
 ## 2.0.4 版本
 
-*发布日期: 2016-12-16*
+*Release data: 2016-12-16*
 
 emqttd\#822: Test cases for SSL connections
 
@@ -4326,7 +4326,7 @@ emqttd\#799: Can't publish via HTTPS
 
 ## 2.0.3 版本
 
-*发布日期: 2016-12-12*
+*Release data: 2016-12-12*
 
 emqttd\#796: Unable to forbidden tcp lisener
 
@@ -4347,7 +4347,7 @@ restart.
 
 ## 2.0.2 版本
 
-*发布日期: 2016-12-05*
+*Release data: 2016-12-05*
 
 emqttd\#787: Stop plugins before the broker stopped, clean routes when a
 node down
@@ -4363,7 +4363,7 @@ emq\_auth\_username.conf to resolve emqttd\#790
 
 ## 2.0.1 版本
 
-*发布日期: 2016-11-30*
+*Release data: 2016-11-30*
 
 emqttd\#781: 更新项目README到2.0版本
 
@@ -4382,7 +4382,7 @@ emq\_plugin\_template\#5: 插件停止时注销认证/ACL模块
 
 ## 2.0 正式版 "西湖以西"
 
-*发布日期: 2016-11-24*
+*Release data: 2016-11-24*
 
 *版本别名: 西湖以西(West of West Lake)*
 
@@ -4403,10 +4403,10 @@ EMQ-2.0版本正式发布！EMQ-1.0版本产品环境下已支持900K并发连�
     |       | --Msg1--> Subscriber1
 
 >   - Publisher--Msg1,Msg2,Msg3--\>| EMQ | --Msg2--\> Subscriber2
->     
+>    
 >           | --Msg3--\> Subscriber3
->     
->     -----
+>    
+>    -----
 
 使用方式: 订阅者在主题(Topic)前增加'$queue'或'$share/\<group\>/'前缀。
 
@@ -4512,7 +4512,7 @@ address
 
 ## 2.0-rc.3 版本
 
-*发布日期:
+*Release data:
 2016-11-01*
 
 1.  将Presence、Retainer、Subscription三个扩展模块改为独立插件:
@@ -4532,7 +4532,7 @@ address
 
 ## 2.0-rc.2 版本
 
-*发布日期: 2016-10-19*
+*Release data: 2016-10-19*
 
 1.  集成cuttlefish库，支持'K = V'通用配置文件格式，重构EMQ与全部插件配置文件:
     
@@ -4560,7 +4560,7 @@ TODO: issues closed.
 
 ## 2.0-rc.1 版本
 
-*发布日期: 2016-10-03*
+*Release data: 2016-10-03*
 
 1.  超级用户认证成功后，发布订阅时不进行ACL鉴权 (\#696)
 
@@ -4577,7 +4577,7 @@ TODO: issues closed.
 
 ## 2.0-beta.3 版本
 
-*发布日期: 2016-09-18*
+*Release data: 2016-09-18*
 
 ### 共享订阅(Shared Subscription)
 
@@ -4600,7 +4600,7 @@ Remove 'emqttd' application from dependencies (emqttd\_coap PR\#3)
 
 ## 2.0-beta.2 版本
 
-*发布日期: 2016-09-10*
+*Release data: 2016-09-10*
 
 ### CoAP协议支持
 
@@ -4629,7 +4629,7 @@ Fixing issues with unsubscribe hook (PR \#673)
 
 ## 2.0-beta.1 版本
 
-*发布日期: 2016-08-30*
+*Release data: 2016-08-30*
 
 *版本别名: 西湖以西(West of West Lake)*
 
@@ -4751,7 +4751,7 @@ etc/emqttd.conf配置示例:
 
 ## 1.1.3 版本
 
-*发布日期: 2016-08-19*
+*Release data: 2016-08-19*
 
 Support './bin/emqttd\_ctl users list' CLI (\#621)
 
@@ -4765,7 +4765,7 @@ Fix SSL certfile, keyfile config (\#651)
 
 ## 1.1.2 版本
 
-*发布日期: 2016-06-30*
+*Release data: 2016-06-30*
 
 Upgrade mysql-otp driver to 1.2.0 (\#564, \#523, \#586, \#596)
 
@@ -4783,7 +4783,7 @@ Update docs to fix typos (\#601, \#607)
 
 ## 1.1.1 版本
 
-*发布日期: 2016-06-04*
+*Release data: 2016-06-04*
 
 Compatible with the Qos0 PUBREL packet (\#575)
 
@@ -4793,7 +4793,7 @@ java.io.EOFException using paho java client (\#551)
 
 ## 1.1 版本
 
-*发布日期:
+*Release data:
 2016-06-01*
 
 1.1版本升级eSockd库到4.0，支持IPv6与监听特定IP地址。新增MongoDB认证插件、HTTP认证插件与Reloader插件。升级MySQL、PostgreSQL、Redis认证插件，采用参数化查询避免SQL注入，并支持超级用户(superuser)认证。
@@ -4866,7 +4866,7 @@ Changing dashboard credentials for username authentication
 
 ## 1.0.2 版本
 
-*发布日期: 2016-05-04*
+*Release data: 2016-05-04*
 
 Issue\#534 - './bin/emqttd\_ctl vm' - add 'port/count', 'port/limit'
 statistics
@@ -4881,13 +4881,13 @@ development.
 
 ## 1.0.1 版本
 
-*发布日期: 2016-04-16*
+*Release data: 2016-04-16*
 
 PR\#515 - Fix '$queue' pubsub, add 'pubsub\_queue' test and update docs
 
 ## 1.0 (七英里) 版本
 
-*发布日期: 2016-04-13*
+*Release data: 2016-04-13*
 
 *版本别名: 七英里(The Seven Mile Journey)*
 
@@ -4936,7 +4936,7 @@ Should not expire the retained messages from $SYS/\# topics (\#500)
 
 ## 0.17.1-beta 版本
 
-*发布日期: 2016-03-22*
+*Release data: 2016-03-22*
 
 ### Enhancements
 
@@ -4948,7 +4948,7 @@ Code Review and improve the design of Dashboard.
 
 ## 0.17.0-beta 版本
 
-*发布日期: 2016-03-15*
+*Release data: 2016-03-15*
 
 ### Highlights
 
@@ -4995,7 +4995,7 @@ Upgrade Dashboard, Redis, Stomp and Template Plugins
 
 ## 0.16.0-beta 版本
 
-*发布日期: 2016-02-16*
+*Release data: 2016-02-16*
 
 ### Highlights
 
@@ -5030,7 +5030,7 @@ Changed the license of all plugins.
 
 ## 0.15.0-beta 版本
 
-*发布日期: 2016-01-31*
+*Release data: 2016-01-31*
 
 ### Highlights
 
@@ -5073,7 +5073,7 @@ emqttd\_plugin\_mongo: First release
 
 ## 0.14.1-beta 版本
 
-*发布日期: 2015-12-28*
+*Release data: 2015-12-28*
 
 Bugfix: emqttd\_ws\_client.erl: Unexpected Info:
 {'EXIT',\<0.27792.18\>,{shutdown,destroy}} (\#413)
@@ -5082,7 +5082,7 @@ Improve: fix spec errors found by dialyzer
 
 ## 0.14.0-beta 版本
 
-*发布日期: 2015-12-18*
+*Release data: 2015-12-18*
 
 ### Highlights
 
@@ -5132,7 +5132,7 @@ consume about 15G Memory and 200% CPU.
 
 ## 0.13.1-beta 版本
 
-*发布日期: 2015-11-28*
+*Release data: 2015-11-28*
 
 Bugfix: Plugin pathes error under windows (\#387)
 
@@ -5149,7 +5149,7 @@ update plugin (pgsql\#5)
 
 ## 0.13.0-beta 版本
 
-*发布日期: 2015-11-08*
+*Release data: 2015-11-08*
 
 ### Highlights
 
@@ -5206,7 +5206,7 @@ Traffic Out(bps): 56M+
 
 ## 0.12.3-beta 版本
 
-*发布日期: 2015-10-22*
+*Release data: 2015-10-22*
 
 Bugfix: emqttd\_sysmon crasher for 'undefined' process\_info (\#350)
 
@@ -5214,14 +5214,14 @@ Bugfix: emqttd\_client: catch parser exception (\#353)
 
 ## 0.12.2-beta 版本
 
-*发布日期: 2015-10-16*
+*Release data: 2015-10-16*
 
 Bugfix: Retained messages should not be expired if
 'broker.retained.expired\_after = 0' (\#346)
 
 ## 0.12.1-beta 版本
 
-*发布日期: 2015-10-15*
+*Release data: 2015-10-15*
 
 Highlight: Release for Bugfix and Code Refactor.
 
@@ -5243,7 +5243,7 @@ Benchmark: About 900K concurrent connections established on a 20Core,
 
 ## 0.12.0-beta 版本
 
-*发布日期: 2015-10-08*
+*Release data: 2015-10-08*
 
 ### Highlights
 
@@ -5296,7 +5296,7 @@ Subscribing (\#324)
 
 ## 0.11.0-beta 版本
 
-*发布日期: 2015-09-25*
+*Release data: 2015-09-25*
 
 Highlight: Rebar to manage plugin dependencies.
 
@@ -5325,7 +5325,7 @@ emqttd\_plugin\_template plugin loaded
 
 ## 0.10.4-beta 版本
 
-*发布日期: 2015-09-18*
+*Release data: 2015-09-18*
 
 Optimize session management and upgrade eSockd library to 2.7.1
 
@@ -5345,7 +5345,7 @@ emqttd\_vm.erl
 
 ## 0.10.3-beta 版本
 
-*发布日期: 2015-08-30*
+*Release data: 2015-08-30*
 
 Bugfix: issue\#271 - add emqttd\_ws\_client:subscribe/2 function
 
@@ -5356,14 +5356,14 @@ lot of logs
 
 ## 0.10.2-beta 版本
 
-*发布日期: 2015-08-26*
+*Release data: 2015-08-26*
 
 Improve: issue\#257 - After the node name changed, the broker cannot
 restart for mnesia schema error.
 
 ## 0.10.1-beta 版本
 
-*发布日期: 2015-08-25*
+*Release data: 2015-08-25*
 
 Bugfix: issue\#259 - when clustered the emqttd\_dashboard port is close,
 and the 'emqttd' application cannot stop normally.
@@ -5373,7 +5373,7 @@ health check
 
 ## 0.10.0-beta 版本
 
-*发布日期: 2015-08-20*
+*Release data: 2015-08-20*
 
 \[Web Dashboard\](<https://github.com/emqtt/emqttd_dashboard>) and
 \[MySQL\](<https://github.com/emqtt/emqttd_plugin_mysql>),
@@ -5435,7 +5435,7 @@ Bugfix: emqttd\_pooler cannot work
 
 ## 0.9.3-alpha 版本
 
-*发布日期: 2015-07-25*
+*Release data: 2015-07-25*
 
 Wiki: \[Bridge\](<https://github.com/emqtt/emqttd/wiki/Bridge>)
 
@@ -5449,13 +5449,13 @@ Bugfix: issue \#206 - Cannot bridge two nodes
 
 ## 0.9.2-alpha 版本
 
-*发布日期: 2015-07-18*
+*Release data: 2015-07-18*
 
 Improve: issue \#196 - Add New Hook 'client.subscribe.after'
 
 ## 0.9.1-alpha 版本
 
-*发布日期: 2015-07-10*
+*Release data: 2015-07-10*
 
 Bugfix: issue \#189 - MQTT over WebSocket(SSL) cannot work?
 
@@ -5464,7 +5464,7 @@ Bugfix: issue \#193 - 'client.ack' hook should be renamed to
 
 ## 0.9.0-alpha 版本
 
-*发布日期: 2015-07-09*
+*Release data: 2015-07-09*
 
 \[Session, Queue, Inflight Window, Hooks, Global MessageId and More
 Protocol
@@ -5532,28 +5532,28 @@ Tests: fix the parser, acl test cases.
 
 ## 0.8.6-beta 版本
 
-*发布日期: 2015-06-17*
+*Release data: 2015-06-17*
 
 Bugfix: issue \#175 - publish Will message when websocket is closed
 without 'DISCONNECT' packet
 
 ## 0.8.5-beta 版本
 
-*发布日期: 2015-06-10*
+*Release data: 2015-06-10*
 
 Bugfix: issue \#53 - client will receive duplicate messages when
 overlapping subscription
 
 ## 0.8.4-beta 版本
 
-*发布日期: 2015-06-08*
+*Release data: 2015-06-08*
 
 Bugfix: issue \#165 - duplicated message when publish 'retained' message
 to persistent client
 
 ## 0.8.3-beta 版本
 
-*发布日期: 2015-06-05*
+*Release data: 2015-06-05*
 
 Bugfix: issue \#158 - should queue:in new message after old one dropped
 
@@ -5565,7 +5565,7 @@ Bugfix: issue \#149 - Forget to merge plugins/emqttd\_auth\_mysql from
 
 ## 0.8.2-alpha 版本
 
-*发布日期: 2015-06-01*
+*Release data: 2015-06-01*
 
 Bugfix: issue \#147 - WebSocket client cannot subscribe queue
 '$Q/queue/${clientId}'
@@ -5575,7 +5575,7 @@ right
 
 ## 0.8.1-alpha 版本
 
-*发布日期: 2015-05-28*
+*Release data: 2015-05-28*
 
 Client \[Presence\](<https://github.com/emqtt/emqttd/wiki/Presence>)
 Support and \[$SYS
@@ -5593,7 +5593,7 @@ Improve: rel/reltool.config to exclude unnecessary apps.
 
 ## 0.8.0-alpha 版本
 
-*发布日期: 2015-05-25*
+*Release data: 2015-05-25*
 
 \[Hooks\](<https://github.com/emqtt/emqttd/wiki/Hooks%20Design>),
 Modules and
@@ -5630,7 +5630,7 @@ Tests: add more test cases for 'emqttd' app
 
 ## 0.7.1-alpha 版本
 
-*发布日期: 2015-05-04*
+*Release data: 2015-05-04*
 
 Add doc/design/\* and merge doc/\* to github Wiki
 
@@ -5643,7 +5643,7 @@ Bugfix: fix errors found by dialyzer
 
 ## 0.7.0-alpha 版本
 
-*发布日期: 2015-05-02*
+*Release data: 2015-05-02*
 
 \[MQTT over
 WebSocket(SSL)\](<https://github.com/emqtt/emqttd/wiki/MQTT-Over-WebSocket>)
@@ -5683,7 +5683,7 @@ Bugfix: issue \#96 - "make clean" cannot work
 
 ## 0.6.2-alpha 版本
 
-*发布日期: 2015-04-24*
+*Release data: 2015-04-24*
 
 Bugfix: critical issue \#54, \#104, \#106 - error when resume session
 
@@ -5696,7 +5696,7 @@ Improve: move mnesia dir config from etc/app.config to etc/vm.args
 
 ## 0.6.1-alpha 版本
 
-*发布日期: 2015-04-20*
+*Release data: 2015-04-20*
 
 Integrate with \[gproc library\](<https://github.com/uwiger/gproc>) to
 support pool
@@ -5713,7 +5713,7 @@ Wiki\](<https://github.com/emqtt/emqttd/wiki/ACL-Design>)
 
 ## 0.6.0-alpha 版本
 
-*发布日期: 2015-04-17*
+*Release data: 2015-04-17*
 
 ACL Support Now: \[ACL-Design
 Wiki\](<https://github.com/emqtt/emqttd/wiki/ACL-Design>)
@@ -5766,7 +5766,7 @@ handle getstats message
 
 ## 0.5.5-beta 版本
 
-*发布日期: 2015-04-09*
+*Release data: 2015-04-09*
 
 Bugfix: issue \#75 - careless about function name when emqttd\_pubsub
 handle getstats message.
@@ -5776,7 +5776,7 @@ with other nodes.
 
 ## 0.5.4-alpha 版本
 
-*发布日期: 2015-03-22*
+*Release data: 2015-03-22*
 
 Benchmark this release on a ubuntu/14.04 server with 8 cores, 32G memory
 from QingCloud.com: :
@@ -5799,28 +5799,28 @@ Bugfix: issue \#71, \#72
 
 ## 0.5.3-alpha 版本
 
-*发布日期: 2015-03-19*
+*Release data: 2015-03-19*
 
 Bugfix: issues\#72 - emqttd\_cm, emqtt\_sm ets:match\_delete/2 with
 wrong pattern
 
 ## 0.5.2-alpha 版本
 
-*发布日期: 2015-03-18*
+*Release data: 2015-03-18*
 
 Change: upgrade esockd to 2.1.0-alpha, do not tune socket buffer for
 mqtt connection.
 
 ## 0.5.1-alpha 版本
 
-*发布日期: 2015-03-13*
+*Release data: 2015-03-13*
 
 Change: upgrade esockd to v1.2.0-beta, rename 'acceptor\_pool' to
 'acceptors'
 
 ## 0.5.0-alpha 版本
 
-*发布日期: 2015-03-12*
+*Release data: 2015-03-12*
 
 RENAME 'emqtt' to 'emqttd'\!
 
@@ -5852,7 +5852,7 @@ Test: emqttd\_topic\_tests add more '\_match\_test'
 
 ## 0.4.0-alpha 版本
 
-*发布日期: 2015-03-10*
+*Release data: 2015-03-10*
 
 Support \[$SYS Topics of
 Broker\](<https://github.com/emqtt/emqttd/wiki/$SYS-Topics-of-Broker>)
@@ -5887,19 +5887,19 @@ Test: add emqtt\_serialiser\_tests.erl
 
 ## 0.3.4-beta 版本
 
-*发布日期: 2015-03-08*
+*Release data: 2015-03-08*
 
 Bugfix: emqtt\_serialiser.erl cannot serialise UNSUBACK packets
 
 ## 0.3.3-beta 版本
 
-*发布日期: 2015-03-07*
+*Release data: 2015-03-07*
 
 Bugfix: emqtt\_serialiser.erl cannot serialise PINGRESP issue\#60
 
 ## 0.3.2-beta 版本
 
-*发布日期: 2015-03-05*
+*Release data: 2015-03-05*
 
 Improve: merge emqttc serialiser, parser, packet
 
@@ -5907,7 +5907,7 @@ Add: emqtt\_opts to merge socket options
 
 ## 0.3.1-beta 版本
 
-*发布日期: 2015-03-02*
+*Release data: 2015-03-02*
 
 Feature: SSL Socket Support
 
@@ -5923,7 +5923,7 @@ Upgrade: mochiweb to v3.0.0
 
 ## 0.3.0-beta 版本
 
-*发布日期: 2015-01-19*
+*Release data: 2015-01-19*
 
 Feature: HTTP POST API to support 'qos', 'retain' parameters
 
@@ -5938,7 +5938,7 @@ Tests: emqtt\_topic\_tests.erl add more test cases
 
 ## 0.3.0-alpha 版本
 
-*发布日期: 2015-01-08*
+*Release data: 2015-01-08*
 
 NOTICE: Full MQTT 3.1.1 support now\!
 
@@ -5969,7 +5969,7 @@ Closed Issues: \#22, \#24, \#27, \#28, \#29, \#30, \#31, \#32, \#33,
 
 ## 0.2.1-beta 版本
 
-*发布日期: 2015-01-08*
+*Release data: 2015-01-08*
 
 pull request 26: Use binaries for topic paths and fix wildcard topics
 
@@ -5987,7 +5987,7 @@ max clientId length is 1024 now.
 
 ## 0.2.0 版本
 
-*发布日期: 2014-12-07*
+*Release data: 2014-12-07*
 
 rewrite the project, integrate with esockd, mochiweb
 
@@ -5997,7 +5997,7 @@ support HTTP to publish message
 
 ## 0.1.5 版本
 
-*发布日期: 2013-01-05*
+*Release data: 2013-01-05*
 
 Bugfix: remove QOS\_1 match when handle PUBREL request
 
@@ -6005,7 +6005,7 @@ Bugfix: reverse word in emqtt\_topic:words/1 function
 
 ## 0.1.4 版本
 
-*发布日期: 2013-01-04*
+*Release data: 2013-01-04*
 
 Bugfix: fix "mosquitto\_sub -q 2 ......" bug
 
@@ -6013,7 +6013,7 @@ Bugfix: fix keep alive bug
 
 ## 0.1.3 版本
 
-*发布日期: 2013-01-04*
+*Release data: 2013-01-04*
 
 Feature: support QOS2 PUBREC, PUBREL,PUBCOMP messages
 
@@ -6021,7 +6021,7 @@ Bugfix: fix emqtt\_frame to encode/decoe PUBREC/PUBREL messages
 
 ## 0.1.2 版本
 
-*发布日期: 2012-12-27*
+*Release data: 2012-12-27*
 
 Feature: release support like riak
 
@@ -6029,7 +6029,7 @@ Bugfix: use ?INFO/?ERROR to print log in tcp\_listener.erl
 
 ## 0.1.1 版本
 
-*发布日期: 2012-09-24*
+*Release data: 2012-09-24*
 
 Feature: use rebar to generate release
 
@@ -6039,6 +6039,6 @@ Bugfix: send will msg when network error
 
 ## 0.1.0 版本
 
-*发布日期: 2012-09-21*
+*Release data: 2012-09-21*
 
 The first public release.
