@@ -1680,7 +1680,7 @@ Enhancements:
 
 Bug fixes:
 
-  - Configure and use `long_gc` 与 `long_schedule` correctly
+  - Configure and use `long_gc` and `long_schedule` correctly
     
     Github PR:
     [emqx/emqx\#2504](https://github.com/emqx/emqx/pull/2504),

@@ -231,18 +231,21 @@ HGETALL mqtt:client:test
 
 *mqtt:retain* Hash for retained messages:
 
-    hmset
-    key = mqtt:retain:${topic}
-    value = {id: string, from: string, qos: int, topic: string, retain: int, payload: string, ts: timestamp}
-
+```bash
+hmset
+key = mqtt:retain:${topic}
+value = {id: string, from: string, qos: int, topic: string, retain: int, payload: string, ts: timestamp}
+```
 Lookup retained message:
 
-    HGETALL "mqtt:retain:${topic}"
-
+```bash
+HGETALL "mqtt:retain:${topic}"
+```
 Lookup retained messages with a topic of 'retain':
 
-    HGETALL mqtt:retain:topic
-     1) "id"
+```bash
+HGETALL mqtt:retain:topic
+    1) "id"
 
 >   -     2) "6P9NLcJ65VXBbC22sYb4"
 >    
@@ -263,76 +266,87 @@ Lookup retained messages with a topic of 'retain':
 >     13) "ts"
 >     14) "1481690659"
 
+```
+
 ### Using Redis Hash for messages
 
 *mqtt:msg* Hash for MQTT messages:
 
-    hmset
-    key = mqtt:msg:${msgid}
-    value = {id: string, from: string, qos: int, topic: string, retain: int, payload: string, ts: timestamp}
-    
-    zadd
-    key = mqtt:msg:${topic}
-    field = 1
-    value = ${msgid}
+```bash
+hmset
+key = mqtt:msg:${msgid}
+value = {id: string, from: string, qos: int, topic: string, retain: int, payload: string, ts: timestamp}
 
+zadd
+key = mqtt:msg:${topic}
+field = 1
+value = ${msgid}
+```
 ### Using Redis Set for Message Acknowledgements
 
 *mqtt:acked* SET stores acknowledgements from the clients:
 
-    set
-    key = mqtt:acked:${clientid}:${topic}
-    value = ${msgid}
-
+```bash
+set
+key = mqtt:acked:${clientid}:${topic}
+value = ${msgid}
+```
 ### Using Redis Hash for Subscription
 
 *mqtt:sub* Hash for Subscriptions:
 
-    hset
-    key = mqtt:sub:${clientid}
-    field = ${topic}
-    value = ${qos}
-
+```bash
+hset
+key = mqtt:sub:${clientid}
+field = ${topic}
+value = ${qos}
+```
 A client subscribes to a topic:
 
-    HSET mqtt:sub:${clientid} ${topic} ${qos}
-
+```bash
+HSET mqtt:sub:${clientid} ${topic} ${qos}
+```
 A client with ClientId of 'test' subscribes to topic1 and topic2:
 
-    HSET "mqtt:sub:test" "topic1" 1
-    HSET "mqtt:sub:test" "topic2" 2
-
+```bash
+HSET "mqtt:sub:test" "topic1" 1
+HSET "mqtt:sub:test" "topic2" 2
+```
 Lookup the subscribed topics of client with ClientId of 'test':
 
-    HGETALL mqtt:sub:test
-    1) "topic1"
-    2) "1"
-    3) "topic2"
-    4) "2"
-
+```bash
+HGETALL mqtt:sub:test
+1) "topic1"
+2) "1"
+3) "topic2"
+4) "2"
+```
 ### Redis SUB/UNSUB Publish
 
 When a device subscribes / unsubscribes to topics, EMQ X broker publish
 an event to the Redis:
 
-    PUBLISH
-    channel = "mqtt_channel"
-    message = {type: string , topic: string, clientid: string, qos: int}
-    \*type: [subscribe/unsubscribe]
-
+```bash
+PUBLISH
+channel = "mqtt_channel"
+message = {type: string , topic: string, clientid: string, qos: int}
+\*type: [subscribe/unsubscribe]
+```
 client with ClientID 'test' subscribe to
     'topic0':
 
-    PUBLISH "mqtt_channel" "{\"type\": \"subscribe\", \"topic\": \"topic0\", \"clientid\": \"test\", \"qos\": \"0\"}"
-
+```bash
+PUBLISH "mqtt_channel" "{\"type\": \"subscribe\", \"topic\": \"topic0\", \"clientid\": \"test\", \"qos\": \"0\"}"
+```
 Client with ClientId 'test' unsubscribes to
     'test\_topic0':
 
-    PUBLISH "mqtt_channel" "{\"type\": \"unsubscribe\", \"topic\": \"test_topic0\", \"clientid\": \"test\"}"
-
+```bash
+PUBLISH "mqtt_channel" "{\"type\": \"unsubscribe\", \"topic\": \"test_topic0\", \"clientid\": \"test\"}"
+```
 ### Enable Redis Backend
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_backend_redis
 ```
 
@@ -450,33 +464,25 @@ backend.mysql.hook.client.connected.3 = {"action": {"sql": ["insert into conn(cl
 
 ### Create MySQL DB
 
-``` sourceCode sql
+```sql
 create database mqtt;
 ```
 
 ### Import MySQL DB & Table Schema
 
-``` sourceCode bash
+```bash
 mysql -u root -p mqtt < etc/sql/emqx_backend_mysql.sql
 ```
 
-<div class="note">
-
-<div class="admonition-title">
-
-Note
-
-</div>
-
+{% hint style="info" %}
 DB name is free of choice
-
-</div>
+{% endhint %}
 
 ### MySQL Client Connection Table
 
 *mqtt\_client* stores client connection states:
 
-``` sourceCode sql
+```sql
 DROP TABLE IF EXISTS `mqtt_client`;
 CREATE TABLE `mqtt_client` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -494,26 +500,26 @@ CREATE TABLE `mqtt_client` (
 
 Query the client connection state:
 
-``` sourceCode sql
+```sql
 select * from mqtt_client where clientid = ${clientid};
 ```
 
 If client 'test' is online:
 
-``` sourceCode sql
-   select * from mqtt_client where clientid = "test";
+```sql
+select * from mqtt_client where clientid = "test";
 
-   +----+----------+-------+----------------+---------------------+---------------------+---------------------+
-   | id | clientid | state | node           | online_at           | offline_at          | created             |
-   +----+----------+-------+----------------+---------------------+---------------------+---------------------+
++----+----------+-------+----------------+---------------------+---------------------+---------------------+
+| id | clientid | state | node           | online_at           | offline_at          | created             |
++----+----------+-------+----------------+---------------------+---------------------+---------------------+
    |  1 | test     | 1     | emqx@127.0.0.1 | 2016-11-15 09:40:40 | NULL                | 2016-12-24 09:40:22 |
-   +----+----------+-------+----------------+---------------------+---------------------+---------------------+
-   1 rows in set (0.00 sec)
++----+----------+-------+----------------+---------------------+---------------------+---------------------+
+1 rows in set (0.00 sec)
 ```
 
 If client 'test' is offline:
 
-``` sourceCode sql
+```sql
 select * from mqtt_client where clientid = "test";
 
 +----+----------+-------+----------------+---------------------+---------------------+---------------------+
@@ -528,7 +534,7 @@ select * from mqtt_client where clientid = "test";
 
 *mqtt\_sub* table stores MQTT subscriptions of clients:
 
-``` sourceCode sql
+```sql
 DROP TABLE IF EXISTS `mqtt_sub`;
 CREATE TABLE `mqtt_sub` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -545,20 +551,20 @@ CREATE TABLE `mqtt_sub` (
 E.g., client 'test' subscribes to 'test\_topic1' and
 'test\_topic2':
 
-``` sourceCode sql
+```sql
 insert into mqtt_sub(clientid, topic, qos) values("test", "test_topic1", 1);
 insert into mqtt_sub(clientid, topic, qos) values("test", "test_topic2", 2);
 ```
 
 Query subscription of a client:
 
-``` sourceCode sql
-   select * from mqtt_sub where clientid = ${clientid};
+```sql
+select * from mqtt_sub where clientid = ${clientid};
 ```
 
 E.g., query the Subscription of client 'test':
 
-``` sourceCode sql
+```sql
 select * from mqtt_sub where clientid = "test";
 
 +----+--------------+-------------+------+---------------------+
@@ -574,7 +580,7 @@ select * from mqtt_sub where clientid = "test";
 
 *mqtt\_msg* stores MQTT messages:
 
-``` sourceCode sql
+```sql
 DROP TABLE IF EXISTS `mqtt_msg`;
 CREATE TABLE `mqtt_msg` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -592,29 +598,29 @@ CREATE TABLE `mqtt_msg` (
 
 Query messages published by a client:
 
-``` sourceCode sql
-   select * from mqtt_msg where sender = ${clientid};
+```sql
+select * from mqtt_msg where sender = ${clientid};
 ```
 
 Query messages published by client 'test':
 
-``` sourceCode sql
-   select * from mqtt_msg where sender = "test";
+```sql
+select * from mqtt_msg where sender = "test";
 
-   +----+-------------------------------+----------+--------+------+-----+--------+---------+---------------------+
-   | id | msgid                         | topic    | sender | node | qos | retain | payload | arrived             |
-   +----+-------------------------------+----------+--------+------+-----+--------+---------+---------------------+
-   | 1  | 53F98F80F66017005000004A60003 | hello    | test   | NULL |   1 |      0 | hello   | 2016-12-24 17:25:12 |
-   | 2  | 53F98F9FE42AD7005000004A60004 | world    | test   | NULL |   1 |      0 | world   | 2016-12-24 17:25:45 |
-   +----+-------------------------------+----------+--------+------+-----+--------+---------+---------------------+
-   2 rows in set (0.00 sec)
++----+-------------------------------+----------+--------+------+-----+--------+---------+---------------------+
+| id | msgid                         | topic    | sender | node | qos | retain | payload | arrived             |
++----+-------------------------------+----------+--------+------+-----+--------+---------+---------------------+
+| 1  | 53F98F80F66017005000004A60003 | hello    | test   | NULL |   1 |      0 | hello   | 2016-12-24 17:25:12 |
+| 2  | 53F98F9FE42AD7005000004A60004 | world    | test   | NULL |   1 |      0 | world   | 2016-12-24 17:25:45 |
++----+-------------------------------+----------+--------+------+-----+--------+---------+---------------------+
+2 rows in set (0.00 sec)
 ```
 
 ### MySQL Retained Message Table
 
 mqtt\_retain stores retained messages:
 
-``` sourceCode sql
+```sql
 DROP TABLE IF EXISTS `mqtt_retain`;
 CREATE TABLE `mqtt_retain` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -632,29 +638,31 @@ CREATE TABLE `mqtt_retain` (
 
 Query retained messages:
 
-``` sourceCode sql
+```sql
 select * from mqtt_retain where topic = ${topic};
 ```
 
 Query retained messages with topic 'retain':
 
-``` sourceCode sql
+```sql
 select * from mqtt_retain where topic = "retain";
+```
 
+```bash
 +----+----------+-------------------------------+---------+------+------+---------+---------------------+
 | id | topic    | msgid                         | sender  | node | qos  | payload | arrived             |
 +----+----------+-------------------------------+---------+------+------+---------+---------------------+
 |  1 | retain   | 53F33F7E4741E7007000004B70001 | test    | NULL |    1 | www     | 2016-12-24 16:55:18 |
 +----+----------+-------------------------------+---------+------+------+---------+---------------------+
-```
 
 >    1 rows in set (0.00 sec)
+```
 
 ### MySQL Acknowledgement Table
 
 *mqtt\_acked* stores acknowledgements from the clients:
 
-``` sourceCode sql
+```sql
 DROP TABLE IF EXISTS `mqtt_acked`;
 CREATE TABLE `mqtt_acked` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -669,7 +677,7 @@ CREATE TABLE `mqtt_acked` (
 
 ### Enable MySQL Backend
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_backend_mysql
 ```
 
@@ -790,105 +798,107 @@ backend.pgsql.hook.client.connected.3 = {"action": {"sql": ["insert into conn(cl
 
 ### Create PostgreSQL DB
 
-``` sourceCode bash
+```bash
 createdb mqtt -E UTF8 -e
 ```
 
 ### Import PostgreSQL DB & Table Schema
 
-``` sourceCode bash
+```bash
 \i etc/sql/emqx_backend_pgsql.sql
 ```
 
-<div class="note">
-
-<div class="admonition-title">
-
-Note
-
-</div>
-
+{% hint style="info" %}
 DB name is free of choice
-
-</div>
-
+{% endhint %}
 ### PostgreSQL Client Connection Table
 
 *mqtt\_client* stores client connection states:
 
-    CREATE TABLE mqtt_client(
-      id SERIAL primary key,
-      clientid character varying(100),
-      state integer,
-      node character varying(100),
-      online_at timestamp,
-      offline_at timestamp,
-      created timestamp without time zone,
-      UNIQUE (clientid)
-    );
+```sql
+CREATE TABLE mqtt_client(
+    id SERIAL primary key,
+    clientid character varying(100),
+    state integer,
+    node character varying(100),
+    online_at timestamp,
+    offline_at timestamp,
+    created timestamp without time zone,
+    UNIQUE (clientid)
+);
+```
 
 Query a client's connection state:
 
-    select * from mqtt_client where clientid = ${clientid};
+```sql
+select * from mqtt_client where clientid = ${clientid};
+```
 
 E.g., if client 'test' is online:
 
-    select * from mqtt_client where clientid = 'test';
-    
-     id | clientid | state | node             | online_at           | offline_at        | created
-    ----+----------+-------+----------------+---------------------+---------------------+---------------------
-      1 | test     | 1     | emqx@127.0.0.1 | 2016-11-15 09:40:40 | NULL                | 2016-12-24 09:40:22
-    (1 rows)
+```bash
+select * from mqtt_client where clientid = 'test';
 
+id | clientid | state | node             | online_at           | offline_at        | created
+----+----------+-------+----------------+---------------------+---------------------+---------------------
+ 1 | test     | 1     | emqx@127.0.0.1 | 2016-11-15 09:40:40 | NULL                | 2016-12-24 09:40:22
+(1 rows)
+```
 Client 'test' is offline:
 
-    select * from mqtt_client where clientid = 'test';
-    
-     id | clientid | state | nod            | online_at           | offline_at          | created
-    ----+----------+-------+----------------+---------------------+---------------------+---------------------
-      1 | test     | 0     | emqx@127.0.0.1 | 2016-11-15 09:40:40 | 2016-11-15 09:46:10 | 2016-12-24 09:40:22
-    (1 rows)
+```bash
+select * from mqtt_client where clientid = 'test';
+
+    id | clientid | state | nod            | online_at           | offline_at          | created
+----+----------+-------+----------------+---------------------+---------------------+---------------------
+    1 | test     | 0     | emqx@127.0.0.1 | 2016-11-15 09:40:40 | 2016-11-15 09:46:10 | 2016-12-24 09:40:22
+(1 rows)
+```
 
 ### PostgreSQL Subscription Table
 
 *mqtt\_sub* stores subscriptions of clients:
 
-    CREATE TABLE mqtt_sub(
-      id SERIAL primary key,
-      clientid character varying(100),
-      topic character varying(200),
-      qos integer,
-      created timestamp without time zone,
-      UNIQUE (clientid, topic)
-    );
-
+```sql
+CREATE TABLE mqtt_sub(
+    id SERIAL primary key,
+    clientid character varying(100),
+    topic character varying(200),
+    qos integer,
+    created timestamp without time zone,
+    UNIQUE (clientid, topic)
+);
+```
 E.g., client 'test' subscribes to topic 'test\_topic1' and
 'test\_topic2':
 
-``` sourceCode sql
+```sql
 insert into mqtt_sub(clientid, topic, qos) values('test', 'test_topic1', 1);
 insert into mqtt_sub(clientid, topic, qos) values('test', 'test_topic2', 2);
 ```
 
 Query subscription of a client:
 
-    select * from mqtt_sub where clientid = ${clientid};
-
+```sql
+select * from mqtt_sub where clientid = ${clientid};
+```
 Query subscription of client 'test':
 
-    select * from mqtt_sub where clientid = 'test';
-    
-     id | clientId     | topic       | qos  | created
-    ----+--------------+-------------+------+---------------------
-      1 | test         | test_topic1 |    1 | 2016-12-24 17:09:05
-      2 | test         | test_topic2 |    2 | 2016-12-24 17:12:51
-    (2 rows)
+```bash
+select * from mqtt_sub where clientid = 'test';
+
+    id | clientId     | topic       | qos  | created
+----+--------------+-------------+------+---------------------
+    1 | test         | test_topic1 |    1 | 2016-12-24 17:09:05
+    2 | test         | test_topic2 |    2 | 2016-12-24 17:12:51
+(2 rows)
+```
 
 ### PostgreSQL Message Table
 
 *mqtt\_msg* stores MQTT messages:
 
-``` sourceCode sql
+```sql
 CREATE TABLE mqtt_msg (
   id SERIAL primary key,
   msgid character varying(60),
@@ -903,23 +913,26 @@ CREATE TABLE mqtt_msg (
 
 Query messages published by a client:
 
-    select * from mqtt_msg where sender = ${clientid};
-
+```sql
+select * from mqtt_msg where sender = ${clientid};
+```
 Query messages published by client 'test':
 
-    select * from mqtt_msg where sender = 'test';
-    
-     id | msgid                         | topic    | sender | node | qos | retain | payload | arrived
-    ----+-------------------------------+----------+--------+------+-----+--------+---------+---------------------
-     1  | 53F98F80F66017005000004A60003 | hello    | test   | NULL |   1 |      0 | hello   | 2016-12-24 17:25:12
-     2  | 53F98F9FE42AD7005000004A60004 | world    | test   | NULL |   1 |      0 | world   | 2016-12-24 17:25:45
-    (2 rows)
+```bash
+select * from mqtt_msg where sender = 'test';
+
+    id | msgid                         | topic    | sender | node | qos | retain | payload | arrived
+----+-------------------------------+----------+--------+------+-----+--------+---------+---------------------
+    1  | 53F98F80F66017005000004A60003 | hello    | test   | NULL |   1 |      0 | hello   | 2016-12-24 17:25:12
+    2  | 53F98F9FE42AD7005000004A60004 | world    | test   | NULL |   1 |      0 | world   | 2016-12-24 17:25:45
+(2 rows)
+```
 
 ### PostgreSQL Retained Message Table
 
 *mqtt\_retain* stores retained messages:
 
-``` sourceCode sql
+```sql
 CREATE TABLE mqtt_retain(
   id SERIAL primary key,
   topic character varying(200),
@@ -934,22 +947,25 @@ CREATE TABLE mqtt_retain(
 
 Query retained messages:
 
-    select * from mqtt_retain where topic = ${topic};
-
+```sql
+select * from mqtt_retain where topic = ${topic};
+```
 Query retained messages with topic 'retain':
 
-    select * from mqtt_retain where topic = 'retain';
-    
-     id | topic    | msgid                         | sender  | node | qos  | payload | arrived
-    ----+----------+-------------------------------+---------+------+------+---------+---------------------
-      1 | retain   | 53F33F7E4741E7007000004B70001 | test    | NULL |    1 | www     | 2016-12-24 16:55:18
-    (1 rows)
+```sql
+select * from mqtt_retain where topic = 'retain';
+
+    id | topic    | msgid                         | sender  | node | qos  | payload | arrived
+----+----------+-------------------------------+---------+------+------+---------+---------------------
+    1 | retain   | 53F33F7E4741E7007000004B70001 | test    | NULL |    1 | www     | 2016-12-24 16:55:18
+(1 rows)
+```
 
 ### PostgreSQL Acknowledgement Table
 
 *mqtt\_acked* stores acknowledgements from the clients:
 
-``` sourceCode sql
+```sql
 CREATE TABLE mqtt_acked (
   id SERIAL primary key,
   clientid character varying(100),
@@ -962,7 +978,7 @@ CREATE TABLE mqtt_acked (
 
 ### Enable PostgreSQL Backend
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_backend_pgsql
 ```
 
@@ -1106,7 +1122,7 @@ backend.mongo.hook.message.acked.1       = {"topic": "#", "action": {"function":
 
 ### Create MongoDB DB & Collections
 
-``` sourceCode javascript
+```js
 use mqtt
 db.createCollection("mqtt_client")
 db.createCollection("mqtt_sub")
@@ -1120,23 +1136,15 @@ db.mqtt_msg.ensureIndex({sender:1, topic:2})
 db.mqtt_retain.ensureIndex({topic:1})
 ```
 
-<div class="note">
-
-<div class="admonition-title">
-
-Note
-
-</div>
-
+{% hint style="info" %}
 DB name is free of choice
-
-</div>
+{% endhint %}
 
 ### MongoDB MQTT Client Collection
 
 *mqtt\_client* stores MQTT clients' connection states:
 
-``` sourceCode javascript
+```js
 {
     clientid: string,
     state: 0,1, //0 disconnected 1 connected
@@ -1148,28 +1156,28 @@ DB name is free of choice
 
 Query client's connection state:
 
-``` sourceCode javascript
+```js
 db.mqtt_client.findOne({clientid: ${clientid}})
 ```
 
 E.g., if client 'test' is online:
 
-``` sourceCode javascript
-   db.mqtt_client.findOne({clientid: "test"})
+```js
+db.mqtt_client.findOne({clientid: "test"})
 
-   {
-       "_id" : ObjectId("58646c9bdde89a9fb9f7fb73"),
-       "clientid" : "test",
-       "state" : 1,
-       "node" : "emqx@127.0.0.1",
-       "online_at" : 1482976411,
-       "offline_at" : null
-   }
+{
+    "_id" : ObjectId("58646c9bdde89a9fb9f7fb73"),
+    "clientid" : "test",
+    "state" : 1,
+    "node" : "emqx@127.0.0.1",
+    "online_at" : 1482976411,
+    "offline_at" : null
+}
 ```
 
 Client 'test' is offline:
 
-``` sourceCode javascript
+```js
 db.mqtt_client.findOne({clientid: "test"})
 
 {
@@ -1186,7 +1194,7 @@ db.mqtt_client.findOne({clientid: "test"})
 
 *mqtt\_sub* stores subscriptions of clients:
 
-``` sourceCode javascript
+```js
 {
     clientid: string,
     topic: string,
@@ -1197,14 +1205,14 @@ db.mqtt_client.findOne({clientid: "test"})
 E.g., client 'test' subscribes to topic 'test\_topic1' and
 'test\_topic2':
 
-``` sourceCode javascript
+```js
 db.mqtt_sub.insert({clientid: "test", topic: "test_topic1", qos: 1})
 db.mqtt_sub.insert({clientid: "test", topic: "test_topic2", qos: 2})
 ```
 
 Query subscription of client 'test':
 
-``` sourceCode javascript
+```js
 db.mqtt_sub.find({clientid: "test"})
 
 { "_id" : ObjectId("58646d90c65dff6ac9668ca1"), "clientid" : "test", "topic" : "test_topic1", "qos" : 1 }
@@ -1215,7 +1223,7 @@ db.mqtt_sub.find({clientid: "test"})
 
 *mqtt\_msg* stores MQTT messages:
 
-``` sourceCode javascript
+```js
 {
     _id: int,
     topic: string,
@@ -1230,13 +1238,13 @@ db.mqtt_sub.find({clientid: "test"})
 
 Query messages published by a client:
 
-``` sourceCode javascript
+```js
    db.mqtt_msg.find({sender: ${clientid}})
 ```
 
 Query messages published by client 'test':
 
-``` sourceCode javascript
+```js
 db.mqtt_msg.find({sender: "test"})
 {
     "_id" : 1,
@@ -1254,7 +1262,7 @@ db.mqtt_msg.find({sender: "test"})
 
 *mqtt\_retain* stores retained messages:
 
-``` sourceCode javascript
+```js
 {
     topic: string,
     msgid: string,
@@ -1267,13 +1275,13 @@ db.mqtt_msg.find({sender: "test"})
 
 Query retained messages:
 
-``` sourceCode javascript
+```js
 db.mqtt_retain.findOne({topic: ${topic}})
 ```
 
 Query retained messages with topic 'retain':
 
-``` sourceCode javascript
+```js
 db.mqtt_retain.findOne({topic: "/World"})
 {
     "_id" : ObjectId("58646dd9dde89a9fb9f7fb75"),
@@ -1290,7 +1298,7 @@ db.mqtt_retain.findOne({topic: "/World"})
 
 *mqtt\_acked* stores acknowledgements from the clients:
 
-``` sourceCode javascript
+```js
 {
     clientid: string,
     topic: string,
@@ -1300,7 +1308,7 @@ db.mqtt_retain.findOne({topic: "/World"})
 
 ### Enable MongoDB Backend
 
-``` sourceCode console
+```bash
 ./bin/emqx_ctl plugins load emqx_backend_mongo
 ```
 
@@ -1433,156 +1441,169 @@ backend.cassa.hook.client.connected.3 = {"action": {"cql": ["insert into conn(cl
 Create
 KeySpace:
 
-``` sourceCode sql
+```sql
 CREATE KEYSPACE mqtt WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 USR mqtt;
 ```
 
 Import Cassandra tables:
 
-``` sourceCode sql
+```sql
 cqlsh -e "SOURCE 'emqx_backend_cassa.cql'"
 ```
 
-<div class="note">
-
-<div class="admonition-title">
-
-Note
-
-</div>
-
+{% hint style="info" %}
 KeySpace is free of choice
-
-</div>
+{% endhint %}
 
 ### Cassandra Client Connection Table
 
 *mqtt.client* stores client connection states:
 
-    CREATE TABLE mqtt.client (
-        client_id text,
-        node text,
-        state int,
-        connected timestamp,
-        disconnected timestamp,
-        PRIMARY KEY(client_id)
-    );
-
+```sql
+CREATE TABLE mqtt.client (
+    client_id text,
+    node text,
+    state int,
+    connected timestamp,
+    disconnected timestamp,
+    PRIMARY KEY(client_id)
+);
+```
 Query a client's connection state:
 
-    select * from mqtt.client where clientid = ${clientid};
-
+```sql
+select * from mqtt.client where clientid = ${clientid};
+```
 If client 'test' is online:
 
-    select * from mqtt.client where clientid = 'test';
-    
-     client_id | connected                       | disconnected  | node          | state
-    -----------+---------------------------------+---------------+---------------+-------
-          test | 2017-02-14 08:27:29.872000+0000 |          null | emqx@127.0.0.1|     1
+```bash
+select * from mqtt.client where clientid = 'test';
 
+    client_id | connected                       | disconnected  | node          | state
+-----------+---------------------------------+---------------+---------------+-------
+        test | 2017-02-14 08:27:29.872000+0000 |          null | emqx@127.0.0.1|     1
+```
 Client 'test' is offline:
 
-    select * from mqtt.client where clientid = 'test';
-    
-     client_id | connected                       | disconnected                    | node          | state
-    -----------+---------------------------------+---------------------------------+---------------+-------
-          test | 2017-02-14 08:27:29.872000+0000 | 2017-02-14 08:27:35.872000+0000 | emqx@127.0.0.1|     0
+```bash
+select * from mqtt.client where clientid = 'test';
+
+    client_id | connected                       | disconnected                    | node          | state
+-----------+---------------------------------+---------------------------------+---------------+-------
+        test | 2017-02-14 08:27:29.872000+0000 | 2017-02-14 08:27:35.872000+0000 | emqx@127.0.0.1|     0
+```
 
 ### Cassandra Subscription Table
 
 *mqtt.sub* stores subscriptions of clients:
 
-    CREATE TABLE mqtt.sub (
-        client_id text,
-        topic text,
-        qos int,
-        PRIMARY KEY(client_id, topic)
-    );
+```sql
+CREATE TABLE mqtt.sub (
+    client_id text,
+    topic text,
+    qos int,
+    PRIMARY KEY(client_id, topic)
+);
+```
 
 Client 'test' subscribes to topic 'test\_topic1' and
     'test\_topic2':
-
-    insert into mqtt.sub(client_id, topic, qos) values('test', 'test_topic1', 1);
-    insert into mqtt.sub(client_id, topic, qos) values('test', 'test_topic2', 2);
+```sql
+insert into mqtt.sub(client_id, topic, qos) values('test', 'test_topic1', 1);
+insert into mqtt.sub(client_id, topic, qos) values('test', 'test_topic2', 2);
+```
 
 Query subscriptions of a client:
 
-    select * from mqtt_sub where clientid = ${clientid};
-
+```sql
+select * from mqtt_sub where clientid = ${clientid};
+```
 Query subscriptions of client 'test':
 
-    select * from mqtt_sub where clientid = 'test';
-    
-     client_id | topic       | qos
-    -----------+-------------+-----
-          test | test_topic1 |   1
-          test | test_topic2 |   2
+```bash
+select * from mqtt_sub where clientid = 'test';
 
+    client_id | topic       | qos
+-----------+-------------+-----
+        test | test_topic1 |   1
+        test | test_topic2 |   2
+```
 ### Cassandra Message Table
 
 *mqtt.msg* stores MQTT messages:
 
-    CREATE TABLE mqtt.msg (
-        topic text,
-        msgid text,
-        sender text,
-        qos int,
-        retain int,
-        payload text,
-        arrived timestamp,
-        PRIMARY KEY(topic, msgid)
-      ) WITH CLUSTERING ORDER BY (msgid DESC);
+```sql
+CREATE TABLE mqtt.msg (
+    topic text,
+    msgid text,
+    sender text,
+    qos int,
+    retain int,
+    payload text,
+    arrived timestamp,
+    PRIMARY KEY(topic, msgid)
+    ) WITH CLUSTERING ORDER BY (msgid DESC);
+```
 
 Query messages published by a client:
 
-    select * from mqtt_msg where sender = ${clientid};
-
+```sql
+select * from mqtt_msg where sender = ${clientid};
+```
 Query messages published by client 'test':
 
-    select * from mqtt_msg where sender = 'test';
-    
-     topic | msgid                | arrived                         | payload      | qos | retain | sender
-    -------+----------------------+---------------------------------+--------------+-----+--------+--------
-     hello | 2PguFrHsrzEvIIBdctmb | 2017-02-14 09:07:13.785000+0000 | Hello world! |   1 |      0 |   test
-     world | 2PguFrHsrzEvIIBdctmb | 2017-02-14 09:07:13.785000+0000 | Hello world! |   1 |      0 |   test
+```bash
+select * from mqtt_msg where sender = 'test';
+
+    topic | msgid                | arrived                         | payload      | qos | retain | sender
+-------+----------------------+---------------------------------+--------------+-----+--------+--------
+    hello | 2PguFrHsrzEvIIBdctmb | 2017-02-14 09:07:13.785000+0000 | Hello world! |   1 |      0 |   test
+    world | 2PguFrHsrzEvIIBdctmb | 2017-02-14 09:07:13.785000+0000 | Hello world! |   1 |      0 |   test
+```
 
 ### Cassandra Retained Message Table
 
 *mqtt.retain* stores retained messages:
 
-    CREATE TABLE mqtt.retain (
-        topic text,
-        msgid text,
-        PRIMARY KEY(topic)
-    );
+```sql
+CREATE TABLE mqtt.retain (
+    topic text,
+    msgid text,
+    PRIMARY KEY(topic)
+);
+```
 
 Query retained messages:
 
-    select * from mqtt_retain where topic = ${topic};
-
+```sql
+select * from mqtt_retain where topic = ${topic};
+```
 Query retained messages with topic 'retain':
 
-    select * from mqtt_retain where topic = 'retain';
-    
-     topic  | msgid
-    --------+----------------------
-     retain | 2PguFrHsrzEvIIBdctmb
+```sql
+select * from mqtt_retain where topic = 'retain';
 
+    topic  | msgid
+--------+----------------------
+    retain | 2PguFrHsrzEvIIBdctmb
+```
 ### Cassandra Acknowledgement Table
 
 *mqtt.acked* stores acknowledgements from the clients:
 
-    CREATE TABLE mqtt.acked (
-        client_id text,
-        topic text,
-        msgid text,
-        PRIMARY KEY(client_id, topic)
-      );
+```sql
+CREATE TABLE mqtt.acked (
+    client_id text,
+    topic text,
+    msgid text,
+    PRIMARY KEY(client_id, topic)
+);
+```
 
 ### Enable Cassandra Backend
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_backend_cassa
 ```
 
@@ -1639,27 +1660,19 @@ backend.dynamo.hook.message.acked.1       = {"topic": "#", "action": {"function"
 
 ### Create DynamoDB DB
 
-``` sourceCode bash
+```bash
 ./test/dynamo_test.sh
 ```
 
-<div class="note">
-
-<div class="admonition-title">
-
-Note
-
-</div>
-
+{% hint style="info" %}
 DB name is free of choice
-
-</div>
+{% endhint %}
 
 ### DynamoDB Client Connection Table
 
 *mqtt\_client* stores client connection states:
 
-``` sourceCode bash
+```bash
 {
     "TableName": "mqtt_client",
     "KeySchema": [
@@ -1678,7 +1691,7 @@ DB name is free of choice
 Query the client connection
 state:
 
-``` sourceCode bash
+```bash
 aws dynamodb scan --table-name mqtt_client --region us-west-2  --endpoint-url http://localhost:8000
 
 {
@@ -1701,7 +1714,7 @@ aws dynamodb scan --table-name mqtt_client --region us-west-2  --endpoint-url ht
 
 *mqtt\_sub* table stores MQTT subscriptions of clients:
 
-``` sourceCode bash
+```bash
 {
     "TableName": "mqtt_sub",
     "KeySchema": [
@@ -1722,7 +1735,7 @@ aws dynamodb scan --table-name mqtt_client --region us-west-2  --endpoint-url ht
 Query topics subscribed by the client named
 "test-dynamo":
 
-``` sourceCode bash
+```bash
 aws dynamodb scan --table-name mqtt_sub --region us-west-2  --endpoint-url http://localhost:8000
 
 {
@@ -1739,7 +1752,7 @@ aws dynamodb scan --table-name mqtt_sub --region us-west-2  --endpoint-url http:
 
 *mqtt\_msg* stores MQTT messages:
 
-``` sourceCode bash
+```bash
 {
     "TableName": "mqtt_msg",
     "KeySchema": [
@@ -1757,7 +1770,7 @@ aws dynamodb scan --table-name mqtt_sub --region us-west-2  --endpoint-url http:
 
 *mqtt\_topic\_msg\_map* stores the mapping between topics and messages:
 
-``` sourceCode bash
+```bash
 {
     "TableName": "mqtt_topic_msg_map",
     "KeySchema": [
@@ -1779,10 +1792,11 @@ message to the "test" topic:
 Query
 *mqtt\_msg*:
 
-``` sourceCode bash
+```bash
 aws dynamodb scan --table-name mqtt_msg --region us-west-2  --endpoint-url http://localhost:8000
 ```
 
+```bash
 >   - {
 >    
 >       - "Items": \[
@@ -1800,14 +1814,16 @@ aws dynamodb scan --table-name mqtt_msg --region us-west-2  --endpoint-url http:
 >     \], "Count": 1, "ScannedCount": 1, "ConsumedCapacity": null
 > 
 > }
+```
 
 Query
 *mqtt\_topic\_msg\_map*:
 
-``` sourceCode bash
+```bash
 aws dynamodb scan --table-name mqtt_topic_msg_map --region us-west-2  --endpoint-url http://localhost:8000
 ```
 
+```bash
 >   - {
 >    
 >       - "Items": \[
@@ -1821,12 +1837,13 @@ aws dynamodb scan --table-name mqtt_topic_msg_map --region us-west-2  --endpoint
 >     \], "Count": 1, "ScannedCount": 1, "ConsumedCapacity": null
 > 
 > }
+```
 
 ### DynamoDB Retained Message Table
 
 *mqtt\_retain* stores retained messages:
 
-``` sourceCode bash
+```bash
 {
     "TableName": "mqtt_retain",
     "KeySchema": [
@@ -1845,7 +1862,7 @@ aws dynamodb scan --table-name mqtt_topic_msg_map --region us-west-2  --endpoint
 Query *mqtt\_retain* after a client publishes a message to the "test"
 topic:
 
-``` sourceCode bash
+```bash
 {
     "Items": [
         {
@@ -1868,7 +1885,7 @@ topic:
 
 *mqtt\_acked* stores acknowledgements from the clients:
 
-``` sourceCode bash
+```bash
 {
     "TableName": "mqtt_acked",
     "KeySchema": [
@@ -1889,7 +1906,7 @@ topic:
 Query *mqtt\_acked* after a client publishes a message to the "test"
 topic:
 
-``` sourceCode bash
+```bash
 {
     "Items": [
         {
@@ -1906,7 +1923,7 @@ topic:
 
 ### Enable DynamoDB Backend
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_backend_dynamo
 ```
 
@@ -1968,7 +1985,7 @@ Template file use Json format:
 You can define different templates for different topics or multiple
 templates for the same topic, likes:
 
-``` sourceCode bash
+```bash
 {
     <Topic 1>: <Template 1>,
     <Topic 2>: <Template 2>
@@ -1977,7 +1994,7 @@ templates for the same topic, likes:
 
 Template format:
 
-``` sourceCode bash
+```bash
 {
     "measurement": <Measurement>,
     "tags": {
@@ -2044,7 +2061,7 @@ data/templates directory provides a sample template
 suffix from the filename when using it formally) for the user's
 reference:
 
-``` sourceCode bash
+```bash
 {
     "sample": {
         "measurement": "$topic",
@@ -2064,7 +2081,7 @@ reference:
 
 When an MQTT Message whose Topic is "sample" has the following Payload:
 
-``` sourceCode bash
+```bash
 {
     "data": [
         {
@@ -2083,7 +2100,7 @@ When an MQTT Message whose Topic is "sample" has the following Payload:
 
 Backend converts MQTT messages to:
 
-``` sourceCode bash
+```bash
 [
     {
         "measurement": "sample",
@@ -2117,13 +2134,13 @@ Backend converts MQTT messages to:
 The data was finally encoded and written to InfluxDB as
 follows:
 
-``` sourceCode bash
+```bash
 "sample,clientid=mqttjs_6990f0e886,host=serverA,qos=0,region=hangzhou temperature=\"1\" 1560745505429670000\nsample,clientid=mqttjs_6990f0e886,host=serverB,qos=0,region=ningbo temperature=\"2\" 1560745505429670000\n"
 ```
 
 ### Enable InfluxDB Backend
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_backend_influxdb
 ```
 
@@ -2209,7 +2226,7 @@ Template file use Json format:
 You can define different templates for different topics or multiple
 templates for the same topic, likes:
 
-``` sourceCode bash
+```bash
 {
     <Topic 1>: <Template 1>,
     <Topic 2>: <Template 2>
@@ -2218,7 +2235,7 @@ templates for the same topic, likes:
 
 The template format is as follows:
 
-``` sourceCode bash
+```bash
 {
     "measurement": <Measurement>,
     "tags": {
@@ -2283,7 +2300,7 @@ data/templates directory provides a sample template
 suffix from the filename when using it formally) for the user's
 reference:
 
-``` sourceCode bash
+```bash
 {
     "sample": {
         "measurement": "$topic",
@@ -2301,7 +2318,7 @@ reference:
 
 When an MQTT Message whose Topic is "sample" has the following Payload:
 
-``` sourceCode bash
+```bash
 {
     "data": [
         {
@@ -2321,7 +2338,7 @@ When an MQTT Message whose Topic is "sample" has the following Payload:
 Backend converts MQTT messages into the following data and writes it to
 OpenTSDB:
 
-``` sourceCode bash
+```bash
 [
     {
         "measurement": "sample",
@@ -2350,7 +2367,7 @@ OpenTSDB:
 
 ### Enable OpenTSDB Backend
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_backend_opentsdb
 ```
 

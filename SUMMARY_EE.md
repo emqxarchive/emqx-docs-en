@@ -92,7 +92,7 @@
   * [Create RabbitMQ Rules](rule/rule-example.md#create-rabbitmq-rules)
   * [Create EMQX Bridge Rules](rule/rule-example.md#create-emqx-bridge-rules)
 
-## Data Storage
+## Backend
   * [MQTT Message Persistence](backend/backend.md#mqtt-message-persistence)
   * [Redis Backend](backend/backend.md#redis-backend)
   * [PostgreSQL Backend](backend/backend.md#postgresql-backend)

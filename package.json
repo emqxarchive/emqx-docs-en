@@ -6,9 +6,11 @@
   "scripts": {
     "init": "npx gitbook install",
     "docs": "npx gitbook serve",
+    "docs-ee": "npx gitbook serve -e emqxee",
     "make": "node _scripts/make.js",
     "lint": "node _scripts/stylelint.js",
-    "html": "node _scripts/make.js && npx gitbook build && node _scripts/after_build.js"
+    "html": "node _scripts/make.js && npx gitbook build && node _scripts/after_build.js",
+    "html-ee": "node _scripts/make.js -e emqxee &&  npx gitbook build -e emqxee && node _scripts/after_build.js"
   },
   "dependencies": {
     "dateformat": "^3.0.3",
@@ -25,8 +27,8 @@
     "gitbook-plugin-page-toc": "^1.1.1",
     "gitbook-plugin-prism": "^2.4.0",
     "gitbook-plugin-scripts": "^1.0.2",
+    "gitbook-plugin-search-pro": "^2.0.2",
     "gitbook-plugin-simpletabs": "^0.1.1",
-    "gitbook-plugin-versions": "^2.1.4",
     "glob": "^7.1.6",
     "lowdb": "^1.0.0",
     "pangu": "^4.0.7",

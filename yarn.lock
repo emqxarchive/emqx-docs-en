@@ -1241,6 +1241,13 @@ gitbook-plugin-scripts@^1.0.2:
     lodash "*"
     tmp "0.0.28"
 
+gitbook-plugin-search-pro@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npm.taobao.org/gitbook-plugin-search-pro/download/gitbook-plugin-search-pro-2.0.2.tgz#7ce76e8f65c2044489b9c692736b23f81fe6a1f2"
+  integrity sha1-fOduj2XCBESJucaSc2sj+B/mofI=
+  dependencies:
+    html-entities "1.2.0"
+
 gitbook-plugin-simpletabs@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npm.taobao.org/gitbook-plugin-simpletabs/download/gitbook-plugin-simpletabs-0.1.1.tgz#f09195a1a37f0fbf895a8ba08ca3f6dd850059cf"
@@ -1391,6 +1398,11 @@ hosted-git-info@~2.1.5:
 hosted-git-info@~2.5.0:
   version "2.5.0"
   resolved "https://registry.npm.taobao.org/hosted-git-info/download/hosted-git-info-2.5.0.tgz#6d60e34b3abbc8313062c3b798ef8d901a07af3c"
+
+html-entities@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npm.taobao.org/html-entities/download/html-entities-1.2.0.tgz#41948caf85ce82fed36e4e6a0ed371a6664379e2"
+  integrity sha1-QZSMr4XOgv7Tbk5qDtNxpmZDeeI=
 
 html-entities@^1.2.0:
   version "1.2.1"

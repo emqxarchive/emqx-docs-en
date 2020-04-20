@@ -144,13 +144,13 @@ Broker to local by subscribing to the topic of the remote MQTT Broker.
 
 ### Enable MQTT Bridge
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_bridge_mqtt
 ```
 
 ### Bridge CLI Command
 
-``` sourceCode bash
+```bash
 $ cd emqx && ./bin/emqx_ctl bridges
 bridges list                                    # List bridges
 bridges start <Name>                            # Start a bridge
@@ -164,28 +164,28 @@ bridges add-subscription <Name> <Topic> <Qos>   # Add bridge subscriptions topic
 
 ### List Status of All Bridges
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges list
 name: emqx     status: Stopped
 ```
 
 ### Start Specified Bridge
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges start emqx
 Start bridge successfully.
 ```
 
 ### Stop Specified Bridge
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges stop emqx
 Stop bridge successfully.
 ```
 
 ### List Forwarded Topic of Specified Bridge
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges forwards emqx
 topic:   topic1/#
 topic:   topic2/#
@@ -193,21 +193,21 @@ topic:   topic2/#
 
 ### Add Forwarded Topic for Specified Bridge
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges add-forwards emqx topic3/#
 Add-forward topic successfully.
 ```
 
 ### Delete Forwarded Topic for Specified Bridge
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges del-forwards emqx topic3/#
 Del-forward topic successfully.
 ```
 
 ### List Subscriptions of Specified Bridge
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges subscriptions emqx
 topic: cmd/topic1, qos: 1
 topic: cmd/topic2, qos: 1
@@ -215,14 +215,14 @@ topic: cmd/topic2, qos: 1
 
 ### Add Subscriptions for Specified Bridge
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges add-subscription emqx cmd/topic3 1
 Add-subscription topic successfully.
 ```
 
 ### Delete Subscriptions of Specified Bridge
 
-``` sourceCode bash
+```bash
 $ ./bin/emqx_ctl bridges del-subscription emqx cmd/topic3
 Del-subscription topic successfully.
 ```
@@ -367,7 +367,7 @@ bridge.kafka.hook.message.acked.1        = {"filter": "#",  "topic": "message_ac
 Client goes online, EMQ X forwards 'client\_connected' event message to
 Kafka:
 
-``` sourceCode javascript
+```python
 topic = "client_connected",
 value = {
          "client_id": ${clientid},
@@ -379,7 +379,7 @@ value = {
 Client goes offline, EMQ X forwards 'client\_disconnected' event message
 to Kafka:
 
-``` sourceCode javascript
+```python
 topic = "client_disconnected",
 value = {
         "client_id": ${clientid},
@@ -391,7 +391,7 @@ value = {
 
 ### Forward Subscription Event to Kafka
 
-``` sourceCode javascript
+```python
 topic = session_subscribed
 
 value = {
@@ -405,7 +405,7 @@ value = {
 
 ### Forward Unsubscription Event to Kafka
 
-``` sourceCode javascript
+```python
 topic = session_unsubscribed
 
 value = {
@@ -419,7 +419,7 @@ value = {
 
 ### Forward MQTT Messages to Kafka
 
-``` sourceCode javascript
+```python
 topic = message_publish
 
 value = {
@@ -435,7 +435,7 @@ value = {
 
 ### Forwarding MQTT Message Deliver Event to Kafka
 
-``` sourceCode javascript
+```python
 topic = message_delivered
 
 value = {"client_id": ${clientid},
@@ -451,7 +451,7 @@ value = {"client_id": ${clientid},
 
 ### Forwarding MQTT Message Ack Event to Kafka
 
-``` sourceCode javascript
+```python
 topic = message_acked
 
 value = {
@@ -471,44 +471,44 @@ value = {
 Kafka consumes MQTT clients connected / disconnected event
     messages:
 
-    sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic client_connected --from-beginning
-    
-    sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic client_disconnected --from-beginning
+```bash
+sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic client_connected --from-beginning
+
+sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic client_disconnected --from-beginning
+```
 
 Kafka consumes MQTT subscription
     messages:
 
-    sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic session_subscribed --from-beginning
-    
-    sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic session_unsubscribed --from-beginning
+```bash
+sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic session_subscribed --from-beginning
+
+sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic session_unsubscribed --from-beginning
+```
 
 Kafka consumes MQTT published
     messages:
 
-    sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic message_publish --from-beginning
+```bash
+sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic message_publish --from-beginning
+```
 
 Kafka consumes MQTT message Deliver and Ack event
     messages:
 
-    sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic message_delivered --from-beginning
-    
-    sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic message_acked --from-beginning
+```bash
+sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic message_delivered --from-beginning
 
-<div class="note">
+sh kafka-console-consumer.sh --zookeeper localhost:2181 --topic message_acked --from-beginning
+```
 
-<div class="admonition-title">
-
-Note
-
-</div>
-
+{% hint style="info" %}
 the payload is base64 encoded
-
-</div>
+{% endhint %}
 
 ### Enable Kafka Bridge
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_bridge_kafka
 ```
 
@@ -572,7 +572,7 @@ bridge.rabbit.hook.message.acked.1 = {"topic": "#", "action": "on_message_acked"
 
 ### Forward Subscription Event to RabbitMQ
 
-``` sourceCode javascript
+```python
 routing_key = subscribe
 exchange = emq.subscription
 headers = [{<<"x-emq-client-id">>, binary, ClientId}]
@@ -581,7 +581,7 @@ payload = jsx:encode([{Topic, proplists:get_value(qos, Opts)} || {Topic, Opts} <
 
 ### Forward Unsubscription Event to RabbitMQ
 
-``` sourceCode javascript
+```python
 routing_key = unsubscribe
 exchange = emq.unsubscription
 headers = [{<<"x-emq-client-id">>, binary, ClientId}]
@@ -590,7 +590,7 @@ payload = jsx:encode([Topic || {Topic, _Opts} <- TopicTable]),
 
 ### Forward MQTT Messages to RabbitMQ
 
-``` sourceCode javascript
+```python
 routing_key = binary:replace(binary:replace(Topic, <<"/">>, <<".">>, [global]),<<"+">>, <<"*">>, [global])
 exchange = emq.$sys | emq.pub
 headers = [{<<"x-emq-publish-qos">>, byte, Qos},
@@ -601,7 +601,7 @@ payload = Payload
 
 ### Forward MQTT Message Ack Event to RabbitMQ
 
-``` sourceCode javascript
+```python
 routing_key = puback
 exchange = emq.acked
 headers = [{<<"x-emq-msg-acked">>, binary, ClientId}],
@@ -612,7 +612,7 @@ payload = emqx_base62:encode(Id)
 
 Sample code of Rabbit message Consumption in Python:
 
-``` sourceCode javascript
+```python
 #!/usr/bin/env python
 import pika
 import sys
@@ -641,7 +641,7 @@ Sample of RabbitMQ client coding in other programming languages:
 
 ### Enable RabbitMQ Bridge
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_bridge_rabbit
 ```
 
@@ -737,7 +737,7 @@ bridge.pulsar.hook.message.acked.1        = {"filter": "#",  "topic": "message_a
 Client goes online, EMQ X forwards 'client\_connected' event message to
 Pulsar:
 
-``` sourceCode javascript
+```python
 topic = "client_connected",
 value = {
          "client_id": ${clientid},
@@ -750,7 +750,7 @@ value = {
 Client goes offline, EMQ X forwards 'client\_disconnected' event message
 to Pulsar:
 
-``` sourceCode javascript
+```python
 topic = "client_disconnected",
 value = {
          "client_id": ${clientid},
@@ -763,7 +763,7 @@ value = {
 
 ### Forward Subscription Event to Pulsar
 
-``` sourceCode javascript
+```python
 topic = session_subscribed
 
 value = {
@@ -777,7 +777,7 @@ value = {
 
 ### Forward Unsubscription Event to Pulsar
 
-``` sourceCode javascript
+```python
 topic = session_unsubscribed
 
 value = {
@@ -791,7 +791,7 @@ value = {
 
 ### Forward MQTT Messages to Pulsar
 
-``` sourceCode javascript
+```python
 topic = message_publish
 
 value = {
@@ -807,7 +807,7 @@ value = {
 
 ### Forwarding MQTT Message Deliver Event to Pulsar
 
-``` sourceCode javascript
+```python
 topic = message_delivered
 
 value = {"client_id": ${clientid},
@@ -823,7 +823,7 @@ value = {"client_id": ${clientid},
 
 ### Forwarding MQTT Message Ack Event to Pulsar
 
-``` sourceCode javascript
+```python
 topic = message_acked
 
 value = {
@@ -843,43 +843,42 @@ value = {
 Pulsar consumes MQTT clients connected / disconnected event
     messages:
 
-    sh pulsar-client consume client_connected  -s "client_connected" -n 1000
-    
-    sh pulsar-client consume client_disconnected  -s "client_disconnected" -n 1000
+```bash
+sh pulsar-client consume client_connected  -s "client_connected" -n 1000
+
+sh pulsar-client consume client_disconnected  -s "client_disconnected" -n 1000
+```
 
 Pulsar consumes MQTT subscription
     messages:
 
-    sh pulsar-client consume session_subscribed  -s "session_subscribed" -n 1000
-    
-    sh pulsar-client consume session_unsubscribed  -s "session_unsubscribed" -n 1000
+```bash
+sh pulsar-client consume session_subscribed  -s "session_subscribed" -n 1000
+
+sh pulsar-client consume session_unsubscribed  -s "session_unsubscribed" -n 1000
+```
 
 Pulsar consumes MQTT published
     messages:
-
-    sh pulsar-client consume message_publish  -s "message_publish" -n 1000
+```bash
+sh pulsar-client consume message_publish  -s "message_publish" -n 1000
+```
 
 Pulsar consumes MQTT message Deliver and Ack event
     messages:
 
-    sh pulsar-client consume message_delivered  -s "message_delivered" -n 1000
-    
-    sh pulsar-client consume message_acked  -s "message_acked" -n 1000
+```bash
+sh pulsar-client consume message_delivered  -s "message_delivered" -n 1000
 
-<div class="note">
+sh pulsar-client consume message_acked  -s "message_acked" -n 1000
+```
 
-<div class="admonition-title">
-
-Note
-
-</div>
-
-the payload is base64 encoded default
-
-</div>
+{% hint type="info" %}
+The payload is base64 encoded default
+{% endhint %}
 
 ### Enable Pulsar Bridge
 
-``` sourceCode bash
+```bash
 ./bin/emqx_ctl plugins load emqx_bridge_pulsar
 ```
