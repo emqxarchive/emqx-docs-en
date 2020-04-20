@@ -144,7 +144,7 @@ EMQ X Enterprise version rules engine supports message re-publishing, bridging d
 
 For the configuration of the rule engine, see the "Rules Engine" chapter for details.
 
-### Codec
+### Schema Registry
 
 Schema Registry
 Currently, three formats of codec are supported: [Avro](https://avro.apache.org), [Protobuf](https://developers.google.com/protocol-buffers/) and custom encoding. Among them, Avro and Protobuf are data formats that depend on Schema. The encoded data is binary, and the decoded data is map format. The decoded data can be directly used by the rule engine and other plugins. The user-defined (3rd-party) codec service uses HTTP or TCP callback to make it closer to business needs.
@@ -157,6 +157,6 @@ For codec related configuration, please refer to "Codec" chapter for details.
 {% emqxce %}
 ## Comparison of different versions of EMQ X
 
-![EMQ X 开源版、企业版和专业版的对比](assets/3441587031341_.pic_hd.jpg)
+![EMQ X Broker vs EMQ X Enterprise](assets/3441587031341_.pic_hd.jpg)
 
 {% endemqxce %}

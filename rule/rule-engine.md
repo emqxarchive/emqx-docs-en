@@ -1035,7 +1035,7 @@ The FROM statement is used to select the source of the event. If the message is 
 </tbody>
 </table>
 
-#### Codec function
+#### Schema Registry function
 
 <table>
 <colgroup>

@@ -178,7 +178,7 @@ The input parameters and returned value of the callback function are shown in th
 | session.created      | `ClientInfo`：Client information parameters<br/>`SessInfo`：Session information | -                   |
 | session.subscribed   | `ClientInfo`：Client information parameters<br/>`Topic`：subscribed topic<br>`SubOpts`：Configuration options for subscribe operations | -                   |
 | session.unsubscribed | `ClientInfo`：Client information parameters<br/>`Topic`：unsubscribed topic<br/>`SubOpts`：Configuration options for unsubscribe operations | -                   |
-| session.resumed      | `ClientInfo`：Client information parameters数<br/>`SessInfo`：Session information | -                   |
+| session.resumed      | `ClientInfo`：Client information parameters<br/>`SessInfo`：Session information | -                   |
 | session.discarded    | `ClientInfo`：Client information parameters<br/>`SessInfo`：Session information | -                   |
 | session.takeovered   | `ClientInfo`：Client information parameters<br/>`SessInfo`：Session information |                     |
 | session.terminated   | `ClientInfo`：Client information parameters<br/>`Reason`：Termination reason <br>`SessInfo`：Session information | -   |
