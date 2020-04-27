@@ -15,8 +15,342 @@ category:
 ref: undefined
 ---
 
-
 # Changes
+
+## Version 4.1-beta.1
+
+*Release Date: 2020-04-26*
+
+EMQ X 4.1-beta.1 is released now, it mainly includes the following changes:
+  
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that abnormal client detection did not delete expired data
+
+  Github PR: [emqx/emqx#3406](https://github.com/emqx/emqx/pull/3406)
+  
+- Fix the issue that ACL caches were not cleared when the internal ACL module was reloaded
+
+  Github PR: [emqx/emqx#3409](https://github.com/emqx/emqx/pull/3409)
+  
+### emqx-management
+
+**Bug fixes:**
+
+- Fix bad unit of timestamp
+
+  Github PR: [emqx/emqx-management#203](https://github.com/emqx/emqx-management/pull/203)
+
+### emqx-bridge-mqtt
+
+**Bug fixes:**
+
+- Fix the issue that the connection is disconnected because PINREQ message is not sent
+
+  Github PR: [emqx/emqx-bridge-mqtt#68](https://github.com/emqx/emqx-bridge-mqtt/pull/68)
+
+### emqx-statsd
+
+**Bug fixes:**
+
+- Fix no EMQ X Broker Metrics
+
+  Github PR: [emqx/emqx-statsd#55](https://github.com/emqx/emqx-statsd/pull/55)
+
+### emqx-sasl
+
+**Enhancements:**
+
+- Support server authentication
+
+  Github PR: [emqx/emqx-sasl#3](https://github.com/emqx/emqx-sasl/pull/3)
+  
+**Bug fixes:**
+
+- Fix the issue that SCRAM-SHA-1 mechanism is not available
+
+  Github PR: [emqx/emqx-sasl#2](https://github.com/emqx/emqx-sasl/pull/2)
+  
+### emqx-auth-jwt
+
+**Enhancements:**
+
+- Add option to configure jwerl signature format
+
+  Github PR: [emqx/emqx-auth-jwt#117](https://github.com/emqx/emqx-auth-jwt/pull/117)
+  
+### emqx-extension-hook
+
+**Enhancements:**
+
+- Add support for Java
+
+  Github PR: [emqx/emqx-extension-hook#2](https://github.com/emqx/emqx-extension-hook/pull/2)
+
+### emqx-dashboard
+
+**Enhancements:**
+
+- Support management of internal modules
+
+  Github PR: [emqx/emqx-dasboard#225](https://github.com/emqx/emqx-dasboard/pull/225)
+  
+- Support editing rule
+
+  Github PR: [emqx/emqx-dasboard#227](https://github.com/emqx/emqx-dasboard/pull/227), [emqx/emqx-dasboard#230](https://github.com/emqx/emqx-dasboard/pull/230)
+
+## Version 4.0.6
+
+*Release Date: 2020-04-22*
+
+EMQ X 4.0.6 is released now, it mainly includes the following changes:
+  
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that abnormal client detection did not delete expired data
+
+  Github PR: [emqx/emqx#3407](https://github.com/emqx/emqx/pull/3407)
+  
+- Fix the issue that the Proxy Protocol function does not work when using WebSocket
+
+  Github PR: [emqx/emqx#3372](https://github.com/emqx/emqx/pull/3372)
+  
+### emqx-bridge-mqtt
+
+**Bug fixes:**
+
+- Fix the issue that PINREQ packets will not be sent by default
+
+  Github PR: [emqx/emqx-bridge-mqtt#67](https://github.com/emqx/emqx-bridge-mqtt/pull/67)
+
+### emqx-rule-engine
+
+**Bug fixes:**
+
+- Fix wrong type of rule engine timestamp
+
+  Github Commit: [emqx/emqx-rule-engine#27ca37](https://github.com/emqx/emqx-rule-engine/commit/27ca3768602c107af71ea6b20f4518bb0f70404d)
+
+- Fix the feature of testing SQL statements in the rule engine
+
+  Github Commit: [emqx/emqx-rule-engine#33fcba](https://github.com/emqx/emqx-rule-engine/commit/33fcba394e59fef495e2fe54883297c8d3d893e5)
+
+## Version 4.1-alpha.3
+
+*Release Date: 2020-04-17*
+
+EMQ X 4.1-alpha.3 is released now, it mainly includes the following changes:
+  
+### emqx-coap
+
+**Enhancements:**
+
+- Support IPv6
+
+  Github PR: [emqx/emqx-coap#167](https://github.com/emqx/emqx-coap/pull/167)
+  
+### emqx-auth-mnesia
+
+**Enhancements:**
+
+- Add authentication plugin based on Mnesia database
+
+  Github PR: [emqx/emqx-auth-mnesia#1](https://github.com/emqx/emqx-auth-mnesia/pull/1)
+  
+### emqx-sasl
+
+**Enhancements:**
+
+- Support SCRAM-SHA-1 authentication mechanism
+
+  Github Repository: [emqx/emqx-sasl](https://github.com/emqx/emqx-sasl)
+
+### emqx-management
+
+**Enhancements:**
+
+- Support to return all topic metrics
+
+  Github PR: [emqx/emqx-management#197](https://github.com/emqx/emqx-management/pull/197)
+  
+### emqx-lwm2m
+
+**Enhancements:**
+
+- Support IPv6 and listening to multiple ports at the same time
+
+  Github PR: [emqx/emqx-lwm2m#78](https://github.com/emqx/emqx-lwm2m/pull/78)
+
+## Version 4.1-alpha.2
+
+*Release Date: 2020-04-11*
+
+EMQ X 4.1-alpha.2 is released now.
+
+### emqx
+
+**Enhancements:**
+
+- Support for obtaining network addresses and ports when using the proxy protocol
+
+  Github PR: [emqx/emqx#3372](https://github.com/emqx/emqx/pull/3372)
+  
+- Support MQTT AUTH packet(No authentication mechanism)
+
+  Github PR: [emqx/emqx#3374](https://github.com/emqx/emqx/pull/3374)
+
+### emqx-management (plugin)
+
+**Enhancements:**
+
+- Optimize HTTP APIs for topic metrics
+
+  Github PR: [emqx/emqx-management#189](https://github.com/emqx/emqx-management/pull/189)
+  
+- Support data export and import
+
+  Github PR: [emqx/emqx-m anagement#190](https://github.com/emqx/emqx-management/pull/190)
+  
+- Support fuzzy search for subscriptions
+
+  Github PR: [emqx/emqx-management#191](https://github.com/emqx/emqx-management/pull/191)
+
+- Add HTTP APIs and CLIs for internal modules
+
+  Github PR: [emqx/emqx-management#193](https://github.com/emqx/emqx-management/pull/193)
+
+### emqx-rel (build project)
+
+**Bug fixes:**
+
+- Fix the issue that emqx could not start when `etc/emqx.conf` was read-only
+
+  Github issue: [emqx/emqx-rel#479](https://github.com/emqx/emqx-rel/issues/479)
+  Github PR: [emqx/emqx-rel#480](https://github.com/emqx/emqx-rel/pull/480)
+
+### emqx-dashboard (plugin)
+
+**Bug fixes:**
+  
+- Fixed the issue that users could not be deleted
+
+  Github PR: [emqx/emqx-dashboard#219](https://github.com/emqx/emqx-dashboard/pull/219)
+
+### emqx-extension-hook (plugin)
+
+**Enhancements:**
+
+- Support multi-language extensions, only Python is supported now
+
+  Github Repository: [emqx/emqx-extension-hook](https://github.com/emqx/emqx-extension-hook)
+
+## Version 4.1-alpha.1
+
+*Release Date: 2020-03-27*
+
+EMQ X 4.1-alpha.1 is released now.
+
+### emqx
+
+**Enhancements:**
+
+- Support topic metrics
+
+  Github PR: [emqx/emqx#3341](https://github.com/emqx/emqx/pull/3341)
+  
+- Read new configuration items when plugins is loaded
+
+  Github PR: [emqx/emqx#3335](https://github.com/emqx/emqx/pull/3335)
+  
+- Support for topic aliases when messages are forwarded
+
+  Github PR: [emqx/emqx#3344](https://github.com/emqx/emqx/pull/3344)
+  
+- Merge the code for delayed publishing
+
+  Github PR: [emqx/emqx#3323](https://github.com/emqx/emqx/pull/3323)
+  
+- Remove version field from plugin information
+
+  Github PR: [emqx/emqx#3335](https://github.com/emqx/emqx/pull/3335)
+  
+- Add subscription option configuration for proxy subscriptions
+
+  Github PR: [emqx/emqx#3307](https://github.com/emqx/emqx/pull/3307)
+  
+### emqx-management
+
+**Enhancements:**
+
+- Add HTTP APIs for topic metrics
+
+  Github PR: [emqx/emqx-management#183](https://github.com/emqx/emqx-management/pull/183)
+  
+- Support fuzzy query and multi condition query
+
+  Github PR: [emqx/emqx-management#182](https://github.com/emqx/emqx-management/pull/182)
+  
+### emqx-dashboard
+
+**Enhancements:**
+
+- Support to add simple authentication information on dashboard
+
+  Github PR: [emqx/emqx-dashboard#182](https://github.com/emqx/emqx-dashboard/pull/182)
+
+## Version 4.0.5
+
+*Release Date: 2020-03-17*
+
+EMQ X 4.0.5 is released now. This version mainly focuses on bug fixes.
+
+emqx
+----
+
+**Bug fixes:**
+
+- Fix GC policy
+
+  Github PR: [emqx/emqx#3317](https://github.com/emqx/emqx/pull/3317)
+  
+- Fix the issue that the value of the `Maximum-QoS` property was set incorrectly
+
+  Github issue: [emqx/emqx#3304](https://github.com/emqx/emqx/issues/3304), [emqx/emqx#3315](https://github.com/emqx/emqx/issues/3315)
+  Github PR: [emqx/emqx#3321](https://github.com/emqx/emqx/pull/3321)
+  
+- Fix the issue that CPU usage would increase abnormally every 15 seconds when EMQ X Broker was running in the docker environment
+
+	Github issue: [emqx/emqx#3274](https://github.com/emqx/emqx/pull/3274)
+  Github PR: [emqx/emqx-rel#462](https://github.com/emqx/emqx-rel/pull/462)
+  
+- Fixed the issue that configuration items named "node.*" don't take effect in `emqx.conf`
+
+  Github issue: [emqx/emqx#3302](https://github.com/emqx/emqx/pull/3302)
+  Github PR: [emqx/emqx-rel#463](https://github.com/emqx/emqx-rel/pull/463)
+
+emqx-rule-engine (plugin)
+------------------------
+
+**Bug fixes:**
+
+- Fix the issue that the rule engine does not support Payload with UTF-8 string
+
+  Github issue: [emqx/emqx#3287](https://github.com/emqx/emqx/issues/3287)
+  Github PR: [emqx/emqx#3299](https://github.com/emqx/emqx/pull/3299)
+
+emqx-sn (plugin)
+----------------
+
+**Bug fixes:**
+
+- Fix MQTT-SN subscription loss
+
+  Github issue: [emqx/emqx#3275](https://github.com/emqx/emqx/issues/3275)
+  Github PR: [emqx/emqx-sn#156](https://github.com/emqx/emqx-sn/pull/156)
 
 ## Version 4.0.4
 
