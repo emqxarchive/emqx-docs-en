@@ -17,6 +17,48 @@ ref: undefined
 
 # Changes
 
+## Version 4.1-beta.2
+
+*Release Date: 2020-04-30*
+
+EMQ X 4.1-beta.2 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that the CN and DN fields in the certificate are not obtained correctly
+
+  Github PR: [emqx/emqx#3417](https://github.com/emqx/emqx/pull/3417)
+
+- Fix the error of re-authentication in the enhanced authentication function
+
+  Github PR: [emqx/emqx#3422](https://github.com/emqx/emqx/pull/3422)
+
+### emqx-extension-hook
+
+**Bug fixes:**
+
+- Fix the issue that the Java driver cannot be configured correctly and the Java extension cannot be used
+
+  Github PR: [emqx/emqx-extension-hook#10](https://github.com/emqx/emqx-extension-hook/pull/10)
+
+### emqx-auth-mnesia
+
+**Bug fixes:**
+
+- Fix ACL rule doesn't have allow / deny fields
+
+  Github PR: [emqx/emqx-auth-mnesia#2](https://github.com/emqx/emqx-auth-mnesia/pull/2)
+
+### emqx-management
+
+**Bug fixes:**
+
+- Fix the issue that the topic metrics APIs doesn't validate topic name
+
+  Github PR: [emqx/emqx-management#212](https://github.com/emqx/emqx-management/pull/212)
+
 ## Version 4.1-beta.1
 
 *Release Date: 2020-04-26*
