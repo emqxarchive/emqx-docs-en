@@ -8,10 +8,10 @@
 0.  Setup a Web Service, here we setup a simple web service using the linux tool `nc`: 
 
    ```bash
-   $ while true; do echo -e "HTTP/1.1 200 OK\n\n $(date)" | nc -l 127.0.0.1 9901; done;
+   $ while true; do echo -e "HTTP/1.1 200 OK\n\n $(date)" | nc -l 127.0.0.1 8081; done;
    ```
 
-1.  Create a rule: 
+1. Create a rule: 
 
    Go to [emqx dashboard](http://127.0.0.1:18083/#/rules), select the “rule” tab on the menu to the left. 
 
@@ -21,7 +21,9 @@
       SELECT
         *
       FROM
-        "message.publish"
+          "t/#"
+      WHERE
+           qos = 1
    ```
 
    ![image](../assets/webhook-rulesql-1.png)
@@ -46,7 +48,7 @@
 
     Fill in the “Request URL” and “Request Header”(Optional): 
 
-   http://127.0.0.1:9901
+   http://127.0.0.1:8081
 
     And click on the “Testing Connection” button to make sure the connection can be created successfully, and then click on the “Create” button. 
 
@@ -193,8 +195,8 @@ Create a rule: Forward all the messages that send from client_id=’Steven’, t
         -d "Forward publish msgs from steven to webserver"
     
   rule:26d84768
-      ```
-    
+  ```
+
  Above CLI is simlar to the first Inspect rule, with exception that the resource ‘resource:691c29ba’ is bound to ‘data_to_webserver’. The binding is done by a special arg named ‘$resource’. What the action ‘data_to_webserver’ does is sending messages to the specified web server. 
     
 3. Now let’s send a message “hello” to an arbitrary topic using username “Steven”, this will trigger the rule we created above, and the Web Server will receive an message and return 200 OK: 
