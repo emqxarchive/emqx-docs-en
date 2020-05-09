@@ -17,6 +17,28 @@ ref: undefined
 
 # Changes
 
+## Version 4.0.7
+
+*Release Date: 2020-05-09*
+
+EMQ X 4.0.7 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that the browser doesn't support the current SSL / TLS certificates
+
+  Github PR: [emqx/emqx#3448](https://github.com/emqx/emqx/pull/3448)
+
+### emqx-web-hook
+
+**Bug fixes:**
+
+- Fix the issue that the `client.disconnected` event went wrong in some cases
+
+  Github PR: [emqx/emqx-web-hook#187](https://github.com/emqx/emqx-web-hook/pull/187)
+
 ## Version 4.1-beta.1
 
 *Release Date: 2020-04-26*
