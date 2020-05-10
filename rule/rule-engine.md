@@ -83,8 +83,7 @@ In version 4.0, the SQL syntax of the rule engine is easier to use. In version 3
 ```sql
 ## 3.x 
 ## Event name needs to be specified for processing
-SELECT * FROM "message.publish" WHERE topic ~= 't/#'
-
+SELECT * FROM "message.publish" WHERE topic =~ 't/#'
 
 ## 4.0 and later
 ## The message.publish event is processed by default, and MQTT topics are filtered directly after FROM
@@ -92,7 +91,7 @@ SELECT * FROM "message.publish" WHERE topic ~= 't/#'
 SELECT * FROM 't/#'
 
 ## Other events are filtered by event topics
-SELECT * FROM "$events/message_acked" where topic ~= 't/#'
+SELECT * FROM "$events/message_acked" where topic =~ 't/#'
 SELECT * FROM "$events/client_connected"
 ```
 
@@ -128,10 +127,9 @@ The relationship between rules, actions and resources:
             ]
         }
 
-- Rule: Rule consists of SQL statements and action list.
-  SQL statements are used to filter or transform data in messages.
-  The action is the task performed after the SQL statement is matched. The action list contains one or more actions and their parameters.
-- Action: Action defines an operation for data.
+- Rule: Rule consists of SQL statements and action list. The action list contains one or more actions and their parameters.
+- SQL statements are used to filter or transform data in messages.
+- The action is the task performed after the SQL statement is matched, which defines an operation for data.
   Actions can be bound to resources or unbound. For example, the "inspect" action does not require binding resources, which simply prints the data content and action parameters. The "data_to_webserver" action needs to bind a web_hook type resource, and a URL is configured in this resource.
 - Resource: A resource is an object instantiated through a resource type as a template, and saves the configuration related to the resource (such as database connection address and port, user name and password, etc.).
 - Resource Type: Resource type is a static definition of a resource and describes the configuration items required for this type of resource.
@@ -144,15 +142,29 @@ Actions and resource types are provided by emqx or plugin code and cannot be cre
 
 ### SQL syntax{#rule-sql-syntax}
 
-The SQL statement is used to filter out fields from the original data according to the conditions, and perform preprocessing and conversion. The basic format is:
+**FROM, SELECT, and WHERE clauses:**
+
+The basic format of the SQL statement of the rule engine is:
 
     SELECT <fields> FROM <topic> [WHERE <any>]
-
-FROM, SELECT, and WHERE clauses:
 
 - The `` FROM`` clause mounts rules to a topic
 - The `` SELECT`` clause is used to select fields in the output
 - The `` WHERE`` clause is used to filter messages based on conditions
+
+**FOREACH, DO and INCASE clauses:**
+
+If you want to perform some operations and actions for each element of an array data, you need to use the `FOREACH-DO-INCASE` syntax. The basic format is:
+
+```sql
+FOREACH <Field name> [DO <Condition>] [INCASE <Condition>] FROM <Topic> [WHERE <Condition>]
+````
+
+- The `` FOREACH`` clause is used to select the field that needs to perform foreach operation. Note that the selected field must be an array type
+- The `` DO`` clause is used to transform each element in the array selected by FOREACH and select the field of interest
+- The `` INCASE`` clause is used to apply conditional filtering to a field selected by DO
+
+The DO and INCASE clauses are optional. DO is equivalent to the SELECT clause for objects in the current loop, while INCASE is equivalent to the WHERE statement for objects in the current loop.
 
 ### Events and event topics {#event-topics}
 
@@ -164,6 +176,8 @@ If you want emqx to publish the event message, you can configure it in the ``emq
 For all supported events and available fields, please see  [rule event](#rule-sql-events).
 
 ### SQL statement example: {#rule-sql-examples}
+
+**Basic syntax examples**
 
 -  Extract all fields from the messages with a topic of "t/a": 
 
@@ -212,6 +226,196 @@ For all supported events and available fields, please see  [rule event](#rule-sq
 - You can use the `` "." `` Symbol to nest select payloads
 - {% endhint %}
 
+#### Examples of FOREACH-DO-INCASE
+
+Suppose there is a message with ClientID of `c_steve` and topic of ` t/1`. The message body is in JSON format, and the sensors field is an array containing multiple Objects:
+
+```json
+{
+    "date": "2020-04-24",
+    "sensors": [
+        {"name": "a", "idx":0},
+        {"name": "b", "idx":1},
+        {"name": "c", "idx":2}
+    ]
+}
+```
+
+**Example 1: It is required that each object in sensors is re-published as a data input to the topic of `sensors/${idx}` with the content of `${name}`. That means the final rule engine will issue 3 messages:** 
+
+1) Topic: sensors/0
+   Content: a
+2) Topic: sensors/1
+   Content: b
+3) Topic: sensors/2
+   Content: c
+
+To complete this rule, we need to configure the following actions:
+
+- Action type: message republish
+- Target topic: sensors/$ {idx}
+- Target QoS: 0
+- Message content template: $ {name}
+
+And the following SQL statement:
+
+```sql
+FOREACH
+    payload.sensors
+FROM "t/#"
+```
+
+**Example analysis: **
+
+In this SQL, the FOREACH clause specifies the array sensors that need to be traversed, then the selection result is:
+
+```json
+[
+  {
+    "name": "a",
+    "idx": 0
+  },
+  {
+    "name": "b",
+    "idx": 1
+  },
+  {
+    "name": "c",
+    "idx": 2
+  }
+]
+```
+
+The FOREACH statement will perform a "message republish" action for each object in the result array, so the republish action will be performed 3 times.
+
+**Example 2: It is required that each object in sensors with ids value greater than or equal to 1 is re-published as a data input to the topic of `sensors/${idx}` with the content of  `clientid=${clientid},name=${name},date=${date}`. That means the final rule engine will issue 2 messages:** 
+
+1) Topic: sensors/1
+   Content: clientid=c_steve,name=b,date=2020-04-24
+2) Topic: sensors/2
+   Content: clientid=c_steve,name=c,date=2020-04-24
+
+To complete this rule, we need to configure the following actions:
+
+- Action type: message republish
+- Target topic: sensors/$ {idx}
+- Target QoS: 0
+- Message content template: clientid=${clientid},name=${name},date=${date}
+
+And the following SQL statement:
+
+```sql
+FOREACH
+    payload.sensors
+DO
+    clientid,
+    item.name as name,
+    item.idx as idx
+INCASE
+    item.idx >= 1
+FROM "t/#"
+```
+
+**Example analysis: **
+
+In this SQL, the FOREACH clause specifies the array `sensors` that need to be traversed; the DO clause selects the fields required for each operation, and we select the outer clientid field here, and the two fields of `name` and `idx` of the current sensor object. Note that  item  represents the object of this loop in the sensors array. The INCASE clause is a filtering condition for the fields in the DO statement, only if idx> = 1 meets the condition. So the selection result of SQL is:
+
+```json
+[
+  {
+    "name": "b",
+    "idx": 1,
+    "clientid": "c_emqx"
+  },
+  {
+    "name": "c",
+    "idx": 2,
+    "clientid": "c_emqx"
+  }
+]
+```
+
+The FOREACH statement will perform a "message republish" action for each object in the result array, so the republish action will be performed twice.
+
+In DO and INCASE statements, you can use `item` to access the object of the current loop, or you can customize a variable name by using the `as` syntax in FOREACH. So the SQL statement in this example can be written as:
+
+```sql
+FOREACH
+    payload.sensors as s
+DO
+    clientid,
+    s.name as name,
+    s.idx as idx
+INCASE
+    s.idx >= 1
+FROM "t/#"
+```
+
+**Example 3: Based on Example 2, remove the `c_` prefix of `c_steve` in the clientid field**
+
+Various SQL functions can be called in the FOREACH and DO statements. If you want to change `c_steve` into `steve`, you can change the SQL in Example 2 into:
+
+```sql
+FOREACH
+    payload.sensors as s
+DO
+    nth(2, tokens(clientid,'_')) as clientid,
+    s.name as name,
+    s.idx as idx
+INCASE
+    s.idx >= 1
+FROM "t/#"
+```
+
+In addition, multiple expressions can also be placed in the FOREACH clause, as long as the last expression specifies the array to traverse. For example, we can change the message body, and there is one more layer of Object outside the sensors:
+
+```json
+{
+    "date": "2020-04-24",
+    "data": {
+        "sensors": [
+            {"name": "a", "idx":0},
+            {"name": "b", "idx":1},
+            {"name": "c", "idx":2}
+        ]
+    }
+}
+```
+
+Then FOREACH can select data before deciding which array to be traversed:
+
+```sql
+FOREACH
+    payload.data as data
+    data.sensors as s
+...
+```
+
+#### CASE-WHEN Syntax example
+
+**Example 1: Limit the value of the x field in the message to the range of 0 ~ 7.**
+
+```sql
+SELECT
+  CASE WHEN payload.x < 0 THEN 0
+       WHEN payload.x > 7 THEN 7
+       ELSE payload.x
+  END as x
+FROM "t/#"
+```
+
+Suppose the message is:
+
+```json
+{"x": 8}
+```
+
+Then the above SQL output is:
+
+```json
+{"x": 7}
+```
+
 ### Event topic available for FROM clause{#rule-sql-syntax}
 
 | Event topic name              | Explanation          |
@@ -230,68 +434,72 @@ The fields available in the SELECT and WHERE clauses are related to the type of 
 
 #### Message Publish
 
-| event     | Event type, fixed at "message.publish"                    |
-| :-------- | :-------------------------------------------------------- |
-| id        | MQTT message ID                                           |
-| clientid  | Client ID                                                 |
-| username  | username                                                  |
-| payload   | MQTT payload                                              |
-| peerhost  | client IPAddress                                          |
-| topic     | MQTT topic                                                |
-| qos       | Enumeration of message QoS 0,1,2                          |
-| flags     | flags                                                     |
-| headers   | Additional data related to proces within the MQTT message |
-| timestamp | timestamp (ms)                                            |
-| node      | Node name of the trigger event                            |
+| event               | Event type, fixed at "message.publish"                    |
+| :------------------ | :-------------------------------------------------------- |
+| id                  | MQTT message ID                                           |
+| clientid            | Client ID                                                 |
+| username            | username                                                  |
+| payload             | MQTT payload                                              |
+| peerhost            | client IPAddress                                          |
+| topic               | MQTT topic                                                |
+| qos                 | Enumeration of message QoS 0,1,2                          |
+| flags               | flags                                                     |
+| headers             | Additional data related to proces within the MQTT message |
+| timestamp           | timestamp (ms)                                            |
+| publish_received_at | Time when PUBLISH message reaches Broker (ms)             |
+| node                | Node name of the trigger event                            |
 
 #### $events/message\_delivered 
 
-| event          | Event type, fixed at "message.delivered" |
-| -------------- | ---------------------------------------- |
-| id             | MQTT message ID                          |
-| from\_clientid | from_clientid                            |
-| from\_username | from\_username                           |
-| clientid       | clientid                                 |
-| username       | Current MQTT username                    |
-| payload        | MQTT payload                             |
-| peerhost       | client IPAddress                         |
-| topic          | MQTT topic                               |
-| qos            | Enumeration of message QoS 0,1,2         |
-| flags          | flags                                    |
-| timestamp      | Timestamp(millisecond)                   |
-| node           | Node name of the trigger event           |
+| event               | Event type, fixed at "message.delivered"      |
+| ------------------- | --------------------------------------------- |
+| id                  | MQTT message ID                               |
+| from\_clientid      | from_clientid                                 |
+| from\_username      | from\_username                                |
+| clientid            | clientid                                      |
+| username            | Current MQTT username                         |
+| payload             | MQTT payload                                  |
+| peerhost            | client IPAddress                              |
+| topic               | MQTT topic                                    |
+| qos                 | Enumeration of message QoS 0,1,2              |
+| flags               | flags                                         |
+| timestamp           | Event trigger time(millisecond)               |
+| publish_received_at | Time when PUBLISH message reaches Broker (ms) |
+| node                | Node name of the trigger event                |
 
 #### $events/message_acked 
-| event          | Event type, fixed at "message.acked" |
-| :------------- | :----------------------------------- |
-| id             | MQTT message id                      |
-| from\_clientid | from_clientid                        |
-| from\_username | from\_username                       |
-| clientid       | clientid                             |
-| username       | Current MQTT username                |
-| payload        | MQTT payload                         |
-| peerhost       | client IPAddress                     |
-| topic          | MQTT topic                           |
-| qos            | Enumeration of message QoS 0,1,2     |
-| flags          | flags                                |
-| timestamp      | Timestamp(millisecond)               |
-| node           | Node name of the trigger event       |
+| event               | Event type, fixed at "message.acked"          |
+| :------------------ | :-------------------------------------------- |
+| id                  | MQTT message id                               |
+| from\_clientid      | from_clientid                                 |
+| from\_username      | from\_username                                |
+| clientid            | clientid                                      |
+| username            | Current MQTT username                         |
+| payload             | MQTT payload                                  |
+| peerhost            | client IPAddress                              |
+| topic               | MQTT topic                                    |
+| qos                 | Enumeration of message QoS 0,1,2              |
+| flags               | flags                                         |
+| timestamp           | Event trigger time(millisecond)               |
+| publish_received_at | Time when PUBLISH message reaches Broker (ms) |
+| node                | Node name of the trigger event                |
 
 #### $events/message_dropped
 
-| event     | Event type, fixed at "message.dropped" |
-| :-------- | :------------------------------------- |
-| id        | MQTT message id                        |
-| reason    | reason                                 |
-| clientid  | clientid                               |
-| username  | Current MQTT username                  |
-| payload   | MQTT payload                           |
-| peerhost  | Client IPAddress                       |
-| topic     | MQTT topic                             |
-| qos       | Enumeration of message QoS 0,1,2       |
-| flags     | flags                                  |
-| timestamp | Timestamp(millisecond)                 |
-| node      | Node name of the trigger event         |
+| event               | Event type, fixed at "message.dropped"        |
+| :------------------ | :-------------------------------------------- |
+| id                  | MQTT message id                               |
+| reason              | reason                                        |
+| clientid            | clientid                                      |
+| username            | Current MQTT username                         |
+| payload             | MQTT payload                                  |
+| peerhost            | Client IPAddress                              |
+| topic               | MQTT topic                                    |
+| qos                 | Enumeration of message QoS 0,1,2              |
+| flags               | flags                                         |
+| timestamp           | Event trigger time(millisecond)               |
+| publish_received_at | Time when PUBLISH message reaches Broker (ms) |
+| node                | Node name of the trigger event                |
 
 #### $events/client_connected
 | event            | Event type, fixed at "client.connected" |
@@ -308,7 +516,7 @@ The fields available in the SELECT and WHERE clauses are related to the type of 
 | expiry\_interval | MQTT Session Expiration time            |
 | is\_bridge       | whether it is MQTT bridge connection    |
 | connected\_at    | Terminal connection completion time (s) |
-| timestamp        | Timestamp(millisecond)                  |
+| timestamp        | Event trigger time(millisecond)         |
 | node             | Node name of the trigger event          |
 
 #### $events/client_disconnected 
@@ -321,7 +529,7 @@ The fields available in the SELECT and WHERE clauses are related to the type of 
 | peername         | IPAddress and Port of terminal             |
 | sockname         | IPAddress and Port listened by emqx        |
 | disconnected\_at | Terminal disconnection completion time (s) |
-| timestamp        | Timestamp(millisecond)                     |
+| timestamp        | Event trigger time(millisecond)            |
 | node             | Node name of the trigger event             |
 
 #### $events/session_subscribed
@@ -332,7 +540,7 @@ The fields available in the SELECT and WHERE clauses are related to the type of 
 | peerhost  | client IPAddress                          |
 | topic     | MQTT topic                                |
 | qos       | Enumeration of message QoS 0,1,2          |
-| timestamp | Timestamp(millisecond)                    |
+| timestamp | Event trigger time(millisecond)           |
 | node      | Node name of the trigger event            |
 
 #### $events/session_unsubscribed 
@@ -344,7 +552,7 @@ The fields available in the SELECT and WHERE clauses are related to the type of 
 | peerhost  | client IPAddress                            |
 | topic     | MQTT topic                                  |
 | qos       | Enumeration of message QoS 0,1,2            |
-| timestamp | Timestamp(millisecond)                      |
+| timestamp | Event trigger time(millisecond)             |
 | node      | Node name of the trigger event              |
 
 ### SQL Keywords and symbols{#rule-sql-marks}
@@ -387,7 +595,7 @@ The FROM statement is used to select the source of the event. If the message is 
 
 | Function | Purpose                                                      | Returned value   |      |
 | -------- | ------------------------------------------------------------ | ---------------- | ---- |
-| `+`      | addition                                                     | Sum              |      |
+| `+`      | addition, or string concatenation                            | Sum              |      |
 | `-`      | Subtraction                                                  | Difference       |      |
 | `*`      | multiplication                                               | product          |      |
 | `/`      | division                                                     | Quotient         |      |
