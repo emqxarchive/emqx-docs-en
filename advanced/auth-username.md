@@ -67,6 +67,8 @@ When the plugin is started, the preset authentication data is read and loaded in
 
 The preset authentication data uses a clear text password in the configuration file. This function should be disabled for security and maintainability considerations.
 
+The preset authentication data cannot be modified or deleted through the API, please use it with caution.
+
 {% endhint %}
 
 
