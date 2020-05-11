@@ -593,16 +593,16 @@ The FROM statement is used to select the source of the event. If the message is 
 
 #### Operational symbol {#rule-sql-marks}
 
-| Function | Purpose                                                      | Returned value   |      |
-| -------- | ------------------------------------------------------------ | ---------------- | ---- |
-| `+`      | addition, or string concatenation                            | Sum              |      |
-| `-`      | Subtraction                                                  | Difference       |      |
-| `*`      | multiplication                                               | product          |      |
-| `/`      | division                                                     | Quotient         |      |
-| `div`    | Integer division                                             | Integer quotient |      |
-| `mod`    | modulus                                                      | module           |      |
-| `=`      | Compare whether the two are completely equal. It can be used to compare variables and topics | true/false       |      |
-| `=~`     | Compare whether the topic can match the topic filter. It can only be used for topic matching | true/false       |      |
+| Function | Purpose                                                      | Returned value              |      |
+| -------- | ------------------------------------------------------------ | --------------------------- | ---- |
+| `+`      | addition, or string concatenation                            | Sum, or concatenated string |      |
+| `-`      | Subtraction                                                  | Difference                  |      |
+| `*`      | multiplication                                               | product                     |      |
+| `/`      | division                                                     | Quotient                    |      |
+| `div`    | Integer division                                             | Integer quotient            |      |
+| `mod`    | modulus                                                      | module                      |      |
+| `=`      | Compare whether the two are completely equal. It can be used to compare variables and topics | true/false                  |      |
+| `=~`     | Compare whether the topic can match the topic filter. It can only be used for topic matching | true/false                  |      |
 
 ### Functions available in SQL statements{#rule-sql-funcs}
 

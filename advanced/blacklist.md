@@ -29,7 +29,13 @@ Based on the blacklist function, EMQ X Broker supports automatic banning of clie
 
 It should be noted that the automatic ban function only bans the client identifier, not the user name and IP address. That is to say, the machine can continue to log in as long as the client identifier is changed.
 
-This function is forcibly enabled and cannot be disabled, but users can adjust configurations such as the trigger threshold and ban time in the `emqx.conf` configuration file:
+This function is disabled by default, and users can set the `enable_flapping_detect` configuration item to `on` in the `emqx.conf` configuration file to enable this function.
+
+```bash
+zone.external.enable_flapping_detect = off
+```
+
+The user can adjust the trigger threshold and the ban time for this function. The corresponding configuration items are as follows:
 
 ```bash
 flapping_detect_policy = 30, 1m, 5m

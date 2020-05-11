@@ -747,6 +747,96 @@ $ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/uns
 {"code":0}
 ```
 
+### Message publish in batch {#endpoint-publish-batch}
+
+#### POST /api/v4/mqtt/publish_batch {#endpoint-do-publish-batch}
+
+Publish MQTT messages in batch.
+
+**Parameters (json):**
+
+| Name         | Type    | Required | Default | Description                                                  |
+| ------------ | ------- | -------- | ------- | ------------------------------------------------------------ |
+| [0].topic    | String  | Optional |         | Topic, at least one of which is specified with `topics`      |
+| [0].topics   | String  | Optional |         | Multiple topics divided by `,`, which can be used to publish messages to multiple topics at the same time |
+| [0].clientid | String  | Required |         | Client identifier                                            |
+| [0].payload  | String  | Required |         | Message body                                                 |
+| [0].encoding | String  | Optional | plain   | The encoding method used in the message body, only `plain` and `base64` are supported currently |
+| [0].qos      | Integer | Optional | 0       | QoS level                                                    |
+| [0].retain   | Boolean | Optional | false   | Whether it is a retained message or not                      |
+
+**Success Response Body (JSON):**
+
+| Name | Type    | Description |
+| ---- | ------- | ----------- |
+| code | Integer | 0           |
+
+**Examples:**
+
+```bash
+$ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/publish_batch" -d '[{"topic":"a/b/c","payload":"Hello World","qos":1,"retain":false,"clientid":"example"},{"topic":"a/b/c","payload":"Hello World Again","qos":0,"retain":false,"clientid":"example"}]'
+
+{"code":0}
+```
+
+### Topic subscription in batch{#endpoint-subscribe-batch}
+
+#### POST /api/v4/mqtt/subscribe_batch {#endpoint-do-subscribe-batch}
+
+Subscribe to MQTT topics in batch.
+
+**Parameters (json):**
+
+| Name         | Type    | Required | Default | Description                                                  |
+| ------------ | ------- | -------- | ------- | ------------------------------------------------------------ |
+| [0].topic    | String  | Optional |         | Topic, at least one of which is specified with `topics`      |
+| [0].topics   | String  | Optional |         | Multiple topics divided by `,`, which can be used to publish messages to multiple topics at the same time |
+| [0].clientid | String  | Required |         | Client identifier                                            |
+| [0].qos      | Integer | Optional | 0       | QoS level                                                    |
+
+**Success Response Body (JSON):**
+
+| Name | Type    | Description |
+| ---- | ------- | ----------- |
+| code | Integer | 0           |
+
+**Examples:**
+
+Subscribe to the three topics of `a`,` b`, and `c` at one time
+
+```bash
+$ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/subscribe_batch" -d '[{"topic":"a","qos":1,"clientid":"example"},{"topic":"b","qos":1,"clientid":"example"},{"topic":"c","qos":1,"clientid":"example"}]'
+
+{"code":0}
+```
+
+#### POST /api/v4/mqtt/unsubscribe_batch {#endpoint-do-unsubscribe-batch}
+
+Unsubscribe in batch.
+
+**Parameters (json):**
+
+| Name         | Type   | Required | Default | Description       |
+| ------------ | ------ | -------- | ------- | ----------------- |
+| [0].topic    | String | Required |         | Topic             |
+| [0].clientid | String | Required |         | Client identifier |
+
+**Success Response Body (JSON):**
+
+| Name | Type    | Description |
+| ---- | ------- | ----------- |
+| code | Integer | 0           |
+
+**Examples:**
+
+Unsubscribe from `a`,` b` topics at one time
+
+```bash
+$ curl -i --basic -u admin:public -X POST "http://localhost:8081/api/v4/mqtt/unsubscribe_batch" -d '[{"topic":"a","qos":1,"clientid":"example"},{"topic":"b","qos":1,"clientid":"example"}]'
+
+{"code":0}
+```
+
 ### plugins{#endpoint-plugins}
 
 #### GET /api/v4/plugins {#endpoint-get-plugins}
