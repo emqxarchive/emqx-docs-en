@@ -22,9 +22,10 @@ ref: undefined
 <div class="emqxce">
 {% hint style="danger" %}
 Only the following operations are applicable in EMQ X Broker:
-- No action (debug)
+- Check (debug)
 - Send data to web service
 - Bridge data to MQTT Broker
+
 
 The rest are exclusive to EMQ X Enterprise.
 {% endhint %}
@@ -32,7 +33,7 @@ The rest are exclusive to EMQ X Enterprise.
 
 
 
-## Create Inspect Rules
+## Check (debug)
 
 Create a rule for testing: print the content of the message and all the
 args of the action, when a MQTT message is sent to topic 't/a'.

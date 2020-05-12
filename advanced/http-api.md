@@ -1443,6 +1443,37 @@ Create a rule and return the rule ID.
 | - data.actions[0].name    | String    | Action name, consistent with actions.name in the request |
 | - data.actions[0].metrics | Array     | Metrics, see Rule Metrics on Dashboard for details |
 
+#### PUT /api/v4/rules/{rule_id} {#endpoint-update-rules}
+
+Update the rule and return the rule ID.
+
+**Parameters (json):**
+
+| Name                | Type   | Required | Description                                                  |
+| ------------------- | ------ | -------- | ------------------------------------------------------------ |
+| rawsql              | String | True     | Optional, SQL statement of the rule                          |
+| actions             | Array  | True     | Optional, action list                                        |
+| - actions[0].name   | String | True     | Optional, action name                                        |
+| - actions[0].params | Object | True     | Optional, action parameters, that is expressed in key-value form. <br />For details, please refer to the example of adding rules |
+| description         | String | False    | Optional, rule description                                   |
+
+**Success Response Body (JSON):**
+
+| Name                      | Type    | Description                                                  |
+| ------------------------- | ------- | ------------------------------------------------------------ |
+| code                      | Integer | 0                                                            |
+| data                      | Object  | Successfully created rule object with Rule ID                |
+| - data.id                 | String  | Rule ID                                                      |
+| - data.rawsql             | String  | SQL statement, consistent with rawsql in the request         |
+| - data.for                | String  | Topic list, indicates which topics can be matched by this rule |
+| - data.metrics            | Array   | Metrics, see Rule Metrics on Dashboard for details           |
+| - data.description        | String  | The description of the rule, consistent with the description in the request |
+| - data.actions            | Array   | Action list, and each action is an Object                    |
+| - data.actions[0].id      | String  | Action ID                                                    |
+| - data.actions[0].params  | Object  | Action parameters, consistent with actions.params in the request |
+| - data.actions[0].name    | String  | Action name, consistent with actions.name in the request     |
+| - data.actions[0].metrics | Array   | Metrics, see Rule Metrics on Dashboard for details           |
+
 #### DELETE /api/v4/rules/{rule_id} {#endpoint-delete-rules}
 
 Delete the rule
@@ -1488,6 +1519,22 @@ Get all the rules. Note that the data in the returned value is an array of rule 
 $ curl --basic -u admin:public 'http://localhost:8081/api/v4/rules'
 
 {"data":[{"rawsql":"select * from \"t/a\"","metrics":[{"speed_max":0,"speed_last5m":0.0,"speed":0.0,"node":"emqx@127.0.0.1","matched":0}],"id":"rule:7fdb2c9e","for":["t/a"],"enabled":true,"description":"test-rule","actions":[{"params":{"a":1},"name":"inspect","metrics":[{"success":0,"node":"emqx@127.0.0.1","failed":0}],"id":"inspect_1582434715354188116"}]}],"code":0}
+```
+
+Update the SQL statement of the rule to `select * from "t/b"`:
+
+```bash
+$ curl -XPUT --basic -u admin:public 'http://localhost:8081/api/v4/rules/rule:7fdb2c9e' -d '{"rawsql":"select * from \"t/b\""}'
+
+{"data":{"rawsql":"select * from \"t/b\"","metrics":[{"speed_max":0,"speed_last5m":0.0,"speed":0.0,"node":"emqx@127.0.0.1","matched":0}],"id":"rule:7fdb2c9e","for":["t/a"],"enabled":true,"description":"test-rule","actions":[{"params":{"a":1},"name":"inspect","metrics":[{"success":0,"node":"emqx@127.0.0.1","failed":0}],"id":"inspect_1582434715354188116"}]},"code":0}
+```
+
+Disable the rule:
+
+```bash
+$ curl -XPUT --basic -u admin:public 'http://localhost:8081/api/v4/rules/rule:7fdb2c9e' -d '{"enabled": false}'
+
+{"data":{"rawsql":"select * from \"t/b\"","metrics":[{"speed_max":0,"speed_last5m":0.0,"speed":0.0,"node":"emqx@127.0.0.1","matched":0}],"id":"rule:7fdb2c9e","for":["t/a"],"enabled":false,"description":"test-rule","actions":[{"params":{"a":1},"name":"inspect","metrics":[{"success":0,"node":"emqx@127.0.0.1","failed":0}],"id":"inspect_1582434715354188116"}]},"code":0}
 ```
 
 Delete the rule:
