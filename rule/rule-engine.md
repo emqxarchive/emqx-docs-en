@@ -839,7 +839,7 @@ The FROM statement is used to select the source of the event. If the message is 
 <td><ol type="1">
 <li>Data</li>
 </ol></td>
-<td>Boolean data.if it is empty (undefined), return true, otherwise return false</td>
+<td>Boolean data.if it is empty (undefined), return false, otherwise return true</td>
 </tr>
 <tr class="even">
 <td>is_str</td>
