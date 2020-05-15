@@ -59,7 +59,7 @@ EMQ X 4.1-rc.1 is released now, it mainly includes the following changes:
 
 **Bug fixes:**
 
-- Fix the issue that doesn't support the specified monitoring IP address and supports IPv6
+- Fix the issue that doesn't support the specified listening IP address and supports IPv6
 
   Github PR: [emqx/emqx-sn#158](https://github.com/emqx/emqx-sn/pull/158)
 
