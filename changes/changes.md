@@ -17,6 +17,60 @@ ref: undefined
 
 # Changes
 
+## Version 4.1-rc.1
+
+*Release Date: 2020-05-15*
+
+EMQ X 4.1-rc.1 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that the browser doesn't support the current SSL / TLS certificates
+
+  Github PR: [emqx/emqx#3447](https://github.com/emqx/emqx/pull/3447)
+
+- Fix the issue that the connection process crashes in some cases
+
+  Github PR: [emqx/emqx#3459](https://github.com/emqx/emqx/pull/3459)
+
+### emqx-auth-mnesia
+
+**Bug fixes:**
+
+- Fix the issue that the configured users cannot pass the authentication
+
+  Github PR: [emqx/emqx-auth-mnesia#6](https://github.com/emqx/emqx-auth-mnesia/pull/6)
+
+- Fix the issue that the error is not handled correctly
+
+  Github PR: [emqx/emqx-auth-mnesia#9](https://github.com/emqx/emqx-auth-mnesia/pull/9)
+
+### emqx-reloader
+
+**Bug fixes:**
+
+- Fix the issue that the module code will not be reloaded in some cases
+
+  Github PR: [emqx/emqx-reloader#73](https://github.com/emqx/emqx-reloader/pull/73)
+
+### emqx-sn
+
+**Bug fixes:**
+
+- Fix the issue that doesn't support the specified monitoring IP address and supports IPv6
+
+  Github PR: [emqx/emqx-sn#158](https://github.com/emqx/emqx-sn/pull/158)
+
+### emqx-web-hook
+
+**Bug fixes:**
+
+- Fix the issue that the `client.disconnected` event went wrong in some cases
+
+  Github PR: [emqx/emqx-web-hook#188](https://github.com/emqx/emqx-web-hook/pull/188)
+
 ## Version 4.0.7
 
 *Release Date: 2020-05-09*
