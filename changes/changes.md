@@ -17,6 +17,60 @@ ref: undefined
 
 # Changes
 
+## Version 4.1-rc.2
+
+*Release Date: 2020-05-23*
+
+EMQ X 4.1-rc.2 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that the client sends other packets before sending CONNECT packet and causes the crash
+
+  Github PR: [emqx/emqx#3476](https://github.com/emqx/emqx/pull/3476)
+
+### emqx-auth-mnesia
+
+**Bug fixes:**
+
+- Support global ACL rules
+
+  Github PR: [emqx/emqx-auth-mnesia#13](https://github.com/emqx/emqx-auth-mnesia/pull/13)
+
+### emqx-rule-engine
+
+**Bug fixes:**
+
+- Fix the issue of not being able to import rules when resources are not available, and the issue of not being able to enable in some cases after importing rules
+
+  Github Commit: [emqx-rule-engine#582de5](https://github.com/emqx/emqx-rule-engine/commit/582de5363229ce513d02919bb41c9289a1e3729f)
+
+### emqx-rel
+
+**Enhancements:**
+
+- Support comment configuration items when running EMQ X through Docker
+
+  Github PR: [emqx/emqx-rel#508](https://github.com/emqx/emqx-rel/pull/508)
+
+### emqx-extension-java-sdk
+
+**Enhancements:**
+
+- Add Java SDK for multi-language extension
+
+  Github Repository: [emqx/emqx-extension-java-sdk](https://github.com/emqx/emqx-extension-java-sdk)
+
+### emqx-extension-python-sdk
+
+**Enhancements:**
+
+- Add Python SDK for multi-language extension
+
+  Github Repository: [emqx/emqx-extension-python-sdk](https://github.com/emqx/emqx-extension-python-sdk)
+
 ## Version 4.1-rc.1
 
 *Release Date: 2020-05-15*
