@@ -17,6 +17,43 @@ ref: undefined
 
 # Changes
 
+## Version 4.1.0
+
+*Release Date: 2020-06-04*
+
+EMQ X 4.1.0 is released now, it mainly includes the following changes:
+
+**Enhancements:**
+
+  - Support multi-language extension and provide SDK, supported languages: Python, Java
+  - Support topic based metrics
+  - Supports loading the latest configuration when the plugin starts
+  - Support for topic aliases when messages are forwarded
+  - Add subscription option configuration for proxy subscriptions
+  - Support fuzzy query and multi condition query of client list
+  - Support fuzzy query of subscription list
+  - Support to add simple authentication information on Dashboard
+  - Support data migration between versions
+  - MQTT AUTH Packet is supported. At present, only SCRAM-SHA-1 authentication mechanism is supported and users can expand it by themselves
+  - Support for obtaining network addresses and ports when using the proxy protocol
+  - Add authentication plugin based on Mnesia database (completely replace `emqx-auth-clientid` and `emqx-auth-username` plugins in subsequent versions)
+  - Support for editing rules in rule engine
+  - Support comment configuration items when running EMQ X through Docker
+  - LwM2M gateway plugin supports IPv6 and listens to multiple ports at the same time
+  - CoAP gateway plugin supports IPv6
+  - JWT authentication plugin supports configuration of jwerl signature format
+
+**Bug fixes:**
+
+  - Fix the issue that EMQ X could not start when `etc/emqx.conf` was read-only
+  - Fix the issue that the connection process crashes in some cases
+  - Fix the issue that the browser doesn't support the current SSL/TLS certificates
+  - Fix the issue that the MQTT bridge plugin doesn't send heartbeat packets by default
+  - Fix the issue that the abnormal login detection function does not delete the expired data, resulting in memory growth
+  - Fix the issue that the built-in ACL module did not clear the ACL cache when reloading
+  - Fix the issue that `client.disconnected` event in WebHook plugin goes wrong in some cases
+  - Fix the issue that MQTT-SN gateway plugin doesn't support specifying listening IP address and supports IPv6
+
 ## Version 4.1-rc.2
 
 *Release Date: 2020-05-23*
@@ -81,7 +118,7 @@ EMQ X 4.1-rc.1 is released now, it mainly includes the following changes:
 
 **Bug fixes:**
 
-- Fix the issue that the browser doesn't support the current SSL / TLS certificates
+- Fix the issue that the browser doesn't support the current SSL/TLS certificates
 
   Github PR: [emqx/emqx#3447](https://github.com/emqx/emqx/pull/3447)
 
