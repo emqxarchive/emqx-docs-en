@@ -3,7 +3,7 @@
   * [Features List](introduction/checklist.md)
 
 * Get Started
-  * [Installation](getting-started/installation.md)
+  * [Installation](getting-started/install.md)
   * [Start EMQ X](getting-started/start.md)
   * [Basic command](getting-started/command-line.md)
   * [Directory](getting-started/directory.md)
@@ -107,7 +107,7 @@
 
 * Tutorial
   * [Device management](tutorial/device-management.md)
-  * [Turning guide](tutorial/turn.md)
+  * [Tuning guide](tutorial/tune.md)
   * [Production deployment](tutorial/deploy.md)
   * [Prometheus](tutorial/prometheus.md)
   * [Benchmark](tutorial/benchmark.md)
