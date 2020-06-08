@@ -17,11 +17,156 @@ ref: undefined
 
 # Changes
 
+## Version 4.1.0 
+
+**Release Date: 2019-06-04*
+
+EMQ X 4.1.0 is now released, which mainly includes the following changes:
+
+**Enhancements:**
+
+  - Support multi-language extension and provide SDK, the supported languages include Python and Java
+  - Support topic-based index statistics
+  - Supports loading the latest configuration when the plugin starts
+  - Support topic alias when forwarding messages
+  - Proxy subscription supports configuration of all subscription options
+  - Support fuzzy query and multi-condition query of client list
+  - Support fuzzy query of subscription list
+  - Support addition of simple authentication information through Dashboard
+  - Support cross-version data migration
+  - Support MQTT AUTH packet, and  support extension by users. Currently, only SCRAM-SHA-1 authentication mechanism is supported.
+  - Support obtaining network address and port when using proxy protocol
+  - Add authentication plug-in based on Mnesia database (completely replace `emqx-auth-clientid` and `emqx-auth-username` plug-ins in subsequent versions)
+  - Support editing rules in the rules engine
+  - Support annotation configuration when running EMQ X through Docker
+  - LwM2M gateway plugin supports IPv6 and monitoring multiple ports simultaneously
+  - CoAP gateway plugin supports IPv6
+  - JWT authentication plugin supports configuration of jwerl signature format
+
+**Bug fixes:**
+
+  - Fix the issue that EMQ X cannot start when `etc/emqx.conf` is a read-only file
+  - Fix the issue that the connection process crashed in some cases
+  - Fix the issue that the browser does not support the current SSL/TLS certificate
+  - Fixed the issue that MQTT bridge plug-in will not send heartbeat packets by default
+  - Fixed the issue that abnormal login detection function did not delete expired data and caused memory growth
+  - Fixed the issue that the ACL cache was not cleared when the built-in ACL module was reloaded
+  - Fixed the issue that the `client.disconnected` event of the WebHook plugin went wrong in some cases
+  - Fixed the issue that the MQTT-SN gateway plug-in does not support the specified listening IP address and supports IPv6
+
+## Version 4.1-rc.2
+
+*Release Date: 2020-05-23*
+
+EMQ X 4.1-rc.2 is now released, which mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that system crashed because the client sends other packets before sending CONNECT packets
+
+  Github PR: [emqx/emqx#3476](https://github.com/emqx/emqx/pull/3476)
+
+### emqx-auth-mnesia
+
+**Enhancements:**
+
+- Support global ACL rules
+
+  Github PR: [emqx/emqx-auth-mnesia#13](https://github.com/emqx/emqx-auth-mnesia/pull/13)
+
+### emqx-rule-engine
+
+**Bug fixes:**
+
+- Fix the issue that the rule cannot be imported when the resource is not available, and fix the problem that the rule cannot be enabled in some cases after being imported.
+
+  Github Commit: [emqx-rule-engine#582de5](https://github.com/emqx/emqx-rule-engine/commit/582de5363229ce513d02919bb41c9289a1e3729f)
+
+### emqx-rel
+
+**Enhancements:**
+
+- Support annotation configuration items when running EMQ X through Docker
+
+  Github PR: [emqx/emqx-rel#508](https://github.com/emqx/emqx-rel/pull/508)
+
+### emqx-extension-java-sdk
+
+**Enhancements:**
+
+- Add Java SDK for multi-language extension
+
+  Github Repository: [emqx/emqx-extension-java-sdk](https://github.com/emqx/emqx-extension-java-sdk)
+
+### emqx-extension-python-sdk
+
+**Enhancements:**
+
+- Add Python SDK  for multi-language extension
+
+  Github Repository: [emqx/emqx-extension-python-sdk](https://github.com/emqx/emqx-extension-python-sdk)
+
+## Version 4.1-rc.1 
+
+*Release Date:2020-05-15*
+
+EMQ X 4.1-rc.1 is now released, which mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that the browser does not support the current SSL/TLS certificate
+
+  Github PR: [emqx/emqx#3447](https://github.com/emqx/emqx/pull/3447)
+
+- Fix the issue that the connection process crashes in some cases
+
+  Github PR: [emqx/emqx#3459](https://github.com/emqx/emqx/pull/3459)
+
+### emqx-auth-mnesia
+
+**Bug fixes:**
+
+- Fix the issue that the configured users cannot pass the authentication
+
+  Github PR: [emqx/emqx-auth-mnesia#6](https://github.com/emqx/emqx-auth-mnesia/pull/6)
+
+- Fix the issue that the error is not handled correctly
+
+  Github PR: [emqx/emqx-auth-mnesia#9](https://github.com/emqx/emqx-auth-mnesia/pull/9)
+
+### emqx-reloader
+
+**Bug fixes:**
+
+- Fix the issue that the module code will not be reloaded in some cases
+
+  Github PR: [emqx/emqx-reloader#73](https://github.com/emqx/emqx-reloader/pull/73)
+
+### emqx-sn
+
+**Bug fixes:**
+
+- Fix the issue that the specified monitoring IP address is not supported and IPv6 is supported
+
+  Github PR: [emqx/emqx-sn#158](https://github.com/emqx/emqx-sn/pull/158)
+
+### emqx-web-hook
+
+**Bug fixes:**
+
+- Fix the issue that the `client.disconnected` event went wrong in some cases
+
+  Github PR: [emqx/emqx-web-hook#188](
+
 ## Version 4.0.7
 
 *Release Date: 2020-05-09*
 
-EMQ X 4.0.7 is released now, it mainly includes the following changes:
+EMQ X 4.0.7 is released now, which mainly includes the following changes:
 
 ### emqx
 
@@ -30,6 +175,10 @@ EMQ X 4.0.7 is released now, it mainly includes the following changes:
 - Fix the issue that the browser doesn't support the current SSL / TLS certificates
 
   Github PR: [emqx/emqx#3448](https://github.com/emqx/emqx/pull/3448)
+  
+- Fix the issue of connection process crashing in some cases, which is the feedback from [Github issue#3455](https://github.com/emqx/emqx/issues/3455) 
+
+  Github PR: [emqx/emqx#3458](https://github.com/emqx/emqx/pull/3458)
 
 ### emqx-web-hook
 
@@ -44,7 +193,7 @@ EMQ X 4.0.7 is released now, it mainly includes the following changes:
 *Release Date: 2020-04-26*
 
 EMQ X 4.1-beta.1 is released now, it mainly includes the following changes:
-  
+
 ### emqx
 
 **Bug fixes:**
@@ -89,6 +238,7 @@ EMQ X 4.1-beta.1 is released now, it mainly includes the following changes:
 
   Github PR: [emqx/emqx-sasl#3](https://github.com/emqx/emqx-sasl/pull/3)
   
+
 **Bug fixes:**
 
 - Fix the issue that SCRAM-SHA-1 mechanism is not available
@@ -128,7 +278,7 @@ EMQ X 4.1-beta.1 is released now, it mainly includes the following changes:
 *Release Date: 2020-04-22*
 
 EMQ X 4.0.6 is released now, it mainly includes the following changes:
-  
+
 ### emqx
 
 **Bug fixes:**
@@ -166,7 +316,7 @@ EMQ X 4.0.6 is released now, it mainly includes the following changes:
 *Release Date: 2020-04-17*
 
 EMQ X 4.1-alpha.3 is released now, it mainly includes the following changes:
-  
+
 ### emqx-coap
 
 **Enhancements:**
@@ -257,7 +407,7 @@ EMQ X 4.1-alpha.2 is released now.
 ### emqx-dashboard (plugin)
 
 **Bug fixes:**
-  
+
 - Fixed the issue that users could not be deleted
 
   Github PR: [emqx/emqx-dashboard#219](https://github.com/emqx/emqx-dashboard/pull/219)
@@ -4473,12 +4623,12 @@ For example:
     -------
 
 >   - \-- External TCP 1883 --\> | |
->     
+>    
 >     EMQ | -- Internal TCP 2883 --\> Service
 > 
 >   - \-- External SSL 8883--\> | |
->     
->     -----
+>    
+>    -----
 
 Configure a listener in etc/emq.conf:
 
@@ -4498,11 +4648,11 @@ HAProxy or NGINX:
     | L | --TCP 1883--> EMQ
 
 >   - \--SSL 8883--\> | | |
->     
+>    
 >     B | --TCP 1883--\> EMQ  
 >       |
->     
->     -----
+>    
+>    -----
 
 The LB can pass the source IP, port of the TCP connection on to EMQ
 cluster by Proxy Protocol.
@@ -4536,10 +4686,10 @@ auth module:
 
 >   - Client --\> | Redis Auth | -ignore-\> | HTTP Auth | -ignore-\> |
 >     MySQL Auth |
->     
+>    
 >       - \-------------- ------------- -------------- | | |  
->         |/ |/ |/
->     
+>           |/ |/ |/
+>    
 >     allow | deny allow | deny allow | deny
 
 ### Support bcrypt password hash
@@ -4919,10 +5069,10 @@ between multiple subscribers in the same group:
     |       | --Msg1--> Subscriber1
 
 >   - Publisher--Msg1,Msg2,Msg3--\>| EMQ | --Msg2--\> Subscriber2
->     
+>    
 >           | --Msg3--\> Subscriber3
->     
->     -----
+>    
+>    -----
 
 Create a shared subscription with $queue/ or $share/\<group\>/ prefix:
 
