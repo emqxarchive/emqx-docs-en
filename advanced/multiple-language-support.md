@@ -12,22 +12,78 @@ description:
 # 分类
 category: 
 # 引用
-ref: undefined
+ref: undefinedM
 ---
 
+# 多语言支持
 
-# Cross language
+# Multi-language support
 
-In the EMQ X Broker distribution, some [plugins](plugins.md) are provided for multiple language support. It allows you to extend the behavior of EMQ X Broker with other programming languages, and the architecture in the system is:
+From 4.1, EMQ X provides a dedicated multi-language support plug-in of [emqx_extension_hook](https://github.com/emqx/emqx-extension-hook) to optimize multi-language support.
 
-![Multiple Language Suppoprt](assets/multiple-lang-arch.png)
+This plugin allows you to use other programming languages to handle hook events in EMQ X, for example:
 
-- Multiple language support appears as a plug-in, which is based on the [hook](hooks.md) feature provided by the [emqx](https://github.com/emqx/emqx) core project to  get the Events/messages of EMQ X Broker.
-- For different language environments, different language support plugins are required.
-- This support plugin embeds all the environments of the language runtime.
-- The user only needs to write a script or library file in this language for the plugin to be called.
+- Authenticate the login authority of a client.
+- Check the operation permission of PUB/SUB of a client.
+- Handle Session and Message events.
 
-This is the basic logic for implementing multiple language support. When using this kind of plugin, please make sure you have some knowledge of [hooks](hooks.md) and [plugins](plugins.md) .
+Note: Message hooks are only supported in the Enterprise Edition.
+
+## Architecture
+
+The overall event transfer architecture is as follows:
+
+```
+                            EMQ X
+                            +============================+
+                            |        Extension           |
+ +----------+    CONNECT    | Hooks +----------------+   |
+ |  Client  | <===========> - - - ->|    Drivers     |   |
+ +----------+    PUB/SUB    |       +----------------+   |
+                            |               |            |
+                            +===============|============+
+                                            |
+                                            | Callbacks
+             Third-party Runtimes           |
+             +=======================+      |
+             |  Python Script/ Java  |<-----+
+             |  Classes/ Others      |
+             +=======================+
+```
+
+- `emqx_extension_hook` as a plugin for EMQ X:
+  * It will receive all the hook events of EMQ X and distribute them to the corresponding driver.
+  * Provide drive management and statistics of various indicators.
+
+- Support for different languages that requires corresponding driver support.
+
+- The runtime of the three-party language and the runtime of Erlang are independent of each other, which only communicate through the pipeline provided by the operating system.
+
+Theoretically, any other programming language can be expanded by this plug-in if only the corresponding driver is completed.
+
+Currently, only Python and Java support is provided, and corresponding SDKs are provided to facilitate development.
+
+## Quick start
+
+### Python {#python}
+
+Python development can refer to: [emqx-extension-python-sdk](https://github.com/emqx/emqx-extension-python-sdk)
+
+### Java {#java}
+
+Java development can refer to: [emqx-extension-java-sdk](https://github.com/emqx/emqx-extension-java-sdk)
+
+
+## Other
+
+Before EMQ X 4.1. We only provide multi-language support for Lua. Its architecture is different from the above mentioned, which will include the entire language runtime in the Erlang VM:
+
+![Old Multiple Lang Arch](D:/emqx/emqx-docs-cn/advanced/assets/lua-lang-arch.png)
+
+- Multiple language support appears as a plug-in. For different language environments, different language support plugins are required.
+- This supported plugin embeds all the environments of the language runtime.
+
+To maintain compatibility, the plug-in remains in the release version of EMQ X.
 
 ## Lua {#lua}
 
@@ -79,7 +135,7 @@ After completion, you can start two MQTT clients, one to subscribe to any topic,
 
 ### Callback function
 
-Supported callback functions and parameter type: [emqx-web-hook - README.md](https://github.com/emqx/emqx-lua-hook/tree/develop#hook-api)
+Supported callback functions and parameter type: [emqx-lua-hook - README.md](https://github.com/emqx/emqx-lua-hook/tree/develop#hook-api)
 
 Example: [examples.lua](https://github.com/emqx/emqx-lua-hook/blob/develop/examples.lua)
 
