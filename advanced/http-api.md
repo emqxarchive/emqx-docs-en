@@ -187,6 +187,25 @@ Returns the information of all clients under the cluster, and supports paging.
 | _page  | Integer   | False | 1       | Page |
 | _limit | Integer   | False | 10000   | The number of data displayed per page. If not specified, it is determined by the configuration item `max_row_limit` of the` emqx-management` plugin |
 
+After version 4.1, multiple conditions and fuzzy queries are supported. The query parameters included are shown below.
+
+| Name              | Type    | Required | Description                                                  |
+| ----------------- | ------- | -------- | ------------------------------------------------------------ |
+| clientid          | String  | False    | Client identifier                                            |
+| username          | String  | False    | Client username                                              |
+| zone              | String  | False    | Client configuration group name                              |
+| ip_address        | String  | False    | Client IP address                                            |
+| conn_state        | Enum    | False    | The current connection status of the client, the possible values are`connected`,`idle`,`disconnected` |
+| clean_start       | Bool    | False    | Whether the client uses a new session                        |
+| proto_name        | Enum    | False    | Client protocol name, the possible values are`MQTT`,`CoAP`,`LwM2M`,`MQTT-SN` |
+| proto_ver         | Integer | False    | Client protocol version                                      |
+| _like_clientid    | String  | False    | Fuzzy search of client identifier by substring method        |
+| _like_username    | String  | False    | Client user name, fuzzy search by substring                  |
+| _gte_created_at   | Integer | False    | Search client session creation time by  less than or equal method |
+| _lte_created_at   | Integer | False    | Search client session creation time by  greater than or equal method |
+| _gte_connected_at | Integer | False    | Search client connection creation time by  less than or equal method |
+| _lte_connected_at | Integer | False    | Search client connection creation time by  greater than or equal method |
+
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
@@ -196,10 +215,10 @@ Returns the information of all clients under the cluster, and supports paging.
 | data[0].node              | String    | Name of the node to which the client is connected |
 | data[0].clientid          | String    | Client identifier |
 | data[0].username          | String    | User name of client when connecting |
-| data[0].proto_name        | String    | Features provided by the client |
+| data[0].proto_name        | String    | Client protocol name |
 | data[0].proto_ver         | Integer   | Protocol version used by the client |
-| data[0].ip_address        | String    | Client's network IP address |
-| data[0].port              | Integer   | Client source port |
+| data[0].ip_address        | String    | Client's IP address |
+| data[0].port              | Integer   | Client port |
 | data[0].is_bridge         | Boolean   | Indicates whether the client is connected via bridge |
 | data[0].connected_at      | String    | Client connection time, in the format of "YYYY-MM-DD HH:mm:ss" |
 | data[0].disconnected_at   | String    | Client offline time, in the formatof "YYYY-MM-DD HH:mm:ss"，<br/>This field is only valid and returned when `connected` is` false` |
@@ -241,6 +260,11 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/clients?_
 
 {"meta":{"page":1,"limit":10,"count":1},"data":[{"zone":"external","recv_cnt":2,"max_mqueue":1000,"node":"emqx@127.0.0.1","username":"test","mqueue_len":0,"max_inflight":32,"is_bridge":false,"mqueue_dropped":0,"inflight":0,"heap_size":2586,"max_subscriptions":0,"proto_name":"MQTT","created_at":"2020-02-19 17:01:26","proto_ver":4,"reductions":3997,"send_msg":0,"ip_address":"127.0.0.1","send_cnt":0,"mailbox_len":1,"awaiting_rel":0,"keepalive":60,"recv_msg":0,"send_pkt":0,"recv_oct":29,"clientid":"example","clean_start":true,"expiry_interval":0,"connected":true,"port":64491,"send_oct":0,"recv_pkt":1,"connected_at":"2020-02-19 17:01:26","max_awaiting_rel":100,"subscriptions_cnt":0}],"code":0}
 ```
+
+Note: After 4.1, the contents of the returned `meta` were modified:
+
+- `count`：It still represents the total number. However, in multi-condition/fuzzy query, it is fixed at -1.
+- `hasnext`：It is a newly added field indicating whether there is a next page.
 
 #### GET /api/v4/clients/{clientid} {#endpoint-get-a-client}
 
@@ -490,6 +514,16 @@ Returns all subscription information under the cluster, and supports paging mech
 | _page  | Integer   | False | 1       | Page number |
 | _limit | Integer   | False | 10000   | The number of data displayed per page, if not specified, it is determined by the configuration item `max_row_limit` of the ` emqx-management` plugin |
 
+After version 4.1, multiple conditions and fuzzy queries are supported:
+
+| Name         | Type   | Description                    |
+| ------------ | ------ | ------------------------------ |
+| clientid     | String | Client identifier              |
+| topic        | String | congruent query                |
+| qos          | Enum   | Possible values are 0`,`1`,`2` |
+| share        | String | Shared subscription group name |
+| _match_topic | String | Match query                    |
+
 **Success Response Body (JSON):**
 
 | Name | Type | Description |
@@ -509,6 +543,11 @@ $ curl -i --basic -u admin:public -X GET "http://localhost:8081/api/v4/subscript
 
 {"meta":{"page":1,"limit":10000,"count":2},"data":[{"topic":"a/+/c","qos":0,"node":"emqx@127.0.0.1","clientid":"78082755-e8eb-4a87-bab7-8277541513f0"},{"topic":"a/b/c","qos":1,"node":"emqx@127.0.0.1","clientid":"7a1dfceb-89c0-4f7e-992b-dfeb09329f01"}],"code":0}
 ```
+
+Note: After 4.1, the contents of the returned `meta` were modified:
+
+- `count`：It still represents the total number, but in multi-condition/fuzzy query, it is fixed at -1.
+- `hasnext`：It is a newly added field indicating whether there is a next page.
 
 #### GET /api/v4/subscriptions/{clientid} {#endpoint-get-subscriptions-by-clientid}
 
