@@ -25,18 +25,18 @@ Plugin:
 emqx_auth_mnesia
 ```
 
-## Authentication rules
+## ACL rules
 
-Mnesia authentication uses the client's Username and password for authentication by default, and can be changed to use the client's Client ID and password authentication in `etc/plugins/emqx_auth_mnesia.conf` :
+Mnesia ACL uses the username and password of MQTT packet for authentication by default, and can be changed to use the Client ID and password of MQTT packet for authentication in `etc/plugins/emqx_auth_mnesia.conf` :
 
 ```bash
-## Auth as username or auth as clientid.
+## Auth and ACL base on username or clientid.
 ##
 ## Value: username | clientid
 auth.mnesia.as = username
 ```
 
-### ACL Rule Data
+### ACL Rule Structure Body
 
 ```json
 {
@@ -46,8 +46,6 @@ auth.mnesia.as = username
 	"allow": true
 }
 ```
-
-Mnesia ACL rule defines publish, subscribe or publish/subscribe information, and all are **allow** lists in the rule.
 
 Rule field description:
 

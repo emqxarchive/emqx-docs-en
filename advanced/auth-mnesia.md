@@ -29,7 +29,7 @@ emqx_auth_mnesia
 
 ## Authentication rules
 
-Mnesia authentication uses the client's Username and password for authentication by default, and can be changed to use the client's Client ID and password authentication in  `etc/plugins/emqx_auth_mnesia.conf` :
+Mnesia authentication uses the username and password based on CONNECT packet for authentication by default, and can be changed to use the Client ID and password of CONNECT packet for authentication in  `etc/plugins/emqx_auth_mnesia.conf` :
 
 ```bash
 ## Auth as username or auth as clientid.
