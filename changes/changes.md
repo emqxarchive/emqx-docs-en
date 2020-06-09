@@ -64,6 +64,7 @@ EMQ X 4.1-rc.2 is released now, it mainly includes the following changes:
 
 **Bug fixes:**
 
+
 - Fix the issue that the client sends other packets before sending CONNECT packet and causes the crash
 
   Github PR: [emqx/emqx#3476](https://github.com/emqx/emqx/pull/3476)
@@ -118,6 +119,7 @@ EMQ X 4.1-rc.1 is released now, it mainly includes the following changes:
 
 **Bug fixes:**
 
+
 - Fix the issue that the browser doesn't support the current SSL/TLS certificates
 
   Github PR: [emqx/emqx#3447](https://github.com/emqx/emqx/pull/3447)
@@ -166,7 +168,7 @@ EMQ X 4.1-rc.1 is released now, it mainly includes the following changes:
 
 *Release Date: 2020-05-09*
 
-EMQ X 4.0.7 is released now, it mainly includes the following changes:
+EMQ X 4.0.7 is released now, which mainly includes the following changes:
 
 ### emqx
 
@@ -175,6 +177,10 @@ EMQ X 4.0.7 is released now, it mainly includes the following changes:
 - Fix the issue that the browser doesn't support the current SSL / TLS certificates
 
   Github PR: [emqx/emqx#3448](https://github.com/emqx/emqx/pull/3448)
+  
+- Fix the issue of connection process crashing in some cases, which is the feedback from [Github issue#3455](https://github.com/emqx/emqx/issues/3455) 
+
+  Github PR: [emqx/emqx#3458](https://github.com/emqx/emqx/pull/3458)
 
 ### emqx-web-hook
 
@@ -189,7 +195,7 @@ EMQ X 4.0.7 is released now, it mainly includes the following changes:
 *Release Date: 2020-04-26*
 
 EMQ X 4.1-beta.1 is released now, it mainly includes the following changes:
-  
+
 ### emqx
 
 **Bug fixes:**
@@ -234,6 +240,7 @@ EMQ X 4.1-beta.1 is released now, it mainly includes the following changes:
 
   Github PR: [emqx/emqx-sasl#3](https://github.com/emqx/emqx-sasl/pull/3)
   
+
 **Bug fixes:**
 
 - Fix the issue that SCRAM-SHA-1 mechanism is not available
@@ -273,7 +280,7 @@ EMQ X 4.1-beta.1 is released now, it mainly includes the following changes:
 *Release Date: 2020-04-22*
 
 EMQ X 4.0.6 is released now, it mainly includes the following changes:
-  
+
 ### emqx
 
 **Bug fixes:**
@@ -311,7 +318,7 @@ EMQ X 4.0.6 is released now, it mainly includes the following changes:
 *Release Date: 2020-04-17*
 
 EMQ X 4.1-alpha.3 is released now, it mainly includes the following changes:
-  
+
 ### emqx-coap
 
 **Enhancements:**
@@ -402,7 +409,7 @@ EMQ X 4.1-alpha.2 is released now.
 ### emqx-dashboard (plugin)
 
 **Bug fixes:**
-  
+
 - Fixed the issue that users could not be deleted
 
   Github PR: [emqx/emqx-dashboard#219](https://github.com/emqx/emqx-dashboard/pull/219)
@@ -4618,12 +4625,12 @@ For example:
     -------
 
 >   - \-- External TCP 1883 --\> | |
->     
+>    
 >     EMQ | -- Internal TCP 2883 --\> Service
 > 
 >   - \-- External SSL 8883--\> | |
->     
->     -----
+>    
+>    -----
 
 Configure a listener in etc/emq.conf:
 
@@ -4643,11 +4650,11 @@ HAProxy or NGINX:
     | L | --TCP 1883--> EMQ
 
 >   - \--SSL 8883--\> | | |
->     
+>    
 >     B | --TCP 1883--\> EMQ  
 >       |
->     
->     -----
+>    
+>    -----
 
 The LB can pass the source IP, port of the TCP connection on to EMQ
 cluster by Proxy Protocol.
@@ -4681,10 +4688,10 @@ auth module:
 
 >   - Client --\> | Redis Auth | -ignore-\> | HTTP Auth | -ignore-\> |
 >     MySQL Auth |
->     
+>    
 >       - \-------------- ------------- -------------- | | |  
->         |/ |/ |/
->     
+>           |/ |/ |/
+>    
 >     allow | deny allow | deny allow | deny
 
 ### Support bcrypt password hash
@@ -5064,10 +5071,10 @@ between multiple subscribers in the same group:
     |       | --Msg1--> Subscriber1
 
 >   - Publisher--Msg1,Msg2,Msg3--\>| EMQ | --Msg2--\> Subscriber2
->     
+>    
 >           | --Msg3--\> Subscriber3
->     
->     -----
+>    
+>    -----
 
 Create a shared subscription with $queue/ or $share/\<group\>/ prefix:
 
