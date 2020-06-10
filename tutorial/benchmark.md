@@ -170,7 +170,7 @@ The topology structure is as follows:
 
 ### Tuning
 
-Both the client's press and the server's machine need to perform system parameter tuning, refer to [System tuning](../tutorial/turn.md).
+Both the client's press and the server's machine need to perform system parameter tuning, refer to [Tuning guide](../tutorial/tune.md).
 
 
 

@@ -108,7 +108,7 @@
 
 ## Tutorial
   * [Device management](tutorial/device-management.md)
-  * [Turning guide](tutorial/turn.md)
+  * [Tuning guide](tutorial/tune.md)
   * [Production deployment](tutorial/deploy.md)
   * [Prometheus](tutorial/prometheus.md)
   * [Benchmark](tutorial/benchmark.md)
