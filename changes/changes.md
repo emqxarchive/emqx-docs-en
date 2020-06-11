@@ -17,60 +17,61 @@ ref: undefined
 
 # Changes
 
-## Version 4.1.0 
+## Version 4.1.0
 
-**Release Date: 2019-06-04*
+*Release Date: 2020-06-04*
 
-EMQ X 4.1.0 is now released, which mainly includes the following changes:
+EMQ X 4.1.0 is released now, it mainly includes the following changes:
 
 **Enhancements:**
 
-  - Support multi-language extension and provide SDK, the supported languages include Python and Java
-  - Support topic-based index statistics
+  - Support multi-language extension and provide SDK, supported languages: Python, Java
+  - Support topic based metrics
   - Supports loading the latest configuration when the plugin starts
-  - Support topic alias when forwarding messages
-  - Proxy subscription supports configuration of all subscription options
-  - Support fuzzy query and multi-condition query of client list
+  - Support for topic aliases when messages are forwarded
+  - Add subscription option configuration for proxy subscriptions
+  - Support fuzzy query and multi condition query of client list
   - Support fuzzy query of subscription list
-  - Support addition of simple authentication information through Dashboard
-  - Support cross-version data migration
-  - Support MQTT AUTH packet, and  support extension by users. Currently, only SCRAM-SHA-1 authentication mechanism is supported.
-  - Support obtaining network address and port when using proxy protocol
-  - Add authentication plug-in based on Mnesia database (completely replace `emqx-auth-clientid` and `emqx-auth-username` plug-ins in subsequent versions)
-  - Support editing rules in the rules engine
-  - Support annotation configuration when running EMQ X through Docker
-  - LwM2M gateway plugin supports IPv6 and monitoring multiple ports simultaneously
+  - Support to add simple authentication information on Dashboard
+  - Support data migration between versions
+  - MQTT AUTH Packet is supported. At present, only SCRAM-SHA-1 authentication mechanism is supported and users can expand it by themselves
+  - Support for obtaining network addresses and ports when using the proxy protocol
+  - Add authentication plugin based on Mnesia database (completely replace `emqx-auth-clientid` and `emqx-auth-username` plugins in subsequent versions)
+  - Support for editing rules in rule engine
+  - Support comment configuration items when running EMQ X through Docker
+  - LwM2M gateway plugin supports IPv6 and listens to multiple ports at the same time
   - CoAP gateway plugin supports IPv6
   - JWT authentication plugin supports configuration of jwerl signature format
 
 **Bug fixes:**
 
-  - Fix the issue that EMQ X cannot start when `etc/emqx.conf` is a read-only file
-  - Fix the issue that the connection process crashed in some cases
-  - Fix the issue that the browser does not support the current SSL/TLS certificate
-  - Fixed the issue that MQTT bridge plug-in will not send heartbeat packets by default
-  - Fixed the issue that abnormal login detection function did not delete expired data and caused memory growth
-  - Fixed the issue that the ACL cache was not cleared when the built-in ACL module was reloaded
-  - Fixed the issue that the `client.disconnected` event of the WebHook plugin went wrong in some cases
-  - Fixed the issue that the MQTT-SN gateway plug-in does not support the specified listening IP address and supports IPv6
+  - Fix the issue that EMQ X could not start when `etc/emqx.conf` was read-only
+  - Fix the issue that the connection process crashes in some cases
+  - Fix the issue that the browser doesn't support the current SSL/TLS certificates
+  - Fix the issue that the MQTT bridge plugin doesn't send heartbeat packets by default
+  - Fix the issue that the abnormal login detection function does not delete the expired data, resulting in memory growth
+  - Fix the issue that the built-in ACL module did not clear the ACL cache when reloading
+  - Fix the issue that `client.disconnected` event in WebHook plugin goes wrong in some cases
+  - Fix the issue that MQTT-SN gateway plugin doesn't support specifying listening IP address and supports IPv6
 
 ## Version 4.1-rc.2
 
 *Release Date: 2020-05-23*
 
-EMQ X 4.1-rc.2 is now released, which mainly includes the following changes:
+EMQ X 4.1-rc.2 is released now, it mainly includes the following changes:
 
 ### emqx
 
 **Bug fixes:**
 
-- Fix the issue that system crashed because the client sends other packets before sending CONNECT packets
+
+- Fix the issue that the client sends other packets before sending CONNECT packet and causes the crash
 
   Github PR: [emqx/emqx#3476](https://github.com/emqx/emqx/pull/3476)
 
 ### emqx-auth-mnesia
 
-**Enhancements:**
+**Bug fixes:**
 
 - Support global ACL rules
 
@@ -80,7 +81,7 @@ EMQ X 4.1-rc.2 is now released, which mainly includes the following changes:
 
 **Bug fixes:**
 
-- Fix the issue that the rule cannot be imported when the resource is not available, and fix the problem that the rule cannot be enabled in some cases after being imported.
+- Fix the issue of not being able to import rules when resources are not available, and the issue of not being able to enable in some cases after importing rules
 
   Github Commit: [emqx-rule-engine#582de5](https://github.com/emqx/emqx-rule-engine/commit/582de5363229ce513d02919bb41c9289a1e3729f)
 
@@ -88,7 +89,7 @@ EMQ X 4.1-rc.2 is now released, which mainly includes the following changes:
 
 **Enhancements:**
 
-- Support annotation configuration items when running EMQ X through Docker
+- Support comment configuration items when running EMQ X through Docker
 
   Github PR: [emqx/emqx-rel#508](https://github.com/emqx/emqx-rel/pull/508)
 
@@ -104,21 +105,22 @@ EMQ X 4.1-rc.2 is now released, which mainly includes the following changes:
 
 **Enhancements:**
 
-- Add Python SDK  for multi-language extension
+- Add Python SDK for multi-language extension
 
   Github Repository: [emqx/emqx-extension-python-sdk](https://github.com/emqx/emqx-extension-python-sdk)
 
-## Version 4.1-rc.1 
+## Version 4.1-rc.1
 
-*Release Date:2020-05-15*
+*Release Date: 2020-05-15*
 
-EMQ X 4.1-rc.1 is now released, which mainly includes the following changes:
+EMQ X 4.1-rc.1 is released now, it mainly includes the following changes:
 
 ### emqx
 
 **Bug fixes:**
 
-- Fix the issue that the browser does not support the current SSL/TLS certificate
+
+- Fix the issue that the browser doesn't support the current SSL/TLS certificates
 
   Github PR: [emqx/emqx#3447](https://github.com/emqx/emqx/pull/3447)
 
@@ -150,7 +152,7 @@ EMQ X 4.1-rc.1 is now released, which mainly includes the following changes:
 
 **Bug fixes:**
 
-- Fix the issue that the specified monitoring IP address is not supported and IPv6 is supported
+- Fix the issue that doesn't support the specified listening IP address and supports IPv6
 
   Github PR: [emqx/emqx-sn#158](https://github.com/emqx/emqx-sn/pull/158)
 
@@ -160,7 +162,7 @@ EMQ X 4.1-rc.1 is now released, which mainly includes the following changes:
 
 - Fix the issue that the `client.disconnected` event went wrong in some cases
 
-  Github PR: [emqx/emqx-web-hook#188](
+  Github PR: [emqx/emqx-web-hook#188](https://github.com/emqx/emqx-web-hook/pull/188)
 
 ## Version 4.0.7
 
