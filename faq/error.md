@@ -1,19 +1,3 @@
----
-# 标题
-title: 常见错误
-# 编写日期
-date: 2020-02-20 12:44:32
-# 作者 Github 名称
-author: wivwiv
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category:
-# 引用
-ref:
----
 # Common Errors
 ### EMQ X cannot connect to Mysql8.0
 
@@ -69,7 +53,7 @@ Different from previous versions, Mysql8.0 uses the `caching_sha2_password` plug
   The output error  from executing `./bin/emqx console` includes:
 
   ```bash
-  {application_start_failure,kernel,{{shutdown,{failed_to_start_child,kernel_safe_sup,{on_load_function_failed,crypto}}}, ..}
+  \{application_start_failure,kernel,\{\{shutdown,\{failed_to_start_child,kernel_safe_sup,\{on_load_function_failed,crypto\}\}\}, ..\}
   ```
 
   It indicates that the "crypto" application in Erlang/OTP that EMQ X depends on failed to start.
