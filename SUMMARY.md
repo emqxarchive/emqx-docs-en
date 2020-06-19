@@ -24,6 +24,7 @@
 * Advanced
   *  Authentication 
     * [Introduction](advanced/auth.md) 
+    * [Mnesia](advanced/auth-mnesia.md)
     * [Username](advanced/auth-username.md)
     * [Cliend ID](advanced/auth-clientid.md)
     * [HTTP](advanced/auth-http.md)
@@ -37,6 +38,7 @@
   * ACL
     * [Introduction](advanced/acl.md)
     * [ACL file](advanced/acl-file.md)
+    * [Mnesia ACL](advanced/acl-mnesia.md)
     * [HTTP ACL](advanced/acl-http.md)
     * [MySQL ACL](advanced/acl-mysql.md)
     * [PostgreSQL ACL](advanced/acl-postgres.md)
@@ -142,4 +144,3 @@
   * [Design](design/design.md)
   * [Awsome](awesome/awesome.md)
 
-f
