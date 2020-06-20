@@ -17,6 +17,70 @@ ref: undefined
 
 # Changes
 
+## Version 4.2-alpha.1
+
+*Release Date: 2020-06-20*
+
+EMQ X 4.2-alpha.2 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Enhancements:**
+
+- Support `Response Information`
+
+  Github PR: [emqx/emqx#3533](https://github.com/emqx/emqx/pull/3533)
+
+**Bug fixes:**
+
+- Fix the issue that the connection process crashes when the connection properties is empty
+
+  Github PR: [emqx/emqx#3525](https://github.com/emqx/emqx/pull/3525)
+
+### emqx-rule-engine
+
+**Enhancements:**
+
+- Add MQTT properties fields and rule-related metadata for rule engine events
+
+  Github PR: [emqx/emqx-rule-engine#163](https://github.com/emqx/emqx-rule-engine/pull/163)
+
+### emqx-rel
+
+**Enhancements:**
+
+- Support CentOS 8
+
+  Github PR: [emqx/emqx-rel#526](https://github.com/emqx/emqx-rel/pull/526)
+
+- Support Ubuntu 20.04
+
+  Github PR: [emqx/emqx-rel#521](https://github.com/emqx/emqx-rel/pull/521)
+
+### esockd
+
+**Bug fixes:**
+
+- Fix the wrong type of `max_conn_rate` configuration item
+
+  Github PR: [emqx/esockd#161](https://github.com/emqx/esockd/pull/130)
+
+### gen_coap
+
+**Enhancements:**
+
+- Replace gen_udp with esockd
+
+  Github PR: [emqx/gen_coap#12](https://github.com/emqx/gen_coap/pull/12)
+
+### gen_rpc
+
+**Bug fixes:**
+
+- Fix the crash of acceptor in some cases
+
+  Github PR: [emqx/gen_rpc#9](https://github.com/emqx/gen_rpc/pull/9)
+
 ## Version 4.1.0
 
 *Release Date: 2020-06-04*
@@ -118,7 +182,6 @@ EMQ X 4.1-rc.1 is released now, it mainly includes the following changes:
 ### emqx
 
 **Bug fixes:**
-
 
 - Fix the issue that the browser doesn't support the current SSL/TLS certificates
 
