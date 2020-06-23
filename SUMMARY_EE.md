@@ -137,7 +137,7 @@
 
 
 * Release
-  <!-- * [Changes](changes/changes.md) -->
+  * [Changes](changes/changes-ee.md)
   * [Upgrade guide](changes/upgrade.md)
 
 * Resource
