@@ -17,6 +17,48 @@ ref: undefined
 
 # Changes
 
+## Version 4.1.1
+
+*Release Date: 2020-07-03*
+
+EMQ X 4.1.1 is released now, it mainly includes the following changes:
+
+### emqx-retainer
+
+**Bug fixes:**
+
+- Fix performance issues
+
+  Github PR: [emqx/emqx-retainer#141](https://github.com/emqx/emqx-retainer/pull/141)
+
+### emqx-bridge-mqtt
+
+**Bug fixes:**
+
+- Change mount point to optional configuration
+
+  Github PR: [emqx/emqx-bridge-mqtt#84](https://github.com/emqx/emqx-bridge-mqtt/pull/84)
+
+### emqx-rel
+
+**Bug fixes:**
+
+- Hiding sensitive env from docker's logging out
+
+  Github Issue: [emqx/emqx-rel#524](https://github.com/emqx/emqx-rel/pull/524)
+
+  Github PR: [emqx/emqx-rel#542](https://github.com/emqx/emqx-rel/pull/542)
+
+  Thanks: [emqx/emqx-rel#525](https://github.com/emqx/emqx-rel/pull/525) - [daadu](https://github.com/daadu)
+
+### emqx-lua-hook
+
+**Bug fixes:**
+
+- Fix the issue that there is no unload script and CLI when the plugin is unloaded
+
+  Github PR: [emqx/emqx-lua-hook#106](https://github.com/emqx/emqx-lua-hook/pull/106)
+
 ## Version 4.2-alpha.1
 
 *Release Date: 2020-06-20*
