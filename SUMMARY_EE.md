@@ -3,7 +3,7 @@
   * [Features List](introduction/checklist.md)
 
 * Get Started
-  * [Installation](getting-started/install.md)
+  * [Installation](getting-started/install-ee.md)
   * [Start EMQ X](getting-started/start.md)
   * [Basic command](getting-started/command-line.md)
   * [Directory](getting-started/directory.md)
