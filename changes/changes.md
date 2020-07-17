@@ -17,6 +17,76 @@ ref: undefined
 
 # Changes
 
+## Version 4.2-alpha.2
+
+*Release Date: 2020-07-17*
+
+EMQ X 4.2-alpha.2 is released now, it mainly includes the following changes:
+
+### emqx-statsd
+
+**Enhancements:**
+
+- Rename to `emqx-prometheus`
+
+  Github Repository: [emqx/emqx-prometheus](https://github.com/emqx/emqx-prometheus)
+
+### emqx-bridge-mqtt
+
+**Enhancements:**
+
+- Support creating subscription resources in the rule engine
+
+  Github PR: [emqx/emqx-bridge-mqtt#78](https://github.com/emqx/emqx-bridge-mqtt/pull/78)
+
+### emqx-lwm2m
+
+**Bug fixes:**
+
+- Fix the issue that the version number is not obtained correctly
+
+  Github PR: [emqx/emqx-lwm2m#82](https://github.com/emqx/emqx-lwm2m/pull/82)
+
+### emqx-retainer
+
+**Enhancements:**
+
+- Enhanced performance
+
+  Github PR: [emqx/emqx-retainer#140](https://github.com/emqx/emqx-retainer/pull/140)
+
+### emqx-lua-hook
+
+**Bug fixes:**
+
+- Fix the issue that Lua script and command line interface are not unloaded correctly
+
+  Github PR: [emqx/emqx-lua-hook#105](https://github.com/emqx/emqx-lua-hook/pull/105)
+
+### emqx-web-hook
+
+**Enhancements:**
+
+- Support to configure custom HTTP request headers
+
+  Github PR: [emqx/emqx-web-hook#200](https://github.com/emqx/emqx-web-hook/pull/200)
+
+### emqx-auth-mysql
+
+**Enhancements:**
+
+- Support IPv6
+
+  Github PR: [emqx/emqx-auth-mysql#228](https://github.com/emqx/emqx-auth-mysql/pull/228)
+
+### emqx-exproto
+
+**Enhancements:**
+
+- Support developing any customized protocol using multiple programming languages
+
+  Github Repository: [emqx/emqx-exproto](https://github.com/emqx/emqx-exproto)
+
 ## Version 4.1.1
 
 *Release Date: 2020-07-03*
