@@ -17,6 +17,32 @@ ref: undefined
 
 # Changes
 
+## Version 4.1.2
+
+*Release Date: 2020-07-23*
+
+EMQ X 4.1.2 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that the topic alias is not used to replace the topic
+
+  Github PR: [emqx/emqx#3616](https://github.com/emqx/emqx/pull/3616)
+
+- Fix the issue that some operations take up too much CPU
+
+  Github PR: [emqx/emqx#3581](https://github.com/emqx/emqx/pull/3581)
+
+### emqx-rel
+
+**Bug fixes:**
+
+- Fix the issue that the console no longer outputs the log after the log is filled with all log files when running emqx by docker
+
+  Github PR: [emqx/emqx-rel#559](https://github.com/emqx/emqx-rel/pull/559)
+
 ## Version 4.2-alpha.2
 
 *Release Date: 2020-07-17*
