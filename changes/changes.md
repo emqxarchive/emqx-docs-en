@@ -17,6 +17,78 @@ ref: undefined
 
 # Changes
 
+## Version 4.2-alpha.3
+
+*Release Date: 2020-07-31*
+
+EMQ X 4.2-alpha.3 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Enhancements:**
+
+- Support global rate limit
+
+  Github PR: [emqx/emqx#3613](https://github.com/emqx/emqx/pull/3613)
+
+- Redesigned alarm
+
+  Github PR: [emqx/emqx#3632](https://github.com/emqx/emqx/pull/3632)
+
+**Bug fixes:**
+
+- Fix the issue that the topic alias is not used to replace the topic
+
+  Github PR: [emqx/emqx#3617](https://github.com/emqx/emqx/pull/3617)
+
+### emqx-auth-ldap
+
+**Enhancements:**
+
+- Support IPv6
+
+  Github PR: [emqx/emqx-auth-ldap#114](https://github.com/emqx/emqx-auth-ldap/pull/114)
+
+### emqx-retainer
+
+**Bug fixes:**
+
+- Fix the issue that the retained message will not be sent when the subscription topic contains both '+' and '#' 
+
+  Github PR: [emqx/emqx-retainer#147](https://github.com/emqx/emqx-retainer/pull/147)
+
+### emqx-management
+
+**Enhancements:**
+
+- Redesigned alarm API
+
+  Github PR: [emqx/emqx-management#244](https://github.com/emqx/emqx-management/pull/244)
+
+### emqx-dashboard
+
+**Enhancements:**
+
+- Add alarm page
+
+  Github PR: [emqx/emqx-dashboard#245](https://github.com/emqx/emqx-dashboard/pull/245)
+
+### emqx-extension-hook
+
+**Enhancements:**
+
+- Remove support for Python 2
+
+  Github PR: [emqx/emqx-extension-hook#11](https://github.com/emqx/emqx-extension-hook/pull/11)
+
+### emqx-exproto
+
+**Enhancements:**
+
+- Support Java driver
+
+  Github PR: [emqx/emqx-exproto#5](https://github.com/emqx/emqx-exproto/pull/5)
+
 ## Version 4.1.2
 
 *Release Date: 2020-07-23*
