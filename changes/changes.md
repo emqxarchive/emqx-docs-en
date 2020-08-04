@@ -17,6 +17,28 @@ ref: undefined
 
 # Changes
 
+## Version 4.1.3
+
+*Release Date: 2020-08-04*
+
+EMQ X 4.1.3 is released now, it mainly includes the following changes:
+
+### emqx-management
+
+**Bug fixes:**
+
+- Add type checking for the payload field in PUBLISH API
+
+  Github PR: [emqx/emqx-management#250](https://github.com/emqx/emqx-management/pull/250)
+
+### emqx-retainer
+
+**Bug fixes:**
+
+- Fix the issue that the retained message will not be sent when the subscription topic contains both '+' and '#' 
+
+  Github PR: [emqx/emqx-retainer#146](https://github.com/emqx/emqx-retainer/pull/146)
+
 ## Version 4.2-alpha.3
 
 *Release Date: 2020-07-31*
