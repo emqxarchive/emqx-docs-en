@@ -17,6 +17,98 @@ ref: undefined
 
 # Changes
 
+## Version 4.2-beta.1
+
+*Release Date: 2020-08-14*
+
+EMQ X 4.2-beta.1 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Enhancements:**
+
+- Support quotas to limit the number of messages forwardeds
+
+  Github PR: [emqx#3656](https://github.com/emqx/emqx/pull/3656)
+
+- Support for collecting telemetry data and disable it by default
+
+  Github PR: [emqx#3653](https://github.com/emqx/emqx/pull/3653)
+
+**Bug fixes:**
+
+- Fix the issue that WebSocket doesn't support IPv6
+
+  Github PR: [emqx#3654](https://github.com/emqx/emqx/pull/3654)
+
+### emqx-rel
+
+**Enhancements:**
+
+- Support hot upgrade between revisions
+
+  Github PR: [emqx-rel#571](https://github.com/emqx/emqx-rel/pull/571)
+
+### emqx-rule-engine
+
+**Enhancements:**
+
+- Support new SQL syntax
+
+  Github PR: [emqx-rule-engine#168](https://github.com/emqx/emqx-rule-engine/pull/168)
+
+- Support users to set rule ID and resource ID
+
+  Github PR: [emqx-rule-engine#169](https://github.com/emqx/emqx-rule-engine/pull/169)
+
+### emqx-exproto
+
+**Bug fixes:**
+
+- Fix some issues
+
+  Github PR: [emqx-exproto#9](https://github.com/emqx/emqx-exproto/pull/9)
+
+### emqx-web-hook
+
+**Enhancements:**
+
+- Support HTTPS
+
+  Github PR: [emqx-web-hook#209](https://github.com/emqx/emqx-web-hook/pull/209)
+
+### emqx-auth-clientid
+
+**Bug fixes:**
+
+- Fix the error caused by the searched authentication information does not exist
+
+  Github PR: [emqx-auth-clientid#145](https://github.com/emqx/emqx-auth-clientid/pull/145)
+
+### emqx-auth-http
+
+**Bug fixes:**
+
+- Disable super user authentication request by default
+
+  Github PR: [emqx-auth-http#195](https://github.com/emqx/emqx-auth-http/pull/195)
+
+### emqx-bridge-mqtt
+
+**Enhancements:**
+
+- Bridge mode is disabled by default
+
+  Github PR: [emqx-bridge-mqtt#95](https://github.com/emqx/emqx-bridge-mqtt/pull/95)
+
+### emqx-management
+
+**Enhancements:**
+
+- Support HTTP API and CLI for telemetry, and provide the telemetry data query api
+
+  Github PR: [emqx-management#253](https://github.com/emqx/emqx-management/pull/253)
+
 ## Version 4.1.3
 
 *Release Date: 2020-08-04*
