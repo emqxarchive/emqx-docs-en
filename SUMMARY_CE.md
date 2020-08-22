@@ -48,6 +48,7 @@
   * [Cluster](advanced/cluster.md)
   * [Hooks](advanced/hooks.md)
   * [Plugins](advanced/plugins.md)
+  * [Telemetry(New)](advanced/telemetry.md)
   * [Cross language](advanced/multiple-language-support.md)
   * [Metrics](advanced/metrics-and-stats.md)
   * [Rate limit](advanced/rate-limit.md)
