@@ -17,6 +17,72 @@ ref: undefined
 
 # Changes
 
+## Version 4.2-rc.1
+
+*Release Date: 2020-08-22*
+
+EMQ X 4.2-rc.1 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Enhancements:**
+
+- Allow multiple MQTT messages to be included in a WebSocket message to improve efficiency, or it can be configured to include only one MQTT message to be compatible with some clients
+
+  Github Issue: [emqx#3324](https://github.com/emqx/emqx/issues/3324)
+
+  Github PR: [emqx#3673](https://github.com/emqx/emqx/pull/3673)
+
+- Allow independent configuration of topic rewrite rules for publishing and subscription
+
+  Github PR: [emqx#3676](https://github.com/emqx/emqx/pull/3676)
+
+**Bug fixes:**
+
+- Fix the issue of abnormal memory growth caused by the topic metrics feature
+
+  Github PR: [emqx#3679](https://github.com/emqx/emqx/pull/3679)
+
+### emqx-rel
+
+**Bug fixes:**
+
+- Fix the issue that losing old configuration after hot upgrade
+
+  Github PR: [emqx-rel#578](https://github.com/emqx/emqx-rel/pull/578)
+
+### emqx-bridge-mqtt
+
+**Enhancements:**
+
+- Provide `${node}` placeholder for clientid configuration item
+
+  Github PR: [emqx-bridge-mqtt#100](https://github.com/emqx/emqx-bridge-mqtt/pull/100)
+
+### emqx-telemetry
+
+**Enhancements:**
+
+- The telemetry feature is officially launched. This feature is used to help us improve our products and is enabled by default. This feature does not collect any personally identifiable information. Users can query the data we report through the open API
+
+  Github PR: [emqx-telemetry#1](https://github.com/emqx/emqx-telemetry/pull/1)
+
+### emqx-exproto
+
+**Bug fixes:**
+
+- Fix some bugs
+
+  Github PR: [emqx-exproto#11](https://github.com/emqx/emqx-exproto/pull/11)
+
+### emqx-management
+
+**Bug fixes:**
+
+- Fix the issue that RPM/Deb package cannot export data
+
+  Github PR: [emqx-management#257](https://github.com/emqx/emqx-management/pull/257)
+
 ## Version 4.2-beta.1
 
 *Release Date: 2020-08-14*
