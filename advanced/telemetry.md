@@ -4,7 +4,7 @@
 Telemetry was added to EMQ X in version 4.2-rc.1.
 {% endhint %}
 
-EMQ X collects information about the usage of EMQ X through telemetry. This function is designed to provide us with comprehensive information about users and communities, as well as an understanding of how EMQ X is used. Sharing these metrics with us can help us better understand how you use our products and can continuously help us improve our products.
+EMQ collects information about the usage of EMQ X through telemetry. This function is designed to provide us with comprehensive information about users and communities, as well as an understanding of how EMQ X is used. Sharing these metrics with us can help us better understand how you use our products and can continuously help us improve our products.
 
 These statistics do not contain individual data, such as server model, hardware number, IP address, and will never be shared with anyone else.
 
