@@ -4,13 +4,13 @@
 Telemetry was added to EMQ X in version 4.2-rc.1.
 {% endhint %}
 
-EMQ collects information about the usage of EMQ X through telemetry. This function is designed to provide us with comprehensive information about users and communities, as well as an understanding of how EMQ X is used. Sharing these metrics with us can help us better understand how you use our products and can continuously help us improve our products.
+EMQ X collects information about the usage of EMQ X through telemetry. This function is designed to provide us with comprehensive information about users and communities, as well as an understanding of how EMQ X is used. Sharing these metrics with us can help us better understand how you use our products and can continuously help us improve our products.
 
 These statistics do not contain individual data, such as server model, hardware number, IP address, and will never be shared with anyone else.
 
 ### Telemetry data example
 
-Telemetry reports data to by encrypting HTTP requests https://telemetry.emqx.io/api/telemetry If you have any questions, please click [issues](http://github.com/emqx/emqx/issues) Contact us:
+Telemetry reports data to by encrypting HTTP requests https://telemetry.emqx.io/api/telemetry. If you have any questions, please click [Issues](http://github.com/emqx/emqx/issues) to contact us:
 
 ```json
 {
@@ -41,17 +41,17 @@ Telemetry reports data to by encrypting HTTP requests https://telemetry.emqx.io/
 }
 ```
 
-Telemetry **is enabled by default**. Any people may feel uncomfortable collecting such data. You can disable it in the simplest way before startup and during operation.
+**Telemetry is enabled by default**. Any people may feel uncomfortable collecting such data. You can disable it in the simplest way before startup and during operation.
 
 ### Disable before start EMQ X
 
-Edit `data/loaded_plugins` file, remove `emqx_telemetry.` This line of data.The telemetry plugin will never loaded automatically.
+Edit `data/loaded_plugins` file, remove `{emqx_telemetry, true}.` line. The telemetry plugin will never loaded automatically.
 
 ### Disable in running
 
 Stop the emqx-telemetry plugins：`./bin/emqx_ctl plugins unload emqx_telemetry`
 
-Stop the emqx-telemetry plugin in the Dashboard：Open http://localhost:18083 enter the Dashboard, enter the plugin page, find `emqx-telemetry`, and click stop button.
+Stop the emqx-telemetry plugin in the dashboard：Open http://localhost:18083 enter the dashboard, enter the plugin page, find `emqx-telemetry`, and click stop button.
 
 ### Enable again
 
