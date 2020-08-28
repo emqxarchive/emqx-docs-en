@@ -17,6 +17,44 @@ ref: undefined
 
 # Changes
 
+## Version 4.1.4
+
+*Release Date: 2020-08-28*
+
+EMQ X 4.1.4 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue of abnormal memory growth caused by the topic metrics feature
+
+  Github PR: [emqx#3680](https://github.com/emqx/emqx/pull/3680)
+
+### emqx-bridge-mqtt
+
+**Enhancements:**
+
+- The clientid configuration item supports `${node}` placeholders to optimize the user experience under the cluster
+
+  Github PR: [emqx-bridge-mqtt#99](https://github.com/emqx/emqx-bridge-mqtt/pull/99)
+
+### emqx-management
+
+**Bug fixes:**
+
+- Fix the issue that the data migration function is not available under Windows
+
+  Github PR: [emqx-management#262](https://github.com/emqx/emqx-management/pull/262)
+
+### emqx-lua-hook
+
+**Bug fixes:**
+
+- Fix the issue that the Username field cannot be obtained
+
+  Github PR: [emqx-lua-hook#115](https://github.com/emqx/emqx-lua-hook/pull/115)
+
 ## Version 4.2-rc.1
 
 *Release Date: 2020-08-22*
