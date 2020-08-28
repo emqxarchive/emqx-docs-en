@@ -17,6 +17,52 @@ ref: undefined
 
 # Changes
 
+## Version 4.2-rc.2
+
+*Release Date: 2020-08-28*
+
+EMQ X 4.2-rc.2 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Enhancements:**
+
+- Adjust RPC port discovery strategy
+
+  Github PR: [emqx#3696](https://github.com/emqx/emqx/pull/3696)
+
+### emqx-rel
+
+**Bug fixes:**
+
+- Fix the issue that the command line interface cannot be used when running multiple emqx instances on one machine
+
+  Github PR: [emqx-rel#583](https://github.com/emqx/emqx-rel/pull/583)
+
+### emqx-management
+
+**Enhancements:**
+
+- Provide start and stop commands of Log Handler
+
+  Github PR: [emqx-management#259](https://github.com/emqx/emqx-management/pull/259)
+
+### emqx-telemetry
+
+**Bug fixes:**
+
+- Fix the issue that the telemetry function cannot be used in the cluster
+
+  Github PR: [emqx-telemetry#3](https://github.com/emqx/emqx-telemetry/pull/3)
+
+### emqx-auth-mnesia
+
+**Enhancements:**
+
+- *Incompatible changes:* API endpoints are changed to `api/v4/mqtt_user` and `api/v4/mqtt_acl`
+
+  Github PR: [emqx-auth-mnesia#31](https://github.com/emqx/emqx-auth-mnesia/pull/31)
+
 ## Version 4.1.4
 
 *Release Date: 2020-08-28*
