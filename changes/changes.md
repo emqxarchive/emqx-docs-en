@@ -17,6 +17,47 @@ ref: undefined
 
 # Changes
 
+## Version 4.2.0
+
+*Release Date: 2020-09-05*
+
+EMQ X 4.2.0 is released now, it mainly includes the following changes:
+
+**Feature:**
+
+- Support the use of third-party languages to write extension plugins to access other non-MQTT protocols, and currently supports Java and Python two programming languages. Visit [Read Me](https://github.com/emqx/emqx-exproto/blob/master/README.md) for more information
+- Support hot upgrade between revisions
+- A new telemetry function is added to collect information about the usage of EMQ X Broker to help us improve the product. This function is enabled by default and supports manual disabled. Visit [EMQ X Telemetry](https://docs.emqx.io/broker/latest/en/advanced/telemetry.html) for more telemetry related information.
+- Support message flow control in the form of quotas
+
+**Enhancement:**
+
+- The rule engine supports the creation of subscriptions for MQTT bridges
+- The rule engine supports a more powerful SQL syntax
+- Plugins such as MySQL and PostgreSQL fully support IPv6, SSL/TLS
+- Support CentOS 8, Ubuntu 20.04 operating system and ARM64 system architecture
+- Webhook supports configuring custom HTTP headers
+- A more friendly alarm mechanism, providing developers with HTTP API
+- Optimize retained message performance
+
+**Change:**
+
+- Subsequent versions will no longer support Debian 8, Ubuntu 14.04 and Raspbian 8 operating systems
+- The `emqx-statsd` plugin is officially renamed to `emqx-prometheus`
+- Publish and subscribe support independent configuration of topic rewrite rules
+- Allow users to configure whether to allow WebSocket messages to contain multiple MQTT messages to be compatible with some clients
+- Adjust RPC port discovery strategy
+- ***Incompatible changes:*** The API path provided by the `emqx-auth-mnesia` plugin has been adjusted to `api/v4/mqtt_user` and `api/v4/mqtt_acl`
+- The `emqx-auth-http` plugin disables super user authentication requests by default
+- `emqx-bridge-mqtt` disables bridge mode by default
+
+**Bug fixes:**
+
+- Fix the issue of abnormal memory growth caused by the topic metrics feature
+- Fix the issue that the LwM2M plugin did not correctly obtain the protocol version
+- Fix the issue that the command line interface cannot be used when running multiple emqx instances on one machine
+- Fix the issue that Websocket connection does not support IPv6
+
 ## Version 4.2-rc.2
 
 *Release Date: 2020-08-28*
