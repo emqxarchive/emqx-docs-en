@@ -17,6 +17,45 @@ ref: undefined
 
 # Changes
 
+## Version 4.2.1
+
+*Release Date: 2020-09-29*
+
+EMQ X 4.2.1 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue that the No Local logic is not handled correctly, which causes messages to accumulate in the flight window and message queue
+
+  Github PR: [emqx#3741](https://github.com/emqx/emqx/pull/3741)
+  Github Issue: [emqx#3738](https://github.com/emqx/emqx/issues/3738)
+
+### emqx-bridge-mqtt
+
+**Bug fixes:**
+
+- Fix the issue that the rule engine MQTT subscription cannot receive messages
+
+  Github PR: [emqx-bridge-mqtt#108](https://github.com/emqx/emqx-bridge-mqtt/pull/108)
+
+### emqx-dashboard
+
+**Bug fixes:**
+
+- Fix display error of long Client ID
+
+  Github PR: [emqx-dashboard#262](https://github.com/emqx/emqx-dashboard/pull/262)
+
+### emqx-auth-mongo
+
+**Bug fixes:**
+
+- Fix the issue that only the first match is processed when the ACL query statement has multiple matching results
+
+  Github PR: [emqx-auth-mongo#231](https://github.com/emqx/emqx-auth-mongo/pull/231)
+
 ## Version 4.2.0
 
 *Release Date: 2020-09-05*
