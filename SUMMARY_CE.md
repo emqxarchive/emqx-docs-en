@@ -23,27 +23,27 @@
 
 * Advanced
   *  Authentication 
-    * [Introduction](advanced/auth.md) 
-    * [Mnesia](advanced/auth-mnesia.md)
-    * [Username](advanced/auth-username.md)
-    * [Cliend ID](advanced/auth-clientid.md)
-    * [HTTP](advanced/auth-http.md)
-    * [JWT](advanced/auth-jwt.md)
-    * [LDAP](advanced/auth-ldap.md)
-    * [MySQL](advanced/auth-mysql.md)
-    * [PostgreSQL](advanced/auth-postgresql.md)
-    * [Redis](advanced/auth-redis.md)
-    * [MongoDB](advanced/auth-mongodb.md)
+  * [Introduction](advanced/auth.md) 
+  * [Mnesia](advanced/auth-mnesia.md)
+  * [Username](advanced/auth-username.md)
+  * [Cliend ID](advanced/auth-clientid.md)
+  * [HTTP](advanced/auth-http.md)
+  * [JWT](advanced/auth-jwt.md)
+  * [LDAP](advanced/auth-ldap.md)
+  * [MySQL](advanced/auth-mysql.md)
+  * [PostgreSQL](advanced/auth-postgresql.md)
+  * [Redis](advanced/auth-redis.md)
+  * [MongoDB](advanced/auth-mongodb.md)
   
   * ACL
-    * [Introduction](advanced/acl.md)
-    * [ACL file](advanced/acl-file.md)
-    * [Mnesia ACL](advanced/acl-mnesia.md)
-    * [HTTP ACL](advanced/acl-http.md)
-    * [MySQL ACL](advanced/acl-mysql.md)
-    * [PostgreSQL ACL](advanced/acl-postgres.md)
-    * [Redis ACL](advanced/acl-redis.md)
-    * [MongoDB ACL](advanced/acl-mongodb.md)
+  * [Introduction](advanced/acl.md)
+  * [ACL file](advanced/acl-file.md)
+  * [Mnesia ACL](advanced/acl-mnesia.md)
+  * [HTTP ACL](advanced/acl-http.md)
+  * [MySQL ACL](advanced/acl-mysql.md)
+  * [PostgreSQL ACL](advanced/acl-postgres.md)
+  * [Redis ACL](advanced/acl-redis.md)
+  * [MongoDB ACL](advanced/acl-mongodb.md)
   * [WebHook](advanced/webhook.md)
   * [Cluster](advanced/cluster.md)
   * [Hooks](advanced/hooks.md)
@@ -117,6 +117,9 @@
 
 * [Configuration](configuration/configuration.md)
 * [CLI](advanced/cli.md)
+
+* Release Hot Upgrade
+  * [Release Hot Upgrade](advanced/relup.md)
 
 * SDK & Tools
   * [MQTT Client Library](development/client.md)
