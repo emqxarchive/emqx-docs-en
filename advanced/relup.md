@@ -19,12 +19,12 @@ ref: undefined
 
 Since version 4.2.0, EMQ X Broker supports hot upgrade.
 
-By the hot upgrade function, users can quickly and safely upgrade the EMQ X Broker in the production environment, and avoid the decrease in system availability caused by restarting the service.
+By using the hot upgrade feature, users can quickly and safely upgrade the EMQ X Broker in the production environment, and avoid the decrease in system availability caused by restarting the service.
 
 Currently EMQ X Broker only supports hot upgrade of Patch version (Patch version is the third digit of the version number).
 That is, it currently supports hot upgrades from 4.2.0 -> 4.2.1, 4.2.0 -> 4.2.2, ..., etc., but 4.2.x cannot be hot upgraded to 4.3.0 or 5.0.
 
-Currently, EMQ X for Windows does not support hot upgrade function.
+Currently, EMQ X for Windows does not support hot upgrade feature.
 
 ## Hot upgrade steps
 
@@ -89,7 +89,7 @@ Installed versions:
 The above `emqx upgrade 4.2.1` command actually performs three actions:
 
 - `unpack`
--  `install`
+- `install`
 - `permanent`
 
 After permanent, this version upgrade will be fixed, which means that after the hot upgrade, if emqx restarts, the new version after the upgrade will be used.
@@ -107,7 +107,7 @@ Installed Release: 4.2.1
 ```
 
 At this time, the version has been successfully upgraded to 4.2.1. However, if you restart emqx, it will revert to the old version 4.2.0.
-Now, if you check the version list, you will find that the state of 4.2.1 is  `current`, not the permanent version:
+Now, if you check the version list, you will find that the state of 4.2.1 is `current`, not the permanent version:
 
 ```bash
 
@@ -130,7 +130,7 @@ Made release permanent: "4.2.1"
 
 ```
 
-## Downgrade of the version
+## Downgrade to pervious versions
 
 If you find a problem and want to roll back after the upgrade, you can execute the version downgrade command.
 For example, the following example will roll back emqx to version 4.2.0:
@@ -145,7 +145,7 @@ Made release permanent: "4.2.0"
 
 ```
 
-## Delete version
+## Delete versions
 
 After the system has been running stably for a period of time, if you decide to delete an old version, you can execute the version uninstall command.
 For example, the following example will uninstall the old version 4.2.0:
