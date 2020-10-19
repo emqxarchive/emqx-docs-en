@@ -41,7 +41,9 @@ Operating systems currently supported by EMQ X Broker:
 ## One-click installation of shell script (Linux)
 
 ```bash
-curl https://repos.emqx.io/install_emqx.sh | bash
+wget https://repos.emqx.io/install_emqx.sh
+chmod +x install_emqx.sh
+sudo ./install_emqx.sh emqx-ee
 ```
 
 {% content "packages" %}
@@ -58,13 +60,13 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 2.   Set up a stable repository, taking the CentOS7 as an example. 
     
     ```
-    $ sudo yum-config-manager --add-repo https://repos.emqx.io/emqx-ce/redhat/centos/7/emqx-ce.repo
+    $ sudo yum-config-manager --add-repo https://repos.emqx.io/emqx-ee/redhat/centos/7/emqx-ee.repo
     ```
     
 3.   Install the latest version of EMQ X 
   
     ```
-    $ sudo yum install emqx
+    $ sudo yum install emqx-ee
     ```
     
     If prompted to accept the GPG key, confirm that the key complies with fc84 1ba6 3775 5ca8 487b 1e3c c0b4 0946 3e64 0d53 and accept the fingerprint.
@@ -76,15 +78,15 @@ curl https://repos.emqx.io/install_emqx.sh | bash
         ```
         $ yum list emqx --showduplicates | sort -r
         
-        emqx.x86_64                     4.0.0-1.el7                        emqx-stable
-        emqx.x86_64                     3.0.1-1.el7                        emqx-stable
-        emqx.x86_64                     3.0.0-1.el7                        emqx-stable
+        emqx-ee.x86_64                     4.0.0-1.el7                        emqx-stable
+        emqx-ee.x86_64                     3.0.1-1.el7                        emqx-stable
+        emqx-ee.x86_64                     3.0.0-1.el7                        emqx-stable
         ```
 
     2.   Install a specific version based on the version string in the second column, such as 4.0.0 
       
         ```
-        $ sudo yum install emqx-4.0.0
+        $ sudo yum install emqx-ee-4.0.0
         ```
 
 5.   Start EMQ X 
@@ -122,7 +124,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 7.  Remove EMQ X Broker
 
     ```
-    $ sudo yum remove emqx
+    $ sudo yum remove emqx-ee
     ```
 
 #### Ubuntu、Debian
@@ -158,7 +160,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
     
     ```
     $ sudo add-apt-repository \
-        "deb [arch=amd64] https://repos.emqx.io/emqx-ce/deb/ubuntu/ \
+        "deb [arch=amd64] https://repos.emqx.io/emqx-ee/deb/ubuntu/ \
         ./$(lsb_release -cs) \
         stable"
     ```
@@ -174,7 +176,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 5.  Install the latest version of EMQ X 
   
     ```
-    $ sudo apt install emqx
+    $ sudo apt install emqx-ee
     ```
     
      In the case where multiple EMQ X repositories are enabled, and the apt install and apt update commands is not specified with a version number, the latest version of EMQ X is installed. This could be a problem for users with stability needs. 
@@ -184,17 +186,17 @@ curl https://repos.emqx.io/install_emqx.sh | bash
     1.   Query available version 
       
         ```
-        $ sudo apt-cache madison emqx
+        $ sudo apt-cache madison emqx-ee
         
-        emqx |      4.0.0 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
-        emqx |      3.0.1 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
-        emqx |      3.0.0 | https://repos.emqx.io/emqx-ce/deb/ubuntu bionic/stable amd64 Packages
+        emqx-ee |      4.0.0 | https://repos.emqx.io/emqx-ee/deb/ubuntu bionic/stable amd64 Packages
+        emqx-ee |      3.0.1 | https://repos.emqx.io/emqx-ee/deb/ubuntu bionic/stable amd64 Packages
+        emqx-ee |      3.0.0 | https://repos.emqx.io/emqx-ee/deb/ubuntu bionic/stable amd64 Packages
         ```
     
     2.   Install a specific version using the version string from the second column, such as 4.0.0 
       
         ```
-        $ sudo apt install emqx=4.0.0
+        $ sudo apt install emqx-ee=4.0.0
         ```
 
 7.  Start EMQ X Broker
@@ -232,7 +234,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 9.  Remove EMQ X Broker
 
     ```
-    $ sudo apt remove emqx
+    $ sudo apt remove emqx-ee
     ```
 
 #### OpenSUSE
@@ -247,13 +249,13 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 2.  Add repository address
   
     ```
-    $ sudo zypper ar -f -c https://repos.emqx.io/emqx-ce/redhat/opensuse/leap/stable emqx
+    $ sudo zypper ar -f -c https://repos.emqx.io/emqx-ee/redhat/opensuse/leap/stable emqx
     ```
 
 3.  Install the latest version of EMQ X Broker
   
     ```
-    $ sudo zypper in emqx
+    $ sudo zypper in emqx-ee
     ```
 
 4.  Install a specific version of EMQ X 
@@ -261,21 +263,21 @@ curl https://repos.emqx.io/install_emqx.sh | bash
     1.  Query available versions
       
         ```
-        $ sudo zypper pa emqx
+        $ sudo zypper pa emqx-ee
         
         Loading repository data...
         Reading installed packages...
         S | Repository | Name | Version  | Arch
         --+------------+------+----------+-------
-          | emqx       | emqx | 4.0.0-1  | x86_64
-          | emqx       | emqx | 3.0.1-1  | x86_64
-          | emqx       | emqx | 3.0.0-1  | x86_64
+          | emqx       | emqx-ee | 4.0.0-1  | x86_64
+          | emqx       | emqx-ee | 3.0.1-1  | x86_64
+          | emqx       | emqx-ee | 3.0.0-1  | x86_64
         ```
     
     2.   Install a specific version, such as 4.0.0 
       
         ```
-        $ sudo zypper in emqx-4.0.0
+        $ sudo zypper in emqx-ee-4.0.0
         ```
 
 5.  Start EMQ X Broker
@@ -313,7 +315,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 7.  Remove EMQ X Broker
 
     ```
-    $ sudo zypper rm emqx
+    $ sudo zypper rm emqx-ee
     ```
 
 {% content "binary" %}
@@ -326,13 +328,13 @@ curl https://repos.emqx.io/install_emqx.sh | bash
     + RPM 包:
 
     	```shell
-    	$ sudo rpm -ivh emqx-cenots7-v4.0.0.x86_64.rpm
+    	$ sudo rpm -ivh emqx-ee-cenots7-v4.0.0.x86_64.rpm
     	```
     	
     + DEB 包:
 
       ```
-      $ sudo dpkg -i emqx-ubuntu18.04-v4.0.0_amd64.deb
+      $ sudo dpkg -i emqx-ee-ubuntu18.04-v4.0.0_amd64.deb
       ```
 
 3. Start EMQ X Broker
@@ -371,19 +373,19 @@ curl https://repos.emqx.io/install_emqx.sh | bash
     + DEB:
 
       ```
-      $ dpkg -r emqx
+      $ dpkg -r emqx-ee
       ```
 
       or
 
       ```
-      $ dpkg -P emqx
+      $ dpkg -P emqx-ee
       ```
 
     + RPM:
 
       ```
-      $ rpm -e emqx
+      $ rpm -e emqx-ee
       ```
 
 {% content "zip" %}
@@ -395,7 +397,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 2.   Unzip the installation file: 
   
     ```shell
-    $ unzip emqx-ubuntu18.04-v4.0.0.zip
+    $ unzip emqx-ee-ubuntu18.04-v4.0.0.zip
     ```
 
 3.  Start EMQ X Broker
@@ -420,45 +422,6 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 
     Simply delete the EMQ X Broker directory
 
-{% content "homebrew" %}
-## Install via Homebrew(MacOS)
-
-1.  Add tap of EMQ X Broker
-  
-    ```
-    $ brew tap emqx/emqx
-    ```
-
-2.  Install EMQ X Broker
-  
-    ```
-    $ brew install emqx
-    ```
-
-3.  Start EMQ X Broker
-  
-    ```
-    $ emqx start
-    emqx 4.0.0 is started successfully!
-    
-    $ emqx_ctl status
-    Node 'emqx@127.0.0.1' is started
-    emqx v4.0.0 is running
-    ```
-
-4.  Stop EMQ X Broker
-
-    ```
-    $ emqx stop
-    ok
-    ```
-
-5.  Uninstall EMQ X Broker
-
-    ```
-    $ brew uninstall emqx
-    ```
-
 {% content "docker" %}
 ## Install EMQ X in Docker (Contain a simple docker-compose cluster)
 
@@ -466,16 +429,16 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 
 1.  Get docker image
   
-      - From [Docker Hub](https://hub.docker.com/r/emqx/emqx)
+      - From [Docker Hub](https://hub.docker.com/r/emqx/emqx-ee)
         
         ```
-        $ docker pull emqx/emqx:v4.0.0
+        $ docker pull emqx/emqx-ee:v4.0.0
         ```
       
-      - Download the Docker image from [emqx.io](https://www.emqx.io/downloads/broker?osType=Linux) or [Github](https://github.com/emqx/emqx/releases) and load it manually
+      - Download the Docker image from [emqx.io](https://www.emqx.io/downloads/enterprise?osType=Linux) and load it manually
         
         ```
-        $ wget -O emqx-docker.zip https://www.emqx.io/downloads/broker/v4.0.0/emqx-docker-v4.0.0-alpine3.10-amd64.zip
+        $ wget -O emqx-docker.zip https://www.emqx.io/downloads/enterprise/v4.0.0/emqx-docker-v4.0.0-alpine3.10-amd64.zip
         $ unzip emqx-docker.zip
         $ docker load < emqx-docker-v4.0.0
         ```
@@ -483,7 +446,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
 2.  Start docker container
   
     ```
-    $ docker run -d --name emqx -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:v4.0.0
+    $ docker run -d --name emqx -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx-ee:v4.0.0
     ```
 
 #### create a simple static cluster by docker-compose
@@ -495,7 +458,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
    
    services:
      emqx1:
-       image: emqx/emqx:v4.0.0
+       image: emqx/emqx-ee:v4.0.0
        environment:
        - "EMQX_NAME=emqx"
        - "EMQX_HOST=node1.emqx.io"
@@ -516,7 +479,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
            - node1.emqx.io
      
      emqx2:
-       image: emqx/emqx:v4.0.0
+       image: emqx/emqx-ee:v4.0.0
        environment:
        - "EMQX_NAME=emqx"
        - "EMQX_HOST=node2.emqx.io"
@@ -565,7 +528,7 @@ curl https://repos.emqx.io/install_emqx.sh | bash
                      stopped_nodes => []}
    ```
 
-For more information about EMQ X Broker Docker, please visit [Docker Hub](https://hub.docker.com/r/emqx/emqx) or [Github](https://github.com/emqx/emqx-rel/tree/master/deploy/docker)
+For more information about EMQ X Broker Docker, please visit [Docker Hub](https://hub.docker.com/r/emqx/emqx-ee)
 
 {% content "helm" %}
 ## Install and cluster via Helm (K8S、K3S)
@@ -590,7 +553,7 @@ For more information about EMQ X Broker Docker, please visit [Docker Hub](https:
 3. Start EMQ X Broker cluster
 
   ```
-  $ helm install my-emqx emqx/emqx
+  $ helm install my-emqx emqx/emqx-ee
   ```
 
 4.  View EMQ X Broker cluster situation
@@ -609,40 +572,3 @@ For more information about EMQ X Broker Docker, please visit [Docker Hub](https:
                          'my-emqx@my-emqx-2.my-emqx-headless.default.svc.cluster.local'],
                     stopped_nodes => []}
   ```
-
-{% content "build" %}
-
-## Source code compilation and installation
-
-1. Get the source code
-
-```bash
-$ git clone -b v4.0.0 https://github.com/emqx/emqx-rel.git
-```
-
-2. Set environment variables
-
-```bash
-$ export EMQX_DEPS_DEFAULT_VSN=v4.0.0
-```
-
-3. Compile
-
-```bash
-$ cd emqx-rel && make
-```
-
-4. Start EMQ X Broker
-
-```bash
-$ cd _build/emqx-rel/_rel/emqx
-
-$ ./bin/emqx start
-emqx 4.0.0 is started successfully!
-
-$ ./bin/emqx_ctl status
-Node 'emqx@127.0.0.1' is started
-emqx v4.0.0 is running
-```
-
-{% endtabs %}
