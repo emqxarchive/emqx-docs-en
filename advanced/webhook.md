@@ -1,20 +1,3 @@
----
-# 标题
-title: WebHook
-# 编写日期
-date: 2020-02-07 17:15:26
-# 作者 Github 名称
-author: hjianbo
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 # WebHook
 
 WebHook is a plugin provided by the [emqx_web_hook](https://github.com/emqx/emqx-web-hook) plugin with the function of notifying a web service of hook events in EMQ X Broker.

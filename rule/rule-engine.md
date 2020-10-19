@@ -1,20 +1,3 @@
----
-# 标题
-title: 规则引擎
-# 编写日期
-date: 2020-02-20 17:46:13
-# 作者 Github 名称
-author: wivwiv, terry-xiaoyu
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category:
-# 引用
-ref: undefined
----
-
 # Rule Engine
 
 EMQ X Broker Rule Engine (Hereinafter referred to as rule engine) is used to configure EMQ X Broker message flow and device event processing and response rules. The rule engine not only provides a clear and flexible "configuration-style" business integration solution, simplifies the business development process, improves ease of use for user, and reduces the coupling between the business system and EMQ X Broker, but also provides a better infrastructure for the private function customization of EMQ X broker.

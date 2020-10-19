@@ -1,20 +1,3 @@
----
-# 标题
-title: 共享订阅
-# 编写日期
-date: 2020-02-20 11:57:30
-# 作者 Github 名称
-author: terry-xiaoyu
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 ## Shared subscription
 
 Shared subscription is a subscription method that achieves load balancing among multiple subscribers:

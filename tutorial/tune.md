@@ -1,21 +1,3 @@
----
-# 标题
-title: 系统调优
-# 编写日期
-date: 2020-02-07 17:15:26
-# 作者 Github 名称
-author: wivwiv
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
-
 # Tuning guide
 
 For EMQ X Message Server 4.x version, MQTT connection stress test reached 1.3 million on an 8-core, 32G memory CentOS server.

@@ -1,20 +1,3 @@
----
-# 标题
-title: 指标监控
-# 编写日期
-date: 2020-02-25 17:15:26
-# 作者 Github 名称
-author: tigercl
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 # Metrics
 
 EMQ X Broker provides users with metrics monitoring functions, allowing users and operation and maintenance personnel to know the current service status based on these metrics. The metrics monitoring function is forcibly enabled. This function has high performance, and users do not need to worry about affecting system performance in high-throughput scenarios.

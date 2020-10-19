@@ -1,20 +1,3 @@
----
-# 标题
-title: 速率限制
-# 编写日期
-date: 2020-02-21 11:06:13
-# 作者 Github 名称
-author: HJianBo & terry-xiaoyu
-# 关键字
-keywords: rate-limit
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 # Rate limit{#rate-limit}
 
 EMQ X Broker specifies the limit on access speed and message speed. When the client's connection request speed exceeds the specified limit, the establishment of a new connection is suspended; when the message reception speed exceeds the specified limit, the reception of messages is suspended.

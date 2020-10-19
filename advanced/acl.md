@@ -1,20 +1,3 @@
----
-# 标题
-title: 发布订阅 ACL
-# 编写日期
-date: 2020-02-19 09:15:26
-# 作者 Github 名称
-author: hjianbo
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 # Introduction
 
 **Publish/Subscribe ACL** refers to **permission control**  for  **PUBLISH/SUBSCRIBE** operations. For example, the user name with the name `Anna` is prohibited to publish messages to ` open / elsa / door`.

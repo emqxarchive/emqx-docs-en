@@ -1,20 +1,3 @@
----
-# 标题
-title: 生产部署
-# 编写日期
-date: 2020-02-07 17:15:26
-# 作者 Github 名称
-author: wivwiv
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 # Production deployment
 
 During development, we usually use compressed packages to start services with the form of a single node. However, production operation requires a simpler and more stable way. This page mainly explains how to deploy your EMQ X service from best practices of deployment architecture.

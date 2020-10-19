@@ -1,20 +1,3 @@
----
-# 标题
-title: 分布集群
-# 编写日期
-date: 2020-02-25 18:39:23
-# 作者 Github 名称
-author: terry-xiaoyu
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category:
-# 引用
-ref: undefined
----
-
 # Cluster
 
 ## Distributed Erlang {#distributed-erlang}

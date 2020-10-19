@@ -1,20 +1,3 @@
----
-# 标题
-title: 黑名单
-# 编写日期
-date: 2020-02-25 17:15:26
-# 作者 Github 名称
-author: tigercl
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 # Blacklist
 
 EMQ X Broker provides users with a blacklist function. Users can add specified clients to the blacklist through the relevant HTTP API to deny access of the client. In addition to the client identifier, it also supports direct ban of user names and even IP addresses.

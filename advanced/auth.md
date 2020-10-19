@@ -1,20 +1,3 @@
----
-# 标题
-title: Introduction
-# 编写日期
-date: 2020-02-19 18:40:28
-# 作者 Github 名称
-author: terry-xiaoyu
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 # Introduction
 
 Authentication is an important part of most applications. MQTT protocol supports username/password authentication. Enabling authentication can effectively prevent illegal client connections.
