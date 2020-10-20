@@ -1,35 +1,22 @@
----
-# 标题
-title: 数据导入导出
-# 编写日期
-date: 2020-05-09 17:15:26
-# 作者 Github 名称
-author: tigercl
-# 关键字
-keywords:
-# 描述
-description:
-# 分类
-category: 
-# 引用
-ref: undefined
----
-
 # Data import and export
 
-EMQ x broker provides users with data import and export function to meet the needs of server upgrade, migration and data backup. The data import and export function supports exporting the data (such as the blacklist, rule engine configuration) stored in Mnesia , the default database of EMQ x broker, to the local file in JSON format. Of course, the user does not need to care about the data content in the exported file. The exported file can be imported into other running instances of EMQ x broker. The EMQ x broker can be the same version or different versions, but it currently only supports `4.1.0` and later versions..
+EMQ X provides users with data import and export function to meet the needs of server upgrade, migration and data backup. The data import and export function supports exporting the data (such as the blacklist, rule engine configuration) stored in Mnesia , the default database of EMQ x broker, to the local file in JSON format. Of course, the user does not need to care about the data content in the exported file. The exported file can be imported into other running instances of EMQ x broker. The EMQ x broker can be the same version or different versions, but it currently only supports `4.1.0` and later versions..
 
 EMQ X Broker provides [Command Line Interface](./cli.md#endpoint-data-import-and-export), [HTTP API](./http-api.md#endpoint-data- import-and-export) and Dashboard's visual interface (Enterprise Edition) for data import and export functions. The data currently supported for import and export are as follows:
 
 - Rule engine configuration data (resources, rules)
-- Rule engine codec configuration data (Enterprise Edition)
 - Blacklist data
 - Application data
 - Dashboard user data
 - MQTT user data and ACL data added through the emqx-auth-mnesia plugin
 - MQTT user data and ACL data added through the emqx-auth-clientid plugin
 - MQTT user data and ACL data added through the emqx-auth-username plugin
-- Codec Schema
+{% emqxee %}
+- Rule engine schema data
+- Modules data
+- Hot Configuration data
+{% endemqxee %}
+
 
 ### Example
 

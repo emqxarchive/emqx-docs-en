@@ -14,7 +14,7 @@ Start MongoDB after installation
 
 Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Module" tab on the left, and select Add
 
-![image-20200928161310952](static/001.png)
+![image-20200928161310952](./assets/modules.png)
 
 Select MongoDB Authentication/ACL module
 

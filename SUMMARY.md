@@ -112,7 +112,7 @@
   * [Pulsar Bridge](bridge/bridges.md#pulsar-bridge)
   * [RocketMQ Bridge](bridge/bridges.md#rocketmq-bridge)
 
-* DevOpts
+* DevOps
   * [System tuning](tutorial/tune.md)
   * [Production deployment](tutorial/deploy.md)
   * [Prometheus Monitoring](tutorial/prometheus.md)

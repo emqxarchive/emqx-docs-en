@@ -80,11 +80,11 @@
   * [Bridge data to Pulsar](rule/bridges.md#bridge-data-to-pulsar)
   * [Bridge data to RocketMQ](rule/bridges.md#bridge-data-to-rocketmq)
   * [Bridge data to RabbitMQ](rule/bridges.md#bridge-data-to-rabbitmq)
-  * [Save offline-msg to Redis](rule/offline-msg.md#offline-msg-save-to-redis)
-  * [Save offline-msg to MySQL](rule/offline-msg.md#offline-msg-save-to-mysql)
-  * [Save offline-msg to PostgreSQL](rule/offline-msg.md#offline-msg-save-to-postgresql)
-  * [Save offline-msg to Cassandra](rule/offline-msg.md#offline-msg-save-to-cassandra)
-  * [Save offline-msg to MongoDB](rule/offline-msg.md#offline-msg-save-to-mongodb)
+  * [Save offline MSG to Redis](rule/offline-msg.md#offline-msg-save-to-redis)
+  * [Save offline MSG to MySQL](rule/offline-msg.md#offline-msg-save-to-mysql)
+  * [Save offline MSG to PostgreSQL](rule/offline-msg.md#offline-msg-save-to-postgresql)
+  * [Save offline MSG to Cassandra](rule/offline-msg.md#offline-msg-save-to-cassandra)
+  * [Save offline MSG to MongoDB](rule/offline-msg.md#offline-msg-save-to-mongodb)
   * [Get subscription from Redis](rule/subscriptions.md#get-subscription-from-redis)
   * [Get subscription from MySQL](rule/subscriptions.md#get-subscription-from-mysql)
   * [Get subscription from PostgreSQL](rule/subscriptions.md#get-subscription-from-postgresql)
@@ -112,7 +112,7 @@
   * [Pulsar Bridge](bridge/bridges.md#pulsar-bridge)
   * [RocketMQ Bridge](bridge/bridges.md#rocketmq-bridge)
 
-* DevOpts
+* DevOps
   * [System tuning](tutorial/tune.md)
   * [Production deployment](tutorial/deploy.md)
   * [Prometheus Monitoring](tutorial/prometheus.md)

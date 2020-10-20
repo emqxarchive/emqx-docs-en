@@ -49,6 +49,6 @@ Edit `data/loaded_plugins` file, and remove the line of emqx_telemetry. (Note th
 
 ### Disable in running
 
-Stop the emqx-telemetry plugin in the command line: ./bin/emqx_ctl plugins unload emqx_telemetry
+Stop the emqx_telemetry plugin in the command line: ./bin/emqx_ctl plugins unload emqx_telemetry
 
-Stop emqx-telemetry plugin in the Dashboard: Open http://localhost:18083 to enter Dashboard, enter the plugin page, find emqx-telemetry and click Stop button.
+Stop emqx_telemetry plugin in the Dashboard: Open http://localhost:18083 to enter Dashboard, enter the plugin page, find emqx_telemetry and click Stop button.

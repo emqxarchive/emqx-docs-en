@@ -81,20 +81,19 @@ Access devices that support LwM2M. The device can also report notification to EM
 
 ### Configuration parameters
 
-
-| Configuration item | Description |
-| -----------| ------------------------------------- ----------- |
-| Minimum heartbeat time | Minimum lifetime allowed to be set for registration/update, in seconds |
-| Maximum heartbeat time | Maximum lifetime allowed to be set for registration/update, in seconds |
-| QMode window | QMode time window, indicating how long the downstream command sent to the client will be cached, in seconds |
-| Automatic Observe | After successful registration, whether the objectlist reported by Observe is automatically reported |
-| Mount Point | Subject Prefix|
-| Downstream command topic | Downstream command topic %e indicates the value endport name|
-| Upstream response subject | Upstream response subject %e means endport name|
-| Register message subject | Register message subject %e means endport name|
-| Uplink notification subject | Uplink notification subject %e means endport name|
-| Update message subject | Update message subject %e means endport name|
-| XML file path | The directory where the XML files are stored. These XMLs are used to define the LwM2M Object |
+| Configuration     | Description                                                  |
+| ----------------- | ------------------------------------------------------------ |
+| Minimum Lifetime  | Minimum lifetime allowed to be set for registration/update, in seconds |
+| Maxinum Lifetime  | Maximum lifetime allowed to be set for registration/update, in seconds |
+| QMode Time Window | QMode time window, indicating how long the downstream command sent to the client will be cached, in seconds |
+| Auto Observe      | After successful registration, whether the objectlist reported by Observe is automatically reported |
+| Mountpoint        | topic Prefix                                                 |
+| Command Topic     | Downstream command topic %e indicates the value endport name |
+| Response Topic    | Upstream response topic %e means endport name                |
+| Register Topic    | Register message topic %e means endport name                 |
+| Notify Topic      | Uplink notification topic %e means endport name              |
+| Update Topic      | Update message topic %e means endport name                   |
+| XML Directory     | The directory where the XML files are stored. These XMLs are used to define the LwM2M Object |
 
 ### MQTT and LwM2M conversion
 

@@ -18,7 +18,7 @@ Redis Authentication/ACL module can be turned on through the dashboard page
 
 Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Module" tab on the left, and select Add
 
-![image-20200927213049265](./assets/auth_redis1.png)
+![image-20200927213049265](./assets/modules.png)
 
 Select Redis Authentication/ACL module
 

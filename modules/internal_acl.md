@@ -2,23 +2,7 @@
 
 The builtin ACL sets rules through files, which is simple and lightweight enough to use, and is suitable for projects with predictable number of rules, no changes in demand, or small changes.
 
-The builtin ACL access control module can be opened through the dashboard page
-
-Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click on the "Module" tab on the left, and select Add
-
-![image-20200927213049265](./assets/modules.png)
-
-Choose builtin ACL access control module
-
-![image-20200927213049265](./assets/acl_file2.png)
-
-Configure related parameters
-
-![image-20200927213049265](./assets/acl_file3.png)
-
-After clicking add, the module is added
-
-![image-20200927213049265](./assets/acl_file4.png)
+emqx is enabled by default Builtin ACL file
 
 ## Define ACL
 
