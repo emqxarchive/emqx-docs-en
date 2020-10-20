@@ -35,7 +35,7 @@ Operating systems currently supported by EMQ X Broker:
 + macOS 10.15
 + Windows Server 2019
 
-{% tabs shell="Shell script installation", packages="Package manager installation", binary="Binary package installation", zip="ZIP installation", homebrew="Homebrew installation", docker="Docker operation", helm="Helm Installation and clustering", build="Source code compilation and installation" %}
+{% tabs shell="Shell script installation", packages="Package manager installation", binary="Binary package installation", zip="ZIP installation", docker="Docker operation", helm="Helm Installation and clustering" %}
 
 {% content "shell" %}
 ## One-click installation of shell script (Linux)
@@ -572,3 +572,5 @@ For more information about EMQ X Broker Docker, please visit [Docker Hub](https:
                          'my-emqx@my-emqx-2.my-emqx-headless.default.svc.cluster.local'],
                     stopped_nodes => []}
   ```
+
+   {% endtabs %}
