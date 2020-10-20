@@ -44,11 +44,12 @@ After clicking Add, the module is added:
 When performing identity authentication, EMQ X will use the current client information to fill and execute the authentication Query configured by the user, and query the authentication data of the client in the database.
 
 MongoDB supports the configuration of collection names, authentication fields, authentication placeholders and other parameters.
-| Configuration item | Description |
-| ------------------------------ | -------- |
-| Authentication query collection | Authentication query MongoDB collection |
+
+| Configuration                   | Description                                                  |
+| ------------------------------- | ------------------------------------------------------------ |
+| Authentication query collection | Authentication query MongoDB collection                      |
 | Authentication query field name | Fields that need to be queried from the collection, if you need to query more than one, use commas to separate them. E.g. password, salt |
-| Authentication condition field | Authentication query conditions, if you need to query more than one, use commas to separate them. For example username=%u,clientid=%c |
+| Authentication condition field  | Authentication query conditions, if you need to query more than one, use commas to separate them. For example username=%u,clientid=%c |
 
 You can use the following placeholders in the authentication query placeholders, and EMQ X will automatically fill in the client information when executed:
 
@@ -84,11 +85,13 @@ This is the set structure used by the default configuration. After you are famil
 MongoDB ACL rules define publish, subscribe, and publish/subscribe information, and all the rules in the rules are **allow** lists.
 
 Rule field description:
-| Configuration item | Description |
-| ------------------------------ | -------- |
-| Access control query collection | Access control query MongoDB collection |
-| Access control query field name | Field to be queried from the collection |
-| Access control condition field | Access control query conditions, support and and or operations, and operations are separated by commas, for example: username=%u,clientid=%c, or operations need to add multiple data |
+
+
+| Configuration                   | Description                                                  |
+| ------------------------------- | ------------------------------------------------------------ |
+| Access control query collection | Access control query MongoDB collection                      |
+| Access control query field name | Field to be queried from the collection                      |
+| Access control condition field  | Access control query conditions, support and and or operations, and operations are separated by commas, for example: username=%u,clientid=%c, or operations need to add multiple data |
 
 ## Super User Query
 
@@ -110,11 +113,12 @@ You can use the following placeholders in the query conditions, and EMQ X will a
 You can adjust the super user query according to business needs, such as adding multiple query conditions and using database preprocessing functions to achieve more business-related functions. But in any case, the super user query needs to meet the following conditions:
 The query result must include the is_superuser field, and is_superuser should be explicitly true.
 MongoDB supports the configuration of collection names, authentication fields, authentication placeholders and other parameters.
-| Configuration item | Description |
-| ------------------------------ | -------- |
-| Super User Query Collection | Super User Query MongoDB Collection |
-| Super user query field name | Field to be queried from the collection |
-| Super user condition field | Super user query conditions, if you need to query more than one, use commas to separate them. For example username=%u,clientid=%c |
+
+| Configuration               | Description                                                  |
+| --------------------------- | ------------------------------------------------------------ |
+| Super User Query Collection | Super User Query MongoDB Collection                          |
+| Super user query field name | Field to be queried from the collection                      |
+| Super user condition field  | Super user query conditions, if you need to query more than one, use commas to separate them. For example username=%u,clientid=%c |
 
 {% hint style="danger" %}
 

@@ -6,25 +6,14 @@ When the server receives a PUBLISH message with the Retain flag of 1, it will tr
 
 When the client establishes a subscription, if there are retainer messages with matching topics on the server, these retainer messages will be sent to the client immediately. With the help of retained messages, new subscribers can immediately obtain the latest status without waiting for an unexpected time, which is very important in many scenarios.
 
-## Turn on the retained message function
+## Open the retained message module
 
-The retained message module can be turned on through the dashboard page
-
-Open [EMQ X Dashboard](http://127.0.0.1:18083/modules), log in, click the "Module" tab on the left, and select Add
-
-![image-20200927213049265](./assets/modules.png)
-
-Choose to keep the message module
-
-![image-20200927213049265](./assets/retained_1.png)
+retained message by default
 
 Configure related parameters
 
 ![image-20200927213049265](./assets/retained_2.png)
 
-After clicking add, the module is added
-
-![image-20200927213049265](./assets/retained_3.png)
 
 ## Introduction to reserved message configuration
 
