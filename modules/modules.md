@@ -1,13 +1,13 @@
-# Module management
+# Module Management
 
-The EMQ X release package provides a wealth of functional modules, including authentication and authorization, protocol access, message delivery, multi-language extension, operation and maintenance monitoring, and internal modules.
-The module management page can start and close the module, as well as the configuration and data management of the module.
+The EMQ X provides abundant functional modules, including authentication and authorization, protocol access, message delivery, language extension, operation and maintenance monitoring, and internal modules.
+On the module management page of dashboard, modules can be started and stopped, as well as their configuration and data can be managed.
 
 ## Module list
 
-The modules currently provided by the EMQ X release package include:
+The modules currently provided by the EMQ X include:
 
-- Authentication
+- Authentication & Authorization
   - Builtin ACL file
   - MySQL Authentication/ACL
   - PostgreSQL Authentication/ACL
@@ -17,24 +17,24 @@ The modules currently provided by the EMQ X release package include:
   - MongoDB Authentication/ACL
   - LDAP Authentication/ACL
   - JWT Authentication
-- Protocol access
+- Protocol Access
   - LwM2M protocol gateway
   - MQTT-SN protocol gateway
   - TCP protocol gateway
   - JT/T808 Protocol Gateway
   - CoAP protocol gateway
   - Stomp protocol gateway
-- Message delivery
+- Message Delivery
   - Kafka consumer group
   - Pulsar Consumer Group
   - MQTT subscribers
-- Multilingual extension
+- Language Extension
   - Protocol access
   - Hook
-- DevOpts
+- Develop and Maintenance 
   - Recon
   - Prometheus Agent
-- Internal module
+- Internal Modules
   - Topic metrics
   - MQTT enhanced certification
   - MQTT online and offline notification
@@ -44,19 +44,18 @@ The modules currently provided by the EMQ X release package include:
   - MQTT delayed publish
 
 
-## Start and stop module
+## Start and Stop Modules
 
-There are currently two ways to start the module:
+Currently there are two ways to start the module:
 
-1. Load by default
+1. Load modules with system 
 2. Use Dashboard to start and stop the module
 
+**Enable loading modules with system**
 
-**Enable default loading**
+If you need to start a certain module when EMQ X starts, you can directly add the module that needs to be started in `data/loaded_modules`.
 
-If you need to start a certain module by default when EMQ X starts, you can directly add the name of the module that needs to be started in `data/loaded_modules`.
-
-For example, the modules currently automatically loaded by EMQ X are:
+For example, the modules automatically loaded by EMQ X are:
 
 ```json
 [
@@ -90,4 +89,4 @@ For example, the modules currently automatically loaded by EMQ X are:
 
 **Use Dashboard to start and stop the module**
 
-If the module of Dashbord is enabled, you can directly start and stop the module by visiting the module management page in `http://localhost:18083/modules`.
+If the Dashboard module is enabled, you can directly start and stop the module by accessing the module management page at `http://localhost:18083/modules`.
