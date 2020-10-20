@@ -32,12 +32,15 @@ $ ./bin/kafka-topics.sh --zookeeper localhost:2181 --replication-factor 1 --part
 ```
 The Kafka consumer group module can be opened through the dashboard page
 
-Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules) and select the "Resources" tab on the left:
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules) and select the "Modules" tab on the left:
 
 Select Kafka consumer group module:
 
-![](./assets/kafka_consumer1.png)
+![](./assets/modules.png)
 
+Click "Select", and then select "Kafka Consumer Group":
+
+![](./assets/kafka_consumer2.png)
 
 Fill in the relevant parameters:
 

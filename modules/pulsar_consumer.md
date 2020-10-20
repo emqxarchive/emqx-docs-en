@@ -22,11 +22,15 @@ $ ./bin/pulsar-admin topics create-partitioned-topic -p 5 testTopic
 
 The Pulsar consumer group module can be opened through the dashboard page
 
-Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules) and select the "Resources" tab on the left:
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules) and select the "Modules" tab on the left:
 
 Select Pulsar consumer group module:
 
-![](./assets/pulsar_consumer1.png)
+![](./assets/modules.png)
+
+Click "Select", and then select "Pulsar Consumer Group":
+
+![](./assets/pulsar_consumer2.png)
 
 Fill in the relevant parameters:
 
