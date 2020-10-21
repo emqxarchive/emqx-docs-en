@@ -30,9 +30,9 @@ Create Kafka topic:
 ```bash
 $ ./bin/kafka-topics.sh --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic testTopic --create
 ```
-The Kafka consumer group module can be opened through the dashboard page
+## Create module
 
-Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules) and select the "Modules" tab on the left:
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 Select Kafka consumer group module:
 

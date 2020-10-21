@@ -20,11 +20,9 @@ Create Pulsar theme:
 $ ./bin/pulsar-admin topics create-partitioned-topic -p 5 testTopic
 ```
 
-The Pulsar consumer group module can be opened through the dashboard page
+## Create module
 
-Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules) and select the "Modules" tab on the left:
-
-Select Pulsar consumer group module:
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![](./assets/modules.png)
 

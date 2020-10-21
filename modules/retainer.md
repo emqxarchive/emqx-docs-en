@@ -6,9 +6,11 @@ When the server receives a PUBLISH message with the Retain flag of 1, it will tr
 
 When the client establishes a subscription, if there are retainer messages with matching topics on the server, these retainer messages will be sent to the client immediately. With the help of retained messages, new subscribers can immediately obtain the latest status without waiting for an unexpected time, which is very important in many scenarios.
 
-## Open the retained message module
+## Create module
 
-retained message by default
+MQTT retainer message module started by default, and can be stopped and updated through the dashboard page.
+
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left:
 
 Configure related parameters
 

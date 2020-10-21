@@ -1,10 +1,9 @@
 # LDAP Authentication/ACL
 LDAP authentication/access control uses an external OpenLDAP server as the authentication data source, which can store large amounts of data and facilitate integration with external device management systems.
 
-## Configuration module
+## Create module
 
-The built-in ACL access control module can be opened through the dashboard page
-Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Module" tab on the left, and select Add
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![image-20200928161310952](./assets/modules.png)
 

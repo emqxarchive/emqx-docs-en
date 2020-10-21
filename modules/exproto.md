@@ -108,7 +108,7 @@ After the development is completed, the service needs to be deployed to a server
 The gRPC framework of each language can be referred to: [grpc-ecosystem/awesome-grpc](https://github.com/grpc-ecosystem/awesome-grpc)
 
 
-## Configuration
+## Create module
 
 After successfully deploying the gRPC service, you can open the multi-language extension protocol access module through the dashboard page, and configure the following three parts to use it successfully:
 
@@ -116,7 +116,7 @@ After successfully deploying the gRPC service, you can open the multi-language e
 2. Configure **Listener (Listener)** to provide TCP/UDP/SSL/DTLS address monitoring. Used to monitor and receive device connections.
 3. Specify a service address of `ConnectionHandler` for each listener. A service used to send various event callbacks to users.
 
-Open EMQ X Dashboard, click on the "Module" tab on the left, and select Add
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![Modules](assets/modules.png)
 

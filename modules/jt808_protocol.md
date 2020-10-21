@@ -22,11 +22,9 @@
 2. Platform side: emqx-jt808 decodes the message and performs registration/authentication, or PUBLISH the data message to a specific topic; the agent subscribes to the downstream topic, and converts the downstream PUBLISH message into a JT/T 808 protocol message The text structure is delivered to the terminal.
 3. The other side can subscribe to the topic of the upstream PUBLISH message appearing in 2 to receive the upstream message. Or to publish a message to a specific downlink topic to send data to the terminal side.
 
-## JT/T808 protocol access gateway startup mode
+## Create module
 
-JT/T808 protocol access gateway can be opened through the dashboard page
-
-Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click on the "Module" tab on the left, and select Add:
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![image-20200927213049265](./assets/modules.png)
 

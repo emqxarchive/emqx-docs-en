@@ -10,9 +10,9 @@ Open the PostgreSQL official website: https://www.postgresql.org/download/, sele
 
 After the installation is complete, start PostgreSQL.
 
-## 3. Configure the module
+## Create module
 
-Open EMQ X Dashboard and click on the "Module" tab on the left
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![image-20200928161310952](./assets/modules.png)
 

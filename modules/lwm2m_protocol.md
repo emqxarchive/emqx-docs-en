@@ -45,11 +45,9 @@ The LwM2M protocol predefines 8 kinds of Objects to meet the basic requirements,
   -Location object
   -Connectivity Statistics Connectivity statistics object
 
-## LwM2M access gateway startup method
+## Create module
 
-You can open the LwM2M protocol access gateway through the dashboard page
-
-Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Module" tab on the left, and select Add
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![image-20200927213049265](./assets/modules.png)
 

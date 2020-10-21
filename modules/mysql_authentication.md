@@ -10,9 +10,9 @@ Open the official MySQL website: https://dev.MySQL.com/downloads/MySQL/5.7.html#
 
 After the installation is complete, start MySQL.
 
-## Configuration module
+## Create module
 
-Open EMQ X Dashboard and click on the "Module" tab on the left
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![image-20200928161310952](./assets/modules.png)
 

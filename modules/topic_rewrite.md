@@ -2,11 +2,9 @@
 
 The topic rewriting function of EMQ X supports rewriting topic A to topic B when the client subscribes to topics, publishes messages, and cancels subscriptions according to user-configured rules.
 
-## Turn on topic rewriting
+## Create module
 
-The MQTT topic rewriting control module can be turned on through the dashboard page
-
-Open [EMQ X Dashboard](http://127.0.0.1:18083/modules), log in, click the "Module" tab on the left, and select Add
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![image-20200927213049265](./assets/modules.png)
 

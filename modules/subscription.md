@@ -2,11 +2,9 @@
 
 The proxy subscription function of EMQ X enables the client to automatically establish the user's preset subscription relationship without sending additional SUBSCRIBE messages when the connection is established.
 
-## Turn on the proxy subscription function
+## Create module
 
-The MQTT proxy subscription control module can be opened through the dashboard page
-
-Open [EMQ X Dashboard](http://127.0.0.1:18083/modules), log in, click the "Module" tab on the left, and select Add
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![image-20200927213049265](./assets/modules.png)
 

@@ -113,11 +113,11 @@ After the development is completed, the service needs to be deployed to a server
 The gRPC framework of each language can refer to: [grpc-ecosystem/awesome-grpc](https://github.com/grpc-ecosystem/awesome-grpc)
 
 
-## Configuration
+## Create module
 
 After successfully deploying the `HookProvider` service, you can open the multilingual hook extension module through the dashboard page and configure its service address to use it normally.
 
-Open EMQ X Dashboard, click on the "Module" tab on the left, and select Add
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/modules), click the "Modules" tab on the left, and choose to add:
 
 ![Modules](./assets/modules.png)
 
