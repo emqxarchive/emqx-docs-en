@@ -17,6 +17,48 @@ ref: undefined
 
 # Changes
 
+## Version 4.2.2
+
+*Release Date: 2020-10-24*
+
+EMQ X 4.2.2 is released now, it mainly includes the following changes:
+
+### emqx
+
+**Bug fixes:**
+
+- Fix the issue of inaccurate topic statistics rate calculation
+
+  Github PR: [emqx#3784](https://github.com/emqx/emqx/pull/3784)
+
+### emqx-web-hook
+
+**Enhancement:**
+
+- Support `GET` and `DELETE` methods
+
+  Github PR: [emqx-web-hook#220](https://github.com/emqx/emqx-web-hook/pull/220)
+
+- Add `node` and `disconnected_at` fields
+
+  Github PR: [emqx-web-hook#215](https://github.com/emqx/emqx-web-hook/pull/215)
+
+### emqx-auth-pgsql
+
+**Bug fixes:**
+
+- Fix the issue that `%a` placeholder doesn't take effect
+
+  Github PR: [emqx-auth-pgsql#208](https://github.com/emqx/emqx-auth-pgsql/pull/208)
+
+### emqx-auth-mysql
+
+**Bug fixes:**
+
+- Fix the issue that `%a` placeholder doesn't take effect
+
+  Github PR: [emqx-auth-mysql#245](https://github.com/emqx/emqx-auth-mysql/pull/245)
+
 ## Version 4.2.1
 
 *Release Date: 2020-09-29*
