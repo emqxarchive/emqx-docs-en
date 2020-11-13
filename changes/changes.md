@@ -17,6 +17,74 @@ ref: undefined
 
 # Changes
 
+## Version 4.2.3
+
+*Release Date: 2020-11-13*
+
+EMQ X 4.2.3 is released now, it mainly includes the following changes:
+
+### emqx-web-hook
+
+- Support for inserting variables in the requested URL path
+
+  Github PR: [emqx-web-hook#225](https://github.com/emqx/emqx-web-hook/pull/225)
+  Github Issue: [emqx-web-hook#224](https://github.com/emqx/emqx-web-hook/issues/224)
+
+- Support setting Content Type
+
+  Github PR: [emqx-web-hook#230](https://github.com/emqx/emqx-web-hook/pull/230)
+
+### emqx-rel
+
+- Fix the issue of compilation failure when LC_ALL is not equal to en_US.UTF-8
+
+  Github PR: [emqx-rel#605](https://github.com/emqx/emqx-rel/pull/605)
+  Github Issue: [emqx-rel#604](https://github.com/emqx/emqx-rel/issues/604)
+
+- Support creating and running other services before emqx container starts
+
+  Github PR: [emqx-rel#608](https://github.com/emqx/emqx-rel/pull/608)
+
+- Allows to set a variable number of configuration items for the container
+
+  Github PR: [emqx-rel#609](https://github.com/emqx/emqx-rel/pull/609)
+
+### emqx-sn
+
+- Fix the issue that trying to publish a will message will cause a crash
+
+  Github PR: [emqx-sn#169](https://github.com/emqx/emqx-sn/pull/169)
+
+- Fix the issue that setting an inappropriate value for the from field
+
+  Github PR: [emqx-sn#170](https://github.com/emqx/emqx-sn/pull/170)
+
+### emqx-rule-engine
+
+- Keep backward compatible
+
+  Github PR: [emqx-rule-engine#189](https://github.com/emqx/emqx-rule-engine/pull/189)
+
+- Fix statistics of `messages.received` metric
+
+  Github PR: [emqx-rule-engine#193](https://github.com/emqx/emqx-rule-engine/pull/193)
+
+### emqx-management
+
+- Fix statistics of `messages.received` metric
+
+  Github PR: [emqx-rule-engine#284](https://github.com/emqx/emqx-rule-engine/pull/284)
+
+- Enable data import and export functions to be used in a cluster environment
+
+  Github PR: [emqx-rule-engine#288](https://github.com/emqx/emqx-rule-engine/pull/288)
+
+### emqx-redis
+
+- Supports one-way and two-way SSL/TLS of Redis 6.0
+
+  Github PR: [emqx-auth-redis#180](https://github.com/emqx/emqx-auth-redis/pull/180)
+
 ## Version 4.2.2
 
 *Release Date: 2020-10-24*
