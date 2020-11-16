@@ -73,11 +73,11 @@ EMQ X 4.2.3 is released now, it mainly includes the following changes:
 
 - Fix statistics of `messages.received` metric
 
-  Github PR: [emqx-rule-engine#284](https://github.com/emqx/emqx-rule-engine/pull/284)
+  Github PR: [emqx-management#284](https://github.com/emqx/emqx-management/pull/284)
 
 - Enable data import and export functions to be used in a cluster environment
 
-  Github PR: [emqx-rule-engine#288](https://github.com/emqx/emqx-rule-engine/pull/288)
+  Github PR: [emqx-management#288](https://github.com/emqx/emqx-management/pull/288)
 
 ### emqx-redis
 
