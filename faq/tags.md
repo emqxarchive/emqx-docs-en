@@ -111,7 +111,7 @@ ref:
 
 
 
-### Subscription by Broke
+### Subscription by Broker
 
 - [What is Subscription by Broker? And its use scenario?](faq.md#what-is-subscription-by-broker-and-its-use-scenario)
 

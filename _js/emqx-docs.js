@@ -10,18 +10,36 @@ function fixTabs() {
    })
 }
 
-if (location.host === 'docs.emqx.io') {
+if (location.host === 'docs.emqx.net') {
   var _hmt = _hmt || [];
   (function() {
     var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?7654abcb7de209cbcee5f56f7874a00b";
+    hm.src = "https://hm.baidu.com/hm.js?0853f370054d89aeee03219c2043f3f2";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+} else if (location.host === 'docs.emqx.io') {
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?1e6bddec74891608f3ffcb2d43cf458d";
     var s = document.getElementsByTagName("script")[0]; 
     s.parentNode.insertBefore(hm, s);
   })();
 }
 
+function fixHash() {
+  var li = document.querySelector('li .chapter.active')
+  if (li.parentNode && li.parentNode.parentNode) {
+    $(li.parentNode.parentNode).addClass('cuav-expanded')
+  }
+}
+
 gitbook.events.bind('page.change', function() {
   fixTabs()
+  setTimeout(() => {
+    fixHash()
+  }, 100)
   setTimeout(function() {
     try {
       if (window._hmt) {
@@ -42,3 +60,13 @@ gitbook.events.bind('page.change', function() {
     }
   }, 4000)
 })
+
+// init
+function __init() {
+  var href = location.href
+  setTimeout(() => {
+    location.href = href
+    console.log('rest href')
+  }, 100)
+}
+__init()
