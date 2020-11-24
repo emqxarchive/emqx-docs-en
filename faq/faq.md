@@ -36,6 +36,16 @@ EMQ X totally has [3 products.](https://www.emqx.io/products) Different products
 
 
 
+### Is there a limit to the number of topics in EMQ X?
+
+There is no limit to the number of topics, and the increase in the number of topics has little effect on performance, so you can use it with confidence.
+
+
+### How does EMQ X of open source version store data?
+
+The open source version does not support data storage. You can use the enterprise version or use an external program to subscribe to topics/webhooks to obtain data and then write it to the database.
+
+
 ### What's EMQ X authentication and it's use scenario?
 
 **Tags:** [*Auth*](tags.md#auth)

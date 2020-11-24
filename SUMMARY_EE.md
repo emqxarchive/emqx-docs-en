@@ -176,6 +176,7 @@
   * [MQTT Erlang Client Library](development/erlang.md)
   * [MQTT JavaScript Client Library](development/javascript.md)
   * [MQTT Python Client Library](development/python.md)
+  * [MQTT Wechat Miniprogram](development/wechat-miniprogram.md)
   * [Others](development/resource.md)
 
 * FAQ

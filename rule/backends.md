@@ -1147,4 +1147,255 @@ to 1:
 
 ![image](./assets/rule-engine/influxdb_rule_overview_1.png)
 
-## ## Save data to TDengine
+
+
+## Save data to TDengine
+
+[TDengine](https://github.com/taosdata/TDengine) is an open source big data platform launched by [taosdata](https://www.taosdata.com/cn/) for the Internet of Things, Internet of Vehicles, industrial Internet and IT operation and maintenance. In addition to the core time series database function that is more than 10 times faster, it also provides functions such as caching, data subscription, and streaming computing to minimize the complexity of R&D and operation and maintenance.
+
+EMQ X supports saving data to TDengine by **sending to web service**, and can also provide native TDengine driver on the enterprise version to realize direct saving.
+
+Use Docker to install TDengine or deploy on [Cloud](https://marketplace.huaweicloud.com/product/OFFI454488918838128640):
+
+```bash
+docker run --name TDengine -d -p 6030:6030 -p 6035:6035 -p 6041:6041 -p 6030-6040:6030-6040/udp TDengine/TDengine 
+```
+
+Enter the Docker container:
+
+```bash
+docker exec -it TDengine bash
+taos
+```
+
+Create the "test" database:
+```bash
+create database test;
+```
+Create the t_mqtt_msg table. For TDengine data structure and SQL commands, please refer to  [TAOS SQL](https://www.taosdata.com/cn/documentation/taos-sql/#表管理):
+
+```sql
+use test;
+CREATE TABLE t_mqtt_msg (
+  ts timestamp,
+ 	msgid NCHAR(64),
+  topic NCHAR(255), 
+  qos TINYINT,
+  payload BINARY(1024),
+  arrived timestamp
+);
+```
+
+![image-20200729163951206](./assets/rule-engine/image-20200729163951206.png)
+
+Create rules:
+
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/rules) and select the "Rules" tab on the left.
+
+Fill in the rule SQL:
+
+```sql
+SELECT * FROM "t/#"
+```
+
+![image](./assets/rule-engine/rule_sql.png)
+
+The subsequent action creation operation can be flexibly selected according to your EMQ X version.
+
+### Native mode (Enterprise Version)
+
+Related actions:
+
+Select "Add" on the "Response Action" interface, and then select "Save Data to TDengine" in the "Action" drop-down box.
+
+> Only for enterprise version 4.1.1 and later.
+
+Fill in the action parameters:
+
+"Save data to TDengine" action requires two parameters:
+
+1). SQL template. In this example, we insert a piece of data into TDengine. Note that we should specify the database name in SQL, and the character type should also be enclosed in single quotes. The SQL template is:
+
+```sql
+insert into test.t_mqtt_msg(ts, msgid, topic, qos, payload) values (now, '${id}', '${topic}', ${qos}, '${payload}')
+```
+
+![image-20200729164158454](./assets/rule-engine/image-20200729164158454.png)
+
+2). The ID of the associated resource. Now the resource drop-down box is empty, and you can click "New Resource" in the upper right corner to create a TDengine resource:
+
+Fill in the resource configuration:
+
+Fill in “root” for the user name and fill the default password “taosdata” for the password. **For TDengine, it does not configure the database name in the resource, please configure it in SQL. **
+
+![image-20200729165651951](./assets/rule-engine/image-20200729165651951.png)
+
+Click the "New" button.
+
+Return to the response action interface and click "OK".
+
+![image-20200729174211581](./assets/rule-engine/image-20200729174211581.png)
+
+Return to the rule creation interface and click "Create".
+
+
+### Write by sending data to web service
+
+To support the development of different types of platforms, TDengine provides APIs that comply with REST design standards. The simplest connection method is provided through [RESTful Connector](https://www.taosdata.com/cn/documentation/connector/#RESTful-Connector), which is to use HTTP request to carry authentication information and SQL operation TDengine to be executed.
+
+Related actions:
+
+On the "Response Action" interface, select "Add", and then select "Save Data to Web Service" in the "Action" drop-down box.
+
+The EMQ X rule engine has a powerful ***\*send data to Web service function\****, which can realize the above operations seamlessly.
+
+Fill in the action parameters:
+
+The "Save Data to Web Service" action requires two parameters:
+
+1). Message content template, which is also called HTTP request body. In this example, when we insert a piece of data into TDengine, we should splice and carry INSERT SQL in the request body. Note that we should specify the database name in SQL, and the character type should also be enclosed in single quotes. The message content template is:
+
+```sql
+insert into test.t_mqtt_msg(ts, msgid, topic, qos, payload) values (now, '${id}', '${topic}', ${qos}, '${payload}')
+```
+
+2). The ID of the associated resource. Now that the resource drop-down box is empty, and you can click "New" next to it to create a Web service resource:
+
+Fill in the resource configuration:
+
+Fill in the request URL http://127.0.0.1:6041/rest/sql and select POST as the request method;
+**Authorization request header needs to be added as authentication information**, and the value of the request header is the string of Basic + TDengine {username}:{password} with Base64-encoded. For example, the default root:taosdata  is `cm9vdDp0YW9zZGF0YQ== ` after being encoded
+The filled value is `Basic cm9vdDp0YW9zZGF0YQ==`.
+
+![image-20200730093728092](assets/rule-engine/tdengine-webhook.png)
+
+Click the "New" button.
+
+Return to the response action interface and click "OK".
+
+![image-20200730093457366](assets/rule-engine/image-20200730093457366.png)
+
+Return to the rule creation interface and click "Create".
+
+
+### Test
+
+In the rule list, click the "View" button or the rule ID link to preview the rule you just created:
+
+![image-20200729165826748](./assets/rule-engine/image-20200729165826748.png)
+
+The rule has been created, and now we send a piece of data:
+
+```bash
+Topic: "t/a"
+QoS: 1
+Payload: "hello"
+```
+
+Then check the TDengine table to see whether the new record is added successfully:
+
+```sql
+select * from t_mqtt_msg;
+```
+
+
+![image-20200729174914518](./assets/rule-engine/image-20200729174914518.png)
+
+
+
+
+## Save data to ClickHouse
+
+Set up the ClickHouse database, and set the username and password to default/public. Take CentOS as an example:
+
+```bash
+## Installation dependencies
+sudo yum install -y epel-release
+
+## 下Download and run the installation shell script provided by packagecloud.io
+curl -s https://packagecloud.io/install/repositories/altinity/clickhouse/script.rpm.sh | sudo bash
+
+## Install ClickHouse server and client
+sudo yum install -y clickhouse-server clickhouse-client
+
+## Start ClickHouse server
+clickhouse-server
+
+## Start ClickHouse client program
+clickhouse-client
+```
+
+Create the "test" database:
+```bash
+create database test;
+```
+Create the t_mqtt_msg table:
+
+```sql
+use test;
+create table t_mqtt_msg (msgid Nullable(String), topic Nullable(String), clientid Nullable(String), payload Nullable(String)) engine = Log;
+```
+
+![](./assets/rule-engine/clickhouse_0.png)
+
+Create rules:
+
+Open [EMQ X Dashboard](http://127.0.0.1:18083/#/rules) and select the "Rules" tab on the left.
+
+Fill in the rule SQL:
+
+```sql
+SELECT * FROM "#"
+```
+
+![image](./assets/rule-engine/clickhouse_1.png)
+
+Related actions:
+
+Select "Add" on the "Response Action" interface, and then select "Save Data to ClickHouse" in the "Action" drop-down box.
+
+![image](./assets/rule-engine/clickhouse_2.png)
+
+Fill in the action parameters:
+
+The "Save data to ClickHouse" action requires two parameters:
+
+1). The ID of the associated resource. Now the resource drop-down box is empty, and you can click "New Resource" in the upper right corner to create a ClickHouse resource:
+
+![image](./assets/rule-engine/clickhouse_3.png)
+
+Select "ClickHouse Resources".
+
+Fill in the resource configuration:
+
+![image](./assets/rule-engine/clickhouse_4.png)
+
+Click the "New" button.
+
+2). SQL template. In this example, we insert a piece of data into ClickHouse, SQL template is:
+
+```sql
+insert into test.t_mqtt_msg(msgid, clientid, topic, payload) values ('${id}', '${clientid}', '${topic}', '${payload}')
+```
+
+![image](./assets/rule-engine/clickhouse_5.png)
+
+Return to the response action interface and click "OK".
+
+![image](./assets/rule-engine/clickhouse_6.png)
+
+n the rule list, click the "View" button or the rule ID link to preview the rule you just created:
+
+![image](./assets/rule-engine/clickhouse_7.png)
+
+The rule has been created, and now we send a piece of data:
+
+```bash
+Topic: "t/a"
+QoS: 1
+Payload: "hello"
+```
+
+Then check the ClickHouse table to see whether the new record is added successfully:
+
+![image](./assets/rule-engine/clickhouse_8.png)
